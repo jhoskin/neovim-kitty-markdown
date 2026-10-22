@@ -1,0 +1,80 @@
+---
+source: tests/parity_block.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="148.742" height="98" viewBox="-5 -49 148.742 98" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_block-pointEnd" class="marker block" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-pointStart" class="marker block" viewBox="0 0 10 10" refX="4.5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,5L10,10L10,0Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-pointEnd-margin" class="marker block" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerWidth="10.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L11.5,7L0,14Z" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-pointStart-margin" class="marker block" viewBox="0 0 11.5 14" refX="1" refY="7" markerWidth="11.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <polygon class="arrowMarkerPath" points="0,7 11.5,14 11.5,0" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-circleEnd" class="marker block" viewBox="0 0 10 10" refX="11" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-circleStart" class="marker block" viewBox="0 0 10 10" refX="-1" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-circleEnd-margin" class="marker block" viewBox="0 0 10 10" refX="12.25" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-circleStart-margin" class="marker block" viewBox="0 0 10 10" refX="-2" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-crossEnd" class="marker cross block" viewBox="0 0 11 11" refX="12" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-crossStart" class="marker cross block" viewBox="0 0 11 11" refX="-1" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-crossEnd-margin" class="marker cross block" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5"/>
+    </marker>
+    <marker id="my-svg_block-crossStart-margin" class="marker cross block" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5" stroke-dasharray="1,0"/>
+    </marker>
+  </defs>
+  <g font-size="16">
+    <g class="block">
+      <g id="my-svg-a" class="node default flowchart-label " transform="translate(20.457, -24)">
+        <rect class="basic label-container" x="-20.457" y="-20" width="40.914" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-4.203, -12)">
+          <text class="nodeLabel" x="4.203" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="4.203" dy="17">a</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-b" class="node default flowchart-label " transform="translate(69.371, -24)">
+        <rect class="basic label-container" x="-20.457" y="-20" width="40.914" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-4.457, -12)">
+          <text class="nodeLabel" x="4.457" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="4.457" dy="17">b</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-c" class="node default flowchart-label " transform="translate(118.285, -24)">
+        <rect class="basic label-container" x="-20.457" y="-20" width="40.914" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-3.961, -12)">
+          <text class="nodeLabel" x="3.961" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="3.961" dy="17">c</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-d" class="node default flowchart-label " transform="translate(20.457, 24)">
+        <rect class="basic label-container" x="-20.457" y="-20" width="40.914" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-4.457, -12)">
+          <text class="nodeLabel" x="4.457" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="4.457" dy="17">d</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

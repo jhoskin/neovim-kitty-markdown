@@ -1,0 +1,155 @@
+---
+source: tests/parity_block.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="535.199" height="455.02" viewBox="-39.48 -218.922 535.199 455.02" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_block-pointEnd" class="marker block" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-pointStart" class="marker block" viewBox="0 0 10 10" refX="4.5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,5L10,10L10,0Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-pointEnd-margin" class="marker block" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerWidth="10.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L11.5,7L0,14Z" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-pointStart-margin" class="marker block" viewBox="0 0 11.5 14" refX="1" refY="7" markerWidth="11.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <polygon class="arrowMarkerPath" points="0,7 11.5,14 11.5,0" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-circleEnd" class="marker block" viewBox="0 0 10 10" refX="11" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-circleStart" class="marker block" viewBox="0 0 10 10" refX="-1" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-circleEnd-margin" class="marker block" viewBox="0 0 10 10" refX="12.25" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-circleStart-margin" class="marker block" viewBox="0 0 10 10" refX="-2" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-crossEnd" class="marker cross block" viewBox="0 0 11 11" refX="12" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-crossStart" class="marker cross block" viewBox="0 0 11 11" refX="-1" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_block-crossEnd-margin" class="marker cross block" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5"/>
+    </marker>
+    <marker id="my-svg_block-crossStart-margin" class="marker cross block" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5" stroke-dasharray="1,0"/>
+    </marker>
+  </defs>
+  <g font-size="16">
+    <g class="block">
+      <g id="my-svg-id1" class="node default flowchart-label " transform="translate(54.656, -163.441)">
+        <rect class="basic label-container" x="-54.656" y="-50.48" width="109.313" height="100.961" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-20.602, -12)">
+          <text class="nodeLabel" x="20.602" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="20.602" dy="17">round</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id2" class="node default flowchart-label " transform="translate(171.969, -163.441)">
+        <path class="basic label-container outer-path" d="M-21.793,-16L21.793,-16L21.793,-16L22.818,-15.967L23.839,-15.869L24.851,-15.705L25.851,-15.477L26.834,-15.185L27.797,-14.831L28.735,-14.416L29.644,-13.941L30.521,-13.409L31.362,-12.823L32.164,-12.183L32.924,-11.494L33.637,-10.757L34.302,-9.976L34.915,-9.154L35.475,-8.294L35.978,-7.401L36.423,-6.477L36.808,-5.526L37.131,-4.552L37.392,-3.56L37.588,-2.554L37.719,-1.536L37.784,-0.513L37.784,0.513L37.719,1.536L37.588,2.554L37.392,3.56L37.131,4.552L36.808,5.526L36.423,6.477L35.978,7.401L35.475,8.294L34.915,9.154L34.302,9.976L33.637,10.757L32.924,11.494L32.164,12.183L31.362,12.823L30.521,13.409L29.644,13.941L28.735,14.416L27.797,14.831L26.834,15.185L25.851,15.477L24.851,15.705L23.839,15.869L22.818,15.967L21.793,16L21.793,16L-21.793,16L-22.818,15.967L-23.839,15.869L-24.851,15.705L-25.851,15.477L-26.834,15.185L-27.797,14.831L-28.735,14.416L-29.644,13.941L-30.521,13.409L-31.362,12.823L-32.164,12.183L-32.924,11.494L-33.637,10.757L-34.302,9.976L-34.915,9.154L-35.475,8.294L-35.978,7.401L-36.423,6.477L-36.808,5.526L-37.131,4.552L-37.392,3.56L-37.588,2.554L-37.719,1.536L-37.784,0.513L-37.784,-0.513L-37.719,-1.536L-37.588,-2.554L-37.392,-3.56L-37.131,-4.552L-36.808,-5.526L-36.423,-6.477L-35.978,-7.401L-35.475,-8.294L-34.915,-9.154L-34.302,-9.976L-33.637,-10.757L-32.924,-11.494L-32.164,-12.183L-31.362,-12.823L-30.521,-13.409L-29.644,-13.941L-28.735,-14.416L-27.797,-14.831L-26.834,-15.185L-25.851,-15.477L-24.851,-15.705L-23.839,-15.869L-22.818,-15.967L-21.793,-16Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-28.363, -12)">
+          <text class="nodeLabel" x="28.363" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="28.363" dy="17">stadium</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id3" class="node default flowchart-label " transform="translate(289.281, -163.441)">
+        <polygon class="label-container" transform="translate(-46.656, 50.48)" points="0,0 93.313,0 93.313,-100.961 0,-100.961 0,0 -8,0 101.313,0 101.313,-100.961 -8,-100.961 -8,0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-38.027, -12)">
+          <text class="nodeLabel" x="38.027" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="38.027" dy="17">subroutine</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id4" class="node default flowchart-label " transform="translate(406.594, -163.441)">
+        <path class="basic label-container outer-path" transform="translate(-54.656, -50.48)" d="M0,11.663A54.656,11.663,0,0,0,109.313,11.663A54.656,11.663,0,0,0,0,11.663L0,89.298A54.656,11.663,0,0,0,109.313,89.298L109.313,11.663" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-28.848, -6.667)">
+          <text class="nodeLabel" x="28.848" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="28.848" dy="17">cylinder</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id5" class="node default flowchart-label " transform="translate(54.656, -54.48)">
+        <circle class="basic label-container" cx="0" cy="0" r="27.354" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-20.035, -12)">
+          <text class="nodeLabel" x="20.035" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="20.035" dy="17">circle</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id6" class="node default flowchart-label " transform="translate(171.969, -54.48)">
+        <path class="basic label-container outer-path" transform="translate(12.62, 0)" d="M-70.795,-50.48L-45.555,0L-70.795,50.48L45.555,50.48L45.555,-50.48Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-28.935, -12)">
+          <text class="nodeLabel" x="41.555" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="41.555" dy="17">asymmetric</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id7" class="node default flowchart-label " transform="translate(289.281, -54.48)">
+        <polygon class="label-container" transform="translate(-49.98, 50.48)" points="50.48,0 100.961,-50.48 50.48,-100.961 0,-50.48" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-30.48, -12)">
+          <text class="nodeLabel" x="30.48" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="30.48" dy="17">rhombus</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id8" class="node default flowchart-label " transform="translate(406.594, -54.48)">
+        <polygon class="label-container" transform="translate(-54.656, 50.48)" points="25.24,0 84.072,0 109.313,-50.48 84.072,-100.961 25.24,-100.961 0,-50.48" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-29.625, -12)">
+          <text class="nodeLabel" x="29.625" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="29.625" dy="17">hexagon</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id9" class="node default flowchart-label " transform="translate(54.656, 54.48)">
+        <polygon class="label-container" transform="translate(-38.656, 50.48)" points="-50.48,0 77.313,0 127.793,-100.961 0,-100.961" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-34.656, -12)">
+          <text class="nodeLabel" x="34.656" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="34.656" dy="17">lean right</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id10" class="node default flowchart-label " transform="translate(171.969, 54.48)">
+        <polygon class="label-container" transform="translate(-34.559, 50.48)" points="0,0 119.598,0 69.117,-100.961 -50.48,-100.961" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-30.559, -12)">
+          <text class="nodeLabel" x="30.559" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="30.559" dy="17">lean left</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id11" class="node default flowchart-label " transform="translate(289.281, 54.48)">
+        <polygon class="label-container" transform="translate(-38.133, 50.48)" points="-50.48,0 126.746,0 76.266,-100.961 0,-100.961" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-34.133, -12)">
+          <text class="nodeLabel" x="34.133" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="34.133" dy="17">trapezoid</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id12" class="node default flowchart-label " transform="translate(406.594, 54.48)">
+        <polygon class="label-container" transform="translate(-33.645, 50.48)" points="0,0 67.289,0 117.77,-100.961 -50.48,-100.961" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-25.645, -12)">
+          <text class="nodeLabel" x="25.645" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="25.645" dy="17">inverse</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id13" class="node default flowchart-label " transform="translate(54.656, 163.441)">
+        <g class="basic label-container" fill="#ececff" stroke="#9370db" stroke-width="1">
+          <circle class="outer-circle" cx="0" cy="0" r="67.656" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <circle class="inner-circle" cx="0" cy="0" r="62.656" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        </g>
+        <g class="label" transform="translate(-24.301, -12)">
+          <text class="nodeLabel" x="24.301" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="24.301" dy="17">double</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
