@@ -1,0 +1,63 @@
+---
+source: tests/unified_render.rs
+expression: "render_svg(&data, &layout)"
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180" height="438.5" viewBox="60 27 180 438.5" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="svg_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="svg_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,5L10,10L10,0Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="svg_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerWidth="10.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L11.5,7L0,14Z" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="svg_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerWidth="11.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <polygon class="arrowMarkerPath" points="0,7 11.5,14 11.5,0" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="svg-L_A_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M150,73L150,85.833C150,98.667,150,124.333,150,139.333C150,154.333,150,158.667,150,160.833L150,163" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#svg_flowchart-v2-pointEnd)"/>
+        <path id="svg-L_B_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M150,333L150,335.833C150,338.667,150,344.333,150,360.583C150,376.833,150,403.667,150,417.083L150,430.5" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#svg_flowchart-v2-pointEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="A" class="node default " transform="translate(150, 50)">
+          <rect class="basic label-container" x="-90" y="-23" width="180" height="46" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -8)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+              <tspan x="60" dy="8">Start</tspan>
+            </text>
+          </g>
+        </g>
+        <g id="B" class="node default " transform="translate(150, 250)">
+          <polygon class="label-container" transform="translate(-82.5, 83)" points="83,0 166,-83 83,-166 0,-83" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -8)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+              <tspan x="60" dy="8">Decide</tspan>
+            </text>
+          </g>
+        </g>
+        <g id="C" class="node default " transform="translate(150, 450)">
+          <path class="basic label-container outer-path" d="M-55.875,-15.5L55.875,-15.5L55.875,-15.5L56.868,-15.468L57.857,-15.373L58.838,-15.214L59.807,-14.993L60.759,-14.71L61.692,-14.367L62.6,-13.965L63.481,-13.505L64.331,-12.99L65.146,-12.422L65.923,-11.802L66.658,-11.134L67.349,-10.421L67.993,-9.664L68.588,-8.868L69.13,-8.035L69.617,-7.169L70.048,-6.274L70.421,-5.353L70.734,-4.41L70.986,-3.449L71.176,-2.474L71.303,-1.488L71.367,-0.497L71.367,0.497L71.303,1.488L71.176,2.474L70.986,3.449L70.734,4.41L70.421,5.353L70.048,6.274L69.617,7.169L69.13,8.035L68.588,8.868L67.993,9.664L67.349,10.421L66.658,11.134L65.923,11.802L65.146,12.422L64.331,12.99L63.481,13.505L62.6,13.965L61.692,14.367L60.759,14.71L59.807,14.993L58.838,15.214L57.857,15.373L56.868,15.468L55.875,15.5L55.875,15.5L-55.875,15.5L-56.868,15.468L-57.857,15.373L-58.838,15.214L-59.807,14.993L-60.759,14.71L-61.692,14.367L-62.6,13.965L-63.481,13.505L-64.331,12.99L-65.146,12.422L-65.923,11.802L-66.658,11.134L-67.349,10.421L-67.993,9.664L-68.588,8.868L-69.13,8.035L-69.617,7.169L-70.048,6.274L-70.421,5.353L-70.734,4.41L-70.986,3.449L-71.176,2.474L-71.303,1.488L-71.367,0.497L-71.367,-0.497L-71.303,-1.488L-71.176,-2.474L-70.986,-3.449L-70.734,-4.41L-70.421,-5.353L-70.048,-6.274L-69.617,-7.169L-69.13,-8.035L-68.588,-8.868L-67.993,-9.664L-67.349,-10.421L-66.658,-11.134L-65.923,-11.802L-65.146,-12.422L-64.331,-12.99L-63.481,-13.505L-62.6,-13.965L-61.692,-14.367L-60.759,-14.71L-59.807,-14.993L-58.838,-15.214L-57.857,-15.373L-56.868,-15.468L-55.875,-15.5Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -8)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+              <tspan x="60" dy="8">End</tspan>
+            </text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
