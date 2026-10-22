@@ -1,0 +1,377 @@
+[
+  {
+    "grammar": "flow",
+    "input": "flowchart TB\n      A@{ shape: this-shape-does-not-exist }\n      ",
+    "parsed": "flowchart TB\n      A@{ shape: this-shape-does-not-exist }\n      \n",
+    "status": 1,
+    "message": "No such shape: this-shape-does-not-exist.",
+    "spec": "flow-node-data.spec.js",
+    "expects": "No such shape: this-shape-does-not-exist."
+  },
+  {
+    "grammar": "flow",
+    "input": "flowchart TB\n      A@{ shape: rect_left_inv_arrow }\n      ",
+    "parsed": "flowchart TB\n      A@{ shape: rect_left_inv_arrow }\n      \n",
+    "status": 1,
+    "message": "No such shape: rect_left_inv_arrow. Shape names should be lowercase.",
+    "spec": "flow-node-data.spec.js",
+    "expects": "No such shape: rect_left_inv_arrow. Shape names should be lowercase."
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;graph.node;graph-node;graph/node",
+    "parsed": "graph TD;graph.node;graph-node;graph/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;graph.node;graph-nod\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'GRAPH'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;flowchart.node;flowchart-node;flowchart/node",
+    "parsed": "graph TD;flowchart.node;flowchart-node;flowchart/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;flowchart.node;flowc\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'GRAPH'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;flowchart-elk.node;flowchart-elk-node;flowchart-elk/node",
+    "parsed": "graph TD;flowchart-elk.node;flowchart-elk-node;flowchart-elk/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;flowchart-elk.node;f\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'GRAPH'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;style.node;style-node;style/node",
+    "parsed": "graph TD;style.node;style-node;style/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;style.node;style-node;sty\n--------------^\nExpecting 'SPACE', got 'NODE_STRING'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;linkStyle.node;linkStyle-node;linkStyle/node",
+    "parsed": "graph TD;linkStyle.node;linkStyle-node;linkStyle/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;linkStyle.node;linkStyle-node\n------------------^\nExpecting 'SPACE', got 'NODE_STRING'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;interpolate.node;interpolate-node;interpolate/node",
+    "parsed": "graph TD;interpolate.node;interpolate-node;interpolate/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;interpolate.node;int\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'INTERPOLATE'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;classDef.node;classDef-node;classDef/node",
+    "parsed": "graph TD;classDef.node;classDef-node;classDef/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;classDef.node;classDef-node;\n-----------------^\nExpecting 'SPACE', got 'NODE_STRING'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;class.node;class-node;class/node",
+    "parsed": "graph TD;class.node;class-node;class/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;class.node;class-node;cla\n--------------^\nExpecting 'SPACE', got 'NODE_STRING'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;_self.node;_self-node;_self/node",
+    "parsed": "graph TD;_self.node;_self-node;_self/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;_self.node;_self-nod\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'LINK_TARGET'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;_blank.node;_blank-node;_blank/node",
+    "parsed": "graph TD;_blank.node;_blank-node;_blank/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;_blank.node;_blank-n\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'LINK_TARGET'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;_parent.node;_parent-node;_parent/node",
+    "parsed": "graph TD;_parent.node;_parent-node;_parent/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;_parent.node;_parent\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'LINK_TARGET'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;_top.node;_top-node;_top/node",
+    "parsed": "graph TD;_top.node;_top-node;_top/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;_top.node;_top-node;\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'LINK_TARGET'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;end.node;end-node;end/node",
+    "parsed": "graph TD;end.node;end-node;end/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;end.node;end-node;en\n---------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'end'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;subgraph.node;subgraph-node;subgraph/node",
+    "parsed": "graph TD;subgraph.node;subgraph-node;subgraph/node\n",
+    "status": 1,
+    "message": "Parse error on line 1:\ngraph TD;subgraph.node;subgraph-node;\n-----------------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', got 'NODE_STRING'",
+    "spec": "flow-singlenode.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph\nX(- My Text (",
+    "parsed": "graph\nX(- My Text (\n",
+    "status": 1,
+    "message": "Parse error on line 2:\ngraphX(- My Text (\n-----------------^\nExpecting 'SQE', 'DOUBLECIRCLEEND', 'PE', '-)', 'STADIUMEND', 'SUBROUTINEEND', 'PIPE', 'CYLINDEREND', 'DIAMOND_STOP', 'TAGEND', 'TRAPEND', 'INVTRAPEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got 'PS'",
+    "spec": "flow-text.spec.js"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD; A[This is a () in text];",
+    "parsed": "graph TD; A[This is a () in text];\n",
+    "status": 1,
+    "message": "Parse error on line 1:\n...aph TD; A[This is a () in text];\n-----------------------^\nExpecting 'SQE', 'DOUBLECIRCLEEND', 'PE', '-)', 'STADIUMEND', 'SUBROUTINEEND', 'PIPE', 'CYLINDEREND', 'DIAMOND_STOP', 'TAGEND', 'TRAPEND', 'INVTRAPEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got 'PS'",
+    "spec": "flow-text.spec.js",
+    "expects": "got 'PS'"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD;A(this node has \"string\" and text)-->|this link has \"string\" and text|C;",
+    "parsed": "graph TD;A(this node has \"string\" and text)-->|this link has \"string\" and text|C;\n",
+    "status": 1,
+    "message": "Parse error on line 1:\n...TD;A(this node has \"string\" and text)-->\n-----------------------^\nExpecting 'SQE', 'DOUBLECIRCLEEND', 'PE', '-)', 'STADIUMEND', 'SUBROUTINEEND', 'PIPE', 'CYLINDEREND', 'DIAMOND_STOP', 'TAGEND', 'TRAPEND', 'INVTRAPEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got 'STR'",
+    "spec": "flow-text.spec.js",
+    "expects": "got 'STR'"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD; A[This is a \"()\" in text];",
+    "parsed": "graph TD; A[This is a \"()\" in text];\n",
+    "status": 1,
+    "message": "Parse error on line 1:\n...ph TD; A[This is a \"()\" in text];\n-----------------------^\nExpecting 'SQE', 'DOUBLECIRCLEEND', 'PE', '-)', 'STADIUMEND', 'SUBROUTINEEND', 'PIPE', 'CYLINDEREND', 'DIAMOND_STOP', 'TAGEND', 'TRAPEND', 'INVTRAPEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got 'STR'",
+    "spec": "flow-text.spec.js",
+    "expects": "got 'STR'"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD; A[\"This is a \"()\" in text\"];",
+    "parsed": "graph TD; A[\"This is a \"()\" in text\"];\n",
+    "status": 1,
+    "message": "Parse error on line 1:\n...h TD; A[\"This is a \"()\" in text\"];\n-----------------------^\nExpecting 'SQE', 'DOUBLECIRCLEEND', 'PE', '-)', 'STADIUMEND', 'SUBROUTINEEND', 'PIPE', 'CYLINDEREND', 'DIAMOND_STOP', 'TAGEND', 'TRAPEND', 'INVTRAPEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got 'PS'",
+    "spec": "flow-text.spec.js",
+    "expects": "Expecting 'SQE'"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD; node[hello ) world] --> works",
+    "parsed": "graph TD; node[hello ) world] --> works\n",
+    "status": 1,
+    "message": "Parse error on line 1:\n...raph TD; node[hello ) world] --> works\n-----------------------^\nExpecting 'SQE', 'TAGEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got 'PE'",
+    "spec": "flow-text.spec.js",
+    "expects": "got 'PE'"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD\nA-->",
+    "parsed": "graph TD\nA-->\n",
+    "status": 1,
+    "message": "Parse error on line 3:\ngraph TDA-->\n------------^\nExpecting 'AMP', 'COLON', 'PIPE', 'TESTSTR', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', got 'EOF'",
+    "note": "edge cut off at end of input"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD\nA[Some text\nB-->C",
+    "parsed": "graph TD\nA[Some text\nB-->C\n",
+    "status": 1,
+    "message": "Parse error on line 4:\n...DA[Some textB-->C\n--------------------^\nExpecting 'SQE', 'DOUBLECIRCLEEND', 'PE', '-)', 'STADIUMEND', 'SUBROUTINEEND', 'PIPE', 'CYLINDEREND', 'DIAMOND_STOP', 'TAGEND', 'TRAPEND', 'INVTRAPEND', 'UNICODE_TEXT', 'TEXT', 'TAGSTART', got '1'",
+    "note": "newline inside bracket text"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph LR\nA[very long label text here that goes on and on] --> B[another very long label text] ((C",
+    "parsed": "graph LR\nA[very long label text here that goes on and on] --> B[another very long label text] ((C\n",
+    "status": 1,
+    "message": "Parse error on line 2:\n...ry long label text] ((C\n-----------------------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'AMP', 'COLON', 'START_LINK', 'LINK', 'LINK_ID', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', got 'PS'",
+    "note": "long line: past and upcoming input both truncated"
+  },
+  {
+    "grammar": "flow",
+    "input": "graph TD\n  A --> B\n  C ==> D[a b]\n  E --- ;",
+    "parsed": "graph TD\n  A --> B\n  C ==> D[a b]\n  E --- ;\n",
+    "status": 1,
+    "message": "Parse error on line 4:\n... ==> D[a b]  E --- ;\n----------------------^\nExpecting 'AMP', 'COLON', 'PIPE', 'TESTSTR', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', got 'SEMI'",
+    "note": "error on the third line"
+  },
+  {
+    "grammar": "flow",
+    "input": "flowchart LR\n  end\n  A --> B",
+    "parsed": "flowchart LR\n  end\n  A --> B\n",
+    "status": 1,
+    "message": "Parse error on line 2:\nflowchart LR  end  A --> B\n--------------^\nExpecting 'SEMI', 'NEWLINE', 'SPACE', 'EOF', 'subgraph', 'acc_title', 'acc_descr', 'acc_descr_multiline_value', 'AMP', 'COLON', 'STYLE', 'LINKSTYLE', 'CLASSDEF', 'CLASS', 'CLICK', 'DOWN', 'DEFAULT', 'NUM', 'COMMA', 'NODE_STRING', 'BRKT', 'MINUS', 'MULT', 'UNICODE_TEXT', 'direction_tb', 'direction_bt', 'direction_rl', 'direction_lr', 'direction_td', got 'end'",
+    "note": "misplaced subgraph end"
+  },
+  {
+    "grammar": "sequenceDiagram",
+    "input": "sequenceDiagram\nAlice->>Bob: hi\nBob-->>",
+    "parsed": "sequenceDiagram\nAlice->>Bob: hi\nBob-->>\n",
+    "status": 1,
+    "message": "Parse error on line 3:\n...ce->>Bob: hiBob-->>\n----------------------^\nExpecting 'link', '+', '-', '()', 'ACTOR', got 'NEWLINE'",
+    "note": "arrow without a target"
+  },
+  {
+    "grammar": "sequenceDiagram",
+    "input": "sequenceDiagram\nAlice->>Bob: hi\n@@@",
+    "parsed": "sequenceDiagram\nAlice->>Bob: hi\n@@@\n",
+    "status": 1,
+    "message": "Parse error on line 3:\n...Alice->>Bob: hi@@@\n---------------------^\nExpecting '()', 'SOLID_OPEN_ARROW', 'DOTTED_OPEN_ARROW', 'SOLID_ARROW', 'SOLID_ARROW_TOP', 'SOLID_ARROW_BOTTOM', 'STICK_ARROW_TOP', 'STICK_ARROW_BOTTOM', 'SOLID_ARROW_TOP_DOTTED', 'SOLID_ARROW_BOTTOM_DOTTED', 'STICK_ARROW_TOP_DOTTED', 'STICK_ARROW_BOTTOM_DOTTED', 'SOLID_ARROW_TOP_REVERSE', 'SOLID_ARROW_BOTTOM_REVERSE', 'STICK_ARROW_TOP_REVERSE', 'STICK_ARROW_BOTTOM_REVERSE', 'SOLID_ARROW_TOP_REVERSE_DOTTED', 'SOLID_ARROW_BOTTOM_REVERSE_DOTTED', 'STICK_ARROW_TOP_REVERSE_DOTTED', 'STICK_ARROW_BOTTOM_REVERSE_DOTTED', 'BIDIRECTIONAL_SOLID_ARROW', 'DOTTED_ARROW', 'BIDIRECTIONAL_DOTTED_ARROW', 'SOLID_CROSS', 'DOTTED_CROSS', 'SOLID_POINT', 'DOTTED_POINT', got 'NEWLINE'",
+    "note": "unknown statement"
+  },
+  {
+    "grammar": "stateDiagram",
+    "input": "stateDiagram-v2\n[*] --> \nstate \"x\" as",
+    "parsed": "stateDiagram-v2\n[*] --> \nstate \"x\" as\n",
+    "status": 1,
+    "message": "Parse error on line 2:\n...-v2[*] --> state \"x\" as\n---------------------^\nExpecting 'ID', 'EDGE_STATE', got 'STATE_DESCR'",
+    "note": "transition without a target"
+  },
+  {
+    "grammar": "stateDiagram",
+    "input": "stateDiagram-v2\nstate First state\n",
+    "parsed": "stateDiagram-v2\nstate First state\n\n",
+    "status": 0,
+    "message": null,
+    "note": "state name with a space: the lexer action throws"
+  },
+  {
+    "grammar": "classDiagram",
+    "input": "classDiagram\nclass A {\n  +int x\n",
+    "parsed": "classDiagram\nclass A {\n  +int x\n\n",
+    "status": 1,
+    "message": "Parse error on line 3:\n...class A {  +int x\n--------------------^\nExpecting 'STRUCT_STOP', 'MEMBER', got 'EOF_IN_STRUCT'",
+    "note": "end of input inside a class body"
+  },
+  {
+    "grammar": "erDiagram",
+    "input": "erDiagram\nCUSTOMER ||--o{ ORDER : places\nCUSTOMER }|..|{ DELIVERY-ADDRESS",
+    "parsed": "erDiagram\nCUSTOMER ||--o{ ORDER : places\nCUSTOMER }|..|{ DELIVERY-ADDRESS\n",
+    "status": 1,
+    "message": "Parse error on line 3:\n....|{ DELIVERY-ADDRESS\n-----------------------^\nExpecting 'COLON', 'STYLE_SEPARATOR', got 'NEWLINE'",
+    "note": "relationship without a label"
+  },
+  {
+    "grammar": "gantt",
+    "input": "gantt\ndateFormat YYYY-MM-DD\nsection\n",
+    "parsed": "gantt\ndateFormat YYYY-MM-DD\nsection\n\n",
+    "status": 1,
+    "message": "Parse error on line 3:\n...t YYYY-MM-DDsection\n----------------------^\nExpecting 'taskData', got 'NL'",
+    "note": "section without a name"
+  },
+  {
+    "grammar": "journey",
+    "input": "journey\ntitle My day\nsection\n:::",
+    "parsed": "journey\ntitle My day\nsection\n:::\n",
+    "status": 1,
+    "message": "Parse error on line 3:\n...title My daysection:::\n----------------------^\nExpecting 'taskData', got 'NEWLINE'",
+    "note": "section without a name"
+  },
+  {
+    "grammar": "mindmap",
+    "input": "mindmap\nroot((a))\n  ::icon(",
+    "parsed": "mindmap\nroot((a))\n  ::icon(\n",
+    "status": 1,
+    "message": "Parse error on line 4:\n...root((a))  ::icon(\n---------------------^\nExpecting 'SPACELINE', 'NL', 'EOF', got '1'",
+    "note": "unterminated icon"
+  },
+  {
+    "grammar": "xychart",
+    "input": "xychart-beta\nx-axis [a, b\ny-axis",
+    "parsed": "xychart-beta\nx-axis [a, b\ny-axis\n",
+    "status": 1,
+    "message": "Parse error on line 2:\n...rt-betax-axis [a, by-axis\n----------------------^\nExpecting 'SQUARE_BRACES_END', 'COMMA', got 'NEWLINE'",
+    "note": "unterminated axis list"
+  },
+  {
+    "grammar": "quadrant",
+    "input": "quadrantChart\ntitle T\nx-axis Low --> High --> More",
+    "parsed": "quadrantChart\ntitle T\nx-axis Low --> High --> More\n",
+    "status": 1,
+    "message": "Parse error on line 3:\n...x-axis Low --> High --> More\n----------------------^\nExpecting 'ALPHA', 'NUM', 'MINUS', 'COMMA', 'AMP', 'BRKT', 'MULT', 'UNICODE_TEXT', 'SPACE', 'NEWLINE', 'SEMI', 'EOF', 'PUNCTUATION', 'PLUS', 'EQUALS', 'DOT', 'UNDERSCORE', got 'AXIS-TEXT-DELIMITER'",
+    "note": "two arrows on one axis"
+  },
+  {
+    "grammar": "requirementDiagram",
+    "input": "requirementDiagram\nrequirement test_req {\nid: 1\ntext: the test text.\nrisk: hgh\n}",
+    "parsed": "requirementDiagram\nrequirement test_req {\nid: 1\ntext: the test text.\nrisk: hgh\n}\n",
+    "status": 1,
+    "message": "Parse error on line 5:\n...he test text.risk: hgh}\n----------------------^\nExpecting 'LOW_RISK', 'MED_RISK', 'HIGH_RISK', got 'unqString'",
+    "note": "bad risk value"
+  },
+  {
+    "grammar": "block",
+    "input": "block-beta\ncolumns 3\na b c\nblock\n",
+    "parsed": "block-beta\ncolumns 3\na b c\nblock\n\n",
+    "status": 1,
+    "message": "Parse error on line 4:\n...umns 3a b cblock\n-------------------^\nExpecting 'BLOCK_DIAGRAM_KEY', 'SPACE_BLOCK', 'COLUMNS', 'id-block', 'NODE_ID', 'classDef', 'class', 'style', got 'EOF'",
+    "note": "block without an id"
+  },
+  {
+    "grammar": "timeline",
+    "input": "timeline\ntitle x\nsection\n",
+    "parsed": "timeline\ntitle x\nsection\n\n",
+    "status": 0,
+    "message": null,
+    "note": "section without a name"
+  },
+  {
+    "grammar": "kanban",
+    "input": "kanban\n  Todo\n    [Create] @{ ticket: x",
+    "parsed": "kanban\n  Todo\n    [Create] @{ ticket: x\n",
+    "status": 1,
+    "message": "Parse error on line 3:\n...  Todo    [Create] @{ ticket: x\n---------------------^\nExpecting 'SPACELINE', 'NL', 'EOF', 'SHAPE_DATA', got 'SPACELIST'",
+    "note": "unterminated node data"
+  },
+  {
+    "grammar": "sankey",
+    "input": "sankey-beta\na,b",
+    "parsed": "sankey-beta\na,b",
+    "status": 1,
+    "message": "Parse error on line 2:\nsankey-betaa,b\n--------------^\nExpecting 'COMMA', got 'EOF'",
+    "note": "row without a value"
+  },
+  {
+    "grammar": "c4Diagram",
+    "input": "C4Context\nPerson(customer, \"A\", \"B\"\n",
+    "parsed": "C4Context\nPerson(customer, \"A\", \"B\"\n\n",
+    "status": 1,
+    "message": "Parse error on line 4:\n...customer, \"A\", \"B\"\n---------------------^\nExpecting 'NEWLINE', 'EOF', 'LBRACE', 'RBRACE', 'STR', 'STR_KEY', 'ATTRIBUTE', 'ATTRIBUTE_EMPTY', got '1'",
+    "note": "unclosed call"
+  },
+  {
+    "grammar": "venn",
+    "input": "venn-beta\nunion\n",
+    "parsed": "venn-beta\nunion\n\n",
+    "status": 1,
+    "message": "Parse error on line 2:\nvenn-betaunion\n--------------^\nExpecting 'IDENTIFIER', 'STRING', got 'NEWLINE'",
+    "note": "union without sets"
+  },
+  {
+    "grammar": "ishikawa",
+    "input": "ishikawa-beta\ncause",
+    "parsed": "ishikawa-beta\ncause\n",
+    "status": 0,
+    "message": null,
+    "note": "bare word"
+  }
+]

@@ -1,0 +1,112 @@
+[
+  {
+    "input": "flowchart TB\n      A@{ shape: this-shape-does-not-exist }\n      ",
+    "spec": "flow-node-data.spec.js",
+    "expects": "No such shape: this-shape-does-not-exist."
+  },
+  {
+    "input": "flowchart TB\n      A@{ shape: rect_left_inv_arrow }\n      ",
+    "spec": "flow-node-data.spec.js",
+    "expects": "No such shape: rect_left_inv_arrow. Shape names should be lowercase."
+  },
+  {
+    "input": "graph TD;graph.node;graph-node;graph/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;flowchart.node;flowchart-node;flowchart/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;flowchart-elk.node;flowchart-elk-node;flowchart-elk/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;style.node;style-node;style/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;linkStyle.node;linkStyle-node;linkStyle/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;interpolate.node;interpolate-node;interpolate/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;classDef.node;classDef-node;classDef/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;class.node;class-node;class/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;_self.node;_self-node;_self/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;_blank.node;_blank-node;_blank/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;_parent.node;_parent-node;_parent/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;_top.node;_top-node;_top/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;end.node;end-node;end/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD;subgraph.node;subgraph-node;subgraph/node",
+    "spec": "flow-singlenode.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph\nX(- My Text (",
+    "spec": "flow-text.spec.js",
+    "expects": null
+  },
+  {
+    "input": "graph TD; A[This is a () in text];",
+    "spec": "flow-text.spec.js",
+    "expects": "got 'PS'"
+  },
+  {
+    "input": "graph TD;A(this node has \"string\" and text)-->|this link has \"string\" and text|C;",
+    "spec": "flow-text.spec.js",
+    "expects": "got 'STR'"
+  },
+  {
+    "input": "graph TD; A[This is a \"()\" in text];",
+    "spec": "flow-text.spec.js",
+    "expects": "got 'STR'"
+  },
+  {
+    "input": "graph TD; A[\"This is a \"()\" in text\"];",
+    "spec": "flow-text.spec.js",
+    "expects": "Expecting 'SQE'"
+  },
+  {
+    "input": "graph TD; node[hello ) world] --> works",
+    "spec": "flow-text.spec.js",
+    "expects": "got 'PE'"
+  }
+]

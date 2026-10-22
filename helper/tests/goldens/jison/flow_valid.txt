@@ -1,0 +1,2492 @@
+graph TD;
+A-->B;
+---
+graph >;A-->B;
+---
+graph <;A-->B;
+---
+graph ^;A-->B;
+---
+graph v;A-->B;
+---
+graph TD;A --> B;
+---
+graph TD
+A --> B
+ style e red
+---
+graph TD
+A-->B
+B-->C
+---
+graph TD;
+A<-->B;
+---
+graph TD;
+A<-- text -->B;
+---
+graph TD;
+A<==>B;
+---
+graph TD;
+A<== text ==>B;
+---
+graph TD;
+A<-.->B;
+---
+graph TD;
+A<-. text .->B;
+---
+graph TD;
+ A-->B;
+---
+graph TD;
+ A-->B
+
+---
+graph TD;
+ A-->B
+
+
+
+---
+graph TD;
+ A-->B
+---
+graph TD;
+ A-->B
+
+
+---
+flowchart TB
+    subgraph A
+      a --> b
+    end
+---
+flowchart TB
+    subgraph A
+      direction BT
+      a --> b
+    end
+---
+flowchart TB
+    subgraph A
+      direction BT
+      a --> b
+      direction RL
+    end
+---
+flowchart TB
+    subgraph A
+      direction RL
+      b-->B
+      a
+    end
+    a-->c
+    subgraph B
+      direction LR
+      c
+    end
+---
+graph TD;A---B;
+---
+graph TD;A--xB;
+---
+graph TD;A--oB;
+---
+flowchart TD;
+A e1@----x B;
+---
+flowchart TD;
+A e1@====x B;
+---
+flowchart TD;
+A e1@-..-x B;
+---
+flowchart TD;
+A e1@----o B;
+---
+flowchart TD;
+A e1@====o B;
+---
+flowchart TD;
+A e1@-..-o B;
+---
+flowchart TD;
+A e1@----> B;
+---
+flowchart TD;
+A e1@====> B;
+---
+flowchart TD;
+A e1@-..-> B;
+---
+flowchart TD;
+A e1@------x B;
+---
+flowchart TD;
+A e1@======x B;
+---
+flowchart TD;
+A e1@-....-x B;
+---
+flowchart TD;
+A e1@------o B;
+---
+flowchart TD;
+A e1@======o B;
+---
+flowchart TD;
+A e1@-....-o B;
+---
+flowchart TD;
+A e1@------> B;
+---
+flowchart TD;
+A e1@======> B;
+---
+flowchart TD;
+A e1@-....-> B;
+---
+flowchart LR
+A id1@-->B
+A@{ shape: 'rect' }
+
+---
+flowchart TD;
+A e1@x-- label --x B;
+---
+flowchart TD;
+A e1@x== label ==x B;
+---
+flowchart TD;
+A e1@x-. label .-x B;
+---
+flowchart TD;
+A e1@o-- label --o B;
+---
+flowchart TD;
+A e1@o== label ==o B;
+---
+flowchart TD;
+A e1@o-. label .-o B;
+---
+flowchart TD;
+A e1@<-- label --> B;
+---
+flowchart TD;
+A e1@<== label ==> B;
+---
+flowchart TD;
+A e1@<-. label .-> B;
+---
+graph TD;
+A x----x B;
+---
+graph TD;
+A x-- text --x B;
+---
+graph TD;
+A x-- graph --x B;
+---
+graph TD;
+A x-- flowchart --x B;
+---
+graph TD;
+A x-- flowchart-elk --x B;
+---
+graph TD;
+A x-- style --x B;
+---
+graph TD;
+A x-- default --x B;
+---
+graph TD;
+A x-- linkStyle --x B;
+---
+graph TD;
+A x-- interpolate --x B;
+---
+graph TD;
+A x-- classDef --x B;
+---
+graph TD;
+A x-- class --x B;
+---
+graph TD;
+A x-- href --x B;
+---
+graph TD;
+A x-- call --x B;
+---
+graph TD;
+A x-- click --x B;
+---
+graph TD;
+A x-- _self --x B;
+---
+graph TD;
+A x-- _blank --x B;
+---
+graph TD;
+A x-- _parent --x B;
+---
+graph TD;
+A x-- _top --x B;
+---
+graph TD;
+A x-- end --x B;
+---
+graph TD;
+A x-- subgraph --x B;
+---
+graph TD;
+A x-- kitty --x B;
+---
+graph TD;
+A x====x B;
+---
+graph TD;
+A x== text ==x B;
+---
+graph TD;
+A x== graph ==x B;
+---
+graph TD;
+A x== flowchart ==x B;
+---
+graph TD;
+A x== flowchart-elk ==x B;
+---
+graph TD;
+A x== style ==x B;
+---
+graph TD;
+A x== default ==x B;
+---
+graph TD;
+A x== linkStyle ==x B;
+---
+graph TD;
+A x== interpolate ==x B;
+---
+graph TD;
+A x== classDef ==x B;
+---
+graph TD;
+A x== class ==x B;
+---
+graph TD;
+A x== href ==x B;
+---
+graph TD;
+A x== call ==x B;
+---
+graph TD;
+A x== click ==x B;
+---
+graph TD;
+A x== _self ==x B;
+---
+graph TD;
+A x== _blank ==x B;
+---
+graph TD;
+A x== _parent ==x B;
+---
+graph TD;
+A x== _top ==x B;
+---
+graph TD;
+A x== end ==x B;
+---
+graph TD;
+A x== subgraph ==x B;
+---
+graph TD;
+A x== kitty ==x B;
+---
+graph TD;
+A x-..-x B;
+---
+graph TD;
+A x-. text .-x B;
+---
+graph TD;
+A x-. graph .-x B;
+---
+graph TD;
+A x-. flowchart .-x B;
+---
+graph TD;
+A x-. flowchart-elk .-x B;
+---
+graph TD;
+A x-. style .-x B;
+---
+graph TD;
+A x-. default .-x B;
+---
+graph TD;
+A x-. linkStyle .-x B;
+---
+graph TD;
+A x-. interpolate .-x B;
+---
+graph TD;
+A x-. classDef .-x B;
+---
+graph TD;
+A x-. class .-x B;
+---
+graph TD;
+A x-. href .-x B;
+---
+graph TD;
+A x-. call .-x B;
+---
+graph TD;
+A x-. click .-x B;
+---
+graph TD;
+A x-. _self .-x B;
+---
+graph TD;
+A x-. _blank .-x B;
+---
+graph TD;
+A x-. _parent .-x B;
+---
+graph TD;
+A x-. _top .-x B;
+---
+graph TD;
+A x-. end .-x B;
+---
+graph TD;
+A x-. subgraph .-x B;
+---
+graph TD;
+A x-. kitty .-x B;
+---
+graph TD;
+A o----o B;
+---
+graph TD;
+A o-- text --o B;
+---
+graph TD;
+A o-- graph --o B;
+---
+graph TD;
+A o-- flowchart --o B;
+---
+graph TD;
+A o-- flowchart-elk --o B;
+---
+graph TD;
+A o-- style --o B;
+---
+graph TD;
+A o-- default --o B;
+---
+graph TD;
+A o-- linkStyle --o B;
+---
+graph TD;
+A o-- interpolate --o B;
+---
+graph TD;
+A o-- classDef --o B;
+---
+graph TD;
+A o-- class --o B;
+---
+graph TD;
+A o-- href --o B;
+---
+graph TD;
+A o-- call --o B;
+---
+graph TD;
+A o-- click --o B;
+---
+graph TD;
+A o-- _self --o B;
+---
+graph TD;
+A o-- _blank --o B;
+---
+graph TD;
+A o-- _parent --o B;
+---
+graph TD;
+A o-- _top --o B;
+---
+graph TD;
+A o-- end --o B;
+---
+graph TD;
+A o-- subgraph --o B;
+---
+graph TD;
+A o-- kitty --o B;
+---
+graph TD;
+A o====o B;
+---
+graph TD;
+A o== text ==o B;
+---
+graph TD;
+A o== graph ==o B;
+---
+graph TD;
+A o== flowchart ==o B;
+---
+graph TD;
+A o== flowchart-elk ==o B;
+---
+graph TD;
+A o== style ==o B;
+---
+graph TD;
+A o== default ==o B;
+---
+graph TD;
+A o== linkStyle ==o B;
+---
+graph TD;
+A o== interpolate ==o B;
+---
+graph TD;
+A o== classDef ==o B;
+---
+graph TD;
+A o== class ==o B;
+---
+graph TD;
+A o== href ==o B;
+---
+graph TD;
+A o== call ==o B;
+---
+graph TD;
+A o== click ==o B;
+---
+graph TD;
+A o== _self ==o B;
+---
+graph TD;
+A o== _blank ==o B;
+---
+graph TD;
+A o== _parent ==o B;
+---
+graph TD;
+A o== _top ==o B;
+---
+graph TD;
+A o== end ==o B;
+---
+graph TD;
+A o== subgraph ==o B;
+---
+graph TD;
+A o== kitty ==o B;
+---
+graph TD;
+A o-..-o B;
+---
+graph TD;
+A o-. text .-o B;
+---
+graph TD;
+A o-. graph .-o B;
+---
+graph TD;
+A o-. flowchart .-o B;
+---
+graph TD;
+A o-. flowchart-elk .-o B;
+---
+graph TD;
+A o-. style .-o B;
+---
+graph TD;
+A o-. default .-o B;
+---
+graph TD;
+A o-. linkStyle .-o B;
+---
+graph TD;
+A o-. interpolate .-o B;
+---
+graph TD;
+A o-. classDef .-o B;
+---
+graph TD;
+A o-. class .-o B;
+---
+graph TD;
+A o-. href .-o B;
+---
+graph TD;
+A o-. call .-o B;
+---
+graph TD;
+A o-. click .-o B;
+---
+graph TD;
+A o-. _self .-o B;
+---
+graph TD;
+A o-. _blank .-o B;
+---
+graph TD;
+A o-. _parent .-o B;
+---
+graph TD;
+A o-. _top .-o B;
+---
+graph TD;
+A o-. end .-o B;
+---
+graph TD;
+A o-. subgraph .-o B;
+---
+graph TD;
+A o-. kitty .-o B;
+---
+graph TD;
+A <----> B;
+---
+graph TD;
+A <-- text --> B;
+---
+graph TD;
+A <-- graph --> B;
+---
+graph TD;
+A <-- flowchart --> B;
+---
+graph TD;
+A <-- flowchart-elk --> B;
+---
+graph TD;
+A <-- style --> B;
+---
+graph TD;
+A <-- default --> B;
+---
+graph TD;
+A <-- linkStyle --> B;
+---
+graph TD;
+A <-- interpolate --> B;
+---
+graph TD;
+A <-- classDef --> B;
+---
+graph TD;
+A <-- class --> B;
+---
+graph TD;
+A <-- href --> B;
+---
+graph TD;
+A <-- call --> B;
+---
+graph TD;
+A <-- click --> B;
+---
+graph TD;
+A <-- _self --> B;
+---
+graph TD;
+A <-- _blank --> B;
+---
+graph TD;
+A <-- _parent --> B;
+---
+graph TD;
+A <-- _top --> B;
+---
+graph TD;
+A <-- end --> B;
+---
+graph TD;
+A <-- subgraph --> B;
+---
+graph TD;
+A <-- kitty --> B;
+---
+graph TD;
+A <====> B;
+---
+graph TD;
+A <== text ==> B;
+---
+graph TD;
+A <== graph ==> B;
+---
+graph TD;
+A <== flowchart ==> B;
+---
+graph TD;
+A <== flowchart-elk ==> B;
+---
+graph TD;
+A <== style ==> B;
+---
+graph TD;
+A <== default ==> B;
+---
+graph TD;
+A <== linkStyle ==> B;
+---
+graph TD;
+A <== interpolate ==> B;
+---
+graph TD;
+A <== classDef ==> B;
+---
+graph TD;
+A <== class ==> B;
+---
+graph TD;
+A <== href ==> B;
+---
+graph TD;
+A <== call ==> B;
+---
+graph TD;
+A <== click ==> B;
+---
+graph TD;
+A <== _self ==> B;
+---
+graph TD;
+A <== _blank ==> B;
+---
+graph TD;
+A <== _parent ==> B;
+---
+graph TD;
+A <== _top ==> B;
+---
+graph TD;
+A <== end ==> B;
+---
+graph TD;
+A <== subgraph ==> B;
+---
+graph TD;
+A <== kitty ==> B;
+---
+graph TD;
+A <-..-> B;
+---
+graph TD;
+A <-. text .-> B;
+---
+graph TD;
+A <-. graph .-> B;
+---
+graph TD;
+A <-. flowchart .-> B;
+---
+graph TD;
+A <-. flowchart-elk .-> B;
+---
+graph TD;
+A <-. style .-> B;
+---
+graph TD;
+A <-. default .-> B;
+---
+graph TD;
+A <-. linkStyle .-> B;
+---
+graph TD;
+A <-. interpolate .-> B;
+---
+graph TD;
+A <-. classDef .-> B;
+---
+graph TD;
+A <-. class .-> B;
+---
+graph TD;
+A <-. href .-> B;
+---
+graph TD;
+A <-. call .-> B;
+---
+graph TD;
+A <-. click .-> B;
+---
+graph TD;
+A <-. _self .-> B;
+---
+graph TD;
+A <-. _blank .-> B;
+---
+graph TD;
+A <-. _parent .-> B;
+---
+graph TD;
+A <-. _top .-> B;
+---
+graph TD;
+A <-. end .-> B;
+---
+graph TD;
+A <-. subgraph .-> B;
+---
+graph TD;
+A <-. kitty .-> B;
+---
+graph TD;A---|This is the 123 s text|B;
+A---|This is the second edge|B;
+---
+graph TD;
+A --- B;
+---
+graph TD;
+A ---- B;
+---
+graph TD;
+A ----- B;
+---
+graph TD;
+A -- Label --- B;
+---
+graph TD;
+A -- Label ---- B;
+---
+graph TD;
+A -- Label ----- B;
+---
+graph TD;
+A --> B;
+---
+graph TD;
+A ---> B;
+---
+graph TD;
+A ----> B;
+---
+graph TD;
+A -- Label --> B;
+---
+graph TD;
+A -- Label ---> B;
+---
+graph TD;
+A -- Label ----> B;
+---
+graph TD;
+A <--> B;
+---
+graph TD;
+A <---> B;
+---
+graph TD;
+A <-- Label --> B;
+---
+graph TD;
+A <-- Label ---> B;
+---
+graph TD;
+A <-- Label ----> B;
+---
+graph TD;
+A === B;
+---
+graph TD;
+A ==== B;
+---
+graph TD;
+A ===== B;
+---
+graph TD;
+A == Label === B;
+---
+graph TD;
+A == Label ==== B;
+---
+graph TD;
+A == Label ===== B;
+---
+graph TD;
+A ==> B;
+---
+graph TD;
+A ===> B;
+---
+graph TD;
+A ====> B;
+---
+graph TD;
+A == Label ==> B;
+---
+graph TD;
+A == Label ===> B;
+---
+graph TD;
+A == Label ====> B;
+---
+graph TD;
+A <==> B;
+---
+graph TD;
+A <===> B;
+---
+graph TD;
+A <== Label ==> B;
+---
+graph TD;
+A <== Label ===> B;
+---
+graph TD;
+A <== Label ====> B;
+---
+graph TD;
+A -.- B;
+---
+graph TD;
+A -..- B;
+---
+graph TD;
+A -...- B;
+---
+graph TD;
+A -. Label .- B;
+---
+graph TD;
+A -. Label ..- B;
+---
+graph TD;
+A -. Label ...- B;
+---
+graph TD;
+A -.-> B;
+---
+graph TD;
+A -..-> B;
+---
+graph TD;
+A -...-> B;
+---
+graph TD;
+A -. Label .-> B;
+---
+graph TD;
+A -. Label ..-> B;
+---
+graph TD;
+A -. Label ...-> B;
+---
+graph TD;
+A <-.-> B;
+---
+graph TD;
+A <-...-> B;
+---
+graph TD;
+A <-. Label .-> B;
+---
+graph TD;
+A <-. Label ..-> B;
+---
+graph TD;
+A <-. Label ...-> B;
+---
+graph TD
+A-->B
+click A callback
+---
+graph TD
+A-->B
+click A call callback()
+---
+graph TD
+A-->B
+click A callback "tooltip"
+---
+graph TD
+A-->B
+click A call callback() "tooltip"
+---
+graph TD
+A-->B
+click A call callback("test0", test1, test2)
+---
+graph TD
+A-->B
+click A "click.html"
+---
+graph TD
+A-->B
+click A href "click.html"
+---
+graph TD
+A-->B
+click A "click.html" "tooltip"
+---
+graph TD
+A-->B
+click A href "click.html" "tooltip"
+---
+graph TD
+A-->B
+click A "click.html" _blank
+---
+graph TD
+A-->B
+click A href "click.html" _blank
+---
+graph TD
+A-->B
+click A "click.html" "tooltip" _blank
+---
+graph TD
+A-->B
+click A href "click.html" "tooltip" _blank
+---
+graph TD
+A-->B
+linkStyle default interpolate basis
+---
+graph TD
+A-->B
+A-->C
+linkStyle 0 interpolate basis
+linkStyle 1 interpolate cardinal
+---
+graph TD
+A e1@-->B
+A uniqueName@-->C
+e1@{curve: basis}
+uniqueName@{curve: cardinal}
+---
+graph TD
+A e1@-->B
+A-->C
+linkStyle default interpolate linear
+e1@{curve: stepAfter}
+---
+graph TD
+A e1@-->B-->D
+A-->C e4@-->D-->E
+linkStyle default interpolate linear
+linkStyle 1 interpolate basis
+e1@{curve: monotoneX}
+e4@{curve: stepBefore}
+---
+graph TD
+A-->B
+A-->C
+linkStyle 0,1 interpolate basis
+---
+graph TD
+A-->B
+linkStyle default interpolate basis stroke-width:1px;
+---
+graph TD
+A-->B
+A-->C
+linkStyle 0 interpolate basis stroke-width:1px;
+linkStyle 1 interpolate cardinal stroke-width:1px;
+---
+graph TD
+A-->B
+A-->C
+linkStyle 0,1 interpolate basis stroke-width:1px;
+---
+graph TD;A-->B;
+---
+graph TD;A-.->B;
+---
+graph TD;A==>B;
+---
+flowchart
+A["`The cat in **the** hat`"]-- "`The *bat* in the chat`" -->B["The dog in the hog"] -- "The rat in the mat" -->C;
+---
+flowchart LR
+subgraph "One"
+  a("`The **cat**
+  in the hat`") -- "1o" --> b{{"`The **dog** in the hog`"}}
+end
+subgraph "`**Two**`"
+  c("`The **cat**
+  in the hat`") -- "`1o **ipa**`" --> d("The dog in the hog")
+end
+---
+flowchart TB
+      D@{ shape: rounded}
+---
+flowchart TB
+      D@{ shape: rounded }
+---
+flowchart TB
+      D@{ shape: rounded } & E
+---
+flowchart TB
+      D@{ shape: rounded } --> E
+---
+flowchart TB
+      D@{ shape: rounded } & E --> F
+---
+flowchart TB
+      D@{ shape: rounded } & E@{ shape: rounded } --> F
+---
+flowchart TB
+      D@{ shape: rounded } & E@{ shape: rounded } --> F & G@{ shape: rounded }
+---
+flowchart TB
+      D@{ shape: rounded } & E@{ shape: rounded } --> F@{ shape: rounded } & G@{ shape: rounded }
+---
+flowchart TB
+         D@{ shape: rounded } & E@{ shape: rounded } --> F{ shape: rounded } & G{ shape: rounded }    
+---
+flowchart TB
+      D@{shape: rounded}
+---
+flowchart TB
+      D@{       shape: rounded}
+---
+flowchart TB
+      D@{ shape: rounded         }
+---
+flowchart TB
+      D@{ shape: rounded , label: "DD"}
+---
+flowchart TB
+      A --> D@{
+        shape: circle
+        other: "clock"
+     }
+
+      
+---
+flowchart TB
+      A[hello]
+      B@{
+        shape: circle
+        other: "clock"
+     }
+      C[Hello]@{
+        shape: circle
+        other: "clock"
+     }
+      
+---
+flowchart TB
+      A@{
+        label: "This is }"
+        other: "clock"
+     }
+      
+---
+flowchart TB
+      A{This is a label}
+
+---
+flowchart TB
+      A@{
+        label: |
+          This is a
+          multiline string
+        other: "clock"
+     }
+      
+---
+flowchart TB
+      A@{
+        label: "This is a
+          multiline string"
+        other: "clock"
+     }
+      
+---
+flowchart TB
+      A@{
+        label: "This is a string with }"
+        other: "clock"
+     }
+      
+---
+flowchart TB
+      A@{
+        label: "This is a string with @"
+        other: "clock"
+     }
+      
+---
+flowchart TB
+      A@{
+        label: "This is a string with}"
+        other: "clock"
+     }
+      
+---
+flowchart TB
+       n2["label for n2"] &   n4@{ label: "label for n4"}   & n5@{ label: "label for n5"}
+      
+---
+flowchart TD
+    A["A"] --> B["for B"] &    C@{ label: "for c"} & E@{label : "for E"}
+    D@{label: "for D"}
+      
+---
+flowchart TD
+    A["@A@"] --> B["@for@ B@"] & C@{ label: "@for@ c@"} & E{"`@for@ E@`"} & D(("@for@ D@"))
+      H1{{"@for@ H@"}}
+      H2{{"`@for@ H@`"}}
+      Q1{"@for@ Q@"}
+      Q2{"`@for@ Q@`"}
+      AS1>"@for@ AS@"]
+      AS2>"`@for@ AS@`"]
+      
+---
+flowchart TD
+     A & B e1@--> C & D
+        A1 e2@--> C1 & D1
+      
+---
+flowchart TD
+     A & B e1@--> C & D
+        A1 e1@--> C1 & D1
+      
+---
+flowchart TD
+     A e1@--> B
+     C e2@--> D
+     E e3@--> F
+    e1@{ animate: true }
+    e2@{ animate: false }
+    e3@{ animate: true }
+    e3@{ animate: false }
+      
+---
+graph TD;A;
+---
+graph TD;A ;
+---
+graph TD;a[A];
+---
+graph TD;a((A));
+---
+graph TD;a(A);
+---
+graph TD;a>A];
+---
+graph TD;a{A};
+---
+graph TD;a{A}   ;
+---
+graph TD;a{A <br> end};
+---
+graph TD;a{{A}};
+---
+graph TD;a{{A <br> end}};
+---
+graph TD;a(A <br> end);
+---
+graph TD;a(((A)));
+---
+graph TD;a(((A)))   ;
+---
+graph TD;a(((A <br> end)));
+---
+graph TD;id1;
+---
+graph TD;1;
+---
+graph TD;subgraph "hello";1;end;
+---
+graph TD;1id;
+---
+graph TD;i-d;
+---
+graph TD;i_d;
+---
+graph TD;a-graph-node;
+---
+graph TD;a-flowchart-node;
+---
+graph TD;a-flowchart-elk-node;
+---
+graph TD;a-style-node;
+---
+graph TD;a-default-node;
+---
+graph TD;a-linkStyle-node;
+---
+graph TD;a-interpolate-node;
+---
+graph TD;a-classDef-node;
+---
+graph TD;a-class-node;
+---
+graph TD;a-href-node;
+---
+graph TD;a-call-node;
+---
+graph TD;a-click-node;
+---
+graph TD;a-_self-node;
+---
+graph TD;a-_blank-node;
+---
+graph TD;a-_parent-node;
+---
+graph TD;a-_top-node;
+---
+graph TD;a-end-node;
+---
+graph TD;a-subgraph-node;
+---
+graph TD;a.graph.node;
+---
+graph TD;a.flowchart.node;
+---
+graph TD;a.flowchart-elk.node;
+---
+graph TD;a.style.node;
+---
+graph TD;a.default.node;
+---
+graph TD;a.linkStyle.node;
+---
+graph TD;a.interpolate.node;
+---
+graph TD;a.classDef.node;
+---
+graph TD;a.class.node;
+---
+graph TD;a.href.node;
+---
+graph TD;a.call.node;
+---
+graph TD;a.click.node;
+---
+graph TD;a._self.node;
+---
+graph TD;a._blank.node;
+---
+graph TD;a._parent.node;
+---
+graph TD;a._top.node;
+---
+graph TD;a.end.node;
+---
+graph TD;a.subgraph.node;
+---
+graph TD;a_graph_node;
+---
+graph TD;a_flowchart_node;
+---
+graph TD;a_flowchart-elk_node;
+---
+graph TD;a_style_node;
+---
+graph TD;a_default_node;
+---
+graph TD;a_linkStyle_node;
+---
+graph TD;a_interpolate_node;
+---
+graph TD;a_classDef_node;
+---
+graph TD;a_class_node;
+---
+graph TD;a_href_node;
+---
+graph TD;a_call_node;
+---
+graph TD;a_click_node;
+---
+graph TD;a__self_node;
+---
+graph TD;a__blank_node;
+---
+graph TD;a__parent_node;
+---
+graph TD;a__top_node;
+---
+graph TD;a_end_node;
+---
+graph TD;a_subgraph_node;
+---
+graph TD;node_graph;node.graph;node-graph;
+---
+graph TD;node_flowchart;node.flowchart;node-flowchart;
+---
+graph TD;node_flowchart-elk;node.flowchart-elk;node-flowchart-elk;
+---
+graph TD;node_style;node.style;node-style;
+---
+graph TD;node_default;node.default;node-default;
+---
+graph TD;node_linkStyle;node.linkStyle;node-linkStyle;
+---
+graph TD;node_interpolate;node.interpolate;node-interpolate;
+---
+graph TD;node_classDef;node.classDef;node-classDef;
+---
+graph TD;node_class;node.class;node-class;
+---
+graph TD;node_href;node.href;node-href;
+---
+graph TD;node_call;node.call;node-call;
+---
+graph TD;node_click;node.click;node-click;
+---
+graph TD;node__self;node._self;node-_self;
+---
+graph TD;node__blank;node._blank;node-_blank;
+---
+graph TD;node__parent;node._parent;node-_parent;
+---
+graph TD;node__top;node._top;node-_top;
+---
+graph TD;node_end;node.end;node-end;
+---
+graph TD;node_subgraph;node.subgraph;node-subgraph;
+---
+graph TD; default.node;default-node;default/node;
+---
+graph TD; href.node;href-node;href/node;
+---
+graph TD; click.node;click-node;click/node;
+---
+graph TD; call.node;call-node;call/node;
+---
+graph TD; # --> A
+---
+graph TD; : --> A
+---
+graph TD; 0 --> A
+---
+graph TD; & --> A
+---
+graph TD; , --> A
+---
+graph TD; * --> A
+---
+graph TD; . --> A
+---
+graph TD; \ --> A
+---
+graph TD; v --> A
+---
+graph TD; - --> A
+---
+graph TD; / --> A
+---
+graph TD; _ --> A
+---
+graph TD; #node --> A
+---
+graph TD; :node --> A
+---
+graph TD; 0node --> A
+---
+graph TD; &node --> A
+---
+graph TD; ,node --> A
+---
+graph TD; *node --> A
+---
+graph TD; .node --> A
+---
+graph TD; \node --> A
+---
+graph TD; vnode --> A
+---
+graph TD; -node --> A
+---
+graph TD; /node --> A
+---
+graph TD; _node --> A
+---
+graph TD; node# --> A
+---
+graph TD; node: --> A
+---
+graph TD; node0 --> A
+---
+graph TD; node& --> A
+---
+graph TD; node, --> A
+---
+graph TD; node* --> A
+---
+graph TD; node. --> A
+---
+graph TD; node\ --> A
+---
+graph TD; nodev --> A
+---
+graph TD; node- --> A
+---
+graph TD; node/ --> A
+---
+graph TD; node_ --> A
+---
+graph TD;style Q background:#fff;
+---
+graph TD;style R background:#fff,border:1px solid red;
+---
+graph TD;style S background:#aaa;
+style T background:#bbb,border:1px solid red;
+---
+graph TD;S-->T;
+style S background:#aaa;
+style T background:#bbb,border:1px solid red;
+---
+graph TD;style T background:#bbb,border:1px solid red;
+---
+graph TD;A(( ));B((Test));C;style A background:#fff;style D border:1px solid red;
+---
+graph TD;classDef exClass background:#bbb,border:1px solid red;
+---
+graph TD;classDef firstClass,secondClass background:#bbb,border:1px solid red;
+---
+graph TD;classDef exClass background:#bbb,border:1.5px solid red;
+---
+graph TD;classDef exClass background:  #bbb,border:1.5px solid red;
+---
+graph TD;
+classDef exClass background:#bbb,border:1px solid red;
+a-->b;
+class a exClass;
+---
+graph TD;
+classDef exClass background:#bbb,border:1px solid red;
+a_a-->b_b;
+class a_a exClass;
+---
+graph TD;
+classDef exClass background:#bbb,border:1px solid red;
+a-->b[test]:::exClass;
+
+---
+graph TD;
+classDef exClass background:#bbb,border:1px solid red;
+b[test]:::exClass;
+
+---
+graph TD;
+classDef exClass background:#bbb,border:1px solid red;
+A[test]:::exClass-->B[test2];
+
+---
+graph TD;
+classDef exClass background:#bbb,border:1px solid red;
+a-->b[1 a a text!.]:::exClass;
+
+---
+graph TD;
+classDef exClass background:#bbb,border:1px solid red;
+a-->b;
+class a,b exClass;
+---
+graph TD
+A-->B1
+A-->B2
+A-->B3
+A-->B4
+A-->B5
+A-->B6
+A-->B7
+A-->B8
+A-->B9
+A-->B10
+A-->B11
+linkStyle 10 stroke-width:1px;
+---
+graph TD
+    A-->B
+    linkStyle 0 stroke-width:1px;
+---
+graph TD
+A-->B1
+A-->B2
+A-->B3
+A-->B4
+A-->B5
+A-->B6
+A-->B7
+A-->B8
+A-->B9
+A-->B10
+A-->B11
+A-->B12
+linkStyle 10,11 stroke-width:1px;
+---
+graph TD
+A-->B
+classDef exClass font-style:bold;
+---
+graph TD
+A-->B
+classDef exClass fill:#f96,stroke:#333,stroke-width:4px,font-size:50%,font-style:bold;
+---
+graph TD;
+AA-->BB;
+style A fill:#f00;
+---
+
+    graph TD
+      classDef C1 stroke-dasharray:4
+      classDef C2 stroke-dasharray:6
+      A & B:::C1 & D:::C1 --> E:::C2
+    
+---
+graph TD;A--x|textNoSpace|B;
+---
+graph TD;A--x|text including space|B;
+---
+graph TD;A--x|text with / should work|B;
+---
+graph TD;A --x|textNoSpace| B;
+---
+graph TD;A--x|text including CAPS space|B;
+---
+graph TD;A--x|text including URL space|B;
+---
+graph TD;A--text including URL space and send-->B;
+---
+graph TD;A-- text including URL space and send -->B;
+---
+graph TD;A--x|text including R TD space|B;
+---
+graph TD;A--x|text including `|B;
+---
+graph TD;A--xv(my text);
+---
+graph TD;A--xcsv(my text);
+---
+graph TD;A--xava(my text);
+---
+graph TD;A--xva(my text);
+---
+graph TD;A--x|text including graph space|B;
+---
+graph TD;V-->a[v]
+---
+graph TD;V-- "test string()" -->a[v]
+---
+graph TD;A-- test text with == -->B;
+---
+graph TD;A-. test text with == .->B;
+---
+graph TD;A== test text with - ==>B;
+---
+graph TD;A-- textNoSpace --xB;
+---
+graph TD;A--    textNoSpace --xB;
+---
+graph TD;A-- text including space --xB;
+---
+graph TD;A -- text with / should work --x B;
+---
+graph TD;A -- textNoSpace --x B;
+---
+graph TD;A-- text including CAPS space --xB;
+---
+graph TD;A-- text including URL space --xB;
+---
+graph TD;A-- text including R TD space --xB;
+---
+graph TD;A-- text including graph space and v --xB;
+---
+graph TD;A-- text including graph space and v --xB[blav]
+---
+graph TD;A-->C(Chimpansen hoppar);
+---
+graph TD;A_graph_node-->B[This node has a graph as text];
+---
+graph TD;A_flowchart_node-->B[This node has a flowchart as text];
+---
+graph TD;A_flowchart-elk_node-->B[This node has a flowchart-elk as text];
+---
+graph TD;A_style_node-->B[This node has a style as text];
+---
+graph TD;A_default_node-->B[This node has a default as text];
+---
+graph TD;A_linkStyle_node-->B[This node has a linkStyle as text];
+---
+graph TD;A_interpolate_node-->B[This node has a interpolate as text];
+---
+graph TD;A_classDef_node-->B[This node has a classDef as text];
+---
+graph TD;A_class_node-->B[This node has a class as text];
+---
+graph TD;A_href_node-->B[This node has a href as text];
+---
+graph TD;A_call_node-->B[This node has a call as text];
+---
+graph TD;A_click_node-->B[This node has a click as text];
+---
+graph TD;A__self_node-->B[This node has a _self as text];
+---
+graph TD;A__blank_node-->B[This node has a _blank as text];
+---
+graph TD;A__parent_node-->B[This node has a _parent as text];
+---
+graph TD;A__top_node-->B[This node has a _top as text];
+---
+graph TD;A_end_node-->B[This node has a end as text];
+---
+graph TD;A_subgraph_node-->B[This node has a subgraph as text];
+---
+graph TD;A_kitty_node-->B[This node has a kitty as text];
+---
+graph TD;A_graph_node-->B(This node has a graph as text);
+---
+graph TD;A_flowchart_node-->B(This node has a flowchart as text);
+---
+graph TD;A_flowchart-elk_node-->B(This node has a flowchart-elk as text);
+---
+graph TD;A_style_node-->B(This node has a style as text);
+---
+graph TD;A_default_node-->B(This node has a default as text);
+---
+graph TD;A_linkStyle_node-->B(This node has a linkStyle as text);
+---
+graph TD;A_interpolate_node-->B(This node has a interpolate as text);
+---
+graph TD;A_classDef_node-->B(This node has a classDef as text);
+---
+graph TD;A_class_node-->B(This node has a class as text);
+---
+graph TD;A_href_node-->B(This node has a href as text);
+---
+graph TD;A_call_node-->B(This node has a call as text);
+---
+graph TD;A_click_node-->B(This node has a click as text);
+---
+graph TD;A__self_node-->B(This node has a _self as text);
+---
+graph TD;A__blank_node-->B(This node has a _blank as text);
+---
+graph TD;A__parent_node-->B(This node has a _parent as text);
+---
+graph TD;A__top_node-->B(This node has a _top as text);
+---
+graph TD;A_end_node-->B(This node has a end as text);
+---
+graph TD;A_subgraph_node-->B(This node has a subgraph as text);
+---
+graph TD;A_kitty_node-->B(This node has a kitty as text);
+---
+graph TD;A_graph_node-->B{This node has a graph as text};
+---
+graph TD;A_flowchart_node-->B{This node has a flowchart as text};
+---
+graph TD;A_flowchart-elk_node-->B{This node has a flowchart-elk as text};
+---
+graph TD;A_style_node-->B{This node has a style as text};
+---
+graph TD;A_default_node-->B{This node has a default as text};
+---
+graph TD;A_linkStyle_node-->B{This node has a linkStyle as text};
+---
+graph TD;A_interpolate_node-->B{This node has a interpolate as text};
+---
+graph TD;A_classDef_node-->B{This node has a classDef as text};
+---
+graph TD;A_class_node-->B{This node has a class as text};
+---
+graph TD;A_href_node-->B{This node has a href as text};
+---
+graph TD;A_call_node-->B{This node has a call as text};
+---
+graph TD;A_click_node-->B{This node has a click as text};
+---
+graph TD;A__self_node-->B{This node has a _self as text};
+---
+graph TD;A__blank_node-->B{This node has a _blank as text};
+---
+graph TD;A__parent_node-->B{This node has a _parent as text};
+---
+graph TD;A__top_node-->B{This node has a _top as text};
+---
+graph TD;A_end_node-->B{This node has a end as text};
+---
+graph TD;A_subgraph_node-->B{This node has a subgraph as text};
+---
+graph TD;A_kitty_node-->B{This node has a kitty as text};
+---
+graph TD;A_graph_node-->B(-This node has a graph as text-);
+---
+graph TD;A_flowchart_node-->B(-This node has a flowchart as text-);
+---
+graph TD;A_flowchart-elk_node-->B(-This node has a flowchart-elk as text-);
+---
+graph TD;A_style_node-->B(-This node has a style as text-);
+---
+graph TD;A_default_node-->B(-This node has a default as text-);
+---
+graph TD;A_linkStyle_node-->B(-This node has a linkStyle as text-);
+---
+graph TD;A_interpolate_node-->B(-This node has a interpolate as text-);
+---
+graph TD;A_classDef_node-->B(-This node has a classDef as text-);
+---
+graph TD;A_class_node-->B(-This node has a class as text-);
+---
+graph TD;A_href_node-->B(-This node has a href as text-);
+---
+graph TD;A_call_node-->B(-This node has a call as text-);
+---
+graph TD;A_click_node-->B(-This node has a click as text-);
+---
+graph TD;A__self_node-->B(-This node has a _self as text-);
+---
+graph TD;A__blank_node-->B(-This node has a _blank as text-);
+---
+graph TD;A__parent_node-->B(-This node has a _parent as text-);
+---
+graph TD;A__top_node-->B(-This node has a _top as text-);
+---
+graph TD;A_end_node-->B(-This node has a end as text-);
+---
+graph TD;A_subgraph_node-->B(-This node has a subgraph as text-);
+---
+graph TD;A_kitty_node-->B(-This node has a kitty as text-);
+---
+graph TD;A_graph_node-->B([This node has a graph as text]);
+---
+graph TD;A_flowchart_node-->B([This node has a flowchart as text]);
+---
+graph TD;A_flowchart-elk_node-->B([This node has a flowchart-elk as text]);
+---
+graph TD;A_style_node-->B([This node has a style as text]);
+---
+graph TD;A_default_node-->B([This node has a default as text]);
+---
+graph TD;A_linkStyle_node-->B([This node has a linkStyle as text]);
+---
+graph TD;A_interpolate_node-->B([This node has a interpolate as text]);
+---
+graph TD;A_classDef_node-->B([This node has a classDef as text]);
+---
+graph TD;A_class_node-->B([This node has a class as text]);
+---
+graph TD;A_href_node-->B([This node has a href as text]);
+---
+graph TD;A_call_node-->B([This node has a call as text]);
+---
+graph TD;A_click_node-->B([This node has a click as text]);
+---
+graph TD;A__self_node-->B([This node has a _self as text]);
+---
+graph TD;A__blank_node-->B([This node has a _blank as text]);
+---
+graph TD;A__parent_node-->B([This node has a _parent as text]);
+---
+graph TD;A__top_node-->B([This node has a _top as text]);
+---
+graph TD;A_end_node-->B([This node has a end as text]);
+---
+graph TD;A_subgraph_node-->B([This node has a subgraph as text]);
+---
+graph TD;A_kitty_node-->B([This node has a kitty as text]);
+---
+graph TD;A_graph_node-->B>This node has a graph as text];
+---
+graph TD;A_flowchart_node-->B>This node has a flowchart as text];
+---
+graph TD;A_flowchart-elk_node-->B>This node has a flowchart-elk as text];
+---
+graph TD;A_style_node-->B>This node has a style as text];
+---
+graph TD;A_default_node-->B>This node has a default as text];
+---
+graph TD;A_linkStyle_node-->B>This node has a linkStyle as text];
+---
+graph TD;A_interpolate_node-->B>This node has a interpolate as text];
+---
+graph TD;A_classDef_node-->B>This node has a classDef as text];
+---
+graph TD;A_class_node-->B>This node has a class as text];
+---
+graph TD;A_href_node-->B>This node has a href as text];
+---
+graph TD;A_call_node-->B>This node has a call as text];
+---
+graph TD;A_click_node-->B>This node has a click as text];
+---
+graph TD;A__self_node-->B>This node has a _self as text];
+---
+graph TD;A__blank_node-->B>This node has a _blank as text];
+---
+graph TD;A__parent_node-->B>This node has a _parent as text];
+---
+graph TD;A__top_node-->B>This node has a _top as text];
+---
+graph TD;A_end_node-->B>This node has a end as text];
+---
+graph TD;A_subgraph_node-->B>This node has a subgraph as text];
+---
+graph TD;A_kitty_node-->B>This node has a kitty as text];
+---
+graph TD;A_graph_node-->B[(This node has a graph as text)];
+---
+graph TD;A_flowchart_node-->B[(This node has a flowchart as text)];
+---
+graph TD;A_flowchart-elk_node-->B[(This node has a flowchart-elk as text)];
+---
+graph TD;A_style_node-->B[(This node has a style as text)];
+---
+graph TD;A_default_node-->B[(This node has a default as text)];
+---
+graph TD;A_linkStyle_node-->B[(This node has a linkStyle as text)];
+---
+graph TD;A_interpolate_node-->B[(This node has a interpolate as text)];
+---
+graph TD;A_classDef_node-->B[(This node has a classDef as text)];
+---
+graph TD;A_class_node-->B[(This node has a class as text)];
+---
+graph TD;A_href_node-->B[(This node has a href as text)];
+---
+graph TD;A_call_node-->B[(This node has a call as text)];
+---
+graph TD;A_click_node-->B[(This node has a click as text)];
+---
+graph TD;A__self_node-->B[(This node has a _self as text)];
+---
+graph TD;A__blank_node-->B[(This node has a _blank as text)];
+---
+graph TD;A__parent_node-->B[(This node has a _parent as text)];
+---
+graph TD;A__top_node-->B[(This node has a _top as text)];
+---
+graph TD;A_end_node-->B[(This node has a end as text)];
+---
+graph TD;A_subgraph_node-->B[(This node has a subgraph as text)];
+---
+graph TD;A_kitty_node-->B[(This node has a kitty as text)];
+---
+graph TD;A_graph_node-->B(((This node has a graph as text)));
+---
+graph TD;A_flowchart_node-->B(((This node has a flowchart as text)));
+---
+graph TD;A_flowchart-elk_node-->B(((This node has a flowchart-elk as text)));
+---
+graph TD;A_style_node-->B(((This node has a style as text)));
+---
+graph TD;A_default_node-->B(((This node has a default as text)));
+---
+graph TD;A_linkStyle_node-->B(((This node has a linkStyle as text)));
+---
+graph TD;A_interpolate_node-->B(((This node has a interpolate as text)));
+---
+graph TD;A_classDef_node-->B(((This node has a classDef as text)));
+---
+graph TD;A_class_node-->B(((This node has a class as text)));
+---
+graph TD;A_href_node-->B(((This node has a href as text)));
+---
+graph TD;A_call_node-->B(((This node has a call as text)));
+---
+graph TD;A_click_node-->B(((This node has a click as text)));
+---
+graph TD;A__self_node-->B(((This node has a _self as text)));
+---
+graph TD;A__blank_node-->B(((This node has a _blank as text)));
+---
+graph TD;A__parent_node-->B(((This node has a _parent as text)));
+---
+graph TD;A__top_node-->B(((This node has a _top as text)));
+---
+graph TD;A_end_node-->B(((This node has a end as text)));
+---
+graph TD;A_subgraph_node-->B(((This node has a subgraph as text)));
+---
+graph TD;A_kitty_node-->B(((This node has a kitty as text)));
+---
+graph TD;A_graph_node-->B[/This node has a graph as text\];
+---
+graph TD;A_flowchart_node-->B[/This node has a flowchart as text\];
+---
+graph TD;A_flowchart-elk_node-->B[/This node has a flowchart-elk as text\];
+---
+graph TD;A_style_node-->B[/This node has a style as text\];
+---
+graph TD;A_default_node-->B[/This node has a default as text\];
+---
+graph TD;A_linkStyle_node-->B[/This node has a linkStyle as text\];
+---
+graph TD;A_interpolate_node-->B[/This node has a interpolate as text\];
+---
+graph TD;A_classDef_node-->B[/This node has a classDef as text\];
+---
+graph TD;A_class_node-->B[/This node has a class as text\];
+---
+graph TD;A_href_node-->B[/This node has a href as text\];
+---
+graph TD;A_call_node-->B[/This node has a call as text\];
+---
+graph TD;A_click_node-->B[/This node has a click as text\];
+---
+graph TD;A__self_node-->B[/This node has a _self as text\];
+---
+graph TD;A__blank_node-->B[/This node has a _blank as text\];
+---
+graph TD;A__parent_node-->B[/This node has a _parent as text\];
+---
+graph TD;A__top_node-->B[/This node has a _top as text\];
+---
+graph TD;A_end_node-->B[/This node has a end as text\];
+---
+graph TD;A_subgraph_node-->B[/This node has a subgraph as text\];
+---
+graph TD;A_kitty_node-->B[/This node has a kitty as text\];
+---
+graph TD;A_graph_node-->B[\This node has a graph as text/];
+---
+graph TD;A_flowchart_node-->B[\This node has a flowchart as text/];
+---
+graph TD;A_flowchart-elk_node-->B[\This node has a flowchart-elk as text/];
+---
+graph TD;A_style_node-->B[\This node has a style as text/];
+---
+graph TD;A_default_node-->B[\This node has a default as text/];
+---
+graph TD;A_linkStyle_node-->B[\This node has a linkStyle as text/];
+---
+graph TD;A_interpolate_node-->B[\This node has a interpolate as text/];
+---
+graph TD;A_classDef_node-->B[\This node has a classDef as text/];
+---
+graph TD;A_class_node-->B[\This node has a class as text/];
+---
+graph TD;A_href_node-->B[\This node has a href as text/];
+---
+graph TD;A_call_node-->B[\This node has a call as text/];
+---
+graph TD;A_click_node-->B[\This node has a click as text/];
+---
+graph TD;A__self_node-->B[\This node has a _self as text/];
+---
+graph TD;A__blank_node-->B[\This node has a _blank as text/];
+---
+graph TD;A__parent_node-->B[\This node has a _parent as text/];
+---
+graph TD;A__top_node-->B[\This node has a _top as text/];
+---
+graph TD;A_end_node-->B[\This node has a end as text/];
+---
+graph TD;A_subgraph_node-->B[\This node has a subgraph as text/];
+---
+graph TD;A_kitty_node-->B[\This node has a kitty as text/];
+---
+graph TD;A_graph_node-->B[/This node has a graph as text/];
+---
+graph TD;A_flowchart_node-->B[/This node has a flowchart as text/];
+---
+graph TD;A_flowchart-elk_node-->B[/This node has a flowchart-elk as text/];
+---
+graph TD;A_style_node-->B[/This node has a style as text/];
+---
+graph TD;A_default_node-->B[/This node has a default as text/];
+---
+graph TD;A_linkStyle_node-->B[/This node has a linkStyle as text/];
+---
+graph TD;A_interpolate_node-->B[/This node has a interpolate as text/];
+---
+graph TD;A_classDef_node-->B[/This node has a classDef as text/];
+---
+graph TD;A_class_node-->B[/This node has a class as text/];
+---
+graph TD;A_href_node-->B[/This node has a href as text/];
+---
+graph TD;A_call_node-->B[/This node has a call as text/];
+---
+graph TD;A_click_node-->B[/This node has a click as text/];
+---
+graph TD;A__self_node-->B[/This node has a _self as text/];
+---
+graph TD;A__blank_node-->B[/This node has a _blank as text/];
+---
+graph TD;A__parent_node-->B[/This node has a _parent as text/];
+---
+graph TD;A__top_node-->B[/This node has a _top as text/];
+---
+graph TD;A_end_node-->B[/This node has a end as text/];
+---
+graph TD;A_subgraph_node-->B[/This node has a subgraph as text/];
+---
+graph TD;A_kitty_node-->B[/This node has a kitty as text/];
+---
+graph TD;A_graph_node-->B[\This node has a graph as text\];
+---
+graph TD;A_flowchart_node-->B[\This node has a flowchart as text\];
+---
+graph TD;A_flowchart-elk_node-->B[\This node has a flowchart-elk as text\];
+---
+graph TD;A_style_node-->B[\This node has a style as text\];
+---
+graph TD;A_default_node-->B[\This node has a default as text\];
+---
+graph TD;A_linkStyle_node-->B[\This node has a linkStyle as text\];
+---
+graph TD;A_interpolate_node-->B[\This node has a interpolate as text\];
+---
+graph TD;A_classDef_node-->B[\This node has a classDef as text\];
+---
+graph TD;A_class_node-->B[\This node has a class as text\];
+---
+graph TD;A_href_node-->B[\This node has a href as text\];
+---
+graph TD;A_call_node-->B[\This node has a call as text\];
+---
+graph TD;A_click_node-->B[\This node has a click as text\];
+---
+graph TD;A__self_node-->B[\This node has a _self as text\];
+---
+graph TD;A__blank_node-->B[\This node has a _blank as text\];
+---
+graph TD;A__parent_node-->B[\This node has a _parent as text\];
+---
+graph TD;A__top_node-->B[\This node has a _top as text\];
+---
+graph TD;A_end_node-->B[\This node has a end as text\];
+---
+graph TD;A_subgraph_node-->B[\This node has a subgraph as text\];
+---
+graph TD;A_kitty_node-->B[\This node has a kitty as text\];
+---
+graph TD;A_graph_node-->B[[This node has a graph as text]];
+---
+graph TD;A_flowchart_node-->B[[This node has a flowchart as text]];
+---
+graph TD;A_flowchart-elk_node-->B[[This node has a flowchart-elk as text]];
+---
+graph TD;A_style_node-->B[[This node has a style as text]];
+---
+graph TD;A_default_node-->B[[This node has a default as text]];
+---
+graph TD;A_linkStyle_node-->B[[This node has a linkStyle as text]];
+---
+graph TD;A_interpolate_node-->B[[This node has a interpolate as text]];
+---
+graph TD;A_classDef_node-->B[[This node has a classDef as text]];
+---
+graph TD;A_class_node-->B[[This node has a class as text]];
+---
+graph TD;A_href_node-->B[[This node has a href as text]];
+---
+graph TD;A_call_node-->B[[This node has a call as text]];
+---
+graph TD;A_click_node-->B[[This node has a click as text]];
+---
+graph TD;A__self_node-->B[[This node has a _self as text]];
+---
+graph TD;A__blank_node-->B[[This node has a _blank as text]];
+---
+graph TD;A__parent_node-->B[[This node has a _parent as text]];
+---
+graph TD;A__top_node-->B[[This node has a _top as text]];
+---
+graph TD;A_end_node-->B[[This node has a end as text]];
+---
+graph TD;A_subgraph_node-->B[[This node has a subgraph as text]];
+---
+graph TD;A_kitty_node-->B[[This node has a kitty as text]];
+---
+graph TD;A_graph_node-->B{{This node has a graph as text}};
+---
+graph TD;A_flowchart_node-->B{{This node has a flowchart as text}};
+---
+graph TD;A_flowchart-elk_node-->B{{This node has a flowchart-elk as text}};
+---
+graph TD;A_style_node-->B{{This node has a style as text}};
+---
+graph TD;A_default_node-->B{{This node has a default as text}};
+---
+graph TD;A_linkStyle_node-->B{{This node has a linkStyle as text}};
+---
+graph TD;A_interpolate_node-->B{{This node has a interpolate as text}};
+---
+graph TD;A_classDef_node-->B{{This node has a classDef as text}};
+---
+graph TD;A_class_node-->B{{This node has a class as text}};
+---
+graph TD;A_href_node-->B{{This node has a href as text}};
+---
+graph TD;A_call_node-->B{{This node has a call as text}};
+---
+graph TD;A_click_node-->B{{This node has a click as text}};
+---
+graph TD;A__self_node-->B{{This node has a _self as text}};
+---
+graph TD;A__blank_node-->B{{This node has a _blank as text}};
+---
+graph TD;A__parent_node-->B{{This node has a _parent as text}};
+---
+graph TD;A__top_node-->B{{This node has a _top as text}};
+---
+graph TD;A_end_node-->B{{This node has a end as text}};
+---
+graph TD;A_subgraph_node-->B{{This node has a subgraph as text}};
+---
+graph TD;A_kitty_node-->B{{This node has a kitty as text}};
+---
+graph TD;A_graph_node-->B[|borders:lt|This node has a graph as text];
+---
+graph TD;A_flowchart_node-->B[|borders:lt|This node has a flowchart as text];
+---
+graph TD;A_flowchart-elk_node-->B[|borders:lt|This node has a flowchart-elk as text];
+---
+graph TD;A_style_node-->B[|borders:lt|This node has a style as text];
+---
+graph TD;A_default_node-->B[|borders:lt|This node has a default as text];
+---
+graph TD;A_linkStyle_node-->B[|borders:lt|This node has a linkStyle as text];
+---
+graph TD;A_interpolate_node-->B[|borders:lt|This node has a interpolate as text];
+---
+graph TD;A_classDef_node-->B[|borders:lt|This node has a classDef as text];
+---
+graph TD;A_class_node-->B[|borders:lt|This node has a class as text];
+---
+graph TD;A_href_node-->B[|borders:lt|This node has a href as text];
+---
+graph TD;A_call_node-->B[|borders:lt|This node has a call as text];
+---
+graph TD;A_click_node-->B[|borders:lt|This node has a click as text];
+---
+graph TD;A__self_node-->B[|borders:lt|This node has a _self as text];
+---
+graph TD;A__blank_node-->B[|borders:lt|This node has a _blank as text];
+---
+graph TD;A__parent_node-->B[|borders:lt|This node has a _parent as text];
+---
+graph TD;A__top_node-->B[|borders:lt|This node has a _top as text];
+---
+graph TD;A_end_node-->B[|borders:lt|This node has a end as text];
+---
+graph TD;A_subgraph_node-->B[|borders:lt|This node has a subgraph as text];
+---
+graph TD;A_kitty_node-->B[|borders:lt|This node has a kitty as text];
+---
+graph TD;A_node-->odd->Vertex Text];
+---
+graph TD;A_node-->B[/This node has a / as text/];
+---
+graph TD;A_node-->B[\This node has a \ as text\];
+---
+graph TD;A-->C{Chimpansen hoppar åäö-ÅÄÖ};
+---
+graph TD;A-->C(Chimpansen hoppar åäö  <br> -  ÅÄÖ);
+---
+graph TD;A-->C(Начало);
+---
+graph TD;A-->C(c:\windows);
+---
+graph TD;A-->C(some CAPS);
+---
+graph TD;A-->C(some URL);
+---
+graph TD;A--o|text space|B;
+ B-->|more text with space|C;
+---
+graph TD;A[chimpansen hoppar]-->C;
+---
+graph TD;A[chimpansen hoppar] --> C;
+---
+graph TD;A[chimpansen_hoppar] --> C;
+---
+graph TD;A["chimpansen hoppar ()[]"] --> C;
+---
+graph TD;A((chimpansen hoppar))-->C;
+---
+graph TD
+A(-this is an ellipse-)-->B
+---
+graph TD;A(chimpansen hoppar)-->C;
+---
+graph TD;A(?)-->|?|C;
+---
+graph TD;A(éèêàçô)-->|éèêàçô|C;
+---
+graph TD;A(,.?!+-*)-->|,.?!+-*|C;
+---
+
+    graph TD
+      A-->B-->C;
+    
+---
+
+    graph TD
+      A & B --> C;
+    
+---
+
+    graph TD
+      A-->B & C;
+    
+---
+
+    graph TD
+      A & B--> C & D;
+    
+---
+
+    graph TD
+      A --> B & B2 & C --> D2;
+    
+---
+
+    graph TD
+      A[ h ] -- hello --> B[" test "]:::exClass & C --> D;
+      classDef exClass background:#bbb,border:1px solid red;
+    
+---
+graph TD;
+ A-->B; 
+ B-->C;
+---
+swimlane-beta LR;A-->B;
+---
+graph TD
+endpoint --> sender
+---
+graph TD
+blend --> monograph
+---
+graph TD
+default --> monograph
+---
+graph TD;A(.)-->B;
+---
+graph TD;A(Start 103a.a1)-->B;
+---
+graph TD;A(:)-->B;
+---
+graph TD;A(,)-->B;
+---
+graph TD;A(a-b)-->B;
+---
+graph TD;A(+)-->B;
+---
+graph TD;A(*)-->B;
+---
+graph TD;A(<)-->B;
+---
+graph TD;A(&)-->B;
+---
+graph TD;
+  node1TB
+
+---
+graph TB;subgraph "number as labels";1;end;
+---
+graph LR
+      accTitle: Big decisions
+      accDescr: Flow chart of the decision making process
+      A[Hard] -->|Text| B(Round)
+      B --> C{Decision}
+      C -->|One| D[Result 1]
+      C -->|Two| E[Result 2]
+      
+---
+graph LR
+      accTitle: Big decisions
+
+      accDescr {
+        Flow chart of the decision making process
+        with a second line
+      }
+
+      A[Hard] -->|Text| B(Round)
+      B --> C{Decision}
+      C -->|One| D[Result 1]
+      C -->|Two| E[Result 2]
+
+---
+graph LR
+      __proto__ --> A;
+---
+graph LR
+      click __proto__ callback "__proto__";
+---
+graph LR
+      __proto__ --> A;
+      classDef __proto__ color:#ffffff,fill:#000000;
+      class __proto__ __proto__;
+---
+graph LR
+      __proto__ --> A;
+      subgraph __proto__
+        C --> D;
+      end;
+---
+graph LR
+      constructor --> A;
+---
+graph LR
+      click constructor callback "constructor";
+---
+graph LR
+      constructor --> A;
+      classDef constructor color:#ffffff,fill:#000000;
+      class constructor constructor;
+---
+graph LR
+      constructor --> A;
+      subgraph constructor
+        C --> D;
+      end;
+---
+graph TB
+subgraph One
+	a1-->a2
+end
+---
+graph TB
+subgraph One
+	a1-->a2-->a3
+end
+---
+graph TB
+subgraph "Some Title"
+	a1-->a2
+end
+---
+graph TB
+subgraph some-id[Some Title]
+	a1-->a2
+end
+---
+graph TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    subgraph 1test
+    A
+    end
+---
+graph TD;A-->B;subgraph myTitle;c-->d;end;
+---
+graph TD;A-->B;subgraph "title in quotes";c-->d;end;
+---
+graph TD;A-->B;subgraph old style that is broken;c-->d;end;
+---
+graph TD;A-->B;subgraph a-b-c;c-->d;end;
+---
+graph TD;A-->B;subgraph uid1[text of doom];c-->d;end;
+---
+graph TD;A-->B;subgraph uid2["text of doom"];c-->d;end;
+---
+graph TD;A-->B;subgraph uid2[textofdoom];c-->d;end;
+---
+graph TD
+A-->B
+subgraph myTitle
+
+ c-->d 
+end
+
+---
+graph TD
+A-->B
+subgraph myTitle   
+
+    c-->d 
+end
+
+---
+graph TD
+A-->B
+subgraph myTitle
+
+ c-->d 
+
+ subgraph inner
+
+   e-->f 
+ end 
+
+ subgraph inner
+
+   h-->i 
+ end 
+
+end
+
+---
+graph TD
+A-->B
+subgraph myTitle
+c-->d
+end;
+---
+graph TD
+A-->B
+subgraph myTitle
+c-- text -->d
+d-->e
+ end;
+---
+graph TD
+A-->B
+subgraph myTitle
+a & b --> c & e
+ end;
+---
+flowchart TB
+    subgraph A
+    b-->B
+    a
+    end
+    a-->c
+    subgraph B
+      c
+    end
+---
+flowchart TB
+    b-->B
+    a-->c
+    subgraph B
+      c
+    end
+    subgraph A
+        a
+        b
+        B
+    end
+---
+flowchart TB
+    subgraph B
+      c
+    end
+    a-->c
+    subgraph A
+      b-->B
+      a
+    end
+---
+
+      graph LR
+        subgraph WithTD
+          direction TD
+          A1 --> A2
+        end
+    
+---
+
+      graph TD
+        subgraph one [My Group]
+          A --> B
+        end
+        C --> A
+        one@{ view: collapsed }
+    

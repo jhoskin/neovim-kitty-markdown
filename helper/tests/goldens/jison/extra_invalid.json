@@ -1,0 +1,122 @@
+[
+  {
+    "grammar": "flow",
+    "note": "edge cut off at end of input",
+    "input": "graph TD\nA-->"
+  },
+  {
+    "grammar": "flow",
+    "note": "newline inside bracket text",
+    "input": "graph TD\nA[Some text\nB-->C"
+  },
+  {
+    "grammar": "flow",
+    "note": "long line: past and upcoming input both truncated",
+    "input": "graph LR\nA[very long label text here that goes on and on] --> B[another very long label text] ((C"
+  },
+  {
+    "grammar": "flow",
+    "note": "error on the third line",
+    "input": "graph TD\n  A --> B\n  C ==> D[a b]\n  E --- ;"
+  },
+  {
+    "grammar": "flow",
+    "note": "misplaced subgraph end",
+    "input": "flowchart LR\n  end\n  A --> B"
+  },
+  {
+    "grammar": "sequenceDiagram",
+    "note": "arrow without a target",
+    "input": "sequenceDiagram\nAlice->>Bob: hi\nBob-->>"
+  },
+  {
+    "grammar": "sequenceDiagram",
+    "note": "unknown statement",
+    "input": "sequenceDiagram\nAlice->>Bob: hi\n@@@"
+  },
+  {
+    "grammar": "stateDiagram",
+    "note": "transition without a target",
+    "input": "stateDiagram-v2\n[*] --> \nstate \"x\" as"
+  },
+  {
+    "grammar": "stateDiagram",
+    "note": "state name with a space: the lexer action throws",
+    "input": "stateDiagram-v2\nstate First state\n"
+  },
+  {
+    "grammar": "classDiagram",
+    "note": "end of input inside a class body",
+    "input": "classDiagram\nclass A {\n  +int x\n"
+  },
+  {
+    "grammar": "erDiagram",
+    "note": "relationship without a label",
+    "input": "erDiagram\nCUSTOMER ||--o{ ORDER : places\nCUSTOMER }|..|{ DELIVERY-ADDRESS"
+  },
+  {
+    "grammar": "gantt",
+    "note": "section without a name",
+    "input": "gantt\ndateFormat YYYY-MM-DD\nsection\n"
+  },
+  {
+    "grammar": "journey",
+    "note": "section without a name",
+    "input": "journey\ntitle My day\nsection\n:::"
+  },
+  {
+    "grammar": "mindmap",
+    "note": "unterminated icon",
+    "input": "mindmap\nroot((a))\n  ::icon("
+  },
+  {
+    "grammar": "xychart",
+    "note": "unterminated axis list",
+    "input": "xychart-beta\nx-axis [a, b\ny-axis"
+  },
+  {
+    "grammar": "quadrant",
+    "note": "two arrows on one axis",
+    "input": "quadrantChart\ntitle T\nx-axis Low --> High --> More"
+  },
+  {
+    "grammar": "requirementDiagram",
+    "note": "bad risk value",
+    "input": "requirementDiagram\nrequirement test_req {\nid: 1\ntext: the test text.\nrisk: hgh\n}"
+  },
+  {
+    "grammar": "block",
+    "note": "block without an id",
+    "input": "block-beta\ncolumns 3\na b c\nblock\n"
+  },
+  {
+    "grammar": "timeline",
+    "note": "section without a name",
+    "input": "timeline\ntitle x\nsection\n"
+  },
+  {
+    "grammar": "kanban",
+    "note": "unterminated node data",
+    "input": "kanban\n  Todo\n    [Create] @{ ticket: x"
+  },
+  {
+    "grammar": "sankey",
+    "note": "row without a value",
+    "input": "sankey-beta\na,b"
+  },
+  {
+    "grammar": "c4Diagram",
+    "note": "unclosed call",
+    "input": "C4Context\nPerson(customer, \"A\", \"B\"\n"
+  },
+  {
+    "grammar": "venn",
+    "note": "union without sets",
+    "input": "venn-beta\nunion\n"
+  },
+  {
+    "grammar": "ishikawa",
+    "note": "bare word",
+    "input": "ishikawa-beta\ncause"
+  }
+]
