@@ -4,10 +4,17 @@
 //! `getBoundingClientRect()` (HTML labels) or `getBBox()` (SVG text) in
 //! `rendering-elements/shapes/util.ts` `labelHelper`. The shapes only need
 //! the resulting box and the lines it holds, so that is the whole contract.
-//! The text package implements [`LabelMeasurer`] with rustybuzz; the tests
-//! use [`FixedMeasurer`], which charges a fixed advance per character.
+//! [`TextMetrics`] implements [`LabelMeasurer`] with rustybuzz (see
+//! [`measure_with_metrics`]); the tests use [`FixedMeasurer`], which
+//! charges a fixed advance per character.
 
-use crate::mermaid::scene::FontSpec;
+use crate::mermaid::scene::{
+    DEFAULT_FONT_FAMILY, FontSpec, FontStyle as SceneFontStyle, FontWeight,
+};
+use crate::text::markdown::{self, Line, WordType};
+use crate::text::measure::{
+    FontSpec as TextFont, FontStyle as TextStyle, HTML_LINE_HEIGHT, SVG_LINE_HEIGHT_EM, TextMetrics,
+};
 
 /// A width and a height in CSS pixels.
 #[derive(Debug, Clone, Copy, PartialEq, Default)]
@@ -106,8 +113,8 @@ impl Default for LabelOpts {
     }
 }
 
-/// The text package implements this. The lead wires
-/// `crate::text::measure::TextMetrics` to it at integration.
+/// The measurer the shapes draw with: [`TextMetrics`] in the helper,
+/// [`FixedMeasurer`] in the snapshot tests.
 pub trait LabelMeasurer {
     /// Measures `text` as `createText` would and returns the box with its
     /// wrapped lines. An empty `text` returns a zero box with no lines.
@@ -259,5 +266,265 @@ mod tests {
         };
         let b = m.measure("abcd", &opts);
         assert_eq!(b.x, -16.0);
+    }
+}
+
+// ---------------------------------------------------------------------------
+// The real measurer
+
+/// The root `font-size` of mermaid's default theme, for a font with none.
+const DEFAULT_FONT_SIZE: f64 = 16.0;
+
+/// The browser font a label is measured with. `ShapeCtx::font()` carries
+/// the theme's size and leaves the family unset so the drawn text inherits
+/// it from the root; the measurer needs it, so `family` fills that gap.
+fn text_font(font: &FontSpec, family: &str) -> TextFont {
+    let weight = match font.weight {
+        Some(FontWeight::Bold) => 700,
+        Some(FontWeight::Number(n)) => n,
+        Some(FontWeight::Normal) | None => 400,
+    };
+    let style = match font.style {
+        Some(SceneFontStyle::Italic | SceneFontStyle::Oblique) => TextStyle::Italic,
+        Some(SceneFontStyle::Normal) | None => TextStyle::Normal,
+    };
+    TextFont::new(
+        font.family.as_deref().unwrap_or(family),
+        font.size.unwrap_or(DEFAULT_FONT_SIZE) as f32,
+    )
+    .weight(weight)
+    .style(style)
+}
+
+fn label_lines(lines: &[Line], width: impl Fn(&Line) -> f32) -> Vec<LabelLine> {
+    lines
+        .iter()
+        .map(|line| LabelLine {
+            runs: line
+                .iter()
+                .map(|word| LabelRun {
+                    text: word.content.clone(),
+                    bold: word.kind == WordType::Strong,
+                    italic: word.kind == WordType::Em,
+                })
+                .collect(),
+            width: f64::from(width(line)),
+        })
+        .collect()
+}
+
+/// `createText` followed by the read `labelHelper` makes, through the
+/// browser-equivalent [`TextMetrics`].
+///
+/// HTML labels (`useHtmlLabels`): `markdownToHTML` or `nonMarkdownToHTML`,
+/// then `addHtmlSpan` lays the HTML out as a `table-cell` with `nowrap`
+/// and `line-height: 1.5`, switching to a wrapping `table` of `width` when
+/// the text reaches it, and `getBoundingClientRect()` is read. SVG labels:
+/// `<br>` tags are normalised, `markdownToLines` or `nonMarkdownToLines`
+/// split the text, `createFormattedText` puts every line in a tspan 1.1 em
+/// below the previous one, and `getBBox()` of the `<text>` is read; its
+/// `x` is `-width / 2` because `.node .label text { text-anchor: middle }`
+/// centres each tspan on `x = 0`, and its `y` is the first baseline minus
+/// the first line's ascent (the tspan's `y="-0.1em"` and `dy="1.1em"`
+/// put that baseline at 1 em). `minWidth` widens the box as `withMinWidth`
+/// does: an HTML rect keeps its `left`, an SVG rect stays centred.
+pub fn measure_with_metrics(
+    metrics: &TextMetrics<'_>,
+    text: &str,
+    opts: &LabelOpts,
+    family: &str,
+) -> LabelBox {
+    let spec = text_font(&opts.font, family);
+    let size = f64::from(spec.size);
+    let line_height = if opts.html {
+        f64::from(HTML_LINE_HEIGHT) * size
+    } else {
+        f64::from(SVG_LINE_HEIGHT_EM) * size
+    };
+    if text.is_empty() {
+        return LabelBox {
+            line_height,
+            ..LabelBox::default()
+        };
+    }
+    let (y, mut width, height, lines) = if opts.html {
+        let html = if opts.markdown {
+            markdown::markdown_to_html(text)
+        } else {
+            markdown::non_markdown_to_html(text)
+        };
+        let structured = markdown::html_to_lines(&html);
+        let label = metrics.html_label(&structured, &spec, opts.width.map(|w| w as f32));
+        let lines = label_lines(&label.lines, |line| metrics.words_width(line, &spec));
+        (0.0, f64::from(label.width), f64::from(label.height), lines)
+    } else {
+        let normalized = markdown::normalize_breaks(text);
+        let structured = if opts.markdown {
+            markdown::markdown_to_lines(&normalized)
+        } else {
+            markdown::non_markdown_to_lines(&normalized)
+        };
+        let max_width = opts.width.map_or(f32::INFINITY, |w| w as f32);
+        let label = metrics.svg_label(&structured, &spec, max_width);
+        let ascent = label
+            .lines
+            .iter()
+            .find(|line| !line.is_empty())
+            .map_or(0.0, |line| {
+                line.iter()
+                    .map(|word| {
+                        metrics
+                            .shape(&word.content, &spec.for_word(word.kind))
+                            .ascent
+                    })
+                    .fold(0.0, f32::max)
+            });
+        let y = if label.height > 0.0 {
+            size - f64::from(ascent)
+        } else {
+            0.0
+        };
+        let lines = label_lines(&label.lines, |line| {
+            metrics.compute_width_of_text(line, &spec)
+        });
+        (y, f64::from(label.width), f64::from(label.height), lines)
+    };
+    if width < opts.min_width {
+        width = opts.min_width;
+    }
+    LabelBox {
+        x: if opts.html { 0.0 } else { -width / 2.0 },
+        y,
+        width,
+        height,
+        line_height,
+        lines,
+    }
+}
+
+/// Labels measured in the default theme's family (`"trebuchet ms",
+/// verdana, arial, sans-serif`) when the font leaves it unset. A diagram
+/// with another `fontFamily` theme variable measures through
+/// [`ThemedMetrics`].
+impl LabelMeasurer for TextMetrics<'_> {
+    fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
+        measure_with_metrics(self, text, opts, DEFAULT_FONT_FAMILY)
+    }
+}
+
+/// [`TextMetrics`] bound to the theme's `fontFamily`, the family the
+/// `.label { font-family }` rule gives every label in the browser.
+pub struct ThemedMetrics<'m, 'f> {
+    pub metrics: &'m TextMetrics<'f>,
+    pub family: String,
+}
+
+impl<'m, 'f> ThemedMetrics<'m, 'f> {
+    pub fn new(metrics: &'m TextMetrics<'f>, family: impl Into<String>) -> ThemedMetrics<'m, 'f> {
+        ThemedMetrics {
+            metrics,
+            family: family.into(),
+        }
+    }
+}
+
+impl LabelMeasurer for ThemedMetrics<'_, '_> {
+    fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
+        measure_with_metrics(self.metrics, text, opts, &self.family)
+    }
+}
+
+#[cfg(test)]
+mod metrics_tests {
+    use super::*;
+    use crate::text::font_system;
+
+    fn open_sans_opts(html: bool) -> LabelOpts {
+        LabelOpts {
+            font: FontSpec {
+                family: Some("\"Open Sans\", sans-serif".to_string()),
+                size: Some(16.0),
+                ..FontSpec::default()
+            },
+            html,
+            width: Some(120.0),
+            min_width: 0.0,
+            markdown: true,
+        }
+    }
+
+    #[test]
+    fn html_label_is_one_and_a_half_em_per_line() {
+        let metrics = TextMetrics::new(font_system());
+        let b = metrics.measure("Hello", &open_sans_opts(true));
+        assert_eq!(b.height, 24.0);
+        assert_eq!(b.line_height, 24.0);
+        assert_eq!(b.x, 0.0);
+        assert_eq!(b.lines.len(), 1);
+        assert_eq!(b.lines[0].runs[0].text, "Hello");
+        assert_eq!(b.lines[0].width, b.width);
+        let two = metrics.measure("Hello<br>World", &open_sans_opts(true));
+        assert_eq!(two.height, 48.0);
+        assert_eq!(two.lines.len(), 2);
+    }
+
+    #[test]
+    fn svg_label_is_centred_with_the_bbox_y() {
+        let metrics = TextMetrics::new(font_system());
+        let b = metrics.measure("Hello", &open_sans_opts(false));
+        // Open Sans at 16 px: rounded hhea ascent 17, descent 5.
+        assert_eq!(b.height, 22.0);
+        assert_eq!(b.x, -b.width / 2.0);
+        assert_eq!(b.y, -1.0);
+        assert!((b.line_height - 17.6).abs() < 1e-6);
+    }
+
+    #[test]
+    fn min_width_widens_both_modes() {
+        let metrics = TextMetrics::new(font_system());
+        let mut opts = open_sans_opts(true);
+        opts.min_width = 120.0;
+        let html = metrics.measure("Hi", &opts);
+        assert_eq!((html.x, html.width), (0.0, 120.0));
+        opts.html = false;
+        let svg = metrics.measure("Hi", &opts);
+        assert_eq!((svg.x, svg.width), (-60.0, 120.0));
+    }
+
+    #[test]
+    fn markdown_runs_carry_their_style() {
+        let metrics = TextMetrics::new(font_system());
+        let b = metrics.measure("a **b** *c*", &open_sans_opts(true));
+        let runs = &b.lines[0].runs;
+        assert!(runs.iter().any(|r| r.bold && r.text.trim() == "b"));
+        assert!(runs.iter().any(|r| r.italic && r.text.trim() == "c"));
+        let plain = metrics.measure(
+            "a **b**",
+            &LabelOpts {
+                markdown: false,
+                ..open_sans_opts(true)
+            },
+        );
+        assert!(plain.lines[0].runs.iter().all(|r| !r.bold));
+    }
+
+    #[test]
+    fn empty_text_is_a_zero_box() {
+        let metrics = TextMetrics::new(font_system());
+        let b = metrics.measure("", &open_sans_opts(true));
+        assert_eq!((b.width, b.height), (0.0, 0.0));
+        assert!(b.lines.is_empty());
+        assert_eq!(b.line_height, 24.0);
+    }
+
+    #[test]
+    fn themed_metrics_fill_the_family() {
+        let metrics = TextMetrics::new(font_system());
+        let themed = ThemedMetrics::new(&metrics, "\"Open Sans\", sans-serif");
+        let mut opts = open_sans_opts(true);
+        opts.font.family = None;
+        let via_theme = themed.measure("Hello", &opts);
+        let direct = metrics.measure("Hello", &open_sans_opts(true));
+        assert_eq!(via_theme.width, direct.width);
     }
 }
