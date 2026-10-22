@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Edit(./SPEC.md)",
+      "Edit(./README.md)",
+      "Edit(./AGENTS.md)"
+    ],
+    "deny": [
+      "Read(./held_out/**)",
+      "Edit(./held_out/**)",
+      "Edit(./REVIEW.md)",
+      "Edit(./lua/**)",
+      "Edit(./plugin/**)",
+      "Edit(./doc/**)",
+      "Edit(./helper/**)",
+      "Edit(./tests/**)",
+      "Edit(./.claude/**)",
+      "Edit(./.github/**)"
+    ]
+  }
+}
