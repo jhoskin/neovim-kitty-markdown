@@ -21,6 +21,7 @@
 pub mod intersect;
 pub mod measure;
 pub mod util;
+pub mod vars;
 
 pub mod anchor;
 pub mod bang;
