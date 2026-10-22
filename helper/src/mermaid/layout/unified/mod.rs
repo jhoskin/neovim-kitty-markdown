@@ -15,6 +15,7 @@
 //! hand-places nodes for the tests until the dagre port is wired.
 
 pub mod clusters;
+pub mod dagre_adapter;
 pub mod graph;
 
 use std::collections::HashMap;
@@ -31,6 +32,7 @@ use crate::mermaid::scene::path::Command;
 use crate::mermaid::scene::{Common, Element, Group, Marker, Paint, Point, Style, TransformOp};
 use crate::mermaid::shapes::util::{BBox, path_bbox, points_bbox, translate};
 use crate::mermaid::shapes::{Bounds, Dir, Node, ShapeCtx, insert_node};
+pub use dagre_adapter::{DagreLayout, render_with_dagre};
 pub use graph::{EdgeKey, GraphLabel, SelfLoop, UEdge, UGraph, UNode};
 
 /// `LayoutData` of `rendering-util/types.ts`, the part the dagre renderer
