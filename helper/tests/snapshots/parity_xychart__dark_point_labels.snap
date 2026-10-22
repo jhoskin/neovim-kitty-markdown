@@ -2,7 +2,7 @@
 source: tests/parity_xychart.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="500" viewBox="0 0 700 500" font-family="Trebuchet MS">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="500" viewBox="0 0 700 500" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <g class="main">
     <rect class="background" x="0" y="0" width="700" height="500" fill="#333333"/>
     <g class="chart-title">

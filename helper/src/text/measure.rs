@@ -492,7 +492,7 @@ impl<'f> TextMetrics<'f> {
             return TextDimensions::default();
         }
         let lines = markdown::split_breaks(text);
-        let families = ["sans-serif", spec.family.as_str()];
+        let families = ["sans-serif", css_family_or_page_default(&spec.family)];
         let dims: Vec<TextDimensions> = families
             .iter()
             .map(|family| {
@@ -760,6 +760,37 @@ mod tests {
         assert_eq!(
             label.height,
             (label.lines.len() - 1) as f32 * SVG_LINE_HEIGHT_EM * 16.0 + 22.0
+        );
+    }
+}
+
+/// Chrome's CSS parser rejects a `font-family` value it cannot read, and
+/// `style.setProperty` then leaves the property unset. mermaid's default
+/// top-level `fontFamily` ends with a `;`, so `calculateTextDimensions`
+/// measures in the page default of mermaid-cli's headless page,
+/// `"Times New Roman", serif`, while the drawn text inherits the
+/// stylesheet's family (the theme variable, which has no `;`).
+pub fn css_family_or_page_default(family: &str) -> &str {
+    if family.contains(';') {
+        "\"Times New Roman\", serif"
+    } else {
+        family
+    }
+}
+
+#[cfg(test)]
+mod css_family_tests {
+    use super::css_family_or_page_default;
+
+    #[test]
+    fn a_trailing_semicolon_falls_back_to_the_page_default() {
+        assert_eq!(
+            css_family_or_page_default("\"trebuchet ms\", verdana, arial, sans-serif;"),
+            "\"Times New Roman\", serif"
+        );
+        assert_eq!(
+            css_family_or_page_default("\"trebuchet ms\", verdana, arial, sans-serif"),
+            "\"trebuchet ms\", verdana, arial, sans-serif"
         );
     }
 }

@@ -14,10 +14,10 @@
 
 mod common;
 
-use image::{Rgba, RgbaImage};
+use image::RgbaImage;
 use kitty_markdown_helper::mermaid::config::{BaseConfig, resolve};
 use kitty_markdown_helper::mermaid::diagrams::{self, RenderCtx};
-use kitty_markdown_helper::mermaid::raster::{Background, OutputSize, RasterOpts, render_rgba};
+use kitty_markdown_helper::mermaid::raster::{Background, RasterOpts, render_rgba};
 use kitty_markdown_helper::mermaid::scene::{Color, Scene};
 use kitty_markdown_helper::mermaid::{self, raster};
 use kitty_markdown_helper::text::{self, TextMetrics};
@@ -25,7 +25,8 @@ use kitty_markdown_helper::text::{self, TextMetrics};
 use common::{Case, SSIM_THRESHOLD, assert_ssim};
 
 /// The oracle's `--size`: the longer side of the helper's natural render.
-const SHRINK_PX: u32 = 8;
+/// The width `goldens.mjs` renders the helper with before it sizes the oracle.
+const HARNESS_WIDTH: u32 = 960;
 
 fn scene_for(source: &str) -> Scene {
     let resolved = resolve(source, &BaseConfig::new("default")).expect("config resolves");
@@ -39,24 +40,18 @@ fn scene_for(source: &str) -> Scene {
     diagram.render(&resolved, &ctx).expect("xychart renders")
 }
 
-/// The helper's PNG framed the way the oracle frames its screenshot.
-fn framed_render(scene: &Scene) -> RgbaImage {
-    let natural = OutputSize::natural(scene.width, scene.height);
-    let size = natural.oracle_size();
-    let target = OutputSize::for_target(scene.width, scene.height, size - SHRINK_PX);
-    let inner = render_rgba(
+/// The helper's PNG at the width the golden harness renders with; the
+/// shared `assert_ssim` crops the oracle image to this size.
+fn render_at_harness_width(scene: &Scene) -> RgbaImage {
+    render_rgba(
         scene,
         mermaid::fontdb(),
         &RasterOpts {
-            target_width: Some(target.width),
+            target_width: Some(HARNESS_WIDTH),
             background: Some(Background::Color(Color::WHITE)),
         },
     )
-    .expect("raster");
-    let mut framed =
-        RgbaImage::from_pixel(natural.width, natural.height, Rgba([255, 255, 255, 255]));
-    image::imageops::overlay(&mut framed, &inner, 0, 0);
-    framed
+    .expect("raster")
 }
 
 fn snapshot(case: &Case) {
@@ -78,7 +73,7 @@ fn ssim_against_oracle() {
     let cases = skip_if_no_goldens!("xychart");
     for case in &cases {
         let scene = scene_for(&case.source());
-        let actual = framed_render(&scene);
+        let actual = render_at_harness_width(&scene);
         assert_ssim(
             &actual,
             &case.goldens(),

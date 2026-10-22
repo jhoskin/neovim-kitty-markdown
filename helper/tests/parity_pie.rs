@@ -7,7 +7,7 @@ mod common;
 
 use std::path::{Path, PathBuf};
 
-use image::{Rgba, RgbaImage};
+use image::RgbaImage;
 use kitty_markdown_helper::mermaid::config::{self, BaseConfig};
 use kitty_markdown_helper::mermaid::diagrams::{self, RenderCtx};
 use kitty_markdown_helper::mermaid::raster::Background;
@@ -61,34 +61,21 @@ fn pie_scene_snapshots() {
     }
 }
 
-/// mermaid-cli 12.0.0 measures the SVG clip in a `size + 16` viewport,
-/// then narrows the viewport to the clip, which shrinks the `width="100%"`
-/// SVG by 8 px before the screenshot while the clip keeps its size. Every
-/// golden is therefore the diagram at `(width - 8) / width` with 8 px of
-/// white on the right and the bottom. The helper output is framed the same
-/// way here, as the coordinator asked while the quadrant package moves this
-/// into the shared harness (`goldens.mjs` and `tests/common`).
-const ORACLE_SHRINK_PX: u32 = 8;
+/// The helper's PNG at the width the golden harness renders with; the
+/// shared `assert_ssim` crops the oracle image to this size.
+const HARNESS_WIDTH: u32 = 960;
 
-fn framed_render(source: &str, golden: &RgbaImage) -> RgbaImage {
+fn render_at_harness_width(source: &str) -> RgbaImage {
     let out = mermaid::render(&RenderRequest {
         source,
-        width_px: golden.width() - ORACLE_SHRINK_PX,
+        width_px: HARNESS_WIDTH,
         theme: "default",
         background: Background::default(),
     })
     .expect("pie renders");
-    let inner = image::load_from_memory(&out.png)
+    image::load_from_memory(&out.png)
         .expect("helper PNG decodes")
-        .to_rgba8();
-    let mut framed =
-        RgbaImage::from_pixel(golden.width(), golden.height(), Rgba([255, 255, 255, 255]));
-    for (x, y, px) in inner.enumerate_pixels() {
-        if x < framed.width() && y < framed.height() {
-            framed.put_pixel(x, y, *px);
-        }
-    }
-    framed
+        .to_rgba8()
 }
 
 #[test]
@@ -97,7 +84,7 @@ fn pie_ssim_against_the_oracle() {
     let cases = skip_if_no_goldens!("pie");
     for case in cases {
         let goldens = case.goldens();
-        let actual = framed_render(&case.source(), &goldens[0]);
+        let actual = render_at_harness_width(&case.source());
         assert_ssim(
             &actual,
             &goldens,

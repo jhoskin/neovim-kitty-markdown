@@ -15,7 +15,6 @@ use crate::mermaid::diagrams::{Diagram, RenderCtx};
 use crate::mermaid::jison;
 use crate::mermaid::scene::{DEFAULT_FONT_FAMILY, Scene};
 use crate::mermaid::styles::xychart::theme_config;
-use usvg::fontdb::{Style, Weight};
 
 use actions::XyActions;
 use db::Db;
@@ -58,14 +57,8 @@ impl Diagram for XyChart {
             .theme_variables
             .str("fontFamily")
             .unwrap_or(DEFAULT_FONT_FAMILY);
-        // The measurer matches the CSS chain case-insensitively, but resvg
-        // queries fontdb by exact name, so the scene names the face that
-        // the measurer picked.
-        let scene_family = ctx
-            .fonts
-            .resolve(family, Weight::NORMAL, Style::Normal)
-            .and_then(|id| ctx.fonts.family_name(id))
-            .unwrap_or_else(|| family.to_string());
-        render::draw(&db, &ctx.metrics, family, &scene_family)
+        // The shared font database carries lower-case aliases, so the scene
+        // keeps mermaid's CSS chain and resvg resolves it like a browser.
+        render::draw(&db, &ctx.metrics, family, family)
     }
 }
