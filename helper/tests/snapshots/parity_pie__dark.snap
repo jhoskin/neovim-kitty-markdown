@@ -1,0 +1,32 @@
+---
+source: tests/parity_pie.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="591.314" height="450" viewBox="0 0 591.314 450" font-family="&quot;Trebuchet MS&quot;, &quot;Verdana&quot;, &quot;Arial&quot;, sans-serif">
+  <g>
+    <g transform="translate(225, 225)">
+      <g>
+        <circle class="pieOuterCircle" cx="0" cy="0" r="186" fill="none" stroke="#000000" stroke-width="2"/>
+        <path class="pieCircle" d="M0,-185A185,185,0,1,1,-177.899,-50.763L0,0Z" fill="#0b0000" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M-177.899,-50.763A185,185,0,0,1,-35.652,-181.532L0,0Z" fill="#4d1037" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M-35.652,-181.532A185,185,0,0,1,0,-185L0,0Z" fill="#3f5258" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <text class="slice" transform="translate(83.573, 110.757)" x="0" y="0" text-anchor="middle" fill="#cccccc" font-size="17">79%</text>
+        <text class="slice" transform="translate(-93.903, -102.146)" x="0" y="0" text-anchor="middle" fill="#cccccc" font-size="17">17%</text>
+        <text class="slice" transform="translate(-13.433, -138.098)" x="0" y="0" text-anchor="middle" fill="#cccccc" font-size="17">3%</text>
+      </g>
+      <text class="pieTitleText" x="0" y="-200" text-anchor="middle" fill="#d3d3d3" font-size="25">Dark theme</text>
+      <g class="legend" transform="translate(216, -33)">
+        <rect x="0" y="0" width="18" height="18" fill="#0b0000" stroke="#0b0000"/>
+        <text class="legendText" x="22" y="14" fill="#d3d3d3" font-size="17">Dogs [386]</text>
+      </g>
+      <g class="legend" transform="translate(216, -11)">
+        <rect x="0" y="0" width="18" height="18" fill="#4d1037" stroke="#4d1037"/>
+        <text class="legendText" x="22" y="14" fill="#d3d3d3" font-size="17">Cats [85]</text>
+      </g>
+      <g class="legend" transform="translate(216, 11)">
+        <rect x="0" y="0" width="18" height="18" fill="#3f5258" stroke="#3f5258"/>
+        <text class="legendText" x="22" y="14" fill="#d3d3d3" font-size="17">Rats [15]</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,38 @@
+---
+source: tests/parity_pie.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="654.724" height="450" viewBox="0 0 654.724 450" font-family="&quot;Trebuchet MS&quot;, &quot;Verdana&quot;, &quot;Arial&quot;, sans-serif">
+  <g>
+    <g transform="translate(225, 225)">
+      <g>
+        <circle class="pieOuterCircle" cx="0" cy="0" r="187.5" fill="none" stroke="#000000" stroke-width="5"/>
+        <path class="pieCircle" d="M0,-185A185,185,0,0,1,110.888,148.084L22.178,29.617A37,37,0,0,0,0,-37Z" fill="#ececff" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle highlighted" transform="scale(1.05, 1.05)" d="M110.888,148.084A185,185,0,0,1,-141.768,-118.856L-28.354,-23.771A37,37,0,0,0,22.178,29.617Z" fill="#ffffde" stroke="#000000" stroke-width="2" opacity="1"/>
+        <path class="pieCircle" d="M-141.768,-118.856A185,185,0,0,1,-53.049,-177.231L-10.61,-35.446A37,37,0,0,0,-28.354,-23.771Z" fill="#b5ff20" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M-53.049,-177.231A185,185,0,0,1,0,-185L0,-37A37,37,0,0,0,-10.61,-35.446Z" fill="#b9b9ff" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <text class="slice" transform="translate(87.764, -29.218)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">40%</text>
+        <text class="slice" transform="translate(-67.18, 63.585)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">46%</text>
+        <text class="slice" transform="translate(-50.844, -77.273)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">9%</text>
+        <text class="slice" transform="translate(-13.404, -91.524)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">5%</text>
+      </g>
+      <text class="pieTitleText" x="0" y="-200" text-anchor="middle" fill="#000000" font-size="25">Key elements in Product X</text>
+      <g class="legend" transform="translate(216, -44)">
+        <rect x="0" y="0" width="18" height="18" fill="#ececff" stroke="#ececff"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Calcium [42.96]</text>
+      </g>
+      <g class="legend" transform="translate(216, -22)">
+        <rect x="0" y="0" width="18" height="18" fill="#ffffde" stroke="#ffffde"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Potassium [50.05]</text>
+      </g>
+      <g class="legend" transform="translate(216, 0)">
+        <rect x="0" y="0" width="18" height="18" fill="#b5ff20" stroke="#b5ff20"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Magnesium [10.01]</text>
+      </g>
+      <g class="legend" transform="translate(216, 22)">
+        <rect x="0" y="0" width="18" height="18" fill="#b9b9ff" stroke="#b9b9ff"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Iron [5]</text>
+      </g>
+    </g>
+  </g>
+</svg>

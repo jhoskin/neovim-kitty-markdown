@@ -1,0 +1,32 @@
+---
+source: tests/parity_pie.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="566.043" height="450" viewBox="0 0 566.043 450" font-family="&quot;Trebuchet MS&quot;, &quot;Verdana&quot;, &quot;Arial&quot;, sans-serif">
+  <g>
+    <g transform="translate(225, 225)">
+      <g>
+        <circle class="pieOuterCircle" cx="0" cy="0" r="187.5" fill="none" stroke="#000000" stroke-width="5"/>
+        <path class="pieCircle" d="M0,-185A185,185,0,1,1,0,185L0,0Z" fill="#ff0000" stroke="#333333" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M0,185A185,185,0,0,1,-175.945,-57.168L0,0Z" fill="#00aa00" stroke="#333333" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M-175.945,-57.168A185,185,0,0,1,0,-185L0,0Z" fill="#0000ff" stroke="#333333" stroke-width="2" opacity="0.7"/>
+        <text class="slice" transform="translate(92.5, 0)" x="0" y="0" text-anchor="middle" fill="#ffffff" font-size="17">50%</text>
+        <text class="slice" transform="translate(-74.834, 54.37)" x="0" y="0" text-anchor="middle" fill="#ffffff" font-size="17">30%</text>
+        <text class="slice" transform="translate(-54.37, -74.834)" x="0" y="0" text-anchor="middle" fill="#ffffff" font-size="17">20%</text>
+      </g>
+      <text class="pieTitleText" x="0" y="-200" text-anchor="middle" fill="#aa0000" font-size="25">Directive colors</text>
+      <g class="legend" transform="translate(216, -33)">
+        <rect x="0" y="0" width="18" height="18" fill="#ff0000" stroke="#ff0000"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="20">Red</text>
+      </g>
+      <g class="legend" transform="translate(216, -11)">
+        <rect x="0" y="0" width="18" height="18" fill="#00aa00" stroke="#00aa00"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="20">Green</text>
+      </g>
+      <g class="legend" transform="translate(216, 11)">
+        <rect x="0" y="0" width="18" height="18" fill="#0000ff" stroke="#0000ff"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="20">Blue</text>
+      </g>
+    </g>
+  </g>
+</svg>

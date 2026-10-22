@@ -1,0 +1,33 @@
+---
+source: tests/parity_pie.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="621.529" height="450" viewBox="0 0 621.529 450" font-family="&quot;Trebuchet MS&quot;, &quot;Verdana&quot;, &quot;Arial&quot;, sans-serif">
+  <g>
+    <g transform="translate(225, 225)">
+      <g>
+        <circle class="pieOuterCircle" cx="0" cy="0" r="186" fill="none" stroke="#000000" stroke-width="2"/>
+        <path class="pieCircle" d="M0,-185A185,185,0,0,1,158.733,95.021L0,0Z" fill="#b5ff20" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M158.733,95.021A185,185,0,1,1,0,-185L0,0Z" fill="#b9b9ff" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <text class="slice" transform="translate(120.706, -68.423)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">33%</text>
+        <text class="slice" transform="translate(-120.706, 68.423)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">66%</text>
+      </g>
+      <g class="legend" transform="translate(216, -44)">
+        <rect x="0" y="0" width="18" height="18" fill="#ececff" stroke="#ececff"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Half [0.5]</text>
+      </g>
+      <g class="legend" transform="translate(216, -22)">
+        <rect x="0" y="0" width="18" height="18" fill="#ffffde" stroke="#ffffde"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Quarter [0.25]</text>
+      </g>
+      <g class="legend" transform="translate(216, 0)">
+        <rect x="0" y="0" width="18" height="18" fill="#b5ff20" stroke="#b5ff20"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Third [33.333]</text>
+      </g>
+      <g class="legend" transform="translate(216, 22)">
+        <rect x="0" y="0" width="18" height="18" fill="#b9b9ff" stroke="#b9b9ff"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Rest [65.917]</text>
+      </g>
+    </g>
+  </g>
+</svg>
