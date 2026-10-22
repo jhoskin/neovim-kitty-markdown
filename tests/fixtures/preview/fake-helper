@@ -1,0 +1,4 @@
+#!/bin/sh
+# Runs the preview fake helper with the Neovim that runs the tests
+# (KM_NVIM), or with the nvim on PATH when the test did not set it.
+exec "${KM_NVIM:-nvim}" --clean -l "$(dirname "$0")/fake_helper.lua" "$@"
