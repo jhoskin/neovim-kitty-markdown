@@ -10,7 +10,7 @@ Screenshots: to come.
 
 ## Requirements
 
-- Neovim 0.11 or later, with the `markdown` and `markdown_inline`
+- Neovim 0.12 or later, with the `markdown` and `markdown_inline`
   tree-sitter parsers.
 - kitty, for inline images and diagrams. The text preview works in any
   terminal.
@@ -154,12 +154,14 @@ themes. Diagram types arrive in five phases:
 | 1     | flowchart, sequence, class, state                                                               |
 | 2     | ER, pie, gantt, xychart, quadrant                                                               |
 | 3     | gitgraph, mindmap, timeline, user journey                                                       |
-| 4     | sankey, block, packet, kanban, architecture, C4, requirement, zenuml                            |
+| 4     | sankey, block, packet, kanban, architecture, C4, requirement                                    |
 | 5     | radar, treemap, venn, ishikawa, wardley, cynefin, treeview, event modeling, use case, swimlanes |
 
 The parity bar is pixel-near: output is compared with mermaid 12.2.0 by
-SSIM. The handDrawn look, ELK layout, icon packs, and image nodes are out
-of scope and render as a bordered box.
+SSIM, with both sides on the classic look and dagre layout. The handDrawn
+and neo looks, ELK layout, icon packs, image nodes, the mermaid 12 redux
+themes, and the zenuml, info, agentflow, and railroad types are out of
+scope and render as a bordered box.
 
 Failures never pop up. An image or diagram that cannot render shows a
 bordered box with the alt text or diagram type and a one-line reason.

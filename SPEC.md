@@ -2,8 +2,12 @@
 
 ## Status
 
-Draft 1, written 2026-10-21. No code exists yet. The requirements below
-cover the full product. Delivery follows the mermaid phases in the
+Draft 2, written 2026-10-22. Draft 1 was written 2026-10-21. No code
+exists yet. The requirements below cover the full product. Draft 2 raises
+the Neovim minimum to 0.12, pins the oracle config, moves zenuml to the
+non-goals, and adds R-165 to R-211 for the gaps that the implementation
+design found. Changes to this file are Joh's; the dev agent proposes
+wording and does not edit it. Delivery follows the mermaid phases in the
 Constraints section; a requirement for a later phase is not a defect until
 that phase starts.
 
@@ -39,8 +43,13 @@ Defaults that the plan did not fix and that this draft sets:
   fallback.
 - Enter-to-follow-links and jump-to-source.
 - Animated GIF playback.
-- Mermaid handDrawn look (rough.js), ELK layout, icon packs, and image
-  nodes. These render as a failure box.
+- Mermaid handDrawn look (rough.js), the `neo` look, ELK layout, icon
+  packs, image nodes, and the mermaid 12 themes `neo`, `neo-dark`,
+  `redux`, `redux-dark`, `redux-color`, and `redux-dark-color`. These
+  render as a failure box.
+- The zenuml, info, agentflow, and railroad diagram types. zenuml lays
+  out with CSS inside a `foreignObject`, so no SVG geometry exists to
+  port. These render as a failure box.
 - A GitHub Actions lint or test workflow. Only a release workflow exists.
 - Terminals other than kitty. tmux and zmx are best effort.
 - A license file. Copyright Joh Hoskin, personal use.
@@ -83,7 +92,18 @@ Defaults that the plan did not fix and that this draft sets:
 - Oracle: mermaid 12.2.0 run through `@mermaid-js/mermaid-cli` 12.0.0,
   which produces the golden images for parity checks.
 - SSIM: the structural similarity index between two images of the same
-  pixel size, in the range 0 to 1.
+  pixel size, in the range 0 to 1. Both images are composited over white
+  and converted to BT.601 grayscale. The index uses a Gaussian window of
+  11 by 11 pixels with sigma 1.5, K1 0.01, and K2 0.03, and reports the
+  mean over the image.
+- Natural size: the pixel size of a diagram as mermaid computes it from
+  its SVG `viewBox`, before any scaling to the target width.
+- Anchor line: the one empty line in the layout model that stands for a
+  pixel block. Boxes and placeholder rows hang below it as virtual lines.
+- Block key: the SHA-256 of the kind, the source, the width in cells, and
+  the theme of a pixel block. It identifies the block across re-renders.
+- Base config: the mermaid config the helper applies before the diagram
+  directives: `layout` `dagre`, `look` `classic`, and the selected theme.
 - Cache: the directory tree under the configured cache root, with the
   subdirectories `images`, `remote`, and `mermaid`.
 - System opener: `vim.ui.open`, which hands a path or URL to the operating
@@ -93,13 +113,23 @@ Defaults that the plan did not fix and that this draft sets:
 
 - Each requirement has a stable ID `R-NNN`, one testable statement, one
   EARS pattern, and ASD-STE100 prose. IDs are never reused or renumbered.
-- Neovim 0.11 or later. Platforms: macOS arm64, Linux x86_64, Linux arm64.
+- Neovim 0.12 or later. Platforms: macOS arm64, Linux x86_64, Linux arm64.
+  Neovim 0.12 is the first release whose `TermResponse` event delivers the
+  kitty graphics (APC) reply and the Primary Device Attributes reply.
 - kitty graphics protocol as documented by kitty, with Unicode
   placeholders (kitty 0.28 or later).
 - Mermaid pin: mermaid 12.2.0 through `@mermaid-js/mermaid-cli` 12.0.0.
   The dev agent bumps the pin on purpose and records the new version here.
 - The oracle and the helper run on the same machine with the same font
-  set.
+  set. The helper bundles Open Sans Regular and Italic, the fonts that
+  mermaid-cli loads into its page, so both sides see them.
+- Mermaid 12.0 changed its defaults to ELK layout, the `neo` look, and
+  the `redux-color` theme. The oracle runs with the config file
+  `helper/oracle/mermaid-config.json`, which holds
+  `{"layout":"dagre","look":"classic","theme":"default","handDrawnSeed":1}`,
+  and the helper applies the same base config. The oracle package pins
+  `@mermaid-js/mermaid-cli` 12.0.0 with an npm override of `mermaid` to
+  12.2.0 and a committed lockfile.
 - Mermaid diagram types arrive in these phases:
 
 | Phase | Diagram types                                                                                   |
@@ -107,7 +137,7 @@ Defaults that the plan did not fix and that this draft sets:
 | 1     | flowchart, sequence, class, state                                                               |
 | 2     | ER, pie, gantt, xychart, quadrant                                                               |
 | 3     | gitgraph, mindmap, timeline, user journey                                                       |
-| 4     | sankey, block, packet, kanban, architecture, C4, requirement, zenuml                            |
+| 4     | sankey, block, packet, kanban, architecture, C4, requirement                                    |
 | 5     | radar, treemap, venn, ishikawa, wardley, cynefin, treeview, event modeling, use case, swimlanes |
 
 ## Requirements
@@ -144,6 +174,14 @@ Defaults that the plan did not fix and that this draft sets:
   shall not be modifiable.
 - R-015: The preview window shall hide line numbers, the sign column, and
   the fold column, and shall not wrap lines.
+- R-165: If the user runs `:KittyMarkdown open` in a buffer whose filetype
+  is not `markdown`, then the plugin shall show the message
+  `kitty-markdown: not a markdown buffer (filetype is "<filetype>")`.
+- R-166: If Neovim is older than 0.12, then the plugin shall show the
+  message `kitty-markdown: Neovim 0.12 or later is required` and open no
+  preview.
+- R-167: The preview buffer shall have the name
+  `kitty-markdown://<source buffer name>`.
 
 ### Refresh and performance
 
@@ -170,6 +208,12 @@ Defaults that the plan did not fix and that this draft sets:
   first request within 500 ms.
 - R-026: When a re-render changes no pixel block, the plugin shall keep
   the existing images and shall not re-transmit them.
+- R-168: The layout model shall hold one anchor line for each pixel
+  block.
+- R-169: The preview shall show loading boxes, failure boxes, text-only
+  boxes, and placeholder rows as virtual lines below the anchor line.
+- R-170: The plugin shall treat a pixel block as unchanged when its block
+  key is unchanged.
 
 ### Text rendering
 
@@ -241,6 +285,8 @@ Defaults that the plan did not fix and that this draft sets:
   `<img>` tags, as plain text in the muted color.
 - R-061: The preview shall keep one blank line between blocks and no blank
   line at the top of the buffer.
+- R-171: The preview text shall hold the rendered text without the
+  markdown markers.
 
 ### Math
 
@@ -322,6 +368,11 @@ Defaults that the plan did not fix and that this draft sets:
   its own rows after that paragraph.
 - R-096: When a pixel block fails, the plugin shall write the full error to
   `:messages` and shall not open a popup.
+- R-172: If a local image file cannot be read, then the preview shall show
+  a failure box with the reason "cannot read file".
+- R-173: If a remote fetch fails for a reason other than timeout or size,
+  then the preview shall show a failure box with the reason "fetch
+  failed".
 
 ### Mermaid diagrams
 
@@ -349,7 +400,7 @@ Defaults that the plan did not fix and that this draft sets:
 - R-107: The helper shall render gitgraph, mindmap, timeline, and user
   journey diagrams (phase 3).
 - R-108: The helper shall render sankey, block, packet, kanban,
-  architecture, C4, requirement, and zenuml diagrams (phase 4).
+  architecture, C4, and requirement diagrams (phase 4).
 - R-109: The helper shall render radar, treemap, venn, ishikawa, wardley,
   cynefin, treeview, event modeling, use case, and swimlane diagrams
   (phase 5).
@@ -357,8 +408,8 @@ Defaults that the plan did not fix and that this draft sets:
   shall reach an SSIM of 0.95 or more against the oracle at the same pixel
   size and fonts.
 - R-111: If a mermaid diagram does not parse, then the preview shall show
-  a failure box with the diagram type and the line and column of the
-  error, in the form the oracle uses.
+  a failure box with the diagram type and the parse error line, in the
+  form the oracle uses.
 - R-112: If a diagram uses the handDrawn look, ELK layout, an icon pack,
   or an image node, then the preview shall show a failure box with the
   reason "unsupported: `<feature>`".
@@ -371,6 +422,29 @@ Defaults that the plan did not fix and that this draft sets:
   that order.
 - R-116: The plugin shall cache each mermaid render under a hash of the
   diagram source, the width, the theme, and the mermaid version.
+- R-174: The helper shall apply the base config before the directives and
+  the front matter of the diagram.
+- R-175: If a diagram sets `look` to `neo` or `handDrawn`, `layout` to
+  `elk`, or a theme outside the five built-in themes, then the preview
+  shall show a failure box with the reason "unsupported: `<feature>`".
+- R-176: The helper shall treat the zenuml, info, agentflow, and railroad
+  diagram types as types outside the delivered phases.
+- R-177: If a mermaid diagram does not parse, then the failure box reason
+  shall be `Parse error on line <n>`, where `<n>` is the line the oracle
+  reports.
+- R-178: When a mermaid diagram does not parse, the plugin shall write the
+  full error to `:messages` in the form the oracle uses, with the caret
+  line and the expected tokens.
+- R-179: The helper shall load the bundled Open Sans fonts before the
+  system fonts.
+- R-180: The helper shall render a diagram at its natural size when that
+  size is narrower than the target width.
+- R-181: The parity check shall run the oracle with `--size` equal to the
+  longer side of the helper output and compare at equal pixel size, with
+  a tolerance of 1 pixel.
+- R-182: The parity check for mindmap and cynefin diagrams shall render
+  each case five times with the oracle and pass when the SSIM against any
+  one golden reaches 0.95.
 
 ### Terminal transport
 
@@ -406,6 +480,22 @@ Defaults that the plan did not fix and that this draft sets:
   re-probe the terminal and re-transmit every placed image.
 - R-131: When the probe result changes between text-only mode and image
   mode, the plugin shall re-render every open preview.
+- R-183: The plugin shall read the cell size from the pixel size of its
+  terminal window (`TIOCGWINSZ`).
+- R-184: If the terminal reports a pixel size of zero, then the preview
+  shall run in text-only mode and write the reason to `:messages`.
+- R-185: If `termguicolors` is off, then the preview shall run in
+  text-only mode and write the reason to `:messages`.
+- R-186: The plugin shall allocate image ids in increasing order from a
+  start value between 1 and 2^23 that it picks per Neovim instance.
+- R-187: The plugin shall not reuse an image id during the life of the
+  Neovim instance.
+- R-188: The plugin shall write the row diacritic and the column diacritic
+  on every placeholder cell.
+- R-189: The plugin shall transmit image data with `t=d` and `f=100` and
+  shall not use a file path transmission.
+- R-190: The plugin shall receive the probe answers through the
+  `TermResponse` event and shall not block Neovim while it waits.
 
 ### Helper lifecycle
 
@@ -448,6 +538,28 @@ Defaults that the plan did not fix and that this draft sets:
   stderr and exit with a non-zero status.
 - R-147: The helper shall write pixel results to the cache and return the
   file path and pixel size, not inline bytes.
+- R-191: The plugin shall download the helper from
+  `https://github.com/jhoskin/neovim-kitty-markdown/releases/download/v<version>/kitty-markdown-helper-<target>.tar.gz`.
+- R-192: The plugin shall use the target names `aarch64-apple-darwin`,
+  `x86_64-unknown-linux-gnu`, and `aarch64-unknown-linux-gnu`.
+- R-193: The plugin shall install the downloaded binary at
+  `stdpath('data')/kitty-markdown/kitty-markdown-helper`.
+- R-194: If no helper binary is available by any route, then the plugin
+  shall show the message `kitty-markdown: no helper binary found; run:
+  cargo build --release --manifest-path helper/Cargo.toml`.
+- R-195: The plugin shall report a helper exit with `vim.notify` at the
+  `WARN` level and shall not open a popup.
+- R-196: If the helper exits three times within 60 seconds, then the
+  plugin shall stop restarting it until the next `:KittyMarkdown refresh`.
+- R-197: When Neovim exits, the plugin shall wait at most 2 seconds for
+  the helper to exit and then kill it.
+- R-198: If the helper exits while a pixel block waits, then the preview
+  shall show a failure box with the reason "helper exited".
+- R-199: The helper shall provide the CLI
+  `kitty-markdown-helper compare <a.png> <b.png>`, which prints the SSIM
+  of the two images.
+- R-200: When the CLI runs `render`, the helper shall write the result to
+  the `-o` path and shall not require a cache directory.
 
 ### Cache
 
@@ -455,13 +567,18 @@ Defaults that the plan did not fix and that this draft sets:
   unless the cache directory option names another root.
 - R-149: The plugin shall keep images, remote fetches, and mermaid renders
   in the subdirectories `images`, `remote`, and `mermaid`.
-- R-150: The plugin shall key each cache entry by the SHA-256 of its
-  content plus its render parameters.
-- R-151: When the cache exceeds the configured size limit, the helper
-  shall delete the least recently used entries until the cache is under
-  the limit.
-- R-152: The plugin shall not delete a cache entry that an open preview
-  uses.
+- R-150: The plugin shall key each image and mermaid cache entry by the
+  SHA-256 of its content plus its render parameters, and each remote entry
+  by the SHA-256 of its URL.
+- R-151: When the cache exceeds the configured size limit, the plugin
+  shall request garbage collection, and the helper shall delete the least
+  recently used entries until the cache is under the limit.
+- R-152: When the plugin requests garbage collection, it shall pass the
+  paths that open previews use, and the helper shall not delete them.
+- R-201: The helper shall set the modification time of a cache entry to
+  the current time on each use.
+- R-202: When the cache size estimate of the plugin exceeds the limit
+  after a render, the plugin shall request garbage collection once.
 
 ### Test hooks
 
@@ -469,13 +586,30 @@ Defaults that the plan did not fix and that this draft sets:
   plain Lua tables without a terminal, a preview, or a helper.
 - R-154: The layout model shall hold `lines` (strings), `highlights`
   (line, start column, end column, group), `conceals`, and `blocks`.
+  `conceals` may be empty.
 - R-155: The layout model shall hold, in each block descriptor, `kind`,
   `line`, `source`, `width_cells`, and, when known, `width_px`,
-  `height_px`, `rows`, and `image_id`.
+  `height_px`, `rows`, and `image_id`. The layout sets `image_id` only
+  from `opts.sizes`.
 - R-156: The function `layout(bufnr, opts)` shall accept block pixel sizes
   in `opts` and reserve rows for the blocks that have one.
 - R-157: The function `layout` shall return the same model for the same
   buffer content, options, and window width.
+- R-203: The function `layout(bufnr, opts)` shall accept the keys `width`,
+  `cell`, `sizes`, `theme`, `images`, and `dir` in `opts`.
+- R-204: The function `layout` shall key `opts.sizes` by the block key.
+- R-205: The layout model shall hold `source_lines`, which maps each
+  preview line to the source line that produced it.
+- R-206: The layout model shall hold `anchors`, which maps each heading
+  slug in GitHub form to its preview line.
+- R-207: The layout model shall hold `links` with the line, start column,
+  end column, kind, and target of each link and image.
+- R-208: The layout model shall hold `code_regions` with the first line,
+  last line, and language of each fenced code block.
+- R-209: The function `layout` shall return the same model regardless of
+  which tree-sitter parsers are installed.
+- R-210: The command `nvim -l tests/run.lua [filter]` shall run the unit
+  tests and exit with a non-zero status when a test fails.
 
 ### Interaction
 
@@ -493,6 +627,8 @@ Defaults that the plan did not fix and that this draft sets:
   happens per 100 ms of cursor movement.
 - R-164: While the preview is a tab or a float, the plugin shall not sync
   scrolling.
+- R-211: When scroll sync moves the preview, the preview shall place the
+  target line in the top third of the window.
 
 ## Open questions
 
@@ -501,5 +637,9 @@ Defaults that the plan did not fix and that this draft sets:
 - zmx 0.6.0 does not pass the graphics protocol through. If a later
   release does, test the probe and passthrough path there.
 - Font availability on Linux: the mermaid family chain resolves to
-  different fonts than on macOS. Decide whether parity goldens are per
-  platform or whether the helper bundles a fallback font.
+  different fonts than on macOS. The helper bundles Open Sans; goldens
+  are generated on the machine that runs the check. Decide later whether
+  to bundle a Trebuchet MS substitute for Linux.
+- Mindmap layout in mermaid 12.2.0 is unseeded (cytoscape cose-bilkent),
+  so R-182 uses the best of five goldens. Revisit if a later mermaid
+  release seeds it.

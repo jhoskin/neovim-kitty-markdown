@@ -1,0 +1,6 @@
+{
+  "config": {
+    "MD013": false
+  },
+  "ignores": ["held_out/**", "helper/oracle/node_modules/**", "helper/target/**"]
+}

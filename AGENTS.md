@@ -187,7 +187,8 @@ on `VimLeavePre`. The transport is JSON lines over stdin and stdout.
 - Response: `{"id": <int>, "result": {...}}` or
   `{"id": <int>, "error": {"code": "<string>", "message": "<string>"}}`.
 - Methods: `probe`, `image.prepare`, `svg.rasterize`, `mermaid.render`,
-  `fetch`, `cache.gc`, `shutdown`. Final names are the dev agent's.
+  `fetch`, `cache.gc`, `shutdown`. Params, results, and error codes are
+  in the Conventions section under Protocol methods and errors.
 - Results that carry pixels return a path to a PNG file in the cache, not
   inline bytes.
 - CLI mode for direct evaluation:
@@ -200,10 +201,13 @@ Mermaid rendering is a Rust reimplementation. No browser, no node at
 runtime.
 
 1. Lexer and parser per diagram type produce a diagram model.
-2. Theme resolution applies, in order: the built-in theme, `%%{init:
+2. Config resolution applies, in order: the base config (`layout`
+   `dagre`, `look` `classic`, the theme the plugin selects), `%%{init:
    ...}%%` directives, and `---` front matter config inside the diagram.
    All five built-in themes exist: `default`, `dark`, `neutral`, `forest`,
-   `base`.
+   `base`. Mermaid 12 defaults (ELK, `neo`, `redux-color`) are replaced
+   by the base config; a diagram that asks for them explicitly gets an
+   `unsupported_feature` error.
 3. Layout: a layered layout compatible with dagre (port of dagre-d3-es
    7.0.14 behavior) for graph diagrams; per-type layouts for sequence,
    gantt, pie, and the others.
@@ -217,11 +221,18 @@ Diagram types arrive in five phases, ordered by usage. See `SPEC.md`.
 ### Parity oracle
 
 The QA agent generates golden PNGs with mermaid 12.2.0 through
-`@mermaid-js/mermaid-cli` 12.0.0, run with `npx` on the QA machine. It
-compares the helper output with the golden using SSIM at the same pixel
-size and the same fonts. The threshold is in `SPEC.md`. The oracle and the
-helper run on the same machine with the same font set. The dev agent bumps
-the pin on purpose and records the new version in `SPEC.md`.
+`@mermaid-js/mermaid-cli` 12.0.0. The pinned install lives in
+`helper/oracle/` (`package.json` with an npm override of `mermaid` to
+12.2.0, a committed lockfile, `mermaid-config.json`, `puppeteer.json`);
+`npx -p @mermaid-js/mermaid-cli@12.0.0` alone would float to the newest
+mermaid 12.x. Every oracle run passes `-c helper/oracle/mermaid-config.json`
+and `--size <longer side of the helper output>`; the dev agent uses the
+same install through `just goldens` for `helper/tests/goldens/`. The
+comparison is SSIM as defined in `SPEC.md` at the same pixel size and the
+same fonts; the helper exposes the same formula as
+`kitty-markdown-helper compare`. Mindmap and cynefin use the best of five
+goldens. The oracle and the helper run on the same machine with the same
+font set. A pin bump is a spec change and goes through Joh.
 
 ## Conventions
 
@@ -229,11 +240,21 @@ The dev agent owns this section. Record decisions here, not in chat.
 
 ### Language and toolchain
 
-- Lua 5.1 (LuaJIT) for the plugin. Neovim 0.11 or later.
+- Lua 5.1 (LuaJIT) for the plugin. Neovim 0.12 or later.
 - Rust stable for the helper. The dev agent records the MSRV in
   `helper/Cargo.toml` under `rust-version`.
-- Crates expected: `resvg`, `usvg`, `tiny-skia`, `fontdb`, `image`,
-  `serde`, `serde_json`, `ureq`, `sha2`.
+- Crates: `clap` 4 (derive), `serde`, `serde_json`, `thiserror` 2,
+  `sha2` 0.10, `image` 0.25 (png, jpeg, gif, webp, bmp only), `resvg`
+  and `usvg` 0.48 (they re-export `tiny-skia` and `fontdb`; do not pin
+  those separately), `rustybuzz` 0.20 for text shaping, `ureq` 3 with
+  rustls, `regex`, `indexmap` (everywhere JS insertion order matters),
+  `serde_yaml_ng`, `jiff` (gantt dates), `log`. Dev: `insta`,
+  `pretty_assertions`. Cargo features `phase2` to `phase5` gate the tests
+  of later mermaid phases.
+- Bundled assets: `helper/assets/fonts/OpenSans-Regular.ttf` and
+  `OpenSans-Italic.ttf` (OFL), loaded with `include_bytes!` before the
+  system fonts. `helper/assets/fonts/README.md` records the upstream
+  version.
 - Task runner: `just`. Lint: `stylua`, `selene`, `rustfmt`, `clippy`.
 - Platforms: macOS arm64, Linux x86_64, Linux arm64.
 - Release binaries are built by a GitHub Actions workflow on tag for
@@ -248,20 +269,31 @@ The dev agent owns this section. Record decisions here, not in chat.
   no plenary) and `cargo test` in `helper/`.
 - `just build`: runs `cargo build --release --manifest-path
   helper/Cargo.toml`.
-- Run all three before a commit. Do not commit if one fails.
+- `just goldens`: runs `npm ci --prefix helper/oracle`, then renders
+  every `helper/tests/goldens/<type>/<case>.mmd` with `mmdc` and the
+  pinned config at the size the helper reports.
+- `just jison-tables`: regenerates `helper/grammars/*.tables.json` from
+  the vendored `.jison` files with `jison@0.4.18`.
+- Run lint, test, and build before a commit. Do not commit if one fails.
 
 ### Layout
 
 - `lua/kitty-markdown/`: plugin modules. `init.lua` exposes `setup`,
   `open`, `close`, `toggle`, `refresh`, and `layout`. One module per
   component: `parser.lua`, `layout.lua`, `theme.lua`, `preview.lua`,
-  `transport.lua`, `helper.lua`, `cache.lua`, `config.lua`.
+  `transport.lua`, `helper.lua`, `cache.lua`, `config.lua`. Support
+  modules: `version.lua` (the release tag without `v`), `icons.lua`
+  (Nerd Font glyphs), `emoji.lua` (GitHub shortcode table), `math.lua`
+  (TeX to Unicode), `download.lua` (release binary fetch).
 - `plugin/kitty-markdown.lua`: defines the `:KittyMarkdown` command and
   autocommands. No work at load time beyond that.
 - `doc/kitty-markdown.txt`: vimdoc.
 - `helper/`: the Cargo crate for `kitty-markdown-helper`. `helper/src/`
   holds the code, `helper/tests/` the Rust tests with `insta` snapshots
-  and SSIM tests against PNGs generated by the oracle.
+  and SSIM tests against PNGs generated by the oracle. `helper/oracle/`
+  holds the pinned mermaid-cli install, `helper/grammars/` the vendored
+  jison grammars and generated tables, `helper/assets/` the bundled
+  fonts.
 - `tests/`: Lua tests. `tests/run.lua` is the busted entry point. Fixture
   markdown lives in `tests/fixtures/`.
 - `justfile` at the repo root.
@@ -278,3 +310,218 @@ The dev agent owns this section. Record decisions here, not in chat.
   change per commit, each commit builds and passes tests. No issue tracker
   footer; this repo has no Linear project.
 - Markdown files pass `markdownlint-cli2` with MD013 off.
+
+### Lua module contracts
+
+Signatures the packages agree on. A change here is a change to every
+caller, so make it in one commit.
+
+- `config`: `defaults` (the README table verbatim), `setup(user)`,
+  `get()`.
+- `theme`: `palette(name)`, `apply(name)` (defines `KittyMarkdown*` with
+  `nvim_set_hl` and `default = true`, so user groups win), `current()`,
+  `mermaid_theme()`.
+- `parser`: `parse(bufnr)` returns a block list. Block kinds: `heading`
+  (level, inlines, slug), `paragraph`, `list` (ordered, start, items with
+  checked, inlines, children), `table` (align, header, rows), `code`
+  (lang, lines), `mermaid` (source), `blockquote`, `alert` (type),
+  `image` (src, alt, attrs), `html`, `footnote_def`, `rule`,
+  `front_matter`. Inline types: `text`, `emph`, `strong`, `strike`,
+  `code`, `link`, `autolink`, `image`, `footnote_ref`, `math`, `html`,
+  `emoji`, `linebreak`. An inline image is lifted into an `image` block
+  after its paragraph.
+- `layout`: `build(blocks, opts)` (pure) and `slug(text)` (GitHub
+  slug). `init.layout(bufnr, opts)` is `build(parser.parse(bufnr), opts)`.
+- `math`: `render(tex)` returns a string, or nil when the span cannot be
+  approximated.
+- `emoji`: `lookup(shortcode)`.
+- `transport`: `probe(cb)`, `cell_size()`, `alloc_id()`,
+  `transmit(id, png_path)`, `place(id, cols, rows)`,
+  `placeholder_rows(id, cols, rows)`, `hl_group(id)`, `delete(id)`,
+  `wrap_tmux(seq)`, `set_writer(fn)`, `set_winsize_reader(fn)` (the last
+  two are test hooks).
+- `helper`: `request(method, params, cb)` with `cb(err, result)`,
+  `ensure(cb)`, `shutdown(timeout_ms)`, `is_running()`, `state()`.
+- `download`: `target()`, `url(version, target)`, `install_dir()`,
+  `fetch(version, cb)`.
+- `cache`: `root()`, `dirs()`, `key_image(...)`, `key_remote(url)`,
+  `key_mermaid(...)`, `note_bytes(n)`, `keep_set()`, `gc_if_needed()`.
+- `preview`: `open(src_buf, placement)`, `close(src_buf)`,
+  `toggle(src_buf, placement)`, `get(src_buf)`, `render(src_buf, opts)`,
+  `render_all()`, `in_use_paths()`, `retheme()`.
+
+### Layout model
+
+`layout(bufnr, opts)` returns plain tables:
+
+- `width`, `text_width` (`min(width - 4, config.text_width)`), `theme`.
+- `lines`: preview lines with a 2-cell left margin of spaces, no
+  markdown markers.
+- `highlights`: `{ line, col_start, col_end, group }`, line 1-based,
+  byte columns 0-based, end exclusive.
+- `conceals`: same shape; empty while the layout omits markers.
+- `blocks`: `{ kind, index, line, src_line, source, alt, key,
+  width_cells, attrs, width_px, height_px, rows, image_id, text_only }`.
+  `line` is the anchor line. `key` is the block key (SPEC.md
+  Definitions) computed with `vim.fn.sha256`. Pixel fields come from
+  `opts.sizes[key]` and `opts.cell`; `rows = ceil(height_px /
+  cell.height_px)`.
+- `code_regions`: `{ line_start, line_end, lang }`; the preview runs
+  tree-sitter on these, the layout never does.
+- `links`: `{ line, col_start, col_end, kind, target }`, kind `url`,
+  `file`, `anchor`, or `image`.
+- `anchors`: slug to preview line. `source_lines`: preview line to source
+  line, non-decreasing. `footnotes`: `{ label, number }`.
+
+`opts`: `width` (default `config.text_width + 4`), `cell`, `sizes`,
+`theme`, `images` (false marks every block `text_only`), `dir` (base for
+relative paths; tests pass a fixture dir). The layout reads no clock, no
+random source, and no environment.
+
+### Highlight groups
+
+`KittyMarkdownH1` to `H6`, `Text`, `Emph`, `Strong`, `Strike`, `Code`,
+`CodeBg`, `CodeLang`, `CodeBorder`, `Link`, `Url`, `Bullet`, `Number`,
+`Checked`, `Unchecked`, `TableBorder`, `TableHeader`, `Quote`,
+`QuoteBar`, `AlertNote`, `AlertTip`, `AlertImportant`, `AlertWarning`,
+`AlertCaution`, `Rule`, `Muted`, `Math`, `BoxBorder`, `BoxText`,
+`Loading`, `Failure`, `Footnote`, `Html`, and `KittyMarkdownImg<id>` per
+placed image (`fg = id % 2^24`).
+
+### Terminal facts
+
+- Writer: `vim.api.nvim_ui_send`. In tmux, `transport.wrap_tmux` wraps
+  graphics sequences only; the DA1 request is sent bare.
+- Probe: APC reply matching `^\27_G.*i=31` means images on; a DA1 reply
+  with no APC means off; the 500 ms timer means off. Callbacks run
+  through `vim.schedule`.
+- Cell size: LuaJIT FFI `ioctl(1, TIOCGWINSZ)`, request `0x5413` on
+  Linux and `0x40087468` on macOS; `width_px = xpixel / col`,
+  `height_px = ypixel / row`; cached, cleared on `VimResized`. XTWINOPS
+  replies never reach Lua, so there is no escape-sequence route.
+- Placeholder cell: U+10EEEE, then the row diacritic, then the column
+  diacritic, then the high-byte diacritic when `id >= 2^24`. The 297
+  diacritics come from kitty's `gen/rowcolumn-diacritics.txt`
+  (`tests/fixtures/diacritics.txt`); the first are U+0305, U+030D,
+  U+030E, U+0310, U+0312, U+033D. Rows and columns above 297 are clamped
+  with the reason `too tall`.
+- Sequences: transmit `a=T,f=100,t=d,i=<id>,q=2,m=1;<4096 base64 bytes>`
+  with `m=0` on the last chunk; place `a=p,U=1,i=<id>,c=<cols>,r=<rows>,q=2`;
+  delete `a=d,d=I,i=<id>,q=2`.
+
+### Protocol methods and errors
+
+JSON lines over stdio. Request `{"id", "method", "params"}`; response
+`{"id", "result"}` or `{"id", "error": {"code", "message", "data"}}`.
+
+| Method | Params | Result |
+| --- | --- | --- |
+| `probe` | `plugin_version`, `cache_dir` | `helper_version`, `mermaid_version`, `cache_bytes`, `fonts`, `diagram_types` |
+| `image.prepare` | `path`, `width_px`, `max_width_px?`, `max_height_px?` | `path`, `width_px`, `height_px`, `bytes`, `cached` |
+| `svg.rasterize` | `path`, `width_px` | as `image.prepare` |
+| `fetch` | `url`, `timeout_ms`, `max_bytes` | `path`, `bytes`, `cached` |
+| `mermaid.render` | `source`, `width_px`, `theme`, `background` | `path`, `width_px`, `height_px`, `bytes`, `cached`, `diagram_type` |
+| `cache.gc` | `max_bytes`, `keep` (paths) | `deleted_bytes`, `cache_bytes` |
+| `shutdown` | none | empty, then exit 0 |
+
+Error codes and the failure box reason the preview shows:
+
+| Code | `data` | Reason |
+| --- | --- | --- |
+| `timeout` | | `timeout` |
+| `too_large` | `bytes`, `max_bytes` | `too large` |
+| `unsupported_format` | `format` | `unsupported format` |
+| `parse_error` | `line`, `column`, `diagram_type` | `Parse error on line <line>` |
+| `unsupported_feature` | `feature` | `unsupported: <feature>` |
+| `unsupported_diagram_type` | `diagram_type` | `unsupported diagram type` |
+| `fetch_failed` | `status` | `fetch failed` |
+| `io` | `path` | `cannot read file` |
+| `internal`, `invalid_params`, `unknown_method` | | `helper error` |
+
+Plugin-side codes: `remote_images_off` (`remote images off`),
+`helper_exit` (`helper exited`), `no_helper` (text-only box). The
+`message` of a `parse_error` is the full oracle text. `:messages` gets
+`kitty-markdown: <kind> <alt>: <code>: <message>`.
+
+### Cache keys
+
+- `images/<K>.png`, `K = sha256(sha256(bytes) | width_px | max_h | max_w)`
+  with `0` for an absent limit.
+- `remote/<sha256(url)>`, raw bytes, no extension; decoders sniff.
+- `mermaid/<K>.png`, `K = sha256(sha256(source) | width_px | theme |
+  mermaid_version)`.
+- LRU by mtime; the helper touches an entry on every hit and write.
+  `cache.gc` deletes oldest first, skipping `keep`, until under
+  `max_bytes`. The plugin sends one `cache.gc` per render batch when its
+  estimate (`cache_bytes` from `probe` plus `bytes` of each uncached
+  result) exceeds `cache.max_bytes`.
+
+### Helper client lifecycle
+
+- `vim.uv.spawn` with `serve` as the argument; stdout split on newlines,
+  `vim.json.decode` per line; stderr kept in a 50-line ring buffer.
+- Locate order: `helper.path` option, install dir, download (when
+  `helper.download`), `<plugin root>/helper/target/release/`, none.
+- One pending-request table keyed by id with a `vim.uv` timer each.
+- Version check after `probe`; a downloaded binary with the wrong version
+  is replaced once; a user path or local build gets one WARN.
+- Exit without `shutdown`: fail pending requests with `helper_exit`,
+  WARN notice, restart on next request; three exits in 60 s stop
+  restarts until `:KittyMarkdown refresh`.
+
+### Rust module tree
+
+```text
+helper/src/
+  main.rs cli.rs protocol.rs error.rs ssim.rs
+  server/        JSON-lines loop: reader thread, worker pool, shared writer
+  cache/         keys, LRU gc with keep set
+  image/ svg/ fetch/
+  text/          fonts.rs (fontdb + bundled Open Sans), measure.rs (SVG
+                 getBBox mode and HTML 1.5em mode via rustybuzz), wrap.rs,
+                 markdown.rs
+  mermaid/
+    mod.rs preprocess.rs directive.rs detect.rs raster.rs edges.rs
+    config/      defaults from config.schema.yaml, merge, appearance
+    theme/       khroma port, base, default, dark, forest, neutral
+    styles/      getStyles ports resolved to attributes (no CSS in SVG)
+    scene/       scene model, deterministic SVG serializer, curves, markers
+    jison/       LALR driver over vendored tables, lexer, error formatter
+    layout/      dagre/ (dagre-d3-es 7.0.14 port), unified.rs, d3/,
+                 cose_bilkent/, fcose/, swimlane/
+    shapes/      one module per mermaid shape, intersect/
+    diagrams/    one module per diagram type with parse and render
+```
+
+Rules: `IndexMap` wherever mermaid relies on JS object order; port
+mermaid's theme bugs as they are; read mermaid 12.2.0 source for
+defaults, not the docs; jison error text comes from the real LALR tables.
+
+### Tests and parity
+
+- `tests/run.lua`: busted subset (`describe`, `it`, `before_each`,
+  `after_each`, `pending`, `assert.are.same`, `assert.are.equal`,
+  `assert.is_true`, `assert.is_false`, `assert.is_nil`,
+  `assert.is_not_nil`, `assert.has_error`, `assert.matches`). It finds
+  `tests/**/*_spec.lua`, takes a substring filter as `arg[1]`, and exits
+  1 on any failure.
+- `tests/fixtures/fake_helper.lua` is a JSON-lines helper run with
+  `nvim -l` for the client tests, with scripted delays, errors, and a
+  crash mode.
+- `helper/tests/text_metrics.rs` calibrates the text measurer against
+  `helper/oracle/measure.mjs` output at 0.5 px; it is the first parity
+  gate. `dagre_parity.rs` matches node dumps from dagre-d3-es to 1e-6.
+  `parity_<type>.rs` holds insta SVG snapshots and SSIM tests per type;
+  later phases carry `#[cfg_attr(not(feature = "phaseN"), ignore)]`.
+- A golden runner skips with a clear message when goldens are absent.
+
+### Subagents
+
+- Coder agents run in git worktrees on branch `wp/<package>`, own a
+  disjoint file list, and commit with `--no-gpg-sign`. The main session
+  rebases with `git rebase --exec 'git commit --amend --no-edit -S' main`
+  and runs the gates before merging.
+- `SPEC.md`, `README.md`, and `AGENTS.md` are locked by the project
+  settings. A spec gap goes into the agent's final report as proposed
+  wording for Joh.
+- No agent reads `held_out/` by any route.
