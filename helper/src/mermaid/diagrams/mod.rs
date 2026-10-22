@@ -10,6 +10,7 @@ use crate::mermaid::config::Resolved;
 use crate::mermaid::scene::Scene;
 use crate::text::{FontSystem, TextMetrics};
 
+pub mod block;
 pub mod gantt;
 pub mod journey;
 pub mod packet;
@@ -46,6 +47,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &gantt::DIAGRAM,
         &packet::DIAGRAM,
         &journey::DIAGRAM,
+        &block::DIAGRAM,
     ];
     REGISTRY
 }
