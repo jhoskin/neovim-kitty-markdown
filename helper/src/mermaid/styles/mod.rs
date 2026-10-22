@@ -2,6 +2,7 @@
 
 pub mod block;
 pub mod gantt;
+pub mod gitgraph;
 pub mod journey;
 pub mod packet;
 pub mod pie;

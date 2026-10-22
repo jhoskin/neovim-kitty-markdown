@@ -12,6 +12,7 @@ use crate::text::{FontSystem, TextMetrics};
 
 pub mod block;
 pub mod gantt;
+pub mod gitgraph;
 pub mod journey;
 pub mod packet;
 pub mod pie;
@@ -50,6 +51,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &journey::DIAGRAM,
         &block::DIAGRAM,
         &timeline::DIAGRAM,
+        &gitgraph::DIAGRAM,
     ];
     REGISTRY
 }
