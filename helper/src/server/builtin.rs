@@ -23,7 +23,7 @@ pub const DEBUG_METHODS_VAR: &str = "KMH_DEBUG_METHODS";
 pub fn builtin_handlers() -> Vec<Box<dyn Handler>> {
     // Fonts load in the background from `serve`; until they are in, the
     // report is empty rather than late.
-    let probe = Probe::new(Vec::new(), || {
+    let probe = Probe::new(crate::mermaid::diagrams::delivered_types(), || {
         crate::text::font_system_if_loaded()
             .and_then(|fonts| serde_json::to_value(fonts.report()).ok())
             .unwrap_or_else(|| Value::Object(Default::default()))
