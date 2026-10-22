@@ -16,6 +16,7 @@ pub mod journey;
 pub mod packet;
 pub mod pie;
 pub mod sequence;
+pub mod timeline;
 pub mod xychart;
 
 /// What a renderer gets besides the resolved diagram.
@@ -48,6 +49,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &packet::DIAGRAM,
         &journey::DIAGRAM,
         &block::DIAGRAM,
+        &timeline::DIAGRAM,
     ];
     REGISTRY
 }

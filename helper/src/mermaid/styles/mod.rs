@@ -7,4 +7,5 @@ pub mod packet;
 pub mod pie;
 pub mod quadrant;
 pub mod sequence;
+pub mod timeline;
 pub mod xychart;
