@@ -36,7 +36,6 @@ pub trait Diagram: Send + Sync {
 pub fn registry() -> &'static [&'static dyn Diagram] {
     static REGISTRY: &[&dyn Diagram] = &[&pie::DIAGRAM, &quadrant::DIAGRAM, &xychart::DIAGRAM];
     REGISTRY
-    REGISTRY
 }
 
 pub fn find(diagram_type: &str) -> Option<&'static dyn Diagram> {

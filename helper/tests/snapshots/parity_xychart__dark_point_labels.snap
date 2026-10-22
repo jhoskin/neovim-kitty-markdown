@@ -1,0 +1,84 @@
+---
+source: tests/parity_xychart.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="500" viewBox="0 0 700 500" font-family="Trebuchet MS">
+  <g class="main">
+    <rect class="background" x="0" y="0" width="700" height="500" fill="#333333"/>
+    <g class="chart-title">
+      <text transform="translate(384.013, 21.5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#e0dfdf" font-size="20">Smallest AI models scoring above 60% on MMLU</text>
+    </g>
+    <g class="plot">
+      <g class="line-plot-0">
+        <path d="M96.21,88.9L240.111,388.942L384.013,408.523L527.914,425.578L671.815,427.6" fill="none" stroke="#3498db" stroke-width="2"/>
+        <g class="labels">
+          <text transform="translate(96.21, 78.9) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#3498db" font-size="12">PaLM</text>
+          <text transform="translate(240.111, 378.942) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#3498db" font-size="12">LLaMA-65B</text>
+          <text transform="translate(384.013, 398.523) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#3498db" font-size="12">Llama 2 34B</text>
+          <text transform="translate(527.914, 415.578) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#3498db" font-size="12">Mistral 7B</text>
+          <text transform="translate(671.815, 417.6) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#3498db" font-size="12">Phi-3-mini</text>
+        </g>
+      </g>
+    </g>
+    <g class="bottom-axis">
+      <g class="axis-line">
+        <path d="M68.025,439L700,439" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+      </g>
+      <g class="label">
+        <text transform="translate(96.21, 450) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#e0dfdf" font-size="14">Apr 2022</text>
+        <text transform="translate(240.111, 450) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#e0dfdf" font-size="14">Feb 2023</text>
+        <text transform="translate(384.013, 450) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#e0dfdf" font-size="14">Jul 2023</text>
+        <text transform="translate(527.914, 450) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#e0dfdf" font-size="14">Sep 2023</text>
+        <text transform="translate(671.815, 450) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#e0dfdf" font-size="14">Apr 2024</text>
+      </g>
+      <g class="ticks">
+        <path d="M96.21,440L96.21,445" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M240.111,440L240.111,445" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M384.013,440L384.013,445" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M527.914,440L527.914,445" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M671.815,440L671.815,445" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+      </g>
+      <g class="title">
+        <text transform="translate(384.013, 476) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#e0dfdf" font-size="16">Date</text>
+      </g>
+    </g>
+    <g class="left-axis">
+      <g class="axisl-line">
+        <path d="M67.025,43L67.025,438" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+      </g>
+      <g class="label">
+        <text transform="translate(56.025, 51) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">600</text>
+        <text transform="translate(56.025, 82.583) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">550</text>
+        <text transform="translate(56.025, 114.167) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">500</text>
+        <text transform="translate(56.025, 145.75) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">450</text>
+        <text transform="translate(56.025, 177.333) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">400</text>
+        <text transform="translate(56.025, 208.917) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">350</text>
+        <text transform="translate(56.025, 240.5) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">300</text>
+        <text transform="translate(56.025, 272.083) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">250</text>
+        <text transform="translate(56.025, 303.667) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">200</text>
+        <text transform="translate(56.025, 335.25) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">150</text>
+        <text transform="translate(56.025, 366.833) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">100</text>
+        <text transform="translate(56.025, 398.417) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">50</text>
+        <text transform="translate(56.025, 430) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#e0dfdf" font-size="14">0</text>
+      </g>
+      <g class="ticks">
+        <path d="M66.025,51L61.025,51" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,82.583L61.025,82.583" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,114.167L61.025,114.167" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,145.75L61.025,145.75" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,177.333L61.025,177.333" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,208.917L61.025,208.917" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,240.5L61.025,240.5" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,272.083L61.025,272.083" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,303.667L61.025,303.667" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,335.25L61.025,335.25" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,366.833L61.025,366.833" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,398.417L61.025,398.417" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+        <path d="M66.025,430L61.025,430" fill="none" stroke="#e0dfdf" stroke-width="2"/>
+      </g>
+      <g class="title">
+        <text transform="translate(5, 240.5) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#e0dfdf" font-size="16">Parameters (B)</text>
+      </g>
+    </g>
+  </g>
+</svg>

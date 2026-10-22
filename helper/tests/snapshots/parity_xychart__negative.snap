@@ -1,0 +1,91 @@
+---
+source: tests/parity_xychart.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="500" viewBox="0 0 700 500" font-family="Trebuchet MS">
+  <g class="main">
+    <rect class="background" x="0" y="0" width="700" height="500" fill="#ffffff"/>
+    <g class="chart-title">
+      <text transform="translate(379.241, 21.5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">Temperature change</text>
+    </g>
+    <g class="plot">
+      <g class="bar-plot-0">
+        <rect x="59.982" y="327.857" width="57" height="139.143" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="156.902" y="255" width="57" height="212" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="253.822" y="167.571" width="57" height="299.429" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="350.741" y="94.714" width="57" height="372.286" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="447.661" y="406.543" width="57" height="60.457" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="544.58" y="196.714" width="57" height="270.286" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="641.5" y="65.571" width="57" height="401.429" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+      </g>
+      <g class="line-plot-1">
+        <path d="M88.482,284.143L185.402,342.429L282.322,182.143L379.241,138.429L476.161,371.571L573.08,211.286L670,109.286" fill="none" stroke="#8493a6" stroke-width="2"/>
+      </g>
+    </g>
+    <g class="bottom-axis">
+      <g class="axis-line">
+        <path d="M58.482,468L700,468" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="label">
+        <text transform="translate(88.482, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">mon</text>
+        <text transform="translate(185.402, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">tue</text>
+        <text transform="translate(282.322, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">wed</text>
+        <text transform="translate(379.241, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">thu</text>
+        <text transform="translate(476.161, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">fri</text>
+        <text transform="translate(573.08, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">sat</text>
+        <text transform="translate(670, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">sun</text>
+      </g>
+      <g class="ticks">
+        <path d="M88.482,469L88.482,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M185.402,469L185.402,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M282.322,469L282.322,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M379.241,469L379.241,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M476.161,469L476.161,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M573.08,469L573.08,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M670,469L670,474" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+    </g>
+    <g class="left-axis">
+      <g class="axisl-line">
+        <path d="M57.482,43L57.482,467" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="label">
+        <text transform="translate(46.482, 51) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">6</text>
+        <text transform="translate(46.482, 80.143) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">5</text>
+        <text transform="translate(46.482, 109.286) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">4</text>
+        <text transform="translate(46.482, 138.429) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">3</text>
+        <text transform="translate(46.482, 167.571) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">2</text>
+        <text transform="translate(46.482, 196.714) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">1</text>
+        <text transform="translate(46.482, 225.857) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">0</text>
+        <text transform="translate(46.482, 255) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">-1</text>
+        <text transform="translate(46.482, 284.143) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">-2</text>
+        <text transform="translate(46.482, 313.286) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">-3</text>
+        <text transform="translate(46.482, 342.429) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">-4</text>
+        <text transform="translate(46.482, 371.571) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">-5</text>
+        <text transform="translate(46.482, 400.714) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">-6</text>
+        <text transform="translate(46.482, 429.857) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">-7</text>
+        <text transform="translate(46.482, 459) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">-8</text>
+      </g>
+      <g class="ticks">
+        <path d="M56.482,51L51.482,51" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,80.143L51.482,80.143" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,109.286L51.482,109.286" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,138.429L51.482,138.429" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,167.571L51.482,167.571" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,196.714L51.482,196.714" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,225.857L51.482,225.857" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,255L51.482,255" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,284.143L51.482,284.143" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,313.286L51.482,313.286" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,342.429L51.482,342.429" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,371.571L51.482,371.571" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,400.714L51.482,400.714" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,429.857L51.482,429.857" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M56.482,459L51.482,459" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="title">
+        <text transform="translate(5, 255) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Delta (C)</text>
+      </g>
+    </g>
+  </g>
+</svg>

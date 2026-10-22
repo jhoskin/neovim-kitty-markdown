@@ -1,0 +1,47 @@
+---
+source: tests/parity_xychart.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="500" viewBox="0 0 700 500" font-family="Trebuchet MS">
+  <g class="main">
+    <rect class="background" x="0" y="0" width="700" height="500" fill="#ffffff"/>
+    <g class="plot">
+      <g class="bar-plot-0">
+        <rect x="9.4" y="328.3" width="91.2" height="140.7" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="158.65" y="140.7" width="91.2" height="328.3" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="307.9" y="375.2" width="91.2" height="93.8" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="457.15" y="46.9" width="91.2" height="422.1" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="606.4" y="234.5" width="91.2" height="234.5" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+      </g>
+      <g class="line-plot-1">
+        <path d="M55,422.1L204.25,281.4L353.5,187.6L502.75,93.8L652,0" fill="none" stroke="#8493a6" stroke-width="2"/>
+      </g>
+    </g>
+    <g class="bottom-axis">
+      <g class="axis-line">
+        <path d="M7,470L700,470" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="title">
+        <text transform="translate(353.5, 476) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Day</text>
+      </g>
+    </g>
+    <g class="left-axis">
+      <g class="axisl-line">
+        <path d="M6,0L6,469" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="ticks">
+        <path d="M5,0L0,0" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,46.9L0,46.9" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,93.8L0,93.8" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,140.7L0,140.7" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,187.6L0,187.6" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,234.5L0,234.5" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,281.4L0,281.4" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,328.3L0,328.3" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,375.2L0,375.2" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,422.1L0,422.1" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M5,469L0,469" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+    </g>
+  </g>
+</svg>

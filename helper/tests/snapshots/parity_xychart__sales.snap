@@ -1,0 +1,106 @@
+---
+source: tests/parity_xychart.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="500" viewBox="0 0 700 500" font-family="Trebuchet MS">
+  <g class="main">
+    <rect class="background" x="0" y="0" width="700" height="500" fill="#ffffff"/>
+    <g class="chart-title">
+      <text transform="translate(391.354, 21.5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">Sales Revenue</text>
+    </g>
+    <g class="plot">
+      <g class="bar-plot-0">
+        <rect x="83.559" y="400.714" width="32.3" height="66.286" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="136.585" y="342.429" width="32.3" height="124.571" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="189.612" y="255" width="32.3" height="212" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="242.638" y="214.2" width="32.3" height="252.8" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="295.665" y="138.429" width="32.3" height="328.571" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="348.691" y="80.143" width="32.3" height="386.857" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="401.718" y="51" width="32.3" height="416" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="454.744" y="97.629" width="32.3" height="369.371" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="507.771" y="155.914" width="32.3" height="311.086" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="560.797" y="196.714" width="32.3" height="270.286" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="613.824" y="284.143" width="32.3" height="182.857" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="666.85" y="342.429" width="32.3" height="124.571" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+      </g>
+      <g class="line-plot-1">
+        <path d="M99.709,400.714L152.735,342.429L205.762,255L258.788,214.2L311.815,138.429L364.841,80.143L417.868,51L470.894,97.629L523.921,155.914L576.947,196.714L629.974,284.143L683,342.429" fill="none" stroke="#8493a6" stroke-width="2"/>
+      </g>
+    </g>
+    <g class="bottom-axis">
+      <g class="axis-line">
+        <path d="M82.709,468L700,468" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="label">
+        <text transform="translate(99.709, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">jan</text>
+        <text transform="translate(152.735, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">feb</text>
+        <text transform="translate(205.762, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">mar</text>
+        <text transform="translate(258.788, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">apr</text>
+        <text transform="translate(311.815, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">may</text>
+        <text transform="translate(364.841, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">jun</text>
+        <text transform="translate(417.868, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">jul</text>
+        <text transform="translate(470.894, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">aug</text>
+        <text transform="translate(523.921, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">sep</text>
+        <text transform="translate(576.947, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">oct</text>
+        <text transform="translate(629.974, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">nov</text>
+        <text transform="translate(683, 479) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">dec</text>
+      </g>
+      <g class="ticks">
+        <path d="M99.709,469L99.709,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M152.735,469L152.735,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M205.762,469L205.762,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M258.788,469L258.788,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M311.815,469L311.815,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M364.841,469L364.841,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M417.868,469L417.868,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M470.894,469L470.894,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M523.921,469L523.921,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M576.947,469L576.947,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M629.974,469L629.974,474" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M683,469L683,474" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+    </g>
+    <g class="left-axis">
+      <g class="axisl-line">
+        <path d="M81.709,43L81.709,467" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="label">
+        <text transform="translate(70.709, 51) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">11000</text>
+        <text transform="translate(70.709, 80.143) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">10500</text>
+        <text transform="translate(70.709, 109.286) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">10000</text>
+        <text transform="translate(70.709, 138.429) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">9500</text>
+        <text transform="translate(70.709, 167.571) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">9000</text>
+        <text transform="translate(70.709, 196.714) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">8500</text>
+        <text transform="translate(70.709, 225.857) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">8000</text>
+        <text transform="translate(70.709, 255) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">7500</text>
+        <text transform="translate(70.709, 284.143) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">7000</text>
+        <text transform="translate(70.709, 313.286) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">6500</text>
+        <text transform="translate(70.709, 342.429) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">6000</text>
+        <text transform="translate(70.709, 371.571) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">5500</text>
+        <text transform="translate(70.709, 400.714) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">5000</text>
+        <text transform="translate(70.709, 429.857) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">4500</text>
+        <text transform="translate(70.709, 459) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">4000</text>
+      </g>
+      <g class="ticks">
+        <path d="M80.709,51L75.709,51" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,80.143L75.709,80.143" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,109.286L75.709,109.286" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,138.429L75.709,138.429" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,167.571L75.709,167.571" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,196.714L75.709,196.714" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,225.857L75.709,225.857" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,255L75.709,255" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,284.143L75.709,284.143" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,313.286L75.709,313.286" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,342.429L75.709,342.429" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,371.571L75.709,371.571" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,400.714L75.709,400.714" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,429.857L75.709,429.857" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M80.709,459L75.709,459" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="title">
+        <text transform="translate(5, 255) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Revenue (in $)</text>
+      </g>
+    </g>
+  </g>
+</svg>
