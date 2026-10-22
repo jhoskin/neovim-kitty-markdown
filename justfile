@@ -4,8 +4,9 @@
 helper := "helper/Cargo.toml"
 
 # Cargo features for the mermaid phases whose tests must run, for example
-# "--features phase2". Empty while only phase 1 is delivered.
-phases := "--features phase2"
+# "--features phase5" (phase5 implies every earlier phase), so each delivered
+# type's parity test runs whatever phase label it carries.
+phases := "--features phase5"
 
 default: lint test
 
