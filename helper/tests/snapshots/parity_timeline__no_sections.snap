@@ -1,0 +1,149 @@
+---
+source: tests/parity_timeline.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1190" height="473.4" viewBox="100 0 1190 473.4" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="5" refY="2" markerWidth="6" markerHeight="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0L0,4L6,2Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="taskWrapper" transform="translate(200, 50)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-0" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#8686ff"/>
+          <line class="node-line--1" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#ffffb9" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#ffffff">1969</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="295" y1="117.8" x2="295" y2="423.4" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(200, 250)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-1" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#a1a1ff"/>
+          <line class="node-line--1" x1="0" y1="50" x2="190" y2="50" stroke="#ffffde" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#ffffff">Moon landing</text>
+        </g>
+      </g>
+    </g>
+    <g class="eventWrapper" transform="translate(200, 310)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-2" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#a1a1ff"/>
+          <line class="node-line--1" x1="0" y1="50" x2="190" y2="50" stroke="#ffffde" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#ffffff">ARPANET</text>
+        </g>
+      </g>
+    </g>
+    <g class="taskWrapper" transform="translate(400, 50)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-3" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#ffff78"/>
+          <line class="node-line-0" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#ababff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">1971</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="495" y1="117.8" x2="495" y2="423.4" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(400, 250)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-4" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#ffff90"/>
+          <line class="node-line-0" x1="0" y1="50" x2="190" y2="50" stroke="#cdcdff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Email</text>
+        </g>
+      </g>
+    </g>
+    <g class="eventWrapper" transform="translate(400, 310)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-5" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#ffff90"/>
+          <line class="node-line-0" x1="0" y1="50" x2="190" y2="50" stroke="#cdcdff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Floppy disk</text>
+        </g>
+      </g>
+    </g>
+    <g class="taskWrapper" transform="translate(600, 50)">
+      <g class="timeline-node section-1">
+        <g>
+          <path id="my-svg-node-6" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#d7ff86"/>
+          <line class="node-line-1" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#d0b9ff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">1983</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="695" y1="117.8" x2="695" y2="423.4" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(600, 250)">
+      <g class="timeline-node section-1">
+        <g>
+          <path id="my-svg-node-7" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#ffffa1"/>
+          <line class="node-line-1" x1="0" y1="50" x2="190" y2="50" stroke="#fadeff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">TCP/IP adopted</text>
+        </g>
+      </g>
+    </g>
+    <g class="taskWrapper" transform="translate(800, 50)">
+      <g class="timeline-node section-2">
+        <g>
+          <path id="my-svg-node-8" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#c286ff"/>
+          <line class="node-line-2" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#dcffb9" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#ffffff">1991</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="895" y1="117.8" x2="895" y2="423.4" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(800, 250)">
+      <g class="timeline-node section-2">
+        <g>
+          <path id="my-svg-node-9" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#e9a1ff"/>
+          <line class="node-line-2" x1="0" y1="50" x2="190" y2="50" stroke="#ffffde" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#ffffff">World Wide Web</text>
+        </g>
+      </g>
+    </g>
+    <g class="eventWrapper" transform="translate(800, 310)">
+      <g class="timeline-node section-2">
+        <g>
+          <path id="my-svg-node-10" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#e9a1ff"/>
+          <line class="node-line-2" x1="0" y1="50" x2="190" y2="50" stroke="#ffffde" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#ffffff">Linux kernel</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="150" y1="167.8" x2="1240" y2="167.8" stroke="#000000" stroke-width="4" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,197 @@
+---
+source: tests/parity_timeline.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1390" height="652.2" viewBox="100 -61 1390 652.2" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="5" refY="2" markerWidth="6" markerHeight="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0L0,4L6,2Z" fill="#000000"/>
+    </marker>
+  </defs>
+  <g fill="#000000" font-size="16">
+    <g class="sectionWrapper" transform="translate(200, 50)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-0" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L385,0Q390,0,390,5L390,67.8L0,67.8Z" fill="#b9d970"/>
+          <line class="node-line--1" x1="0" y1="67.8" x2="390" y2="67.8" stroke="#9070d9" stroke-width="3"/>
+        </g>
+        <g transform="translate(195, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Spring</text>
+        </g>
+      </g>
+    </g>
+    <g class="taskWrapper" transform="translate(200, 167.8)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-1" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#b9d970"/>
+          <line class="node-line--1" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#9070d9" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">March</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="295" y1="235.6" x2="295" y2="541.2" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(200, 367.8)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-2" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#deff86"/>
+          <line class="node-line--1" x1="0" y1="50" x2="190" y2="50" stroke="#ad86ff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Sow seeds</text>
+        </g>
+      </g>
+    </g>
+    <g class="taskWrapper" transform="translate(400, 167.8)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-3" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#b9d970"/>
+          <line class="node-line--1" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#9070d9" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">April</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="495" y1="235.6" x2="495" y2="541.2" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(400, 367.8)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-4" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#deff86"/>
+          <line class="node-line--1" x1="0" y1="50" x2="190" y2="50" stroke="#ad86ff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Plant out</text>
+        </g>
+      </g>
+    </g>
+    <g class="eventWrapper" transform="translate(400, 427.8)">
+      <g class="timeline-node section--1">
+        <g>
+          <path id="my-svg-node-5" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#deff86"/>
+          <line class="node-line--1" x1="0" y1="50" x2="190" y2="50" stroke="#ad86ff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Weed</text>
+        </g>
+      </g>
+    </g>
+    <g class="sectionWrapper" transform="translate(600, 50)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-6" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L385,0Q390,0,390,5L390,67.8L0,67.8Z" fill="#acff7f"/>
+          <line class="node-line-0" x1="0" y1="67.8" x2="390" y2="67.8" stroke="#d27fff" stroke-width="3"/>
+        </g>
+        <g transform="translate(195, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Summer</text>
+        </g>
+      </g>
+    </g>
+    <g class="taskWrapper" transform="translate(600, 167.8)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-7" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#acff7f"/>
+          <line class="node-line-0" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#d27fff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">June</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="695" y1="235.6" x2="695" y2="541.2" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(600, 367.8)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-8" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#ceff98"/>
+          <line class="node-line-0" x1="0" y1="50" x2="190" y2="50" stroke="#fc98ff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Water daily</text>
+        </g>
+      </g>
+    </g>
+    <g class="taskWrapper" transform="translate(800, 167.8)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-9" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#acff7f"/>
+          <line class="node-line-0" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#d27fff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">July</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="895" y1="235.6" x2="895" y2="541.2" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(800, 367.8)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-10" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#ceff98"/>
+          <line class="node-line-0" x1="0" y1="50" x2="190" y2="50" stroke="#fc98ff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Harvest beans</text>
+        </g>
+      </g>
+    </g>
+    <g class="eventWrapper" transform="translate(800, 427.8)">
+      <g class="timeline-node section-0">
+        <g>
+          <path id="my-svg-node-11" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#ceff98"/>
+          <line class="node-line-0" x1="0" y1="50" x2="190" y2="50" stroke="#fc98ff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Harvest peas</text>
+        </g>
+      </g>
+    </g>
+    <g class="sectionWrapper" transform="translate(1000, 50)">
+      <g class="timeline-node section-1">
+        <g>
+          <path id="my-svg-node-12" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#cde498"/>
+          <line class="node-line-1" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#af98e4" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Autumn</text>
+        </g>
+      </g>
+    </g>
+    <g class="taskWrapper" transform="translate(1000, 167.8)">
+      <g class="timeline-node section-1">
+        <g>
+          <path id="my-svg-node-13" class="node-bkg" d="M0,62.8L0,5Q0,0,5,0L185,0Q190,0,190,5L190,67.8L0,67.8Z" fill="#cde498"/>
+          <line class="node-line-1" x1="0" y1="67.8" x2="190" y2="67.8" stroke="#af98e4" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">October</text>
+        </g>
+      </g>
+    </g>
+    <g class="lineWrapper">
+      <line x1="1095" y1="235.6" x2="1095" y2="541.2" stroke="#000000" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+    <g class="eventWrapper" transform="translate(1000, 367.8)">
+      <g class="timeline-node section-1">
+        <g>
+          <path id="my-svg-node-14" class="node-bkg" d="M0,45L0,5Q0,0,5,0L185,0Q190,0,190,5L190,50L0,50Z" fill="#f6ffb6"/>
+          <line class="node-line-1" x1="0" y1="50" x2="190" y2="50" stroke="#d2b6ff" stroke-width="3"/>
+        </g>
+        <g transform="translate(95, 10)">
+          <text x="0" y="20.184" text-anchor="middle" fill="#000000">Mulch beds</text>
+        </g>
+      </g>
+    </g>
+    <text x="345" y="20" font-size="33.469" font-weight="bold">Garden year</text>
+    <g class="lineWrapper">
+      <line x1="150" y1="285.6" x2="1440" y2="285.6" stroke="#000000" stroke-width="4" marker-end="url(#my-svg-arrowhead)"/>
+    </g>
+  </g>
+</svg>
