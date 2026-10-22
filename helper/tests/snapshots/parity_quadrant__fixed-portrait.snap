@@ -1,0 +1,63 @@
+---
+source: tests/parity_quadrant.rs
+expression: svg_of(&source)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="350" height="550" viewBox="0 0 350 550" font-family="Trebuchet MS">
+  <g fill="#333333">
+    <g class="main">
+      <g class="quadrants">
+        <g class="quadrant">
+          <rect x="188" y="45" width="157" height="237" fill="#ececff"/>
+          <text transform="translate(266.5, 50) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Expand</text>
+        </g>
+        <g class="quadrant">
+          <rect x="31" y="45" width="157" height="237" fill="#f1f1ff"/>
+          <text transform="translate(109.5, 50) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#0e0e00" font-size="16">Promote</text>
+        </g>
+        <g class="quadrant">
+          <rect x="31" y="282" width="157" height="237" fill="#f6f6ff"/>
+          <text transform="translate(109.5, 287) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#090900" font-size="16">Review</text>
+        </g>
+        <g class="quadrant">
+          <rect x="188" y="282" width="157" height="237" fill="#fbfbff"/>
+          <text transform="translate(266.5, 287) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#040400" font-size="16">Improve</text>
+        </g>
+      </g>
+      <g class="border">
+        <line x1="30" y1="45" x2="346" y2="45" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="345" y1="46" x2="345" y2="518" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="30" y1="519" x2="346" y2="519" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="31" y1="46" x2="31" y2="518" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="188" y1="46" x2="188" y2="518" stroke="#c7c7f1" stroke-width="1"/>
+        <line x1="32" y1="282" x2="344" y2="282" stroke="#c7c7f1" stroke-width="1"/>
+      </g>
+      <g class="data-points">
+        <g class="data-point">
+          <circle cx="250.8" cy="376.8" r="5" stroke-width="0"/>
+          <text transform="translate(250.8, 381.8) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="12">Beta</text>
+        </g>
+        <g class="data-point">
+          <circle cx="93.8" cy="139.8" r="5" stroke-width="0"/>
+          <text transform="translate(93.8, 144.8) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="12">Alpha</text>
+        </g>
+      </g>
+      <g class="labels">
+        <g class="label">
+          <text transform="translate(109.5, 529) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Low</text>
+        </g>
+        <g class="label">
+          <text transform="translate(266.5, 529) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">High</text>
+        </g>
+        <g class="label">
+          <text transform="translate(5, 400.5) rotate(-90, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Cold</text>
+        </g>
+        <g class="label">
+          <text transform="translate(5, 163.5) rotate(-90, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Hot</text>
+        </g>
+      </g>
+      <g class="title">
+        <text transform="translate(175, 10) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="20">Fixed tall chart</text>
+      </g>
+    </g>
+  </g>
+</svg>

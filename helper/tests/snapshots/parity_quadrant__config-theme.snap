@@ -1,0 +1,52 @@
+---
+source: tests/parity_quadrant.rs
+expression: svg_of(&source)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400" font-family="Trebuchet MS">
+  <g fill="#333333">
+    <g class="main">
+      <g class="quadrants">
+        <g class="quadrant">
+          <rect x="213" y="31" width="182" height="182" fill="#ececff"/>
+          <text transform="translate(304, 122) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" font-size="16">Plan</text>
+        </g>
+        <g class="quadrant">
+          <rect x="31" y="31" width="182" height="182" fill="#f1f1ff"/>
+          <text transform="translate(122, 122) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#0e0e00" font-size="16">Do</text>
+        </g>
+        <g class="quadrant">
+          <rect x="31" y="213" width="182" height="182" fill="#f6f6ff"/>
+          <text transform="translate(122, 304) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#090900" font-size="16">Delegate</text>
+        </g>
+        <g class="quadrant">
+          <rect x="213" y="213" width="182" height="182" fill="#fbfbff"/>
+          <text transform="translate(304, 304) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#040400" font-size="16">Delete</text>
+        </g>
+      </g>
+      <g class="border">
+        <line x1="30" y1="31" x2="396" y2="31" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="395" y1="32" x2="395" y2="394" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="30" y1="395" x2="396" y2="395" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="31" y1="32" x2="31" y2="394" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="213" y1="32" x2="213" y2="394" stroke="#c7c7f1" stroke-width="1"/>
+        <line x1="32" y1="213" x2="394" y2="213" stroke="#c7c7f1" stroke-width="1"/>
+      </g>
+      <g class="data-points"/>
+      <g class="labels">
+        <g class="label">
+          <text transform="translate(122, 5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Urgent</text>
+        </g>
+        <g class="label">
+          <text transform="translate(304, 5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Not Urgent</text>
+        </g>
+        <g class="label">
+          <text transform="translate(5, 304) rotate(-90, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Not Important</text>
+        </g>
+        <g class="label">
+          <text transform="translate(5, 122) rotate(-90, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Important ❤</text>
+        </g>
+      </g>
+      <g class="title"/>
+    </g>
+  </g>
+</svg>

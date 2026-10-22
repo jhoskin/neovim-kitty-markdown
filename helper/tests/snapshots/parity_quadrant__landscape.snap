@@ -1,0 +1,67 @@
+---
+source: tests/parity_quadrant.rs
+expression: svg_of(&source)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="400" viewBox="0 0 800 400" font-family="Trebuchet MS">
+  <g fill="#333333">
+    <g class="main">
+      <g class="quadrants">
+        <g class="quadrant">
+          <rect x="413" y="45" width="382" height="162" fill="#ececff"/>
+          <text transform="translate(604, 50) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">We should expand</text>
+        </g>
+        <g class="quadrant">
+          <rect x="31" y="45" width="382" height="162" fill="#f1f1ff"/>
+          <text transform="translate(222, 50) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#0e0e00" font-size="16">Need to promote</text>
+        </g>
+        <g class="quadrant">
+          <rect x="31" y="207" width="382" height="162" fill="#f6f6ff"/>
+          <text transform="translate(222, 212) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#090900" font-size="16">Re-evaluate</text>
+        </g>
+        <g class="quadrant">
+          <rect x="413" y="207" width="382" height="162" fill="#fbfbff"/>
+          <text transform="translate(604, 212) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#040400" font-size="16">May be improved</text>
+        </g>
+      </g>
+      <g class="border">
+        <line x1="30" y1="45" x2="796" y2="45" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="795" y1="46" x2="795" y2="368" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="30" y1="369" x2="796" y2="369" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="31" y1="46" x2="31" y2="368" stroke="#c7c7f1" stroke-width="2"/>
+        <line x1="413" y1="46" x2="413" y2="368" stroke="#c7c7f1" stroke-width="1"/>
+        <line x1="32" y1="207" x2="794" y2="207" stroke="#c7c7f1" stroke-width="1"/>
+      </g>
+      <g class="data-points">
+        <g class="data-point">
+          <circle cx="626.92" cy="258.84" r="5" stroke-width="0"/>
+          <text transform="translate(626.92, 263.84) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="12">Campaign C</text>
+        </g>
+        <g class="data-point">
+          <circle cx="374.8" cy="294.48" r="5" stroke-width="0"/>
+          <text transform="translate(374.8, 299.48) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="12">Campaign B</text>
+        </g>
+        <g class="data-point">
+          <circle cx="260.2" cy="174.6" r="5" stroke-width="0"/>
+          <text transform="translate(260.2, 179.6) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="12">Campaign A</text>
+        </g>
+      </g>
+      <g class="labels">
+        <g class="label">
+          <text transform="translate(222, 379) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Low Reach</text>
+        </g>
+        <g class="label">
+          <text transform="translate(604, 379) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">High Reach</text>
+        </g>
+        <g class="label">
+          <text transform="translate(5, 288) rotate(-90, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">Low Engagement</text>
+        </g>
+        <g class="label">
+          <text transform="translate(5, 126) rotate(-90, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="16">High Engagement</text>
+        </g>
+      </g>
+      <g class="title">
+        <text transform="translate(400, 10) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="20">Wide chart</text>
+      </g>
+    </g>
+  </g>
+</svg>
