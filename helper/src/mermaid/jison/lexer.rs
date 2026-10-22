@@ -459,12 +459,12 @@ impl<'g> Lexer<'g> {
             let found = regex
                 .find(&self.remaining)
                 .map_err(|e| self.action_error(format!("regex error in rule {rule}: {e}")))?;
-            if let Some(m) = found {
-                if best.is_none_or(|(_, len)| m.end() > len) {
-                    best = Some((rule, m.end()));
-                    if !flex {
-                        break;
-                    }
+            if let Some(m) = found
+                && best.is_none_or(|(_, len)| m.end() > len)
+            {
+                best = Some((rule, m.end()));
+                if !flex {
+                    break;
                 }
             }
         }
