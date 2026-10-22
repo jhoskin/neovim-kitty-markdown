@@ -2,7 +2,7 @@
 source: tests/parity_pie.rs
 expression: scene_svg(&mmd)
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="766.516" height="450" viewBox="-158.258 0 766.516 450" font-family="&quot;Trebuchet MS&quot;, &quot;Verdana&quot;, &quot;Arial&quot;, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="766.516" height="450" viewBox="-158.258 0 766.516 450" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <g>
     <g transform="translate(225, 225)">
       <g>

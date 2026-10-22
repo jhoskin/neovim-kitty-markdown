@@ -23,7 +23,6 @@ use crate::mermaid::scene::{
 use crate::mermaid::styles::pie::{PieStyles, parse_int_prefix};
 use crate::mermaid::theme::khroma::js_number;
 use crate::text::FontSpec as MeasureFont;
-use crate::text::fonts::{self, FontSystem, Style as FaceStyle, Weight};
 
 const MARGIN: f64 = 40.0;
 const LEGEND_RECT_SIZE: f64 = 18.0;
@@ -206,41 +205,6 @@ fn outer_stroke_width(value: &Value) -> f64 {
         Value::Number(n) => n.as_f64().unwrap_or(2.0),
         Value::String(s) => parse_int_prefix(s).unwrap_or(2.0),
         _ => 2.0,
-    }
-}
-
-/// Temporary: central fix in `text::fontdb_arc` (case-folded alias faces
-/// in the shared font database); drop this rewrite at integration.
-///
-/// The font chain spelled the way the raster step can find it. resvg
-/// matches family names case-sensitively while CSS, mermaid's measurer,
-/// and `FontSystem` do not, so a lowercase `"trebuchet ms"` from the theme
-/// would rasterize in the fallback serif. Each concrete family is replaced
-/// by the spelling the font database holds; generic families and unknown
-/// ones pass through.
-fn raster_font_family(fonts: &FontSystem, chain: &str) -> String {
-    let families: Vec<String> = fonts::parse_families(chain)
-        .into_iter()
-        .map(|family| {
-            let lower = family.to_ascii_lowercase();
-            let generic = matches!(
-                lower.as_str(),
-                "serif" | "sans-serif" | "monospace" | "cursive" | "fantasy" | "system-ui"
-            );
-            if generic {
-                return family;
-            }
-            fonts
-                .resolve_family(&family, Weight(400), FaceStyle::Normal)
-                .and_then(|id| fonts.family_name(id))
-                .map(|name| format!("\"{name}\""))
-                .unwrap_or_else(|| format!("\"{family}\""))
-        })
-        .collect();
-    if families.is_empty() {
-        chain.to_string()
-    } else {
-        families.join(", ")
     }
 }
 
@@ -510,7 +474,7 @@ pub fn draw(db: &PieDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Scene {
 
     let mut scene = Scene::new(total_width, chart_and_legend_height);
     scene.view_box = ViewBox::new(view_box_x, 0.0, total_width, chart_and_legend_height);
-    scene.font_family = raster_font_family(ctx.fonts, &styles.font_family);
+    scene.font_family = styles.font_family.clone();
     scene.root.children.push(Element::Group(outer));
     scene
 }
