@@ -28,7 +28,10 @@ fn probe_reports_versions_and_creates_cache_dirs() {
     assert_eq!(result["mermaid_version"], "12.2.0");
     assert_eq!(result["cache_bytes"], 0);
     assert_eq!(result["fonts"], json!({}));
-    assert_eq!(result["diagram_types"], json!([]));
+    assert_eq!(
+        result["diagram_types"],
+        json!(kitty_markdown_helper::mermaid::diagrams::delivered_types())
+    );
     for sub in ["images", "remote", "mermaid"] {
         assert!(dir.join(sub).is_dir(), "{sub} missing");
     }

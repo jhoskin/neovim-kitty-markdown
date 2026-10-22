@@ -59,9 +59,11 @@ local function warn(reason)
   vim.notify('kitty-markdown: helper download failed: ' .. reason, vim.log.levels.WARN)
 end
 
+-- `vim.system` callbacks run in a fast event context, where `vim.notify`
+-- is not allowed, so both the notice and the callback are scheduled.
 local function fail(cb, reason)
-  warn(reason)
   vim.schedule(function()
+    warn(reason)
     cb({ code = 'download_failed', message = reason })
   end)
 end
