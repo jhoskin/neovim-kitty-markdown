@@ -1,0 +1,26 @@
+---
+source: tests/parity_packet.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="514" height="62" viewBox="0 0 514 62" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333">
+    <g>
+      <rect class="packetBlock" x="257" y="15" width="251" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="382.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">DATA</text>
+      <text class="packetByte start" x="257" y="13" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">7</text>
+      <text class="packetByte end" x="508" y="13" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">0</text>
+      <rect class="packetBlock" x="129" y="15" width="123" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="190.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">TYPE</text>
+      <text class="packetByte start" x="129" y="13" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">11</text>
+      <text class="packetByte end" x="252" y="13" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">8</text>
+      <rect class="packetBlock" x="97" y="15" width="27" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="110.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">EN</text>
+      <text class="packetByte start" x="110.5" y="13" text-anchor="middle" dominant-baseline="auto" fill="#000000" font-size="10">12</text>
+      <rect class="packetBlock" x="1" y="15" width="91" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="46.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">RESERVED</text>
+      <text class="packetByte start" x="1" y="13" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">15</text>
+      <text class="packetByte end" x="92" y="13" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">13</text>
+    </g>
+    <text class="packetTitle" x="257" y="38.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="14"></text>
+  </g>
+</svg>

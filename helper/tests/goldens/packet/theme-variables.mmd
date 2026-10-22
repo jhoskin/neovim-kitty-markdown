@@ -1,0 +1,22 @@
+---
+config:
+  themeVariables:
+    packet:
+      startByteColor: "#c00000"
+      endByteColor: "#0000c0"
+      labelColor: "#ffffff"
+      labelFontSize: "16px"
+      titleColor: "#006600"
+      titleFontSize: "20px"
+      blockStrokeColor: "#333333"
+      blockStrokeWidth: "3"
+      blockFillColor: "#4477aa"
+---
+packet-beta
+title Custom colors
+0-15: "Source Port"
+16-31: "Destination Port"
+32-63: "Sequence Number"
+%% mermaid's sanitizeDirective drops themeVariables keys that are not also
+%% global config keys, so of the packet object only labelColor,
+%% labelFontSize, titleColor, and titleFontSize reach the stylesheet.

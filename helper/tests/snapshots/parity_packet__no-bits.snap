@@ -1,0 +1,27 @@
+---
+source: tests/parity_packet.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1026" height="111" viewBox="0 0 1026 111" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333">
+    <g>
+      <rect class="packetBlock" x="1" y="5" width="123" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="62.5" y="21" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Version</text>
+      <rect class="packetBlock" x="129" y="5" width="123" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="190.5" y="21" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">IHL</text>
+      <rect class="packetBlock" x="257" y="5" width="251" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="382.5" y="21" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Type of Service</text>
+      <rect class="packetBlock" x="513" y="5" width="507" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="766.5" y="21" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Total Length</text>
+    </g>
+    <g>
+      <rect class="packetBlock" x="1" y="42" width="507" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="254.5" y="58" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Identification</text>
+      <rect class="packetBlock" x="513" y="42" width="91" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="558.5" y="58" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Flags</text>
+      <rect class="packetBlock" x="609" y="42" width="411" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="814.5" y="58" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Fragment Offset</text>
+    </g>
+    <text class="packetTitle" x="513" y="92.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="14">IPv4 header</text>
+  </g>
+</svg>

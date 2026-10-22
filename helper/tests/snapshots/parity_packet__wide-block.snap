@@ -1,0 +1,35 @@
+---
+source: tests/parity_packet.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1026" height="156" viewBox="0 0 1026 156" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333">
+    <g>
+      <rect class="packetBlock" x="1" y="15" width="251" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="126.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Head</text>
+      <text class="packetByte start" x="1" y="13" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">0</text>
+      <text class="packetByte end" x="252" y="13" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">7</text>
+      <rect class="packetBlock" x="257" y="15" width="763" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="638.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Payload</text>
+      <text class="packetByte start" x="257" y="13" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">8</text>
+      <text class="packetByte end" x="1020" y="13" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">31</text>
+    </g>
+    <g>
+      <rect class="packetBlock" x="1" y="62" width="1019" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="510.5" y="78" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Payload</text>
+      <text class="packetByte start" x="1" y="60" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">32</text>
+      <text class="packetByte end" x="1020" y="60" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">63</text>
+    </g>
+    <g>
+      <rect class="packetBlock" x="1" y="109" width="251" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="126.5" y="125" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Payload</text>
+      <text class="packetByte start" x="1" y="107" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">64</text>
+      <text class="packetByte end" x="252" y="107" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">71</text>
+      <rect class="packetBlock" x="257" y="109" width="251" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="382.5" y="125" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Tail</text>
+      <text class="packetByte start" x="257" y="107" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">72</text>
+      <text class="packetByte end" x="508" y="107" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">79</text>
+    </g>
+    <text class="packetTitle" x="513" y="132.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="14"></text>
+  </g>
+</svg>

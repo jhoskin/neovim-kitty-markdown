@@ -1,0 +1,23 @@
+---
+source: tests/parity_packet.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1026" height="62" viewBox="0 0 1026 62" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333">
+    <g>
+      <rect class="packetBlock" x="1" y="15" width="251" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="126.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Type</text>
+      <text class="packetByte start" x="1" y="13" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">0</text>
+      <text class="packetByte end" x="252" y="13" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">7</text>
+      <rect class="packetBlock" x="257" y="15" width="251" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="382.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Code</text>
+      <text class="packetByte start" x="257" y="13" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">8</text>
+      <text class="packetByte end" x="508" y="13" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">15</text>
+      <rect class="packetBlock" x="513" y="15" width="507" height="32" fill="#efefef" stroke="#000000" stroke-width="1"/>
+      <text class="packetLabel" x="766.5" y="31" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="12">Checksum</text>
+      <text class="packetByte start" x="513" y="13" text-anchor="start" dominant-baseline="auto" fill="#000000" font-size="10">16</text>
+      <text class="packetByte end" x="1020" y="13" text-anchor="end" dominant-baseline="auto" fill="#000000" font-size="10">31</text>
+    </g>
+    <text class="packetTitle" x="513" y="38.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="14"></text>
+  </g>
+</svg>
