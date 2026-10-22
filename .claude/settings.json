@@ -3,7 +3,10 @@
   "permissions": {
     "deny": [
       "Read(./held_out/**)",
-      "Edit(./held_out/**)"
+      "Edit(./held_out/**)",
+      "Edit(./SPEC.md)",
+      "Edit(./README.md)",
+      "Edit(./AGENTS.md)"
     ]
   }
 }
