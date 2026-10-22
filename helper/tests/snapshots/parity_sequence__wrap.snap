@@ -2,7 +2,7 @@
 source: tests/parity_sequence.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="933" height="515" viewBox="-59 -10 933 515" font-family="Trebuchet MS">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="933" height="515" viewBox="-59 -10 933 515" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg-arrowhead" refX="7.9" refY="5" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
       <path d="M-1,0L10,5L0,10Z" fill="#333333" stroke="#333333"/>

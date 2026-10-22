@@ -15,7 +15,6 @@ use crate::mermaid::config::defaults::Font;
 use crate::mermaid::scene::{FontSpec as SceneFont, FontWeight};
 use crate::text::FontSpec as MeasureSpec;
 use crate::text::FontSystem;
-use crate::text::fonts::{Style as FaceStyle, Weight};
 
 /// What headless Chrome measures with when an element has no usable
 /// `font-family`: the page's default standard font. mermaid-cli's
@@ -34,15 +33,6 @@ pub const BODY_DEFAULT_FAMILY: &str = "\"Times New Roman\", serif";
 /// has to reach the SVG as the installed `Trebuchet MS`. A chain nothing
 /// matches is written as it is and resvg falls back on its own.
 ///
-/// Temporary: central fix in `text::fontdb_arc`, which aliases every
-/// family under its lower-case name so the scene can keep the CSS chain.
-pub fn resvg_family(fonts: &FontSystem, chain: &str, weight: u16) -> String {
-    fonts
-        .resolve(chain, Weight(weight), FaceStyle::Normal)
-        .and_then(|id| fonts.family_name(id))
-        .unwrap_or_else(|| chain.to_string())
-}
-
 /// Chrome's CSS parser rejects a `font-family` value with a stray `;`
 /// (mermaid's default `fontFamily` ends in one), and `style.setProperty`
 /// then leaves the property unset, so the element inherits instead.
@@ -68,7 +58,7 @@ pub struct FontPair {
 }
 
 impl FontPair {
-    fn new(font: &Font, root_family: &str, fonts: &FontSystem) -> FontPair {
+    fn new(font: &Font, root_family: &str, _fonts: &FontSystem) -> FontPair {
         let family = font.font_family.clone();
         let size = *font.font_size;
         let weight = css_weight(&font.font_weight);
@@ -86,7 +76,7 @@ impl FontPair {
         FontPair {
             measure: MeasureSpec::new(measure_family, size as f32).weight(weight),
             render: MeasureSpec::new(render_family, size as f32).weight(weight),
-            css_family: valid.then(|| resvg_family(fonts, &family, weight)),
+            css_family: valid.then(|| family.clone()),
             size,
             weight,
         }
@@ -245,7 +235,10 @@ mod tests {
             font_weight: serde_json::json!("bold"),
         };
         let pair = FontPair::new(&font, "serif", crate::text::font_system());
-        assert_eq!(pair.css_family.as_deref(), Some("Open Sans"));
+        assert_eq!(
+            pair.css_family.as_deref(),
+            Some("\"Open Sans\", sans-serif")
+        );
         assert_eq!(pair.measure.family, "\"Open Sans\", sans-serif");
         assert_eq!(pair.weight, 700);
     }

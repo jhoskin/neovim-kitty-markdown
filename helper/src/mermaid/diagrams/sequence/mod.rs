@@ -20,7 +20,7 @@ use crate::mermaid::scene::{Common, FontSpec, Group, Scene, Style, ViewBox};
 use crate::mermaid::styles::sequence::SequenceStyles;
 
 use actions::{SequenceActions, Val};
-use conf::{BODY_DEFAULT_FAMILY, Conf, css_family_valid, resvg_family};
+use conf::{BODY_DEFAULT_FAMILY, Conf, css_family_valid};
 use db::SequenceDb;
 use layout::Renderer;
 
@@ -92,7 +92,7 @@ impl Diagram for Sequence {
 
         let mut scene = Scene::new(vb[2], vb[3]);
         scene.view_box = ViewBox::new(vb[0], vb[1], vb[2], vb[3]);
-        scene.font_family = resvg_family(ctx.fonts, &root_family, 400);
+        scene.font_family = root_family;
         scene.defs = draw::markers(&styles);
         // The stylesheet's root rule: `fill: textColor; font-size`.
         scene.root = Group {

@@ -21,7 +21,7 @@ mod common;
 
 use std::sync::Once;
 
-use image::{Rgba, RgbaImage};
+use image::RgbaImage;
 use kitty_markdown_helper::mermaid::config::{BaseConfig, resolve};
 use kitty_markdown_helper::mermaid::diagrams::{RenderCtx, find};
 use kitty_markdown_helper::mermaid::raster::{Background, RasterOpts, render_rgba};
@@ -34,9 +34,6 @@ use kitty_markdown_helper::text::{self, TextMetrics};
 const PARITY_WIDTH: u32 = 960;
 /// The zone the goldens were rendered under.
 const GOLDEN_TZ: &str = "America/Los_Angeles";
-/// The viewport shrink mermaid-cli applies before the screenshot.
-const CLI_SHRINK_PX: u32 = 8;
-
 fn pin_zone() {
     static ONCE: Once = Once::new();
     ONCE.call_once(|| {
@@ -59,24 +56,19 @@ fn scene_for(source: &str) -> kitty_markdown_helper::mermaid::scene::Scene {
     diagram.render(&resolved, &ctx).expect("gantt renders")
 }
 
-/// The chart as the oracle screenshot shows it: scaled by
-/// `(size - 8) / size` and padded to the golden's size with white.
-fn framed(scene: &kitty_markdown_helper::mermaid::scene::Scene, golden: &RgbaImage) -> RgbaImage {
-    let size = PARITY_WIDTH.max(scene.height.ceil() as u32);
-    let shrunk_width = (scene.width * f64::from(size - CLI_SHRINK_PX) / f64::from(size)) as u32;
+/// The helper's PNG at the width the golden harness renders with; the
+/// shared `assert_ssim` crops the oracle image to the helper's size. A gantt
+/// lays its time scale over the available width, so the oracle runs at the
+/// helper's width and its screenshot then reflows the drawing 8 px
+/// narrower (see `helper/oracle/goldens.mjs`); the render scales the same.
+const ORACLE_REFLOW_PX: u32 = 8;
+
+fn render_at_harness_width(scene: &kitty_markdown_helper::mermaid::scene::Scene) -> RgbaImage {
     let opts = RasterOpts {
-        target_width: Some(shrunk_width),
+        target_width: Some(PARITY_WIDTH - ORACLE_REFLOW_PX),
         background: Some(Background::Color(Color::WHITE)),
     };
-    let inner = render_rgba(scene, mermaid::fontdb(), &opts).expect("raster");
-    let mut out =
-        RgbaImage::from_pixel(golden.width(), golden.height(), Rgba([255, 255, 255, 255]));
-    for (x, y, px) in inner.enumerate_pixels() {
-        if x < out.width() && y < out.height() {
-            out.put_pixel(x, y, *px);
-        }
-    }
-    out
+    render_rgba(scene, mermaid::fontdb(), &opts).expect("raster")
 }
 
 #[test]
@@ -90,10 +82,13 @@ fn gantt_cases_match_the_oracle() {
         let scene = scene_for(&case.source());
         insta::assert_snapshot!(format!("gantt_{}", case.name), scene.to_svg());
         let goldens = case.goldens();
-        let actual = framed(&scene, &goldens[0]);
+        let actual = render_at_harness_width(&scene);
         let best = goldens
             .iter()
-            .filter_map(|g| ssim_with_tolerance(&actual, g, common::SIZE_TOLERANCE_PX).ok())
+            .filter_map(|g| {
+                let framed = common::golden_frame(&actual, g);
+                ssim_with_tolerance(&actual, &framed, common::SIZE_TOLERANCE_PX).ok()
+            })
             .fold(f64::NAN, f64::max);
         eprintln!("gantt/{}: SSIM {best:.4}", case.name);
         if best.is_nan() || best < common::SSIM_THRESHOLD {

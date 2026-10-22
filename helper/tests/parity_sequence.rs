@@ -4,7 +4,7 @@
 
 mod common;
 
-use image::{Rgba, RgbaImage};
+use image::RgbaImage;
 use kitty_markdown_helper::mermaid::config::{self, BaseConfig};
 use kitty_markdown_helper::mermaid::diagrams::sequence::DIAGRAM;
 use kitty_markdown_helper::mermaid::diagrams::{Diagram, RenderCtx};
@@ -31,28 +31,16 @@ fn render_scene(source: &str) -> Scene {
     DIAGRAM.render(&resolved, &ctx).expect("sequence renders")
 }
 
-/// Frames the helper render the way mermaid-cli 12.0.0 frames its
-/// screenshot: the CLI measures the SVG clip in a `size + 16` viewport,
-/// then resizes the viewport to `clip.x + clip.width`, which shrinks the
-/// `width="100%"` SVG by 8 px while the clip keeps its size. The golden is
-/// therefore the diagram at `(size - 8) / size` with 8 px of white on the
-/// right and bottom. The coordinator's heads-up from the quadrant package
-/// describes this; the shared harness takes it over at integration, so
-/// this stays local to the sequence test until then.
-fn framed_render(scene: &Scene, golden: &RgbaImage) -> RgbaImage {
-    let (w, h) = golden.dimensions();
+/// The width `goldens.mjs` renders the helper with before it sizes the
+/// oracle; the shared `assert_ssim` crops the golden to the helper's size.
+const HARNESS_WIDTH: u32 = 960;
+
+fn render_at_harness_width(scene: &Scene) -> RgbaImage {
     let opts = RasterOpts {
-        target_width: Some(w.saturating_sub(8).max(1)),
+        target_width: Some(HARNESS_WIDTH),
         background: Some(Background::Color(Color::WHITE)),
     };
-    let actual = render_rgba(scene, mermaid::fontdb(), &opts).expect("raster");
-    let mut framed = RgbaImage::from_pixel(w, h, Rgba([255, 255, 255, 255]));
-    for (x, y, px) in actual.enumerate_pixels() {
-        if x < w && y < h {
-            framed.put_pixel(x, y, *px);
-        }
-    }
-    framed
+    render_rgba(scene, mermaid::fontdb(), &opts).expect("raster")
 }
 
 #[test]
@@ -73,7 +61,7 @@ fn sequence_ssim_against_oracle() {
     for case in cases {
         let scene = render_scene(&case.source());
         let goldens = case.goldens();
-        let actual = framed_render(&scene, &goldens[0]);
+        let actual = render_at_harness_width(&scene);
         let name = format!("sequence_{}", case.name);
         let value = ssim_with_tolerance(&actual, &goldens[0], SIZE_TOLERANCE_PX)
             .map(|v| format!("{v:.4}"))

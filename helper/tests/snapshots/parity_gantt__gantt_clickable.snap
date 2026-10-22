@@ -2,7 +2,7 @@
 source: tests/parity_gantt.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="960" height="172" viewBox="0 0 960 172" font-family="&quot;Trebuchet MS&quot;, Verdana, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="960" height="172" viewBox="0 0 960 172" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <g>
     <g/>
     <g class="grid" transform="translate(75, 122)">

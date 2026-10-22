@@ -204,7 +204,7 @@ pub fn draw(
     };
 
     let mut scene = Scene::new(w, h);
-    scene.font_family = canonical_family_chain(ctx.fonts, &chart.styles.font_family);
+    scene.font_family = chart.styles.font_family.clone();
     let root = &mut scene.root.children;
 
     // `makeGantt`
@@ -222,36 +222,6 @@ pub fn draw(
     Ok(scene)
 }
 
-/// Temporary: central fix in `text::fontdb_arc`, which gives the shared
-/// database a lower-case alias face per family; the integration step
-/// removes this and regenerates the snapshots.
-///
-/// The theme's `font-family` chain with each named family spelled the way
-/// the font database knows it. CSS matches family names without regard to
-/// case, but resvg hands the chain to fontdb, which compares exactly, so
-/// mermaid's lowercase `"trebuchet ms"` would fall through to the generic
-/// family. The text measurer resolves case-insensitively; this keeps the
-/// painted glyphs in the face that was measured.
-pub fn canonical_family_chain(fonts: &crate::text::FontSystem, chain: &str) -> String {
-    use crate::text::fonts::{Style, Weight, parse_families};
-    parse_families(chain)
-        .into_iter()
-        .map(|family| {
-            let known = fonts
-                .resolve_family(&family, Weight::NORMAL, Style::Normal)
-                .and_then(|id| fonts.family_name(id))
-                .filter(|name| name.eq_ignore_ascii_case(&family))
-                .unwrap_or(family);
-            if known.contains(' ') {
-                format!("\"{known}\"")
-            } else {
-                known
-            }
-        })
-        .collect::<Vec<_>>()
-        .join(", ")
-}
-
 /// What `draw` produces when `getTasks()` returns nothing: the title alone
 /// is the only thing the browser paints for the `NaN` geometry.
 fn empty_chart(
@@ -260,10 +230,10 @@ fn empty_chart(
     styles: &GanttStyles,
     conf: &GanttConfig,
     db: &GanttDb,
-    ctx: &RenderCtx<'_>,
+    _ctx: &RenderCtx<'_>,
 ) -> Scene {
     let mut scene = Scene::new(w, h);
-    scene.font_family = canonical_family_chain(ctx.fonts, &styles.font_family);
+    scene.font_family = styles.font_family.clone();
     let title = xml_collapse(db.diagram_title());
     if !title.is_empty() {
         scene.root.children.push(Element::Text(Text {

@@ -2,7 +2,7 @@
 source: tests/parity_gantt.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="960" height="292" viewBox="0 0 960 292" font-family="&quot;Trebuchet MS&quot;, Verdana, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="960" height="292" viewBox="0 0 960 292" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <g>
     <g>
       <rect id="my-svg-exclude-2014-01-11" class="exclude-range" x="259" y="35" width="74" height="207" fill="#eeeeee"/>

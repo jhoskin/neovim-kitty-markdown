@@ -50,6 +50,14 @@ const PARITY_WIDTH = 960;
 /** Diagram types whose layout is unseeded; they get five goldens (R-182). */
 const UNSEEDED = new Set(["mindmap", "cynefin"]);
 const UNSEEDED_RUNS = 5;
+/**
+ * Diagram types whose layout reads the available width (gantt lays its time
+ * scale over the body width). They must be laid out at the helper's width,
+ * so the oracle runs with `--size` equal to it and the screenshot then
+ * reflows the drawing to `width - 8`; the parity test scales its render the
+ * same way and crops the golden.
+ */
+const WIDTH_DEPENDENT = new Set(["gantt"]);
 
 function fail(message) {
   console.error(`goldens: ${message}`);
@@ -57,8 +65,10 @@ function fail(message) {
 }
 
 const dirArg = process.argv[2];
+/** Optional: regenerate one diagram type only. */
+const onlyType = process.argv[3] ?? null;
 if (!dirArg) {
-  fail("usage: node helper/oracle/goldens.mjs <goldens dir>");
+  fail("usage: node helper/oracle/goldens.mjs <goldens dir> [type]");
 }
 const goldensDir = resolve(dirArg);
 if (!existsSync(goldensDir)) {
@@ -128,8 +138,11 @@ function svgShape(path) {
  * a `useMaxWidth` diagram (see the top), or the longer side for a fixed-size
  * one. Returns the size and the width the oracle PNG must have.
  */
-function oracleSize(helperSize, shape) {
+function oracleSize(helperSize, shape, type) {
   const { width, height } = helperSize;
+  if (WIDTH_DEPENDENT.has(type)) {
+    return { size: width, expectWidth: width };
+  }
   if (!shape.useMaxWidth) {
     return { size: Math.max(width, height), expectWidth: width };
   }
@@ -154,7 +167,8 @@ let skipped = 0;
 
 const types = readdirSync(goldensDir)
   .filter((name) => statSync(join(goldensDir, name)).isDirectory())
-  .sort();
+  .sort()
+  .filter((type) => onlyType === null || type === onlyType);
 
 for (const type of types) {
   const typeDir = join(goldensDir, type);
@@ -204,7 +218,7 @@ for (const type of types) {
         unlinkSync(svgPath);
       }
     }
-    const { size, expectWidth } = oracleSize(helperSize, shape);
+    const { size, expectWidth } = oracleSize(helperSize, shape, type);
 
     const runs = UNSEEDED.has(type) ? UNSEEDED_RUNS : 1;
     const outputs = [];
