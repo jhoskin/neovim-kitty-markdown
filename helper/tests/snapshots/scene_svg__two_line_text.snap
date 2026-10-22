@@ -1,0 +1,12 @@
+---
+source: tests/scene_svg.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="60" viewBox="0 0 200 60" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <text class="nodeLabel" x="100" y="20" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="16" font-weight="bold">
+      <tspan>first &lt;line&gt; &amp; co</tspan>
+      <tspan x="100" dy="1.1em">second line</tspan>
+    </text>
+  </g>
+</svg>
