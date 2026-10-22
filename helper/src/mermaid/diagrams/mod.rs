@@ -35,7 +35,7 @@ pub trait Diagram: Send + Sync {
 /// The delivered renderers. Each diagram package exposes a `DIAGRAM`
 /// static and the integration step adds it here.
 pub fn registry() -> &'static [&'static dyn Diagram] {
-    static REGISTRY: &[&dyn Diagram] = &[&pie::DIAGRAM, &quadrant::DIAGRAM, &xychart::DIAGRAM];
+    static REGISTRY: &[&dyn Diagram] = &[&pie::DIAGRAM, &quadrant::DIAGRAM, &xychart::DIAGRAM, &sequence::DIAGRAM];
     REGISTRY
 }
 
