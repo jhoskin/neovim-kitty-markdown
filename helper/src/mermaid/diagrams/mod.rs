@@ -11,6 +11,7 @@ use crate::mermaid::scene::Scene;
 use crate::text::{FontSystem, TextMetrics};
 
 pub mod pie;
+pub mod sequence;
 pub mod xychart;
 
 /// What a renderer gets besides the resolved diagram.
