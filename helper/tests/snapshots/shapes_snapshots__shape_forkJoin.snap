@@ -1,0 +1,8 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=74 height=14
+<g id="n1" class="node default ">
+  <rect x="-35" y="-5" width="70" height="10" fill="#333333" stroke="#333333" stroke-width="1"/>
+</g>

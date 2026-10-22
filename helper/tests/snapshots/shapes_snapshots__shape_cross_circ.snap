@@ -1,0 +1,11 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=60 height=60
+<g id="n1" class="node default ">
+  <g class="outer-path">
+    <circle cx="0" cy="0" r="30" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+    <path d="M-21.213,21.213L21.213,-21.213M21.213,21.213L-21.213,-21.213" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  </g>
+</g>

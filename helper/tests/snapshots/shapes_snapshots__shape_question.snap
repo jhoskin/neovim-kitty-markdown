@@ -1,0 +1,13 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=166 height=166
+<g id="n1" class="node default ">
+  <polygon class="label-container" transform="translate(-82.5, 83)" points="83,0 166,-83 83,-166 0,-83" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  <g class="label" transform="translate(-60, -8)">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <tspan x="60" dy="8">Label</tspan>
+    </text>
+  </g>
+</g>

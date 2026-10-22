@@ -1,0 +1,8 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=28 height=28
+<g id="n1" class="node default ">
+  <path d="M0,14L14,0L0,-14L-14,0Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+</g>

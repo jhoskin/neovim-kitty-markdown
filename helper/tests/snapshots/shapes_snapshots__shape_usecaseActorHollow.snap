@@ -1,0 +1,23 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=150 height=144
+<g id="n1" class="node default usecase-actor-variant usecase-actor-hollow">
+  <rect class="usecase-actor-outline" x="-75" y="-72" width="150" height="144" opacity="0"/>
+  <g class="label actor-label usecase-actor-label" transform="translate(-60, 41)">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <tspan x="60" dy="8">Label</tspan>
+    </text>
+  </g>
+  <g class="label usecase-stereotype" transform="translate(-28, 23)">
+    <text class="nodeLabel" x="28" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <tspan x="28" dy="8">«actor»</tspan>
+    </text>
+  </g>
+  <g class="usecase-actor-glyph usecase-actor-hollow" transform="translate(0, -21)">
+    <circle class="usecase-actor-hollow-head" cx="0" cy="-23" r="9" fill="none" stroke="#9370db" stroke-width="1"/>
+    <path class="usecase-actor-hollow-body" d="M-22,-10L22,-10L22,0L6,0L22,17L13,28L0,13L-13,28L-22,17L-6,0L-22,0Z" fill="none" stroke="#9370db" stroke-width="1"/>
+    <path class="usecase-business-marker usecase-actor-business-marker" d="M1.077,-14.065L8.277,-26.535" fill="none" stroke="#9370db" stroke-width="1"/>
+  </g>
+</g>

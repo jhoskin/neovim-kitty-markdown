@@ -1,0 +1,8 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=35 height=70
+<g id="n1" class="node default ">
+  <path class="outer-path" transform="translate(-17.5, -35)" d="M35,0L0,38.5L21,38.5L0,70L35,31.5L14,31.5Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+</g>

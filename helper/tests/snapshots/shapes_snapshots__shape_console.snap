@@ -1,0 +1,16 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=150 height=66
+<g id="n1" class="node default ">
+  <g class="basic label-container">
+    <rect x="-75" y="-33" width="150" height="66" rx="12" ry="12" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+    <text class="console-glyph" x="-63" y="-17" fill="#9370db" font-family="monospace" font-size="14" font-weight="bold">&gt;_</text>
+  </g>
+  <g class="label" transform="translate(-60, 2)">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <tspan x="60" dy="8">Label</tspan>
+    </text>
+  </g>
+</g>

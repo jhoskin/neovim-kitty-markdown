@@ -1,0 +1,16 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=170 height=92.4320822288845
+<g id="n1" class="node default ">
+  <g class="basic label-container outer-path" transform="translate(0, -3.812)">
+    <path d="M-85,-22.406L-85,42.406L-85,42.406L-82,43.172L-79,43.929L-76,44.671L-73,45.39L-70,46.08L-67,46.732L-64,47.34L-61,47.899L-58,48.402L-55,48.844L-52,49.222L-49,49.531L-46,49.767L-43,49.93L-40,50.016L-37,50.026L-34,49.959L-31,49.815L-28,49.597L-25,49.306L-22,48.945L-19,48.518L-16,48.03L-13,47.485L-10,46.888L-7,46.246L-4,45.566L-1,44.853L2,44.116L5,43.362L8,42.598L11,41.832L14,41.072L17,40.325L20,39.599L23,38.902L26,38.24L29,37.62L32,37.049L35,36.531L38,36.073L41,35.679L44,35.353L47,35.098L50,34.916L53,34.811L56,34.782L59,34.83L62,34.955L65,35.154L65,25.154L75,25.154L75,15.154L85,15.154L85,-42.406L-65,-42.406L-65,-32.406L-75,-32.406L-75,-22.406Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+    <path d="M-75,-22.406L65,-22.406L65,25.154L75,25.154L75,-32.406L-75,-32.406Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  </g>
+  <g class="label" transform="translate(-70, -5.625)">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <tspan x="60" dy="8">Label</tspan>
+    </text>
+  </g>
+</g>

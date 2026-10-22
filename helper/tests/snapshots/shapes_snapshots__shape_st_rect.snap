@@ -1,0 +1,16 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=160 height=56
+<g id="n1" class="node default ">
+  <g class="basic label-container outer-path">
+    <path d="M-80,-18L-80,28L70,28L70,23L75,23L75,18L80,18L80,-28L-70,-28L-70,-23L-75,-23L-75,-18Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+    <path d="M-75,-18L70,-18L70,23L75,23L75,-23L-75,-23Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  </g>
+  <g class="label" transform="translate(-65, -3)">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <tspan x="60" dy="8">Label</tspan>
+    </text>
+  </g>
+</g>

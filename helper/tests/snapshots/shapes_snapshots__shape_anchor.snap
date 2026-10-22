@@ -1,0 +1,8 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=2 height=2
+<g id="n1" class="node default ">
+  <circle class="anchor" cx="0" cy="0" r="1" fill="#333333" stroke="#333333" stroke-width="0"/>
+</g>

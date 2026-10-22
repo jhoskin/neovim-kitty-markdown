@@ -1,0 +1,38 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=132 height=136
+<g id="n1" class="node default ">
+  <rect class="basic label-container outer-path" x="-66" y="-68" width="132" height="136" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  <g class="annotation-group text" transform="translate(-44, -44)">
+    <g class="label" transform="translate(0, -8)">
+      <text class="nodeLabel" x="44" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+        <tspan x="44" dy="8">«interface»</tspan>
+      </text>
+    </g>
+  </g>
+  <g class="label-group text" transform="translate(-20, -28)">
+    <g class="label" transform="translate(0, -8)" font-weight="900">
+      <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+        <tspan x="20" dy="8" font-weight="bold">Label</tspan>
+      </text>
+    </g>
+  </g>
+  <g class="members-group text" transform="translate(-54, 12)">
+    <g class="label" transform="translate(0, -8)">
+      <text class="nodeLabel" x="32" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+        <tspan x="32" dy="8">+id: int</tspan>
+      </text>
+    </g>
+  </g>
+  <g class="methods-group text" transform="translate(-54, 52)">
+    <g class="label" transform="translate(0, -8)" font-style="italic">
+      <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+        <tspan x="20" dy="8" font-style="italic">run()</tspan>
+      </text>
+    </g>
+  </g>
+  <line class="divider" x1="-66" y1="-12" x2="66" y2="-11.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  <line class="divider" x1="-66" y1="28" x2="66" y2="28.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+</g>

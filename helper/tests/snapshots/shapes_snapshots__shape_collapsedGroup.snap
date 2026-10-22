@@ -1,0 +1,17 @@
+---
+source: tests/shapes_snapshots.rs
+expression: text
+---
+width=150 height=74
+<g id="n1" class="node default ">
+  <rect class="basic label-container collapsed-group" x="-75" y="-37" width="150" height="74" rx="8" ry="8" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  <line class="collapsed-separator" x1="-67" y1="2" x2="67" y2="2" stroke="#aaaa33" stroke-width="0.75" stroke-dasharray="3,3"/>
+  <circle class="collapsed-indicator" cx="-10" cy="12" r="2.5" fill="#aaaa33" stroke="none" opacity="0.6"/>
+  <circle class="collapsed-indicator" cx="0" cy="12" r="2.5" fill="#aaaa33" stroke="none" opacity="0.6"/>
+  <circle class="collapsed-indicator" cx="10" cy="12" r="2.5" fill="#aaaa33" stroke="none" opacity="0.6"/>
+  <g class="label" transform="translate(-60, -22)">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <tspan x="60" dy="8">Label</tspan>
+    </text>
+  </g>
+</g>
