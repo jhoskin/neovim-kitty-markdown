@@ -2,7 +2,7 @@
 source: tests/parity_quadrant.rs
 expression: svg_of(&source)
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="350" height="550" viewBox="0 0 350 550" font-family="Trebuchet MS">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="350" height="550" viewBox="0 0 350 550" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <g fill="#333333">
     <g class="main">
       <g class="quadrants">
