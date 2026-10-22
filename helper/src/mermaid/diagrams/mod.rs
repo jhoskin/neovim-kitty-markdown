@@ -8,6 +8,8 @@ use crate::mermaid::config::Resolved;
 use crate::mermaid::scene::Scene;
 use crate::text::{FontSystem, TextMetrics};
 
+pub mod pie;
+
 /// What a renderer gets besides the resolved diagram.
 pub struct RenderCtx<'f> {
     pub fonts: &'f FontSystem,
@@ -29,7 +31,7 @@ pub trait Diagram: Send + Sync {
 /// The delivered renderers. Each diagram package exposes a `DIAGRAM`
 /// static and the integration step adds it here.
 pub fn registry() -> &'static [&'static dyn Diagram] {
-    &[]
+    &[&pie::DIAGRAM]
 }
 
 pub fn find(diagram_type: &str) -> Option<&'static dyn Diagram> {
