@@ -209,7 +209,7 @@ describe('transport', function()
       assert.are.equal(12000, #encoded)
       assert.is_true(transport.transmit(77, path))
       assert.are.equal(3, #out)
-      assert.are.equal(APC .. 'a=T,f=100,t=d,i=77,q=2,m=1;' .. encoded:sub(1, 4096) .. ST, out[1])
+      assert.are.equal(APC .. 'a=t,f=100,t=d,i=77,q=2,m=1;' .. encoded:sub(1, 4096) .. ST, out[1])
       assert.are.equal(APC .. 'q=2,m=1;' .. encoded:sub(4097, 8192) .. ST, out[2])
       assert.are.equal(APC .. 'q=2,m=0;' .. encoded:sub(8193) .. ST, out[3])
       os.remove(path)
@@ -221,7 +221,7 @@ describe('transport', function()
       assert.is_true(transport.transmit(78, path))
       assert.are.equal(1, #out)
       assert.are.equal(
-        APC .. 'a=T,f=100,t=d,i=78,q=2,m=0;' .. vim.base64.encode(data) .. ST,
+        APC .. 'a=t,f=100,t=d,i=78,q=2,m=0;' .. vim.base64.encode(data) .. ST,
         out[1]
       )
       os.remove(path)

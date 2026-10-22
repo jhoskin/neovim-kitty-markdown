@@ -380,7 +380,7 @@ function M.transmit(id, png_path, force)
     local more = pos <= total and 1 or 0
     local control
     if first then
-      control = string.format('a=T,f=100,t=d,i=%d,q=2,m=%d', id, more)
+      control = string.format('a=t,f=100,t=d,i=%d,q=2,m=%d', id, more)
       first = false
     else
       control = string.format('q=2,m=%d', more)
