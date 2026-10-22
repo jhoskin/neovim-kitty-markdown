@@ -1,0 +1,5001 @@
+{
+ "generated_by": "helper/oracle/measure.mjs",
+ "platform": "darwin",
+ "chrome": "HeadlessChrome/156.0.8078.47",
+ "puppeteer": "25.16.0",
+ "mermaid_cli": "12.0.0",
+ "mermaid": "12.2.0",
+ "fontsource_open_sans": "5.3.0",
+ "fonts": {
+  "Trebuchet MS": true,
+  "Verdana": true,
+  "Arial": true,
+  "Open Sans": true,
+  "Helvetica": true
+ },
+ "generics": {
+  "sans-serif": "Arial",
+  "serif": "Times New Roman",
+  "monospace": "Menlo"
+ },
+ "cases": [
+  {
+   "id": "word/mermaid/12/400/normal",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 27.921875,
+    "height": 14,
+    "text_length": 27.921875
+   },
+   "html": {
+    "width": 27.921875,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/mermaid/12/400/normal",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 26.265625,
+    "height": 14,
+    "text_length": 26.265625
+   },
+   "html": {
+    "width": 26.265625,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/mermaid/12/400/normal",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 51.578125,
+    "height": 14,
+    "text_length": 51.578125
+   },
+   "html": {
+    "width": 51.578125,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/mermaid/12/400/normal",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 67.609375,
+    "height": 14,
+    "text_length": 67.609375
+   },
+   "html": {
+    "width": 67.609375,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/mermaid/12/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 242.265625,
+    "height": 14,
+    "text_length": 242.265625
+   },
+   "html": {
+    "width": 242.265625,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/mermaid/12/400/normal",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 62.9375,
+    "height": 14,
+    "text_length": 62.9375
+   },
+   "html": {
+    "width": 62.9375,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/mermaid/12/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 149.0625,
+    "height": 14,
+    "text_length": 149.0625
+   },
+   "html": {
+    "width": 149.0625,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/mermaid/12/400/normal",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 77.140625,
+    "height": 14,
+    "text_length": 77.140625
+   },
+   "html": {
+    "width": 77.140625,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/mermaid/12/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 35.615234375,
+    "height": 17,
+    "text_length": 33.625
+   },
+   "html": {
+    "width": 33.625,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/mermaid/12/400/normal",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 14,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/mermaid/12/700/normal",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 28.96875,
+    "height": 14,
+    "text_length": 28.96875
+   },
+   "html": {
+    "width": 28.96875,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/mermaid/12/700/normal",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 27.171875,
+    "height": 14,
+    "text_length": 27.171875
+   },
+   "html": {
+    "width": 27.171875,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/mermaid/12/700/normal",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 53.703125,
+    "height": 14,
+    "text_length": 53.703125
+   },
+   "html": {
+    "width": 53.703125,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/mermaid/12/700/normal",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 73.984375,
+    "height": 14,
+    "text_length": 73.984375
+   },
+   "html": {
+    "width": 73.984375,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/mermaid/12/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 254.234375,
+    "height": 14,
+    "text_length": 254.234375
+   },
+   "html": {
+    "width": 254.234375,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/mermaid/12/700/normal",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 70.3125,
+    "height": 14,
+    "text_length": 70.3125
+   },
+   "html": {
+    "width": 70.3125,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/mermaid/12/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 159.765625,
+    "height": 14,
+    "text_length": 159.765625
+   },
+   "html": {
+    "width": 159.765625,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/mermaid/12/700/normal",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 77.140625,
+    "height": 14,
+    "text_length": 77.140625
+   },
+   "html": {
+    "width": 77.140625,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/mermaid/12/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 35.615234375,
+    "height": 17,
+    "text_length": 33.625
+   },
+   "html": {
+    "width": 33.625,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/mermaid/12/700/normal",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 14,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/mermaid/12/400/italic",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 28.4375,
+    "height": 14,
+    "text_length": 28.4375
+   },
+   "html": {
+    "width": 28.4375,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/mermaid/12/400/italic",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 27.15625,
+    "height": 14,
+    "text_length": 27.15625
+   },
+   "html": {
+    "width": 27.15625,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/mermaid/12/400/italic",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 52.82421875,
+    "height": 14,
+    "text_length": 52.578125
+   },
+   "html": {
+    "width": 52.578125,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/mermaid/12/400/italic",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 67.96875,
+    "height": 14,
+    "text_length": 67.78125
+   },
+   "html": {
+    "width": 67.78125,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/mermaid/12/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 243.955078125,
+    "height": 14,
+    "text_length": 243.9375
+   },
+   "html": {
+    "width": 243.9375,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/mermaid/12/400/italic",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 62.994140625,
+    "height": 14,
+    "text_length": 62.9375
+   },
+   "html": {
+    "width": 62.9375,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/mermaid/12/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 149.044921875,
+    "height": 14,
+    "text_length": 148.546875
+   },
+   "html": {
+    "width": 148.546875,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/mermaid/12/400/italic",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 78.36326599121094,
+    "height": 14,
+    "text_length": 77.140625
+   },
+   "html": {
+    "width": 77.140625,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/mermaid/12/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 39.615234375,
+    "height": 17,
+    "text_length": 33.625
+   },
+   "html": {
+    "width": 33.625,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/mermaid/12/400/italic",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 14,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/mermaid/14/400/normal",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 32.578125,
+    "height": 16,
+    "text_length": 32.578125
+   },
+   "html": {
+    "width": 32.578125,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/mermaid/14/400/normal",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 30.640625,
+    "height": 16,
+    "text_length": 30.640625
+   },
+   "html": {
+    "width": 30.640625,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/mermaid/14/400/normal",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 60.171875,
+    "height": 16,
+    "text_length": 60.171875
+   },
+   "html": {
+    "width": 60.171875,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/mermaid/14/400/normal",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 78.875,
+    "height": 16,
+    "text_length": 78.875
+   },
+   "html": {
+    "width": 78.875,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/mermaid/14/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 282.640625,
+    "height": 16,
+    "text_length": 282.640625
+   },
+   "html": {
+    "width": 282.640625,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/mermaid/14/400/normal",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 73.421875,
+    "height": 16,
+    "text_length": 73.421875
+   },
+   "html": {
+    "width": 73.421875,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/mermaid/14/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 173.90625,
+    "height": 16,
+    "text_length": 173.90625
+   },
+   "html": {
+    "width": 173.90625,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/mermaid/14/400/normal",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 89.90625,
+    "height": 16,
+    "text_length": 89.90625
+   },
+   "html": {
+    "width": 89.90625,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/mermaid/14/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 42.2177734375,
+    "height": 20,
+    "text_length": 40.21875
+   },
+   "html": {
+    "width": 40.21875,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/mermaid/14/400/normal",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 16,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/mermaid/14/700/normal",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 33.796875,
+    "height": 16,
+    "text_length": 33.796875
+   },
+   "html": {
+    "width": 33.796875,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/mermaid/14/700/normal",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 31.703125,
+    "height": 16,
+    "text_length": 31.703125
+   },
+   "html": {
+    "width": 31.703125,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/mermaid/14/700/normal",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 62.65625,
+    "height": 16,
+    "text_length": 62.65625
+   },
+   "html": {
+    "width": 62.65625,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/mermaid/14/700/normal",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 86.3125,
+    "height": 16,
+    "text_length": 86.3125
+   },
+   "html": {
+    "width": 86.3125,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/mermaid/14/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 296.609375,
+    "height": 16,
+    "text_length": 296.609375
+   },
+   "html": {
+    "width": 296.609375,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/mermaid/14/700/normal",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 82.03125,
+    "height": 16,
+    "text_length": 82.03125
+   },
+   "html": {
+    "width": 82.03125,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/mermaid/14/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 186.390625,
+    "height": 16.1103515625,
+    "text_length": 186.390625
+   },
+   "html": {
+    "width": 186.390625,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/mermaid/14/700/normal",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 89.90625,
+    "height": 16,
+    "text_length": 89.90625
+   },
+   "html": {
+    "width": 89.90625,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/mermaid/14/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 42.2177734375,
+    "height": 20,
+    "text_length": 40.21875
+   },
+   "html": {
+    "width": 40.21875,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/mermaid/14/700/normal",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 16,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/mermaid/14/400/italic",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 33.171875,
+    "height": 16,
+    "text_length": 33.171875
+   },
+   "html": {
+    "width": 33.171875,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/mermaid/14/400/italic",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 31.6875,
+    "height": 16,
+    "text_length": 31.6875
+   },
+   "html": {
+    "width": 31.6875,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/mermaid/14/400/italic",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 61.630859375,
+    "height": 16,
+    "text_length": 61.34375
+   },
+   "html": {
+    "width": 61.34375,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/mermaid/14/400/italic",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 79.296875,
+    "height": 16,
+    "text_length": 79.078125
+   },
+   "html": {
+    "width": 79.078125,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/mermaid/14/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 284.6142578125,
+    "height": 16,
+    "text_length": 284.59375
+   },
+   "html": {
+    "width": 284.59375,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/mermaid/14/400/italic",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 73.4931640625,
+    "height": 16,
+    "text_length": 73.421875
+   },
+   "html": {
+    "width": 73.421875,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/mermaid/14/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 173.8857421875,
+    "height": 16,
+    "text_length": 173.296875
+   },
+   "html": {
+    "width": 173.296875,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/mermaid/14/400/italic",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 91.35380554199219,
+    "height": 16,
+    "text_length": 89.90625
+   },
+   "html": {
+    "width": 89.90625,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/mermaid/14/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 46.2177734375,
+    "height": 20,
+    "text_length": 40.21875
+   },
+   "html": {
+    "width": 40.21875,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/mermaid/14/400/italic",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 16,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/mermaid/16/400/normal",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 37.21875,
+    "height": 19,
+    "text_length": 37.21875
+   },
+   "html": {
+    "width": 37.21875,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/mermaid/16/400/normal",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 35.015625,
+    "height": 19,
+    "text_length": 35.015625
+   },
+   "html": {
+    "width": 35.015625,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/mermaid/16/400/normal",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 68.765625,
+    "height": 19,
+    "text_length": 68.765625
+   },
+   "html": {
+    "width": 68.765625,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/mermaid/16/400/normal",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 90.140625,
+    "height": 19,
+    "text_length": 90.140625
+   },
+   "html": {
+    "width": 90.140625,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/mermaid/16/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 323.015625,
+    "height": 19,
+    "text_length": 323.015625
+   },
+   "html": {
+    "width": 323.015625,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/mermaid/16/400/normal",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 83.90625,
+    "height": 19,
+    "text_length": 83.90625
+   },
+   "html": {
+    "width": 83.90625,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/mermaid/16/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 198.75,
+    "height": 19,
+    "text_length": 198.75
+   },
+   "html": {
+    "width": 198.75,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/mermaid/16/400/normal",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 102.75,
+    "height": 19,
+    "text_length": 102.75
+   },
+   "html": {
+    "width": 102.75,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/mermaid/16/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 46.8203125,
+    "height": 22,
+    "text_length": 44.828125
+   },
+   "html": {
+    "width": 44.828125,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/mermaid/16/400/normal",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 19,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/mermaid/16/700/normal",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 38.625,
+    "height": 19,
+    "text_length": 38.625
+   },
+   "html": {
+    "width": 38.625,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/mermaid/16/700/normal",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 36.234375,
+    "height": 19,
+    "text_length": 36.234375
+   },
+   "html": {
+    "width": 36.234375,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/mermaid/16/700/normal",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 71.609375,
+    "height": 19,
+    "text_length": 71.609375
+   },
+   "html": {
+    "width": 71.609375,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/mermaid/16/700/normal",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 98.640625,
+    "height": 19,
+    "text_length": 98.640625
+   },
+   "html": {
+    "width": 98.640625,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/mermaid/16/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 338.984375,
+    "height": 19,
+    "text_length": 338.984375
+   },
+   "html": {
+    "width": 338.984375,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/mermaid/16/700/normal",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 93.75,
+    "height": 19,
+    "text_length": 93.75
+   },
+   "html": {
+    "width": 93.75,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/mermaid/16/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 213.015625,
+    "height": 19,
+    "text_length": 213.015625
+   },
+   "html": {
+    "width": 213.015625,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/mermaid/16/700/normal",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 102.75,
+    "height": 19,
+    "text_length": 102.75
+   },
+   "html": {
+    "width": 102.75,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/mermaid/16/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 46.8203125,
+    "height": 22,
+    "text_length": 44.828125
+   },
+   "html": {
+    "width": 44.828125,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/mermaid/16/700/normal",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 19,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/mermaid/16/400/italic",
+   "text": "Hello",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 37.90625,
+    "height": 19,
+    "text_length": 37.90625
+   },
+   "html": {
+    "width": 37.90625,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/mermaid/16/400/italic",
+   "text": "Start",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 36.203125,
+    "height": 19,
+    "text_length": 36.203125
+   },
+   "html": {
+    "width": 36.203125,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/mermaid/16/400/italic",
+   "text": "flowchart",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 70.4375,
+    "height": 19,
+    "text_length": 70.109375
+   },
+   "html": {
+    "width": 70.109375,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/mermaid/16/400/italic",
+   "text": "AVAWAY Type",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 90.625,
+    "height": 19,
+    "text_length": 90.375
+   },
+   "html": {
+    "width": 90.375,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/mermaid/16/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 325.2734375,
+    "height": 19,
+    "text_length": 325.25
+   },
+   "html": {
+    "width": 325.25,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/mermaid/16/400/italic",
+   "text": "0123456789",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 83.9921875,
+    "height": 19,
+    "text_length": 83.90625
+   },
+   "html": {
+    "width": 83.90625,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/mermaid/16/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 198.7265625,
+    "height": 19,
+    "text_length": 198.046875
+   },
+   "html": {
+    "width": 198.046875,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/mermaid/16/400/italic",
+   "text": "中文中 日本語",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 104.40438842773438,
+    "height": 19,
+    "text_length": 102.75
+   },
+   "html": {
+    "width": 102.75,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/mermaid/16/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 51.8203125,
+    "height": 22,
+    "text_length": 44.828125
+   },
+   "html": {
+    "width": 44.828125,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/mermaid/16/400/italic",
+   "text": "",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 19,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/12/400/normal",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 28.875,
+    "height": 17,
+    "text_length": 28.875
+   },
+   "html": {
+    "width": 28.875,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/open_sans/12/400/normal",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 26.71875,
+    "height": 17,
+    "text_length": 26.71875
+   },
+   "html": {
+    "width": 26.71875,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/open_sans/12/400/normal",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 52.546875,
+    "height": 17,
+    "text_length": 52.546875
+   },
+   "html": {
+    "width": 52.546875,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/open_sans/12/400/normal",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 77.53125,
+    "height": 17,
+    "text_length": 77.53125
+   },
+   "html": {
+    "width": 77.53125,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/open_sans/12/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 249.296875,
+    "height": 17,
+    "text_length": 249.296875
+   },
+   "html": {
+    "width": 249.296875,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/open_sans/12/400/normal",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 68.625,
+    "height": 17,
+    "text_length": 68.625
+   },
+   "html": {
+    "width": 68.625,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/open_sans/12/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 150.734375,
+    "height": 17,
+    "text_length": 150.734375
+   },
+   "html": {
+    "width": 150.734375,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/open_sans/12/400/normal",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 76.640625,
+    "height": 17,
+    "text_length": 76.640625
+   },
+   "html": {
+    "width": 76.640625,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/open_sans/12/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 35.1171875,
+    "height": 17,
+    "text_length": 33.125
+   },
+   "html": {
+    "width": 33.125,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/open_sans/12/400/normal",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 17,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/12/700/normal",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 28.875,
+    "height": 17,
+    "text_length": 28.875
+   },
+   "html": {
+    "width": 28.875,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/open_sans/12/700/normal",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 26.71875,
+    "height": 17,
+    "text_length": 26.71875
+   },
+   "html": {
+    "width": 26.71875,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/open_sans/12/700/normal",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 52.55859375,
+    "height": 17,
+    "text_length": 52.546875
+   },
+   "html": {
+    "width": 52.546875,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/open_sans/12/700/normal",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 77.8055419921875,
+    "height": 17,
+    "text_length": 77.53125
+   },
+   "html": {
+    "width": 77.53125,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/open_sans/12/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 249.37890625,
+    "height": 17,
+    "text_length": 249.296875
+   },
+   "html": {
+    "width": 249.296875,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/open_sans/12/700/normal",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 68.625,
+    "height": 17,
+    "text_length": 68.625
+   },
+   "html": {
+    "width": 68.625,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/open_sans/12/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 150.734375,
+    "height": 17,
+    "text_length": 150.734375
+   },
+   "html": {
+    "width": 150.734375,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/open_sans/12/700/normal",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 76.640625,
+    "height": 17,
+    "text_length": 76.640625
+   },
+   "html": {
+    "width": 76.640625,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/open_sans/12/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 35.1171875,
+    "height": 17,
+    "text_length": 33.125
+   },
+   "html": {
+    "width": 33.125,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/open_sans/12/700/normal",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 17,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/12/400/italic",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 26.953125,
+    "height": 17,
+    "text_length": 26.953125
+   },
+   "html": {
+    "width": 26.953125,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/open_sans/12/400/italic",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 25.845703125,
+    "height": 17,
+    "text_length": 25.484375
+   },
+   "html": {
+    "width": 25.484375,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/open_sans/12/400/italic",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 51.66796875,
+    "height": 17,
+    "text_length": 49.953125
+   },
+   "html": {
+    "width": 49.953125,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/open_sans/12/400/italic",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 71.298828125,
+    "height": 17,
+    "text_length": 70.625
+   },
+   "html": {
+    "width": 70.625,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/open_sans/12/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 235.482421875,
+    "height": 17,
+    "text_length": 235.125
+   },
+   "html": {
+    "width": 235.125,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/open_sans/12/400/italic",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 66.09375,
+    "height": 17,
+    "text_length": 66.09375
+   },
+   "html": {
+    "width": 66.09375,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/open_sans/12/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 145.482421875,
+    "height": 17,
+    "text_length": 145.203125
+   },
+   "html": {
+    "width": 145.203125,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/open_sans/12/400/italic",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 77.86521911621094,
+    "height": 17,
+    "text_length": 76.640625
+   },
+   "html": {
+    "width": 76.640625,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/open_sans/12/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 39.1171875,
+    "height": 17,
+    "text_length": 33.125
+   },
+   "html": {
+    "width": 33.125,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/open_sans/12/400/italic",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 17,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/14/400/normal",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 33.6875,
+    "height": 19,
+    "text_length": 33.6875
+   },
+   "html": {
+    "width": 33.6875,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/open_sans/14/400/normal",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 31.171875,
+    "height": 19,
+    "text_length": 31.171875
+   },
+   "html": {
+    "width": 31.171875,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/open_sans/14/400/normal",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 61.3125,
+    "height": 19,
+    "text_length": 61.3125
+   },
+   "html": {
+    "width": 61.3125,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/open_sans/14/400/normal",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 90.453125,
+    "height": 19,
+    "text_length": 90.453125
+   },
+   "html": {
+    "width": 90.453125,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/open_sans/14/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 290.84375,
+    "height": 19,
+    "text_length": 290.84375
+   },
+   "html": {
+    "width": 290.84375,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/open_sans/14/400/normal",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 80.0625,
+    "height": 19,
+    "text_length": 80.0625
+   },
+   "html": {
+    "width": 80.0625,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/open_sans/14/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 175.84375,
+    "height": 19,
+    "text_length": 175.84375
+   },
+   "html": {
+    "width": 175.84375,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/open_sans/14/400/normal",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 89.328125,
+    "height": 19,
+    "text_length": 89.328125
+   },
+   "html": {
+    "width": 89.328125,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/open_sans/14/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 41.63671875,
+    "height": 20,
+    "text_length": 39.640625
+   },
+   "html": {
+    "width": 39.640625,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/open_sans/14/400/normal",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 19,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/14/700/normal",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 33.6875,
+    "height": 19,
+    "text_length": 33.6875
+   },
+   "html": {
+    "width": 33.6875,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/open_sans/14/700/normal",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 31.171875,
+    "height": 19,
+    "text_length": 31.171875
+   },
+   "html": {
+    "width": 31.171875,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/open_sans/14/700/normal",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 61.326171875,
+    "height": 19,
+    "text_length": 61.3125
+   },
+   "html": {
+    "width": 61.3125,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/open_sans/14/700/normal",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 90.77313232421875,
+    "height": 19,
+    "text_length": 90.453125
+   },
+   "html": {
+    "width": 90.453125,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/open_sans/14/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 290.939453125,
+    "height": 19,
+    "text_length": 290.84375
+   },
+   "html": {
+    "width": 290.84375,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/open_sans/14/700/normal",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 80.0625,
+    "height": 19,
+    "text_length": 80.0625
+   },
+   "html": {
+    "width": 80.0625,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/open_sans/14/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 175.84375,
+    "height": 19,
+    "text_length": 175.84375
+   },
+   "html": {
+    "width": 175.84375,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/open_sans/14/700/normal",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 89.328125,
+    "height": 19,
+    "text_length": 89.328125
+   },
+   "html": {
+    "width": 89.328125,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/open_sans/14/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 41.63671875,
+    "height": 20,
+    "text_length": 39.640625
+   },
+   "html": {
+    "width": 39.640625,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/open_sans/14/700/normal",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 19,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/14/400/italic",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 31.453125,
+    "height": 19,
+    "text_length": 31.453125
+   },
+   "html": {
+    "width": 31.453125,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/open_sans/14/400/italic",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 30.1533203125,
+    "height": 19,
+    "text_length": 29.734375
+   },
+   "html": {
+    "width": 29.734375,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/open_sans/14/400/italic",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 60.279296875,
+    "height": 19,
+    "text_length": 58.265625
+   },
+   "html": {
+    "width": 58.265625,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/open_sans/14/400/italic",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 83.1923828125,
+    "height": 19,
+    "text_length": 82.40625
+   },
+   "html": {
+    "width": 82.40625,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/open_sans/14/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 274.7294921875,
+    "height": 19,
+    "text_length": 274.3125
+   },
+   "html": {
+    "width": 274.3125,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/open_sans/14/400/italic",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 77.109375,
+    "height": 19,
+    "text_length": 77.109375
+   },
+   "html": {
+    "width": 77.109375,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/open_sans/14/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 169.7294921875,
+    "height": 19,
+    "text_length": 169.40625
+   },
+   "html": {
+    "width": 169.40625,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/open_sans/14/400/italic",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 90.77275085449219,
+    "height": 19,
+    "text_length": 89.328125
+   },
+   "html": {
+    "width": 89.328125,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/open_sans/14/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 45.63671875,
+    "height": 20,
+    "text_length": 39.640625
+   },
+   "html": {
+    "width": 39.640625,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/open_sans/14/400/italic",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 19,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/16/400/normal",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 38.484375,
+    "height": 22,
+    "text_length": 38.484375
+   },
+   "html": {
+    "width": 38.484375,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/open_sans/16/400/normal",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 35.609375,
+    "height": 22,
+    "text_length": 35.609375
+   },
+   "html": {
+    "width": 35.609375,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/open_sans/16/400/normal",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 70.0625,
+    "height": 22,
+    "text_length": 70.0625
+   },
+   "html": {
+    "width": 70.0625,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/open_sans/16/400/normal",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 103.375,
+    "height": 22,
+    "text_length": 103.375
+   },
+   "html": {
+    "width": 103.375,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/open_sans/16/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 332.390625,
+    "height": 22,
+    "text_length": 332.390625
+   },
+   "html": {
+    "width": 332.390625,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/open_sans/16/400/normal",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 91.484375,
+    "height": 22,
+    "text_length": 91.484375
+   },
+   "html": {
+    "width": 91.484375,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/open_sans/16/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 200.96875,
+    "height": 22,
+    "text_length": 200.96875
+   },
+   "html": {
+    "width": 200.96875,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/open_sans/16/400/normal",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 102.078125,
+    "height": 22,
+    "text_length": 102.078125
+   },
+   "html": {
+    "width": 102.078125,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/open_sans/16/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 46.15625,
+    "height": 22,
+    "text_length": 44.15625
+   },
+   "html": {
+    "width": 44.15625,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/open_sans/16/400/normal",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 22,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/16/700/normal",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 38.484375,
+    "height": 22,
+    "text_length": 38.484375
+   },
+   "html": {
+    "width": 38.484375,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/open_sans/16/700/normal",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 35.609375,
+    "height": 22,
+    "text_length": 35.609375
+   },
+   "html": {
+    "width": 35.609375,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/open_sans/16/700/normal",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 70.078125,
+    "height": 22,
+    "text_length": 70.0625
+   },
+   "html": {
+    "width": 70.0625,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/open_sans/16/700/normal",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 103.74072265625,
+    "height": 22,
+    "text_length": 103.375
+   },
+   "html": {
+    "width": 103.375,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/open_sans/16/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 332.5,
+    "height": 22,
+    "text_length": 332.390625
+   },
+   "html": {
+    "width": 332.390625,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/open_sans/16/700/normal",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 91.484375,
+    "height": 22,
+    "text_length": 91.484375
+   },
+   "html": {
+    "width": 91.484375,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/open_sans/16/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 200.96875,
+    "height": 22,
+    "text_length": 200.96875
+   },
+   "html": {
+    "width": 200.96875,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/open_sans/16/700/normal",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 102.078125,
+    "height": 22,
+    "text_length": 102.078125
+   },
+   "html": {
+    "width": 102.078125,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/open_sans/16/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 46.15625,
+    "height": 22,
+    "text_length": 44.15625
+   },
+   "html": {
+    "width": 44.15625,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/open_sans/16/700/normal",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 22,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/open_sans/16/400/italic",
+   "text": "Hello",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 35.9375,
+    "height": 22,
+    "text_length": 35.9375
+   },
+   "html": {
+    "width": 35.9375,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/open_sans/16/400/italic",
+   "text": "Start",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 34.4609375,
+    "height": 22,
+    "text_length": 33.984375
+   },
+   "html": {
+    "width": 33.984375,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/open_sans/16/400/italic",
+   "text": "flowchart",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 68.890625,
+    "height": 22,
+    "text_length": 66.59375
+   },
+   "html": {
+    "width": 66.59375,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/open_sans/16/400/italic",
+   "text": "AVAWAY Type",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 95.0703125,
+    "height": 22,
+    "text_length": 94.171875
+   },
+   "html": {
+    "width": 94.171875,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/open_sans/16/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 313.9765625,
+    "height": 22,
+    "text_length": 313.484375
+   },
+   "html": {
+    "width": 313.484375,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/open_sans/16/400/italic",
+   "text": "0123456789",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 88.125,
+    "height": 22,
+    "text_length": 88.125
+   },
+   "html": {
+    "width": 88.125,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/open_sans/16/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 193.9765625,
+    "height": 22,
+    "text_length": 193.609375
+   },
+   "html": {
+    "width": 193.609375,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/open_sans/16/400/italic",
+   "text": "中文中 日本語",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 103.74032592773438,
+    "height": 22,
+    "text_length": 102.078125
+   },
+   "html": {
+    "width": 102.078125,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/open_sans/16/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 51.15625,
+    "height": 22,
+    "text_length": 44.15625
+   },
+   "html": {
+    "width": 44.15625,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/open_sans/16/400/italic",
+   "text": "",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 22,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/12/400/normal",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 27.359375,
+    "height": 14,
+    "text_length": 27.359375
+   },
+   "html": {
+    "width": 27.359375,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/generic/12/400/normal",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 25.34375,
+    "height": 14,
+    "text_length": 25.34375
+   },
+   "html": {
+    "width": 25.34375,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/generic/12/400/normal",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 48.03125,
+    "height": 14,
+    "text_length": 48.03125
+   },
+   "html": {
+    "width": 48.03125,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/generic/12/400/normal",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 76.720703125,
+    "height": 14,
+    "text_length": 76.703125
+   },
+   "html": {
+    "width": 76.703125,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/generic/12/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 237.453125,
+    "height": 14,
+    "text_length": 237.453125
+   },
+   "html": {
+    "width": 237.453125,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/generic/12/400/normal",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 66.75,
+    "height": 14,
+    "text_length": 66.75
+   },
+   "html": {
+    "width": 66.75,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/generic/12/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 149.109375,
+    "height": 14,
+    "text_length": 149.109375
+   },
+   "html": {
+    "width": 149.109375,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/generic/12/400/normal",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 76.859375,
+    "height": 14,
+    "text_length": 76.859375
+   },
+   "html": {
+    "width": 76.859375,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/generic/12/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 35.333984375,
+    "height": 17,
+    "text_length": 33.34375
+   },
+   "html": {
+    "width": 33.34375,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/generic/12/400/normal",
+   "text": "",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 14,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/12/700/normal",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 29.34375,
+    "height": 14,
+    "text_length": 29.34375
+   },
+   "html": {
+    "width": 29.34375,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/generic/12/700/normal",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 27.34375,
+    "height": 14,
+    "text_length": 27.34375
+   },
+   "html": {
+    "width": 27.34375,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/generic/12/700/normal",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 53.34375,
+    "height": 14,
+    "text_length": 53.34375
+   },
+   "html": {
+    "width": 53.34375,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/generic/12/700/normal",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 79.359375,
+    "height": 14,
+    "text_length": 79.359375
+   },
+   "html": {
+    "width": 79.359375,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/generic/12/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 256.703125,
+    "height": 14,
+    "text_length": 256.703125
+   },
+   "html": {
+    "width": 256.703125,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/generic/12/700/normal",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 66.75,
+    "height": 14,
+    "text_length": 66.75
+   },
+   "html": {
+    "width": 66.75,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/generic/12/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 157.953125,
+    "height": 14,
+    "text_length": 157.953125
+   },
+   "html": {
+    "width": 157.953125,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/generic/12/700/normal",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 76.859375,
+    "height": 14,
+    "text_length": 76.859375
+   },
+   "html": {
+    "width": 76.859375,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/generic/12/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 35.333984375,
+    "height": 17,
+    "text_length": 33.34375
+   },
+   "html": {
+    "width": 33.34375,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/generic/12/700/normal",
+   "text": "",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 14,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/12/400/italic",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 27.359375,
+    "height": 14,
+    "text_length": 27.359375
+   },
+   "html": {
+    "width": 27.359375,
+    "height": 18
+   }
+  },
+  {
+   "id": "node/generic/12/400/italic",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 25.86328125,
+    "height": 14,
+    "text_length": 25.34375
+   },
+   "html": {
+    "width": 25.34375,
+    "height": 18
+   }
+  },
+  {
+   "id": "long_word/generic/12/400/italic",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 48.5390625,
+    "height": 14,
+    "text_length": 48.03125
+   },
+   "html": {
+    "width": 48.03125,
+    "height": 18
+   }
+  },
+  {
+   "id": "kerning/generic/12/400/italic",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 77.849609375,
+    "height": 14,
+    "text_length": 77.609375
+   },
+   "html": {
+    "width": 77.609375,
+    "height": 18
+   }
+  },
+  {
+   "id": "sentence/generic/12/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 237.55078125,
+    "height": 14,
+    "text_length": 237.453125
+   },
+   "html": {
+    "width": 237.453125,
+    "height": 18
+   }
+  },
+  {
+   "id": "digits/generic/12/400/italic",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 66.75,
+    "height": 14,
+    "text_length": 66.75
+   },
+   "html": {
+    "width": 66.75,
+    "height": 18
+   }
+  },
+  {
+   "id": "punct/generic/12/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 149.162109375,
+    "height": 14,
+    "text_length": 149.109375
+   },
+   "html": {
+    "width": 149.109375,
+    "height": 18
+   }
+  },
+  {
+   "id": "cjk/generic/12/400/italic",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 78.08201599121094,
+    "height": 14,
+    "text_length": 76.859375
+   },
+   "html": {
+    "width": 76.859375,
+    "height": 18
+   }
+  },
+  {
+   "id": "emoji/generic/12/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 39.333984375,
+    "height": 17,
+    "text_length": 33.34375
+   },
+   "html": {
+    "width": 33.34375,
+    "height": 18
+   }
+  },
+  {
+   "id": "empty/generic/12/400/italic",
+   "text": "",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 14,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/14/400/normal",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 31.90625,
+    "height": 16,
+    "text_length": 31.90625
+   },
+   "html": {
+    "width": 31.90625,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/generic/14/400/normal",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 29.578125,
+    "height": 16,
+    "text_length": 29.578125
+   },
+   "html": {
+    "width": 29.578125,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/generic/14/400/normal",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 56.03125,
+    "height": 16,
+    "text_length": 56.03125
+   },
+   "html": {
+    "width": 56.03125,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/generic/14/400/normal",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 89.5048828125,
+    "height": 16,
+    "text_length": 89.484375
+   },
+   "html": {
+    "width": 89.484375,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/generic/14/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 277.03125,
+    "height": 16,
+    "text_length": 277.03125
+   },
+   "html": {
+    "width": 277.03125,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/generic/14/400/normal",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 77.875,
+    "height": 16,
+    "text_length": 77.875
+   },
+   "html": {
+    "width": 77.875,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/generic/14/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 173.96875,
+    "height": 16,
+    "text_length": 173.96875
+   },
+   "html": {
+    "width": 173.96875,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/generic/14/400/normal",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 89.578125,
+    "height": 16,
+    "text_length": 89.578125
+   },
+   "html": {
+    "width": 89.578125,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/generic/14/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 41.8896484375,
+    "height": 20,
+    "text_length": 39.890625
+   },
+   "html": {
+    "width": 39.890625,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/generic/14/400/normal",
+   "text": "",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 16,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/14/700/normal",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 34.234375,
+    "height": 16,
+    "text_length": 34.234375
+   },
+   "html": {
+    "width": 34.234375,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/generic/14/700/normal",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 31.90625,
+    "height": 16,
+    "text_length": 31.90625
+   },
+   "html": {
+    "width": 31.90625,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/generic/14/700/normal",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 62.234375,
+    "height": 16,
+    "text_length": 62.234375
+   },
+   "html": {
+    "width": 62.234375,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/generic/14/700/normal",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 92.59375,
+    "height": 16,
+    "text_length": 92.59375
+   },
+   "html": {
+    "width": 92.59375,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/generic/14/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 299.484375,
+    "height": 16,
+    "text_length": 299.484375
+   },
+   "html": {
+    "width": 299.484375,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/generic/14/700/normal",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 77.875,
+    "height": 16,
+    "text_length": 77.875
+   },
+   "html": {
+    "width": 77.875,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/generic/14/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 184.28125,
+    "height": 16,
+    "text_length": 184.28125
+   },
+   "html": {
+    "width": 184.28125,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/generic/14/700/normal",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 89.578125,
+    "height": 16,
+    "text_length": 89.578125
+   },
+   "html": {
+    "width": 89.578125,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/generic/14/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 41.8896484375,
+    "height": 20,
+    "text_length": 39.890625
+   },
+   "html": {
+    "width": 39.890625,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/generic/14/700/normal",
+   "text": "",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 16,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/14/400/italic",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 31.90625,
+    "height": 16,
+    "text_length": 31.90625
+   },
+   "html": {
+    "width": 31.90625,
+    "height": 21
+   }
+  },
+  {
+   "id": "node/generic/14/400/italic",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 30.173828125,
+    "height": 16,
+    "text_length": 29.578125
+   },
+   "html": {
+    "width": 29.578125,
+    "height": 21
+   }
+  },
+  {
+   "id": "long_word/generic/14/400/italic",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 56.62890625,
+    "height": 16,
+    "text_length": 56.03125
+   },
+   "html": {
+    "width": 56.03125,
+    "height": 21
+   }
+  },
+  {
+   "id": "kerning/generic/14/400/italic",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 90.8271484375,
+    "height": 16,
+    "text_length": 90.546875
+   },
+   "html": {
+    "width": 90.546875,
+    "height": 21
+   }
+  },
+  {
+   "id": "sentence/generic/14/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 277.142578125,
+    "height": 16,
+    "text_length": 277.03125
+   },
+   "html": {
+    "width": 277.03125,
+    "height": 21
+   }
+  },
+  {
+   "id": "digits/generic/14/400/italic",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 77.875,
+    "height": 16,
+    "text_length": 77.875
+   },
+   "html": {
+    "width": 77.875,
+    "height": 21
+   }
+  },
+  {
+   "id": "punct/generic/14/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 174.0224609375,
+    "height": 16,
+    "text_length": 173.96875
+   },
+   "html": {
+    "width": 173.96875,
+    "height": 21
+   }
+  },
+  {
+   "id": "cjk/generic/14/400/italic",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 91.02568054199219,
+    "height": 16,
+    "text_length": 89.578125
+   },
+   "html": {
+    "width": 89.578125,
+    "height": 21
+   }
+  },
+  {
+   "id": "emoji/generic/14/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 45.8896484375,
+    "height": 20,
+    "text_length": 39.890625
+   },
+   "html": {
+    "width": 39.890625,
+    "height": 21
+   }
+  },
+  {
+   "id": "empty/generic/14/400/italic",
+   "text": "",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 16,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/16/400/normal",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 36.46875,
+    "height": 17,
+    "text_length": 36.46875
+   },
+   "html": {
+    "width": 36.46875,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/generic/16/400/normal",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 33.796875,
+    "height": 17,
+    "text_length": 33.796875
+   },
+   "html": {
+    "width": 33.796875,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/generic/16/400/normal",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 64.03125,
+    "height": 17,
+    "text_length": 64.03125
+   },
+   "html": {
+    "width": 64.03125,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/generic/16/400/normal",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 102.2890625,
+    "height": 17.3671875,
+    "text_length": 102.265625
+   },
+   "html": {
+    "width": 102.265625,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/generic/16/400/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 316.609375,
+    "height": 17.3671875,
+    "text_length": 316.609375
+   },
+   "html": {
+    "width": 316.609375,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/generic/16/400/normal",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 88.984375,
+    "height": 17,
+    "text_length": 88.984375
+   },
+   "html": {
+    "width": 88.984375,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/generic/16/400/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 198.8125,
+    "height": 17.3671875,
+    "text_length": 198.8125
+   },
+   "html": {
+    "width": 198.8125,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/generic/16/400/normal",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 102.375,
+    "height": 17,
+    "text_length": 102.375
+   },
+   "html": {
+    "width": 102.375,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/generic/16/400/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 46.4453125,
+    "height": 22,
+    "text_length": 44.453125
+   },
+   "html": {
+    "width": 44.453125,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/generic/16/400/normal",
+   "text": "",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 17,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/16/700/normal",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 39.125,
+    "height": 17,
+    "text_length": 39.125
+   },
+   "html": {
+    "width": 39.125,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/generic/16/700/normal",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 36.453125,
+    "height": 17,
+    "text_length": 36.453125
+   },
+   "html": {
+    "width": 36.453125,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/generic/16/700/normal",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 71.125,
+    "height": 17,
+    "text_length": 71.125
+   },
+   "html": {
+    "width": 71.125,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/generic/16/700/normal",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 105.8125,
+    "height": 17.3671875,
+    "text_length": 105.8125
+   },
+   "html": {
+    "width": 105.8125,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/generic/16/700/normal",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 342.265625,
+    "height": 17.3671875,
+    "text_length": 342.265625
+   },
+   "html": {
+    "width": 342.265625,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/generic/16/700/normal",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 88.984375,
+    "height": 17,
+    "text_length": 88.984375
+   },
+   "html": {
+    "width": 88.984375,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/generic/16/700/normal",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 210.609375,
+    "height": 17.3671875,
+    "text_length": 210.609375
+   },
+   "html": {
+    "width": 210.609375,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/generic/16/700/normal",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 102.375,
+    "height": 17,
+    "text_length": 102.375
+   },
+   "html": {
+    "width": 102.375,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/generic/16/700/normal",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 46.4453125,
+    "height": 22,
+    "text_length": 44.453125
+   },
+   "html": {
+    "width": 44.453125,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/generic/16/700/normal",
+   "text": "",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 700,
+   "style": "normal",
+   "svg": {
+    "width": 0,
+    "height": 17,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  },
+  {
+   "id": "word/generic/16/400/italic",
+   "text": "Hello",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 36.46875,
+    "height": 17,
+    "text_length": 36.46875
+   },
+   "html": {
+    "width": 36.46875,
+    "height": 24
+   }
+  },
+  {
+   "id": "node/generic/16/400/italic",
+   "text": "Start",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 34.484375,
+    "height": 17,
+    "text_length": 33.796875
+   },
+   "html": {
+    "width": 33.796875,
+    "height": 24
+   }
+  },
+  {
+   "id": "long_word/generic/16/400/italic",
+   "text": "flowchart",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 64.71875,
+    "height": 17,
+    "text_length": 64.03125
+   },
+   "html": {
+    "width": 64.03125,
+    "height": 24
+   }
+  },
+  {
+   "id": "kerning/generic/16/400/italic",
+   "text": "AVAWAY Type",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 103.7890625,
+    "height": 17.3671875,
+    "text_length": 103.46875
+   },
+   "html": {
+    "width": 103.46875,
+    "height": 24
+   }
+  },
+  {
+   "id": "sentence/generic/16/400/italic",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 316.734375,
+    "height": 17.3671875,
+    "text_length": 316.609375
+   },
+   "html": {
+    "width": 316.609375,
+    "height": 24
+   }
+  },
+  {
+   "id": "digits/generic/16/400/italic",
+   "text": "0123456789",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 88.984375,
+    "height": 17,
+    "text_length": 88.984375
+   },
+   "html": {
+    "width": 88.984375,
+    "height": 24
+   }
+  },
+  {
+   "id": "punct/generic/16/400/italic",
+   "text": "!@#$%^&*()_+-=[]{};':\",./<>?",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 198.8828125,
+    "height": 17.3671875,
+    "text_length": 198.8125
+   },
+   "html": {
+    "width": 198.8125,
+    "height": 24
+   }
+  },
+  {
+   "id": "cjk/generic/16/400/italic",
+   "text": "中文中 日本語",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 104.02938842773438,
+    "height": 17,
+    "text_length": 102.375
+   },
+   "html": {
+    "width": 102.375,
+    "height": 24
+   }
+  },
+  {
+   "id": "emoji/generic/16/400/italic",
+   "text": "🏳️‍⚧️ 🏳️‍🌈",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 51.4453125,
+    "height": 22,
+    "text_length": 44.453125
+   },
+   "html": {
+    "width": 44.453125,
+    "height": 24
+   }
+  },
+  {
+   "id": "empty/generic/16/400/italic",
+   "text": "",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "italic",
+   "svg": {
+    "width": 0,
+    "height": 17,
+    "text_length": 0
+   },
+   "html": {
+    "width": 0,
+    "height": 0
+   }
+  }
+ ],
+ "wrapped": [
+  {
+   "id": "mermaid/12",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 18
+   },
+   "width": 200,
+   "height": 54,
+   "lines": [
+    "This is a fairly long node label that",
+    "the browser has to wrap onto",
+    "several lines"
+   ]
+  },
+  {
+   "id": "mermaid/12",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 18
+   },
+   "width": 200,
+   "height": 54,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in one",
+    "label"
+   ]
+  },
+  {
+   "id": "mermaid/14",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 21
+   },
+   "width": 200,
+   "height": 63,
+   "lines": [
+    "This is a fairly long node label",
+    "that the browser has to wrap",
+    "onto several lines"
+   ]
+  },
+  {
+   "id": "mermaid/14",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 21
+   },
+   "width": 210.125,
+   "height": 63,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in",
+    "one label"
+   ]
+  },
+  {
+   "id": "mermaid/16",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 24
+   },
+   "width": 200,
+   "height": 72,
+   "lines": [
+    "This is a fairly long node",
+    "label that the browser has",
+    "to wrap onto several lines"
+   ]
+  },
+  {
+   "id": "mermaid/16",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 24
+   },
+   "width": 240.140625,
+   "height": 72,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in",
+    "one label"
+   ]
+  },
+  {
+   "id": "open_sans/12",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 18
+   },
+   "width": 200,
+   "height": 54,
+   "lines": [
+    "This is a fairly long node label that",
+    "the browser has to wrap onto",
+    "several lines"
+   ]
+  },
+  {
+   "id": "open_sans/12",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 18
+   },
+   "width": 200,
+   "height": 54,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in",
+    "one label"
+   ]
+  },
+  {
+   "id": "open_sans/14",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 21
+   },
+   "width": 200,
+   "height": 63,
+   "lines": [
+    "This is a fairly long node label",
+    "that the browser has to wrap",
+    "onto several lines"
+   ]
+  },
+  {
+   "id": "open_sans/14",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 21
+   },
+   "width": 214.96875,
+   "height": 63,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in",
+    "one label"
+   ]
+  },
+  {
+   "id": "open_sans/16",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 24
+   },
+   "width": 200,
+   "height": 72,
+   "lines": [
+    "This is a fairly long node",
+    "label that the browser has",
+    "to wrap onto several lines"
+   ]
+  },
+  {
+   "id": "open_sans/16",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 24
+   },
+   "width": 245.671875,
+   "height": 72,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in",
+    "one label"
+   ]
+  },
+  {
+   "id": "generic/12",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 18
+   },
+   "width": 200,
+   "height": 54,
+   "lines": [
+    "This is a fairly long node label that",
+    "the browser has to wrap onto",
+    "several lines"
+   ]
+  },
+  {
+   "id": "generic/12",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "sans-serif",
+   "size": 12,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 18
+   },
+   "width": 200,
+   "height": 54,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in one",
+    "label"
+   ]
+  },
+  {
+   "id": "generic/14",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 21
+   },
+   "width": 200,
+   "height": 63,
+   "lines": [
+    "This is a fairly long node label",
+    "that the browser has to wrap",
+    "onto several lines"
+   ]
+  },
+  {
+   "id": "generic/14",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "sans-serif",
+   "size": 14,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 21
+   },
+   "width": 204.65625,
+   "height": 63,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in",
+    "one label"
+   ]
+  },
+  {
+   "id": "generic/16",
+   "text": "This is a fairly long node label that the browser has to wrap onto several lines",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 24
+   },
+   "width": 200,
+   "height": 72,
+   "lines": [
+    "This is a fairly long node",
+    "label that the browser has",
+    "to wrap onto several lines"
+   ]
+  },
+  {
+   "id": "generic/16",
+   "text": "Supercalifragilisticexpialidocious words and short ones mixed in one label",
+   "family": "sans-serif",
+   "size": 16,
+   "weight": 400,
+   "style": "normal",
+   "max_width": 200,
+   "nowrap": {
+    "width": 200,
+    "height": 24
+   },
+   "width": 233.890625,
+   "height": 72,
+   "lines": [
+    "Supercalifragilisticexpialidocious",
+    "words and short ones mixed in",
+    "one label"
+   ]
+  }
+ ],
+ "probe": {
+  "text": "Supercalifragilisticexpialidocious iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii next end",
+  "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+  "size": 16,
+  "avail": 235.328125,
+  "fits": 232.6875,
+  "fits_with_space": 232.6875,
+  "width": 240.140625,
+  "height": 72,
+  "line_starts": [
+   {
+    "char": "S",
+    "left": 0
+   },
+   {
+    "char": "i",
+    "left": 1.3125
+   },
+   {
+    "char": "n",
+    "left": 88.546875
+   }
+  ],
+  "next_end_width": 63.03125,
+  "space_width": 4.828125
+ }
+}
