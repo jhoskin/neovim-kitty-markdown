@@ -199,15 +199,19 @@ dev agent reads `REVIEW.md`, fixes what it reports, and the loop repeats.
 
 ### Launch
 
-Run both from the repo root. The dev session loads an extra settings file
-that denies reads and edits under `held_out/`.
+Run both from the repo root. The project settings file
+`.claude/settings.json` denies reads and edits under `held_out/`, so a
+plain `claude` session is the dev session. The QA session skips the
+project settings and loads `.claude/settings.qa.json`, which allows
+`held_out/` and `REVIEW.md` and denies edits on every dev-owned path.
 
 ```sh
 # Dev agent: no access to held_out/
-claude --settings .claude/settings.dev.json
-
-# QA agent: full access
 claude
+
+# QA agent: held_out/ and REVIEW.md writable, everything else read-only
+claude --setting-sources user --settings .claude/settings.qa.json \
+  --append-system-prompt 'Read AGENTS.md first and follow the QA agent role.'
 ```
 
 ### Spec constraints

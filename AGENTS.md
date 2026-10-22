@@ -36,9 +36,27 @@ The dev agent must not read `held_out/` by any route:
   `held_out/`, and no `git grep`.
 - Not through a subagent, a script, or a test runner pointed at it.
 
-The dev session starts with `.claude/settings.dev.json`, which denies Read
-and Edit under `held_out/`. The deny rule covers the file tools and the
-common shell file commands. This rule covers everything else.
+The project settings file `.claude/settings.json` denies Read and Edit
+under `held_out/`. Every session that loads the project settings gets
+that deny, so a plain `claude` session is the dev session. The deny rule
+covers the file tools and the common shell file commands. This rule covers
+everything else.
+
+The QA session skips the project settings and loads
+`.claude/settings.qa.json` instead:
+
+```sh
+claude --setting-sources user --settings .claude/settings.qa.json \
+  --append-system-prompt 'Read AGENTS.md first and follow the QA agent role.'
+```
+
+A deny in any loaded settings file wins over every allow, so the QA
+session must not load the project settings. Skipping them also skips the
+automatic read of this file, which the system prompt restores. The QA
+settings file denies Edit on every dev-owned path. The deny covers the
+file tools and the file commands Claude Code recognizes in Bash. A script
+that writes files on its own is not covered, so the QA agent does not run
+one against a dev-owned path.
 
 The QA agent reads every folder.
 
