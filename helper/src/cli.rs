@@ -14,6 +14,7 @@ use clap::{ArgGroup, Args, Parser, Subcommand};
 
 use crate::error::HelperError;
 use crate::server::{self, Ctx};
+use crate::{image, ssim, svg};
 
 #[derive(Parser, Debug)]
 #[command(name = "kitty-markdown-helper", version, about)]
@@ -146,19 +147,33 @@ pub fn run(command: Command) -> Result<(), CliError> {
 /// are appended here when their modules land.
 pub fn run_serve(cache_dir: Option<PathBuf>) -> Result<(), CliError> {
     let ctx = Ctx::new(cache_dir)?;
-    server::serve(server::builtin_handlers(), ctx)?;
+    let mut handlers = server::builtin_handlers();
+    handlers.extend(server::pixels::handlers());
+    server::serve(handlers, ctx)?;
     Ok(())
 }
 
 /// `render`: writes the PNG to `--output` without a cache (R-200). Filled by
 /// the image, svg, and mermaid modules.
-pub fn run_render(_args: RenderArgs) -> Result<(), CliError> {
-    Err(CliError::not_implemented("render"))
+pub fn run_render(args: RenderArgs) -> Result<(), CliError> {
+    let (width, height) = if let Some(input) = &args.image {
+        image::run_render_image(input, args.width, &args.output)
+            .map_err(|e| CliError::new(e.to_string()))?
+    } else if let Some(input) = &args.svg {
+        svg::run_render_svg(input, args.width, &args.output)
+            .map_err(|e| CliError::new(e.to_string()))?
+    } else {
+        return Err(CliError::not_implemented("render --mermaid"));
+    };
+    // The golden harness reads the size from here when it has no PNG parser.
+    println!("{width}x{height}");
+    Ok(())
 }
 
 /// `compare`: prints the SSIM of two PNGs (R-199). Filled by `ssim`.
-pub fn run_compare(_args: CompareArgs) -> Result<(), CliError> {
-    Err(CliError::not_implemented("compare"))
+pub fn run_compare(args: CompareArgs) -> Result<(), CliError> {
+    ssim::run_compare(&args.a, &args.b).map_err(|e| CliError::new(e.to_string()))?;
+    Ok(())
 }
 
 /// `measure`: prints text metrics for calibration. Filled by `text`.

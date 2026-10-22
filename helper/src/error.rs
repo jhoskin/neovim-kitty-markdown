@@ -10,6 +10,7 @@ use serde_json::{Value, json};
 use thiserror::Error;
 
 use crate::protocol::ErrorBody;
+use crate::{fetch, image, svg};
 
 #[derive(Debug, Error)]
 pub enum HelperError {
@@ -147,6 +148,53 @@ impl From<std::io::Error> for HelperError {
 impl From<serde_json::Error> for HelperError {
     fn from(err: serde_json::Error) -> Self {
         HelperError::InvalidParams(err.to_string())
+    }
+}
+
+impl From<svg::Error> for HelperError {
+    fn from(err: svg::Error) -> Self {
+        match err {
+            svg::Error::Parse(_) => HelperError::UnsupportedFormat {
+                format: "svg".into(),
+            },
+            svg::Error::Pixmap { .. } | svg::Error::Encode(_) => {
+                HelperError::Internal(err.to_string())
+            }
+            svg::Error::Io { path, source } => HelperError::Io { path, source },
+            svg::Error::InvalidParams(message) => HelperError::InvalidParams(message),
+        }
+    }
+}
+
+impl From<image::Error> for HelperError {
+    fn from(err: image::Error) -> Self {
+        match err {
+            image::Error::UnsupportedFormat { format } | image::Error::Decode { format, .. } => {
+                HelperError::UnsupportedFormat { format }
+            }
+            image::Error::Encode(_) => HelperError::Internal(err.to_string()),
+            image::Error::Io { path, source } => HelperError::Io { path, source },
+            image::Error::Svg(inner) => inner.into(),
+            image::Error::InvalidParams(message) => HelperError::InvalidParams(message),
+        }
+    }
+}
+
+impl From<fetch::Error> for HelperError {
+    fn from(err: fetch::Error) -> Self {
+        match err {
+            fetch::Error::Timeout { .. } => HelperError::Timeout,
+            fetch::Error::TooLarge { bytes, max_bytes } => {
+                HelperError::TooLarge { bytes, max_bytes }
+            }
+            // The fetch module uses 0 for "no HTTP status"; the protocol sends null.
+            fetch::Error::Failed { status, message } => HelperError::FetchFailed {
+                status: (status != 0).then_some(status),
+                message,
+            },
+            fetch::Error::Io { path, source } => HelperError::Io { path, source },
+            fetch::Error::InvalidParams(message) => HelperError::InvalidParams(message),
+        }
     }
 }
 
