@@ -21,7 +21,14 @@ pub const DEBUG_METHODS_VAR: &str = "KMH_DEBUG_METHODS";
 /// The handlers every `serve` registers. `debug.sleep` joins them only when
 /// `KMH_DEBUG_METHODS=1`.
 pub fn builtin_handlers() -> Vec<Box<dyn Handler>> {
-    let mut handlers: Vec<Box<dyn Handler>> = vec![Box::new(Probe::default()), Box::new(CacheGc)];
+    // Fonts load in the background from `serve`; until they are in, the
+    // report is empty rather than late.
+    let probe = Probe::new(Vec::new(), || {
+        crate::text::font_system_if_loaded()
+            .and_then(|fonts| serde_json::to_value(fonts.report()).ok())
+            .unwrap_or_else(|| Value::Object(Default::default()))
+    });
+    let mut handlers: Vec<Box<dyn Handler>> = vec![Box::new(probe), Box::new(CacheGc)];
     if std::env::var(DEBUG_METHODS_VAR).is_ok_and(|v| v == "1") {
         handlers.push(Box::new(DebugSleep));
     }

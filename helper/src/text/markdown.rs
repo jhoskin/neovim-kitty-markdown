@@ -502,10 +502,8 @@ fn next_inline(rest: &str, prev_char: Option<char>) -> (Inline, usize) {
         }
     }
     let at_word_start = prev_char.is_none_or(|c| !c.is_alphanumeric());
-    if at_word_start {
-        if let Some(m) = URL.find(rest) {
-            return (Inline::Link(m.as_str().to_string()), m.end());
-        }
+    if at_word_start && let Some(m) = URL.find(rest) {
+        return (Inline::Link(m.as_str().to_string()), m.end());
     }
     // Plain text up to the next character that can start another token.
     let mut end = rest.len();

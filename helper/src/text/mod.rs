@@ -11,11 +11,18 @@ use std::sync::OnceLock;
 pub use fonts::FontSystem;
 pub use measure::{FontSpec, FontStyle, TextMetrics};
 
+static FONTS: OnceLock<FontSystem> = OnceLock::new();
+
 /// The process-wide font database. Loading the system fonts takes long
 /// enough that every caller shares one.
 pub fn font_system() -> &'static FontSystem {
-    static FONTS: OnceLock<FontSystem> = OnceLock::new();
     FONTS.get_or_init(FontSystem::new)
+}
+
+/// The font database only if some caller already loaded it. The probe uses
+/// this so its answer never waits on font discovery (R-025).
+pub fn font_system_if_loaded() -> Option<&'static FontSystem> {
+    FONTS.get()
 }
 
 #[derive(Debug, thiserror::Error)]

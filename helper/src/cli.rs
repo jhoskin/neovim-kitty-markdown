@@ -14,7 +14,7 @@ use clap::{ArgGroup, Args, Parser, Subcommand};
 
 use crate::error::HelperError;
 use crate::server::{self, Ctx};
-use crate::{image, ssim, svg};
+use crate::{image, ssim, svg, text};
 
 #[derive(Parser, Debug)]
 #[command(name = "kitty-markdown-helper", version, about)]
@@ -147,6 +147,11 @@ pub fn run(command: Command) -> Result<(), CliError> {
 /// are appended here when their modules land.
 pub fn run_serve(cache_dir: Option<PathBuf>) -> Result<(), CliError> {
     let ctx = Ctx::new(cache_dir)?;
+    // Font discovery takes a noticeable fraction of a second on macOS; start
+    // it now so the first probe or render does not pay for it in full.
+    std::thread::spawn(|| {
+        text::font_system();
+    });
     let mut handlers = server::builtin_handlers();
     handlers.extend(server::pixels::handlers());
     server::serve(handlers, ctx)?;
@@ -177,6 +182,9 @@ pub fn run_compare(args: CompareArgs) -> Result<(), CliError> {
 }
 
 /// `measure`: prints text metrics for calibration. Filled by `text`.
-pub fn run_measure(_args: MeasureArgs) -> Result<(), CliError> {
-    Err(CliError::not_implemented("measure"))
+pub fn run_measure(args: MeasureArgs) -> Result<(), CliError> {
+    let json = text::run_measure(&args.text, &args.font, args.size, &args.mode)
+        .map_err(|e| CliError::new(e.to_string()))?;
+    println!("{json}");
+    Ok(())
 }
