@@ -8,33 +8,25 @@ expression: scene.to_svg()
       <g id="my-svg-todo" class="cluster section-1">
         <rect x="100" y="-300" width="200" height="275" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
         <g class="cluster-label" transform="translate(183.309, -300)">
-          <text class="nodeLabel" x="16.691" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="16.691" dy="17">Todo</tspan>
-          </text>
+          <text class="nodeLabel" x="16.691" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.691" dy="17">Todo</tspan></text>
         </g>
       </g>
       <g id="my-svg-doing" class="cluster section-2">
         <rect x="305" y="-300" width="200" height="79" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
         <g class="cluster-label" transform="translate(366.168, -300)">
-          <text class="nodeLabel" x="38.832" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="38.832" dy="17">In progress</tspan>
-          </text>
+          <text class="nodeLabel" x="38.832" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.832" dy="17">In progress</tspan></text>
         </g>
       </g>
       <g id="my-svg-done" class="cluster section-3">
         <rect x="510" y="-300" width="200" height="128" rx="5" ry="5" fill="#ffb9ff" stroke="#ffb9ff" stroke-width="1"/>
         <g class="cluster-label" transform="translate(592.066, -300)">
-          <text class="nodeLabel" x="17.934" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="17.934" dy="17">Done</tspan>
-          </text>
+          <text class="nodeLabel" x="17.934" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="17.934" dy="17">Done</tspan></text>
         </g>
       </g>
       <g id="my-svg-blocked" class="cluster section-4">
         <rect x="715" y="-300" width="200" height="50" rx="5" ry="5" fill="#ffb9dc" stroke="#ffb9dc" stroke-width="1"/>
         <g class="cluster-label" transform="translate(787.004, -300)">
-          <text class="nodeLabel" x="27.996" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="27.996" dy="17">Blocked</tspan>
-          </text>
+          <text class="nodeLabel" x="27.996" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.996" dy="17">Blocked</tspan></text>
         </g>
       </g>
     </g>
@@ -42,9 +34,7 @@ expression: scene.to_svg()
       <g id="my-svg-t1" class="node  " transform="translate(200, -253)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Write the spec</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Write the spec</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -52,9 +42,7 @@ expression: scene.to_svg()
       <g id="my-svg-t2" class="node  " transform="translate(200, -204)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Review the spec</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Review the spec</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -62,9 +50,7 @@ expression: scene.to_svg()
       <g id="my-svg-t3" class="node  " transform="translate(200, -155)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Split the work</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Split the work</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -72,9 +58,7 @@ expression: scene.to_svg()
       <g id="my-svg-t4" class="node  " transform="translate(200, -106)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Order the tasks</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Order the tasks</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -82,9 +66,7 @@ expression: scene.to_svg()
       <g id="my-svg-t5" class="node  " transform="translate(200, -57)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Assign owners</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Assign owners</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -92,9 +74,7 @@ expression: scene.to_svg()
       <g id="my-svg-d1" class="node  " transform="translate(405, -253)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Port the parser</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Port the parser</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -102,9 +82,7 @@ expression: scene.to_svg()
       <g id="my-svg-f1" class="node  " transform="translate(610, -253)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Pick the pin</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Pick the pin</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -112,9 +90,7 @@ expression: scene.to_svg()
       <g id="my-svg-f2" class="node  " transform="translate(610, -204)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Set up the oracle</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Set up the oracle</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>

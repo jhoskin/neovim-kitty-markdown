@@ -8,17 +8,13 @@ expression: scene.to_svg()
       <g id="my-svg-Ideas" class="cluster section-1">
         <rect x="100" y="-300" width="200" height="128" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
         <g class="cluster-label" transform="translate(181.512, -300)">
-          <text class="nodeLabel" x="18.488" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="18.488" dy="17">Ideas</tspan>
-          </text>
+          <text class="nodeLabel" x="18.488" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.488" dy="17">Ideas</tspan></text>
         </g>
       </g>
       <g id="my-svg-Later" class="cluster section-2">
         <rect x="305" y="-300" width="200" height="79" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
         <g class="cluster-label" transform="translate(386.102, -300)">
-          <text class="nodeLabel" x="18.898" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="18.898" dy="17">Later</tspan>
-          </text>
+          <text class="nodeLabel" x="18.898" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.898" dy="17">Later</tspan></text>
         </g>
       </g>
     </g>
@@ -26,9 +22,7 @@ expression: scene.to_svg()
       <g id="my-svg-Plain card without an id" class="node  " transform="translate(200, -253)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Plain card without an id</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Plain card without an id</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -36,9 +30,7 @@ expression: scene.to_svg()
       <g id="my-svg-plain" class="node  " transform="translate(200, -204)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Plain card with an id</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Plain card with an id</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>
@@ -46,9 +38,7 @@ expression: scene.to_svg()
       <g id="my-svg-Another plain card" class="node  " transform="translate(405, -253)">
         <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-82.5, -12)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="0" dy="17">Another plain card</tspan>
-          </text>
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Another plain card</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
         <g class="label" transform="translate(82.5, 12)"/>

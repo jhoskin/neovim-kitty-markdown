@@ -16,7 +16,6 @@
 use serde_json::Value;
 
 use super::db::{Item, KanbanDb, Section};
-use super::measure::Measurer;
 use crate::error::HelperError;
 use crate::mermaid::config::Resolved;
 use crate::mermaid::diagrams::RenderCtx;
@@ -302,8 +301,8 @@ struct Column<'s> {
 pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
     let width = section_width(resolved);
     let styles = KanbanStyles::from_theme(&resolved.theme_variables);
-    let measurer = Measurer::new(&ctx.metrics, styles.font_family.clone());
-    let mut shape_ctx = ShapeCtx::new(&measurer);
+    let measurer: &dyn LabelMeasurer = &ctx.metrics;
+    let mut shape_ctx = ShapeCtx::new(measurer);
     shape_ctx.vars = styles.node_vars();
     shape_ctx.kanban_ticket_base_url = ticket_base_url(resolved);
     let baseline = html_baseline(ctx, &styles.font_family, styles.font_size);
@@ -354,7 +353,7 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
                 out.width,
                 height,
             );
-            let labels = CardLabels::measure(item, item_width, &measurer, &shape_ctx);
+            let labels = CardLabels::measure(item, item_width, measurer, &shape_ctx);
             for (lx, ly, lw, lh) in labels.boxes() {
                 Bounds::add(&mut bounds, node.x + lx, node.y + ly, lw, lh);
             }

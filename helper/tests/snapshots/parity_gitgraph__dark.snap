@@ -9,54 +9,42 @@ expression: scene_svg(&mmd)
       <rect class="branchLabelBkg label0" transform="translate(-19, -14)" x="-68.992" y="0.5" width="52.992" height="23" rx="4" ry="4" fill="#797d7d"/>
       <g class="branchLabel">
         <g class="label branch-label0" transform="translate(-78.992, -13.5)">
-          <text x="0" y="0" fill="#2c2c2c" font-size="16">
-            <tspan x="0" dy="1em">main</tspan>
-          </text>
+          <text x="0" y="0" fill="#2c2c2c" font-size="16"><tspan x="0" dy="1em">main</tspan></text>
         </g>
       </g>
       <line class="branch branch1" x1="0" y1="88" x2="900" y2="88" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
       <rect class="branchLabelBkg label1" transform="translate(-19, 76)" x="-76.164" y="0.5" width="60.164" height="23" rx="4" ry="4" fill="#a12273"/>
       <g class="branchLabel">
         <g class="label branch-label1" transform="translate(-86.164, 76.5)">
-          <text x="0" y="0" fill="#d3d3d3" font-size="16">
-            <tspan x="0" dy="1em">hotfix</tspan>
-          </text>
+          <text x="0" y="0" fill="#d3d3d3" font-size="16"><tspan x="0" dy="1em">hotfix</tspan></text>
         </g>
       </g>
       <line class="branch branch2" x1="0" y1="178" x2="900" y2="178" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
       <rect class="branchLabelBkg label2" transform="translate(-19, 166)" x="-90.422" y="0.5" width="74.422" height="23" rx="4" ry="4" fill="#6a8993"/>
       <g class="branchLabel">
         <g class="label branch-label2" transform="translate(-100.422, 166.5)">
-          <text x="0" y="0" fill="#d3d3d3" font-size="16">
-            <tspan x="0" dy="1em">develop</tspan>
-          </text>
+          <text x="0" y="0" fill="#d3d3d3" font-size="16"><tspan x="0" dy="1em">develop</tspan></text>
         </g>
       </g>
       <line class="branch branch3" x1="0" y1="268" x2="900" y2="268" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
       <rect class="branchLabelBkg label3" transform="translate(-19, 256)" x="-96.133" y="0.5" width="80.133" height="23" rx="4" ry="4" fill="#9b5c35"/>
       <g class="branchLabel">
         <g class="label branch-label3" transform="translate(-106.133, 256.5)">
-          <text x="0" y="0" fill="#2c2c2c" font-size="16">
-            <tspan x="0" dy="1em">featureB</tspan>
-          </text>
+          <text x="0" y="0" fill="#2c2c2c" font-size="16"><tspan x="0" dy="1em">featureB</tspan></text>
         </g>
       </g>
       <line class="branch branch4" x1="0" y1="358" x2="900" y2="358" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
       <rect class="branchLabelBkg label4" transform="translate(-19, 346)" x="-96.516" y="0.5" width="80.516" height="23" rx="4" ry="4" fill="#cb1313"/>
       <g class="branchLabel">
         <g class="label branch-label4" transform="translate(-106.516, 346.5)">
-          <text x="0" y="0" fill="#d3d3d3" font-size="16">
-            <tspan x="0" dy="1em">featureA</tspan>
-          </text>
+          <text x="0" y="0" fill="#d3d3d3" font-size="16"><tspan x="0" dy="1em">featureA</tspan></text>
         </g>
       </g>
       <line class="branch branch5" x1="0" y1="448" x2="900" y2="448" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
       <rect class="branchLabelBkg label5" transform="translate(-19, 436)" x="-86" y="0.5" width="70" height="23" rx="4" ry="4" fill="#65007b"/>
       <g class="branchLabel">
         <g class="label branch-label5" transform="translate(-96, 436.5)">
-          <text x="0" y="0" fill="#d3d3d3" font-size="16">
-            <tspan x="0" dy="1em">release</tspan>
-          </text>
+          <text x="0" y="0" fill="#d3d3d3" font-size="16"><tspan x="0" dy="1em">release</tspan></text>
         </g>
       </g>
     </g>

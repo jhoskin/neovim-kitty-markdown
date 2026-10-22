@@ -9,18 +9,14 @@ expression: scene_svg(&mmd)
       <rect class="branchLabelBkg label0" transform="translate(-19, -14)" x="-68.992" y="0.5" width="52.992" height="23" rx="4" ry="4" fill="#0000ec"/>
       <g class="branchLabel">
         <g class="label branch-label0" transform="translate(-78.992, -13.5)">
-          <text x="0" y="0" fill="#ffffff" font-size="16">
-            <tspan x="0" dy="1em">main</tspan>
-          </text>
+          <text x="0" y="0" fill="#ffffff" font-size="16"><tspan x="0" dy="1em">main</tspan></text>
         </g>
       </g>
       <line class="branch branch1" x1="0" y1="88" x2="150" y2="88" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
       <rect class="branchLabelBkg label1" transform="translate(-19, 76)" x="-90.422" y="0.5" width="74.422" height="23" rx="4" ry="4" fill="#dede00"/>
       <g class="branchLabel">
         <g class="label branch-label1" transform="translate(-100.422, 76.5)">
-          <text x="0" y="0" fill="#000000" font-size="16">
-            <tspan x="0" dy="1em">develop</tspan>
-          </text>
+          <text x="0" y="0" fill="#000000" font-size="16"><tspan x="0" dy="1em">develop</tspan></text>
         </g>
       </g>
     </g>
