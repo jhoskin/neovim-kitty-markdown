@@ -9,6 +9,7 @@
 //! `{}` answer goes out last so the plugin can wait for exit (R-137).
 
 pub mod builtin;
+pub mod mermaid;
 pub mod pixels;
 
 use std::collections::HashMap;

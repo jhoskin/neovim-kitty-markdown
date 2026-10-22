@@ -214,10 +214,10 @@ pub fn detect_directive(text: &str, filter: Option<&dyn Fn(&str) -> bool>) -> De
     let fixed = remove_comment_without_directives(js_trim(text)).replace('\'', "\"");
     let mut result = Vec::new();
     for m in find_directives(&fixed) {
-        if let Some(f) = filter {
-            if !f(m.kind) {
-                continue;
-            }
+        if let Some(f) = filter
+            && !f(m.kind)
+        {
+            continue;
         }
         let args = if let Some(w) = m.word {
             Value::String(js_trim(w).to_string())
@@ -278,13 +278,13 @@ pub fn detect_init<E>(
         return Ok(None);
     }
     let mut ty = detect_type(text)?;
-    if let Value::Object(map) = &mut results {
-        if let Some(config) = map.remove("config") {
-            if ty == "flowchart-v2" {
-                ty = "flowchart";
-            }
-            map.insert(ty.to_string(), config);
+    if let Value::Object(map) = &mut results
+        && let Some(config) = map.remove("config")
+    {
+        if ty == "flowchart-v2" {
+            ty = "flowchart";
         }
+        map.insert(ty.to_string(), config);
     }
     // A bare-word argument is a string: `assignWithDepth` and lodash `merge`
     // both ignore it downstream, so it carries no config.

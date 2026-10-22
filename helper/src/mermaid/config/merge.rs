@@ -175,10 +175,10 @@ pub fn sanitize(options: &mut Value, secure: &[String]) {
             map.remove(&key);
             continue;
         }
-        if let Some(v) = map.get_mut(&key) {
-            if is_js_object(v) {
-                sanitize(v, secure);
-            }
+        if let Some(v) = map.get_mut(&key)
+            && is_js_object(v)
+        {
+            sanitize(v, secure);
         }
     }
 }
@@ -268,19 +268,19 @@ pub fn sanitize_directive(args: &mut Value) {
                     continue;
                 }
                 for css_key in ["themeCSS", "fontFamily", "altFontFamily"] {
-                    if key.contains(css_key) {
-                        if let Value::String(s) = value {
-                            *s = sanitize_css(s);
-                        }
+                    if key.contains(css_key)
+                        && let Value::String(s) = value
+                    {
+                        *s = sanitize_css(s);
                     }
                 }
             }
             if let Some(Value::Object(tv)) = map.get_mut("themeVariables") {
                 for v in tv.values_mut() {
-                    if let Value::String(s) = v {
-                        if !THEME_VARIABLE_RE.is_match(s) {
-                            *s = String::new();
-                        }
+                    if let Value::String(s) = v
+                        && !THEME_VARIABLE_RE.is_match(s)
+                    {
+                        *s = String::new();
                     }
                 }
             }

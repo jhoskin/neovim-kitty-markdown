@@ -693,10 +693,11 @@ pub fn get_theme_variables(overrides: Option<&Map<String, Value>>) -> Result<Var
     vars::calculate(&mut v, overrides, update_colors)?;
     // `base` is the theme documented as modifiable: a `nodeBorder` override
     // turns the neo gradient off unless `useGradient` is set too.
-    if let Some(o) = overrides {
-        if o.contains_key("nodeBorder") && !o.contains_key("useGradient") {
-            v.set("useGradient", false);
-        }
+    if let Some(o) = overrides
+        && o.contains_key("nodeBorder")
+        && !o.contains_key("useGradient")
+    {
+        v.set("useGradient", false);
     }
     Ok(v)
 }

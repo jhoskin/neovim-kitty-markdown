@@ -197,10 +197,10 @@ impl Channels {
                     Channel::G => self.g,
                     _ => self.b,
                 };
-                if self.ty != ChannelType::Hsl {
-                    if let Some(v) = stored {
-                        return v;
-                    }
+                if self.ty != ChannelType::Hsl
+                    && let Some(v) = stored
+                {
+                    return v;
                 }
                 self.ensure_hsl();
                 hsl2rgb(
@@ -216,10 +216,10 @@ impl Channels {
                     Channel::S => self.s,
                     _ => self.l,
                 };
-                if self.ty != ChannelType::Rgb {
-                    if let Some(v) = stored {
-                        return v;
-                    }
+                if self.ty != ChannelType::Rgb
+                    && let Some(v) = stored
+                {
+                    return v;
                 }
                 self.ensure_rgb();
                 rgb2hsl(
@@ -813,10 +813,10 @@ fn stringify_hsl(ch: &mut Channels) -> String {
 /// an HSL change or for a parsed `hsl()`; `rgb()` for fractional channels or
 /// alpha; hex otherwise.
 pub fn stringify(ch: &mut Channels) -> String {
-    if !ch.changed {
-        if let Some(color) = &ch.color {
-            return color.clone();
-        }
+    if !ch.changed
+        && let Some(color) = &ch.color
+    {
+        return color.clone();
     }
     if ch.ty == ChannelType::Hsl || ch.r.is_none() {
         return stringify_hsl(ch);

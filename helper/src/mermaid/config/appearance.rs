@@ -64,10 +64,10 @@ pub fn resolve_appearance(cfg: &mut Value, config_key: Option<&str>, layers: &[&
             top.insert(key.to_string(), value.clone());
             // Keep the section in step, so `cfg.flowchart.look` cannot
             // contradict `cfg.look`.
-            if let Some(Value::Object(section)) = top.get_mut(config_key) {
-                if section.get(key).is_some_and(|v| !v.is_null()) {
-                    section.insert(key.to_string(), value);
-                }
+            if let Some(Value::Object(section)) = top.get_mut(config_key)
+                && section.get(key).is_some_and(|v| !v.is_null())
+            {
+                section.insert(key.to_string(), value);
             }
         }
     }

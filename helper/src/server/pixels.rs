@@ -60,5 +60,6 @@ pub fn handlers() -> Vec<Box<dyn Handler>> {
         Box::new(ImagePrepare),
         Box::new(SvgRasterize),
         Box::new(Fetch),
+        Box::new(crate::server::mermaid::MermaidRender),
     ]
 }

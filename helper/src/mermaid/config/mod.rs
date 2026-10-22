@@ -198,29 +198,28 @@ pub fn apply_directive(
     let theme_was_overridden = sum.get("theme").is_some_and(theme::vars::js_truthy)
         || cfg.get("theme") != site.config.get("theme");
     let cfg_theme = cfg.get("theme").and_then(Value::as_str).map(str::to_string);
-    if theme_was_overridden {
-        if let Some(name) = cfg_theme.filter(|t| theme::is_mermaid_theme(t)) {
-            if theme::is_builtin(&name) {
-                let base_tv = site
-                    .from_initialize
-                    .get("themeVariables")
-                    .cloned()
-                    .unwrap_or_else(|| Value::Object(Map::new()));
-                let empty = Value::Null;
-                let overrides = assign_with_depth(
-                    copy_with_depth(&base_tv),
-                    sum.get("themeVariables").unwrap_or(&empty),
-                    2,
-                );
-                let tv = theme::resolve_value(&name, &overrides).map_err(theme_error)?;
-                if let Value::Object(map) = &mut cfg {
-                    map.insert("themeVariables".to_string(), tv.to_json());
-                }
-            }
-            // A registered theme the helper lacks is reported by the
-            // appearance check, with the variables left as merged.
+    if theme_was_overridden
+        && let Some(name) = cfg_theme.filter(|t| theme::is_mermaid_theme(t))
+        && theme::is_builtin(&name)
+    {
+        let base_tv = site
+            .from_initialize
+            .get("themeVariables")
+            .cloned()
+            .unwrap_or_else(|| Value::Object(Map::new()));
+        let empty = Value::Null;
+        let overrides = assign_with_depth(
+            copy_with_depth(&base_tv),
+            sum.get("themeVariables").unwrap_or(&empty),
+            2,
+        );
+        let tv = theme::resolve_value(&name, &overrides).map_err(theme_error)?;
+        if let Value::Object(map) = &mut cfg {
+            map.insert("themeVariables".to_string(), tv.to_json());
         }
     }
+    // A registered theme the helper lacks is reported by the
+    // appearance check, with the variables left as merged.
     Ok(cfg)
 }
 
