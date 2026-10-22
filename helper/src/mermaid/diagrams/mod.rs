@@ -11,6 +11,7 @@ use crate::mermaid::scene::Scene;
 use crate::text::{FontSystem, TextMetrics};
 
 pub mod gantt;
+pub mod journey;
 pub mod packet;
 pub mod pie;
 pub mod sequence;
@@ -44,6 +45,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &sequence::DIAGRAM,
         &gantt::DIAGRAM,
         &packet::DIAGRAM,
+        &journey::DIAGRAM,
     ];
     REGISTRY
 }
