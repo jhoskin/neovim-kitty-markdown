@@ -1,0 +1,11 @@
+gantt
+    title Links and callbacks
+    dateFormat YYYY-MM-DD
+    todayMarker off
+    section Links
+        Task with link    :l1, 2020-02-03, 5d
+        Task with call    :l2, after l1, 5d
+        Done and linked   :done, l3, after l2, 4d
+    click l1 href "https://example.com"
+    click l2 call callback()
+    click l3 href "https://example.org"

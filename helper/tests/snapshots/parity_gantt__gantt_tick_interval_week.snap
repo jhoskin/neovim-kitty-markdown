@@ -1,0 +1,61 @@
+---
+source: tests/parity_gantt.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="960" height="196" viewBox="0 0 960 196" font-family="&quot;Trebuchet MS&quot;, Verdana, Arial, sans-serif">
+  <g>
+    <g/>
+    <g class="grid" transform="translate(75, 146)">
+      <path class="domain" d="M0.5,-111L0.5,0.5L810.5,0.5L810.5,-111" fill="none" stroke="#000000" stroke-width="0"/>
+      <g class="tick" transform="translate(94.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-111" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">06/03</text>
+      </g>
+      <g class="tick" transform="translate(225.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-111" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">13/03</text>
+      </g>
+      <g class="tick" transform="translate(357.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-111" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">20/03</text>
+      </g>
+      <g class="tick" transform="translate(489.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-111" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">27/03</text>
+      </g>
+      <g class="tick" transform="translate(621.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-111" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">03/04</text>
+      </g>
+      <g class="tick" transform="translate(753.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-111" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">10/04</text>
+      </g>
+    </g>
+    <g>
+      <rect class="section section0" x="0" y="48" width="922.5" height="24" fill="#6666ff" fill-opacity="0.49" stroke="none" opacity="0.2"/>
+      <rect class="section section0" x="0" y="72" width="922.5" height="24" fill="#6666ff" fill-opacity="0.49" stroke="none" opacity="0.2"/>
+      <rect class="section section1" x="0" y="96" width="922.5" height="24" fill="#ffffff" stroke="none" opacity="0.2"/>
+      <rect class="section section1" x="0" y="120" width="922.5" height="24" fill="#ffffff" stroke="none" opacity="0.2"/>
+    </g>
+    <g>
+      <rect id="my-svg-s1" class="task task0" x="75" y="50" width="189" height="20" rx="3" ry="3" fill="#8a90dd" stroke="#534fbc" stroke-width="2"/>
+      <rect id="my-svg-s2" class="task task0" x="264" y="74" width="131" height="20" rx="3" ry="3" fill="#8a90dd" stroke="#534fbc" stroke-width="2"/>
+      <rect id="my-svg-b1" class="task task1" x="395" y="98" width="396" height="20" rx="3" ry="3" fill="#8a90dd" stroke="#534fbc" stroke-width="2"/>
+      <rect id="my-svg-b2" class="task task1" x="791" y="122" width="94" height="20" rx="3" ry="3" fill="#8a90dd" stroke="#534fbc" stroke-width="2"/>
+      <text id="my-svg-s1-text" class="taskText taskText0" x="169.5" y="63.5" fill="#ffffff" font-size="11" text-anchor="middle">Scope</text>
+      <text id="my-svg-s2-text" class="taskText taskText0" x="329.5" y="87.5" fill="#ffffff" font-size="11" text-anchor="middle">Estimate</text>
+      <text id="my-svg-b1-text" class="taskText taskText1" x="593" y="111.5" fill="#ffffff" font-size="11" text-anchor="middle">Implement</text>
+      <text id="my-svg-b2-text" class="taskText taskText1" x="838" y="135.5" fill="#ffffff" font-size="11" text-anchor="middle">Review</text>
+    </g>
+    <g>
+      <text class="sectionTitle sectionTitle0" x="10" y="74" fill="#333333" font-size="11" text-anchor="start">
+        <tspan x="10" dy="4">Planning</tspan>
+      </text>
+      <text class="sectionTitle sectionTitle1" x="10" y="122" fill="#333333" font-size="11" text-anchor="start">
+        <tspan x="10" dy="4">Build</tspan>
+      </text>
+    </g>
+    <text class="titleText" x="480" y="25" fill="#333333" font-size="18" text-anchor="middle">Weekly ticks</text>
+  </g>
+</svg>

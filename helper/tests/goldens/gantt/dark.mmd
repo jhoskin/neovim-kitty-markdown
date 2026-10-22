@@ -1,0 +1,12 @@
+%%{init: {'theme': 'dark'}}%%
+gantt
+    title Dark theme
+    dateFormat YYYY-MM-DD
+    todayMarker off
+    section Section
+        Done task       :done, t1, 2014-01-01, 10d
+        Active task     :active, t2, after t1, 8d
+        Critical task   :crit, t3, after t2, 6d
+    section Another
+        Milestone       :milestone, m1, 2014-01-15, 0d
+        Plain task      :t4, 2014-01-12, 12d

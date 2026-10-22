@@ -1,0 +1,60 @@
+---
+source: tests/parity_gantt.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="960" height="148" viewBox="0 0 960 148" font-family="&quot;Trebuchet MS&quot;, Verdana, Arial, sans-serif">
+  <g>
+    <g/>
+    <g class="grid" transform="translate(75, 98)">
+      <path class="domain" d="M0.5,-63L0.5,0.5L810.5,0.5L810.5,-63" fill="none" stroke="#000000" stroke-width="0"/>
+      <g class="tick" transform="translate(0.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-63" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">17:30</text>
+      </g>
+      <g class="tick" transform="translate(127.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-63" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">17:35</text>
+      </g>
+      <g class="tick" transform="translate(253.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-63" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">17:40</text>
+      </g>
+      <g class="tick" transform="translate(380.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-63" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">17:45</text>
+      </g>
+      <g class="tick" transform="translate(506.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-63" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">17:50</text>
+      </g>
+      <g class="tick" transform="translate(633.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-63" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">17:55</text>
+      </g>
+      <g class="tick" transform="translate(759.5, 0)" stroke="#d3d3d3" opacity="0.8">
+        <line x1="0" y1="0" x2="0" y2="-63" stroke="#000000"/>
+        <text x="0" y="13" fill="#333333" stroke="none" font-size="10" text-anchor="middle">18:00</text>
+      </g>
+    </g>
+    <g>
+      <rect class="section section0" x="0" y="48" width="922.5" height="24" fill="#6666ff" fill-opacity="0.49" stroke="none" opacity="0.2"/>
+      <rect class="section section0" x="0" y="72" width="922.5" height="24" fill="#6666ff" fill-opacity="0.49" stroke="none" opacity="0.2"/>
+    </g>
+    <g>
+      <rect id="my-svg-task1" class="task task0" x="126" y="50" width="76" height="20" rx="3" ry="3" fill="#8a90dd" stroke="#534fbc" stroke-width="2"/>
+      <rect id="my-svg-task2" class="task task0" x="202" y="74" width="202" height="20" rx="3" ry="3" fill="#8a90dd" stroke="#534fbc" stroke-width="2"/>
+      <rect id="my-svg-v1" class="task vert task0" x="75" y="35" width="1.6" height="88" rx="3" ry="3" fill="#8a90dd" stroke="#000080" stroke-width="2"/>
+      <rect id="my-svg-v2" class="task vert task0" x="784" y="35" width="1.6" height="88" rx="3" ry="3" fill="#8a90dd" stroke="#000080" stroke-width="2"/>
+      <text id="my-svg-task1-text" class="taskText taskText0" x="164" y="63.5" fill="#ffffff" font-size="11" text-anchor="middle">Task A</text>
+      <text id="my-svg-task2-text" class="taskText taskText0" x="303" y="87.5" fill="#ffffff" font-size="11" text-anchor="middle">Task B</text>
+      <text id="my-svg-v1-text" class="taskTextOutsideRight taskTextOutside0" x="75" y="143" fill="#000080" font-size="11" text-anchor="middle">Initial vert</text>
+      <text id="my-svg-v2-text" class="taskText taskText0" x="784" y="143" fill="#000080" font-size="11" text-anchor="middle">Final vert</text>
+    </g>
+    <g>
+      <text class="sectionTitle sectionTitle0" x="10" y="74" fill="#333333" font-size="11" text-anchor="start">
+        <tspan x="10" dy="4"></tspan>
+      </text>
+    </g>
+    <text class="titleText" x="480" y="25" fill="#333333" font-size="18" text-anchor="middle"></text>
+  </g>
+</svg>

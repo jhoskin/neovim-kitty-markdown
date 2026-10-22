@@ -1,0 +1,15 @@
+---
+config:
+  gantt:
+    topAxis: true
+---
+gantt
+    title Both axes
+    dateFormat YYYY-MM-DD
+    todayMarker off
+    section Design
+        Wireframes      :d1, 2022-05-02, 12d
+        Mockups         :d2, after d1, 9d
+    section Development
+        Backend         :crit, e1, 2022-05-10, 20d
+        Frontend        :e2, after d2, 14d
