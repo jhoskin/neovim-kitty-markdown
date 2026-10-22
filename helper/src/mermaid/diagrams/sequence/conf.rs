@@ -20,13 +20,22 @@ use crate::text::fonts::{Style as FaceStyle, Weight};
 /// What headless Chrome measures with when an element has no usable
 /// `font-family`: the page's default standard font. mermaid-cli's
 /// `index.html` sets none, so `getComputedStyle(body).fontFamily` is
-/// `"Times New Roman"` (probed through the pinned puppeteer).
+/// `"Times New Roman"` (probed through the pinned puppeteer: the pangram
+/// at 16 px measures 292.375 px wide there and in the helper).
+///
+/// Temporary: the central rule lands in
+/// `TextMetrics::calculate_text_dimensions`, which will apply the page
+/// default to any chain Chrome's CSS parser rejects; `FontPair::new` and
+/// `css_family_valid` go with it.
 pub const BODY_DEFAULT_FAMILY: &str = "\"Times New Roman\", serif";
 
 /// The family name resvg has to see for `chain`: fontdb matches names
 /// exactly while CSS matches them case-insensitively, so `"trebuchet ms"`
 /// has to reach the SVG as the installed `Trebuchet MS`. A chain nothing
 /// matches is written as it is and resvg falls back on its own.
+///
+/// Temporary: central fix in `text::fontdb_arc`, which aliases every
+/// family under its lower-case name so the scene can keep the CSS chain.
 pub fn resvg_family(fonts: &FontSystem, chain: &str, weight: u16) -> String {
     fonts
         .resolve(chain, Weight(weight), FaceStyle::Normal)
