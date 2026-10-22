@@ -3,6 +3,8 @@
 //! The registry lists the delivered renderers in detector order; a type
 //! without one answers `unsupported_diagram_type` (R-113).
 
+pub mod quadrant;
+
 use crate::error::HelperError;
 use crate::mermaid::config::Resolved;
 use crate::mermaid::scene::Scene;
@@ -31,7 +33,8 @@ pub trait Diagram: Send + Sync {
 /// The delivered renderers. Each diagram package exposes a `DIAGRAM`
 /// static and the integration step adds it here.
 pub fn registry() -> &'static [&'static dyn Diagram] {
-    &[&pie::DIAGRAM]
+    static REGISTRY: &[&dyn Diagram] = &[&pie::DIAGRAM, &quadrant::DIAGRAM];
+    REGISTRY
 }
 
 pub fn find(diagram_type: &str) -> Option<&'static dyn Diagram> {
