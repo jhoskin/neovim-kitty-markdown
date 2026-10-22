@@ -14,7 +14,7 @@ use clap::{ArgGroup, Args, Parser, Subcommand};
 
 use crate::error::HelperError;
 use crate::server::{self, Ctx};
-use crate::{image, ssim, svg, text};
+use crate::{image, mermaid, ssim, svg, text};
 
 #[derive(Parser, Debug)]
 #[command(name = "kitty-markdown-helper", version, about)]
@@ -167,8 +167,19 @@ pub fn run_render(args: RenderArgs) -> Result<(), CliError> {
     } else if let Some(input) = &args.svg {
         svg::run_render_svg(input, args.width, &args.output)
             .map_err(|e| CliError::new(e.to_string()))?
+    } else if let Some(input) = &args.mermaid {
+        let source = std::fs::read_to_string(input)
+            .map_err(|e| CliError::new(format!("cannot read {}: {e}", input.display())))?;
+        let out = mermaid::render(&mermaid::RenderRequest {
+            source: &source,
+            width_px: args.width,
+            theme: &args.theme,
+            background: mermaid::parse_background(&args.background),
+        })?;
+        std::fs::write(&args.output, &out.png)?;
+        (out.width, out.height)
     } else {
-        return Err(CliError::not_implemented("render --mermaid"));
+        return Err(CliError::new("render needs --image, --svg, or --mermaid"));
     };
     // The golden harness reads the size from here when it has no PNG parser.
     println!("{width}x{height}");
