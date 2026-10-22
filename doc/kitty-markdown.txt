@@ -1,0 +1,363 @@
+*kitty-markdown.txt*  Read-only markdown preview with inline images in kitty
+
+Author:  Joh Hoskin
+License: All rights reserved. Personal project.
+
+==============================================================================
+CONTENTS                                                      *kitty-markdown*
+
+  1. Introduction ........................... |kitty-markdown-introduction|
+  2. Requirements ........................... |kitty-markdown-requirements|
+  3. Command ................................ |kitty-markdown-command|
+  4. Keys ................................... |kitty-markdown-keys|
+  5. Options ................................ |kitty-markdown-options|
+  6. Lua API ................................ |kitty-markdown-api|
+  7. Images and diagrams .................... |kitty-markdown-images|
+  8. Text-only mode ......................... |kitty-markdown-text-only|
+  9. Highlight groups ....................... |kitty-markdown-highlights|
+ 10. Troubleshooting ........................ |kitty-markdown-troubleshooting|
+
+==============================================================================
+1. INTRODUCTION                                  *kitty-markdown-introduction*
+
+kitty-markdown.nvim shows a markdown buffer as a read-only preview. Text
+renders in terminal cells with the GitHub light and dark palettes. Images and
+mermaid diagrams render to pixels in a Rust helper and appear inline through
+the kitty graphics protocol. Mermaid renders without a browser and without
+node.
+
+The preview re-renders when the source buffer is written and on
+|:KittyMarkdown| `refresh`. It never re-renders on a keystroke. The source
+buffer is never changed.
+
+==============================================================================
+2. REQUIREMENTS                                  *kitty-markdown-requirements*
+
+- Neovim 0.12 or later, with the `markdown` and `markdown_inline`
+  tree-sitter parsers.
+- 'termguicolors' on. The image id travels in the foreground color of the
+  placeholder cells, so images need true color.
+- kitty 0.28 or later for inline images and diagrams. The text preview works
+  in any terminal.
+- tmux and zmx: best effort. When the multiplexer passes the graphics
+  protocol through, images work; otherwise the preview runs in text-only
+  mode (|kitty-markdown-text-only|).
+- The helper binary `kitty-markdown-helper`. On first use the plugin
+  downloads the release build that matches the plugin version into
+  `stdpath('data')/kitty-markdown/`. Without a matching release it falls
+  back to `helper/target/release/kitty-markdown-helper` in the plugin
+  directory, which `cargo build --release --manifest-path helper/Cargo.toml`
+  produces.
+
+==============================================================================
+3. COMMAND                                            *kitty-markdown-command*
+
+                                                               *:KittyMarkdown*
+:KittyMarkdown open [split|tab|float]
+    Show a preview of the current markdown buffer. Without a placement
+    argument the configured `placement` applies (default `tab`). When a
+    preview of the buffer exists, the command focuses it. In a buffer whose
+    'filetype' is not `markdown` the command shows an error and opens no
+    preview.
+
+:KittyMarkdown close
+    Close the preview of the current buffer and delete its images. The
+    command also works from inside the preview window.
+
+:KittyMarkdown toggle [split|tab|float]
+    Close the preview when one exists, otherwise open one.
+
+:KittyMarkdown refresh
+    Re-render the preview, probe the terminal again, and transmit every
+    placed image again. Run it after a tmux or zmx reattach, or after the
+    helper stopped restarting (|kitty-markdown-troubleshooting|).
+
+Placements:
+
+  `split`   A vertical split to the right of the source window. The source
+          window keeps the focus and the preview follows the source cursor
+          (`scroll_sync`).
+  `tab`     A new tab page.
+  `float`   A centered floating window with a rounded border, as wide as
+          `text_width` plus the margins and as tall as the screen minus 4.
+
+The preview buffer has 'filetype' `kitty-markdown`, 'buftype' `nofile`,
+'bufhidden' `wipe`, and the name `kitty-markdown://<source buffer name>`.
+It is not modifiable. The preview window hides line numbers, the sign
+column, and the fold column, and does not wrap.
+
+One preview exists per source buffer. Unloading or deleting the source
+buffer closes its preview. Closing the preview window drops the preview.
+
+==============================================================================
+4. KEYS                                                  *kitty-markdown-keys*
+
+Normal-mode mappings local to the preview buffer:
+
+  `q`     Close the preview.
+  `gx`    Open the link under the cursor. A URL, a file link, or an image
+        goes to the system opener |vim.ui.open()|. A link to a heading
+        anchor moves the preview cursor to that heading.
+
+On the empty anchor line of an image, `gx` opens the image file.
+
+==============================================================================
+5. OPTIONS                                            *kitty-markdown-options*
+
+Pass options to `require('kitty-markdown').setup()` or, with lazy.nvim, in
+`opts`. Defaults shown: >lua
+
+  require('kitty-markdown').setup({
+    placement = 'tab',          -- 'split' | 'tab' | 'float'
+    theme = 'auto',             -- 'auto' | 'light' | 'dark'
+    text_width = 100,           -- max text width in cells
+    scroll_sync = true,         -- split preview follows the source cursor
+    remote_images = {
+      enabled = true,
+      timeout_ms = 10000,
+      max_bytes = 20 * 1024 * 1024,
+    },
+    cache = {
+      dir = vim.fn.stdpath('cache') .. '/kitty-markdown',
+      max_bytes = 500 * 1024 * 1024,
+    },
+    helper = {
+      path = nil,               -- explicit binary path; nil means auto
+      download = true,          -- fetch the matching release binary
+      request_timeout_ms = 30000,
+    },
+    mermaid = {
+      theme = 'auto',           -- 'auto' | 'default' | 'dark' | 'neutral'
+                                -- | 'forest' | 'base'
+    },
+  })
+<
+                                                    *kitty-markdown-placement*
+placement ~
+    Where the preview opens when the command gives no placement.
+
+                                                        *kitty-markdown-theme*
+theme ~
+    `auto` follows 'background'. `light` and `dark` select a palette
+    regardless of 'background'. A change of 'background' re-themes every
+    open preview.
+
+                                                   *kitty-markdown-text_width*
+text_width ~
+    Maximum text width in cells. The window width minus a margin of 2 cells
+    on each side is the floor. Images and diagrams render at the text width
+    times the cell width in pixels.
+
+                                                  *kitty-markdown-scroll_sync*
+scroll_sync ~
+    Scroll a `split` preview so that the block under the source cursor sits
+    in the top third of the preview window. Debounced to one scroll per
+    100 ms. A `tab` or `float` preview never syncs.
+
+                                                *kitty-markdown-remote_images*
+remote_images.enabled ~
+remote_images.timeout_ms ~
+remote_images.max_bytes ~
+    Fetch `http` and `https` images on first render, give up after
+    `timeout_ms`, and refuse images larger than `max_bytes`. Fetched images
+    are cached by the hash of their URL and shown from the cache afterwards,
+    also offline. With `enabled` false every remote image shows a failure
+    box with the reason "remote images off".
+
+                                                        *kitty-markdown-cache*
+cache.dir ~
+cache.max_bytes ~
+    Root of the on-disk cache, with the subdirectories `images`, `remote`,
+    and `mermaid`. When the size estimate exceeds `max_bytes` after a
+    render, the plugin asks the helper to delete the least recently used
+    entries, except the ones open previews still show.
+
+                                                       *kitty-markdown-helper*
+helper.path ~
+helper.download ~
+helper.request_timeout_ms ~
+    `path` names the helper binary and turns the download off. `download`
+    allows the fetch of the release binary. A request without an answer
+    within `request_timeout_ms` shows a failure box with the reason
+    "timeout".
+
+                                                *kitty-markdown-mermaid-theme*
+mermaid.theme ~
+    `auto` picks `default` on the light palette and `dark` on the dark one.
+    A theme set inside the diagram, through an `%%{init: ...}%%` directive or
+    `---` front matter, wins.
+
+==============================================================================
+6. LUA API                                                *kitty-markdown-api*
+
+The module `kitty-markdown` exposes these functions.
+
+setup({opts})                                          *kitty-markdown.setup()*
+    Merge {opts} over the defaults, validate them, and define the highlight
+    groups. Invalid values raise an error that names the option.
+
+open({placement})                                       *kitty-markdown.open()*
+    Open or focus the preview of the current buffer. {placement} is
+    `split`, `tab`, `float`, or nil for the configured one. Returns the
+    preview state, or nil when the buffer is not markdown or Neovim is older
+    than 0.12.
+
+close()                                                *kitty-markdown.close()*
+    Close the preview of the current buffer. Returns true when one existed.
+
+toggle({placement})                                   *kitty-markdown.toggle()*
+    Close the preview when one exists, otherwise open one.
+
+refresh()                                            *kitty-markdown.refresh()*
+    Re-render the preview of the current buffer, probe the terminal again,
+    clear the helper restart counter, and transmit every placed image again.
+
+layout({bufnr}, {opts})                               *kitty-markdown.layout()*
+    The layout model of {bufnr} as plain Lua tables, without a terminal, a
+    preview, or a helper. The same buffer content and options give the same
+    model. {opts} keys:
+
+      `width`    Preview width in cells (default `text_width` plus 4).
+      `cell`     `{ width_px, height_px }` of one terminal cell.
+      `sizes`    Pixel sizes keyed by block key:
+               `{ width_px, height_px, image_id }`.
+      `theme`    `light` or `dark` (default: the current palette).
+      `images`   `false` marks every pixel block text-only.
+      `dir`      Base directory for relative paths (default: the directory
+               of the buffer name).
+
+    The model holds `lines`, `highlights` (`line`, `col_start`, `col_end`,
+    `group`), `conceals`, `blocks` (`kind`, `line`, `source`, `alt`, `key`,
+    `width_cells`, and when known `width_px`, `height_px`, `rows`,
+    `image_id`), `code_regions`, `links`, `anchors`, `source_lines`, and
+    `footnotes`.
+
+==============================================================================
+7. IMAGES AND DIAGRAMS                                 *kitty-markdown-images*
+
+A render puts the text in the preview buffer first. Each image and mermaid
+block gets an empty anchor line in the text, with a loading box hanging
+below it as virtual lines. The block then goes to the helper as an
+asynchronous request. Editing in the source buffer never waits for it.
+
+When a result arrives, the plugin transmits the PNG with the kitty graphics
+protocol, makes a virtual placement, and replaces the loading box with
+placeholder cells (U+10EEEE with row and column diacritics), one virtual
+line per image row. The image scrolls with the text. A block whose source,
+width, and theme did not change keeps its image across re-renders and is
+not transmitted again.
+
+Images ~
+
+- A relative path resolves against the directory of the markdown file. An
+  absolute path is used as written.
+- PNG, JPEG, GIF (first frame), WebP, BMP, and SVG.
+- An image wider than the text width scales down to it and keeps its
+  aspect ratio. An image never scales up past its native size. An `<img>`
+  tag with a smaller `width` or `height` wins.
+- An image inside a paragraph is placed on its own rows after that
+  paragraph.
+
+Mermaid ~
+
+A fenced code block with the info string `mermaid` renders through the
+helper's own mermaid implementation at pixel-near parity with mermaid
+12.2.0. The classic look and the dagre layout apply; `%%{init: ...}%%`
+directives and `---` front matter config inside the diagram are honored.
+Diagram types arrive in phases; see the README for the table. The handDrawn
+and neo looks, ELK layout, icon packs, image nodes, the mermaid 12 redux
+themes, and the zenuml, info, agentflow, and railroad types render as a
+failure box.
+
+Failure boxes ~
+
+A block that cannot render shows a bordered box with the alt text or the
+diagram type and a one-line reason:
+
+  `timeout`                     No answer within the request timeout.
+  `too large`                   The remote image exceeds `max_bytes`.
+  `remote images off`           `remote_images.enabled` is false.
+  `unsupported format`          The helper cannot decode the image.
+  `Parse error on line <n>`     The mermaid diagram does not parse.
+  `unsupported: <feature>`      handDrawn, neo, elk, icon packs, images.
+  `unsupported diagram type`    A type outside the delivered phases.
+  `fetch failed`                The remote fetch failed; no cached copy.
+  `cannot read file`            The local file cannot be read.
+  `helper exited`               The helper died while the block waited.
+  `helper error`                Any other helper error.
+  `too tall`                    More than 297 rows or columns.
+
+The full error goes to |:messages| as
+`kitty-markdown: <kind> <alt>: <code>: <message>`. Nothing pops up.
+
+==============================================================================
+8. TEXT-ONLY MODE                                   *kitty-markdown-text-only*
+
+When the first preview opens, the plugin sends a kitty graphics query
+followed by a Primary Device Attributes request and waits up to 500 ms. If
+the graphics reply does not arrive first, the preview runs in text-only
+mode: every image shows as a bordered box with its alt text, and every
+mermaid block as a bordered box with the diagram source. The reason goes to
+|:messages|.
+
+Text-only mode also applies when 'termguicolors' is off, when the terminal
+reports no pixel size, or when no helper binary is available.
+
+The probe result is shared by every preview. |:KittyMarkdown| `refresh`
+probes again; when the answer changes, every open preview re-renders.
+
+==============================================================================
+9. HIGHLIGHT GROUPS                                *kitty-markdown-highlights*
+
+Every group is named `KittyMarkdown*` and defined with `default`, so a
+group you define before the preview opens wins.
+
+  Headings     `KittyMarkdownH1` to `KittyMarkdownH6`
+  Inline       `Text`, `Emph`, `Strong`, `Strike`, `Code`, `Link`, `Url`,
+               `Math`, `Html`, `Footnote`, `Muted`
+  Code blocks  `CodeBg`, `CodeLang`, `CodeBorder`
+  Lists        `Bullet`, `Number`, `Checked`, `Unchecked`
+  Tables       `TableBorder`, `TableHeader`
+  Quotes       `Quote`, `QuoteBar`, `AlertNote`, `AlertTip`,
+               `AlertImportant`, `AlertWarning`, `AlertCaution`
+  Rules        `Rule`
+  Boxes        `BoxBorder`, `BoxText`, `Loading`, `Failure`
+  Images       `KittyMarkdownImg<id>`, one per placed image; its foreground
+               carries the image id and must not be changed.
+
+Fenced code gets tree-sitter token colors through the `@<capture>.<lang>`
+groups of your colorscheme when a parser for the language is installed.
+Otherwise the block shows in the plain code group.
+
+==============================================================================
+10. TROUBLESHOOTING                           *kitty-markdown-troubleshooting*
+
+Nothing renders as pixels ~
+    Check |:messages|. "text-only mode: no graphics reply" means the
+    terminal did not answer the graphics query; "probe timeout" means no
+    answer at all within 500 ms; "termguicolors off" and "cell size unknown"
+    name the missing prerequisite. Inside tmux, the graphics protocol needs
+    `allow-passthrough on`. After a reattach, run `:KittyMarkdown refresh`.
+
+No helper binary ~
+    The message >
+    kitty-markdown: no helper binary found; run: cargo build --release --manifest-path helper/Cargo.toml
+<   means neither the download nor a local build produced a binary. Run the
+    command from the plugin directory, or set `helper.path`.
+
+The helper keeps exiting ~
+    After three exits within 60 seconds the plugin stops restarting the
+    helper and says so. Fix the cause (the last stderr lines are in
+    |:messages| at the DEBUG level) and run `:KittyMarkdown refresh`.
+
+A diagram shows "Parse error on line <n>" ~
+    The full mermaid error, with the caret line and the expected tokens, is
+    in |:messages|. The line number counts from the first line of the
+    diagram source.
+
+Images look stretched or cut ~
+    The cell size comes from the terminal (`TIOCGWINSZ`). After a font or
+    window change, resize fires a re-render; if it did not, run
+    `:KittyMarkdown refresh`.
+
+vim:tw=78:ts=8:ft=help:norl:
