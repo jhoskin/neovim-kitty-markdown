@@ -1,0 +1,10 @@
+%%{init: { "sequence": { "mirrorActors": false, "showSequenceNumbers": true } } }%%
+sequenceDiagram
+    title A titled sequence diagram
+    actor Alice
+    actor Bob
+    participant Server
+    Alice->>Bob: Hello Bob
+    Bob->>Server: Fetch
+    Server-->>Bob: 200 OK
+    Bob-->>Alice: Done

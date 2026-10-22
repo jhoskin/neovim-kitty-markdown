@@ -1,0 +1,94 @@
+---
+source: tests/parity_sequence.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="650" height="301" viewBox="-50 -50 650 301" font-family="Trebuchet MS">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="7.9" refY="5" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M-1,0L10,5L0,10Z" fill="#333333" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg-crosshead" refX="4" refY="4.5" markerWidth="15" markerHeight="8" orient="auto" markerUnits="strokeWidth">
+      <path d="M1,2L6,7M6,2L1,7" fill="#333333" stroke="#333333" stroke-width="1.333"/>
+    </marker>
+    <marker id="my-svg-filled-head" refX="15.5" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="strokeWidth">
+      <path d="M18,7L9,13L14,7L9,1Z" fill="#333333"/>
+    </marker>
+    <marker id="my-svg-sequencenumber" refX="15" refY="15" markerWidth="60" markerHeight="40" orient="auto" markerUnits="strokeWidth" fill="#333333">
+      <circle cx="15" cy="15" r="6"/>
+    </marker>
+    <marker id="my-svg-solidTopArrowHead" refX="7.9" refY="7.25" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M0,0L10,8L0,8Z" fill="#333333"/>
+    </marker>
+    <marker id="my-svg-solidBottomArrowHead" refX="7.9" refY="0.75" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M0,0L10,0L0,8Z" fill="#333333"/>
+    </marker>
+    <marker id="my-svg-stickTopArrowHead" refX="7.5" refY="7" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M0,0L7,7" fill="none" stroke="#000000" stroke-width="1.5"/>
+    </marker>
+    <marker id="my-svg-stickBottomArrowHead" refX="7.5" refY="0" markerWidth="12" markerHeight="12" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+      <path d="M0,7L7,0" fill="none" stroke="#000000" stroke-width="1.5"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g>
+      <line id="actor2" class="actor-line 200" x1="475" y1="65" x2="475" y2="2000" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <g>
+        <rect class="actor actor-top" x="400" y="0" width="150" height="65" rx="3" ry="3" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <text class="actor actor-box" x="475" y="32.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400">
+          <tspan x="475" dy="0">Server</tspan>
+        </text>
+      </g>
+    </g>
+    <g>
+      <line id="actor1" class="actor-line 200" x1="275" y1="80" x2="275" y2="2000" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+    </g>
+    <g>
+      <line id="actor0" class="actor-line 200" x1="75" y1="80" x2="75" y2="2000" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+    </g>
+    <g class="actor-man actor-top" stroke="#9370db">
+      <line class="" x1="75" y1="25" x2="75" y2="45" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <line class="" x1="57" y1="33" x2="93" y2="33" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <line class="" x1="57" y1="60" x2="75" y2="45" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <line class="" x1="75" y1="45" x2="91" y2="60" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <circle cx="75" cy="10" r="15" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <text class="actor actor-man" x="75" y="67.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400">
+        <tspan x="75" dy="0">Alice</tspan>
+      </text>
+    </g>
+    <g class="actor-man actor-top" stroke="#9370db">
+      <line class="" x1="275" y1="25" x2="275" y2="45" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <line class="" x1="257" y1="33" x2="293" y2="33" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <line class="" x1="257" y1="60" x2="275" y2="45" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <line class="" x1="275" y1="45" x2="291" y2="60" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <circle cx="275" cy="10" r="15" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+      <text class="actor actor-man" x="275" y="67.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400">
+        <tspan x="275" dy="0">Bob</tspan>
+      </text>
+    </g>
+    <text class="messageText" x="174" y="80" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400">
+      <tspan dy="1em">Hello Bob</tspan>
+    </text>
+    <line class="messageLine0" x1="82" y1="109" x2="271" y2="109" fill="none" stroke="#333333" stroke-width="1.5" marker-end="url(#my-svg-arrowhead)"/>
+    <line x1="75" y1="109" x2="75" y2="109" fill="#ececff" stroke="none" stroke-width="2" stroke-linecap="butt" marker-start="url(#my-svg-sequencenumber)"/>
+    <text class="sequenceNumber" x="75" y="113" text-anchor="middle" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12">1</text>
+    <text class="messageText" x="374" y="124" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400">
+      <tspan dy="1em">Fetch</tspan>
+    </text>
+    <line class="messageLine0" x1="282" y1="153" x2="471" y2="153" fill="none" stroke="#333333" stroke-width="1.5" marker-end="url(#my-svg-arrowhead)"/>
+    <line x1="275" y1="153" x2="275" y2="153" fill="#ececff" stroke="none" stroke-width="2" stroke-linecap="butt" marker-start="url(#my-svg-sequencenumber)"/>
+    <text class="sequenceNumber" x="275" y="157" text-anchor="middle" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12">2</text>
+    <text class="messageText" x="377" y="168" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400">
+      <tspan dy="1em">200 OK</tspan>
+    </text>
+    <line class="messageLine1" x1="480" y1="197" x2="279" y2="197" fill="none" stroke="#333333" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#my-svg-arrowhead)"/>
+    <line x1="475" y1="197" x2="475" y2="197" fill="#ececff" stroke="none" stroke-width="2" stroke-linecap="butt" marker-start="url(#my-svg-sequencenumber)"/>
+    <text class="sequenceNumber" x="475" y="201" text-anchor="middle" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12">3</text>
+    <text class="messageText" x="177" y="212" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400">
+      <tspan dy="1em">Done</tspan>
+    </text>
+    <line class="messageLine1" x1="280" y1="241" x2="79" y2="241" fill="none" stroke="#333333" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#my-svg-arrowhead)"/>
+    <line x1="275" y1="241" x2="275" y2="241" fill="#ececff" stroke="none" stroke-width="2" stroke-linecap="butt" marker-start="url(#my-svg-sequencenumber)"/>
+    <text class="sequenceNumber" x="275" y="245" text-anchor="middle" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12">4</text>
+    <text x="175" y="-25" fill="#333333">A titled sequence diagram</text>
+  </g>
+</svg>

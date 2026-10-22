@@ -1,0 +1,10 @@
+%%{init: { "sequence": { "wrap": true, "width": 300 } } }%%
+sequenceDiagram
+    participant A as Alice, the first participant in this long-named diagram
+    participant B as Bob
+    A->>B: This is a rather long message that the renderer has to wrap onto several lines so that it fits the configured width
+    B-->>A: nowrap: This reply must not wrap at all even though it is long enough to need it
+    Note over A,B: wrap: A note over both participants with text long enough to wrap around to a second line
+    loop Every time the long loop label needs more than one line to show its text
+        A->>A: thinking
+    end
