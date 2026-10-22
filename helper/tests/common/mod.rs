@@ -7,6 +7,13 @@
 //! layouts (mindmap, cynefin). `just goldens` writes them with the pinned
 //! oracle. Failures write `<name>.actual.png` and `<name>.diff.png` under
 //! `helper/target/parity/`.
+//!
+//! A golden can be larger than the helper output: mermaid-cli draws a
+//! `useMaxWidth` diagram 8 px narrower than its screenshot clip, so
+//! `helper/oracle/goldens.mjs` (see its header comment for the mechanism)
+//! asks for a clip 8 px wider than the helper output, which puts the diagram
+//! at the helper's scale in the top-left corner with page background on the
+//! right and bottom. [`golden_frame`] crops that corner before the SSIM.
 
 #![allow(dead_code)]
 
@@ -93,12 +100,26 @@ pub fn goldens_for(diagram_type: &str) -> Vec<Case> {
     cases
 }
 
+/// The part of `golden` that corresponds to `actual`: the top-left corner
+/// of the golden at the actual's size, where the oracle drew the diagram
+/// (see the module docs). A golden no larger than the actual on an axis
+/// keeps that axis; the R-181 tolerance then covers a 1 px difference.
+pub fn golden_frame(actual: &RgbaImage, golden: &RgbaImage) -> RgbaImage {
+    let w = golden.width().min(actual.width());
+    let h = golden.height().min(actual.height());
+    if (w, h) == golden.dimensions() {
+        return golden.clone();
+    }
+    image::imageops::crop_imm(golden, 0, 0, w, h).to_image()
+}
+
 /// Asserts that `actual` reaches `threshold` against the best of `goldens`
-/// (R-182). On failure the actual image and a diff against the best golden
-/// land in `helper/target/parity/<name>.*.png` and the panic message says
-/// where.
+/// (R-182), each cropped with [`golden_frame`]. On failure the actual image
+/// and a diff against the best golden land in
+/// `helper/target/parity/<name>.*.png` and the panic message says where.
 pub fn assert_ssim(actual: &RgbaImage, goldens: &[RgbaImage], threshold: f64, name: &str) {
     assert!(!goldens.is_empty(), "{name}: no goldens to compare against");
+    let goldens: Vec<RgbaImage> = goldens.iter().map(|g| golden_frame(actual, g)).collect();
     let mut best: Option<(f64, usize)> = None;
     let mut size_errors = Vec::new();
     for (i, golden) in goldens.iter().enumerate() {
@@ -164,4 +185,71 @@ macro_rules! skip_if_no_goldens {
         }
         cases
     }};
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use image::Rgba;
+    use kitty_markdown_helper::ssim::ssim;
+
+    /// A 40 by 30 picture with a dark box and a diagonal, so SSIM has
+    /// structure to measure.
+    fn diagram() -> RgbaImage {
+        let mut img = RgbaImage::from_pixel(40, 30, Rgba([255, 255, 255, 255]));
+        for y in 0..30 {
+            for x in 0..40 {
+                let boxed = (5..20).contains(&x) && (5..15).contains(&y);
+                if boxed || x == y {
+                    img.put_pixel(x, y, Rgba([40, 40, 120, 255]));
+                }
+            }
+        }
+        img
+    }
+
+    /// The oracle framing: the diagram in the top-left corner of a canvas
+    /// `extra` px larger on each axis, white elsewhere.
+    fn framed(diagram: &RgbaImage, extra: u32) -> RgbaImage {
+        let mut canvas = RgbaImage::from_pixel(
+            diagram.width() + extra,
+            diagram.height() + extra,
+            Rgba([255, 255, 255, 255]),
+        );
+        image::imageops::overlay(&mut canvas, diagram, 0, 0);
+        canvas
+    }
+
+    #[test]
+    fn golden_frame_crops_the_top_left_corner_to_the_actual_size() {
+        let actual = diagram();
+        let golden = framed(&actual, 8);
+        let frame = golden_frame(&actual, &golden);
+        assert_eq!(frame.dimensions(), actual.dimensions());
+        assert_eq!(frame, actual);
+        assert_eq!(ssim(&actual, &frame).unwrap(), 1.0);
+        // The uncropped golden is too large for the R-181 tolerance.
+        assert!(ssim_with_tolerance(&actual, &golden, SIZE_TOLERANCE_PX).is_err());
+    }
+
+    #[test]
+    fn golden_frame_keeps_a_golden_that_is_not_larger() {
+        let actual = diagram();
+        let same = golden_frame(&actual, &actual);
+        assert_eq!(same, actual);
+        let smaller = image::imageops::crop_imm(&actual, 0, 0, 39, 30).to_image();
+        assert_eq!(golden_frame(&actual, &smaller).dimensions(), (39, 30));
+    }
+
+    #[test]
+    fn assert_ssim_accepts_the_framed_golden_and_rejects_a_shifted_one() {
+        let actual = diagram();
+        assert_ssim(&actual, &[framed(&actual, 8)], 0.999, "framing_synthetic");
+        // The same diagram centered on the larger canvas is a different
+        // picture after the crop.
+        let mut shifted = RgbaImage::from_pixel(48, 38, Rgba([255, 255, 255, 255]));
+        image::imageops::overlay(&mut shifted, &actual, 4, 4);
+        let value = ssim(&actual, &golden_frame(&actual, &shifted)).unwrap();
+        assert!(value < 0.9, "shifted golden still scored {value}");
+    }
 }
