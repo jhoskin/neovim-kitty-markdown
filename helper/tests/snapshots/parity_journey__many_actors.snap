@@ -1,0 +1,152 @@
+---
+source: tests/parity_journey.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1500" height="590" viewBox="0 -25 1500 590" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="5" refY="2" markerWidth="6" markerHeight="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0L0,4L6,2Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <circle class="actor-0" cx="20" cy="60" r="7" fill="#8fbc8f" stroke="#000000"/>
+    <text class="legend" x="40" y="67" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Dev</tspan>
+    </text>
+    <circle class="actor-1" cx="20" cy="80" r="7" fill="#7cfc00" stroke="#000000"/>
+    <text class="legend" x="40" y="87" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Legal</tspan>
+    </text>
+    <circle class="actor-2" cx="20" cy="100" r="7" fill="#00ffff" stroke="#000000"/>
+    <text class="legend" x="40" y="107" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Manager</tspan>
+    </text>
+    <circle class="actor-3" cx="20" cy="120" r="7" fill="#20b2aa" stroke="#000000"/>
+    <text class="legend" x="40" y="127" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Marketing</tspan>
+    </text>
+    <circle class="actor-4" cx="20" cy="140" r="7" fill="#b0e0e6" stroke="#000000"/>
+    <text class="legend" x="40" y="147" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Ops</tspan>
+    </text>
+    <circle class="actor-5" cx="20" cy="160" r="7" fill="#ffffe0" stroke="#000000"/>
+    <text class="legend" x="40" y="167" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Product</tspan>
+    </text>
+    <circle class="actor-6" cx="20" cy="180" r="7" fill="#8fbc8f" stroke="#000000"/>
+    <text class="legend" x="40" y="187" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">QA</tspan>
+    </text>
+    <circle class="actor-7" cx="20" cy="200" r="7" fill="#7cfc00" stroke="#000000"/>
+    <text class="legend" x="40" y="207" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Sales</tspan>
+    </text>
+    <circle class="actor-8" cx="20" cy="220" r="7" fill="#00ffff" stroke="#000000"/>
+    <text class="legend" x="40" y="227" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Support</tspan>
+    </text>
+    <circle class="actor-9" cx="20" cy="240" r="7" fill="#20b2aa" stroke="#000000"/>
+    <text class="legend" x="40" y="247" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+      <tspan x="50">Writer</tspan>
+    </text>
+    <g>
+      <rect class="journey-section section-type-0" x="150" y="50" width="550" height="50" rx="3" ry="3" fill="#ececff" stroke="#666666"/>
+      <text class="journey-section section-type-0" x="425" y="80.5" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">Prepare</text>
+    </g>
+    <g>
+      <line id="my-svg-task0" class="task-line" x1="225" y1="110" x2="225" y2="450" stroke="#333333" stroke-width="1" stroke-dasharray="4,2"/>
+      <circle class="face" cx="225" cy="330" r="15" fill="#fff8dc" stroke="#999999" stroke-width="2"/>
+      <g>
+        <circle cx="220" cy="325" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <circle cx="230" cy="325" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <path class="mouth" transform="translate(225, 332)" d="M7.5,0A7.5,7.5,0,1,1,-7.5,0L-6.818,0A6.818,6.818,0,1,0,6.818,0Z" fill="#333333" stroke="#666666"/>
+      </g>
+      <rect class="task task-type-0" x="150" y="110" width="150" height="50" rx="3" ry="3" fill="#ececff" stroke="#666666"/>
+      <circle class="actor-0" cx="164" cy="110" r="7" fill="#8fbc8f" stroke="#000000"/>
+      <circle class="actor-9" cx="174" cy="110" r="7" fill="#20b2aa" stroke="#000000"/>
+      <text class="task" x="225" y="140.5" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">Write notes</text>
+    </g>
+    <g>
+      <line id="my-svg-task1" class="task-line" x1="425" y1="110" x2="425" y2="450" stroke="#333333" stroke-width="1" stroke-dasharray="4,2"/>
+      <circle class="face" cx="425" cy="360" r="15" fill="#fff8dc" stroke="#999999" stroke-width="2"/>
+      <g>
+        <circle cx="420" cy="355" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <circle cx="430" cy="355" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <line class="mouth" x1="420" y1="367" x2="430" y2="367" stroke="#666666" stroke-width="1"/>
+      </g>
+      <rect class="task task-type-0" x="350" y="110" width="150" height="50" rx="3" ry="3" fill="#ececff" stroke="#666666"/>
+      <circle class="actor-0" cx="364" cy="110" r="7" fill="#8fbc8f" stroke="#000000"/>
+      <circle class="actor-4" cx="374" cy="110" r="7" fill="#b0e0e6" stroke="#000000"/>
+      <text class="task" x="425" y="140.5" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">Tag build</text>
+    </g>
+    <g>
+      <line id="my-svg-task2" class="task-line" x1="625" y1="110" x2="625" y2="450" stroke="#333333" stroke-width="1" stroke-dasharray="4,2"/>
+      <circle class="face" cx="625" cy="390" r="15" fill="#fff8dc" stroke="#999999" stroke-width="2"/>
+      <g>
+        <circle cx="620" cy="385" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <circle cx="630" cy="385" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <path class="mouth" transform="translate(625, 397)" d="M-7.5,0A7.5,7.5,0,1,1,7.5,0L6.818,0A6.818,6.818,0,1,0,-6.818,0Z" fill="#333333" stroke="#666666"/>
+      </g>
+      <rect class="task task-type-0" x="550" y="110" width="150" height="50" rx="3" ry="3" fill="#ececff" stroke="#666666"/>
+      <circle class="actor-6" cx="564" cy="110" r="7" fill="#8fbc8f" stroke="#000000"/>
+      <circle class="actor-4" cx="574" cy="110" r="7" fill="#b0e0e6" stroke="#000000"/>
+      <circle class="actor-0" cx="584" cy="110" r="7" fill="#8fbc8f" stroke="#000000"/>
+      <text class="task" x="625" y="140.5" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">Smoke test</text>
+    </g>
+    <g>
+      <rect class="journey-section section-type-1" x="750" y="50" width="550" height="50" rx="3" ry="3" fill="#ffffde" stroke="#666666"/>
+      <text class="journey-section section-type-1" x="1025" y="80.5" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">Ship</text>
+    </g>
+    <g>
+      <line id="my-svg-task3" class="task-line" x1="825" y1="110" x2="825" y2="450" stroke="#333333" stroke-width="1" stroke-dasharray="4,2"/>
+      <circle class="face" cx="825" cy="300" r="15" fill="#fff8dc" stroke="#999999" stroke-width="2"/>
+      <g>
+        <circle cx="820" cy="295" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <circle cx="830" cy="295" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <path class="mouth" transform="translate(825, 302)" d="M7.5,0A7.5,7.5,0,1,1,-7.5,0L-6.818,0A6.818,6.818,0,1,0,6.818,0Z" fill="#333333" stroke="#666666"/>
+      </g>
+      <rect class="task task-type-1" x="750" y="110" width="150" height="50" rx="3" ry="3" fill="#ffffde" stroke="#666666"/>
+      <circle class="actor-3" cx="764" cy="110" r="7" fill="#20b2aa" stroke="#000000"/>
+      <circle class="actor-8" cx="774" cy="110" r="7" fill="#00ffff" stroke="#000000"/>
+      <circle class="actor-9" cx="784" cy="110" r="7" fill="#20b2aa" stroke="#000000"/>
+      <text class="task" x="825" y="140.5" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">Announce</text>
+    </g>
+    <g>
+      <line id="my-svg-task4" class="task-line" x1="1025" y1="110" x2="1025" y2="450" stroke="#333333" stroke-width="1" stroke-dasharray="4,2"/>
+      <circle class="face" cx="1025" cy="360" r="15" fill="#fff8dc" stroke="#999999" stroke-width="2"/>
+      <g>
+        <circle cx="1020" cy="355" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <circle cx="1030" cy="355" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <line class="mouth" x1="1020" y1="367" x2="1030" y2="367" stroke="#666666" stroke-width="1"/>
+      </g>
+      <rect class="task task-type-1" x="950" y="110" width="150" height="50" rx="3" ry="3" fill="#ffffde" stroke="#666666"/>
+      <circle class="actor-4" cx="964" cy="110" r="7" fill="#b0e0e6" stroke="#000000"/>
+      <circle class="actor-5" cx="974" cy="110" r="7" fill="#ffffe0" stroke="#000000"/>
+      <circle class="actor-2" cx="984" cy="110" r="7" fill="#00ffff" stroke="#000000"/>
+      <text class="task" x="1025" y="140.5" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">Watch metrics</text>
+    </g>
+    <g>
+      <line id="my-svg-task5" class="task-line" x1="1225" y1="110" x2="1225" y2="450" stroke="#333333" stroke-width="1" stroke-dasharray="4,2"/>
+      <circle class="face" cx="1225" cy="300" r="15" fill="#fff8dc" stroke="#999999" stroke-width="2"/>
+      <g>
+        <circle cx="1220" cy="295" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <circle cx="1230" cy="295" r="1.5" fill="#666666" stroke="#666666" stroke-width="2"/>
+        <path class="mouth" transform="translate(1225, 302)" d="M7.5,0A7.5,7.5,0,1,1,-7.5,0L-6.818,0A6.818,6.818,0,1,0,6.818,0Z" fill="#333333" stroke="#666666"/>
+      </g>
+      <rect class="task task-type-1" x="1150" y="110" width="150" height="50" rx="3" ry="3" fill="#ffffde" stroke="#666666"/>
+      <circle class="actor-0" cx="1164" cy="110" r="7" fill="#8fbc8f" stroke="#000000"/>
+      <circle class="actor-6" cx="1174" cy="110" r="7" fill="#8fbc8f" stroke="#000000"/>
+      <circle class="actor-4" cx="1184" cy="110" r="7" fill="#b0e0e6" stroke="#000000"/>
+      <circle class="actor-9" cx="1194" cy="110" r="7" fill="#20b2aa" stroke="#000000"/>
+      <circle class="actor-3" cx="1204" cy="110" r="7" fill="#20b2aa" stroke="#000000"/>
+      <circle class="actor-8" cx="1214" cy="110" r="7" fill="#00ffff" stroke="#000000"/>
+      <circle class="actor-5" cx="1224" cy="110" r="7" fill="#ffffe0" stroke="#000000"/>
+      <circle class="actor-2" cx="1234" cy="110" r="7" fill="#00ffff" stroke="#000000"/>
+      <circle class="actor-1" cx="1244" cy="110" r="7" fill="#7cfc00" stroke="#000000"/>
+      <circle class="actor-7" cx="1254" cy="110" r="7" fill="#7cfc00" stroke="#000000"/>
+      <text class="task" x="1225" y="140.5" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">Celebrate</text>
+    </g>
+    <text x="150" y="25" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="33.469" font-weight="bold">Release day</text>
+    <line x1="150" y1="200" x2="1346" y2="200" stroke="#333333" stroke-width="4" marker-end="url(#my-svg-arrowhead)"/>
+  </g>
+</svg>
