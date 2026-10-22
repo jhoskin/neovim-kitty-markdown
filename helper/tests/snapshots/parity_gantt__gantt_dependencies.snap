@@ -61,9 +61,7 @@ expression: scene.to_svg()
       <text id="my-svg-c-text" class="taskText taskText0" x="834.5" y="111.5" fill="#000000" font-size="11" text-anchor="middle">cherry</text>
     </g>
     <g>
-      <text class="sectionTitle sectionTitle0" x="10" y="98" fill="#333333" font-size="11" text-anchor="start">
-        <tspan x="10" dy="4"></tspan>
-      </text>
+      <text class="sectionTitle sectionTitle0" x="10" y="98" fill="#333333" font-size="11" text-anchor="start"><tspan x="10" dy="4"></tspan></text>
     </g>
     <text class="titleText" x="480" y="25" fill="#333333" font-size="18" text-anchor="middle"></text>
   </g>

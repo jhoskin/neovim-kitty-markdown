@@ -46,49 +46,37 @@ expression: scene.to_svg()
       <g id="my-svg-a" class="node default flowchart-label " transform="translate(40.43, -72)">
         <rect class="basic label-container" x="-40.43" y="-20" width="80.859" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-24.43, -12)">
-          <text class="nodeLabel" x="24.43" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="24.43" dy="17">A label</tspan>
-          </text>
+          <text class="nodeLabel" x="24.43" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="24.43" dy="17">A label</tspan></text>
         </g>
       </g>
       <g id="my-svg-b" class="node default flowchart-label " transform="translate(173.719, -72)">
         <rect class="basic label-container" x="-84.859" y="-20" width="169.719" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-4.457, -12)">
-          <text class="nodeLabel" x="4.457" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="4.457" dy="17">b</tspan>
-          </text>
+          <text class="nodeLabel" x="4.457" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.457" dy="17">b</tspan></text>
         </g>
       </g>
       <g id="my-svg-c" class="node default flowchart-label " transform="translate(84.859, -24)">
         <rect class="basic label-container" x="-84.859" y="-20" width="169.719" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-3.961, -12)">
-          <text class="nodeLabel" x="3.961" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="3.961" dy="17">c</tspan>
-          </text>
+          <text class="nodeLabel" x="3.961" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="3.961" dy="17">c</tspan></text>
         </g>
       </g>
       <g id="my-svg-d" class="node default flowchart-label " transform="translate(218.148, -24)">
         <rect class="basic label-container" x="-40.43" y="-20" width="80.859" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-4.457, -12)">
-          <text class="nodeLabel" x="4.457" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="4.457" dy="17">d</tspan>
-          </text>
+          <text class="nodeLabel" x="4.457" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.457" dy="17">d</tspan></text>
         </g>
       </g>
       <g id="my-svg-e" class="node default flowchart-label " transform="translate(129.289, 24)">
         <rect class="basic label-container" x="-40.43" y="-20" width="80.859" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-4.363, -12)">
-          <text class="nodeLabel" x="4.363" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="4.363" dy="17">e</tspan>
-          </text>
+          <text class="nodeLabel" x="4.363" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.363" dy="17">e</tspan></text>
         </g>
       </g>
       <g id="my-svg-f" class="node default flowchart-label " transform="translate(40.43, 72)">
         <rect class="basic label-container" x="-40.43" y="-20" width="80.859" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-2.957, -12)">
-          <text class="nodeLabel" x="2.957" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="2.957" dy="17">f</tspan>
-          </text>
+          <text class="nodeLabel" x="2.957" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="2.957" dy="17">f</tspan></text>
         </g>
       </g>
     </g>

@@ -6,8 +6,6 @@ width=152.86046566692016 height=46
 <g id="n1" class="node default ">
   <path class="basic label-container outer-path" d="M-76.436,-23L53.436,-23L53.436,-23L54.91,-22.953L56.377,-22.811L57.833,-22.576L59.27,-22.248L60.684,-21.828L62.067,-21.319L63.415,-20.722L64.723,-20.04L65.983,-19.276L67.193,-18.433L68.345,-17.513L69.437,-16.522L70.463,-15.463L71.418,-14.34L72.3,-13.159L73.104,-11.923L73.828,-10.638L74.468,-9.31L75.021,-7.943L75.486,-6.544L75.859,-5.118L76.141,-3.671L76.33,-2.209L76.424,-0.737L76.424,0.737L76.33,2.209L76.141,3.671L75.859,5.118L75.486,6.544L75.021,7.943L74.468,9.31L73.828,10.638L73.104,11.923L72.3,13.159L71.418,14.34L70.463,15.463L69.437,16.522L68.345,17.513L67.193,18.433L65.983,19.276L64.723,20.04L63.415,20.722L62.067,21.319L60.684,21.828L59.27,22.248L57.833,22.576L56.377,22.811L54.91,22.953L53.436,23L53.436,23L-76.436,23Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <g class="label" transform="translate(-60, -8)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-      <tspan x="60" dy="8">Label</tspan>
-    </text>
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
   </g>
 </g>

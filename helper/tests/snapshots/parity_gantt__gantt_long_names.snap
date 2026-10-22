@@ -73,12 +73,8 @@ expression: scene.to_svg()
       <text id="my-svg-r3-text" class="taskTextOutsideLeft taskTextOutside0" x="845" y="111.5" fill="#000000" font-size="11" text-anchor="end">Another extremely long task label that must flip to the left side</text>
     </g>
     <g>
-      <text class="sectionTitle sectionTitle0" x="10" y="86" fill="#333333" font-size="11" text-anchor="start">
-        <tspan x="10" dy="4">Research</tspan>
-      </text>
-      <text class="sectionTitle sectionTitle1" x="10" y="134" fill="#333333" font-size="11" text-anchor="start">
-        <tspan x="10" dy="4">Writing</tspan>
-      </text>
+      <text class="sectionTitle sectionTitle0" x="10" y="86" fill="#333333" font-size="11" text-anchor="start"><tspan x="10" dy="4">Research</tspan></text>
+      <text class="sectionTitle sectionTitle1" x="10" y="134" fill="#333333" font-size="11" text-anchor="start"><tspan x="10" dy="4">Writing</tspan></text>
     </g>
     <text class="titleText" x="480" y="25" fill="#333333" font-size="18" text-anchor="middle">Long task names overflow their bars</text>
   </g>

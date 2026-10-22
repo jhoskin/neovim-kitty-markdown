@@ -34,9 +34,7 @@ expression: scene.to_svg()
       <line id="actor2" class="actor-line 200" x1="475" y1="65" x2="475" y2="2000" fill="#ececff" stroke="#9370db" stroke-width="2"/>
       <g>
         <rect class="actor actor-top" x="400" y="0" width="150" height="65" rx="3" ry="3" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-        <text class="actor actor-box" x="475" y="32.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400">
-          <tspan x="475" dy="0">Server</tspan>
-        </text>
+        <text class="actor actor-box" x="475" y="32.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400"><tspan x="475" dy="0">Server</tspan></text>
       </g>
     </g>
     <g>
@@ -51,9 +49,7 @@ expression: scene.to_svg()
       <line class="" x1="57" y1="60" x2="75" y2="45" fill="#ececff" stroke="#9370db" stroke-width="2"/>
       <line class="" x1="75" y1="45" x2="91" y2="60" fill="#ececff" stroke="#9370db" stroke-width="2"/>
       <circle cx="75" cy="10" r="15" fill="#ececff" stroke="#9370db" stroke-width="2"/>
-      <text class="actor actor-man" x="75" y="67.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400">
-        <tspan x="75" dy="0">Alice</tspan>
-      </text>
+      <text class="actor actor-man" x="75" y="67.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400"><tspan x="75" dy="0">Alice</tspan></text>
     </g>
     <g class="actor-man actor-top" stroke="#9370db">
       <line class="" x1="275" y1="25" x2="275" y2="45" fill="#ececff" stroke="#9370db" stroke-width="2"/>
@@ -61,31 +57,21 @@ expression: scene.to_svg()
       <line class="" x1="257" y1="60" x2="275" y2="45" fill="#ececff" stroke="#9370db" stroke-width="2"/>
       <line class="" x1="275" y1="45" x2="291" y2="60" fill="#ececff" stroke="#9370db" stroke-width="2"/>
       <circle cx="275" cy="10" r="15" fill="#ececff" stroke="#9370db" stroke-width="2"/>
-      <text class="actor actor-man" x="275" y="67.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400">
-        <tspan x="275" dy="0">Bob</tspan>
-      </text>
+      <text class="actor actor-man" x="275" y="67.5" text-anchor="middle" dominant-baseline="central" fill="#000000" stroke="none" font-size="16" font-weight="400"><tspan x="275" dy="0">Bob</tspan></text>
     </g>
-    <text class="messageText" x="174" y="80" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400">
-      <tspan dy="1em">Hello Bob</tspan>
-    </text>
+    <text class="messageText" x="174" y="80" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400"><tspan dy="1em">Hello Bob</tspan></text>
     <line class="messageLine0" x1="82" y1="109" x2="271" y2="109" fill="none" stroke="#333333" stroke-width="1.5" marker-end="url(#my-svg-arrowhead)"/>
     <line x1="75" y1="109" x2="75" y2="109" fill="#ececff" stroke="none" stroke-width="2" stroke-linecap="butt" marker-start="url(#my-svg-sequencenumber)"/>
     <text class="sequenceNumber" x="75" y="113" text-anchor="middle" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12">1</text>
-    <text class="messageText" x="374" y="124" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400">
-      <tspan dy="1em">Fetch</tspan>
-    </text>
+    <text class="messageText" x="374" y="124" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400"><tspan dy="1em">Fetch</tspan></text>
     <line class="messageLine0" x1="282" y1="153" x2="471" y2="153" fill="none" stroke="#333333" stroke-width="1.5" marker-end="url(#my-svg-arrowhead)"/>
     <line x1="275" y1="153" x2="275" y2="153" fill="#ececff" stroke="none" stroke-width="2" stroke-linecap="butt" marker-start="url(#my-svg-sequencenumber)"/>
     <text class="sequenceNumber" x="275" y="157" text-anchor="middle" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12">2</text>
-    <text class="messageText" x="377" y="168" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400">
-      <tspan dy="1em">200 OK</tspan>
-    </text>
+    <text class="messageText" x="377" y="168" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400"><tspan dy="1em">200 OK</tspan></text>
     <line class="messageLine1" x1="480" y1="197" x2="279" y2="197" fill="none" stroke="#333333" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#my-svg-arrowhead)"/>
     <line x1="475" y1="197" x2="475" y2="197" fill="#ececff" stroke="none" stroke-width="2" stroke-linecap="butt" marker-start="url(#my-svg-sequencenumber)"/>
     <text class="sequenceNumber" x="475" y="201" text-anchor="middle" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12">3</text>
-    <text class="messageText" x="177" y="212" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400">
-      <tspan dy="1em">Done</tspan>
-    </text>
+    <text class="messageText" x="177" y="212" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400"><tspan dy="1em">Done</tspan></text>
     <line class="messageLine1" x1="280" y1="241" x2="79" y2="241" fill="none" stroke="#333333" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#my-svg-arrowhead)"/>
     <line x1="275" y1="241" x2="275" y2="241" fill="#ececff" stroke="none" stroke-width="2" stroke-linecap="butt" marker-start="url(#my-svg-sequencenumber)"/>
     <text class="sequenceNumber" x="275" y="245" text-anchor="middle" fill="#ffffff" stroke="none" font-family="sans-serif" font-size="12">4</text>

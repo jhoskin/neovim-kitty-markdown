@@ -85,12 +85,8 @@ expression: scene.to_svg()
       <text id="my-svg-des4-text" class="taskText taskText0" x="756" y="135.5" fill="#ffffff" font-size="11" text-anchor="middle">Future task2</text>
     </g>
     <g>
-      <text class="sectionTitle sectionTitle0" x="10" y="98" fill="#333333" font-size="11" text-anchor="start">
-        <tspan x="10" dy="4">A section</tspan>
-      </text>
-      <text class="sectionTitle sectionTitle1" x="10" y="194" fill="#333333" font-size="11" text-anchor="start">
-        <tspan x="10" dy="4">Critical tasks</tspan>
-      </text>
+      <text class="sectionTitle sectionTitle0" x="10" y="98" fill="#333333" font-size="11" text-anchor="start"><tspan x="10" dy="4">A section</tspan></text>
+      <text class="sectionTitle sectionTitle1" x="10" y="194" fill="#333333" font-size="11" text-anchor="start"><tspan x="10" dy="4">Critical tasks</tspan></text>
     </g>
     <text class="titleText" x="480" y="25" fill="#333333" font-size="18" text-anchor="middle">Excluding weekends</text>
   </g>

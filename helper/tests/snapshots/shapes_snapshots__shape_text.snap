@@ -6,8 +6,6 @@ width=135 height=31
 <g id="n1" class="node default ">
   <rect class="text" x="-67.5" y="-15.5" width="135" height="31" rx="0" ry="0" fill="none" stroke="#9370db" stroke-width="0"/>
   <g class="label" transform="translate(-60, -8)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-      <tspan x="60" dy="8">Label</tspan>
-    </text>
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
   </g>
 </g>

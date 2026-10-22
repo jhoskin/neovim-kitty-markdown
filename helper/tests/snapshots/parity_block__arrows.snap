@@ -46,57 +46,43 @@ expression: scene.to_svg()
       <g id="my-svg-blockArrowId" class="node default flowchart-label " transform="translate(43.434, 0)">
         <polygon class="label-container" transform="translate(-43.434, 20)" points="20,-4 20,-4 66.867,-4 66.867,0 86.867,-20 66.867,-40 66.867,-36 20,-36 20,-36" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-19.434, -12)">
-          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="19.434" dy="17">Label</tspan>
-          </text>
+          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.434" dy="17">Label</tspan></text>
         </g>
       </g>
       <g id="my-svg-blockArrowId2" class="node default flowchart-label " transform="translate(138.301, 0)">
         <polygon class="label-container" transform="translate(-43.434, 20)" points="20,0 20,-4 66.867,-4 66.867,-36 20,-36 20,-40 0,-20" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-19.434, -12)">
-          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="19.434" dy="17">Label</tspan>
-          </text>
+          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.434" dy="17">Label</tspan></text>
         </g>
       </g>
       <g id="my-svg-blockArrowId3" class="node default flowchart-label " transform="translate(233.168, 0)">
         <polygon class="label-container" transform="translate(-43.434, 20)" points="20,-4 20,-36 0,-36 43.434,-40 86.867,-36 66.867,-36 66.867,-4" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-19.434, -12)">
-          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="19.434" dy="17">Label</tspan>
-          </text>
+          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.434" dy="17">Label</tspan></text>
         </g>
       </g>
       <g id="my-svg-blockArrowId4" class="node default flowchart-label " transform="translate(328.035, 0)">
         <polygon class="label-container" transform="translate(-43.434, 20)" points="43.434,0 0,-4 20,-4 20,-36 66.867,-36 66.867,-4 86.867,-4" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-19.434, -12)">
-          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="19.434" dy="17">Label</tspan>
-          </text>
+          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.434" dy="17">Label</tspan></text>
         </g>
       </g>
       <g id="my-svg-blockArrowId5" class="node default flowchart-label " transform="translate(422.902, 0)">
         <polygon class="label-container" transform="translate(-43.434, 20)" points="20,0 20,-4 66.867,-4 66.867,0 86.867,-20 66.867,-40 66.867,-36 20,-36 20,-40 0,-20" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-19.434, -12)">
-          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="19.434" dy="17">Label</tspan>
-          </text>
+          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.434" dy="17">Label</tspan></text>
         </g>
       </g>
       <g id="my-svg-blockArrowId6" class="node default flowchart-label " transform="translate(517.77, 0)">
         <polygon class="label-container" transform="translate(-43.434, 20)" points="43.434,0 0,-4 20,-4 20,-36 0,-36 43.434,-40 86.867,-36 66.867,-36 66.867,-4 86.867,-4" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-19.434, -12)">
-          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="19.434" dy="17">Label</tspan>
-          </text>
+          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.434" dy="17">Label</tspan></text>
         </g>
       </g>
       <g id="my-svg-blockArrowId7" class="node default flowchart-label " transform="translate(612.637, 0)">
         <polygon class="label-container" transform="translate(-43.434, 20)" points="0,0 20,-40 66.867,-40 86.867,0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-19.434, -12)">
-          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="19.434" dy="17">Label</tspan>
-          </text>
+          <text class="nodeLabel" x="19.434" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.434" dy="17">Label</tspan></text>
         </g>
       </g>
     </g>

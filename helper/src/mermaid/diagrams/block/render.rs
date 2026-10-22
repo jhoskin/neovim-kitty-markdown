@@ -28,12 +28,8 @@ use crate::mermaid::shapes::util::{
     insert_polygon_shape, label_helper, path_bbox, points_bbox, rect_element, translate,
     update_node_bounds,
 };
-use crate::mermaid::shapes::{
-    self, Intersector, LabelBox, LabelLine, LabelMeasurer, LabelOpts, LabelRun, Look, Node,
-    ShapeCtx, ShapeOut,
-};
+use crate::mermaid::shapes::{self, Intersector, Look, Node, ShapeCtx, ShapeOut};
 use crate::mermaid::styles::block::BlockStyles;
-use crate::text::markdown::{self, Line, WordType};
 use crate::text::{FontSpec as MeasureSpec, TextMetrics};
 
 /// mermaid-cli's SVG id; `db.setDiagramId(id)` prefixes every node id.
@@ -42,96 +38,6 @@ const SVG_ID: &str = "my-svg";
 const DEFAULT_PADDING: f64 = 8.0;
 /// `line-height: 1.5` of the HTML label div.
 const HTML_LINE_HEIGHT: f64 = 1.5;
-
-// ---------------------------------------------------------------------------
-// Label measurement
-
-/// `createText` over the text package: HTML labels through `markdownToHTML`
-/// or `nonMarkdownToHTML` and the label div's `getBoundingClientRect`, SVG
-/// labels through `createFormattedText` and `getBBox`.
-///
-/// Temporary: `TextMetrics` implements `LabelMeasurer` on main, and this
-/// adapter goes away at integration.
-struct Measurer<'a> {
-    metrics: &'a TextMetrics<'a>,
-    /// The `.label { font-family }` rule, the theme's `fontFamily`.
-    family: String,
-}
-
-fn runs_of(line: &Line) -> Vec<LabelRun> {
-    line.iter()
-        .map(|word| LabelRun {
-            text: word.content.clone(),
-            bold: word.kind == WordType::Strong,
-            italic: word.kind == WordType::Em,
-        })
-        .collect()
-}
-
-impl LabelMeasurer for Measurer<'_> {
-    fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
-        let size = opts.font.size.unwrap_or(16.0);
-        let family = opts
-            .font
-            .family
-            .clone()
-            .unwrap_or_else(|| self.family.clone());
-        let spec = MeasureSpec::new(family, size as f32);
-        let max_width = opts.width.filter(|w| w.is_finite()).map(|w| w as f32);
-        if opts.html {
-            let html = if opts.markdown {
-                markdown::markdown_to_html(text)
-            } else {
-                markdown::non_markdown_to_html(text)
-            };
-            let lines = markdown::html_to_lines(&html);
-            let label = self.metrics.html_label(&lines, &spec, max_width);
-            let lines: Vec<LabelLine> = label
-                .lines
-                .iter()
-                .map(|line| LabelLine {
-                    runs: runs_of(line),
-                    width: f64::from(self.metrics.words_width(line, &spec)),
-                })
-                .collect();
-            LabelBox {
-                x: 0.0,
-                y: 0.0,
-                width: f64::from(label.width).max(opts.min_width),
-                height: f64::from(label.height),
-                line_height: HTML_LINE_HEIGHT * size,
-                lines,
-            }
-        } else {
-            let normalized = markdown::normalize_breaks(text);
-            let lines = if opts.markdown {
-                markdown::markdown_to_lines(&normalized)
-            } else {
-                markdown::non_markdown_to_lines(&normalized)
-            };
-            let label = self
-                .metrics
-                .svg_label(&lines, &spec, max_width.unwrap_or(f32::INFINITY));
-            let lines: Vec<LabelLine> = label
-                .lines
-                .iter()
-                .map(|line| LabelLine {
-                    runs: runs_of(line),
-                    width: f64::from(self.metrics.compute_width_of_text(line, &spec)),
-                })
-                .collect();
-            let width = f64::from(label.width).max(opts.min_width);
-            LabelBox {
-                x: -width / 2.0,
-                y: 0.0,
-                width,
-                height: f64::from(label.height),
-                line_height: 1.1 * size,
-                lines,
-            }
-        }
-    }
-}
 
 // ---------------------------------------------------------------------------
 // Nodes
@@ -659,11 +565,7 @@ pub fn draw(
         .unwrap_or(true);
     let look = Look::parse(&resolved.appearance.look).unwrap_or_default();
     let styles = BlockStyles::resolve(&resolved.theme_variables);
-    let measurer = Measurer {
-        metrics: &ctx.metrics,
-        family: styles.font_family.clone(),
-    };
-    let mut shape_ctx = ShapeCtx::new(&measurer);
+    let mut shape_ctx = ShapeCtx::new(&ctx.metrics);
     shape_ctx.vars = styles.vars.clone();
     // `evaluate(getConfig().htmlLabels)`: anything but `false` is on.
     shape_ctx.html_labels = resolved.config.html_labels != Some(false);

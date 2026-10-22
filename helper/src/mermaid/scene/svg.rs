@@ -138,6 +138,34 @@ impl Writer {
         self.tag_open = false;
     }
 
+    /// Ends a start tag whose children stay on the same line. Used for
+    /// `<text>` with tspans: whitespace between tspans is character data
+    /// under the default `xml:space`, so an indented tspan would gain a
+    /// trailing space and shift a centered or end-anchored line.
+    fn inline_children(&mut self) {
+        if self.tag_open {
+            self.out.push('>');
+            self.tag_open = false;
+        }
+    }
+
+    fn open_inline(&mut self, name: &str) {
+        self.out.push('<');
+        self.out.push_str(name);
+        self.tag_open = true;
+    }
+
+    fn text_close_inline(&mut self, name: &str, text: &str) {
+        self.out.push('>');
+        escape_text(&mut self.out, text);
+        let _ = write!(self.out, "</{name}>");
+        self.tag_open = false;
+    }
+
+    fn close_inline(&mut self, name: &str) {
+        let _ = writeln!(self.out, "</{name}>");
+    }
+
     fn finish(self) -> String {
         self.out
     }
@@ -420,9 +448,9 @@ fn write_text(w: &mut Writer, text: &Text) {
         w.text_close("text", &text.runs[0].text);
         return;
     }
-    w.children_follow();
+    w.inline_children();
     for run in &text.runs {
-        w.open("tspan");
+        w.open_inline("tspan");
         if let Some(x) = run.x {
             w.attr("x", &fmt_num(x));
         }
@@ -436,9 +464,9 @@ fn write_text(w: &mut Writer, text: &Text) {
             }
         }
         write_font(w, &run.font);
-        w.text_close("tspan", &run.text);
+        w.text_close_inline("tspan", &run.text);
     }
-    w.close("text");
+    w.close_inline("text");
 }
 
 fn write_marker(w: &mut Writer, m: &Marker) {

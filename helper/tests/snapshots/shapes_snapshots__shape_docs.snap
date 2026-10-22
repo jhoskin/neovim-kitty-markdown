@@ -9,8 +9,6 @@ width=170 height=92.4320822288845
     <path d="M-75,-22.406L65,-22.406L65,25.154L75,25.154L75,-32.406L-75,-32.406Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   </g>
   <g class="label" transform="translate(-70, -5.625)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-      <tspan x="60" dy="8">Label</tspan>
-    </text>
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
   </g>
 </g>

@@ -80,12 +80,8 @@ expression: scene.to_svg()
       <text id="my-svg-t3-text" class="taskText taskText0" x="784" y="111.5" fill="#e2dcd6" font-size="11" text-anchor="middle">Critical task</text>
     </g>
     <g>
-      <text class="sectionTitle sectionTitle0" x="10" y="86" fill="#f9fffe" font-size="11" text-anchor="start">
-        <tspan x="10" dy="4">Section</tspan>
-      </text>
-      <text class="sectionTitle sectionTitle1" x="10" y="146" fill="#f9fffe" font-size="11" text-anchor="start">
-        <tspan x="10" dy="4">Another</tspan>
-      </text>
+      <text class="sectionTitle sectionTitle0" x="10" y="86" fill="#f9fffe" font-size="11" text-anchor="start"><tspan x="10" dy="4">Section</tspan></text>
+      <text class="sectionTitle sectionTitle1" x="10" y="146" fill="#f9fffe" font-size="11" text-anchor="start"><tspan x="10" dy="4">Another</tspan></text>
     </g>
     <text class="titleText" x="480" y="25" fill="#f9fffe" font-size="18" text-anchor="middle">Dark theme</text>
   </g>

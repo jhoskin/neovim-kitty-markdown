@@ -6,8 +6,6 @@ width=0.1 height=0.1
 <g id="n1" class="label edgeLabel">
   <rect x="0" y="0" width="0.1" height="0.1"/>
   <g class="label" transform="translate(-60, -8)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-      <tspan x="60" dy="8">Label</tspan>
-    </text>
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
   </g>
 </g>

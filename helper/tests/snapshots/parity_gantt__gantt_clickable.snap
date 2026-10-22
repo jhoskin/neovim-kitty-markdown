@@ -82,9 +82,7 @@ expression: scene.to_svg()
       <text id="my-svg-l3-text" class="taskText taskText0" x="769.5" y="111.5" fill="#003163" font-size="11" font-weight="bold" text-anchor="middle">Done and linked</text>
     </g>
     <g>
-      <text class="sectionTitle sectionTitle0" x="10" y="86" fill="#333333" font-size="11" text-anchor="start">
-        <tspan x="10" dy="4">Links</tspan>
-      </text>
+      <text class="sectionTitle sectionTitle0" x="10" y="86" fill="#333333" font-size="11" text-anchor="start"><tspan x="10" dy="4">Links</tspan></text>
     </g>
     <text class="titleText" x="480" y="25" fill="#333333" font-size="18" text-anchor="middle">Links and callbacks</text>
   </g>

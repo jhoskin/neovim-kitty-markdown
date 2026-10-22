@@ -8,22 +8,16 @@ width=138 height=50
   <g class="usecase-json-table-grid">
     <rect class="usecase-json-cell usecase-json-title-cell" x="-68" y="-24" width="136" height="24" fill="#ececff" stroke="#9370db" stroke-width="1"/>
     <g class="label usecase-json-title" transform="translate(-60, -20)">
-      <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-        <tspan x="60" dy="8">Label</tspan>
-      </text>
+      <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
     </g>
     <g class="usecase-json-row" transform="translate(0, 0)">
       <rect class="usecase-json-cell usecase-json-value-cell" x="-28" y="0" width="96" height="24" fill="#ececff" stroke="#9370db" stroke-width="1"/>
       <rect class="usecase-json-cell usecase-json-key-cell" x="-68" y="0" width="40" height="24" fill="#ececff" stroke="#9370db" stroke-width="1"/>
       <g class="label usecase-json-key" transform="translate(-60, 4)">
-        <text class="nodeLabel" x="12" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-          <tspan x="12" dy="8">key</tspan>
-        </text>
+        <text class="nodeLabel" x="12" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="12" dy="8">key</tspan></text>
       </g>
       <g class="label usecase-json-value" transform="translate(0, 4)">
-        <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-          <tspan x="20" dy="8">value</tspan>
-        </text>
+        <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20" dy="8">value</tspan></text>
       </g>
     </g>
   </g>

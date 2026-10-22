@@ -46,9 +46,7 @@ expression: scene.to_svg()
       <g id="my-svg-only" class="node default flowchart-label " transform="translate(67.547, 0)">
         <rect class="basic label-container" x="-67.547" y="-20" width="135.094" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-51.547, -12)">
-          <text class="nodeLabel" x="51.547" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
-            <tspan x="51.547" dy="17">Just one block</tspan>
-          </text>
+          <text class="nodeLabel" x="51.547" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="51.547" dy="17">Just one block</tspan></text>
         </g>
       </g>
     </g>

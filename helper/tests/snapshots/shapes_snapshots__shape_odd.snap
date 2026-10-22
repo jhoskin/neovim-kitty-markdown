@@ -6,8 +6,6 @@ width=142.75 height=31
 <g id="n1" class="node default ">
   <path class="basic label-container outer-path" transform="translate(3.875, 0)" d="M-75.25,-15.5L-67.5,0L-75.25,15.5L67.5,15.5L67.5,-15.5Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <g class="label" transform="translate(-56.125, -8)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-      <tspan x="60" dy="8">Label</tspan>
-    </text>
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
   </g>
 </g>
