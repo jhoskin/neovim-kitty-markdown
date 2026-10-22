@@ -6,7 +6,7 @@ width=150 height=46
 <g id="n1" class="node default ">
   <rect class="basic label-container outer-path" x="-75" y="-23" width="150" height="46" fill="#fff5ad" stroke="#aaaa33" stroke-width="1"/>
   <g class="label noteLabel" transform="translate(-60, -8)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="60" dy="8">Label</tspan>
     </text>
   </g>

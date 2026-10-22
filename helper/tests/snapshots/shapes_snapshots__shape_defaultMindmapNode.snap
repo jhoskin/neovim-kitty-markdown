@@ -7,7 +7,7 @@ width=180 height=31
   <path id="n1" class="node-bkg node-" d="M-90,10.5L-90,-10.5Q-90,-15.5,-85,-15.5L85,-15.5Q90,-15.5,90,-10.5L90,10.5Q90,15.5,85,15.5L-85,15.5Q-90,15.5,-90,10.5Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <line class="node-line-" x1="-90" y1="15.5" x2="90" y2="15.5"/>
   <g class="label" transform="translate(-60, -8)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="60" dy="8">Label</tspan>
     </text>
   </g>

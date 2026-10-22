@@ -6,7 +6,7 @@ width=168.75 height=95.88636921165116
 <g id="n1" class="node default ">
   <path class="basic label-container" transform="translate(-67.5, -15.5)" d="M0,0A20.25,20.25,0,0,1,33.75,-13.5A47.25,47.25,1,0,1,87.75,-27A33.75,33.75,1,0,1,135,0A20.25,20.25,1,0,1,155.25,10.85A27,27,1,0,1,135,31A33.75,20.25,1,0,1,101.25,51.25A47.25,47.25,1,0,1,33.75,51.25A20.25,20.25,1,0,1,0,31A20.25,20.25,1,0,1,-13.5,20.15A27,27,1,0,1,0,0L0,0L0,0Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <g class="label" transform="translate(-60, -8)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="60" dy="8">Label</tspan>
     </text>
   </g>

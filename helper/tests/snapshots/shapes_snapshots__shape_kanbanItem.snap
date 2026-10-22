@@ -6,17 +6,17 @@ width=200 height=44
 <g id="n1" class="node default ">
   <rect class="basic label-container __APA__" x="-100" y="-22" width="200" height="44" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <g class="label" transform="translate(-85, -16)">
-    <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="20" dy="8">Label</tspan>
     </text>
   </g>
   <g class="label" transform="translate(-85, 0)">
-    <text class="nodeLabel" x="12" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="12" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="12" dy="8">T-1</tspan>
     </text>
   </g>
   <g class="label" transform="translate(71, 0)">
-    <text class="nodeLabel" x="12" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="12" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="12" dy="8">joh</tspan>
     </text>
   </g>

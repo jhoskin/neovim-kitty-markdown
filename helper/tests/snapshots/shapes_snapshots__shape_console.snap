@@ -9,7 +9,7 @@ width=150 height=66
     <text class="console-glyph" x="-63" y="-17" fill="#9370db" font-family="monospace" font-size="14" font-weight="bold">&gt;_</text>
   </g>
   <g class="label" transform="translate(-60, 2)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="60" dy="8">Label</tspan>
     </text>
   </g>

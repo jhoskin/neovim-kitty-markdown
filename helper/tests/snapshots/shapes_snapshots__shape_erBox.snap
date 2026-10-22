@@ -6,41 +6,41 @@ width=200 height=66
 <g id="n1" class="node default ">
   <rect class="outer-path" x="-100" y="-33" width="200" height="66" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <rect class="row-rect-odd" x="-100" y="-11" width="200" height="22" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
-  <rect class="row-rect-even" x="-100" y="11" width="200" height="22" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  <rect class="row-rect-even" x="-100" y="11" width="200" height="22" fill="#f1f1ff" stroke="#9370db" stroke-width="1"/>
   <g class="label name" transform="translate(-20, -30)">
-    <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="20" dy="8">Label</tspan>
     </text>
   </g>
   <g class="label attribute-type" transform="translate(-95, -8)">
-    <text class="nodeLabel" x="12" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="12" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="12" dy="8">int</tspan>
     </text>
   </g>
   <g class="label attribute-name" transform="translate(-37, -8)">
-    <text class="nodeLabel" x="8" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="8" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="8" dy="8">id</tspan>
     </text>
   </g>
   <g class="label attribute-keys" transform="translate(5, -8)">
-    <text class="nodeLabel" x="8" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="8" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="8" dy="8">PK</tspan>
     </text>
   </g>
   <g class="label attribute-comment" transform="translate(31, -8)"/>
   <g class="label attribute-type" transform="translate(-95, 14)">
-    <text class="nodeLabel" x="24" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="24" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="24" dy="8">string</tspan>
     </text>
   </g>
   <g class="label attribute-name" transform="translate(-37, 14)">
-    <text class="nodeLabel" x="16" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="16" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="16" dy="8">name</tspan>
     </text>
   </g>
   <g class="label attribute-keys" transform="translate(5, 14)"/>
   <g class="label attribute-comment" transform="translate(31, 14)">
-    <text class="nodeLabel" x="32" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="32" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="32" dy="8">the name</tspan>
     </text>
   </g>

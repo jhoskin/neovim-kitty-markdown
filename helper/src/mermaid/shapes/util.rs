@@ -566,7 +566,9 @@ pub fn label_text(bbox: &LabelBox, ctx: &ShapeCtx, fill: Color, html: bool) -> O
     let mut runs = Vec::new();
     for (i, line) in bbox.lines.iter().enumerate() {
         for (j, run) in line.runs.iter().enumerate() {
-            let text = if j == 0 {
+            // HTML-mode runs keep their own spaces from `html_to_lines`;
+            // SVG-mode runs are single words joined by one space.
+            let text = if j == 0 || html {
                 run.text.clone()
             } else {
                 format!(" {}", run.text)

@@ -10,12 +10,12 @@ width=79 height=75.5
   </g>
   <g class="label" transform="translate(-32, -34.75)">
     <g transform="translate(12, 0)">
-      <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
         <tspan x="20" dy="8">Label</tspan>
       </text>
     </g>
     <g transform="translate(0, 28.5)">
-      <text class="nodeLabel" x="32" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+      <text class="nodeLabel" x="32" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
         <tspan x="32" dy="8">line one</tspan>
         <tspan x="32" dy="16">line two</tspan>
       </text>

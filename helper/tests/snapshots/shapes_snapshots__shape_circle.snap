@@ -6,7 +6,7 @@ width=58.08131845707603 height=58.08131845707603
 <g id="n1" class="node default ">
   <circle class="basic label-container" cx="0" cy="0" r="29.041" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <g class="label" transform="translate(-20, -8)">
-    <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="20" dy="8">Label</tspan>
     </text>
   </g>

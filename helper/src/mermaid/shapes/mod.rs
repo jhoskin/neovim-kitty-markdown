@@ -441,7 +441,8 @@ impl Default for NodeStyleVars {
             state_border: None,
             special_state_color: hex("#333333"),
             inner_end_background: hex("#9370DB"),
-            row_even: hex("#ECECFF"),
+            // theme-default derives `rowEven` as hsl(240, 100%, 97.27%).
+            row_even: Color::rgb(241, 241, 255),
             row_odd: Color::WHITE,
             radius: 5.0,
             stroke_width: 1.0,
@@ -503,8 +504,10 @@ impl<'a> ShapeCtx<'a> {
 
     /// The font every label starts from: the theme's family and size.
     pub fn font(&self) -> FontSpec {
+        // The `.label { font-family }` rule of every unified stylesheet, so
+        // labels measure and draw in the theme family.
         FontSpec {
-            family: None,
+            family: Some(self.vars.font_family.clone()),
             size: Some(self.vars.font_size),
             weight: None,
             style: None,

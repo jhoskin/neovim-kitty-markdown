@@ -9,7 +9,7 @@ width=150 height=105.685
     <circle cx="0" cy="-18.342" r="34.5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   </g>
   <g class="label" transform="translate(-60, 21.842)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="16">
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
       <tspan x="60" dy="8">Label</tspan>
     </text>
   </g>
