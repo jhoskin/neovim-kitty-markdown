@@ -34,10 +34,11 @@ usvg = "0.48"
 rustybuzz = "0.20"
 ureq = "3"
 regex = "1"
-indexmap = "2"
+indexmap = { version = "2", features = ["serde"] }
 serde_yaml_ng = "0.10"
 jiff = "0.2"
 log = "0.4"
+fancy-regex = "0.19"
 
 [dev-dependencies]
 insta = "1"
