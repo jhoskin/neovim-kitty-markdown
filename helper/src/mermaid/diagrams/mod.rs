@@ -10,6 +10,7 @@ use crate::mermaid::config::Resolved;
 use crate::mermaid::scene::Scene;
 use crate::text::{FontSystem, TextMetrics};
 
+pub mod gantt;
 pub mod pie;
 pub mod sequence;
 pub mod xychart;
@@ -35,7 +36,8 @@ pub trait Diagram: Send + Sync {
 /// The delivered renderers. Each diagram package exposes a `DIAGRAM`
 /// static and the integration step adds it here.
 pub fn registry() -> &'static [&'static dyn Diagram] {
-    static REGISTRY: &[&dyn Diagram] = &[&pie::DIAGRAM, &quadrant::DIAGRAM, &xychart::DIAGRAM, &sequence::DIAGRAM];
+    static REGISTRY: &[&dyn Diagram] = &[&pie::DIAGRAM, &quadrant::DIAGRAM, &xychart::DIAGRAM, &sequence::DIAGRAM, &gantt::DIAGRAM];
+    REGISTRY
     REGISTRY
 }
 
