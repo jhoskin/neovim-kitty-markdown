@@ -1,0 +1,110 @@
+---
+source: tests/parity_gitgraph.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="176.336" height="849" viewBox="-118.336 -21.5 176.336 849" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333">
+    <g>
+      <line class="branch branch0" x1="0" y1="-2" x2="50" y2="-2" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label0" transform="translate(-19, -14)" x="-68.992" y="0.5" width="52.992" height="23" rx="4" ry="4" fill="#0000ec"/>
+      <g class="branchLabel">
+        <g class="label branch-label0" transform="translate(-78.992, -13.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">main</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch1" x1="0" y1="88" x2="50" y2="88" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label1" transform="translate(-19, 76)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#dede00"/>
+      <g class="branchLabel">
+        <g class="label branch-label1" transform="translate(-101.336, 76.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch1</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch2" x1="0" y1="178" x2="50" y2="178" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label2" transform="translate(-19, 166)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#9dec00"/>
+      <g class="branchLabel">
+        <g class="label branch-label2" transform="translate(-101.336, 166.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch2</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch3" x1="0" y1="268" x2="50" y2="268" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label3" transform="translate(-19, 256)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#0076ec"/>
+      <g class="branchLabel">
+        <g class="label branch-label3" transform="translate(-101.336, 256.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch3</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch4" x1="0" y1="358" x2="50" y2="358" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label4" transform="translate(-19, 346)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#00ecec"/>
+      <g class="branchLabel">
+        <g class="label branch-label4" transform="translate(-101.336, 346.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch4</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch5" x1="0" y1="448" x2="50" y2="448" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label5" transform="translate(-19, 436)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#00ec76"/>
+      <g class="branchLabel">
+        <g class="label branch-label5" transform="translate(-101.336, 436.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch5</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch6" x1="0" y1="538" x2="50" y2="538" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label6" transform="translate(-19, 526)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#ec00ec"/>
+      <g class="branchLabel">
+        <g class="label branch-label6" transform="translate(-101.336, 526.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch6</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch7" x1="0" y1="628" x2="50" y2="628" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label7" transform="translate(-19, 616)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#ec0000"/>
+      <g class="branchLabel">
+        <g class="label branch-label7" transform="translate(-101.336, 616.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch7</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch0" x1="0" y1="718" x2="50" y2="718" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label0" transform="translate(-19, 706)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#0000ec"/>
+      <g class="branchLabel">
+        <g class="label branch-label0" transform="translate(-101.336, 706.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch8</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch1" x1="0" y1="808" x2="50" y2="808" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label1" transform="translate(-19, 796)" x="-91.336" y="0.5" width="75.336" height="23" rx="4" ry="4" fill="#dede00"/>
+      <g class="branchLabel">
+        <g class="label branch-label1" transform="translate(-101.336, 796.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">branch9</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g class="commit-arrows"/>
+    <g class="commit-bullets">
+      <circle class="commit a commit1" cx="10" cy="88" r="10" fill="#dede00" stroke="#dede00"/>
+    </g>
+    <g class="commit-labels">
+      <g transform="translate(-13.296, 11.786) rotate(-45, 0, 88)">
+        <rect class="commit-label-bkg" x="5.373" y="101.5" width="9.254" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="7.373" y="113" fill="#000021" font-size="10">a</text>
+      </g>
+    </g>
+  </g>
+</svg>

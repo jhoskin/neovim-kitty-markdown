@@ -1,0 +1,111 @@
+---
+source: tests/parity_gitgraph.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="573.992" height="206" viewBox="-65.992 -21.5 573.992 206" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333">
+    <g>
+      <line class="branch branch0" x1="0" y1="-2" x2="500" y2="-2" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label0" transform="translate(-19, -14)" x="-38.992" y="0.5" width="52.992" height="23" rx="4" ry="4" fill="#ffcb5d"/>
+      <g class="branchLabel">
+        <g class="label branch-label0" transform="translate(-48.992, -13.5)">
+          <text x="0" y="0" fill="#333333" font-size="16">
+            <tspan x="0" dy="1em">main</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch1" x1="0" y1="48" x2="500" y2="48" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label1" transform="translate(-19, 36)" x="-20.312" y="0.5" width="34.313" height="23" rx="4" ry="4" fill="#cb5dff"/>
+      <g class="branchLabel">
+        <g class="label branch-label1" transform="translate(-30.312, 36.5)">
+          <text x="0" y="0" fill="#333333" font-size="16">
+            <tspan x="0" dy="1em">c2</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch2" x1="0" y1="98" x2="500" y2="98" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label2" transform="translate(-19, 86)" x="-21.305" y="0.5" width="35.305" height="23" rx="4" ry="4" fill="#77a3ff"/>
+      <g class="branchLabel">
+        <g class="label branch-label2" transform="translate(-31.305, 86.5)">
+          <text x="0" y="0" fill="#333333" font-size="16">
+            <tspan x="0" dy="1em">b1</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch3" x1="0" y1="148" x2="500" y2="148" stroke="#0b0b0b" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label3" transform="translate(-19, 136)" x="-21.305" y="0.5" width="35.305" height="23" rx="4" ry="4" fill="#ff7a5d"/>
+      <g class="branchLabel">
+        <g class="label branch-label3" transform="translate(-31.305, 136.5)">
+          <text x="0" y="0" fill="#333333" font-size="16">
+            <tspan x="0" dy="1em">b2</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g class="commit-arrows">
+      <path class="arrow arrow0" d="M10,-2L60,-2" fill="none" stroke="#ffcb5d" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M60,-2L110,-2" fill="none" stroke="#ffcb5d" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M110,-2L160,-2" fill="none" stroke="#ffcb5d" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow1" d="M160,-2L160,28A20,20,0,0,0,180,48L210,48" fill="none" stroke="#cb5dff" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow1" d="M210,48L260,48" fill="none" stroke="#cb5dff" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M160,-2L310,-2" fill="none" stroke="#ffcb5d" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M310,-2L360,-2" fill="none" stroke="#ffcb5d" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow2" d="M360,-2L360,78A20,20,0,0,0,380,98L410,98" fill="none" stroke="#77a3ff" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow3" d="M410,98L410,128A20,20,0,0,0,430,148L460,148" fill="none" stroke="#ff7a5d" stroke-width="8" stroke-linecap="round"/>
+    </g>
+    <g class="commit-bullets">
+      <circle class="commit feat(api): ... commit0" cx="10" cy="-2" r="10" fill="#ffcb5d" stroke="#ffcb5d"/>
+      <circle class="commit a commit0" cx="60" cy="-2" r="10" fill="#ffcb5d" stroke="#ffcb5d"/>
+      <circle class="commit b commit0" cx="110" cy="-2" r="10" fill="#ffcb5d" stroke="#ffcb5d"/>
+      <circle class="commit fix(client): .extra long label.. commit0" cx="160" cy="-2" r="10" fill="#ffcb5d" stroke="#ffcb5d"/>
+      <circle class="commit feat(modules): ... commit1" cx="210" cy="48" r="10" fill="#cb5dff" stroke="#cb5dff"/>
+      <circle class="commit test(client): ... commit1" cx="260" cy="48" r="10" fill="#cb5dff" stroke="#cb5dff"/>
+      <circle class="commit fix(api): ... commit0" cx="310" cy="-2" r="10" fill="#ffcb5d" stroke="#ffcb5d"/>
+      <circle class="commit ci: ... commit0" cx="360" cy="-2" r="10" fill="#ffcb5d" stroke="#ffcb5d"/>
+      <circle class="commit c commit2" cx="410" cy="98" r="10" fill="#77a3ff" stroke="#77a3ff"/>
+      <circle class="commit d commit3" cx="460" cy="148" r="10" fill="#ff7a5d" stroke="#ff7a5d"/>
+    </g>
+    <g class="commit-labels">
+      <g>
+        <rect class="commit-label-bkg" x="-20.545" y="11.5" width="61.09" height="15.09" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="-18.545" y="23" fill="#0b2200" font-size="10">feat(api): ...</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="55.373" y="11.5" width="9.254" height="15" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="57.373" y="23" fill="#0b2200" font-size="10">a</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="105.214" y="11.5" width="9.571" height="15" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="107.214" y="23" fill="#0b2200" font-size="10">b</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="91.596" y="11.5" width="136.808" height="15.09" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="93.596" y="23" fill="#0b2200" font-size="10">fix(client): .extra long label..</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="167.717" y="61.5" width="84.566" height="15.09" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="169.717" y="73" fill="#0b2200" font-size="10">feat(modules): ...</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="223.945" y="61.5" width="72.11" height="15.09" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="225.945" y="73" fill="#0b2200" font-size="10">test(client): ...</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="282.861" y="11.5" width="54.278" height="15.09" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="284.861" y="23" fill="#0b2200" font-size="10">fix(api): ...</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="345.249" y="11.5" width="29.503" height="15" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="347.249" y="23" fill="#0b2200" font-size="10">ci: ...</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="405.524" y="111.5" width="8.951" height="15" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="407.524" y="123" fill="#0b2200" font-size="10">c</text>
+      </g>
+      <g>
+        <rect class="commit-label-bkg" x="455.214" y="161.5" width="9.571" height="15" fill="#f4ddff" opacity="0.5"/>
+        <text class="commit-label" x="457.214" y="173" fill="#0b2200" font-size="10">d</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,63 @@
+---
+source: tests/parity_gitgraph.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="275.422" height="145.86" viewBox="-117.422 -21.5 275.422 145.86" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333">
+    <g>
+      <line class="branch branch0" x1="0" y1="-2" x2="150" y2="-2" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label0" transform="translate(-19, -14)" x="-68.992" y="0.5" width="52.992" height="23" rx="4" ry="4" fill="#0000ec"/>
+      <g class="branchLabel">
+        <g class="label branch-label0" transform="translate(-78.992, -13.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">main</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch1" x1="0" y1="88" x2="150" y2="88" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label1" transform="translate(-19, 76)" x="-90.422" y="0.5" width="74.422" height="23" rx="4" ry="4" fill="#dede00"/>
+      <g class="branchLabel">
+        <g class="label branch-label1" transform="translate(-100.422, 76.5)">
+          <text x="0" y="0" fill="#000000" font-size="16">
+            <tspan x="0" dy="1em">develop</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g class="commit-arrows">
+      <path class="arrow arrow1" d="M10,-2L10,68A20,20,0,0,0,30,88L60,88" fill="none" stroke="#dede00" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow1" d="M60,88L110,88" fill="none" stroke="#dede00" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M10,-2L60,-2" fill="none" stroke="#0000ec" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M60,-2L110,-2" fill="none" stroke="#0000ec" stroke-width="8" stroke-linecap="round"/>
+    </g>
+    <g class="commit-bullets">
+      <circle class="commit a commit0" cx="10" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+      <circle class="commit b commit1" cx="60" cy="88" r="10" fill="#dede00" stroke="#dede00"/>
+      <circle class="commit c commit1" cx="110" cy="88" r="10" fill="#dede00" stroke="#dede00"/>
+      <circle class="commit d commit0" cx="60" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+      <circle class="commit e commit0" cx="110" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+    </g>
+    <g class="commit-labels">
+      <g transform="translate(-13.296, 11.786) rotate(-45, 0, -2)">
+        <rect class="commit-label-bkg" x="5.373" y="11.5" width="9.254" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="7.373" y="23" fill="#000021" font-size="10">a</text>
+      </g>
+      <g transform="translate(-13.417, 11.894) rotate(-45, 50, 88)">
+        <rect class="commit-label-bkg" x="55.214" y="101.5" width="9.571" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="57.214" y="113" fill="#000021" font-size="10">b</text>
+      </g>
+      <g transform="translate(-13.181, 11.683) rotate(-45, 100, 88)">
+        <rect class="commit-label-bkg" x="105.524" y="101.5" width="8.951" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="107.524" y="113" fill="#000021" font-size="10">c</text>
+      </g>
+      <g transform="translate(-13.417, 11.894) rotate(-45, 50, -2)">
+        <rect class="commit-label-bkg" x="55.214" y="11.5" width="9.571" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="57.214" y="23" fill="#000021" font-size="10">d</text>
+      </g>
+      <g transform="translate(-13.373, 11.854) rotate(-45, 100, -2)">
+        <rect class="commit-label-bkg" x="105.273" y="11.5" width="9.454" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="107.273" y="23" fill="#000021" font-size="10">e</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,46 @@
+---
+config:
+  theme: 'dark'
+---
+      gitGraph
+        commit id: "a"
+        branch hotfix
+        checkout hotfix
+        commit id: "b"
+        branch develop
+        checkout develop
+        commit id:"ash" tag:"abc"
+        branch featureB
+        checkout featureB
+        commit id: "c" type:HIGHLIGHT
+        checkout main
+        checkout hotfix
+        commit id: "d" type:NORMAL
+        checkout develop
+        commit id: "e" type:REVERSE
+        checkout featureB
+        commit id: "f"
+        checkout main
+        merge hotfix
+        checkout featureB
+        commit id: "g"
+        checkout develop
+        branch featureA
+        commit id: "h"
+        checkout develop
+        merge hotfix
+        checkout featureA
+        commit id: "i"
+        checkout featureB
+        commit id: "j"
+        checkout develop
+        merge featureA
+        branch release
+        checkout release
+        commit id: "k"
+        checkout main
+        commit id: "l"
+        checkout release
+        merge main
+        checkout develop
+        merge release

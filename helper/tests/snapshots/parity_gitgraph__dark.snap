@@ -1,0 +1,172 @@
+---
+source: tests/parity_gitgraph.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1031.516" height="505.494" viewBox="-123.516 -21.5 1031.516 505.494" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#cccccc">
+    <g>
+      <line class="branch branch0" x1="0" y1="-2" x2="900" y2="-2" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label0" transform="translate(-19, -14)" x="-68.992" y="0.5" width="52.992" height="23" rx="4" ry="4" fill="#797d7d"/>
+      <g class="branchLabel">
+        <g class="label branch-label0" transform="translate(-78.992, -13.5)">
+          <text x="0" y="0" fill="#2c2c2c" font-size="16">
+            <tspan x="0" dy="1em">main</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch1" x1="0" y1="88" x2="900" y2="88" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label1" transform="translate(-19, 76)" x="-76.164" y="0.5" width="60.164" height="23" rx="4" ry="4" fill="#a12273"/>
+      <g class="branchLabel">
+        <g class="label branch-label1" transform="translate(-86.164, 76.5)">
+          <text x="0" y="0" fill="#d3d3d3" font-size="16">
+            <tspan x="0" dy="1em">hotfix</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch2" x1="0" y1="178" x2="900" y2="178" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label2" transform="translate(-19, 166)" x="-90.422" y="0.5" width="74.422" height="23" rx="4" ry="4" fill="#6a8993"/>
+      <g class="branchLabel">
+        <g class="label branch-label2" transform="translate(-100.422, 166.5)">
+          <text x="0" y="0" fill="#d3d3d3" font-size="16">
+            <tspan x="0" dy="1em">develop</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch3" x1="0" y1="268" x2="900" y2="268" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label3" transform="translate(-19, 256)" x="-96.133" y="0.5" width="80.133" height="23" rx="4" ry="4" fill="#9b5c35"/>
+      <g class="branchLabel">
+        <g class="label branch-label3" transform="translate(-106.133, 256.5)">
+          <text x="0" y="0" fill="#2c2c2c" font-size="16">
+            <tspan x="0" dy="1em">featureB</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch4" x1="0" y1="358" x2="900" y2="358" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label4" transform="translate(-19, 346)" x="-96.516" y="0.5" width="80.516" height="23" rx="4" ry="4" fill="#cb1313"/>
+      <g class="branchLabel">
+        <g class="label branch-label4" transform="translate(-106.516, 346.5)">
+          <text x="0" y="0" fill="#d3d3d3" font-size="16">
+            <tspan x="0" dy="1em">featureA</tspan>
+          </text>
+        </g>
+      </g>
+      <line class="branch branch5" x1="0" y1="448" x2="900" y2="448" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label5" transform="translate(-19, 436)" x="-86" y="0.5" width="70" height="23" rx="4" ry="4" fill="#65007b"/>
+      <g class="branchLabel">
+        <g class="label branch-label5" transform="translate(-96, 436.5)">
+          <text x="0" y="0" fill="#d3d3d3" font-size="16">
+            <tspan x="0" dy="1em">release</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g class="commit-arrows">
+      <path class="arrow arrow1" d="M10,-2L10,68A20,20,0,0,0,30,88L60,88" fill="none" stroke="#a12273" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow2" d="M60,88L60,158A20,20,0,0,0,80,178L110,178" fill="none" stroke="#6a8993" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow3" d="M110,178L110,248A20,20,0,0,0,130,268L160,268" fill="none" stroke="#9b5c35" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow1" d="M60,88L210,88" fill="none" stroke="#a12273" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow2" d="M110,178L260,178" fill="none" stroke="#6a8993" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow3" d="M160,268L310,268" fill="none" stroke="#9b5c35" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M10,-2L360,-2" fill="none" stroke="#797d7d" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow1" d="M210,88L340,88A20,20,0,0,0,360,68L360,-2" fill="none" stroke="#a12273" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow3" d="M310,268L410,268" fill="none" stroke="#9b5c35" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow4" d="M260,178L260,338A20,20,0,0,0,280,358L460,358" fill="none" stroke="#cb1313" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow2" d="M260,178L510,178" fill="none" stroke="#6a8993" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow1" d="M210,88L210,123A10,10,0,0,0,220,133L500,133A10,10,0,0,1,510,143L510,178" fill="none" stroke="#a12273" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow4" d="M460,358L560,358" fill="none" stroke="#cb1313" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow3" d="M410,268L610,268" fill="none" stroke="#9b5c35" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow2" d="M510,178L660,178" fill="none" stroke="#6a8993" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow4" d="M560,358L640,358A20,20,0,0,0,660,338L660,178" fill="none" stroke="#cb1313" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow5" d="M660,178L660,428A20,20,0,0,0,680,448L710,448" fill="none" stroke="#65007b" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M360,-2L760,-2" fill="none" stroke="#797d7d" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow5" d="M710,448L810,448" fill="none" stroke="#65007b" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M760,-2L790,-2A20,20,0,0,1,810,18L810,448" fill="none" stroke="#797d7d" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow2" d="M660,178L860,178" fill="none" stroke="#6a8993" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow5" d="M810,448L840,448A20,20,0,0,0,860,428L860,178" fill="none" stroke="#65007b" stroke-width="8" stroke-linecap="round"/>
+    </g>
+    <g class="commit-bullets">
+      <circle class="commit a commit0" cx="10" cy="-2" r="10" fill="#797d7d" stroke="#797d7d"/>
+      <circle class="commit b commit1" cx="60" cy="88" r="10" fill="#a12273" stroke="#a12273"/>
+      <circle class="commit ash commit2" cx="110" cy="178" r="10" fill="#6a8993" stroke="#6a8993"/>
+      <rect class="commit c commit-highlight3 commit-highlight-outer" x="150" y="258" width="20" height="20" fill="#64a3ca" stroke="#64a3ca"/>
+      <rect class="commit c commit3 commit-highlight-inner" x="154" y="262" width="12" height="12" fill="#1f2020" stroke="#1f2020"/>
+      <circle class="commit d commit1" cx="210" cy="88" r="10" fill="#a12273" stroke="#a12273"/>
+      <circle class="commit e commit2" cx="260" cy="178" r="10" fill="#6a8993" stroke="#6a8993"/>
+      <path class="commit commit-reverse e commit2" d="M255,173L265,183M255,183L265,173" fill="#1f2020" stroke="#1f2020" stroke-width="3"/>
+      <circle class="commit f commit3" cx="310" cy="268" r="10" fill="#9b5c35" stroke="#9b5c35"/>
+      <circle class="commit 7-866fd32 commit0" cx="360" cy="-2" r="10" fill="#797d7d" stroke="#797d7d"/>
+      <circle class="commit commit-merge 7-866fd32 commit0" cx="360" cy="-2" r="6" fill="#1f2020" stroke="#1f2020"/>
+      <circle class="commit g commit3" cx="410" cy="268" r="10" fill="#9b5c35" stroke="#9b5c35"/>
+      <circle class="commit h commit4" cx="460" cy="358" r="10" fill="#cb1313" stroke="#cb1313"/>
+      <circle class="commit 10-d47195d commit2" cx="510" cy="178" r="10" fill="#6a8993" stroke="#6a8993"/>
+      <circle class="commit commit-merge 10-d47195d commit2" cx="510" cy="178" r="6" fill="#1f2020" stroke="#1f2020"/>
+      <circle class="commit i commit4" cx="560" cy="358" r="10" fill="#cb1313" stroke="#cb1313"/>
+      <circle class="commit j commit3" cx="610" cy="268" r="10" fill="#9b5c35" stroke="#9b5c35"/>
+      <circle class="commit 13-92bcc6c commit2" cx="660" cy="178" r="10" fill="#6a8993" stroke="#6a8993"/>
+      <circle class="commit commit-merge 13-92bcc6c commit2" cx="660" cy="178" r="6" fill="#1f2020" stroke="#1f2020"/>
+      <circle class="commit k commit5" cx="710" cy="448" r="10" fill="#65007b" stroke="#65007b"/>
+      <circle class="commit l commit0" cx="760" cy="-2" r="10" fill="#797d7d" stroke="#797d7d"/>
+      <circle class="commit 16-ba68eee commit5" cx="810" cy="448" r="10" fill="#65007b" stroke="#65007b"/>
+      <circle class="commit commit-merge 16-ba68eee commit5" cx="810" cy="448" r="6" fill="#1f2020" stroke="#1f2020"/>
+      <circle class="commit 17-664430b commit2" cx="860" cy="178" r="10" fill="#6a8993" stroke="#6a8993"/>
+      <circle class="commit commit-merge 17-664430b commit2" cx="860" cy="178" r="6" fill="#1f2020" stroke="#1f2020"/>
+    </g>
+    <g class="commit-labels">
+      <g transform="translate(-13.296, 11.786) rotate(-45, 0, -2)">
+        <rect class="commit-label-bkg" x="5.373" y="11.5" width="9.254" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="7.373" y="23" fill="#b8b6b6" font-size="10">a</text>
+      </g>
+      <g transform="translate(-13.417, 11.894) rotate(-45, 50, 88)">
+        <rect class="commit-label-bkg" x="55.214" y="101.5" width="9.571" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="57.214" y="113" fill="#b8b6b6" font-size="10">b</text>
+      </g>
+      <g transform="translate(-16.911, 15.02) rotate(-45, 100, 178)">
+        <rect class="commit-label-bkg" x="100.617" y="191.5" width="18.766" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="102.617" y="203" fill="#b8b6b6" font-size="10">ash</text>
+      </g>
+      <polygon class="tag-label-bkg" points="90.112,160.8 90.112,156.8 98.112,151.3 121.888,151.3 121.888,166.3 98.112,166.3" fill="#1f2020" stroke="#cccccc"/>
+      <circle class="tag-hole" cx="94.112" cy="158.8" r="1.5" fill="#cccccc"/>
+      <text class="tag-label" x="102.112" y="162" fill="#e0dfdf" font-size="10">abc</text>
+      <g transform="translate(-13.181, 11.683) rotate(-45, 150, 268)">
+        <rect class="commit-label-bkg" x="155.524" y="281.5" width="8.951" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="157.524" y="293" fill="#b8b6b6" font-size="10">c</text>
+      </g>
+      <g transform="translate(-13.417, 11.894) rotate(-45, 200, 88)">
+        <rect class="commit-label-bkg" x="205.214" y="101.5" width="9.571" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="207.214" y="113" fill="#b8b6b6" font-size="10">d</text>
+      </g>
+      <g transform="translate(-13.373, 11.854) rotate(-45, 250, 178)">
+        <rect class="commit-label-bkg" x="255.273" y="191.5" width="9.454" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="257.273" y="203" fill="#b8b6b6" font-size="10">e</text>
+      </g>
+      <g transform="translate(-12.723, 11.273) rotate(-45, 300, 268)">
+        <rect class="commit-label-bkg" x="306.127" y="281.5" width="7.745" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="308.127" y="293" fill="#b8b6b6" font-size="10">f</text>
+      </g>
+      <g transform="translate(-13.207, 11.707) rotate(-45, 400, 268)">
+        <rect class="commit-label-bkg" x="405.49" y="281.5" width="9.02" height="15.051" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="407.49" y="293" fill="#b8b6b6" font-size="10">g</text>
+      </g>
+      <g transform="translate(-13.376, 11.858) rotate(-45, 450, 358)">
+        <rect class="commit-label-bkg" x="455.268" y="371.5" width="9.464" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="457.268" y="383" fill="#b8b6b6" font-size="10">h</text>
+      </g>
+      <g transform="translate(-12.384, 10.97) rotate(-45, 550, 358)">
+        <rect class="commit-label-bkg" x="556.574" y="371.5" width="6.852" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="558.574" y="383" fill="#b8b6b6" font-size="10">i</text>
+      </g>
+      <g transform="translate(-12.693, 11.247) rotate(-45, 600, 268)">
+        <rect class="commit-label-bkg" x="606.167" y="281.5" width="7.667" height="15.051" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="608.167" y="293" fill="#b8b6b6" font-size="10">j</text>
+      </g>
+      <g transform="translate(-13.217, 11.715) rotate(-45, 700, 448)">
+        <rect class="commit-label-bkg" x="705.478" y="461.5" width="9.044" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="707.478" y="473" fill="#b8b6b6" font-size="10">k</text>
+      </g>
+      <g transform="translate(-12.421, 11.003) rotate(-45, 750, -2)">
+        <rect class="commit-label-bkg" x="756.525" y="11.5" width="6.949" height="15" fill="#474949" opacity="0.5"/>
+        <text class="commit-label" x="758.525" y="23" fill="#b8b6b6" font-size="10">l</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,83 @@
+---
+source: tests/parity_gitgraph.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="453.992" height="115.062" viewBox="-95.992 -56.7 453.992 115.062" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333">
+    <g>
+      <line class="branch branch0" x1="0" y1="-2" x2="350" y2="-2" stroke="#333333" stroke-width="1" stroke-dasharray="2"/>
+      <rect class="branchLabelBkg label0" transform="translate(-19, -14)" x="-68.992" y="0.5" width="52.992" height="23" rx="4" ry="4" fill="#0000ec"/>
+      <g class="branchLabel">
+        <g class="label branch-label0" transform="translate(-78.992, -13.5)">
+          <text x="0" y="0" fill="#ffffff" font-size="16">
+            <tspan x="0" dy="1em">main</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g class="commit-arrows">
+      <path class="arrow arrow0" d="M10,-2L60,-2" fill="none" stroke="#0000ec" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M60,-2L110,-2" fill="none" stroke="#0000ec" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M110,-2L160,-2" fill="none" stroke="#0000ec" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M160,-2L210,-2" fill="none" stroke="#0000ec" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M210,-2L260,-2" fill="none" stroke="#0000ec" stroke-width="8" stroke-linecap="round"/>
+      <path class="arrow arrow0" d="M260,-2L310,-2" fill="none" stroke="#0000ec" stroke-width="8" stroke-linecap="round"/>
+    </g>
+    <g class="commit-bullets">
+      <circle class="commit a commit0" cx="10" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+      <circle class="commit Normal commit0" cx="60" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+      <circle class="commit b commit0" cx="110" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+      <circle class="commit Reverse commit0" cx="160" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+      <path class="commit commit-reverse Reverse commit0" d="M155,-7L165,3M155,3L165,-7" fill="#ececff" stroke="#ececff" stroke-width="3"/>
+      <circle class="commit c commit0" cx="210" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+      <rect class="commit Highlight commit-highlight0 commit-highlight-outer" x="250" y="-12" width="20" height="20" fill="#131300" stroke="#131300"/>
+      <rect class="commit Highlight commit0 commit-highlight-inner" x="254" y="-8" width="12" height="12" fill="#ececff" stroke="#ececff"/>
+      <circle class="commit d commit0" cx="310" cy="-2" r="10" fill="#0000ec" stroke="#0000ec"/>
+    </g>
+    <g class="commit-labels">
+      <g transform="translate(-13.296, 11.786) rotate(-45, 0, -2)">
+        <rect class="commit-label-bkg" x="5.373" y="11.5" width="9.254" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="7.373" y="23" fill="#000021" font-size="10">a</text>
+      </g>
+      <g transform="translate(-23.513, 20.927) rotate(-45, 50, -2)">
+        <rect class="commit-label-bkg" x="41.931" y="11.5" width="36.139" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="43.931" y="23" fill="#000021" font-size="10">Normal</text>
+      </g>
+      <polygon class="tag-label-bkg" points="34.013,-19.2 34.013,-23.2 42.013,-28.7 77.987,-28.7 77.987,-13.7 42.013,-13.7" fill="#ececff" stroke="#c7c7f1"/>
+      <circle class="tag-hole" cx="38.013" cy="-21.2" r="1.5" fill="#333333"/>
+      <text class="tag-label" x="46.013" y="-18" fill="#131300" font-size="10">v1.0.0</text>
+      <g transform="translate(-13.417, 11.894) rotate(-45, 100, -2)">
+        <rect class="commit-label-bkg" x="105.214" y="11.5" width="9.571" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="107.214" y="23" fill="#000021" font-size="10">b</text>
+      </g>
+      <g transform="translate(-24.452, 21.767) rotate(-45, 150, -2)">
+        <rect class="commit-label-bkg" x="140.695" y="11.5" width="38.609" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="142.695" y="23" fill="#000021" font-size="10">Reverse</text>
+      </g>
+      <polygon class="tag-label-bkg" points="136.855,-19.2 136.855,-23.2 144.855,-28.7 175.145,-28.7 175.145,-13.7 144.855,-13.7" fill="#ececff" stroke="#c7c7f1"/>
+      <circle class="tag-hole" cx="140.855" cy="-21.2" r="1.5" fill="#333333"/>
+      <text class="tag-label" x="148.855" y="-18" fill="#131300" font-size="10">RC_1</text>
+      <g transform="translate(-13.181, 11.683) rotate(-45, 200, -2)">
+        <rect class="commit-label-bkg" x="205.524" y="11.5" width="8.951" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="207.524" y="23" fill="#000021" font-size="10">c</text>
+      </g>
+      <g transform="translate(-26.548, 23.643) rotate(-45, 250, -2)">
+        <rect class="commit-label-bkg" x="237.937" y="11.5" width="44.127" height="15.051" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="239.937" y="23" fill="#000021" font-size="10">Highlight</text>
+      </g>
+      <polygon class="tag-label-bkg" points="236.462,-19.2 236.462,-23.2 244.462,-28.7 275.538,-28.7 275.538,-13.7 244.462,-13.7" fill="#ececff" stroke="#c7c7f1"/>
+      <circle class="tag-hole" cx="240.462" cy="-21.2" r="1.5" fill="#333333"/>
+      <text class="tag-label" x="248.462" y="-18" fill="#131300" font-size="10">8.8.4</text>
+      <g transform="translate(-13.417, 11.894) rotate(-45, 300, -2)">
+        <rect class="commit-label-bkg" x="305.214" y="11.5" width="9.571" height="15" fill="#ffffde" opacity="0.5"/>
+        <text class="commit-label" x="307.214" y="23" fill="#000021" font-size="10">d</text>
+      </g>
+      <polygon class="tag-label-bkg" points="289.614,-19.2 289.614,-23.2 297.614,-28.7 322.386,-28.7 322.386,-13.7 297.614,-13.7" fill="#ececff" stroke="#c7c7f1"/>
+      <circle class="tag-hole" cx="293.614" cy="-21.2" r="1.5" fill="#333333"/>
+      <text class="tag-label" x="301.614" y="-18" fill="#131300" font-size="10">two</text>
+      <polygon class="tag-label-bkg" points="289.614,-39.2 289.614,-43.2 297.614,-48.7 322.386,-48.7 322.386,-33.7 297.614,-33.7" fill="#ececff" stroke="#c7c7f1"/>
+      <circle class="tag-hole" cx="293.614" cy="-41.2" r="1.5" fill="#333333"/>
+      <text class="tag-label" x="301.858" y="-38" fill="#131300" font-size="10">one</text>
+    </g>
+  </g>
+</svg>
