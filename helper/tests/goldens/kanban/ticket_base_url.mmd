@@ -1,0 +1,11 @@
+---
+config:
+  kanban:
+    ticketBaseUrl: 'https://example.atlassian.net/browse/#TICKET#'
+---
+kanban
+  open[Open]
+    o1[Login page times out]@{ ticket: BUG-101, assigned: 'maria', priority: 'High' }
+    o2[Export misses the last row]@{ ticket: BUG-102 }
+  closed[Closed]
+    c1[Typo in the footer]@{ ticket: BUG-99, assigned: 'li', priority: 'Very Low' }

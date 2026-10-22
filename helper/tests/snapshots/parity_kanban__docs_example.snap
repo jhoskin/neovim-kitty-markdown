@@ -1,0 +1,206 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1245" height="293" viewBox="90 -310 1245 293" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-Todo" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="152" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(183.309, -300)">
+          <text class="nodeLabel" x="16.691" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="16.691" dy="17">Todo</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-In progress" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="223" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(366.168, -300)">
+          <text class="nodeLabel" x="38.832" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="38.832" dy="17">In progress</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id9" class="cluster section-3">
+        <rect x="510" y="-300" width="200" height="91" rx="5" ry="5" fill="#ffb9ff" stroke="#ffb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(549.645, -300)">
+          <text class="nodeLabel" x="60.355" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="60.355" dy="17">Ready for deploy</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id10" class="cluster section-4">
+        <rect x="715" y="-300" width="200" height="152" rx="5" ry="5" fill="#ffb9dc" stroke="#ffb9dc" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(764.574, -300)">
+          <text class="nodeLabel" x="50.426" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="50.426" dy="17">Ready for test</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id11" class="cluster section-5">
+        <rect x="920" y="-300" width="200" height="273" rx="5" ry="5" fill="#ffb9b9" stroke="#ffb9b9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1002.066, -300)">
+          <text class="nodeLabel" x="17.934" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="17.934" dy="17">Done</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id12" class="cluster section-6">
+        <rect x="1125" y="-300" width="200" height="103" rx="5" ry="5" fill="#ffdcb9" stroke="#ffdcb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1168.297, -300)">
+          <text class="nodeLabel" x="56.703" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="56.703" dy="17">Can't reproduce</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-Create Documentation" class="node  " transform="translate(200, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Create Documentation</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-docs" class="node  " transform="translate(200, -192)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-34" width="185" height="68" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Create Blog about the</tspan>
+            <tspan x="0" dy="24">new diagram</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 24)"/>
+        <g class="label" transform="translate(82.5, 24)"/>
+      </g>
+      <g id="my-svg-id6" class="node  " transform="translate(405, -181)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-94" width="185" height="188" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -84)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Create renderer so that</tspan>
+            <tspan x="0" dy="24">it works in all cases.</tspan>
+            <tspan x="0" dy="24">We also add some extra</tspan>
+            <tspan x="0" dy="24">text here for testing</tspan>
+            <tspan x="0" dy="24">purposes. And some</tspan>
+            <tspan x="0" dy="24">more just for the extra</tspan>
+            <tspan x="0" dy="24">flare.</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 84)"/>
+        <g class="label" transform="translate(82.5, 84)"/>
+      </g>
+      <g id="my-svg-id8" class="node  " transform="translate(610, -247)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Design grammar</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)"/>
+        <g class="label" transform="translate(51.375, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">knsv</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-id4" class="node  " transform="translate(815, -247)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Create parsing tests</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">MC-2038</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-4.453, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">K.Sveidqvist</tspan>
+          </text>
+        </g>
+        <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#ffa500" stroke-width="4"/>
+        <rect class="kanban-ticket-link" x="-82.5" y="18" width="60.359" height="1" fill="#000000"/>
+      </g>
+      <g id="my-svg-id66" class="node  " transform="translate(815, -186)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">last item</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)"/>
+        <g class="label" transform="translate(51.375, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">knsv</tspan>
+          </text>
+        </g>
+        <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#add8e6" stroke-width="4"/>
+      </g>
+      <g id="my-svg-id5" class="node  " transform="translate(1020, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">define getData</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-id2" class="node  " transform="translate(1020, -162)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-64" width="185" height="128" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -60)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Title of diagram is</tspan>
+            <tspan x="0" dy="24">more than 100 chars</tspan>
+            <tspan x="0" dy="24">when user duplicates</tspan>
+            <tspan x="0" dy="24">diagram with 100 char</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">MC-2036</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(82.5, 36)"/>
+        <line x1="-90.5" y1="-62" x2="-90.5" y2="62" stroke="#ff0000" stroke-width="4"/>
+        <rect class="kanban-ticket-link" x="-82.5" y="54" width="60.359" height="1" fill="#000000"/>
+      </g>
+      <g id="my-svg-id3" class="node  " transform="translate(1020, -65)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Update DB function</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">MC-2037</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(51.375, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">knsv</tspan>
+          </text>
+        </g>
+        <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#ffa500" stroke-width="4"/>
+        <rect class="kanban-ticket-link" x="-82.5" y="18" width="60.359" height="1" fill="#000000"/>
+      </g>
+      <g id="my-svg-id3" class="node  " transform="translate(1225, -241)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-34" width="185" height="68" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Weird flickering in</tspan>
+            <tspan x="0" dy="24">Firefox</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 24)"/>
+        <g class="label" transform="translate(82.5, 24)"/>
+      </g>
+    </g>
+  </g>
+</svg>

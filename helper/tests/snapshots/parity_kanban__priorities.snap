@@ -1,0 +1,142 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="425" height="368" viewBox="90 -310 425 368" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-p" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="348" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(167.785, -300)">
+          <text class="nodeLabel" x="32.215" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="32.215" dy="17">Priorities</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-q" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="213" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(384.215, -300)">
+          <text class="nodeLabel" x="20.785" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="20.785" dy="17">Mixed</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-vh" class="node  " transform="translate(200, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Rotate the signing key</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+        <line x1="-90.5" y1="-20" x2="-90.5" y2="20" stroke="#ff0000" stroke-width="4"/>
+      </g>
+      <g id="my-svg-h" class="node  " transform="translate(200, -204)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Fix the flaky test</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+        <line x1="-90.5" y1="-20" x2="-90.5" y2="20" stroke="#ffa500" stroke-width="4"/>
+      </g>
+      <g id="my-svg-m" class="node  " transform="translate(200, -143)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-34" width="185" height="68" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Update the</tspan>
+            <tspan x="0" dy="24">dependencies</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 24)"/>
+        <g class="label" transform="translate(82.5, 24)"/>
+      </g>
+      <g id="my-svg-l" class="node  " transform="translate(200, -82)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Tidy the README</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+        <line x1="-90.5" y1="-20" x2="-90.5" y2="20" stroke="#0000ff" stroke-width="4"/>
+      </g>
+      <g id="my-svg-vl" class="node  " transform="translate(200, -33)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Rename a variable</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+        <line x1="-90.5" y1="-20" x2="-90.5" y2="20" stroke="#add8e6" stroke-width="4"/>
+      </g>
+      <g id="my-svg-none" class="node  " transform="translate(200, 16)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">No priority given</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-q1" class="node  " transform="translate(405, -247)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Ticket and priority</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">KM-1</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(82.5, 0)"/>
+        <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#ffa500" stroke-width="4"/>
+      </g>
+      <g id="my-svg-q2" class="node  " transform="translate(405, -186)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Assignee and priority</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)"/>
+        <g class="label" transform="translate(59.305, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">joh</tspan>
+          </text>
+        </g>
+        <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#0000ff" stroke-width="4"/>
+      </g>
+      <g id="my-svg-q3" class="node  " transform="translate(405, -125)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">All three</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">KM-3</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(59.305, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">joh</tspan>
+          </text>
+        </g>
+        <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#ff0000" stroke-width="4"/>
+      </g>
+    </g>
+  </g>
+</svg>

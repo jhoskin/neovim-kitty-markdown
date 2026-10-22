@@ -1,0 +1,97 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="773.305" height="436" viewBox="90 -310 773.305 436" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-backlog" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="416" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(100, -300)">
+          <text class="nodeLabel" x="100" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="100" dy="17">Backlog of ideas that still</tspan>
+            <tspan x="100" dy="24">need refinement before</tspan>
+            <tspan x="100" dy="24">anyone starts</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="my-svg-next" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="211" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(377.113, -300)">
+          <text class="nodeLabel" x="27.887" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="27.887" dy="17">Next up</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-b1" class="node  " transform="translate(200, -158)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-70" width="185" height="140" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -60)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Investigate why the</tspan>
+            <tspan x="0" dy="24">nightly build takes</tspan>
+            <tspan x="0" dy="24">twice as long on the</tspan>
+            <tspan x="0" dy="24">arm64 runners</tspan>
+            <tspan x="0" dy="24">compared to x86_64</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 60)"/>
+        <g class="label" transform="translate(82.5, 60)"/>
+      </g>
+      <g id="my-svg-b2" class="node  " transform="translate(200, -13)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-70" width="185" height="140" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -60)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Write a design note</tspan>
+            <tspan x="0" dy="24">about the caching</tspan>
+            <tspan x="0" dy="24">layer, its keys, and</tspan>
+            <tspan x="0" dy="24">when garbage</tspan>
+            <tspan x="0" dy="24">collection runs</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 60)"/>
+        <g class="label" transform="translate(82.5, 60)"/>
+      </g>
+      <g id="my-svg-b3" class="node  " transform="translate(200, 84)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Short one</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-n1" class="node  " transform="translate(405, -206)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Supercalifragilisticexpialidocious_identifier_that_never_breaks_anywhere</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-n2" class="node  " transform="translate(405, -139)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-40" width="185" height="80" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">Two lines of text that</tspan>
+            <tspan x="0" dy="24">wrap once</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">KM-12</tspan>
+          </text>
+        </g>
+        <g class="label" transform="translate(-107.508, 12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-size="16">
+            <tspan x="0" dy="17">a.very.long.assignee.name</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
