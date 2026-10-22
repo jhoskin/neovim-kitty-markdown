@@ -6,7 +6,9 @@ pub mod markdown;
 pub mod measure;
 pub mod wrap;
 
-use std::sync::OnceLock;
+use std::sync::{Arc, OnceLock};
+
+use usvg::fontdb;
 
 pub use fonts::FontSystem;
 pub use measure::{FontSpec, FontStyle, TextMetrics};
@@ -23,6 +25,70 @@ pub fn font_system() -> &'static FontSystem {
 /// this so its answer never waits on font discovery (R-025).
 pub fn font_system_if_loaded() -> Option<&'static FontSystem> {
     FONTS.get()
+}
+
+/// The database resvg rasterizes with: the measurer's faces plus one alias
+/// face per family spelled in lower case. resvg matches `font-family`
+/// case-sensitively, and mermaid writes its chain as `"trebuchet ms",
+/// verdana, arial, sans-serif`, so without the aliases every label would
+/// fall back to the serif default while the measurer (case-insensitive)
+/// kept the right widths.
+pub fn fontdb_arc() -> Arc<fontdb::Database> {
+    static DB: OnceLock<Arc<fontdb::Database>> = OnceLock::new();
+    DB.get_or_init(|| {
+        let mut db = font_system().db().clone();
+        let aliases: Vec<fontdb::FaceInfo> = db
+            .faces()
+            .filter_map(|face| {
+                let lower: Vec<(String, fontdb::Language)> = face
+                    .families
+                    .iter()
+                    .map(|(name, lang)| (name.to_lowercase(), *lang))
+                    .collect();
+                if lower.iter().zip(&face.families).all(|(a, b)| a.0 == b.0) {
+                    return None;
+                }
+                let mut alias = face.clone();
+                alias.families = lower;
+                Some(alias)
+            })
+            .collect();
+        for alias in aliases {
+            db.push_face_info(alias);
+        }
+        Arc::new(db)
+    })
+    .clone()
+}
+
+#[cfg(test)]
+mod fontdb_tests {
+    use super::*;
+
+    #[test]
+    fn lower_case_family_names_resolve() {
+        let db = fontdb_arc();
+        let mut checked = 0;
+        for face in db.faces() {
+            let Some((name, _)) = face.families.first() else {
+                continue;
+            };
+            if name.chars().all(|c| !c.is_uppercase()) {
+                continue;
+            }
+            let query = fontdb::Query {
+                families: &[fontdb::Family::Name(&name.to_lowercase())],
+                weight: face.weight,
+                stretch: face.stretch,
+                style: face.style,
+            };
+            assert!(db.query(&query).is_some(), "no alias for {name}");
+            checked += 1;
+            if checked == 20 {
+                break;
+            }
+        }
+    }
 }
 
 #[derive(Debug, thiserror::Error)]

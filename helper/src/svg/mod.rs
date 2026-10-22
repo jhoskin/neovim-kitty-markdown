@@ -7,7 +7,7 @@
 pub mod handler;
 
 use std::path::{Path, PathBuf};
-use std::sync::{Arc, OnceLock};
+use std::sync::Arc;
 
 use resvg::tiny_skia;
 use resvg::usvg;
@@ -60,16 +60,10 @@ impl Error {
     }
 }
 
-/// System fonts, loaded on first use. Loading takes tens of milliseconds and
-/// the result never changes while the helper runs.
+/// The shared font database: the bundled Open Sans, the system fonts, and
+/// the lower-case aliases resvg needs (see `text::fontdb_arc`).
 pub fn default_fontdb() -> Arc<fontdb::Database> {
-    static DB: OnceLock<Arc<fontdb::Database>> = OnceLock::new();
-    DB.get_or_init(|| {
-        let mut db = fontdb::Database::new();
-        db.load_system_fonts();
-        Arc::new(db)
-    })
-    .clone()
+    crate::text::fontdb_arc()
 }
 
 /// Rasterize with the process-wide font database.

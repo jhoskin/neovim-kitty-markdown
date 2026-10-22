@@ -2,7 +2,7 @@
 //! raster. [`render`] is the one entry point; the server handler and the
 //! CLI both call it.
 
-use std::sync::{Arc, OnceLock};
+use std::sync::Arc;
 
 use usvg::fontdb;
 
@@ -42,12 +42,10 @@ pub struct RenderOutput {
     pub diagram_type: &'static str,
 }
 
-/// The font database resvg reads. It is the measurer's database, shared so
-/// text is shaped and rasterized from the same faces.
+/// The font database resvg reads: the measurer's faces, so text is shaped
+/// and rasterized from the same files.
 pub fn fontdb() -> Arc<fontdb::Database> {
-    static DB: OnceLock<Arc<fontdb::Database>> = OnceLock::new();
-    DB.get_or_init(|| Arc::new(text::font_system().db().clone()))
-        .clone()
+    text::fontdb_arc()
 }
 
 /// Parses the `background` request parameter: `transparent`, a hex color,
