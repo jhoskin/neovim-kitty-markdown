@@ -2,3 +2,4 @@
 
 pub mod pie;
 pub mod quadrant;
+pub mod xychart;
