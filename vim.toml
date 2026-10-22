@@ -1,0 +1,27 @@
+# selene standard library: Lua 5.1 plus the Neovim `vim` global and the
+# busted-style globals that tests/run.lua defines.
+
+[selene]
+base = "lua51"
+name = "vim"
+
+[vim]
+any = true
+
+[describe]
+any = true
+
+[it]
+any = true
+
+[before_each]
+any = true
+
+[after_each]
+any = true
+
+[pending]
+any = true
+
+[assert]
+any = true

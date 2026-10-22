@@ -1,2 +1,4 @@
 REVIEW.md
 .claude/settings.local.json
+helper/target/
+helper/oracle/node_modules/

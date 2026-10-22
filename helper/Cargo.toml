@@ -1,0 +1,49 @@
+[package]
+name = "kitty-markdown-helper"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "Image, SVG, and mermaid renderer for kitty-markdown.nvim"
+publish = false
+
+[lib]
+name = "kitty_markdown_helper"
+path = "src/lib.rs"
+
+[[bin]]
+name = "kitty-markdown-helper"
+path = "src/main.rs"
+
+# Each mermaid phase's parity tests are gated so `cargo test` stays honest
+# about what is delivered. Later phases imply the earlier ones.
+[features]
+phase2 = []
+phase3 = ["phase2"]
+phase4 = ["phase3"]
+phase5 = ["phase4"]
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+sha2 = "0.10"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "gif", "webp", "bmp"] }
+resvg = "0.48"
+usvg = "0.48"
+rustybuzz = "0.20"
+ureq = "3"
+regex = "1"
+indexmap = "2"
+serde_yaml_ng = "0.10"
+jiff = "0.2"
+log = "0.4"
+
+[dev-dependencies]
+insta = "1"
+pretty_assertions = "1"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
