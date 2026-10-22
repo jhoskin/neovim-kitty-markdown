@@ -3,9 +3,6 @@ local cache = require('kitty-markdown.cache')
 local theme = require('kitty-markdown.theme')
 local transport = require('kitty-markdown.transport')
 local helper = require('kitty-markdown.helper')
--- cache_spec replaces `in_use_paths` on the shared module table and leaves
--- it nil, so this spec starts from a fresh copy of the module.
-package.loaded['kitty-markdown.preview'] = nil
 local preview = require('kitty-markdown.preview')
 
 local ESC = '\27'

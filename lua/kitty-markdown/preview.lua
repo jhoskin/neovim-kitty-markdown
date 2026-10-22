@@ -338,7 +338,11 @@ local function request_block(p, b, gen)
       source = desc.source,
       width_px = width_px,
       theme = theme.mermaid_theme(),
-      background = theme.palette(theme.current()).bg,
+      -- Transparent, as GitHub renders mermaid: the terminal background
+      -- shows through, so one cache entry serves both palettes and the
+      -- parity check (SSIM composites over white) still matches the
+      -- oracle's white goldens.
+      background = 'transparent',
     }, done)
     return
   end

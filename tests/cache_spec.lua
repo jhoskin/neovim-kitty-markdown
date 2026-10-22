@@ -1,5 +1,7 @@
 local config = require('kitty-markdown.config')
 local cache = require('kitty-markdown.cache')
+local preview_mod = require('kitty-markdown.preview')
+local real_in_use_paths = preview_mod.in_use_paths
 local helper = require('kitty-markdown.helper')
 
 local here = vim.fn.fnamemodify(debug.getinfo(1, 'S').source:sub(2), ':p')
@@ -91,10 +93,11 @@ describe('cache', function()
     local preview = require('kitty-markdown.preview')
 
     after_each(function()
-      preview.in_use_paths = nil
+      preview.in_use_paths = real_in_use_paths
     end)
 
     it('is empty when the preview has no in_use_paths', function()
+      preview.in_use_paths = nil
       assert.are.same({}, cache.keep_set())
     end)
 
@@ -124,7 +127,7 @@ describe('cache', function()
     after_each(function()
       helper.reset()
       vim.notify = real_notify
-      preview.in_use_paths = nil
+      preview.in_use_paths = real_in_use_paths
     end)
 
     it('sends nothing while the estimate is under the limit', function()
