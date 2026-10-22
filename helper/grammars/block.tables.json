@@ -1,0 +1,2910 @@
+{
+ "grammar": "block",
+ "mermaid_version": "12.2.0",
+ "jison_version": "0.4.18",
+ "conflicts": 0,
+ "start": "start",
+ "symbols_": {
+  "error": 2,
+  "spaceLines": 3,
+  "SPACELINE": 4,
+  "NL": 5,
+  "separator": 6,
+  "SPACE": 7,
+  "EOF": 8,
+  "start": 9,
+  "BLOCK_DIAGRAM_KEY": 10,
+  "document": 11,
+  "stop": 12,
+  "statement": 13,
+  "link": 14,
+  "LINK": 15,
+  "START_LINK": 16,
+  "LINK_LABEL": 17,
+  "STR": 18,
+  "nodeStatement": 19,
+  "columnsStatement": 20,
+  "SPACE_BLOCK": 21,
+  "blockStatement": 22,
+  "classDefStatement": 23,
+  "cssClassStatement": 24,
+  "styleStatement": 25,
+  "node": 26,
+  "SIZE": 27,
+  "COLUMNS": 28,
+  "id-block": 29,
+  "end": 30,
+  "NODE_ID": 31,
+  "nodeShapeNLabel": 32,
+  "dirList": 33,
+  "DIR": 34,
+  "NODE_DSTART": 35,
+  "NODE_DEND": 36,
+  "BLOCK_ARROW_START": 37,
+  "BLOCK_ARROW_END": 38,
+  "classDef": 39,
+  "CLASSDEF_ID": 40,
+  "CLASSDEF_STYLEOPTS": 41,
+  "DEFAULT": 42,
+  "class": 43,
+  "CLASSENTITY_IDS": 44,
+  "STYLECLASS": 45,
+  "style": 46,
+  "STYLE_ENTITY_IDS": 47,
+  "STYLE_DEFINITION_DATA": 48,
+  "$accept": 0,
+  "$end": 1
+ },
+ "terminals_": {
+  "2": "error",
+  "4": "SPACELINE",
+  "5": "NL",
+  "7": "SPACE",
+  "8": "EOF",
+  "10": "BLOCK_DIAGRAM_KEY",
+  "15": "LINK",
+  "16": "START_LINK",
+  "17": "LINK_LABEL",
+  "18": "STR",
+  "21": "SPACE_BLOCK",
+  "27": "SIZE",
+  "28": "COLUMNS",
+  "29": "id-block",
+  "30": "end",
+  "31": "NODE_ID",
+  "34": "DIR",
+  "35": "NODE_DSTART",
+  "36": "NODE_DEND",
+  "37": "BLOCK_ARROW_START",
+  "38": "BLOCK_ARROW_END",
+  "39": "classDef",
+  "40": "CLASSDEF_ID",
+  "41": "CLASSDEF_STYLEOPTS",
+  "42": "DEFAULT",
+  "43": "class",
+  "44": "CLASSENTITY_IDS",
+  "45": "STYLECLASS",
+  "46": "style",
+  "47": "STYLE_ENTITY_IDS",
+  "48": "STYLE_DEFINITION_DATA"
+ },
+ "productions_": [
+  [
+   0,
+   2
+  ],
+  [
+   3,
+   1
+  ],
+  [
+   3,
+   2
+  ],
+  [
+   3,
+   2
+  ],
+  [
+   6,
+   1
+  ],
+  [
+   6,
+   1
+  ],
+  [
+   6,
+   1
+  ],
+  [
+   9,
+   3
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   11,
+   1
+  ],
+  [
+   11,
+   2
+  ],
+  [
+   14,
+   1
+  ],
+  [
+   14,
+   4
+  ],
+  [
+   13,
+   1
+  ],
+  [
+   13,
+   1
+  ],
+  [
+   13,
+   1
+  ],
+  [
+   13,
+   1
+  ],
+  [
+   13,
+   1
+  ],
+  [
+   13,
+   1
+  ],
+  [
+   13,
+   1
+  ],
+  [
+   19,
+   3
+  ],
+  [
+   19,
+   2
+  ],
+  [
+   19,
+   1
+  ],
+  [
+   20,
+   1
+  ],
+  [
+   22,
+   4
+  ],
+  [
+   22,
+   3
+  ],
+  [
+   26,
+   1
+  ],
+  [
+   26,
+   2
+  ],
+  [
+   33,
+   1
+  ],
+  [
+   33,
+   2
+  ],
+  [
+   32,
+   3
+  ],
+  [
+   32,
+   4
+  ],
+  [
+   23,
+   3
+  ],
+  [
+   23,
+   3
+  ],
+  [
+   24,
+   3
+  ],
+  [
+   25,
+   3
+  ]
+ ],
+ "productions": [
+  {
+   "lhs": "$accept",
+   "rhs": [
+    "start",
+    "$end"
+   ],
+   "action": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "spaceLines",
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "spaceLines",
+    "NL"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "separator",
+   "rhs": [
+    "NL"
+   ],
+   "action": "yy.getLogger().debug('Rule: separator (NL) ');",
+   "precedence": null
+  },
+  {
+   "lhs": "separator",
+   "rhs": [
+    "SPACE"
+   ],
+   "action": "yy.getLogger().debug('Rule: separator (Space) ');",
+   "precedence": null
+  },
+  {
+   "lhs": "separator",
+   "rhs": [
+    "EOF"
+   ],
+   "action": "yy.getLogger().debug('Rule: separator (EOF) ');",
+   "precedence": null
+  },
+  {
+   "lhs": "start",
+   "rhs": [
+    "BLOCK_DIAGRAM_KEY",
+    "document",
+    "EOF"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: hierarchy: \", $2); yy.setHierarchy($2); ",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "NL"
+   ],
+   "action": "yy.getLogger().debug('Stop NL ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "EOF"
+   ],
+   "action": "yy.getLogger().debug('Stop EOF ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "stop",
+    "NL"
+   ],
+   "action": "yy.getLogger().debug('Stop NL2 ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "stop",
+    "EOF"
+   ],
+   "action": "yy.getLogger().debug('Stop EOF2 ');",
+   "precedence": null
+  },
+  {
+   "lhs": "document",
+   "rhs": [
+    "statement"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: statement: \", $1); typeof $1.length === 'number'?$$ = $1:$$ = [$1]; ",
+   "precedence": null
+  },
+  {
+   "lhs": "document",
+   "rhs": [
+    "statement",
+    "document"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: statement #2: \", $1); $$ = [$1].concat($2); ",
+   "precedence": null
+  },
+  {
+   "lhs": "link",
+   "rhs": [
+    "LINK"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: link: \", $1, yytext); $$={edgeTypeStr: $1, label:''}; ",
+   "precedence": null
+  },
+  {
+   "lhs": "link",
+   "rhs": [
+    "START_LINK",
+    "LINK_LABEL",
+    "STR",
+    "LINK"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: LABEL link: \", $1, $3, $4); $$={edgeTypeStr: $4, label:$3}; ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "nodeStatement"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "columnsStatement"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACE_BLOCK"
+   ],
+   "action": " const num=parseInt($1); const spaceId = yy.generateId(); $$ = { id: spaceId, type:'space', label:'', width: num, children: [] }",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "blockStatement"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "classDefStatement"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "cssClassStatement"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "styleStatement"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "nodeStatement",
+   "rhs": [
+    "nodeStatement",
+    "link",
+    "node"
+   ],
+   "action": "\n    yy.getLogger().debug('Rule: (nodeStatement link node) ', $1, $2, $3, ' typestr: ',$2.edgeTypeStr);\n    const edgeData = yy.edgeStrToEdgeData($2.edgeTypeStr)\n    const startEdgeData = yy.edgeStrToEdgeStartData($2.edgeTypeStr);\n    const lineThickness = yy.edgeStrToThickness($2.edgeTypeStr);\n    const linePattern = yy.edgeStrToPattern($2.edgeTypeStr);\n    $$ = [\n      {id: $1.id, label: $1.label, type:$1.type, directions: $1.directions},\n      {id: $1.id + '-' + $3.id, start: $1.id, end: $3.id, label: $2.label, type: 'edge', thickness: lineThickness, pattern: linePattern, directions: $3.directions, arrowTypeEnd: edgeData, arrowTypeStart: startEdgeData },\n      {id: $3.id, label: $3.label, type: yy.typeStr2Type($3.typeStr), directions: $3.directions}\n      ];\n    ",
+   "precedence": null
+  },
+  {
+   "lhs": "nodeStatement",
+   "rhs": [
+    "node",
+    "SIZE"
+   ],
+   "action": " yy.getLogger().debug('Rule: nodeStatement (abc88 node size) ', $1, $2); $$ = {id: $1.id, label: $1.label, type: yy.typeStr2Type($1.typeStr), directions: $1.directions, widthInColumns: parseInt($2,10)}; ",
+   "precedence": null
+  },
+  {
+   "lhs": "nodeStatement",
+   "rhs": [
+    "node"
+   ],
+   "action": " yy.getLogger().debug('Rule: nodeStatement (node) ', $1); $$ = {id: $1.id, label: $1.label, type: yy.typeStr2Type($1.typeStr), directions: $1.directions, widthInColumns:1}; ",
+   "precedence": null
+  },
+  {
+   "lhs": "columnsStatement",
+   "rhs": [
+    "COLUMNS"
+   ],
+   "action": " yy.getLogger().debug('APA123', this? this:'na'); yy.getLogger().debug(\"COLUMNS: \", $1); $$ = {type: 'column-setting', columns: $1 === 'auto'?-1:parseInt($1) } ",
+   "precedence": null
+  },
+  {
+   "lhs": "blockStatement",
+   "rhs": [
+    "id-block",
+    "nodeStatement",
+    "document",
+    "end"
+   ],
+   "action": " yy.getLogger().debug('Rule: id-block statement : ', $2, $3); const id2 = yy.generateId(); $$ = { ...$2, type:'composite', children: $3 }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "blockStatement",
+   "rhs": [
+    "BLOCK_DIAGRAM_KEY",
+    "document",
+    "end"
+   ],
+   "action": " yy.getLogger().debug('Rule: blockStatement : ', $1, $2, $3); const id = yy.generateId(); $$ = { id, type:'composite', label:'', children: $2 }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "node",
+   "rhs": [
+    "NODE_ID"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: node (NODE_ID separator): \", $1); $$ = { id: $1 }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "node",
+   "rhs": [
+    "NODE_ID",
+    "nodeShapeNLabel"
+   ],
+   "action": "\n    yy.getLogger().debug(\"Rule: node (NODE_ID nodeShapeNLabel separator): \", $1, $2);\n    $$ = { id: $1, label: $2.label, typeStr: $2.typeStr, directions: $2.directions };\n  ",
+   "precedence": null
+  },
+  {
+   "lhs": "dirList",
+   "rhs": [
+    "DIR"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: dirList: \", $1); $$ = [$1]; ",
+   "precedence": null
+  },
+  {
+   "lhs": "dirList",
+   "rhs": [
+    "DIR",
+    "dirList"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: dirList: \", $1, $2); $$ = [$1].concat($2); ",
+   "precedence": null
+  },
+  {
+   "lhs": "nodeShapeNLabel",
+   "rhs": [
+    "NODE_DSTART",
+    "STR",
+    "NODE_DEND"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: nodeShapeNLabel: \", $1, $2, $3); $$ = { typeStr: $1 + $3, label: $2 }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "nodeShapeNLabel",
+   "rhs": [
+    "BLOCK_ARROW_START",
+    "STR",
+    "dirList",
+    "BLOCK_ARROW_END"
+   ],
+   "action": " yy.getLogger().debug(\"Rule: BLOCK_ARROW nodeShapeNLabel: \", $1, $2, \" #3:\",$3, $4); $$ = { typeStr: $1 + $4, label: $2, directions: $3}; ",
+   "precedence": null
+  },
+  {
+   "lhs": "classDefStatement",
+   "rhs": [
+    "classDef",
+    "CLASSDEF_ID",
+    "CLASSDEF_STYLEOPTS"
+   ],
+   "action": "\n      $$ = { type: 'classDef', id: $2.trim(), css: $3.trim() };\n      ",
+   "precedence": null
+  },
+  {
+   "lhs": "classDefStatement",
+   "rhs": [
+    "classDef",
+    "DEFAULT",
+    "CLASSDEF_STYLEOPTS"
+   ],
+   "action": "\n      $$ = { type: 'classDef', id: $2.trim(), css: $3.trim() };\n      ",
+   "precedence": null
+  },
+  {
+   "lhs": "cssClassStatement",
+   "rhs": [
+    "class",
+    "CLASSENTITY_IDS",
+    "STYLECLASS"
+   ],
+   "action": "\n        //log.debug('apply class: id(s): ',$2, '  style class: ', $3);\n        $$={ type: 'applyClass', id: $2.trim(), styleClass: $3.trim() };\n        ",
+   "precedence": null
+  },
+  {
+   "lhs": "styleStatement",
+   "rhs": [
+    "style",
+    "STYLE_ENTITY_IDS",
+    "STYLE_DEFINITION_DATA"
+   ],
+   "action": "\n        $$={ type: 'applyStyles', id: $2.trim(), stylesStr: $3.trim() };\n        ",
+   "precedence": null
+  }
+ ],
+ "table": [
+  {
+   "9": 1,
+   "10": [
+    1,
+    2
+   ]
+  },
+  {
+   "1": [
+    3
+   ]
+  },
+  {
+   "10": [
+    1,
+    15
+   ],
+   "11": 3,
+   "13": 4,
+   "19": 5,
+   "20": 6,
+   "21": [
+    1,
+    7
+   ],
+   "22": 8,
+   "23": 9,
+   "24": 10,
+   "25": 11,
+   "26": 12,
+   "28": [
+    1,
+    13
+   ],
+   "29": [
+    1,
+    14
+   ],
+   "31": [
+    1,
+    19
+   ],
+   "39": [
+    1,
+    16
+   ],
+   "43": [
+    1,
+    17
+   ],
+   "46": [
+    1,
+    18
+   ]
+  },
+  {
+   "8": [
+    1,
+    20
+   ]
+  },
+  {
+   "8": [
+    2,
+    12
+   ],
+   "10": [
+    1,
+    15
+   ],
+   "11": 21,
+   "13": 4,
+   "19": 5,
+   "20": 6,
+   "21": [
+    1,
+    7
+   ],
+   "22": 8,
+   "23": 9,
+   "24": 10,
+   "25": 11,
+   "26": 12,
+   "28": [
+    1,
+    13
+   ],
+   "29": [
+    1,
+    14
+   ],
+   "30": [
+    2,
+    12
+   ],
+   "31": [
+    1,
+    19
+   ],
+   "39": [
+    1,
+    16
+   ],
+   "43": [
+    1,
+    17
+   ],
+   "46": [
+    1,
+    18
+   ]
+  },
+  {
+   "8": [
+    2,
+    16
+   ],
+   "10": [
+    2,
+    16
+   ],
+   "14": 22,
+   "15": [
+    1,
+    23
+   ],
+   "16": [
+    1,
+    24
+   ],
+   "21": [
+    2,
+    16
+   ],
+   "28": [
+    2,
+    16
+   ],
+   "29": [
+    2,
+    16
+   ],
+   "30": [
+    2,
+    16
+   ],
+   "31": [
+    2,
+    16
+   ],
+   "39": [
+    2,
+    16
+   ],
+   "43": [
+    2,
+    16
+   ],
+   "46": [
+    2,
+    16
+   ]
+  },
+  {
+   "8": [
+    2,
+    17
+   ],
+   "10": [
+    2,
+    17
+   ],
+   "21": [
+    2,
+    17
+   ],
+   "28": [
+    2,
+    17
+   ],
+   "29": [
+    2,
+    17
+   ],
+   "30": [
+    2,
+    17
+   ],
+   "31": [
+    2,
+    17
+   ],
+   "39": [
+    2,
+    17
+   ],
+   "43": [
+    2,
+    17
+   ],
+   "46": [
+    2,
+    17
+   ]
+  },
+  {
+   "8": [
+    2,
+    18
+   ],
+   "10": [
+    2,
+    18
+   ],
+   "21": [
+    2,
+    18
+   ],
+   "28": [
+    2,
+    18
+   ],
+   "29": [
+    2,
+    18
+   ],
+   "30": [
+    2,
+    18
+   ],
+   "31": [
+    2,
+    18
+   ],
+   "39": [
+    2,
+    18
+   ],
+   "43": [
+    2,
+    18
+   ],
+   "46": [
+    2,
+    18
+   ]
+  },
+  {
+   "8": [
+    2,
+    19
+   ],
+   "10": [
+    2,
+    19
+   ],
+   "21": [
+    2,
+    19
+   ],
+   "28": [
+    2,
+    19
+   ],
+   "29": [
+    2,
+    19
+   ],
+   "30": [
+    2,
+    19
+   ],
+   "31": [
+    2,
+    19
+   ],
+   "39": [
+    2,
+    19
+   ],
+   "43": [
+    2,
+    19
+   ],
+   "46": [
+    2,
+    19
+   ]
+  },
+  {
+   "8": [
+    2,
+    20
+   ],
+   "10": [
+    2,
+    20
+   ],
+   "21": [
+    2,
+    20
+   ],
+   "28": [
+    2,
+    20
+   ],
+   "29": [
+    2,
+    20
+   ],
+   "30": [
+    2,
+    20
+   ],
+   "31": [
+    2,
+    20
+   ],
+   "39": [
+    2,
+    20
+   ],
+   "43": [
+    2,
+    20
+   ],
+   "46": [
+    2,
+    20
+   ]
+  },
+  {
+   "8": [
+    2,
+    21
+   ],
+   "10": [
+    2,
+    21
+   ],
+   "21": [
+    2,
+    21
+   ],
+   "28": [
+    2,
+    21
+   ],
+   "29": [
+    2,
+    21
+   ],
+   "30": [
+    2,
+    21
+   ],
+   "31": [
+    2,
+    21
+   ],
+   "39": [
+    2,
+    21
+   ],
+   "43": [
+    2,
+    21
+   ],
+   "46": [
+    2,
+    21
+   ]
+  },
+  {
+   "8": [
+    2,
+    22
+   ],
+   "10": [
+    2,
+    22
+   ],
+   "21": [
+    2,
+    22
+   ],
+   "28": [
+    2,
+    22
+   ],
+   "29": [
+    2,
+    22
+   ],
+   "30": [
+    2,
+    22
+   ],
+   "31": [
+    2,
+    22
+   ],
+   "39": [
+    2,
+    22
+   ],
+   "43": [
+    2,
+    22
+   ],
+   "46": [
+    2,
+    22
+   ]
+  },
+  {
+   "8": [
+    2,
+    25
+   ],
+   "10": [
+    2,
+    25
+   ],
+   "15": [
+    2,
+    25
+   ],
+   "16": [
+    2,
+    25
+   ],
+   "21": [
+    2,
+    25
+   ],
+   "27": [
+    1,
+    25
+   ],
+   "28": [
+    2,
+    25
+   ],
+   "29": [
+    2,
+    25
+   ],
+   "30": [
+    2,
+    25
+   ],
+   "31": [
+    2,
+    25
+   ],
+   "39": [
+    2,
+    25
+   ],
+   "43": [
+    2,
+    25
+   ],
+   "46": [
+    2,
+    25
+   ]
+  },
+  {
+   "8": [
+    2,
+    26
+   ],
+   "10": [
+    2,
+    26
+   ],
+   "21": [
+    2,
+    26
+   ],
+   "28": [
+    2,
+    26
+   ],
+   "29": [
+    2,
+    26
+   ],
+   "30": [
+    2,
+    26
+   ],
+   "31": [
+    2,
+    26
+   ],
+   "39": [
+    2,
+    26
+   ],
+   "43": [
+    2,
+    26
+   ],
+   "46": [
+    2,
+    26
+   ]
+  },
+  {
+   "19": 26,
+   "26": 12,
+   "31": [
+    1,
+    19
+   ]
+  },
+  {
+   "10": [
+    1,
+    15
+   ],
+   "11": 27,
+   "13": 4,
+   "19": 5,
+   "20": 6,
+   "21": [
+    1,
+    7
+   ],
+   "22": 8,
+   "23": 9,
+   "24": 10,
+   "25": 11,
+   "26": 12,
+   "28": [
+    1,
+    13
+   ],
+   "29": [
+    1,
+    14
+   ],
+   "31": [
+    1,
+    19
+   ],
+   "39": [
+    1,
+    16
+   ],
+   "43": [
+    1,
+    17
+   ],
+   "46": [
+    1,
+    18
+   ]
+  },
+  {
+   "40": [
+    1,
+    28
+   ],
+   "42": [
+    1,
+    29
+   ]
+  },
+  {
+   "44": [
+    1,
+    30
+   ]
+  },
+  {
+   "47": [
+    1,
+    31
+   ]
+  },
+  {
+   "8": [
+    2,
+    29
+   ],
+   "10": [
+    2,
+    29
+   ],
+   "15": [
+    2,
+    29
+   ],
+   "16": [
+    2,
+    29
+   ],
+   "21": [
+    2,
+    29
+   ],
+   "27": [
+    2,
+    29
+   ],
+   "28": [
+    2,
+    29
+   ],
+   "29": [
+    2,
+    29
+   ],
+   "30": [
+    2,
+    29
+   ],
+   "31": [
+    2,
+    29
+   ],
+   "32": 32,
+   "35": [
+    1,
+    33
+   ],
+   "37": [
+    1,
+    34
+   ],
+   "39": [
+    2,
+    29
+   ],
+   "43": [
+    2,
+    29
+   ],
+   "46": [
+    2,
+    29
+   ]
+  },
+  {
+   "1": [
+    2,
+    7
+   ]
+  },
+  {
+   "8": [
+    2,
+    13
+   ],
+   "30": [
+    2,
+    13
+   ]
+  },
+  {
+   "26": 35,
+   "31": [
+    1,
+    19
+   ]
+  },
+  {
+   "31": [
+    2,
+    14
+   ]
+  },
+  {
+   "17": [
+    1,
+    36
+   ]
+  },
+  {
+   "8": [
+    2,
+    24
+   ],
+   "10": [
+    2,
+    24
+   ],
+   "15": [
+    2,
+    24
+   ],
+   "16": [
+    2,
+    24
+   ],
+   "21": [
+    2,
+    24
+   ],
+   "28": [
+    2,
+    24
+   ],
+   "29": [
+    2,
+    24
+   ],
+   "30": [
+    2,
+    24
+   ],
+   "31": [
+    2,
+    24
+   ],
+   "39": [
+    2,
+    24
+   ],
+   "43": [
+    2,
+    24
+   ],
+   "46": [
+    2,
+    24
+   ]
+  },
+  {
+   "10": [
+    1,
+    15
+   ],
+   "11": 37,
+   "13": 4,
+   "14": 22,
+   "15": [
+    1,
+    23
+   ],
+   "16": [
+    1,
+    24
+   ],
+   "19": 5,
+   "20": 6,
+   "21": [
+    1,
+    7
+   ],
+   "22": 8,
+   "23": 9,
+   "24": 10,
+   "25": 11,
+   "26": 12,
+   "28": [
+    1,
+    13
+   ],
+   "29": [
+    1,
+    14
+   ],
+   "31": [
+    1,
+    19
+   ],
+   "39": [
+    1,
+    16
+   ],
+   "43": [
+    1,
+    17
+   ],
+   "46": [
+    1,
+    18
+   ]
+  },
+  {
+   "30": [
+    1,
+    38
+   ]
+  },
+  {
+   "41": [
+    1,
+    39
+   ]
+  },
+  {
+   "41": [
+    1,
+    40
+   ]
+  },
+  {
+   "45": [
+    1,
+    41
+   ]
+  },
+  {
+   "48": [
+    1,
+    42
+   ]
+  },
+  {
+   "8": [
+    2,
+    30
+   ],
+   "10": [
+    2,
+    30
+   ],
+   "15": [
+    2,
+    30
+   ],
+   "16": [
+    2,
+    30
+   ],
+   "21": [
+    2,
+    30
+   ],
+   "27": [
+    2,
+    30
+   ],
+   "28": [
+    2,
+    30
+   ],
+   "29": [
+    2,
+    30
+   ],
+   "30": [
+    2,
+    30
+   ],
+   "31": [
+    2,
+    30
+   ],
+   "39": [
+    2,
+    30
+   ],
+   "43": [
+    2,
+    30
+   ],
+   "46": [
+    2,
+    30
+   ]
+  },
+  {
+   "18": [
+    1,
+    43
+   ]
+  },
+  {
+   "18": [
+    1,
+    44
+   ]
+  },
+  {
+   "8": [
+    2,
+    23
+   ],
+   "10": [
+    2,
+    23
+   ],
+   "15": [
+    2,
+    23
+   ],
+   "16": [
+    2,
+    23
+   ],
+   "21": [
+    2,
+    23
+   ],
+   "28": [
+    2,
+    23
+   ],
+   "29": [
+    2,
+    23
+   ],
+   "30": [
+    2,
+    23
+   ],
+   "31": [
+    2,
+    23
+   ],
+   "39": [
+    2,
+    23
+   ],
+   "43": [
+    2,
+    23
+   ],
+   "46": [
+    2,
+    23
+   ]
+  },
+  {
+   "18": [
+    1,
+    45
+   ]
+  },
+  {
+   "30": [
+    1,
+    46
+   ]
+  },
+  {
+   "8": [
+    2,
+    28
+   ],
+   "10": [
+    2,
+    28
+   ],
+   "21": [
+    2,
+    28
+   ],
+   "28": [
+    2,
+    28
+   ],
+   "29": [
+    2,
+    28
+   ],
+   "30": [
+    2,
+    28
+   ],
+   "31": [
+    2,
+    28
+   ],
+   "39": [
+    2,
+    28
+   ],
+   "43": [
+    2,
+    28
+   ],
+   "46": [
+    2,
+    28
+   ]
+  },
+  {
+   "8": [
+    2,
+    35
+   ],
+   "10": [
+    2,
+    35
+   ],
+   "21": [
+    2,
+    35
+   ],
+   "28": [
+    2,
+    35
+   ],
+   "29": [
+    2,
+    35
+   ],
+   "30": [
+    2,
+    35
+   ],
+   "31": [
+    2,
+    35
+   ],
+   "39": [
+    2,
+    35
+   ],
+   "43": [
+    2,
+    35
+   ],
+   "46": [
+    2,
+    35
+   ]
+  },
+  {
+   "8": [
+    2,
+    36
+   ],
+   "10": [
+    2,
+    36
+   ],
+   "21": [
+    2,
+    36
+   ],
+   "28": [
+    2,
+    36
+   ],
+   "29": [
+    2,
+    36
+   ],
+   "30": [
+    2,
+    36
+   ],
+   "31": [
+    2,
+    36
+   ],
+   "39": [
+    2,
+    36
+   ],
+   "43": [
+    2,
+    36
+   ],
+   "46": [
+    2,
+    36
+   ]
+  },
+  {
+   "8": [
+    2,
+    37
+   ],
+   "10": [
+    2,
+    37
+   ],
+   "21": [
+    2,
+    37
+   ],
+   "28": [
+    2,
+    37
+   ],
+   "29": [
+    2,
+    37
+   ],
+   "30": [
+    2,
+    37
+   ],
+   "31": [
+    2,
+    37
+   ],
+   "39": [
+    2,
+    37
+   ],
+   "43": [
+    2,
+    37
+   ],
+   "46": [
+    2,
+    37
+   ]
+  },
+  {
+   "8": [
+    2,
+    38
+   ],
+   "10": [
+    2,
+    38
+   ],
+   "21": [
+    2,
+    38
+   ],
+   "28": [
+    2,
+    38
+   ],
+   "29": [
+    2,
+    38
+   ],
+   "30": [
+    2,
+    38
+   ],
+   "31": [
+    2,
+    38
+   ],
+   "39": [
+    2,
+    38
+   ],
+   "43": [
+    2,
+    38
+   ],
+   "46": [
+    2,
+    38
+   ]
+  },
+  {
+   "36": [
+    1,
+    47
+   ]
+  },
+  {
+   "33": 48,
+   "34": [
+    1,
+    49
+   ]
+  },
+  {
+   "15": [
+    1,
+    50
+   ]
+  },
+  {
+   "8": [
+    2,
+    27
+   ],
+   "10": [
+    2,
+    27
+   ],
+   "21": [
+    2,
+    27
+   ],
+   "28": [
+    2,
+    27
+   ],
+   "29": [
+    2,
+    27
+   ],
+   "30": [
+    2,
+    27
+   ],
+   "31": [
+    2,
+    27
+   ],
+   "39": [
+    2,
+    27
+   ],
+   "43": [
+    2,
+    27
+   ],
+   "46": [
+    2,
+    27
+   ]
+  },
+  {
+   "8": [
+    2,
+    33
+   ],
+   "10": [
+    2,
+    33
+   ],
+   "15": [
+    2,
+    33
+   ],
+   "16": [
+    2,
+    33
+   ],
+   "21": [
+    2,
+    33
+   ],
+   "27": [
+    2,
+    33
+   ],
+   "28": [
+    2,
+    33
+   ],
+   "29": [
+    2,
+    33
+   ],
+   "30": [
+    2,
+    33
+   ],
+   "31": [
+    2,
+    33
+   ],
+   "39": [
+    2,
+    33
+   ],
+   "43": [
+    2,
+    33
+   ],
+   "46": [
+    2,
+    33
+   ]
+  },
+  {
+   "38": [
+    1,
+    51
+   ]
+  },
+  {
+   "33": 52,
+   "34": [
+    1,
+    49
+   ],
+   "38": [
+    2,
+    31
+   ]
+  },
+  {
+   "31": [
+    2,
+    15
+   ]
+  },
+  {
+   "8": [
+    2,
+    34
+   ],
+   "10": [
+    2,
+    34
+   ],
+   "15": [
+    2,
+    34
+   ],
+   "16": [
+    2,
+    34
+   ],
+   "21": [
+    2,
+    34
+   ],
+   "27": [
+    2,
+    34
+   ],
+   "28": [
+    2,
+    34
+   ],
+   "29": [
+    2,
+    34
+   ],
+   "30": [
+    2,
+    34
+   ],
+   "31": [
+    2,
+    34
+   ],
+   "39": [
+    2,
+    34
+   ],
+   "43": [
+    2,
+    34
+   ],
+   "46": [
+    2,
+    34
+   ]
+  },
+  {
+   "38": [
+    2,
+    32
+   ]
+  }
+ ],
+ "defaultActions": {
+  "20": [
+   2,
+   7
+  ],
+  "23": [
+   2,
+   14
+  ],
+  "50": [
+   2,
+   15
+  ],
+  "52": [
+   2,
+   32
+  ]
+ },
+ "lexer": {
+  "options": {
+   "flex": false,
+   "case_insensitive": false
+  },
+  "macros": {
+   "CRLF": "\\u000D\\u000A",
+   "LF": "\\u000A",
+   "CR": "\\u000D",
+   "COMMA": "\\u002C"
+  },
+  "action_include": null,
+  "conditions": {
+   "STYLE_DEFINITION": {
+    "rules": [
+     28
+    ],
+    "inclusive": false
+   },
+   "STYLE_STMNT": {
+    "rules": [
+     27
+    ],
+    "inclusive": false
+   },
+   "CLASSDEFID": {
+    "rules": [
+     22
+    ],
+    "inclusive": false
+   },
+   "CLASSDEF": {
+    "rules": [
+     20,
+     21
+    ],
+    "inclusive": false
+   },
+   "CLASS_STYLE": {
+    "rules": [
+     25
+    ],
+    "inclusive": false
+   },
+   "CLASS": {
+    "rules": [
+     24
+    ],
+    "inclusive": false
+   },
+   "LLABEL": {
+    "rules": [
+     99,
+     100,
+     101,
+     102,
+     103
+    ],
+    "inclusive": false
+   },
+   "ARROW_DIR": {
+    "rules": [
+     85,
+     86,
+     87,
+     88,
+     89,
+     90,
+     91
+    ],
+    "inclusive": false
+   },
+   "BLOCK_ARROW": {
+    "rules": [
+     76,
+     81,
+     84
+    ],
+    "inclusive": false
+   },
+   "NODE": {
+    "rules": [
+     37,
+     38,
+     39,
+     40,
+     41,
+     42,
+     43,
+     44,
+     45,
+     46,
+     47,
+     48,
+     49,
+     50,
+     51,
+     52,
+     53,
+     77,
+     80
+    ],
+    "inclusive": false
+   },
+   "md_string": {
+    "rules": [
+     9,
+     10,
+     78,
+     79
+    ],
+    "inclusive": false
+   },
+   "space": {
+    "rules": [],
+    "inclusive": false
+   },
+   "string": {
+    "rules": [
+     12,
+     13,
+     82,
+     83
+    ],
+    "inclusive": false
+   },
+   "acc_descr_multiline": {
+    "rules": [
+     34,
+     35
+    ],
+    "inclusive": false
+   },
+   "acc_descr": {
+    "rules": [
+     32
+    ],
+    "inclusive": false
+   },
+   "acc_title": {
+    "rules": [
+     30
+    ],
+    "inclusive": false
+   },
+   "INITIAL": {
+    "rules": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     11,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     23,
+     26,
+     29,
+     31,
+     33,
+     36,
+     54,
+     55,
+     56,
+     57,
+     58,
+     59,
+     60,
+     61,
+     62,
+     63,
+     64,
+     65,
+     66,
+     67,
+     68,
+     69,
+     70,
+     71,
+     72,
+     73,
+     74,
+     75,
+     92,
+     93,
+     94,
+     95,
+     96,
+     97,
+     98,
+     104
+    ],
+    "inclusive": true
+   }
+  },
+  "rules": [
+   {
+    "index": 0,
+    "pattern": "block-beta\\b",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Found block-beta'); return 'BLOCK_DIAGRAM_KEY'; "
+   },
+   {
+    "index": 1,
+    "pattern": "block:",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Found id-block'); return 'id-block'; "
+   },
+   {
+    "index": 2,
+    "pattern": "block\\b",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Found block'); return 'BLOCK_DIAGRAM_KEY'; "
+   },
+   {
+    "index": 3,
+    "pattern": "[\\s]+",
+    "conditions": null,
+    "action": " yy.getLogger().debug('.', yytext); /* skip all whitespace */  "
+   },
+   {
+    "index": 4,
+    "pattern": "[\\n]+",
+    "conditions": null,
+    "action": "yy.getLogger().debug('_', yytext);                 /* skip all whitespace */   "
+   },
+   {
+    "index": 5,
+    "pattern": "((\\u000D\\u000A)|(\\u000A))",
+    "conditions": [
+     "INITIAL"
+    ],
+    "action": " return 'NL' "
+   },
+   {
+    "index": 6,
+    "pattern": "columns\\s+auto\\b",
+    "conditions": null,
+    "action": " yytext=-1; return 'COLUMNS'; "
+   },
+   {
+    "index": 7,
+    "pattern": "columns\\s+[\\d]+",
+    "conditions": null,
+    "action": " yytext = yytext.replace(/columns\\s+/,''); yy.getLogger().debug('COLUMNS (LEX)', yytext); return 'COLUMNS'; "
+   },
+   {
+    "index": 8,
+    "pattern": "[\"][`]",
+    "conditions": null,
+    "action": " this.pushState(\"md_string\");"
+   },
+   {
+    "index": 9,
+    "pattern": "[^`\"]+",
+    "conditions": [
+     "md_string"
+    ],
+    "action": " return \"MD_STR\";"
+   },
+   {
+    "index": 10,
+    "pattern": "[`][\"]",
+    "conditions": [
+     "md_string"
+    ],
+    "action": " this.popState();"
+   },
+   {
+    "index": 11,
+    "pattern": "[\"]",
+    "conditions": null,
+    "action": "this.pushState(\"string\");"
+   },
+   {
+    "index": 12,
+    "pattern": "[\"]",
+    "conditions": [
+     "string"
+    ],
+    "action": " yy.getLogger().debug('LEX: POPPING STR:', yytext);this.popState();"
+   },
+   {
+    "index": 13,
+    "pattern": "[^\"]*",
+    "conditions": [
+     "string"
+    ],
+    "action": " yy.getLogger().debug('LEX: STR end:', yytext); return \"STR\";"
+   },
+   {
+    "index": 14,
+    "pattern": "space[:]\\d+",
+    "conditions": null,
+    "action": "  yytext = yytext.replace(/space\\:/,'');yy.getLogger().debug('SPACE NUM (LEX)', yytext); return 'SPACE_BLOCK'; "
+   },
+   {
+    "index": 15,
+    "pattern": "space\\b",
+    "conditions": null,
+    "action": " yytext = '1'; yy.getLogger().debug('COLUMNS (LEX)', yytext); return 'SPACE_BLOCK'; "
+   },
+   {
+    "index": 16,
+    "pattern": "default\\b",
+    "conditions": null,
+    "action": "return 'DEFAULT';"
+   },
+   {
+    "index": 17,
+    "pattern": "linkStyle\\b",
+    "conditions": null,
+    "action": "return 'LINKSTYLE';"
+   },
+   {
+    "index": 18,
+    "pattern": "interpolate\\b",
+    "conditions": null,
+    "action": "return 'INTERPOLATE';"
+   },
+   {
+    "index": 19,
+    "pattern": "classDef\\s+",
+    "conditions": null,
+    "action": " this.pushState('CLASSDEF'); return 'classDef'; "
+   },
+   {
+    "index": 20,
+    "pattern": "DEFAULT\\s+",
+    "conditions": [
+     "CLASSDEF"
+    ],
+    "action": " this.popState(); this.pushState('CLASSDEFID'); return 'DEFAULT_CLASSDEF_ID' "
+   },
+   {
+    "index": 21,
+    "pattern": "\\w+\\s+",
+    "conditions": [
+     "CLASSDEF"
+    ],
+    "action": " this.popState(); this.pushState('CLASSDEFID'); return 'CLASSDEF_ID' "
+   },
+   {
+    "index": 22,
+    "pattern": "[^\\n]*",
+    "conditions": [
+     "CLASSDEFID"
+    ],
+    "action": " this.popState(); return 'CLASSDEF_STYLEOPTS' "
+   },
+   {
+    "index": 23,
+    "pattern": "class\\s+",
+    "conditions": null,
+    "action": " this.pushState('CLASS'); return 'class'; "
+   },
+   {
+    "index": 24,
+    "pattern": "(\\w+)+((,\\s*\\w+)*)",
+    "conditions": [
+     "CLASS"
+    ],
+    "action": " this.popState(); this.pushState('CLASS_STYLE'); return 'CLASSENTITY_IDS' "
+   },
+   {
+    "index": 25,
+    "pattern": "[^\\n]*",
+    "conditions": [
+     "CLASS_STYLE"
+    ],
+    "action": " this.popState(); return 'STYLECLASS' "
+   },
+   {
+    "index": 26,
+    "pattern": "style\\s+",
+    "conditions": null,
+    "action": " this.pushState('STYLE_STMNT'); return 'style'; "
+   },
+   {
+    "index": 27,
+    "pattern": "(\\w+)+((,\\s*\\w+)*)",
+    "conditions": [
+     "STYLE_STMNT"
+    ],
+    "action": " this.popState(); this.pushState('STYLE_DEFINITION'); return 'STYLE_ENTITY_IDS' "
+   },
+   {
+    "index": 28,
+    "pattern": "[^\\n]*",
+    "conditions": [
+     "STYLE_DEFINITION"
+    ],
+    "action": " this.popState(); return 'STYLE_DEFINITION_DATA' "
+   },
+   {
+    "index": 29,
+    "pattern": "accTitle\\s*:\\s*",
+    "conditions": null,
+    "action": " this.pushState(\"acc_title\");return 'acc_title'; "
+   },
+   {
+    "index": 30,
+    "pattern": "(?!\\n||)*[^\\n]*",
+    "conditions": [
+     "acc_title"
+    ],
+    "action": " this.popState(); return \"acc_title_value\"; "
+   },
+   {
+    "index": 31,
+    "pattern": "accDescr\\s*:\\s*",
+    "conditions": null,
+    "action": " this.pushState(\"acc_descr\");return 'acc_descr'; "
+   },
+   {
+    "index": 32,
+    "pattern": "(?!\\n||)*[^\\n]*",
+    "conditions": [
+     "acc_descr"
+    ],
+    "action": " this.popState(); return \"acc_descr_value\"; "
+   },
+   {
+    "index": 33,
+    "pattern": "accDescr\\s*\\{\\s*",
+    "conditions": null,
+    "action": " this.pushState(\"acc_descr_multiline\");"
+   },
+   {
+    "index": 34,
+    "pattern": "[\\}]",
+    "conditions": [
+     "acc_descr_multiline"
+    ],
+    "action": " this.popState(); "
+   },
+   {
+    "index": 35,
+    "pattern": "[^\\}]*",
+    "conditions": [
+     "acc_descr_multiline"
+    ],
+    "action": "return \"acc_descr_multiline_value\";"
+   },
+   {
+    "index": 36,
+    "pattern": "end\\b\\s*",
+    "conditions": null,
+    "action": "return 'end';"
+   },
+   {
+    "index": 37,
+    "pattern": "\\(\\(\\(",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: (('); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 38,
+    "pattern": "\\)\\)\\)",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: (('); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 39,
+    "pattern": "[\\)]\\)",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: ))'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 40,
+    "pattern": "\\}\\}",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: (('); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 41,
+    "pattern": "\\}",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: (('); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 42,
+    "pattern": "\\(-",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: (-'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 43,
+    "pattern": "-\\)",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: -)'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 44,
+    "pattern": "\\(\\(",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: (('); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 45,
+    "pattern": "\\]\\]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: ]]'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 46,
+    "pattern": "\\(",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: (');  return \"NODE_DEND\";  "
+   },
+   {
+    "index": 47,
+    "pattern": "\\]\\)",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: ])'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 48,
+    "pattern": "\\\\\\]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: /]'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 49,
+    "pattern": "\\/\\]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: /]'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 50,
+    "pattern": "\\)\\]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: )]'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 51,
+    "pattern": "[\\)]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: )');  return \"NODE_DEND\"; "
+   },
+   {
+    "index": 52,
+    "pattern": "\\]>",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: ]>'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 53,
+    "pattern": "[\\]]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.popState();yy.getLogger().debug('Lex: ]'); return \"NODE_DEND\"; "
+   },
+   {
+    "index": 54,
+    "pattern": "-\\)",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: -)'); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 55,
+    "pattern": "\\(-",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: (-'); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 56,
+    "pattern": "\\)\\)",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: ))'); this.pushState('NODE');return 'NODE_DSTART';  "
+   },
+   {
+    "index": 57,
+    "pattern": "\\)",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: )'); this.pushState('NODE');return 'NODE_DSTART';      "
+   },
+   {
+    "index": 58,
+    "pattern": "\\(\\(\\(",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: (((');  this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 59,
+    "pattern": "\\(\\(",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: )'); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 60,
+    "pattern": "\\{\\{",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: )'); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 61,
+    "pattern": "\\{",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: )'); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 62,
+    "pattern": ">",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexc: >'); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 63,
+    "pattern": "\\(\\[",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: (['); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 64,
+    "pattern": "\\(",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: )'); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 65,
+    "pattern": "\\[\\[",
+    "conditions": null,
+    "action": " this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 66,
+    "pattern": "\\[\\|",
+    "conditions": null,
+    "action": " this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 67,
+    "pattern": "\\[\\(",
+    "conditions": null,
+    "action": " this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 68,
+    "pattern": "\\)\\)\\)",
+    "conditions": null,
+    "action": " this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 69,
+    "pattern": "\\[\\\\",
+    "conditions": null,
+    "action": " this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 70,
+    "pattern": "\\[\\/",
+    "conditions": null,
+    "action": " this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 71,
+    "pattern": "\\[\\\\",
+    "conditions": null,
+    "action": " this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 72,
+    "pattern": "\\[",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lexa: ['); this.pushState('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 73,
+    "pattern": "<\\[",
+    "conditions": null,
+    "action": " this.pushState('BLOCK_ARROW');yy.getLogger().debug('LEX ARR START');return 'BLOCK_ARROW_START'; "
+   },
+   {
+    "index": 74,
+    "pattern": "[^\\(\\[\\n\\-\\)\\{\\}\\s\\<\\>:=]+",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: NODE_ID', yytext);return 'NODE_ID'; "
+   },
+   {
+    "index": 75,
+    "pattern": "$",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: EOF', yytext);return 'EOF'; "
+   },
+   {
+    "index": 76,
+    "pattern": "[\"][`]",
+    "conditions": [
+     "BLOCK_ARROW"
+    ],
+    "action": " this.pushState(\"md_string\");"
+   },
+   {
+    "index": 77,
+    "pattern": "[\"][`]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.pushState(\"md_string\");"
+   },
+   {
+    "index": 78,
+    "pattern": "[^`\"]+",
+    "conditions": [
+     "md_string"
+    ],
+    "action": " return \"NODE_DESCR\";"
+   },
+   {
+    "index": 79,
+    "pattern": "[`][\"]",
+    "conditions": [
+     "md_string"
+    ],
+    "action": " this.popState();"
+   },
+   {
+    "index": 80,
+    "pattern": "[\"]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " yy.getLogger().debug('Lex: Starting string');this.pushState(\"string\");"
+   },
+   {
+    "index": 81,
+    "pattern": "[\"]",
+    "conditions": [
+     "BLOCK_ARROW"
+    ],
+    "action": " yy.getLogger().debug('LEX ARR: Starting string');this.pushState(\"string\");"
+   },
+   {
+    "index": 82,
+    "pattern": "[^\"]+",
+    "conditions": [
+     "string"
+    ],
+    "action": " yy.getLogger().debug('LEX: NODE_DESCR:', yytext); return \"NODE_DESCR\";"
+   },
+   {
+    "index": 83,
+    "pattern": "[\"]",
+    "conditions": [
+     "string"
+    ],
+    "action": "yy.getLogger().debug('LEX POPPING');this.popState();"
+   },
+   {
+    "index": 84,
+    "pattern": "\\]>\\s*\\(",
+    "conditions": [
+     "BLOCK_ARROW"
+    ],
+    "action": " yy.getLogger().debug('Lex: =>BAE');  this.pushState('ARROW_DIR');  "
+   },
+   {
+    "index": 85,
+    "pattern": ",?\\s*right\\s*",
+    "conditions": [
+     "ARROW_DIR"
+    ],
+    "action": " yytext = yytext.replace(/^,\\s*/, ''); yy.getLogger().debug('Lex (right): dir:',yytext);return \"DIR\"; "
+   },
+   {
+    "index": 86,
+    "pattern": ",?\\s*left\\s*",
+    "conditions": [
+     "ARROW_DIR"
+    ],
+    "action": " yytext = yytext.replace(/^,\\s*/, ''); yy.getLogger().debug('Lex (left):',yytext);return \"DIR\"; "
+   },
+   {
+    "index": 87,
+    "pattern": ",?\\s*x\\s*",
+    "conditions": [
+     "ARROW_DIR"
+    ],
+    "action": " yytext = yytext.replace(/^,\\s*/, ''); yy.getLogger().debug('Lex (x):',yytext); return \"DIR\"; "
+   },
+   {
+    "index": 88,
+    "pattern": ",?\\s*y\\s*",
+    "conditions": [
+     "ARROW_DIR"
+    ],
+    "action": " yytext = yytext.replace(/^,\\s*/, ''); yy.getLogger().debug('Lex (y):',yytext); return \"DIR\"; "
+   },
+   {
+    "index": 89,
+    "pattern": ",?\\s*up\\s*",
+    "conditions": [
+     "ARROW_DIR"
+    ],
+    "action": " yytext = yytext.replace(/^,\\s*/, ''); yy.getLogger().debug('Lex (up):',yytext); return \"DIR\"; "
+   },
+   {
+    "index": 90,
+    "pattern": ",?\\s*down\\s*",
+    "conditions": [
+     "ARROW_DIR"
+    ],
+    "action": " yytext = yytext.replace(/^,\\s*/, ''); yy.getLogger().debug('Lex (down):',yytext); return \"DIR\"; "
+   },
+   {
+    "index": 91,
+    "pattern": "\\)\\s*",
+    "conditions": [
+     "ARROW_DIR"
+    ],
+    "action": " yytext=']>';yy.getLogger().debug('Lex (ARROW_DIR end):',yytext);this.popState();this.popState();return \"BLOCK_ARROW_END\"; "
+   },
+   {
+    "index": 92,
+    "pattern": "\\s*[xo<]?--+[-xo>]\\s*",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: LINK', '#'+yytext+'#'); return 'LINK'; "
+   },
+   {
+    "index": 93,
+    "pattern": "\\s*[xo<]?==+[=xo>]\\s*",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: LINK', yytext); return 'LINK'; "
+   },
+   {
+    "index": 94,
+    "pattern": "\\s*[xo<]?-?\\.+-[xo>]?\\s*",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: LINK', yytext); return 'LINK'; "
+   },
+   {
+    "index": 95,
+    "pattern": "\\s*~~[\\~]+\\s*",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: LINK', yytext); return 'LINK'; "
+   },
+   {
+    "index": 96,
+    "pattern": "\\s*[xo<]?--\\s*",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: START_LINK', yytext);this.pushState(\"LLABEL\");return 'START_LINK'; "
+   },
+   {
+    "index": 97,
+    "pattern": "\\s*[xo<]?==\\s*",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: START_LINK', yytext);this.pushState(\"LLABEL\");return 'START_LINK'; "
+   },
+   {
+    "index": 98,
+    "pattern": "\\s*[xo<]?-\\.\\s*",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: START_LINK', yytext);this.pushState(\"LLABEL\");return 'START_LINK'; "
+   },
+   {
+    "index": 99,
+    "pattern": "[\"][`]",
+    "conditions": [
+     "LLABEL"
+    ],
+    "action": " this.pushState(\"md_string\");"
+   },
+   {
+    "index": 100,
+    "pattern": "[\"]",
+    "conditions": [
+     "LLABEL"
+    ],
+    "action": " yy.getLogger().debug('Lex: Starting string');this.pushState(\"string\"); return \"LINK_LABEL\";"
+   },
+   {
+    "index": 101,
+    "pattern": "\\s*[xo<]?--+[-xo>]\\s*",
+    "conditions": [
+     "LLABEL"
+    ],
+    "action": " this.popState(); yy.getLogger().debug('Lex: LINK', '#'+yytext+'#'); return 'LINK'; "
+   },
+   {
+    "index": 102,
+    "pattern": "\\s*[xo<]?==+[=xo>]\\s*",
+    "conditions": [
+     "LLABEL"
+    ],
+    "action": " this.popState(); yy.getLogger().debug('Lex: LINK', yytext); return 'LINK'; "
+   },
+   {
+    "index": 103,
+    "pattern": "\\s*[xo<]?-?\\.+-[xo>]?\\s*",
+    "conditions": [
+     "LLABEL"
+    ],
+    "action": " this.popState(); yy.getLogger().debug('Lex: LINK', yytext); return 'LINK'; "
+   },
+   {
+    "index": 104,
+    "pattern": ":\\d+",
+    "conditions": null,
+    "action": " yy.getLogger().debug('Lex: COLON', yytext); yytext=yytext.slice(1);return 'SIZE'; "
+   }
+  ]
+ }
+}

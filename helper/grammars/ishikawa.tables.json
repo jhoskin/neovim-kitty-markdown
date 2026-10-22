@@ -1,0 +1,795 @@
+{
+ "grammar": "ishikawa",
+ "mermaid_version": "12.2.0",
+ "jison_version": "0.4.18",
+ "conflicts": 0,
+ "start": "start",
+ "symbols_": {
+  "error": 2,
+  "start": 3,
+  "ishikawa": 4,
+  "spaceLines": 5,
+  "SPACELINE": 6,
+  "NL": 7,
+  "ISHIKAWA": 8,
+  "document": 9,
+  "stop": 10,
+  "EOF": 11,
+  "statement": 12,
+  "SPACELIST": 13,
+  "TEXT": 14,
+  "$accept": 0,
+  "$end": 1
+ },
+ "terminals_": {
+  "2": "error",
+  "6": "SPACELINE",
+  "7": "NL",
+  "8": "ISHIKAWA",
+  "11": "EOF",
+  "13": "SPACELIST",
+  "14": "TEXT"
+ },
+ "productions_": [
+  [
+   0,
+   2
+  ],
+  [
+   3,
+   1
+  ],
+  [
+   3,
+   2
+  ],
+  [
+   5,
+   1
+  ],
+  [
+   5,
+   2
+  ],
+  [
+   5,
+   2
+  ],
+  [
+   4,
+   2
+  ],
+  [
+   4,
+   3
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   2
+  ],
+  [
+   10,
+   2
+  ],
+  [
+   9,
+   3
+  ],
+  [
+   9,
+   2
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ]
+ ],
+ "productions": [
+  {
+   "lhs": "$accept",
+   "rhs": [
+    "start",
+    "$end"
+   ],
+   "action": null
+  },
+  {
+   "lhs": "start",
+   "rhs": [
+    "ishikawa"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "start",
+   "rhs": [
+    "spaceLines",
+    "ishikawa"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "spaceLines",
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "spaceLines",
+    "NL"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "ishikawa",
+   "rhs": [
+    "ISHIKAWA",
+    "document"
+   ],
+   "action": " return yy; ",
+   "precedence": null
+  },
+  {
+   "lhs": "ishikawa",
+   "rhs": [
+    "ISHIKAWA",
+    "NL",
+    "document"
+   ],
+   "action": " return yy; ",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "NL"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "EOF"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "stop",
+    "NL"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "stop",
+    "EOF"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "document",
+   "rhs": [
+    "document",
+    "statement",
+    "stop"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "document",
+   "rhs": [
+    "statement",
+    "stop"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST",
+    "TEXT"
+   ],
+   "action": " yy.addNode($1.length, $2.trim()); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "TEXT"
+   ],
+   "action": " yy.addNode(0, $1.trim()); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST"
+   ],
+   "action": null,
+   "precedence": null
+  }
+ ],
+ "table": [
+  {
+   "3": 1,
+   "4": 2,
+   "5": 3,
+   "6": [
+    1,
+    5
+   ],
+   "8": [
+    1,
+    4
+   ]
+  },
+  {
+   "1": [
+    3
+   ]
+  },
+  {
+   "1": [
+    2,
+    1
+   ]
+  },
+  {
+   "4": 6,
+   "6": [
+    1,
+    7
+   ],
+   "7": [
+    1,
+    8
+   ],
+   "8": [
+    1,
+    4
+   ]
+  },
+  {
+   "6": [
+    1,
+    14
+   ],
+   "7": [
+    1,
+    10
+   ],
+   "9": 9,
+   "12": 11,
+   "13": [
+    1,
+    12
+   ],
+   "14": [
+    1,
+    13
+   ]
+  },
+  {
+   "6": [
+    2,
+    3
+   ],
+   "7": [
+    2,
+    3
+   ],
+   "8": [
+    2,
+    3
+   ]
+  },
+  {
+   "1": [
+    2,
+    2
+   ]
+  },
+  {
+   "6": [
+    2,
+    4
+   ],
+   "7": [
+    2,
+    4
+   ],
+   "8": [
+    2,
+    4
+   ]
+  },
+  {
+   "6": [
+    2,
+    5
+   ],
+   "7": [
+    2,
+    5
+   ],
+   "8": [
+    2,
+    5
+   ]
+  },
+  {
+   "1": [
+    2,
+    6
+   ],
+   "6": [
+    1,
+    14
+   ],
+   "12": 15,
+   "13": [
+    1,
+    12
+   ],
+   "14": [
+    1,
+    13
+   ]
+  },
+  {
+   "6": [
+    1,
+    14
+   ],
+   "9": 16,
+   "12": 11,
+   "13": [
+    1,
+    12
+   ],
+   "14": [
+    1,
+    13
+   ]
+  },
+  {
+   "6": [
+    1,
+    20
+   ],
+   "7": [
+    1,
+    18
+   ],
+   "10": 17,
+   "11": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    2,
+    18
+   ],
+   "7": [
+    2,
+    18
+   ],
+   "11": [
+    2,
+    18
+   ],
+   "14": [
+    1,
+    21
+   ]
+  },
+  {
+   "6": [
+    2,
+    16
+   ],
+   "7": [
+    2,
+    16
+   ],
+   "11": [
+    2,
+    16
+   ]
+  },
+  {
+   "6": [
+    2,
+    17
+   ],
+   "7": [
+    2,
+    17
+   ],
+   "11": [
+    2,
+    17
+   ]
+  },
+  {
+   "6": [
+    1,
+    20
+   ],
+   "7": [
+    1,
+    18
+   ],
+   "10": 22,
+   "11": [
+    1,
+    19
+   ]
+  },
+  {
+   "1": [
+    2,
+    7
+   ],
+   "6": [
+    1,
+    14
+   ],
+   "12": 15,
+   "13": [
+    1,
+    12
+   ],
+   "14": [
+    1,
+    13
+   ]
+  },
+  {
+   "1": [
+    2,
+    14
+   ],
+   "6": [
+    2,
+    14
+   ],
+   "7": [
+    1,
+    23
+   ],
+   "11": [
+    1,
+    24
+   ],
+   "13": [
+    2,
+    14
+   ],
+   "14": [
+    2,
+    14
+   ]
+  },
+  {
+   "1": [
+    2,
+    8
+   ],
+   "6": [
+    2,
+    8
+   ],
+   "7": [
+    2,
+    8
+   ],
+   "11": [
+    2,
+    8
+   ],
+   "13": [
+    2,
+    8
+   ],
+   "14": [
+    2,
+    8
+   ]
+  },
+  {
+   "1": [
+    2,
+    9
+   ],
+   "6": [
+    2,
+    9
+   ],
+   "7": [
+    2,
+    9
+   ],
+   "11": [
+    2,
+    9
+   ],
+   "13": [
+    2,
+    9
+   ],
+   "14": [
+    2,
+    9
+   ]
+  },
+  {
+   "1": [
+    2,
+    10
+   ],
+   "6": [
+    2,
+    10
+   ],
+   "7": [
+    2,
+    10
+   ],
+   "11": [
+    2,
+    10
+   ],
+   "13": [
+    2,
+    10
+   ],
+   "14": [
+    2,
+    10
+   ]
+  },
+  {
+   "6": [
+    2,
+    15
+   ],
+   "7": [
+    2,
+    15
+   ],
+   "11": [
+    2,
+    15
+   ]
+  },
+  {
+   "1": [
+    2,
+    13
+   ],
+   "6": [
+    2,
+    13
+   ],
+   "7": [
+    1,
+    23
+   ],
+   "11": [
+    1,
+    24
+   ],
+   "13": [
+    2,
+    13
+   ],
+   "14": [
+    2,
+    13
+   ]
+  },
+  {
+   "1": [
+    2,
+    11
+   ],
+   "6": [
+    2,
+    11
+   ],
+   "7": [
+    2,
+    11
+   ],
+   "11": [
+    2,
+    11
+   ],
+   "13": [
+    2,
+    11
+   ],
+   "14": [
+    2,
+    11
+   ]
+  },
+  {
+   "1": [
+    2,
+    12
+   ],
+   "6": [
+    2,
+    12
+   ],
+   "7": [
+    2,
+    12
+   ],
+   "11": [
+    2,
+    12
+   ],
+   "13": [
+    2,
+    12
+   ],
+   "14": [
+    2,
+    12
+   ]
+  }
+ ],
+ "defaultActions": {
+  "2": [
+   2,
+   1
+  ],
+  "6": [
+   2,
+   2
+  ]
+ },
+ "lexer": {
+  "options": {
+   "flex": false,
+   "case_insensitive": true
+  },
+  "macros": {},
+  "action_include": null,
+  "conditions": {
+   "INITIAL": {
+    "rules": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ],
+    "inclusive": true
+   }
+  },
+  "rules": [
+   {
+    "index": 0,
+    "pattern": "\\s*%%.*",
+    "conditions": null,
+    "action": " return 'SPACELINE'; "
+   },
+   {
+    "index": 1,
+    "pattern": "ishikawa-beta\\b",
+    "conditions": null,
+    "action": " return 'ISHIKAWA'; "
+   },
+   {
+    "index": 2,
+    "pattern": "ishikawa\\b",
+    "conditions": null,
+    "action": " return 'ISHIKAWA'; "
+   },
+   {
+    "index": 3,
+    "pattern": "[\\s]+[\\n]",
+    "conditions": null,
+    "action": " return 'SPACELINE'; "
+   },
+   {
+    "index": 4,
+    "pattern": "[\\n]+",
+    "conditions": null,
+    "action": " return 'NL'; "
+   },
+   {
+    "index": 5,
+    "pattern": "[\\s]+",
+    "conditions": null,
+    "action": " return 'SPACELIST'; "
+   },
+   {
+    "index": 6,
+    "pattern": "[^\\n]+",
+    "conditions": null,
+    "action": " return 'TEXT'; "
+   },
+   {
+    "index": 7,
+    "pattern": "$",
+    "conditions": null,
+    "action": "return 'EOF';"
+   }
+  ]
+ }
+}

@@ -1,0 +1,1727 @@
+{
+ "grammar": "kanban",
+ "mermaid_version": "12.2.0",
+ "jison_version": "0.4.18",
+ "conflicts": 0,
+ "start": "start",
+ "symbols_": {
+  "error": 2,
+  "start": 3,
+  "mindMap": 4,
+  "spaceLines": 5,
+  "SPACELINE": 6,
+  "NL": 7,
+  "KANBAN": 8,
+  "document": 9,
+  "stop": 10,
+  "EOF": 11,
+  "statement": 12,
+  "SPACELIST": 13,
+  "node": 14,
+  "shapeData": 15,
+  "ICON": 16,
+  "CLASS": 17,
+  "nodeWithId": 18,
+  "nodeWithoutId": 19,
+  "NODE_DSTART": 20,
+  "NODE_DESCR": 21,
+  "NODE_DEND": 22,
+  "NODE_ID": 23,
+  "SHAPE_DATA": 24,
+  "$accept": 0,
+  "$end": 1
+ },
+ "terminals_": {
+  "2": "error",
+  "6": "SPACELINE",
+  "7": "NL",
+  "8": "KANBAN",
+  "11": "EOF",
+  "13": "SPACELIST",
+  "16": "ICON",
+  "17": "CLASS",
+  "20": "NODE_DSTART",
+  "21": "NODE_DESCR",
+  "22": "NODE_DEND",
+  "23": "NODE_ID",
+  "24": "SHAPE_DATA"
+ },
+ "productions_": [
+  [
+   0,
+   2
+  ],
+  [
+   3,
+   1
+  ],
+  [
+   3,
+   2
+  ],
+  [
+   5,
+   1
+  ],
+  [
+   5,
+   2
+  ],
+  [
+   5,
+   2
+  ],
+  [
+   4,
+   2
+  ],
+  [
+   4,
+   3
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   2
+  ],
+  [
+   10,
+   2
+  ],
+  [
+   9,
+   3
+  ],
+  [
+   9,
+   2
+  ],
+  [
+   12,
+   3
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   14,
+   1
+  ],
+  [
+   14,
+   1
+  ],
+  [
+   19,
+   3
+  ],
+  [
+   18,
+   1
+  ],
+  [
+   18,
+   4
+  ],
+  [
+   15,
+   2
+  ],
+  [
+   15,
+   1
+  ]
+ ],
+ "productions": [
+  {
+   "lhs": "$accept",
+   "rhs": [
+    "start",
+    "$end"
+   ],
+   "action": null
+  },
+  {
+   "lhs": "start",
+   "rhs": [
+    "mindMap"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "start",
+   "rhs": [
+    "spaceLines",
+    "mindMap"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "spaceLines",
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "spaceLines",
+    "NL"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "mindMap",
+   "rhs": [
+    "KANBAN",
+    "document"
+   ],
+   "action": " return yy; ",
+   "precedence": null
+  },
+  {
+   "lhs": "mindMap",
+   "rhs": [
+    "KANBAN",
+    "NL",
+    "document"
+   ],
+   "action": " return yy; ",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "NL"
+   ],
+   "action": "yy.getLogger().trace('Stop NL ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "EOF"
+   ],
+   "action": "yy.getLogger().trace('Stop EOF ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "stop",
+    "NL"
+   ],
+   "action": "yy.getLogger().trace('Stop NL2 ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "stop",
+    "EOF"
+   ],
+   "action": "yy.getLogger().trace('Stop EOF2 ');",
+   "precedence": null
+  },
+  {
+   "lhs": "document",
+   "rhs": [
+    "document",
+    "statement",
+    "stop"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "document",
+   "rhs": [
+    "statement",
+    "stop"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST",
+    "node",
+    "shapeData"
+   ],
+   "action": " yy.getLogger().info('Node: ',$2.id);yy.addNode($1.length, $2.id, $2.descr, $2.type, $3);  ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST",
+    "node"
+   ],
+   "action": " yy.getLogger().info('Node: ',$2.id);yy.addNode($1.length, $2.id, $2.descr, $2.type);  ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST",
+    "ICON"
+   ],
+   "action": " yy.getLogger().trace('Icon: ',$2);yy.decorateNode({icon: $2}); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST",
+    "CLASS"
+   ],
+   "action": " yy.decorateNode({class: $2}); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": " yy.getLogger().trace('SPACELIST');",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "node",
+    "shapeData"
+   ],
+   "action": " yy.getLogger().trace('Node: ',$1.id);yy.addNode(0, $1.id, $1.descr, $1.type, $2);  ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "node"
+   ],
+   "action": " yy.getLogger().trace('Node: ',$1.id);yy.addNode(0, $1.id, $1.descr, $1.type);  ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "ICON"
+   ],
+   "action": " yy.decorateNode({icon: $1}); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "CLASS"
+   ],
+   "action": " yy.decorateNode({class: $1}); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "node",
+   "rhs": [
+    "nodeWithId"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "node",
+   "rhs": [
+    "nodeWithoutId"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "nodeWithoutId",
+   "rhs": [
+    "NODE_DSTART",
+    "NODE_DESCR",
+    "NODE_DEND"
+   ],
+   "action": " yy.getLogger().trace(\"node found ..\", $1); $$ = { id: $2, descr: $2, type: yy.getType($1, $3) }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "nodeWithId",
+   "rhs": [
+    "NODE_ID"
+   ],
+   "action": " $$ = { id: $1, descr: $1, type: 0 }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "nodeWithId",
+   "rhs": [
+    "NODE_ID",
+    "NODE_DSTART",
+    "NODE_DESCR",
+    "NODE_DEND"
+   ],
+   "action": " yy.getLogger().trace(\"node found ..\", $1); $$ = { id: $1, descr: $3, type: yy.getType($2, $4) }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "shapeData",
+   "rhs": [
+    "shapeData",
+    "SHAPE_DATA"
+   ],
+   "action": " $$ = $1 + $2; ",
+   "precedence": null
+  },
+  {
+   "lhs": "shapeData",
+   "rhs": [
+    "SHAPE_DATA"
+   ],
+   "action": " $$ = $1; ",
+   "precedence": null
+  }
+ ],
+ "table": [
+  {
+   "3": 1,
+   "4": 2,
+   "5": 3,
+   "6": [
+    1,
+    5
+   ],
+   "8": [
+    1,
+    4
+   ]
+  },
+  {
+   "1": [
+    3
+   ]
+  },
+  {
+   "1": [
+    2,
+    1
+   ]
+  },
+  {
+   "4": 6,
+   "6": [
+    1,
+    7
+   ],
+   "7": [
+    1,
+    8
+   ],
+   "8": [
+    1,
+    4
+   ]
+  },
+  {
+   "6": [
+    1,
+    13
+   ],
+   "7": [
+    1,
+    10
+   ],
+   "9": 9,
+   "12": 11,
+   "13": [
+    1,
+    12
+   ],
+   "14": 14,
+   "16": [
+    1,
+    15
+   ],
+   "17": [
+    1,
+    16
+   ],
+   "18": 17,
+   "19": 18,
+   "20": [
+    1,
+    20
+   ],
+   "23": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    2,
+    3
+   ],
+   "7": [
+    2,
+    3
+   ],
+   "8": [
+    2,
+    3
+   ]
+  },
+  {
+   "1": [
+    2,
+    2
+   ]
+  },
+  {
+   "6": [
+    2,
+    4
+   ],
+   "7": [
+    2,
+    4
+   ],
+   "8": [
+    2,
+    4
+   ]
+  },
+  {
+   "6": [
+    2,
+    5
+   ],
+   "7": [
+    2,
+    5
+   ],
+   "8": [
+    2,
+    5
+   ]
+  },
+  {
+   "1": [
+    2,
+    6
+   ],
+   "6": [
+    1,
+    13
+   ],
+   "12": 21,
+   "13": [
+    1,
+    12
+   ],
+   "14": 14,
+   "16": [
+    1,
+    15
+   ],
+   "17": [
+    1,
+    16
+   ],
+   "18": 17,
+   "19": 18,
+   "20": [
+    1,
+    20
+   ],
+   "23": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    1,
+    13
+   ],
+   "9": 22,
+   "12": 11,
+   "13": [
+    1,
+    12
+   ],
+   "14": 14,
+   "16": [
+    1,
+    15
+   ],
+   "17": [
+    1,
+    16
+   ],
+   "18": 17,
+   "19": 18,
+   "20": [
+    1,
+    20
+   ],
+   "23": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    1,
+    26
+   ],
+   "7": [
+    1,
+    24
+   ],
+   "10": 23,
+   "11": [
+    1,
+    25
+   ]
+  },
+  {
+   "6": [
+    2,
+    24
+   ],
+   "7": [
+    2,
+    24
+   ],
+   "11": [
+    2,
+    24
+   ],
+   "14": 27,
+   "16": [
+    1,
+    28
+   ],
+   "17": [
+    1,
+    29
+   ],
+   "18": 17,
+   "19": 18,
+   "20": [
+    1,
+    20
+   ],
+   "23": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    2,
+    19
+   ],
+   "7": [
+    2,
+    19
+   ],
+   "11": [
+    2,
+    19
+   ]
+  },
+  {
+   "6": [
+    2,
+    21
+   ],
+   "7": [
+    2,
+    21
+   ],
+   "11": [
+    2,
+    21
+   ],
+   "15": 30,
+   "24": [
+    1,
+    31
+   ]
+  },
+  {
+   "6": [
+    2,
+    22
+   ],
+   "7": [
+    2,
+    22
+   ],
+   "11": [
+    2,
+    22
+   ]
+  },
+  {
+   "6": [
+    2,
+    23
+   ],
+   "7": [
+    2,
+    23
+   ],
+   "11": [
+    2,
+    23
+   ]
+  },
+  {
+   "6": [
+    2,
+    25
+   ],
+   "7": [
+    2,
+    25
+   ],
+   "11": [
+    2,
+    25
+   ],
+   "24": [
+    2,
+    25
+   ]
+  },
+  {
+   "6": [
+    2,
+    26
+   ],
+   "7": [
+    2,
+    26
+   ],
+   "11": [
+    2,
+    26
+   ],
+   "24": [
+    2,
+    26
+   ]
+  },
+  {
+   "6": [
+    2,
+    28
+   ],
+   "7": [
+    2,
+    28
+   ],
+   "11": [
+    2,
+    28
+   ],
+   "20": [
+    1,
+    32
+   ],
+   "24": [
+    2,
+    28
+   ]
+  },
+  {
+   "21": [
+    1,
+    33
+   ]
+  },
+  {
+   "6": [
+    1,
+    26
+   ],
+   "7": [
+    1,
+    24
+   ],
+   "10": 34,
+   "11": [
+    1,
+    25
+   ]
+  },
+  {
+   "1": [
+    2,
+    7
+   ],
+   "6": [
+    1,
+    13
+   ],
+   "12": 21,
+   "13": [
+    1,
+    12
+   ],
+   "14": 14,
+   "16": [
+    1,
+    15
+   ],
+   "17": [
+    1,
+    16
+   ],
+   "18": 17,
+   "19": 18,
+   "20": [
+    1,
+    20
+   ],
+   "23": [
+    1,
+    19
+   ]
+  },
+  {
+   "1": [
+    2,
+    14
+   ],
+   "6": [
+    2,
+    14
+   ],
+   "7": [
+    1,
+    35
+   ],
+   "11": [
+    1,
+    36
+   ],
+   "13": [
+    2,
+    14
+   ],
+   "16": [
+    2,
+    14
+   ],
+   "17": [
+    2,
+    14
+   ],
+   "20": [
+    2,
+    14
+   ],
+   "23": [
+    2,
+    14
+   ]
+  },
+  {
+   "1": [
+    2,
+    8
+   ],
+   "6": [
+    2,
+    8
+   ],
+   "7": [
+    2,
+    8
+   ],
+   "11": [
+    2,
+    8
+   ],
+   "13": [
+    2,
+    8
+   ],
+   "16": [
+    2,
+    8
+   ],
+   "17": [
+    2,
+    8
+   ],
+   "20": [
+    2,
+    8
+   ],
+   "23": [
+    2,
+    8
+   ]
+  },
+  {
+   "1": [
+    2,
+    9
+   ],
+   "6": [
+    2,
+    9
+   ],
+   "7": [
+    2,
+    9
+   ],
+   "11": [
+    2,
+    9
+   ],
+   "13": [
+    2,
+    9
+   ],
+   "16": [
+    2,
+    9
+   ],
+   "17": [
+    2,
+    9
+   ],
+   "20": [
+    2,
+    9
+   ],
+   "23": [
+    2,
+    9
+   ]
+  },
+  {
+   "1": [
+    2,
+    10
+   ],
+   "6": [
+    2,
+    10
+   ],
+   "7": [
+    2,
+    10
+   ],
+   "11": [
+    2,
+    10
+   ],
+   "13": [
+    2,
+    10
+   ],
+   "16": [
+    2,
+    10
+   ],
+   "17": [
+    2,
+    10
+   ],
+   "20": [
+    2,
+    10
+   ],
+   "23": [
+    2,
+    10
+   ]
+  },
+  {
+   "6": [
+    2,
+    16
+   ],
+   "7": [
+    2,
+    16
+   ],
+   "11": [
+    2,
+    16
+   ],
+   "15": 37,
+   "24": [
+    1,
+    31
+   ]
+  },
+  {
+   "6": [
+    2,
+    17
+   ],
+   "7": [
+    2,
+    17
+   ],
+   "11": [
+    2,
+    17
+   ]
+  },
+  {
+   "6": [
+    2,
+    18
+   ],
+   "7": [
+    2,
+    18
+   ],
+   "11": [
+    2,
+    18
+   ]
+  },
+  {
+   "6": [
+    2,
+    20
+   ],
+   "7": [
+    2,
+    20
+   ],
+   "11": [
+    2,
+    20
+   ],
+   "24": [
+    1,
+    38
+   ]
+  },
+  {
+   "6": [
+    2,
+    31
+   ],
+   "7": [
+    2,
+    31
+   ],
+   "11": [
+    2,
+    31
+   ],
+   "24": [
+    2,
+    31
+   ]
+  },
+  {
+   "21": [
+    1,
+    39
+   ]
+  },
+  {
+   "22": [
+    1,
+    40
+   ]
+  },
+  {
+   "1": [
+    2,
+    13
+   ],
+   "6": [
+    2,
+    13
+   ],
+   "7": [
+    1,
+    35
+   ],
+   "11": [
+    1,
+    36
+   ],
+   "13": [
+    2,
+    13
+   ],
+   "16": [
+    2,
+    13
+   ],
+   "17": [
+    2,
+    13
+   ],
+   "20": [
+    2,
+    13
+   ],
+   "23": [
+    2,
+    13
+   ]
+  },
+  {
+   "1": [
+    2,
+    11
+   ],
+   "6": [
+    2,
+    11
+   ],
+   "7": [
+    2,
+    11
+   ],
+   "11": [
+    2,
+    11
+   ],
+   "13": [
+    2,
+    11
+   ],
+   "16": [
+    2,
+    11
+   ],
+   "17": [
+    2,
+    11
+   ],
+   "20": [
+    2,
+    11
+   ],
+   "23": [
+    2,
+    11
+   ]
+  },
+  {
+   "1": [
+    2,
+    12
+   ],
+   "6": [
+    2,
+    12
+   ],
+   "7": [
+    2,
+    12
+   ],
+   "11": [
+    2,
+    12
+   ],
+   "13": [
+    2,
+    12
+   ],
+   "16": [
+    2,
+    12
+   ],
+   "17": [
+    2,
+    12
+   ],
+   "20": [
+    2,
+    12
+   ],
+   "23": [
+    2,
+    12
+   ]
+  },
+  {
+   "6": [
+    2,
+    15
+   ],
+   "7": [
+    2,
+    15
+   ],
+   "11": [
+    2,
+    15
+   ],
+   "24": [
+    1,
+    38
+   ]
+  },
+  {
+   "6": [
+    2,
+    30
+   ],
+   "7": [
+    2,
+    30
+   ],
+   "11": [
+    2,
+    30
+   ],
+   "24": [
+    2,
+    30
+   ]
+  },
+  {
+   "22": [
+    1,
+    41
+   ]
+  },
+  {
+   "6": [
+    2,
+    27
+   ],
+   "7": [
+    2,
+    27
+   ],
+   "11": [
+    2,
+    27
+   ],
+   "24": [
+    2,
+    27
+   ]
+  },
+  {
+   "6": [
+    2,
+    29
+   ],
+   "7": [
+    2,
+    29
+   ],
+   "11": [
+    2,
+    29
+   ],
+   "24": [
+    2,
+    29
+   ]
+  }
+ ],
+ "defaultActions": {
+  "2": [
+   2,
+   1
+  ],
+  "6": [
+   2,
+   2
+  ]
+ },
+ "lexer": {
+  "options": {
+   "flex": false,
+   "case_insensitive": true
+  },
+  "macros": {},
+  "action_include": "\n\t// Pre-lexer code can go here\n",
+  "conditions": {
+   "shapeDataEndBracket": {
+    "rules": [],
+    "inclusive": false
+   },
+   "shapeDataStr": {
+    "rules": [
+     2,
+     3
+    ],
+    "inclusive": false
+   },
+   "shapeData": {
+    "rules": [
+     1,
+     4,
+     5
+    ],
+    "inclusive": false
+   },
+   "CLASS": {
+    "rules": [
+     9,
+     10
+    ],
+    "inclusive": false
+   },
+   "ICON": {
+    "rules": [
+     14,
+     15
+    ],
+    "inclusive": false
+   },
+   "NSTR2": {
+    "rules": [
+     28,
+     29
+    ],
+    "inclusive": false
+   },
+   "NSTR": {
+    "rules": [
+     31,
+     32
+    ],
+    "inclusive": false
+   },
+   "NODE": {
+    "rules": [
+     27,
+     30,
+     33,
+     34,
+     35,
+     36,
+     37,
+     38,
+     39,
+     40,
+     41,
+     42
+    ],
+    "inclusive": false
+   },
+   "INITIAL": {
+    "rules": [
+     0,
+     6,
+     7,
+     8,
+     11,
+     12,
+     13,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26
+    ],
+    "inclusive": true
+   }
+  },
+  "rules": [
+   {
+    "index": 0,
+    "pattern": "@\\{",
+    "conditions": null,
+    "action": "\n                                                    // console.log('=> shapeData', yytext);\n                                                    this.pushState(\"shapeData\"); yytext=\"\"; return 'SHAPE_DATA' "
+   },
+   {
+    "index": 1,
+    "pattern": "[\"]",
+    "conditions": [
+     "shapeData"
+    ],
+    "action": "\n                                                    // console.log('=> shapeDataStr', yytext);\n                                                    this.pushState(\"shapeDataStr\");\n                                                    return 'SHAPE_DATA';\n                                                "
+   },
+   {
+    "index": 2,
+    "pattern": "[\"]",
+    "conditions": [
+     "shapeDataStr"
+    ],
+    "action": "\n                                                    // console.log('shapeData <==', yytext);\n                                                    this.popState(); return 'SHAPE_DATA'"
+   },
+   {
+    "index": 3,
+    "pattern": "[^\\\"]+",
+    "conditions": [
+     "shapeDataStr"
+    ],
+    "action": "\n                                                    // console.log('shapeData', yytext);\n                                                    const re = /\\n\\s*/g;\n                                                    yytext = yytext.replace(re,\"<br/>\");\n                                                    return 'SHAPE_DATA'"
+   },
+   {
+    "index": 4,
+    "pattern": "[^}^\"]+",
+    "conditions": [
+     "shapeData"
+    ],
+    "action": "\n                                                    // console.log('shapeData', yytext);\n                                                    return 'SHAPE_DATA';\n                                                "
+   },
+   {
+    "index": 5,
+    "pattern": "\\}",
+    "conditions": [
+     "shapeData"
+    ],
+    "action": "\n                                                    // console.log('<== root', yytext)\n                                                    this.popState();\n                                                "
+   },
+   {
+    "index": 6,
+    "pattern": "\\s*%%.*",
+    "conditions": null,
+    "action": "yy.getLogger().trace('Found comment',yytext); return 'SPACELINE';"
+   },
+   {
+    "index": 7,
+    "pattern": "kanban\\b",
+    "conditions": null,
+    "action": "return 'KANBAN';"
+   },
+   {
+    "index": 8,
+    "pattern": ":::",
+    "conditions": null,
+    "action": " this.begin('CLASS'); "
+   },
+   {
+    "index": 9,
+    "pattern": ".+",
+    "conditions": [
+     "CLASS"
+    ],
+    "action": " this.popState();return 'CLASS'; "
+   },
+   {
+    "index": 10,
+    "pattern": "\\n",
+    "conditions": [
+     "CLASS"
+    ],
+    "action": " this.popState();"
+   },
+   {
+    "index": 11,
+    "pattern": "::icon\\(",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Begin icon');this.begin('ICON'); "
+   },
+   {
+    "index": 12,
+    "pattern": "[\\s]+[\\n]",
+    "conditions": null,
+    "action": "yy.getLogger().trace('SPACELINE');return 'SPACELINE'                 /* skip all whitespace */    ;"
+   },
+   {
+    "index": 13,
+    "pattern": "[\\n]+",
+    "conditions": null,
+    "action": "return 'NL';"
+   },
+   {
+    "index": 14,
+    "pattern": "[^\\)]+",
+    "conditions": [
+     "ICON"
+    ],
+    "action": " return 'ICON'; "
+   },
+   {
+    "index": 15,
+    "pattern": "\\)",
+    "conditions": [
+     "ICON"
+    ],
+    "action": "yy.getLogger().trace('end icon');this.popState();"
+   },
+   {
+    "index": 16,
+    "pattern": "-\\)",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Exploding node'); this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 17,
+    "pattern": "\\(-",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Cloud'); this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 18,
+    "pattern": "\\)\\)",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Explosion Bang'); this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 19,
+    "pattern": "\\)",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Cloud Bang'); this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 20,
+    "pattern": "\\(\\(",
+    "conditions": null,
+    "action": " this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 21,
+    "pattern": "\\{\\{",
+    "conditions": null,
+    "action": " this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 22,
+    "pattern": "\\(",
+    "conditions": null,
+    "action": " this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 23,
+    "pattern": "\\[",
+    "conditions": null,
+    "action": " this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 24,
+    "pattern": "[\\s]+",
+    "conditions": null,
+    "action": "return 'SPACELIST'                 /* skip all whitespace */    ;"
+   },
+   {
+    "index": 25,
+    "pattern": "[^\\(\\[\\n\\)\\{\\}@]+",
+    "conditions": null,
+    "action": "return 'NODE_ID';"
+   },
+   {
+    "index": 26,
+    "pattern": "$",
+    "conditions": null,
+    "action": "return 'EOF';"
+   },
+   {
+    "index": 27,
+    "pattern": "[\"][`]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.begin(\"NSTR2\");"
+   },
+   {
+    "index": 28,
+    "pattern": "[^`\"]+",
+    "conditions": [
+     "NSTR2"
+    ],
+    "action": " return \"NODE_DESCR\";"
+   },
+   {
+    "index": 29,
+    "pattern": "[`][\"]",
+    "conditions": [
+     "NSTR2"
+    ],
+    "action": " this.popState();"
+   },
+   {
+    "index": 30,
+    "pattern": "[\"]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " yy.getLogger().trace('Starting NSTR');this.begin(\"NSTR\");"
+   },
+   {
+    "index": 31,
+    "pattern": "[^\"]+",
+    "conditions": [
+     "NSTR"
+    ],
+    "action": " yy.getLogger().trace('description:', yytext); return \"NODE_DESCR\";"
+   },
+   {
+    "index": 32,
+    "pattern": "[\"]",
+    "conditions": [
+     "NSTR"
+    ],
+    "action": "this.popState();"
+   },
+   {
+    "index": 33,
+    "pattern": "[\\)]\\)",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ))');return \"NODE_DEND\";"
+   },
+   {
+    "index": 34,
+    "pattern": "[\\)]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end )');return \"NODE_DEND\";"
+   },
+   {
+    "index": 35,
+    "pattern": "[\\]]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ...',yytext);return \"NODE_DEND\";"
+   },
+   {
+    "index": 36,
+    "pattern": "\\}\\}",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ((');return \"NODE_DEND\";"
+   },
+   {
+    "index": 37,
+    "pattern": "\\(-",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end (-');return \"NODE_DEND\";"
+   },
+   {
+    "index": 38,
+    "pattern": "-\\)",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end (-');return \"NODE_DEND\";"
+   },
+   {
+    "index": 39,
+    "pattern": "\\(\\(",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ((');return \"NODE_DEND\";"
+   },
+   {
+    "index": 40,
+    "pattern": "\\(",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ((');return \"NODE_DEND\";"
+   },
+   {
+    "index": 41,
+    "pattern": "[^\\)\\]\\(\\}]+",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " yy.getLogger().trace('Long description:', yytext);   return 'NODE_DESCR';"
+   },
+   {
+    "index": 42,
+    "pattern": ".+(?!\\(\\()",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " yy.getLogger().trace('Long description:', yytext);   return 'NODE_DESCR';"
+   }
+  ]
+ }
+}

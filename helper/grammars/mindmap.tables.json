@@ -1,0 +1,1504 @@
+{
+ "grammar": "mindmap",
+ "mermaid_version": "12.2.0",
+ "jison_version": "0.4.18",
+ "conflicts": 0,
+ "start": "start",
+ "symbols_": {
+  "error": 2,
+  "start": 3,
+  "mindMap": 4,
+  "spaceLines": 5,
+  "SPACELINE": 6,
+  "NL": 7,
+  "MINDMAP": 8,
+  "document": 9,
+  "stop": 10,
+  "EOF": 11,
+  "statement": 12,
+  "SPACELIST": 13,
+  "node": 14,
+  "ICON": 15,
+  "CLASS": 16,
+  "nodeWithId": 17,
+  "nodeWithoutId": 18,
+  "NODE_DSTART": 19,
+  "NODE_DESCR": 20,
+  "NODE_DEND": 21,
+  "NODE_ID": 22,
+  "$accept": 0,
+  "$end": 1
+ },
+ "terminals_": {
+  "2": "error",
+  "6": "SPACELINE",
+  "7": "NL",
+  "8": "MINDMAP",
+  "11": "EOF",
+  "13": "SPACELIST",
+  "15": "ICON",
+  "16": "CLASS",
+  "19": "NODE_DSTART",
+  "20": "NODE_DESCR",
+  "21": "NODE_DEND",
+  "22": "NODE_ID"
+ },
+ "productions_": [
+  [
+   0,
+   2
+  ],
+  [
+   3,
+   1
+  ],
+  [
+   3,
+   2
+  ],
+  [
+   5,
+   1
+  ],
+  [
+   5,
+   2
+  ],
+  [
+   5,
+   2
+  ],
+  [
+   4,
+   2
+  ],
+  [
+   4,
+   3
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   1
+  ],
+  [
+   10,
+   2
+  ],
+  [
+   10,
+   2
+  ],
+  [
+   9,
+   3
+  ],
+  [
+   9,
+   2
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   2
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   12,
+   1
+  ],
+  [
+   14,
+   1
+  ],
+  [
+   14,
+   1
+  ],
+  [
+   18,
+   3
+  ],
+  [
+   17,
+   1
+  ],
+  [
+   17,
+   4
+  ]
+ ],
+ "productions": [
+  {
+   "lhs": "$accept",
+   "rhs": [
+    "start",
+    "$end"
+   ],
+   "action": null
+  },
+  {
+   "lhs": "start",
+   "rhs": [
+    "mindMap"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "start",
+   "rhs": [
+    "spaceLines",
+    "mindMap"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "spaceLines",
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "spaceLines",
+   "rhs": [
+    "spaceLines",
+    "NL"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "mindMap",
+   "rhs": [
+    "MINDMAP",
+    "document"
+   ],
+   "action": " return yy; ",
+   "precedence": null
+  },
+  {
+   "lhs": "mindMap",
+   "rhs": [
+    "MINDMAP",
+    "NL",
+    "document"
+   ],
+   "action": " return yy; ",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "NL"
+   ],
+   "action": "yy.getLogger().trace('Stop NL ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "EOF"
+   ],
+   "action": "yy.getLogger().trace('Stop EOF ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "stop",
+    "NL"
+   ],
+   "action": "yy.getLogger().trace('Stop NL2 ');",
+   "precedence": null
+  },
+  {
+   "lhs": "stop",
+   "rhs": [
+    "stop",
+    "EOF"
+   ],
+   "action": "yy.getLogger().trace('Stop EOF2 ');",
+   "precedence": null
+  },
+  {
+   "lhs": "document",
+   "rhs": [
+    "document",
+    "statement",
+    "stop"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "document",
+   "rhs": [
+    "statement",
+    "stop"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST",
+    "node"
+   ],
+   "action": " yy.getLogger().info('Node: ',$2.id);yy.addNode($1.length, $2.id, $2.descr, $2.type);  ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST",
+    "ICON"
+   ],
+   "action": " yy.getLogger().trace('Icon: ',$2);yy.decorateNode({icon: $2}); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST",
+    "CLASS"
+   ],
+   "action": " yy.decorateNode({class: $2}); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELINE"
+   ],
+   "action": " yy.getLogger().trace('SPACELIST');",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "node"
+   ],
+   "action": " yy.getLogger().trace('Node: ',$1.id);yy.addNode(0, $1.id, $1.descr, $1.type);  ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "ICON"
+   ],
+   "action": " yy.decorateNode({icon: $1}); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "CLASS"
+   ],
+   "action": " yy.decorateNode({class: $1}); ",
+   "precedence": null
+  },
+  {
+   "lhs": "statement",
+   "rhs": [
+    "SPACELIST"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "node",
+   "rhs": [
+    "nodeWithId"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "node",
+   "rhs": [
+    "nodeWithoutId"
+   ],
+   "action": null,
+   "precedence": null
+  },
+  {
+   "lhs": "nodeWithoutId",
+   "rhs": [
+    "NODE_DSTART",
+    "NODE_DESCR",
+    "NODE_DEND"
+   ],
+   "action": " yy.getLogger().trace(\"node found ..\", $1); $$ = { id: $2, descr: $2, type: yy.getType($1, $3) }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "nodeWithId",
+   "rhs": [
+    "NODE_ID"
+   ],
+   "action": " $$ = { id: $1, descr: $1, type: yy.nodeType.DEFAULT }; ",
+   "precedence": null
+  },
+  {
+   "lhs": "nodeWithId",
+   "rhs": [
+    "NODE_ID",
+    "NODE_DSTART",
+    "NODE_DESCR",
+    "NODE_DEND"
+   ],
+   "action": " yy.getLogger().trace(\"node found ..\", $1); $$ = { id: $1, descr: $3, type: yy.getType($2, $4) }; ",
+   "precedence": null
+  }
+ ],
+ "table": [
+  {
+   "3": 1,
+   "4": 2,
+   "5": 3,
+   "6": [
+    1,
+    5
+   ],
+   "8": [
+    1,
+    4
+   ]
+  },
+  {
+   "1": [
+    3
+   ]
+  },
+  {
+   "1": [
+    2,
+    1
+   ]
+  },
+  {
+   "4": 6,
+   "6": [
+    1,
+    7
+   ],
+   "7": [
+    1,
+    8
+   ],
+   "8": [
+    1,
+    4
+   ]
+  },
+  {
+   "6": [
+    1,
+    13
+   ],
+   "7": [
+    1,
+    10
+   ],
+   "9": 9,
+   "12": 11,
+   "13": [
+    1,
+    12
+   ],
+   "14": 14,
+   "15": [
+    1,
+    15
+   ],
+   "16": [
+    1,
+    16
+   ],
+   "17": 17,
+   "18": 18,
+   "19": [
+    1,
+    20
+   ],
+   "22": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    2,
+    3
+   ],
+   "7": [
+    2,
+    3
+   ],
+   "8": [
+    2,
+    3
+   ]
+  },
+  {
+   "1": [
+    2,
+    2
+   ]
+  },
+  {
+   "6": [
+    2,
+    4
+   ],
+   "7": [
+    2,
+    4
+   ],
+   "8": [
+    2,
+    4
+   ]
+  },
+  {
+   "6": [
+    2,
+    5
+   ],
+   "7": [
+    2,
+    5
+   ],
+   "8": [
+    2,
+    5
+   ]
+  },
+  {
+   "1": [
+    2,
+    6
+   ],
+   "6": [
+    1,
+    13
+   ],
+   "12": 21,
+   "13": [
+    1,
+    12
+   ],
+   "14": 14,
+   "15": [
+    1,
+    15
+   ],
+   "16": [
+    1,
+    16
+   ],
+   "17": 17,
+   "18": 18,
+   "19": [
+    1,
+    20
+   ],
+   "22": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    1,
+    13
+   ],
+   "9": 22,
+   "12": 11,
+   "13": [
+    1,
+    12
+   ],
+   "14": 14,
+   "15": [
+    1,
+    15
+   ],
+   "16": [
+    1,
+    16
+   ],
+   "17": 17,
+   "18": 18,
+   "19": [
+    1,
+    20
+   ],
+   "22": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    1,
+    26
+   ],
+   "7": [
+    1,
+    24
+   ],
+   "10": 23,
+   "11": [
+    1,
+    25
+   ]
+  },
+  {
+   "6": [
+    2,
+    22
+   ],
+   "7": [
+    2,
+    22
+   ],
+   "11": [
+    2,
+    22
+   ],
+   "14": 27,
+   "15": [
+    1,
+    28
+   ],
+   "16": [
+    1,
+    29
+   ],
+   "17": 17,
+   "18": 18,
+   "19": [
+    1,
+    20
+   ],
+   "22": [
+    1,
+    19
+   ]
+  },
+  {
+   "6": [
+    2,
+    18
+   ],
+   "7": [
+    2,
+    18
+   ],
+   "11": [
+    2,
+    18
+   ]
+  },
+  {
+   "6": [
+    2,
+    19
+   ],
+   "7": [
+    2,
+    19
+   ],
+   "11": [
+    2,
+    19
+   ]
+  },
+  {
+   "6": [
+    2,
+    20
+   ],
+   "7": [
+    2,
+    20
+   ],
+   "11": [
+    2,
+    20
+   ]
+  },
+  {
+   "6": [
+    2,
+    21
+   ],
+   "7": [
+    2,
+    21
+   ],
+   "11": [
+    2,
+    21
+   ]
+  },
+  {
+   "6": [
+    2,
+    23
+   ],
+   "7": [
+    2,
+    23
+   ],
+   "11": [
+    2,
+    23
+   ]
+  },
+  {
+   "6": [
+    2,
+    24
+   ],
+   "7": [
+    2,
+    24
+   ],
+   "11": [
+    2,
+    24
+   ]
+  },
+  {
+   "6": [
+    2,
+    26
+   ],
+   "7": [
+    2,
+    26
+   ],
+   "11": [
+    2,
+    26
+   ],
+   "19": [
+    1,
+    30
+   ]
+  },
+  {
+   "20": [
+    1,
+    31
+   ]
+  },
+  {
+   "6": [
+    1,
+    26
+   ],
+   "7": [
+    1,
+    24
+   ],
+   "10": 32,
+   "11": [
+    1,
+    25
+   ]
+  },
+  {
+   "1": [
+    2,
+    7
+   ],
+   "6": [
+    1,
+    13
+   ],
+   "12": 21,
+   "13": [
+    1,
+    12
+   ],
+   "14": 14,
+   "15": [
+    1,
+    15
+   ],
+   "16": [
+    1,
+    16
+   ],
+   "17": 17,
+   "18": 18,
+   "19": [
+    1,
+    20
+   ],
+   "22": [
+    1,
+    19
+   ]
+  },
+  {
+   "1": [
+    2,
+    14
+   ],
+   "6": [
+    2,
+    14
+   ],
+   "7": [
+    1,
+    33
+   ],
+   "11": [
+    1,
+    34
+   ],
+   "13": [
+    2,
+    14
+   ],
+   "15": [
+    2,
+    14
+   ],
+   "16": [
+    2,
+    14
+   ],
+   "19": [
+    2,
+    14
+   ],
+   "22": [
+    2,
+    14
+   ]
+  },
+  {
+   "1": [
+    2,
+    8
+   ],
+   "6": [
+    2,
+    8
+   ],
+   "7": [
+    2,
+    8
+   ],
+   "11": [
+    2,
+    8
+   ],
+   "13": [
+    2,
+    8
+   ],
+   "15": [
+    2,
+    8
+   ],
+   "16": [
+    2,
+    8
+   ],
+   "19": [
+    2,
+    8
+   ],
+   "22": [
+    2,
+    8
+   ]
+  },
+  {
+   "1": [
+    2,
+    9
+   ],
+   "6": [
+    2,
+    9
+   ],
+   "7": [
+    2,
+    9
+   ],
+   "11": [
+    2,
+    9
+   ],
+   "13": [
+    2,
+    9
+   ],
+   "15": [
+    2,
+    9
+   ],
+   "16": [
+    2,
+    9
+   ],
+   "19": [
+    2,
+    9
+   ],
+   "22": [
+    2,
+    9
+   ]
+  },
+  {
+   "1": [
+    2,
+    10
+   ],
+   "6": [
+    2,
+    10
+   ],
+   "7": [
+    2,
+    10
+   ],
+   "11": [
+    2,
+    10
+   ],
+   "13": [
+    2,
+    10
+   ],
+   "15": [
+    2,
+    10
+   ],
+   "16": [
+    2,
+    10
+   ],
+   "19": [
+    2,
+    10
+   ],
+   "22": [
+    2,
+    10
+   ]
+  },
+  {
+   "6": [
+    2,
+    15
+   ],
+   "7": [
+    2,
+    15
+   ],
+   "11": [
+    2,
+    15
+   ]
+  },
+  {
+   "6": [
+    2,
+    16
+   ],
+   "7": [
+    2,
+    16
+   ],
+   "11": [
+    2,
+    16
+   ]
+  },
+  {
+   "6": [
+    2,
+    17
+   ],
+   "7": [
+    2,
+    17
+   ],
+   "11": [
+    2,
+    17
+   ]
+  },
+  {
+   "20": [
+    1,
+    35
+   ]
+  },
+  {
+   "21": [
+    1,
+    36
+   ]
+  },
+  {
+   "1": [
+    2,
+    13
+   ],
+   "6": [
+    2,
+    13
+   ],
+   "7": [
+    1,
+    33
+   ],
+   "11": [
+    1,
+    34
+   ],
+   "13": [
+    2,
+    13
+   ],
+   "15": [
+    2,
+    13
+   ],
+   "16": [
+    2,
+    13
+   ],
+   "19": [
+    2,
+    13
+   ],
+   "22": [
+    2,
+    13
+   ]
+  },
+  {
+   "1": [
+    2,
+    11
+   ],
+   "6": [
+    2,
+    11
+   ],
+   "7": [
+    2,
+    11
+   ],
+   "11": [
+    2,
+    11
+   ],
+   "13": [
+    2,
+    11
+   ],
+   "15": [
+    2,
+    11
+   ],
+   "16": [
+    2,
+    11
+   ],
+   "19": [
+    2,
+    11
+   ],
+   "22": [
+    2,
+    11
+   ]
+  },
+  {
+   "1": [
+    2,
+    12
+   ],
+   "6": [
+    2,
+    12
+   ],
+   "7": [
+    2,
+    12
+   ],
+   "11": [
+    2,
+    12
+   ],
+   "13": [
+    2,
+    12
+   ],
+   "15": [
+    2,
+    12
+   ],
+   "16": [
+    2,
+    12
+   ],
+   "19": [
+    2,
+    12
+   ],
+   "22": [
+    2,
+    12
+   ]
+  },
+  {
+   "21": [
+    1,
+    37
+   ]
+  },
+  {
+   "6": [
+    2,
+    25
+   ],
+   "7": [
+    2,
+    25
+   ],
+   "11": [
+    2,
+    25
+   ]
+  },
+  {
+   "6": [
+    2,
+    27
+   ],
+   "7": [
+    2,
+    27
+   ],
+   "11": [
+    2,
+    27
+   ]
+  }
+ ],
+ "defaultActions": {
+  "2": [
+   2,
+   1
+  ],
+  "6": [
+   2,
+   2
+  ]
+ },
+ "lexer": {
+  "options": {
+   "flex": false,
+   "case_insensitive": true
+  },
+  "macros": {},
+  "action_include": "\n\t// Pre-lexer code can go here\n",
+  "conditions": {
+   "CLASS": {
+    "rules": [
+     3,
+     4
+    ],
+    "inclusive": false
+   },
+   "ICON": {
+    "rules": [
+     8,
+     9
+    ],
+    "inclusive": false
+   },
+   "NSTR2": {
+    "rules": [
+     22,
+     23
+    ],
+    "inclusive": false
+   },
+   "NSTR": {
+    "rules": [
+     25,
+     26
+    ],
+    "inclusive": false
+   },
+   "NODE": {
+    "rules": [
+     21,
+     24,
+     27,
+     28,
+     29,
+     30,
+     31,
+     32,
+     33,
+     34,
+     35,
+     36
+    ],
+    "inclusive": false
+   },
+   "INITIAL": {
+    "rules": [
+     0,
+     1,
+     2,
+     5,
+     6,
+     7,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20
+    ],
+    "inclusive": true
+   }
+  },
+  "rules": [
+   {
+    "index": 0,
+    "pattern": "\\s*%%.*",
+    "conditions": null,
+    "action": "yy.getLogger().trace('Found comment',yytext); return 'SPACELINE';"
+   },
+   {
+    "index": 1,
+    "pattern": "mindmap\\b",
+    "conditions": null,
+    "action": "return 'MINDMAP';"
+   },
+   {
+    "index": 2,
+    "pattern": ":::",
+    "conditions": null,
+    "action": " this.begin('CLASS'); "
+   },
+   {
+    "index": 3,
+    "pattern": ".+",
+    "conditions": [
+     "CLASS"
+    ],
+    "action": " this.popState();return 'CLASS'; "
+   },
+   {
+    "index": 4,
+    "pattern": "\\n",
+    "conditions": [
+     "CLASS"
+    ],
+    "action": " this.popState();"
+   },
+   {
+    "index": 5,
+    "pattern": "::icon\\(",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Begin icon');this.begin('ICON'); "
+   },
+   {
+    "index": 6,
+    "pattern": "[\\s]+[\\n]",
+    "conditions": null,
+    "action": "yy.getLogger().trace('SPACELINE');return 'SPACELINE'                 /* skip all whitespace */    ;"
+   },
+   {
+    "index": 7,
+    "pattern": "[\\n]+",
+    "conditions": null,
+    "action": "return 'NL';"
+   },
+   {
+    "index": 8,
+    "pattern": "[^\\)]+",
+    "conditions": [
+     "ICON"
+    ],
+    "action": " return 'ICON'; "
+   },
+   {
+    "index": 9,
+    "pattern": "\\)",
+    "conditions": [
+     "ICON"
+    ],
+    "action": "yy.getLogger().trace('end icon');this.popState();"
+   },
+   {
+    "index": 10,
+    "pattern": "-\\)",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Exploding node'); this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 11,
+    "pattern": "\\(-",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Cloud'); this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 12,
+    "pattern": "\\)\\)",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Explosion Bang'); this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 13,
+    "pattern": "\\)",
+    "conditions": null,
+    "action": " yy.getLogger().trace('Cloud Bang'); this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 14,
+    "pattern": "\\(\\(",
+    "conditions": null,
+    "action": " this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 15,
+    "pattern": "\\{\\{",
+    "conditions": null,
+    "action": " this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 16,
+    "pattern": "\\(",
+    "conditions": null,
+    "action": " this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 17,
+    "pattern": "\\[",
+    "conditions": null,
+    "action": " this.begin('NODE');return 'NODE_DSTART'; "
+   },
+   {
+    "index": 18,
+    "pattern": "[\\s]+",
+    "conditions": null,
+    "action": "return 'SPACELIST'                 /* skip all whitespace */    ;"
+   },
+   {
+    "index": 19,
+    "pattern": "[^\\(\\[\\n\\)\\{\\}]+",
+    "conditions": null,
+    "action": "return 'NODE_ID';"
+   },
+   {
+    "index": 20,
+    "pattern": "$",
+    "conditions": null,
+    "action": "return 'EOF';"
+   },
+   {
+    "index": 21,
+    "pattern": "[\"][`]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " this.begin(\"NSTR2\");"
+   },
+   {
+    "index": 22,
+    "pattern": "[^`\"]+",
+    "conditions": [
+     "NSTR2"
+    ],
+    "action": " return \"NODE_DESCR\";"
+   },
+   {
+    "index": 23,
+    "pattern": "[`][\"]",
+    "conditions": [
+     "NSTR2"
+    ],
+    "action": " this.popState();"
+   },
+   {
+    "index": 24,
+    "pattern": "[\"]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " yy.getLogger().trace('Starting NSTR');this.begin(\"NSTR\");"
+   },
+   {
+    "index": 25,
+    "pattern": "[^\"]+",
+    "conditions": [
+     "NSTR"
+    ],
+    "action": " yy.getLogger().trace('description:', yytext); return \"NODE_DESCR\";"
+   },
+   {
+    "index": 26,
+    "pattern": "[\"]",
+    "conditions": [
+     "NSTR"
+    ],
+    "action": "this.popState();"
+   },
+   {
+    "index": 27,
+    "pattern": "[\\)]\\)",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ))');return \"NODE_DEND\";"
+   },
+   {
+    "index": 28,
+    "pattern": "[\\)]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end )');return \"NODE_DEND\";"
+   },
+   {
+    "index": 29,
+    "pattern": "[\\]]",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ...',yytext);return \"NODE_DEND\";"
+   },
+   {
+    "index": 30,
+    "pattern": "\\}\\}",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ((');return \"NODE_DEND\";"
+   },
+   {
+    "index": 31,
+    "pattern": "\\(-",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end (-');return \"NODE_DEND\";"
+   },
+   {
+    "index": 32,
+    "pattern": "-\\)",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end (-');return \"NODE_DEND\";"
+   },
+   {
+    "index": 33,
+    "pattern": "\\(\\(",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ((');return \"NODE_DEND\";"
+   },
+   {
+    "index": 34,
+    "pattern": "\\(",
+    "conditions": [
+     "NODE"
+    ],
+    "action": "this.popState();yy.getLogger().trace('node end ((');return \"NODE_DEND\";"
+   },
+   {
+    "index": 35,
+    "pattern": "[^\\)\\]\\(\\}]+",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " yy.getLogger().trace('Long description:', yytext);   return 'NODE_DESCR';"
+   },
+   {
+    "index": 36,
+    "pattern": ".+(?!\\(\\()",
+    "conditions": [
+     "NODE"
+    ],
+    "action": " yy.getLogger().trace('Long description:', yytext);   return 'NODE_DESCR';"
+   }
+  ]
+ }
+}
