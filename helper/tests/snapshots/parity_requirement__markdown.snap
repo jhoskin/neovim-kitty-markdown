@@ -1,0 +1,71 @@
+---
+source: tests/parity_requirement.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="252.102" height="386" viewBox="0 0 252.102 386" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_requirement-requirement_containsStart" refX="0" refY="10" markerWidth="20" markerHeight="20" orient="auto" markerUnits="strokeWidth" fill="#333333" stroke="#333333">
+      <g fill="#333333" stroke="#333333">
+        <circle cx="10" cy="10" r="9" fill="none" stroke="#333333"/>
+        <line x1="1" y1="10" x2="19" y2="10" fill="#333333" stroke="#333333"/>
+        <line x1="10" y1="1" x2="10" y2="19" fill="#333333" stroke="#333333"/>
+      </g>
+    </marker>
+    <marker id="my-svg_requirement-requirement_arrowEnd" refX="20" refY="10" markerWidth="20" markerHeight="20" orient="auto" markerUnits="strokeWidth" fill="#333333" stroke="#333333">
+      <path d="M0,0L20,10M20,10L0,20" fill="#333333" stroke="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="my-svg-**bold element**-__test_req__-0" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M126.051,120L126.051,126.167C126.051,132.333,126.051,144.667,126.051,157C126.051,169.333,126.051,181.667,126.051,187.833L126.051,194" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="10,7" marker-end="url(#my-svg_requirement-requirement_arrowEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel" transform="translate(126.051, 157)">
+          <g class="label" transform="translate(-41.465, -12)">
+            <rect class="background" x="0" y="0" width="82.93" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="41.465" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="41.465" dy="17">&lt;&lt;refines&gt;&gt;</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="my-svg-__test_req__" class="node default " transform="translate(126.051, 286)">
+          <rect class="basic label-container outer-path" x="-118.051" y="-92" width="236.102" height="184" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+          <g class="label" transform="translate(-62.605, -84)">
+            <text class="nodeLabel" x="62.605" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.605" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
+          </g>
+          <g class="label" transform="translate(-31.762, -60)" font-weight="bold">
+            <text class="nodeLabel" x="31.762" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="31.762" dy="17" font-weight="bold">test_req</tspan></text>
+          </g>
+          <g class="label" transform="translate(-108.051, -16)">
+            <text class="nodeLabel" x="16.676" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.676" dy="17">ID: 1</tspan></text>
+          </g>
+          <g class="label" transform="translate(-108.051, 8)">
+            <text class="nodeLabel" x="108.051" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="108.051" dy="17">Text: </tspan><tspan font-style="italic">italicized text</tspan><tspan> </tspan><tspan font-weight="bold">bold text</tspan></text>
+          </g>
+          <g class="label" transform="translate(-108.051, 32)">
+            <text class="nodeLabel" x="35.461" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="35.461" dy="17">Risk: High</tspan></text>
+          </g>
+          <g class="label" transform="translate(-108.051, 56)">
+            <text class="nodeLabel" x="61.082" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="61.082" dy="17">Verification: Test</tspan></text>
+          </g>
+          <line class="divider" x1="-118.051" y1="-24" x2="118.051" y2="-24" stroke="#9370db" stroke-width="1.3"/>
+        </g>
+        <g id="my-svg-**bold element**" class="node default " transform="translate(126.051, 64)">
+          <rect class="basic label-container outer-path" x="-64.82" y="-56" width="129.641" height="112" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+          <g class="label" transform="translate(-46.336, -48)">
+            <text class="nodeLabel" x="46.336" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="46.336" dy="17">&lt;&lt;Element&gt;&gt;</tspan></text>
+          </g>
+          <g class="label" transform="translate(-49.516, -24)" font-weight="bold">
+            <text class="nodeLabel" x="49.516" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="49.516" dy="17" font-weight="bold">bold element</tspan></text>
+          </g>
+          <g class="label" transform="translate(-54.82, 20)">
+            <text class="nodeLabel" x="54.82" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="54.82" dy="17">Type: </tspan><tspan font-style="italic">emphasis</tspan></text>
+          </g>
+          <line class="divider" x1="-64.82" y1="12" x2="64.82" y2="12" stroke="#9370db" stroke-width="1.3"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+requirementDiagram
+
+requirement a {
+id: A
+}
+
+requirement b {
+id: B
+}
+
+requirement c {
+id: C
+}
+
+element d {
+type: model
+}
+
+a - contains -> b
+a - copies -> c
+b - derives -> c
+d - satisfies -> a
+d - verifies -> b
+c - refines -> b
+d <- traces - c

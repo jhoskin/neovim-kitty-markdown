@@ -1,0 +1,34 @@
+requirementDiagram
+
+requirement test_req:::important {
+id: 1
+text: "class styling example"
+risk: low
+verifymethod: test
+}
+
+requirement other_req {
+id: 2
+text: styled directly
+risk: medium
+verifymethod: analysis
+}
+
+element test_entity {
+type: simulation
+}
+
+element test_elem {
+type: shorthand
+}
+
+classDef important fill:#f96,stroke:#333,stroke-width:4px
+classDef pale fill:#ffa,stroke:#000
+
+class test_entity pale
+test_elem:::important
+style other_req fill:#9cf,stroke:#036, color: #036
+
+test_entity - satisfies -> test_req
+test_elem - verifies -> other_req
+other_req - derives -> test_req

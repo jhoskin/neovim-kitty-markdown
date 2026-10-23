@@ -1,0 +1,27 @@
+requirementDiagram
+
+requirement target {
+id: 7
+text: the target requirement.
+}
+
+element bare {
+}
+
+element typed {
+type: simulation
+}
+
+element documented {
+docRef: reqs/documented
+}
+
+element "quoted element" {
+type: "test suite"
+docRef: "github.com/all_the_tests"
+}
+
+bare - satisfies -> target
+typed - satisfies -> target
+documented - verifies -> target
+"quoted element" - verifies -> target

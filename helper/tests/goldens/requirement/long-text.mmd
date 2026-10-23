@@ -1,0 +1,15 @@
+requirementDiagram
+
+requirement long_req {
+id: "REQ-0042"
+text: "The system shall keep every customer order, payment record, and shipping label for at least seven years after the order closes."
+risk: high
+verifymethod: inspection
+}
+
+element archive {
+type: storage service with a rather long descriptive type name
+docRef: "docs/architecture/storage/archive-retention-policy.md"
+}
+
+archive - satisfies -> long_req

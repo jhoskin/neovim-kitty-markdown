@@ -1,0 +1,74 @@
+---
+source: tests/parity_requirement.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="928" height="470" viewBox="0 0 928 470" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_requirement-requirement_containsStart" refX="0" refY="10" markerWidth="20" markerHeight="20" orient="auto" markerUnits="strokeWidth" fill="#333333" stroke="#333333">
+      <g fill="#333333" stroke="#333333">
+        <circle cx="10" cy="10" r="9" fill="none" stroke="#333333"/>
+        <line x1="1" y1="10" x2="19" y2="10" fill="#333333" stroke="#333333"/>
+        <line x1="10" y1="1" x2="10" y2="19" fill="#333333" stroke="#333333"/>
+      </g>
+    </marker>
+    <marker id="my-svg_requirement-requirement_arrowEnd" refX="20" refY="10" markerWidth="20" markerHeight="20" orient="auto" markerUnits="strokeWidth" fill="#333333" stroke="#333333">
+      <path d="M0,0L20,10M20,10L0,20" fill="#333333" stroke="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="my-svg-archive-long_req-0" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M464,180L464,186.167C464,192.333,464,204.667,464,217C464,229.333,464,241.667,464,247.833L464,254" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="10,7" marker-end="url(#my-svg_requirement-requirement_arrowEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel" transform="translate(464, 217)">
+          <g class="label" transform="translate(-45.754, -12)">
+            <rect class="background" x="0" y="0" width="91.508" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="45.754" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="45.754" dy="17">&lt;&lt;satisfies&gt;&gt;</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="my-svg-long_req" class="node default " transform="translate(464, 358)">
+          <rect class="basic label-container outer-path" x="-456" y="-104" width="912" height="208" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+          <g class="label" transform="translate(-62.605, -96)">
+            <text class="nodeLabel" x="62.605" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.605" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
+          </g>
+          <g class="label" transform="translate(-33, -72)" font-weight="bold">
+            <text class="nodeLabel" x="33" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33" dy="17" font-weight="bold">long_req</tspan></text>
+          </g>
+          <g class="label" transform="translate(-446, -28)">
+            <text class="nodeLabel" x="46.547" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="46.547" dy="17">ID: REQ-0042</tspan></text>
+          </g>
+          <g class="label" transform="translate(-446, -16)">
+            <text class="nodeLabel" x="446" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="446" dy="17">Text:</tspan><tspan> </tspan><tspan>The</tspan><tspan> </tspan><tspan>system</tspan><tspan> </tspan><tspan>shall</tspan><tspan> </tspan><tspan>keep</tspan><tspan> </tspan><tspan>every</tspan><tspan> </tspan><tspan>customer</tspan><tspan> </tspan><tspan>order,</tspan><tspan> </tspan><tspan>payment</tspan><tspan> </tspan><tspan>record,</tspan><tspan> </tspan><tspan>and</tspan><tspan> </tspan><tspan>shipping</tspan><tspan> </tspan><tspan>label</tspan><tspan> </tspan><tspan>for</tspan><tspan> </tspan><tspan>at</tspan><tspan> </tspan><tspan>least</tspan><tspan> </tspan><tspan>seven</tspan><tspan> </tspan><tspan>years</tspan><tspan> </tspan><tspan>after</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan x="446" dy="24">order</tspan><tspan> </tspan><tspan>closes.</tspan></text>
+          </g>
+          <g class="label" transform="translate(-446, 44)">
+            <text class="nodeLabel" x="35.461" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="35.461" dy="17">Risk: High</tspan></text>
+          </g>
+          <g class="label" transform="translate(-446, 68)">
+            <text class="nodeLabel" x="83.539" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="83.539" dy="17">Verification: Inspection</tspan></text>
+          </g>
+          <line class="divider" x1="-456" y1="-36" x2="456" y2="-36" stroke="#9370db" stroke-width="1.3"/>
+        </g>
+        <g id="my-svg-archive" class="node default " transform="translate(464, 94)">
+          <rect class="basic label-container outer-path" x="-237.5" y="-86" width="475" height="172" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+          <g class="label" transform="translate(-46.336, -78)">
+            <text class="nodeLabel" x="46.336" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="46.336" dy="17">&lt;&lt;Element&gt;&gt;</tspan></text>
+          </g>
+          <g class="label" transform="translate(-27.719, -54)" font-weight="bold">
+            <text class="nodeLabel" x="27.719" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.719" dy="17" font-weight="bold">archive</tspan></text>
+          </g>
+          <g class="label" transform="translate(-227.5, -22)">
+            <text class="nodeLabel" x="223.5" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="223.5" dy="17">Type:</tspan><tspan> </tspan><tspan>storage</tspan><tspan> </tspan><tspan>service</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan>a</tspan><tspan> </tspan><tspan>rather</tspan><tspan> </tspan><tspan>long</tspan><tspan> </tspan><tspan>descriptive</tspan><tspan> </tspan><tspan>type</tspan><tspan> </tspan><tspan x="223.5" dy="24">name</tspan></text>
+          </g>
+          <g class="label" transform="translate(-227.5, 26)">
+            <text class="nodeLabel" x="227.5" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="227.5" dy="17">Doc</tspan><tspan> </tspan><tspan>Ref:</tspan><tspan> </tspan><tspan>docs/architecture/storage/archive-</tspan><tspan>retention-</tspan><tspan x="227.5" dy="24">policy.md</tspan></text>
+          </g>
+          <line class="divider" x1="-237.5" y1="-18" x2="237.5" y2="-18" stroke="#9370db" stroke-width="1.3"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,44 @@
+requirementDiagram
+
+requirement plain_req {
+id: 1
+text: a plain requirement.
+risk: low
+verifymethod: analysis
+}
+
+functionalRequirement func_req {
+id: 1.1
+text: a functional requirement.
+risk: medium
+verifymethod: demonstration
+}
+
+interfaceRequirement iface_req {
+id: 1.2
+text: an interface requirement.
+risk: high
+verifymethod: inspection
+}
+
+performanceRequirement perf_req {
+id: 1.3
+text: a performance requirement.
+risk: low
+verifymethod: test
+}
+
+physicalRequirement phys_req {
+id: 1.4
+risk: medium
+}
+
+designConstraint design_con {
+text: a design constraint.
+}
+
+plain_req - contains -> func_req
+plain_req - contains -> iface_req
+plain_req - contains -> perf_req
+plain_req - contains -> phys_req
+plain_req - contains -> design_con
