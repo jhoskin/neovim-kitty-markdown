@@ -22,6 +22,7 @@ pub mod kanban;
 pub mod packet;
 pub mod pie;
 pub mod radar;
+pub mod requirement;
 pub mod sankey;
 pub mod sequence;
 pub mod state;
@@ -72,6 +73,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &treemap::DIAGRAM,
         &c4::DIAGRAM,
         &ishikawa::DIAGRAM,
+        &requirement::DIAGRAM,
     ];
     REGISTRY
 }

@@ -13,6 +13,7 @@ pub mod packet;
 pub mod pie;
 pub mod quadrant;
 pub mod radar;
+pub mod requirement;
 pub mod sankey;
 pub mod sequence;
 pub mod state;
