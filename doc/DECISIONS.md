@@ -82,6 +82,19 @@ as a spec proposal instead.
   as its `getBBox` box (the `setTerminalWidth` box in HTML mode, the text
   box in SVG mode), so the scene bounds include it.
 
+- The measurer tries the rest of the CSS `font-family` list before the
+  platform fallback list, as Chrome does: under mermaid's chain, `→` comes
+  from Arial, because Trebuchet MS and Verdana lack it. A grapheme with
+  U+FE0F skips the list and goes to Apple Color Emoji. The raster step
+  still uses resvg's fallback, because its hook does not get the CSS list.
+- An inherited `text-decoration: underline` on an HTML label is a rect per
+  line, drawn before the text, in the page default black. Its thickness is
+  the face's `post` underline thickness rounded (at least 1 px), and it
+  sits `max(1, ceil(t / 2))` px under the baseline. Skip-ink gaps are not
+  drawn.
+- HTML labels honour the label style `text-align` and `white-space:
+  nowrap`, as `addHtmlSpan` lays them out.
+
 ## Diagram ports
 
 - Langium grammars are hand-written parsers. Wardley emulates
@@ -105,5 +118,13 @@ as a spec proposal instead.
   the default stylesheet gives every group to the bounds.
 - Architecture icon text (`service x "text"`) is drawn as SVG text, not as
   the oracle's HTML `foreignObject`.
+- At the top level of a graph, edges clip against the nodes named by
+  `edge.start` and `edge.end`, as mermaid's common painter does with
+  `getRenderedNode`. Every self-loop segment then clips against the real
+  node, not the dummy nodes. Edges inside a recursive cluster keep the
+  dagre end points.
+- Diagram stylesheet marker rules (class, usecase) live in
+  `markers::stylesheet_rule`, keyed by diagram type. The unified renderer
+  applies them before the shared `.marker` paint.
 - The dagre dummy node id counter resets once per diagram render, so two
   renders of one source give the same SVG.
