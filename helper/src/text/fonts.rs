@@ -235,6 +235,37 @@ impl FontSystem {
         ids.into_iter().find(|&id| self.has_glyph(id, ch))
     }
 
+    /// The face Chrome draws `grapheme` in when the primary face of `chain`
+    /// lacks its first character.
+    ///
+    /// Blink's `FontFallbackList` tries every family of the `font-family`
+    /// list in order before it asks the platform, so under mermaid's
+    /// `"trebuchet ms", verdana, arial, sans-serif` an `→` is drawn in
+    /// Arial and a `├` in Arial while `─` stays in Verdana. A grapheme with
+    /// emoji presentation (`U+FE0F`) skips the list: Chrome draws `❤️` in
+    /// Apple Color Emoji even when a listed family has a text `❤`. Both
+    /// read off `CSS.getPlatformFontsForNode` in the oracle's Chrome 156
+    /// on macOS. What the list cannot cover goes to [`Self::fallback_for`].
+    pub fn fallback_in_chain(
+        &self,
+        chain: &str,
+        grapheme: &str,
+        weight: Weight,
+        style: Style,
+    ) -> Option<FontId> {
+        let ch = grapheme.chars().next()?;
+        let emoji = grapheme.contains('\u{FE0F}');
+        let listed = (!emoji)
+            .then(|| {
+                parse_families(chain)
+                    .iter()
+                    .filter_map(|family| self.resolve_family(family, weight, style))
+                    .find(|&id| self.has_glyph(id, ch))
+            })
+            .flatten();
+        listed.or_else(|| self.fallback_for(ch, weight, style))
+    }
+
     /// True when the face maps `ch` to a glyph other than `.notdef`.
     pub fn has_glyph(&self, id: FontId, ch: char) -> bool {
         self.with_face(id, |face| face.glyph_index(ch).is_some())
@@ -374,6 +405,29 @@ mod tests {
             fonts
                 .resolve("\"No Such Font\"", Weight::NORMAL, Style::Normal)
                 .is_none()
+        );
+    }
+
+    #[test]
+    fn a_missing_glyph_comes_from_the_next_listed_family() {
+        let fonts = FontSystem::new();
+        let (w, s) = (Weight::NORMAL, Style::Normal);
+        let has = |family: &str| {
+            fonts
+                .resolve_family(family, w, s)
+                .map(|id| (id, fonts.has_glyph(id, '\u{2192}')))
+        };
+        // The oracle's fonts: Trebuchet MS and Verdana lack `→`, Arial has
+        // it. Elsewhere there is nothing to check.
+        let (Some((_, false)), Some((_, false)), Some((arial, true))) =
+            (has("trebuchet ms"), has("verdana"), has("arial"))
+        else {
+            return;
+        };
+        let chain = "\"trebuchet ms\", verdana, arial, sans-serif";
+        assert_eq!(
+            fonts.fallback_in_chain(chain, "\u{2192}", w, s),
+            Some(arial)
         );
     }
 

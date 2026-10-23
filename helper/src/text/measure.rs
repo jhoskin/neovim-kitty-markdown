@@ -297,11 +297,14 @@ impl<'f> TextMetrics<'f> {
     }
 
     /// Splits `text` into runs by the face that has each character:
-    /// the primary face when it covers the character, else the platform
-    /// fallback. Marks, joiners, and variation selectors stay with their base.
+    /// the primary face when it covers the character, else the next family
+    /// of `chain` that does, else the platform fallback
+    /// ([`FontSystem::fallback_in_chain`]). Marks, joiners, and variation
+    /// selectors stay with their base.
     fn runs(
         &self,
         text: &str,
+        chain: &str,
         primary: FontId,
         weight: Weight,
         style: Style,
@@ -313,7 +316,7 @@ impl<'f> TextMetrics<'f> {
                 primary
             } else {
                 self.fonts
-                    .fallback_for(base, weight, style)
+                    .fallback_in_chain(chain, &grapheme, weight, style)
                     .unwrap_or(primary)
             };
             match runs.last_mut() {
@@ -430,7 +433,7 @@ impl<'f> TextMetrics<'f> {
         let (ascent, descent) = self.face_ascent_descent(primary, spec.size);
         let mut width = 0.0;
         let mut ink: Option<Ink> = None;
-        for (face, run) in self.runs(text, primary, weight, style) {
+        for (face, run) in self.runs(text, &spec.family, primary, weight, style) {
             let synthetic = Synthetic {
                 oblique: spec.style == FontStyle::Italic
                     && self.fonts.face_style(face) == Some(Style::Normal),
