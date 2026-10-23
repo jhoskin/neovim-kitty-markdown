@@ -11,6 +11,7 @@ pub mod packet;
 pub mod pie;
 pub mod quadrant;
 pub mod radar;
+pub mod sankey;
 pub mod sequence;
 pub mod state;
 pub mod timeline;
