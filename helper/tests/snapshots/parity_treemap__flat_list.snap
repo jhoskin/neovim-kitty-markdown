@@ -1,0 +1,40 @@
+---
+source: tests/parity_treemap.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="996" height="371" viewBox="2 27 996 371" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333" font-size="16">
+    <g class="treemapContainer" transform="translate(0, 0)">
+      <g class="treemapNode treemapLeafGroup leaf0x" transform="translate(10, 35)">
+        <rect class="treemapLeaf" x="0" y="0" width="361" height="355" fill="none" fill-opacity="0.3" stroke="none" stroke-width="3"/>
+        <text class="treemapLabel" x="180.5" y="177.5" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="38" font-weight="normal" font-style="normal">Rust</text>
+        <text class="treemapValue" x="180.5" y="198.5" text-anchor="middle" dominant-baseline="hanging" fill="#ffffff" font-size="23" font-weight="normal" font-style="normal">42</text>
+      </g>
+      <g class="treemapNode treemapLeafGroup leaf1x" transform="translate(381, 35)">
+        <rect class="treemapLeaf" x="0" y="0" width="423" height="221" fill="none" fill-opacity="0.3" stroke="none" stroke-width="3"/>
+        <text class="treemapLabel" x="211.5" y="110.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="38" font-weight="normal" font-style="normal">Lua</text>
+        <text class="treemapValue" x="211.5" y="131.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="23" font-weight="normal" font-style="normal">31</text>
+      </g>
+      <g class="treemapNode treemapLeafGroup leaf2x" transform="translate(381, 266)">
+        <rect class="treemapLeaf" x="0" y="0" width="423" height="124" fill="none" fill-opacity="0.3" stroke="none" stroke-width="3"/>
+        <text class="treemapLabel" x="211.5" y="62" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="38" font-weight="normal" font-style="normal">TypeScript</text>
+        <text class="treemapValue" x="211.5" y="83" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="23" font-weight="normal" font-style="normal">18</text>
+      </g>
+      <g class="treemapNode treemapLeafGroup leaf3x" transform="translate(814, 35)">
+        <rect class="treemapLeaf" x="0" y="0" width="176" height="199" fill="none" fill-opacity="0.3" stroke="none" stroke-width="3"/>
+        <text class="treemapLabel" x="88" y="99.5" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="38" font-weight="normal" font-style="normal">Python</text>
+        <text class="treemapValue" x="88" y="120.5" text-anchor="middle" dominant-baseline="hanging" fill="#ffffff" font-size="23" font-weight="normal" font-style="normal">12</text>
+      </g>
+      <g class="treemapNode treemapLeafGroup leaf4x" transform="translate(814, 244)">
+        <rect class="treemapLeaf" x="0" y="0" width="114" height="146" fill="none" fill-opacity="0.3" stroke="none" stroke-width="3"/>
+        <text class="treemapLabel" x="57" y="73" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="38" font-weight="normal" font-style="normal">Shell</text>
+        <text class="treemapValue" x="57" y="94" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="23" font-weight="normal" font-style="normal">6</text>
+      </g>
+      <g class="treemapNode treemapLeafGroup leaf5x" transform="translate(938, 244)">
+        <rect class="treemapLeaf" x="0" y="0" width="52" height="146" fill="none" fill-opacity="0.3" stroke="none" stroke-width="3"/>
+        <text class="treemapLabel" x="26" y="73" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="30" font-weight="normal" font-style="normal">Nix</text>
+        <text class="treemapValue" x="26" y="90" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="18" font-weight="normal" font-style="normal">3</text>
+      </g>
+    </g>
+  </g>
+</svg>
