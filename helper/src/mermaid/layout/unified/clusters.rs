@@ -1,6 +1,6 @@
 //! Port of `rendering-elements/clusters.js`: the `rect`, `roundedWithTitle`,
-//! `noteGroup`, and `divider` cluster shapes. The agentflow, kanban,
-//! usecase-boundary, and swimlane shapes draw as `rect` for now.
+//! `noteGroup`, `divider`, and `usecaseSystemBoundary` cluster shapes. The
+//! agentflow, kanban, and swimlane shapes draw as `rect` for now.
 
 use crate::mermaid::scene::{Color, Common, Element, Group, Paint, Style};
 use crate::mermaid::shapes::measure::{LabelBox, LabelOpts};
@@ -255,6 +255,157 @@ pub fn divider(node: &mut Node, ctx: &ShapeCtx) -> (ClusterOut, f64) {
     )
 }
 
+/// `getUsecaseSystemBoundaryGeometry(node, labelBBox)`.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct BoundaryGeometry {
+    pub package: bool,
+    pub width: f64,
+    pub height: f64,
+    pub x: f64,
+    pub y: f64,
+    pub body_y: f64,
+    pub body_height: f64,
+    pub tab_height: f64,
+    pub tab_width: f64,
+}
+
+pub fn usecase_boundary_geometry(node: &Node, label: &LabelBox, package: bool) -> BoundaryGeometry {
+    let padding = node.padding();
+    let horizontal_label_padding = if package { 20.0 } else { padding };
+    let tab_height = if package { label.height + 10.0 } else { 0.0 };
+    let width = node.width().max(label.width + horizontal_label_padding);
+    let height = if package {
+        node.height().max(tab_height + padding * 2.0)
+    } else {
+        node.height()
+    };
+    let x = node.x - width / 2.0;
+    let y = node.y - height / 2.0;
+    BoundaryGeometry {
+        package,
+        width,
+        height,
+        x,
+        y,
+        body_y: y + tab_height,
+        body_height: height - tab_height,
+        tab_height,
+        tab_width: if package {
+            width.min(80f64.max(label.width + 20.0))
+        } else {
+            0.0
+        },
+    }
+}
+
+/// `usecaseSystemBoundary(parent, node)`: the use case system boundary, a
+/// body rect and, for `type: package`, a title tab. The boundary type
+/// travels in the `system-boundary-<type>` class `getData` sets, since
+/// the node carries no `boundaryType` field.
+pub fn usecase_system_boundary(
+    node: &mut Node,
+    ctx: &ShapeCtx,
+    sub_graph_title_top_margin: f64,
+) -> (ClusterOut, f64) {
+    let package = node
+        .css_classes
+        .split_whitespace()
+        .any(|c| c == "system-boundary-package");
+    let boundary_type = if package { "package" } else { "rect" };
+    // `createText(labelEl, node.label, { style, useHtmlLabels, isNode })`:
+    // Markdown on, the default width of 200.
+    let opts = LabelOpts {
+        font: ctx.font(),
+        html: ctx.html_labels,
+        width: Some(200.0),
+        min_width: 0.0,
+        markdown: true,
+    };
+    let bbox = ctx
+        .measurer
+        .measure(node.label.as_deref().unwrap_or_default(), &opts);
+    let g = usecase_boundary_geometry(node, &bbox, package);
+    let padding = node.padding();
+    let diff = if node.width() <= bbox.width + padding {
+        (g.width - node.width()) / 2.0 - padding
+    } else {
+        -padding
+    };
+    let styles = styles2string(node);
+    let mut style = Style {
+        fill: Some(Paint::Color(ctx.vars.cluster_bkg)),
+        stroke: Some(Paint::Color(ctx.vars.cluster_border)),
+        stroke_width: Some(1.0),
+        ..Style::default()
+    };
+    apply_declarations(&mut style, &styles.node_styles);
+    let mut children = Vec::new();
+    if package {
+        children.push(rect_element(
+            g.x,
+            g.y,
+            g.tab_width,
+            g.tab_height,
+            None,
+            None,
+            "boundary-tab system-boundary-package-tab label-container",
+            style.clone(),
+        ));
+    }
+    children.push(rect_element(
+        g.x,
+        g.body_y,
+        g.width,
+        g.body_height,
+        None,
+        None,
+        "boundary-body label-container",
+        style,
+    ));
+    let title_color = styles
+        .label_styles
+        .get("color")
+        .and_then(|c| crate::mermaid::shapes::util::parse_css_color(c))
+        .and_then(|p| match p {
+            Paint::Color(c) => Some(c),
+            _ => None,
+        })
+        .unwrap_or(ctx.vars.title_color);
+    let (lx, ly) = if package {
+        (
+            g.x + (g.tab_width - bbox.width) / 2.0,
+            g.y + (g.tab_height - bbox.height) / 2.0,
+        )
+    } else {
+        (node.x - bbox.width / 2.0, g.y + sub_graph_title_top_margin)
+    };
+    let mut label = cluster_label_group(&bbox, ctx, title_color, lx, ly);
+    label.common.class = Some("cluster-label system-boundary-title".to_string());
+    children.push(Element::Group(label));
+    let group = Group {
+        common: Common {
+            id: Some(node.dom_id().to_string()),
+            class: Some(format!(
+                "cluster usecase-system-boundary usecase-system-boundary-{boundary_type} {}",
+                node.css_classes
+            )),
+            ..Common::default()
+        },
+        children,
+    };
+    node.width = Some(g.width);
+    node.height = Some(g.height);
+    node.label_bbox = Some(bbox.dims());
+    node.intersector = Intersector::Rect;
+    (
+        ClusterOut {
+            group,
+            label_bbox: bbox,
+        },
+        diff,
+    )
+}
+
 /// `insertCluster(elem, node)`: picks the cluster shape by `node.shape`
 /// (default `rect`). Returns the group and `node.diff`.
 pub fn insert_cluster(
@@ -266,6 +417,7 @@ pub fn insert_cluster(
         "roundedWithTitle" => rounded_with_title(node, ctx),
         "noteGroup" => note_group(node, ctx),
         "divider" => divider(node, ctx),
+        "usecaseSystemBoundary" => usecase_system_boundary(node, ctx, sub_graph_title_top_margin),
         _ => rect(node, ctx, sub_graph_title_top_margin),
     }
 }
