@@ -10,6 +10,7 @@ use crate::mermaid::config::Resolved;
 use crate::mermaid::scene::Scene;
 use crate::text::{FontSystem, TextMetrics};
 
+pub mod architecture;
 pub mod block;
 pub mod c4;
 pub mod class;
@@ -90,6 +91,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &wardley::DIAGRAM,
         &er::DIAGRAM,
         &swimlane::DIAGRAM,
+        &architecture::DIAGRAM,
     ];
     REGISTRY
 }

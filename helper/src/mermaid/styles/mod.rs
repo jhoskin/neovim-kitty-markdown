@@ -1,5 +1,6 @@
 //! Per-diagram `getStyles` rules resolved to attributes; the SVG carries no CSS.
 
+pub mod architecture;
 pub mod block;
 pub mod c4;
 pub mod class;

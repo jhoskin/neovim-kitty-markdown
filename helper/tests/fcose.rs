@@ -10,10 +10,14 @@
 use std::fs;
 use std::path::{Path, PathBuf};
 
+use kitty_markdown_helper::mermaid::diagrams::architecture::{
+    self,
+    layout::{self as arch_layout, ArchConfig},
+};
 use kitty_markdown_helper::mermaid::layout::fcose::{
     self, AlignmentConstraint, Edge, Node, Options, RelativePlacement,
 };
-use serde_json::Value;
+use serde_json::{Value, json};
 
 const TOLERANCE: f64 = 1e-6;
 
@@ -158,6 +162,108 @@ fn check(name: &str, spec: &Value, expected: &Value) -> Vec<String> {
         }
     }
     problems
+}
+
+/// The fcose input mermaid's architecture renderer builds for `source`, as
+/// a spec for `dump.mjs`.
+fn spec_for(source: &str) -> Value {
+    let ast = architecture::parser::parse(&format!("{source}\n"))
+        .unwrap_or_else(|e| panic!("{}", e.message));
+    let mut db = architecture::db::ArchitectureDb::new();
+    db.populate(&ast)
+        .unwrap_or_else(|e| panic!("{}", e.message));
+    let cfg = ArchConfig::from_raw(&Value::Null);
+    let cy = arch_layout::build(&db, &cfg, &|_| 0.0).unwrap_or_else(|e| panic!("{e}"));
+    let input = arch_layout::fcose_input(&db, &cfg, &cy);
+    let nodes = arch_layout::fcose_nodes(&cy);
+    let node_specs: Vec<Value> = nodes
+        .iter()
+        .map(|n| {
+            let group = cy.nodes[cy.index[&n.id]].kind == arch_layout::CyKind::Group;
+            json!({
+                "id": n.id,
+                "group": group,
+                "parent": n.parent.map(|p| nodes[p].id.clone()),
+                "width": n.width,
+                "height": n.height,
+            })
+        })
+        .collect();
+    let edge_specs: Vec<Value> = input
+        .edges
+        .iter()
+        .map(|e| {
+            json!({
+                "id": format!("{}-{}", nodes[e.source].id, nodes[e.target].id),
+                "source": nodes[e.source].id,
+                "target": nodes[e.target].id,
+                "idealLength": e.ideal_length,
+                "elasticity": e.elasticity,
+            })
+        })
+        .collect();
+    let alignment = input.options.alignment.clone().unwrap_or_default();
+    let relative: Vec<Value> = input
+        .options
+        .relative
+        .iter()
+        .map(|c| match c {
+            RelativePlacement::Horizontal { left, right, gap } => {
+                json!({ "left": left, "right": right, "gap": gap })
+            }
+            RelativePlacement::Vertical { top, bottom, gap } => {
+                json!({ "top": top, "bottom": bottom, "gap": gap })
+            }
+        })
+        .collect();
+    json!({
+        "seed": input.seed,
+        "padding": cfg.padding,
+        "nodeSeparation": 75,
+        "numIter": cfg.num_iter,
+        "nodes": node_specs,
+        "edges": edge_specs,
+        "alignmentConstraint": {
+            "horizontal": alignment.horizontal,
+            "vertical": alignment.vertical,
+        },
+        "relativePlacementConstraint": relative,
+    })
+}
+
+/// Regenerates the specs from the architecture goldens and the extra
+/// sources in the fixture directory. Run it with `--ignored`, then
+/// `dump.mjs`, after a change to how the renderer builds fcose's input.
+#[test]
+#[ignore]
+fn write_specs_from_architecture_sources() {
+    let fixtures = fixtures_dir();
+    let goldens = fixtures.parent().map(Path::to_path_buf).unwrap_or_default();
+    for dir in [&goldens, &fixtures] {
+        let mut sources: Vec<PathBuf> = fs::read_dir(dir)
+            .unwrap_or_else(|e| panic!("{}: {e}", dir.display()))
+            .filter_map(Result::ok)
+            .map(|e| e.path())
+            .filter(|p| p.extension().is_some_and(|x| x == "mmd"))
+            .collect();
+        sources.sort();
+        for mmd in sources {
+            let source = fs::read_to_string(&mmd).unwrap_or_else(|e| panic!("{e}"));
+            let Some(stem) = mmd.file_stem().and_then(|s| s.to_str()) else {
+                continue;
+            };
+            // The theme directive only changes colours.
+            let body: String = source
+                .lines()
+                .filter(|l| !l.trim_start().starts_with("%%{"))
+                .collect::<Vec<_>>()
+                .join("\n");
+            let spec = spec_for(&body);
+            let out = fixtures.join(format!("{stem}.spec.json"));
+            let text = serde_json::to_string_pretty(&spec).unwrap_or_default();
+            fs::write(&out, format!("{text}\n")).unwrap_or_else(|e| panic!("{e}"));
+        }
+    }
 }
 
 #[test]

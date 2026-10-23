@@ -1,0 +1,10 @@
+architecture-beta
+    group left(cloud)[Left]
+    group right(server)[Right]
+    service a(server)[A] in left
+    service b(database)[B] in right
+    service c(disk)[C] in right
+    junction j in right
+    a{group}:R --> L:b{group}
+    b:B -- T:j
+    j:R -- L:c

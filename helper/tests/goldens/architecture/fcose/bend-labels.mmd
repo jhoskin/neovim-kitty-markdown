@@ -1,0 +1,6 @@
+architecture-beta
+    service a(server)[Alpha]
+    service b(database)[Beta]
+    service c(disk)[Gamma]
+    a:R -[bend label]- T:b
+    b:B -[vertical label]- T:c
