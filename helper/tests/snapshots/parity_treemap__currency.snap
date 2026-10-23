@@ -7,42 +7,66 @@ expression: scene.to_svg()
     <g class="treemapContainer" transform="translate(0, 0)">
       <g class="treemapSection" transform="translate(10, 35)">
         <rect class="treemapSection section1" x="0" y="0" width="980" height="355" fill="#8686ff" fill-opacity="0.6" stroke="#3939ff" stroke-width="2" stroke-opacity="0.4"/>
-        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#ffffff" font-size="12" font-weight="bold" font-style="normal">Budget</text>
+        <clipPath id="clip-section-my-svg-1">
+          <rect x="0" y="0" width="968" height="25"/>
+        </clipPath>
+        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#ffffff" font-size="12" font-weight="bold" font-style="normal" clip-path="url(#clip-section-my-svg-1)">Budget</text>
         <text class="treemapSectionValue" x="970" y="12.5" text-anchor="end" dominant-baseline="middle" fill="#ffffff" font-size="10" font-weight="normal" font-style="italic">$1,500,000</text>
       </g>
       <g class="treemapSection" transform="translate(20, 70)">
         <rect class="treemapSection section2" x="0" y="0" width="637" height="310" fill="#ffff78" fill-opacity="0.6" stroke="#f7f700" stroke-width="2" stroke-opacity="0.4"/>
-        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#000000" font-size="12" font-weight="bold" font-style="normal">Operations</text>
+        <clipPath id="clip-section-my-svg-2">
+          <rect x="0" y="0" width="625" height="25"/>
+        </clipPath>
+        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#000000" font-size="12" font-weight="bold" font-style="normal" clip-path="url(#clip-section-my-svg-2)">Operations</text>
         <text class="treemapSectionValue" x="627" y="12.5" text-anchor="end" dominant-baseline="middle" fill="#000000" font-size="10" font-weight="normal" font-style="italic">$1,000,000</text>
       </g>
       <g class="treemapSection" transform="translate(667, 70)">
         <rect class="treemapSection section3" x="0" y="0" width="313" height="310" fill="#d7ff86" fill-opacity="0.6" stroke="#b5ff20" stroke-width="2" stroke-opacity="0.4"/>
-        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#000000" font-size="12" font-weight="bold" font-style="normal">Marketing</text>
+        <clipPath id="clip-section-my-svg-3">
+          <rect x="0" y="0" width="301" height="25"/>
+        </clipPath>
+        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#000000" font-size="12" font-weight="bold" font-style="normal" clip-path="url(#clip-section-my-svg-3)">Marketing</text>
         <text class="treemapSectionValue" x="303" y="12.5" text-anchor="end" dominant-baseline="middle" fill="#000000" font-size="10" font-weight="normal" font-style="italic">$500,000</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf0x" transform="translate(30, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="429" height="265" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="214.5" y="132.5" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="38" font-weight="normal" font-style="normal">Salaries</text>
-        <text class="treemapValue" x="214.5" y="153.5" text-anchor="middle" dominant-baseline="hanging" fill="#ffffff" font-size="23" font-weight="normal" font-style="normal">$700,000</text>
+        <clipPath id="clip-my-svg-0">
+          <rect x="0" y="0" width="425" height="261"/>
+        </clipPath>
+        <text class="treemapLabel" x="214.5" y="132.5" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="38" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-0)">Salaries</text>
+        <text class="treemapValue" x="214.5" y="153.5" text-anchor="middle" dominant-baseline="hanging" fill="#ffffff" font-size="23" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-0)">$700,000</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf1x" transform="translate(469, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="178" height="173" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="89" y="86.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="35" font-weight="normal" font-style="normal">Equipment</text>
-        <text class="treemapValue" x="89" y="106" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="21" font-weight="normal" font-style="normal">$200,000</text>
+        <clipPath id="clip-my-svg-1">
+          <rect x="0" y="0" width="174" height="169"/>
+        </clipPath>
+        <text class="treemapLabel" x="89" y="86.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="35" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-1)">Equipment</text>
+        <text class="treemapValue" x="89" y="106" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="21" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-1)">$200,000</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf2x" transform="translate(469, 288)">
         <rect class="treemapLeaf" x="0" y="0" width="178" height="82" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="89" y="41" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="38" font-weight="normal" font-style="normal">Supplies</text>
+        <clipPath id="clip-my-svg-2">
+          <rect x="0" y="0" width="174" height="78"/>
+        </clipPath>
+        <text class="treemapLabel" x="89" y="41" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="38" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-2)">Supplies</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf3x" transform="translate(677, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="232" height="265" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="116" y="132.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="38" font-weight="normal" font-style="normal">Advertising</text>
-        <text class="treemapValue" x="116" y="153.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="23" font-weight="normal" font-style="normal">$400,000</text>
+        <clipPath id="clip-my-svg-3">
+          <rect x="0" y="0" width="228" height="261"/>
+        </clipPath>
+        <text class="treemapLabel" x="116" y="132.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="38" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-3)">Advertising</text>
+        <text class="treemapValue" x="116" y="153.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="23" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-3)">$400,000</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf4x" transform="translate(919, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="51" height="265" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="25.5" y="132.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="14" font-weight="normal" font-style="normal">Events</text>
-        <text class="treemapValue" x="25.5" y="141.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="8" font-weight="normal" font-style="normal">$100,000</text>
+        <clipPath id="clip-my-svg-4">
+          <rect x="0" y="0" width="47" height="261"/>
+        </clipPath>
+        <text class="treemapLabel" x="25.5" y="132.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="14" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-4)">Events</text>
+        <text class="treemapValue" x="25.5" y="141.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="8" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-4)">$100,000</text>
       </g>
     </g>
   </g>

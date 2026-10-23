@@ -11,18 +11,19 @@
 //! `diagramPadding`; the bounds here are the rects and the text boxes the
 //! renderer places, strokes excluded as in a `getBBox`.
 //!
-//! The renderer clips the labels to their cells with `clipPath`s, which the
-//! scene has no element for. The fitting loops keep a label inside its
-//! cell except in a treemap of more than 20 leaves, where only the font
-//! size floor applies; there an overlong label runs past its cell.
+//! The renderer clips the section labels to their headers and the leaf
+//! labels and values to their cells with `clipPath`s. The fitting loops
+//! keep a leaf label inside its cell except in a treemap of more than 20
+//! leaves, where only the font size floor applies; there the clip cuts an
+//! overlong label 4 px inside the right edge of its cell.
 
 use super::db::{TreemapConfig, TreemapDb, TreemapNode};
 use super::format::Format;
 use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::d3::hierarchy::{Hierarchy, Node, Treemap, js_round};
 use crate::mermaid::scene::{
-    Baseline, Common, Element, FontSpec, FontStyle, FontWeight, Group, Paint, Rect, Scene, Style,
-    Text, TextAnchor, TextRun, TransformOp, ViewBox,
+    Baseline, ClipPath, Common, Element, FontSpec, FontStyle, FontWeight, Group, Paint, Rect,
+    Scene, Style, Text, TextAnchor, TextRun, TransformOp, ViewBox,
 };
 use crate::mermaid::shapes::util::apply_declarations;
 use crate::mermaid::styles::treemap::{ClassStyles, OrdinalScale, TreemapStyles, theme_paint};
@@ -30,6 +31,8 @@ use crate::mermaid::theme::ThemeVariables;
 use crate::text::fonts::Weight;
 use crate::text::measure::{FontSpec as MeasureSpec, FontStyle as MeasureStyle, Shaped};
 
+/// mermaid-cli's SVG id, which the renderer puts in its clip ids.
+const SVG_ID: &str = "my-svg";
 /// `DEFAULT_INNER_PADDING`, `SECTION_INNER_PADDING`, `SECTION_HEADER_HEIGHT`.
 const DEFAULT_INNER_PADDING: f64 = 10.0;
 const SECTION_INNER_PADDING: f64 = 10.0;
@@ -299,6 +302,7 @@ fn text_element(
     baseline: Baseline,
     font: FontSpec,
     fill: Option<Paint>,
+    clip_path: Option<ClipPath>,
     content: &str,
 ) -> Element {
     Element::Text(Text {
@@ -306,6 +310,7 @@ fn text_element(
             class: Some(class.to_string()),
             style: Style {
                 fill,
+                clip_path,
                 ..Style::default()
             },
             ..Common::default()
@@ -397,6 +402,7 @@ pub fn draw(
                 ..FontSpec::default()
             },
             styles.title_color.map(Paint::Color),
+            None,
             title,
         ));
     }
@@ -532,6 +538,15 @@ pub fn draw(
             is_italic(label_font.style),
         );
         let label = section_label(&painter, &n.data.name, w, n.value, cfg, &label_spec);
+        // `clip-section-${id}-${i}`: the header less 6 px on each side,
+        // from the section's origin.
+        let header_clip = ClipPath::rect(
+            format!("clip-section-{SVG_ID}-{k}"),
+            0.0,
+            0.0,
+            (w - 12.0).max(0.0),
+            SECTION_HEADER_HEIGHT,
+        );
         painter.add_text_bounds(
             &label,
             &label_spec,
@@ -549,6 +564,7 @@ pub fn draw(
             Baseline::Middle,
             label_font,
             label_fill.clone(),
+            Some(header_clip),
             &label,
         ));
 
@@ -587,6 +603,7 @@ pub fn draw(
                 Baseline::Middle,
                 value_font,
                 label_fill,
+                None,
                 &value,
             ));
         }
@@ -674,6 +691,15 @@ pub fn draw(
             continue;
         };
         let label_spec = spec_at(label_size);
+        // `clip-${id}-${i}`: the cell less 4 px, from its origin; the label
+        // and the value share it.
+        let cell_clip = ClipPath::rect(
+            format!("clip-{SVG_ID}-{k}"),
+            0.0,
+            0.0,
+            (w - 4.0).max(0.0),
+            (ht - 4.0).max(0.0),
+        );
         painter.add_text_bounds(
             name,
             &label_spec,
@@ -691,6 +717,7 @@ pub fn draw(
             Baseline::Middle,
             class_font(&class, label_size, FontWeight::Normal, FontStyle::Normal),
             fill.clone(),
+            Some(cell_clip.clone()),
             name,
         ));
 
@@ -724,6 +751,7 @@ pub fn draw(
                     Baseline::Hanging,
                     class_font(&class, value_size, FontWeight::Normal, FontStyle::Normal),
                     fill,
+                    Some(cell_clip),
                     &value,
                 ));
             }

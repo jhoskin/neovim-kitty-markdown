@@ -181,3 +181,27 @@ fn linear_gradient_reaches_the_pixels() {
     assert!(left[0] > 245 && left[2] < 10, "left {left:?}");
     assert!(right[2] > 245 && right[0] < 10, "right {right:?}");
 }
+
+/// A clip is in the user space of the element that uses it, so a clip rect
+/// at the origin follows the group's translation like mermaid's treemap
+/// cells.
+#[test]
+fn clip_path_cuts_in_the_user_space_of_its_user() {
+    use kitty_markdown_helper::mermaid::scene::{ClipPath, Group, TransformOp};
+    let mut scene = Scene::new(40.0, 10.0);
+    let mut clipped = solid_rect(0.0, 30.0, Paint::Color(Color::rgb(255, 0, 0)));
+    if let Element::Rect(r) = &mut clipped {
+        r.common.style.clip_path = Some(ClipPath::rect("cell", 0.0, 0.0, 10.0, 10.0));
+    }
+    scene.root.children.push(Element::Group(Group {
+        common: Common {
+            transform: vec![TransformOp::Translate(10.0, 0.0)],
+            ..Common::default()
+        },
+        children: vec![clipped],
+    }));
+    let img = render_rgba(&scene, system_fonts(), &RasterOpts::default()).unwrap();
+    assert_eq!(*img.get_pixel(5, 5), Rgba([255, 255, 255, 255]));
+    assert_eq!(*img.get_pixel(15, 5), Rgba([255, 0, 0, 255]));
+    assert_eq!(*img.get_pixel(25, 5), Rgba([255, 255, 255, 255]));
+}

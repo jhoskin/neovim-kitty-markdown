@@ -7,129 +7,207 @@ expression: scene.to_svg()
     <g class="treemapContainer" transform="translate(0, 0)">
       <g class="treemapSection" transform="translate(10, 35)">
         <rect class="treemapSection section1" x="0" y="0" width="980" height="355" fill="#8686ff" fill-opacity="0.6" stroke="#3939ff" stroke-width="2" stroke-opacity="0.4"/>
-        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#ffffff" font-size="12" font-weight="bold" font-style="normal">Files</text>
+        <clipPath id="clip-section-my-svg-1">
+          <rect x="0" y="0" width="968" height="25"/>
+        </clipPath>
+        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#ffffff" font-size="12" font-weight="bold" font-style="normal" clip-path="url(#clip-section-my-svg-1)">Files</text>
         <text class="treemapSectionValue" x="970" y="12.5" text-anchor="end" dominant-baseline="middle" fill="#ffffff" font-size="10" font-weight="normal" font-style="italic">654</text>
       </g>
       <g class="treemapSection" transform="translate(20, 70)">
         <rect class="treemapSection section2" x="0" y="0" width="537" height="310" fill="#ffff78" fill-opacity="0.6" stroke="#f7f700" stroke-width="2" stroke-opacity="0.4"/>
-        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#000000" font-size="12" font-weight="bold" font-style="normal">src</text>
+        <clipPath id="clip-section-my-svg-2">
+          <rect x="0" y="0" width="525" height="25"/>
+        </clipPath>
+        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#000000" font-size="12" font-weight="bold" font-style="normal" clip-path="url(#clip-section-my-svg-2)">src</text>
         <text class="treemapSectionValue" x="527" y="12.5" text-anchor="end" dominant-baseline="middle" fill="#000000" font-size="10" font-weight="normal" font-style="italic">369</text>
       </g>
       <g class="treemapSection" transform="translate(567, 70)">
         <rect class="treemapSection section3" x="0" y="0" width="311" height="310" fill="#d7ff86" fill-opacity="0.6" stroke="#b5ff20" stroke-width="2" stroke-opacity="0.4"/>
-        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#000000" font-size="12" font-weight="bold" font-style="normal">lua</text>
+        <clipPath id="clip-section-my-svg-3">
+          <rect x="0" y="0" width="299" height="25"/>
+        </clipPath>
+        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#000000" font-size="12" font-weight="bold" font-style="normal" clip-path="url(#clip-section-my-svg-3)">lua</text>
         <text class="treemapSectionValue" x="301" y="12.5" text-anchor="end" dominant-baseline="middle" fill="#000000" font-size="10" font-weight="normal" font-style="italic">216</text>
       </g>
       <g class="treemapSection" transform="translate(888, 70)">
         <rect class="treemapSection section4" x="0" y="0" width="92" height="310" fill="#c286ff" fill-opacity="0.6" stroke="#9c39ff" stroke-width="2" stroke-opacity="0.4"/>
-        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#ffffff" font-size="12" font-weight="bold" font-style="normal">tests</text>
+        <clipPath id="clip-section-my-svg-4">
+          <rect x="0" y="0" width="80" height="25"/>
+        </clipPath>
+        <text class="treemapSectionLabel" x="6" y="12.5" text-anchor="start" dominant-baseline="middle" fill="#ffffff" font-size="12" font-weight="bold" font-style="normal" clip-path="url(#clip-section-my-svg-4)">tests</text>
         <text class="treemapSectionValue" x="82" y="12.5" text-anchor="end" dominant-baseline="middle" fill="#ffffff" font-size="10" font-weight="normal" font-style="italic">69</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf0x" transform="translate(30, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="253" height="169" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="126.5" y="84.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">main.rs</text>
-        <text class="treemapValue" x="126.5" y="93.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal">120</text>
+        <clipPath id="clip-my-svg-0">
+          <rect x="0" y="0" width="249" height="165"/>
+        </clipPath>
+        <text class="treemapLabel" x="126.5" y="84.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-0)">main.rs</text>
+        <text class="treemapValue" x="126.5" y="93.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-0)">120</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf1x" transform="translate(30, 284)">
         <rect class="treemapLeaf" x="0" y="0" width="253" height="86" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="126.5" y="43" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">cli.rs</text>
-        <text class="treemapValue" x="126.5" y="52" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal">64</text>
+        <clipPath id="clip-my-svg-1">
+          <rect x="0" y="0" width="249" height="82"/>
+        </clipPath>
+        <text class="treemapLabel" x="126.5" y="43" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-1)">cli.rs</text>
+        <text class="treemapValue" x="126.5" y="52" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-1)">64</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf2x" transform="translate(293, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="92" height="174" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="46" y="87" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">protocol.rs</text>
-        <text class="treemapValue" x="46" y="96" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal">48</text>
+        <clipPath id="clip-my-svg-2">
+          <rect x="0" y="0" width="88" height="170"/>
+        </clipPath>
+        <text class="treemapLabel" x="46" y="87" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-2)">protocol.rs</text>
+        <text class="treemapValue" x="46" y="96" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-2)">48</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf3x" transform="translate(395, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="78" height="174" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="39" y="87" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">image.rs</text>
-        <text class="treemapValue" x="39" y="96" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal">41</text>
+        <clipPath id="clip-my-svg-3">
+          <rect x="0" y="0" width="74" height="170"/>
+        </clipPath>
+        <text class="treemapLabel" x="39" y="87" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-3)">image.rs</text>
+        <text class="treemapValue" x="39" y="96" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-3)">41</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf4x" transform="translate(483, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="64" height="174" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="32" y="87" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">ssim.rs</text>
-        <text class="treemapValue" x="32" y="96" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal">35</text>
+        <clipPath id="clip-my-svg-4">
+          <rect x="0" y="0" width="60" height="170"/>
+        </clipPath>
+        <text class="treemapLabel" x="32" y="87" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-4)">ssim.rs</text>
+        <text class="treemapValue" x="32" y="96" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-4)">35</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf5x" transform="translate(293, 289)">
         <rect class="treemapLeaf" x="0" y="0" width="85" height="81" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="42.5" y="40.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">error.rs</text>
-        <text class="treemapValue" x="42.5" y="49.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal">22</text>
+        <clipPath id="clip-my-svg-5">
+          <rect x="0" y="0" width="81" height="77"/>
+        </clipPath>
+        <text class="treemapLabel" x="42.5" y="40.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-5)">error.rs</text>
+        <text class="treemapValue" x="42.5" y="49.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-5)">22</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf6x" transform="translate(388, 289)">
         <rect class="treemapLeaf" x="0" y="0" width="64" height="81" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="32" y="40.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="15" font-weight="normal" font-style="normal">cache.rs</text>
-        <text class="treemapValue" x="32" y="49" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="9" font-weight="normal" font-style="normal">17</text>
+        <clipPath id="clip-my-svg-6">
+          <rect x="0" y="0" width="60" height="77"/>
+        </clipPath>
+        <text class="treemapLabel" x="32" y="40.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="15" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-6)">cache.rs</text>
+        <text class="treemapValue" x="32" y="49" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="9" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-6)">17</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf7x" transform="translate(462, 289)">
         <rect class="treemapLeaf" x="0" y="0" width="85" height="44" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="42.5" y="22" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">svg.rs</text>
+        <clipPath id="clip-my-svg-7">
+          <rect x="0" y="0" width="81" height="40"/>
+        </clipPath>
+        <text class="treemapLabel" x="42.5" y="22" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-7)">svg.rs</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf8x" transform="translate(462, 343)">
         <rect class="treemapLeaf" x="0" y="0" width="85" height="27" fill="#ffff78" fill-opacity="0.3" stroke="#ffff78" stroke-width="3"/>
-        <text class="treemapLabel" x="42.5" y="13.5" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="14" font-weight="normal" font-style="normal">fetch.rs</text>
+        <clipPath id="clip-my-svg-8">
+          <rect x="0" y="0" width="81" height="23"/>
+        </clipPath>
+        <text class="treemapLabel" x="42.5" y="13.5" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="14" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-8)">fetch.rs</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf9x" transform="translate(577, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="167" height="152" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="83.5" y="76" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">layout.lua</text>
-        <text class="treemapValue" x="83.5" y="85" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal">75</text>
+        <clipPath id="clip-my-svg-9">
+          <rect x="0" y="0" width="163" height="148"/>
+        </clipPath>
+        <text class="treemapLabel" x="83.5" y="76" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-9)">layout.lua</text>
+        <text class="treemapValue" x="83.5" y="85" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-9)">75</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf10x" transform="translate(577, 267)">
         <rect class="treemapLeaf" x="0" y="0" width="167" height="103" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="83.5" y="51.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal">preview.lua</text>
-        <text class="treemapValue" x="83.5" y="60.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal">52</text>
+        <clipPath id="clip-my-svg-10">
+          <rect x="0" y="0" width="163" height="99"/>
+        </clipPath>
+        <text class="treemapLabel" x="83.5" y="51.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-10)">preview.lua</text>
+        <text class="treemapValue" x="83.5" y="60.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="10" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-10)">52</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf11x" transform="translate(754, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="55" height="166" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="27.5" y="83" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="15" font-weight="normal" font-style="normal">init.lua</text>
-        <text class="treemapValue" x="27.5" y="91.5" text-anchor="middle" dominant-baseline="hanging" fill="#ffffff" font-size="9" font-weight="normal" font-style="normal">30</text>
+        <clipPath id="clip-my-svg-11">
+          <rect x="0" y="0" width="51" height="162"/>
+        </clipPath>
+        <text class="treemapLabel" x="27.5" y="83" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="15" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-11)">init.lua</text>
+        <text class="treemapValue" x="27.5" y="91.5" text-anchor="middle" dominant-baseline="hanging" fill="#ffffff" font-size="9" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-11)">30</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf12x" transform="translate(819, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="49" height="166" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="24.5" y="83" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="7" font-weight="normal" font-style="normal">transport.lua</text>
-        <text class="treemapValue" x="24.5" y="87.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="4" font-weight="normal" font-style="normal">27</text>
+        <clipPath id="clip-my-svg-12">
+          <rect x="0" y="0" width="45" height="162"/>
+        </clipPath>
+        <text class="treemapLabel" x="24.5" y="83" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="7" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-12)">transport.lua</text>
+        <text class="treemapValue" x="24.5" y="87.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="4" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-12)">27</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf13x" transform="translate(754, 281)">
         <rect class="treemapLeaf" x="0" y="0" width="63" height="89" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="31.5" y="44.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="13" font-weight="normal" font-style="normal">helper.lua</text>
-        <text class="treemapValue" x="31.5" y="52" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="8" font-weight="normal" font-style="normal">19</text>
+        <clipPath id="clip-my-svg-13">
+          <rect x="0" y="0" width="59" height="85"/>
+        </clipPath>
+        <text class="treemapLabel" x="31.5" y="44.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="13" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-13)">helper.lua</text>
+        <text class="treemapValue" x="31.5" y="52" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="8" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-13)">19</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf14x" transform="translate(827, 281)">
         <rect class="treemapLeaf" x="0" y="0" width="41" height="51" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="20.5" y="25.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="8" font-weight="normal" font-style="normal">cache.lua</text>
-        <text class="treemapValue" x="20.5" y="30.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="5" font-weight="normal" font-style="normal">8</text>
+        <clipPath id="clip-my-svg-14">
+          <rect x="0" y="0" width="37" height="47"/>
+        </clipPath>
+        <text class="treemapLabel" x="20.5" y="25.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="8" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-14)">cache.lua</text>
+        <text class="treemapValue" x="20.5" y="30.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="5" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-14)">8</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf15x" transform="translate(827, 342)">
         <rect class="treemapLeaf" x="0" y="0" width="41" height="28" fill="#d7ff86" fill-opacity="0.3" stroke="#d7ff86" stroke-width="3"/>
-        <text class="treemapLabel" x="20.5" y="14" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="8" font-weight="normal" font-style="normal">config.lua</text>
-        <text class="treemapValue" x="20.5" y="19" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="5" font-weight="normal" font-style="normal">5</text>
+        <clipPath id="clip-my-svg-15">
+          <rect x="0" y="0" width="37" height="24"/>
+        </clipPath>
+        <text class="treemapLabel" x="20.5" y="14" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="8" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-15)">config.lua</text>
+        <text class="treemapValue" x="20.5" y="19" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="5" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-15)">5</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf16x" transform="translate(898, 105)">
         <rect class="treemapLeaf" x="0" y="0" width="72" height="122" fill="#c286ff" fill-opacity="0.3" stroke="#c286ff" stroke-width="3"/>
-        <text class="treemapLabel" x="36" y="61" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="9" font-weight="normal" font-style="normal">layout_spec.lua</text>
-        <text class="treemapValue" x="36" y="66.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="5" font-weight="normal" font-style="normal">33</text>
+        <clipPath id="clip-my-svg-16">
+          <rect x="0" y="0" width="68" height="118"/>
+        </clipPath>
+        <text class="treemapLabel" x="36" y="61" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="9" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-16)">layout_spec.lua</text>
+        <text class="treemapValue" x="36" y="66.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="5" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-16)">33</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf17x" transform="translate(898, 237)">
         <rect class="treemapLeaf" x="0" y="0" width="72" height="73" fill="#c286ff" fill-opacity="0.3" stroke="#c286ff" stroke-width="3"/>
-        <text class="treemapLabel" x="36" y="36.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="8" font-weight="normal" font-style="normal">preview_spec.lua</text>
-        <text class="treemapValue" x="36" y="41.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="5" font-weight="normal" font-style="normal">21</text>
+        <clipPath id="clip-my-svg-17">
+          <rect x="0" y="0" width="68" height="69"/>
+        </clipPath>
+        <text class="treemapLabel" x="36" y="36.5" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="8" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-17)">preview_spec.lua</text>
+        <text class="treemapValue" x="36" y="41.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="5" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-17)">21</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf18x" transform="translate(898, 320)">
         <rect class="treemapLeaf" x="0" y="0" width="45" height="26" fill="#c286ff" fill-opacity="0.3" stroke="#c286ff" stroke-width="3"/>
-        <text class="treemapLabel" x="22.5" y="13" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="5" font-weight="normal" font-style="normal">fake_helper.lua</text>
-        <text class="treemapValue" x="22.5" y="16.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="4" font-weight="normal" font-style="normal">6</text>
+        <clipPath id="clip-my-svg-18">
+          <rect x="0" y="0" width="41" height="22"/>
+        </clipPath>
+        <text class="treemapLabel" x="22.5" y="13" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="5" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-18)">fake_helper.lua</text>
+        <text class="treemapValue" x="22.5" y="16.5" text-anchor="middle" dominant-baseline="hanging" fill="#000000" font-size="4" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-18)">6</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf19x" transform="translate(898, 356)">
         <rect class="treemapLeaf" x="0" y="0" width="45" height="14" fill="#c286ff" fill-opacity="0.3" stroke="#c286ff" stroke-width="3"/>
-        <text class="treemapLabel" x="22.5" y="7" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="5" font-weight="normal" font-style="normal">run.lua</text>
+        <clipPath id="clip-my-svg-19">
+          <rect x="0" y="0" width="41" height="10"/>
+        </clipPath>
+        <text class="treemapLabel" x="22.5" y="7" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="5" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-19)">run.lua</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf20x" transform="translate(953, 320)">
         <rect class="treemapLeaf" x="0" y="0" width="17" height="26" fill="#c286ff" fill-opacity="0.3" stroke="#c286ff" stroke-width="3"/>
-        <text class="treemapLabel" x="8.5" y="13" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="4" font-weight="normal" font-style="normal">fixtures.md</text>
-        <text class="treemapValue" x="8.5" y="16" text-anchor="middle" dominant-baseline="hanging" fill="#ffffff" font-size="4" font-weight="normal" font-style="normal">3</text>
+        <clipPath id="clip-my-svg-20">
+          <rect x="0" y="0" width="13" height="22"/>
+        </clipPath>
+        <text class="treemapLabel" x="8.5" y="13" text-anchor="middle" dominant-baseline="middle" fill="#ffffff" font-size="4" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-20)">fixtures.md</text>
+        <text class="treemapValue" x="8.5" y="16" text-anchor="middle" dominant-baseline="hanging" fill="#ffffff" font-size="4" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-20)">3</text>
       </g>
       <g class="treemapNode treemapLeafGroup leaf21x" transform="translate(953, 356)">
         <rect class="treemapLeaf" x="0" y="0" width="17" height="14" fill="#c286ff" fill-opacity="0.3" stroke="#c286ff" stroke-width="3"/>
-        <text class="treemapLabel" x="8.5" y="7" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="4" font-weight="normal" font-style="normal">a_very_long_file_name_that_does_not_fit.lua</text>
+        <clipPath id="clip-my-svg-21">
+          <rect x="0" y="0" width="13" height="10"/>
+        </clipPath>
+        <text class="treemapLabel" x="8.5" y="7" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="4" font-weight="normal" font-style="normal" clip-path="url(#clip-my-svg-21)">a_very_long_file_name_that_does_not_fit.lua</text>
       </g>
     </g>
   </g>

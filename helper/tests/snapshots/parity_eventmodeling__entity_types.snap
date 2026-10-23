@@ -23,43 +23,73 @@ expression: scene_svg(&mmd)
     </g>
     <g class="em-box">
       <rect x="250" y="15" width="149" height="100" rx="3" fill="#ffffff" stroke="#dbdada"/>
-      <text x="324.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartUI</text>
+      <clipPath id="em-clip-my-svg-0">
+        <rect x="260" y="25" width="129" height="80"/>
+      </clipPath>
+      <text x="324.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-0)">CartUI</text>
     </g>
     <g class="em-box">
       <rect x="329" y="155" width="165" height="100" rx="3" fill="#bcd6fe" stroke="#679ac3"/>
-      <text x="411.5" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">AddItem</text>
+      <clipPath id="em-clip-my-svg-1">
+        <rect x="339" y="165" width="145" height="80"/>
+      </clipPath>
+      <text x="411.5" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-1)">AddItem</text>
     </g>
     <g class="em-box">
       <rect x="424" y="295" width="183" height="100" rx="3" fill="#ffb778" stroke="#c19a0f"/>
-      <text x="515.5" y="350.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ItemAdded</text>
+      <clipPath id="em-clip-my-svg-2">
+        <rect x="434" y="305" width="163" height="80"/>
+      </clipPath>
+      <text x="515.5" y="350.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-2)">ItemAdded</text>
     </g>
     <g class="em-box">
       <rect x="537" y="155" width="174" height="100" rx="3" fill="#d3f1a2" stroke="#a3b732"/>
-      <text x="624" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartItems</text>
+      <clipPath id="em-clip-my-svg-3">
+        <rect x="547" y="165" width="154" height="80"/>
+      </clipPath>
+      <text x="624" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-3)">CartItems</text>
     </g>
     <g class="em-box">
       <rect x="641" y="15" width="170" height="100" rx="3" fill="#ffffff" stroke="#dbdada"/>
-      <text x="726" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartView</text>
+      <clipPath id="em-clip-my-svg-4">
+        <rect x="651" y="25" width="150" height="80"/>
+      </clipPath>
+      <text x="726" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-4)">CartView</text>
     </g>
     <g class="em-box">
       <rect x="821" y="15" width="213" height="100" rx="3" fill="#edb3f6" stroke="#b88cbf"/>
-      <text x="927.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">PriceProcessor</text>
+      <clipPath id="em-clip-my-svg-5">
+        <rect x="831" y="25" width="193" height="80"/>
+      </clipPath>
+      <text x="927.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-5)">PriceProcessor</text>
     </g>
     <g class="em-box">
       <rect x="964" y="155" width="195" height="100" rx="3" fill="#bcd6fe" stroke="#679ac3"/>
-      <text x="1061.5" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ChangePrice</text>
+      <clipPath id="em-clip-my-svg-6">
+        <rect x="974" y="165" width="175" height="80"/>
+      </clipPath>
+      <text x="1061.5" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-6)">ChangePrice</text>
     </g>
     <g class="em-box">
       <rect x="1089" y="295" width="204" height="100" rx="3" fill="#ffb778" stroke="#c19a0f"/>
-      <text x="1191" y="350.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">PriceChanged</text>
+      <clipPath id="em-clip-my-svg-7">
+        <rect x="1099" y="305" width="184" height="80"/>
+      </clipPath>
+      <text x="1191" y="350.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-7)">PriceChanged</text>
     </g>
     <g class="em-box">
       <rect x="1223" y="155" width="148" height="100" rx="3" fill="#d3f1a2" stroke="#a3b732"/>
-      <text x="1297" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">Prices</text>
+      <clipPath id="em-clip-my-svg-8">
+        <rect x="1233" y="165" width="128" height="80"/>
+      </clipPath>
+      <text x="1297" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-8)">Prices</text>
     </g>
     <g class="em-box">
       <rect x="1301" y="15" width="160" height="100" rx="3" fill="#edb3f6" stroke="#b88cbf"/>
-      <text x="1381" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">Notifier</text>
+      <clipPath id="em-clip-my-svg-9">
+        <rect x="1311" y="25" width="140" height="80"/>
+      </clipPath>
+      <text x="1381" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-9)">Notifier</text>
     </g>
     <path class="em-relation" d="M349.333,115L384,155" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
     <path class="em-relation" d="M439,255L485,295" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>

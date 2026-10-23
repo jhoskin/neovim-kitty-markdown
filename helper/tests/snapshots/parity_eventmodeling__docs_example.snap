@@ -23,31 +23,46 @@ expression: scene_svg(&mmd)
     </g>
     <g class="em-box">
       <rect x="250" y="15" width="149" height="100" rx="3" fill="#ffffff" stroke="#dbdada"/>
-      <text x="324.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartUI</text>
+      <clipPath id="em-clip-my-svg-0">
+        <rect x="260" y="25" width="129" height="80"/>
+      </clipPath>
+      <text x="324.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-0)">CartUI</text>
     </g>
     <g class="em-box">
       <rect x="329" y="155" width="408" height="116" rx="3" fill="#bcd6fe" stroke="#679ac3"/>
-      <text x="533" y="190" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">AddItem</text>
-      <text x="339" y="228" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: 'john'</text>
-      <text x="339" y="247" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo"> image: 'avatar_john'  price: 20.4</text>
+      <clipPath id="em-clip-my-svg-1">
+        <rect x="339" y="165" width="388" height="96"/>
+      </clipPath>
+      <text x="533" y="190" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-1)">AddItem</text>
+      <text x="339" y="228" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo" clip-path="url(#em-clip-my-svg-1)">description: 'john'</text>
+      <text x="339" y="247" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo" clip-path="url(#em-clip-my-svg-1)"> image: 'avatar_john'  price: 20.4</text>
     </g>
     <g class="em-box">
       <rect x="667" y="311" width="397.667" height="116" rx="3" fill="#ffb778" stroke="#c19a0f"/>
-      <text x="865.833" y="346" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ItemAdded</text>
-      <text x="677" y="384" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: string  image: string</text>
-      <text x="677" y="403" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo"> price: number</text>
+      <clipPath id="em-clip-my-svg-2">
+        <rect x="677" y="321" width="377.667" height="96"/>
+      </clipPath>
+      <text x="865.833" y="346" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-2)">ItemAdded</text>
+      <text x="677" y="384" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo" clip-path="url(#em-clip-my-svg-2)">description: string  image: string</text>
+      <text x="677" y="403" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo" clip-path="url(#em-clip-my-svg-2)"> price: number</text>
     </g>
     <g class="em-box">
       <rect x="994.667" y="155" width="406.333" height="116" rx="3" fill="#bcd6fe" stroke="#679ac3"/>
-      <text x="1197.833" y="190" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">AddItem</text>
-      <text x="1004.667" y="228" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: 'jack'</text>
-      <text x="1004.667" y="247" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo"> image: 'avatar_jack'  price: 12.5</text>
+      <clipPath id="em-clip-my-svg-3">
+        <rect x="1004.667" y="165" width="386.333" height="96"/>
+      </clipPath>
+      <text x="1197.833" y="190" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-3)">AddItem</text>
+      <text x="1004.667" y="228" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo" clip-path="url(#em-clip-my-svg-3)">description: 'jack'</text>
+      <text x="1004.667" y="247" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo" clip-path="url(#em-clip-my-svg-3)"> image: 'avatar_jack'  price: 12.5</text>
     </g>
     <g class="em-box">
       <rect x="1331" y="311" width="397.667" height="116" rx="3" fill="#ffb778" stroke="#c19a0f"/>
-      <text x="1529.833" y="346" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ItemAdded</text>
-      <text x="1341" y="384" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: string  image: string</text>
-      <text x="1341" y="403" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo"> price: number</text>
+      <clipPath id="em-clip-my-svg-4">
+        <rect x="1341" y="321" width="377.667" height="96"/>
+      </clipPath>
+      <text x="1529.833" y="346" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold" clip-path="url(#em-clip-my-svg-4)">ItemAdded</text>
+      <text x="1341" y="384" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo" clip-path="url(#em-clip-my-svg-4)">description: string  image: string</text>
+      <text x="1341" y="403" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo" clip-path="url(#em-clip-my-svg-4)"> price: number</text>
     </g>
     <path class="em-relation" d="M349.333,115L465,155" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
     <path class="em-relation" d="M601,271L799.556,311" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>

@@ -166,6 +166,40 @@ pub struct Style {
     /// CSS `mix-blend-mode`. It does not inherit, so `fill_unset_from`
     /// leaves it alone.
     pub mix_blend_mode: Option<BlendMode>,
+    /// `clip-path`, with the definition it names. It does not inherit
+    /// either. The reference carries the definition so a diagram can clip
+    /// without a scene-level list; the serializer writes each id's
+    /// `<clipPath>` once, just before its first user.
+    pub clip_path: Option<ClipPath>,
+}
+
+/// A `<clipPath>` in the default `clipPathUnits="userSpaceOnUse"`: its
+/// children are in the user space of the element that references it, own
+/// `transform` included, wherever the definition sits in the document.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ClipPath {
+    pub id: String,
+    pub children: Vec<Element>,
+}
+
+impl ClipPath {
+    /// A clip to one rectangle, the only shape mermaid clips with
+    /// (treemap labels) and the box an `overflow: hidden` `foreignObject`
+    /// clips its HTML to.
+    pub fn rect(id: impl Into<String>, x: f64, y: f64, width: f64, height: f64) -> ClipPath {
+        ClipPath {
+            id: id.into(),
+            children: vec![Element::Rect(Rect {
+                common: Common::default(),
+                x,
+                y,
+                width,
+                height,
+                rx: None,
+                ry: None,
+            })],
+        }
+    }
 }
 
 /// The CSS `mix-blend-mode` values the diagrams use.

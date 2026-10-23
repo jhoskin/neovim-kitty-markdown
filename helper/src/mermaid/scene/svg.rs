@@ -5,13 +5,14 @@
 //! keep their scene order. That is what makes insta snapshots of a scene
 //! meaningful, and it also keeps resvg's input stable between runs.
 
+use std::collections::BTreeSet;
 use std::fmt::Write;
 
 use super::path::fmt_num;
 use super::{
-    Baseline, BlendMode, Color, Common, Element, FontSpec, FontStyle, FontWeight, GradientUnits,
-    Length, LineCap, LineJoin, LinearGradient, Marker, MarkerUnits, Orient, Paint, Point, Scene,
-    Style, Text, TextAnchor, TransformOp, ViewBox,
+    Baseline, BlendMode, ClipPath, Color, Common, Element, FontSpec, FontStyle, FontWeight,
+    GradientUnits, Length, LineCap, LineJoin, LinearGradient, Marker, MarkerUnits, Orient, Paint,
+    Point, Scene, Style, Text, TextAnchor, TransformOp, ViewBox,
 };
 
 const XMLNS: &str = "http://www.w3.org/2000/svg";
@@ -73,6 +74,9 @@ struct Writer {
     depth: usize,
     /// True between `open` and the first child or the close of that tag.
     tag_open: bool,
+    /// The `<clipPath>` ids already written, so a clip that several
+    /// elements share is defined once.
+    clips: BTreeSet<String>,
 }
 
 impl Writer {
@@ -81,6 +85,7 @@ impl Writer {
             out: String::new(),
             depth: 0,
             tag_open: false,
+            clips: BTreeSet::new(),
         }
     }
 
@@ -395,6 +400,9 @@ fn write_style(w: &mut Writer, style: &Style, font: Option<&FontSpec>) {
     if let Some(id) = &style.marker_end {
         w.attr("marker-end", &format!("url(#{id})"));
     }
+    if let Some(clip) = &style.clip_path {
+        w.attr("clip-path", &format!("url(#{})", clip.id));
+    }
     // mermaid sets the blend mode with d3's `.style()`, so it is a `style`
     // declaration, which usvg reads like the attribute.
     if let Some(mode) = style.mix_blend_mode {
@@ -453,7 +461,31 @@ fn write_common_head(w: &mut Writer, common: &Common) {
     }
 }
 
+/// The `<clipPath>` that `style` references, unless an earlier element
+/// already wrote that id. It goes right before its first user, as mermaid's
+/// treemap appends each one next to the text it clips.
+fn write_clip_def(w: &mut Writer, style: &Style) {
+    let Some(ClipPath { id, children }) = &style.clip_path else {
+        return;
+    };
+    if !w.clips.insert(id.clone()) {
+        return;
+    }
+    w.open("clipPath");
+    w.attr("id", id);
+    if children.is_empty() {
+        w.close_empty();
+        return;
+    }
+    w.children_follow();
+    for child in children {
+        write_element(w, child);
+    }
+    w.close("clipPath");
+}
+
 fn write_group(w: &mut Writer, common: &Common, children: &[Element]) {
+    write_clip_def(w, &common.style);
     w.open("g");
     write_common_head(w, common);
     write_style(w, &common.style, None);
@@ -556,6 +588,24 @@ fn write_marker(w: &mut Writer, m: &Marker) {
 }
 
 fn write_element(w: &mut Writer, element: &Element) {
+    let style = match element {
+        // `write_group` writes its own, so the root group gets one too.
+        Element::Group(_) => None,
+        Element::Rect(e) => Some(&e.common.style),
+        Element::Circle(e) => Some(&e.common.style),
+        Element::Ellipse(e) => Some(&e.common.style),
+        Element::Line(e) => Some(&e.common.style),
+        Element::Polygon(e) => Some(&e.common.style),
+        Element::Polyline(e) => Some(&e.common.style),
+        Element::Path(e) => Some(&e.common.style),
+        Element::Text(e) => Some(&e.common.style),
+        Element::Image(e) => Some(&e.common.style),
+        Element::Use(e) => Some(&e.common.style),
+        Element::Marker(m) => Some(&m.style),
+    };
+    if let Some(style) = style {
+        write_clip_def(w, style);
+    }
     match element {
         Element::Group(g) => write_group(w, &g.common, &g.children),
         Element::Rect(r) => {
@@ -652,7 +702,7 @@ fn write_element(w: &mut Writer, element: &Element) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::mermaid::scene::{Rect, TextRun};
+    use crate::mermaid::scene::{Group, Rect, TextRun};
 
     #[test]
     fn escapes_text_and_attributes() {
@@ -672,6 +722,35 @@ mod tests {
         assert_eq!(
             svg,
             "<text id=\"a&quot;b\" x=\"0\" y=\"0\">&lt;a &amp; b&gt;</text>\n"
+        );
+    }
+
+    #[test]
+    fn a_shared_clip_is_defined_once_before_its_first_user() {
+        let clip = ClipPath::rect("c0", 0.0, 0.0, 8.0, 4.0);
+        let text = |s: &str| {
+            Element::Text(Text {
+                common: Common::with_style(Style {
+                    clip_path: Some(clip.clone()),
+                    ..Style::default()
+                }),
+                x: 1.0,
+                y: 2.0,
+                anchor: None,
+                baseline: None,
+                font: FontSpec::default(),
+                runs: vec![TextRun::new(s)],
+            })
+        };
+        let group = Element::Group(Group {
+            common: Common::default(),
+            children: vec![text("a"), text("b")],
+        });
+        assert_eq!(
+            element_to_svg(&group),
+            "<g>\n  <clipPath id=\"c0\">\n    <rect x=\"0\" y=\"0\" width=\"8\" height=\"4\"/>\n  \
+             </clipPath>\n  <text x=\"1\" y=\"2\" clip-path=\"url(#c0)\">a</text>\n  \
+             <text x=\"1\" y=\"2\" clip-path=\"url(#c0)\">b</text>\n</g>\n"
         );
     }
 

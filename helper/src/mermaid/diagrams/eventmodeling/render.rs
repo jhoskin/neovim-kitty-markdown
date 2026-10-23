@@ -18,8 +18,9 @@ use serde_json::Value;
 use super::db::{BOX_PADDING, EmBox, Relation, SWIMLANE_PADDING, State, Swimlane, TEXT_MAX_WIDTH};
 use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::scene::{
-    Baseline, Color, Common, Element, FontSpec, FontWeight, Group, Marker, MarkerUnits, Orient,
-    Paint, Path, PathData, Point, Polygon, Rect, Scene, Style, Text, TextAnchor, TextRun, ViewBox,
+    Baseline, ClipPath, Color, Common, Element, FontSpec, FontWeight, Group, Marker, MarkerUnits,
+    Orient, Paint, Path, PathData, Point, Polygon, Rect, Scene, Style, Text, TextAnchor, TextRun,
+    ViewBox,
 };
 use crate::mermaid::styles::eventmodeling::EventModelingStyles;
 use crate::text::fonts::{Style as FaceStyle, Weight};
@@ -218,33 +219,21 @@ fn code_lines(
     lines
 }
 
-/// The characters of a left-aligned line that start inside `width`; the
-/// scene has no clip path, so a glyph cut by the edge is kept whole when
-/// most of it is inside.
-fn clip_line(line: &str, width: f64, fonts: &BoxFonts, ctx: &RenderCtx<'_>) -> String {
-    if f64::from(ctx.metrics.shape(line, &fonts.code).width) <= width {
-        return line.to_string();
-    }
-    let mut out = String::new();
-    let mut x = 0.0;
-    for ch in line.chars() {
-        let advance = f64::from(
-            ctx.metrics
-                .shape(ch.encode_utf8(&mut [0; 4]), &fonts.code)
-                .width,
-        );
-        if x + advance / 2.0 > width {
-            break;
-        }
-        out.push(ch);
-        x += advance;
-    }
-    out
-}
-
-fn plain_text(x: f64, y: f64, anchor: TextAnchor, font: FontSpec, fill: Color, s: &str) -> Element {
+/// One line of box text, clipped to the `foreignObject`.
+fn plain_text(
+    x: f64,
+    y: f64,
+    anchor: TextAnchor,
+    font: FontSpec,
+    fill: Color,
+    clip: &ClipPath,
+    s: &str,
+) -> Element {
     Element::Text(Text {
-        common: Common::with_style(Style::fill(fill)),
+        common: Common::with_style(Style {
+            clip_path: Some(clip.clone()),
+            ..Style::fill(fill)
+        }),
         x,
         y,
         anchor: Some(anchor),
@@ -254,9 +243,11 @@ fn plain_text(x: f64, y: f64, anchor: TextAnchor, font: FontSpec, fill: Color, s
     })
 }
 
-/// The `foreignObject` text of one box as SVG text.
+/// The `foreignObject` text of one box as SVG text. `index` is the box's
+/// place in the diagram, for a clip id no other box shares.
 fn box_text(
     b: &EmBox,
+    index: usize,
     fo: (f64, f64, f64, f64),
     fonts: &BoxFonts,
     styles: &EventModelingStyles,
@@ -295,10 +286,11 @@ fn box_text(
         family: Some(fonts.code_family.clone()),
         ..FontSpec::default()
     };
-    // The `foreignObject` clips its content (`overflow: hidden` in the UA
-    // stylesheet); a code line that `&nbsp;` keeps from wrapping runs past
-    // the right edge and is cut there.
-    let clip_right = fx + fw;
+    // The `foreignObject` clips its content to its own box (`overflow:
+    // hidden` in the UA stylesheet): a code line that `&nbsp;` keeps from
+    // wrapping, or a name that widens the cell, is cut at the edge, through
+    // the middle of a glyph if need be.
+    let clip = ClipPath::rect(format!("em-clip-{SVG_ID}-{index}"), fx, fy, fw, fh);
     let color = styles.html_text_color;
     let mut out = Vec::new();
     let mut y = top;
@@ -310,6 +302,7 @@ fn box_text(
             TextAnchor::Middle,
             name_font.clone(),
             color,
+            &clip,
             line,
         ));
         y += fonts.name_line.height();
@@ -318,15 +311,15 @@ fn box_text(
         y += fonts.strut_line.height();
         for line in lines {
             let baseline = y + fonts.code_line.top_to_baseline();
-            let visible = clip_line(&line, clip_right - fx, fonts, ctx);
-            if !visible.is_empty() {
+            if !line.is_empty() {
                 out.push(plain_text(
                     fx,
                     baseline,
                     TextAnchor::Start,
                     code_font.clone(),
                     color,
-                    &visible,
+                    &clip,
+                    &line,
                 ));
             }
             y += fonts.code_line.height();
@@ -399,6 +392,7 @@ fn swimlane(
 /// `renderD3Box`.
 fn em_box(
     b: &EmBox,
+    index: usize,
     lane: &Swimlane,
     fonts: &BoxFonts,
     styles: &EventModelingStyles,
@@ -428,7 +422,7 @@ fn em_box(
         rx: Some(3.0),
         ry: None,
     })];
-    children.extend(box_text(b, fo, fonts, styles, ctx));
+    children.extend(box_text(b, index, fo, fonts, styles, ctx));
     Element::Group(Group {
         common: Common {
             class: Some("em-box".to_string()),
@@ -523,9 +517,9 @@ pub fn draw(
     for lane in state.sorted_swimlanes() {
         children.push(swimlane(lane, state.max_r, styles, ctx, &mut bounds));
     }
-    for b in &state.boxes {
+    for (i, b) in state.boxes.iter().enumerate() {
         if let Some(lane) = state.swimlane_of(b) {
-            children.push(em_box(b, lane, &fonts, styles, ctx, &mut bounds));
+            children.push(em_box(b, i, lane, &fonts, styles, ctx, &mut bounds));
         }
     }
     for rel in &state.relations {
