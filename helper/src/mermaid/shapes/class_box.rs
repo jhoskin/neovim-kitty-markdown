@@ -34,7 +34,25 @@ fn add_text(
     classifier: Classifier,
 ) -> Block {
     let width = calculate_text_width(ctx, node, text) + 50.0;
-    let mut measured = measure_text(ctx, node, text, Some(width), true);
+    // The `g.label` carries `font-weight: bolder` (and the classifier's
+    // `font-style: italic`) before `createText` measures, so the browser
+    // measures the styled face.
+    let mut measured = if bold || classifier == Classifier::Abstract {
+        let opts = super::measure::LabelOpts {
+            font: FontSpec {
+                weight: bold.then_some(FontWeight::Bold),
+                style: (classifier == Classifier::Abstract).then_some(FontStyle::Italic),
+                ..ctx.font()
+            },
+            html: ctx.use_html_labels(node),
+            width: Some(width),
+            min_width: 0.0,
+            markdown: true,
+        };
+        ctx.measurer.measure(text, &opts)
+    } else {
+        measure_text(ctx, node, text, Some(width), true)
+    };
     let lines = measured.lines.len().max(1) as f64;
     if bold {
         for line in &mut measured.lines {
@@ -182,11 +200,19 @@ impl Shape for ClassBox {
         let (label_el, label_bbox) = compartment("label-group", vec![label_block], label_t);
         let (members_el, members_bbox) = compartment("members-group", member_blocks, members_t);
         let (methods_el, methods_bbox) = compartment("methods-group", method_blocks, methods_t);
-        let shape_bbox = ann_bbox
-            .translated(ann_t.0, ann_t.1)
-            .union(label_bbox.translated(label_t.0, label_t.1))
-            .union(members_bbox.translated(members_t.0, members_t.1))
-            .union(methods_bbox.translated(methods_t.0, methods_t.1));
+        // `getBBox()` skips an empty group, so an empty compartment must
+        // stay empty after its translate instead of becoming a point.
+        let placed = |b: BBox, t: (f64, f64)| {
+            if b == BBox::EMPTY {
+                b
+            } else {
+                b.translated(t.0, t.1)
+            }
+        };
+        let shape_bbox = placed(ann_bbox, ann_t)
+            .union(placed(label_bbox, label_t))
+            .union(placed(members_bbox, members_t))
+            .union(placed(methods_bbox, methods_t));
 
         // classBox
         let render_extra_box =
