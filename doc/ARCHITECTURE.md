@@ -90,7 +90,7 @@ on `VimLeavePre`. The transport is JSON lines over stdin and stdout.
   `{"id": <int>, "error": {"code": "<string>", "message": "<string>"}}`.
 - Methods: `probe`, `image.prepare`, `svg.rasterize`, `mermaid.render`,
   `fetch`, `cache.gc`, `shutdown`. Params, results, and error codes are
-  in the Conventions section under Protocol methods and errors.
+  in `doc/CONVENTIONS.md` under Protocol methods and errors.
 - Results that carry pixels return a path to a PNG file in the cache, not
   inline bytes.
 - CLI mode for direct evaluation:

@@ -6,21 +6,23 @@ The dev agent owns this file. Record internal decisions in
 ## Language and toolchain
 
 - Lua 5.1 (LuaJIT) for the plugin. Neovim 0.12 or later.
-- Rust stable for the helper. The dev agent records the MSRV in
-  `helper/Cargo.toml` under `rust-version`.
+- Rust stable for the helper. The MSRV is 1.88 (let chains), recorded in
+  `helper/Cargo.toml` under `rust-version`. Edition 2024.
 - Crates: `clap` 4 (derive), `serde`, `serde_json`, `thiserror` 2,
   `sha2` 0.10, `image` 0.25 (png, jpeg, gif, webp, bmp only), `resvg`
   and `usvg` 0.48 (they re-export `tiny-skia` and `fontdb`; do not pin
   those separately), `rustybuzz` 0.20 for text shaping, `ureq` 3 with
-  rustls, `regex`, `indexmap` (everywhere JS insertion order matters),
-  `serde_yaml_ng`, `jiff` (gantt dates), `log`. Dev: `insta`,
+  rustls, `regex`, `fancy-regex` 0.19 (JS regexes with lookaround in the
+  jison lexers), `indexmap` 2 with the `serde` feature (everywhere JS
+  insertion order matters), `serde_yaml_ng`, `jiff` (gantt dates), `log`. Dev: `insta`,
   `pretty_assertions`. Cargo features `phase2` to `phase5` gate the tests
-  of later mermaid phases.
+  of later mermaid phases; each feature implies the earlier ones.
 - Bundled assets: `helper/assets/fonts/OpenSans-Regular.ttf` and
   `OpenSans-Italic.ttf` (OFL), loaded with `include_bytes!` before the
   system fonts. `helper/assets/fonts/README.md` records the upstream
   version.
-- Task runner: `just`. Lint: `stylua`, `selene`, `rustfmt`, `clippy`.
+- Task runner: `just`. Lint: `stylua`, `selene`, `rustfmt`, `clippy`,
+  `markdownlint-cli2`.
 - Platforms: macOS arm64, Linux x86_64, Linux arm64.
 - Release binaries are built by a GitHub Actions workflow on tag for
   `aarch64-apple-darwin`, `x86_64-unknown-linux-gnu`, and
@@ -28,17 +30,24 @@ The dev agent owns this file. Record internal decisions in
 
 ## Commands
 
-- `just lint`: runs `stylua --check`, `selene`, `cargo fmt --check`, and
-  `cargo clippy -- -D warnings` in `helper/`.
-- `just test`: runs the Lua tests with `nvim -l tests/run.lua` (busted,
-  no plenary) and `cargo test` in `helper/`.
+- `just lint`: runs `stylua --check`, `selene`, `cargo fmt --check`,
+  `cargo clippy --all-targets {{phases}} -- -D warnings` in `helper/`, and
+  `markdownlint-cli2` on every markdown file.
+- `just test`: runs the Lua tests with `nvim --clean -l tests/run.lua`
+  (busted, no plenary) and `cargo test {{phases}}` in `helper/`.
+- `phases` in the justfile is `--features phase5`, so every delivered
+  type's parity tests run in the gate.
 - `just build`: runs `cargo build --release --manifest-path
   helper/Cargo.toml`.
 - `just goldens`: runs `npm ci --prefix helper/oracle`, then renders
   every `helper/tests/goldens/<type>/<case>.mmd` with `mmdc` and the
   pinned config at the size the helper reports.
 - `just jison-tables`: regenerates `helper/grammars/*.tables.json` from
-  the vendored `.jison` files with `jison@0.4.18`.
+  the vendored `.jison` files with `jison@0.4.18` from `helper/oracle`, so
+  run `npm ci --prefix helper/oracle` first.
+- Dagre goldens: `node helper/oracle/dagre-dump.mjs
+  helper/tests/goldens/dagre` writes the node dumps `dagre_parity.rs`
+  replays. There is no just recipe for it.
 - Run lint, test, and build before a commit. Do not commit if one fails.
 
 ## Layout
@@ -103,17 +112,25 @@ caller, so make it in one commit.
 - `transport`: `probe(cb)`, `cell_size()`, `alloc_id()`,
   `transmit(id, png_path)`, `place(id, cols, rows)`,
   `placeholder_rows(id, cols, rows)`, `hl_group(id)`, `delete(id)`,
-  `wrap_tmux(seq)`, `set_writer(fn)`, `set_winsize_reader(fn)` (the last
-  two are test hooks).
+  `wrap_tmux(seq)`, `encode_cell(...)`, `DIACRITICS`, and the test hooks
+  `set_writer(fn)`, `set_winsize_reader(fn)`, `set_next_id(n)`, `reset()`.
+  `transmit(id, path, force)` returns true, false, or `nil, 'cannot read
+  file'`; `placeholder_rows` returns a second value `'too tall'` when it
+  clamps.
 - `helper`: `request(method, params, cb)` with `cb(err, result)`,
-  `ensure(cb)`, `shutdown(timeout_ms)`, `is_running()`, `state()`.
+  `ensure(cb)`, `shutdown(timeout_ms)`, `is_running()`, `state()`,
+  `info()`, `binary_kind()`, `stderr_tail()`, `reset_failures()`,
+  `locate()`, and the test hooks `set_locator(fn)`, `reset()`.
 - `download`: `target()`, `url(version, target)`, `install_dir()`,
-  `fetch(version, cb)`.
+  `fetch(version, cb)`, `binary_path()`, and the test hooks
+  `set_runner(fn)`, `set_install_dir(dir)`, `reset()`.
 - `cache`: `root()`, `dirs()`, `key_image(...)`, `key_remote(url)`,
-  `key_mermaid(...)`, `note_bytes(n)`, `keep_set()`, `gc_if_needed()`.
+  `key_mermaid(...)`, `note_bytes(n)`, `note_probe(result)`, `estimate()`,
+  `keep_set()`, `gc_if_needed()`, `reset()`.
 - `preview`: `open(src_buf, placement)`, `close(src_buf)`,
   `toggle(src_buf, placement)`, `get(src_buf)`, `render(src_buf, opts)`,
-  `render_all()`, `in_use_paths()`, `retheme()`.
+  `render_all()`, `in_use_paths()`, `retheme()`, `follow(...)`, `sync(...)`,
+  `sync_target(...)`, `sync_topline(...)`, `mode()`, `reset()`.
 
 ## Layout model
 
@@ -143,6 +160,14 @@ caller, so make it in one commit.
 relative paths; tests pass a fixture dir). The layout reads no clock, no
 random source, and no environment.
 
+Layout notes:
+
+- Markdown markers are left out of `lines`, not concealed, so `conceals`
+  stays empty.
+- A blank separator line is an empty string.
+- A code block inside a list item narrows to the item width.
+- An alert body uses the quote group, with the bar in the alert color.
+
 ## Highlight groups
 
 `KittyMarkdownH1` to `H6`, `Text`, `Emph`, `Strong`, `Strike`, `Code`,
@@ -164,13 +189,16 @@ placed image (`fg = id % 2^24`).
   Linux and `0x40087468` on macOS; `width_px = xpixel / col`,
   `height_px = ypixel / row`; cached, cleared on `VimResized`. XTWINOPS
   replies never reach Lua, so there is no escape-sequence route.
+- The transport augroup owns a `ColorScheme` autocmd that redefines the
+  `KittyMarkdownImg<id>` groups.
 - Placeholder cell: U+10EEEE, then the row diacritic, then the column
   diacritic, then the high-byte diacritic when `id >= 2^24`. The 297
   diacritics come from kitty's `gen/rowcolumn-diacritics.txt`
   (`tests/fixtures/diacritics.txt`); the first are U+0305, U+030D,
   U+030E, U+0310, U+0312, U+033D. Rows and columns above 297 are clamped
   with the reason `too tall`.
-- Sequences: transmit `a=T,f=100,t=d,i=<id>,q=2,m=1;<4096 base64 bytes>`
+- Sequences: transmit `a=t,f=100,t=d,i=<id>,q=2,m=1;<4096 base64 bytes>`
+  (`a=t`, not `a=T`: `a=T` also displays the image at the cursor)
   with `m=0` on the last chunk; place `a=p,U=1,i=<id>,c=<cols>,r=<rows>,q=2`;
   delete `a=d,d=I,i=<id>,q=2`.
 
@@ -239,7 +267,8 @@ Plugin-side codes: `remote_images_off` (`remote images off`),
 ```text
 helper/src/
   main.rs cli.rs protocol.rs error.rs ssim.rs
-  server/        JSON-lines loop: reader thread, worker pool, shared writer
+  server/        JSON-lines loop: reader thread, worker pool, shared writer;
+                 builtin.rs, mermaid.rs, pixels.rs adapt the handlers
   cache/         keys, LRU gc with keep set
   image/ svg/ fetch/
   text/          fonts.rs (fontdb + bundled Open Sans), measure.rs (SVG
@@ -251,9 +280,11 @@ helper/src/
     theme/       khroma port, base, default, dark, forest, neutral
     styles/      getStyles ports resolved to attributes (no CSS in SVG)
     scene/       scene model, deterministic SVG serializer, curves, markers
-    jison/       LALR driver over vendored tables, lexer, error formatter
-    layout/      dagre/ (dagre-d3-es 7.0.14 port), unified.rs, d3/,
-                 cose_bilkent/, fcose/, swimlane/
+    jison/       LALR driver over vendored tables: tables.rs, jsregex.rs,
+                 actions.rs, lexer.rs, driver.rs, error.rs
+    layout/      dagre/ (dagre-d3-es 7.0.14 port), unified/ (render_with_dagre,
+                 clusters, the dagre adapter), d3/ (scales, time, axis,
+                 ticks, sankey, hierarchy), fcose/ (architecture)
     shapes/      one module per mermaid shape, intersect/
     diagrams/    one module per diagram type with parse and render
 ```
@@ -275,18 +306,26 @@ defaults, not the docs; jison error text comes from the real LALR tables.
   crash mode.
 - `helper/tests/text_metrics.rs` calibrates the text measurer against
   `helper/oracle/measure.mjs` output at 0.5 px; it is the first parity
-  gate. `dagre_parity.rs` matches node dumps from dagre-d3-es to 1e-6.
+  gate; its goldens are `helper/tests/goldens/metrics.json`.
+  `dagre_parity.rs` replays `helper/tests/goldens/dagre/*.json` from
+  `dagre-dump.mjs` and matches every coordinate to 1e-6; the dagre dummy
+  id counter is reset once per diagram render.
   `parity_<type>.rs` holds insta SVG snapshots and SSIM tests per type;
   later phases carry `#[cfg_attr(not(feature = "phaseN"), ignore)]`.
 - A golden runner skips with a clear message when goldens are absent.
+- `cargo-insta` is not installed; accept snapshots with
+  `INSTA_UPDATE=always cargo test`.
 
 ## Subagents
 
-- Coder agents run in git worktrees on branch `wp/<package>`, own a
-  disjoint file list, and commit with `--no-gpg-sign`. The main session
+- Coder agents run in git worktrees (the harness names the branch
+  `worktree-agent-<id>`), own a disjoint file list, and commit with `--no-gpg-sign`. The main session
   rebases with `git rebase --exec 'git commit --amend --no-edit -S' main`
   and runs the gates before merging.
 - `SPEC.md`, `README.md`, and `AGENTS.md` are locked by the project
   settings. A spec gap goes into the agent's final report as proposed
-  wording for Joh.
+  wording; the dev agent passes it to the architect agent, which assigns
+  the requirement ID.
+- Each agent keeps its scripts and logs in its own scratchpad subfolder;
+  the lead keeps its own in `lead/`. Subagents share one scratchpad.
 - No agent reads `held_out/` by any route.
