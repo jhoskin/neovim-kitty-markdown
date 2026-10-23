@@ -1,0 +1,55 @@
+---
+source: tests/parity_treeview.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="288.818" height="330.406" viewBox="-1.5 0 288.818 330.406" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="tree-view">
+      <g>
+        <text class="treeView-node-label treeView-node-dir" x="5" y="16.5" dominant-baseline="middle" fill="#ff0000" font-size="20" font-weight="bold">/</text>
+      </g>
+      <line class="treeView-node-line" x1="-40" y1="16.5" x2="0" y2="16.5" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label treeView-node-dir" x="50" y="49.551" dominant-baseline="middle" fill="#ff0000" font-size="20" font-weight="bold">packages</text>
+      </g>
+      <line class="treeView-node-line" x1="5" y1="49.551" x2="45" y2="49.551" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label treeView-node-dir" x="95" y="82.602" dominant-baseline="middle" fill="#ff0000" font-size="20" font-weight="bold">mermaid</text>
+      </g>
+      <line class="treeView-node-line" x1="50" y1="82.602" x2="90" y2="82.602" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label treeView-node-dir" x="140" y="115.602" dominant-baseline="middle" fill="#ff0000" font-size="20" font-weight="bold">src</text>
+      </g>
+      <line class="treeView-node-line" x1="95" y1="115.602" x2="135" y2="115.602" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label" x="185" y="148.652" dominant-baseline="middle" fill="#ff0000" font-size="20">parser.ts</text>
+      </g>
+      <line class="treeView-node-line" x1="140" y1="148.652" x2="180" y2="148.652" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label" x="185" y="181.703" dominant-baseline="middle" fill="#ff0000" font-size="20">renderer.ts</text>
+      </g>
+      <line class="treeView-node-line" x1="140" y1="181.703" x2="180" y2="181.703" stroke="#00aa00" stroke-width="3"/>
+      <line class="treeView-node-line" x1="140" y1="132.102" x2="140" y2="183.203" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label" x="140" y="214.754" dominant-baseline="middle" fill="#ff0000" font-size="20">package.json</text>
+      </g>
+      <line class="treeView-node-line" x1="95" y1="214.754" x2="135" y2="214.754" stroke="#00aa00" stroke-width="3"/>
+      <line class="treeView-node-line" x1="95" y1="99.102" x2="95" y2="216.254" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label treeView-node-dir" x="95" y="247.855" dominant-baseline="middle" fill="#ff0000" font-size="20" font-weight="bold">parser</text>
+      </g>
+      <line class="treeView-node-line" x1="50" y1="247.855" x2="90" y2="247.855" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label treeView-node-dir" x="140" y="280.906" dominant-baseline="middle" fill="#ff0000" font-size="20" font-weight="bold">src</text>
+      </g>
+      <line class="treeView-node-line" x1="95" y1="280.906" x2="135" y2="280.906" stroke="#00aa00" stroke-width="3"/>
+      <line class="treeView-node-line" x1="95" y1="264.406" x2="95" y2="282.406" stroke="#00aa00" stroke-width="3"/>
+      <line class="treeView-node-line" x1="50" y1="66.102" x2="50" y2="249.355" stroke="#00aa00" stroke-width="3"/>
+      <g>
+        <text class="treeView-node-label" x="50" y="313.906" dominant-baseline="middle" fill="#ff0000" font-size="20">README.md</text>
+      </g>
+      <line class="treeView-node-line" x1="5" y1="313.906" x2="45" y2="313.906" stroke="#00aa00" stroke-width="3"/>
+      <line class="treeView-node-line" x1="5" y1="33" x2="5" y2="315.406" stroke="#00aa00" stroke-width="3"/>
+    </g>
+  </g>
+</svg>
