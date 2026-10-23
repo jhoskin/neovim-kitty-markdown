@@ -3,6 +3,7 @@
 pub mod block;
 pub mod c4;
 pub mod class;
+pub mod eventmodeling;
 pub mod flowchart;
 pub mod gantt;
 pub mod gitgraph;
