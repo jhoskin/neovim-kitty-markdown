@@ -8,6 +8,8 @@
 
 use super::markdown::{Line, Word};
 
+mod emoji_presentation;
+
 // --- Segmentation -----------------------------------------------------------
 //
 // `Intl.Segmenter` follows UAX #29. These tables carry the classes that
@@ -50,6 +52,25 @@ pub fn is_extended_pictographic(ch: char) -> bool {
         | 0x1F680..=0x1F6FF | 0x1F774..=0x1F77F | 0x1F7D5..=0x1F7FF | 0x1F80C..=0x1F80F
         | 0x1F848..=0x1F84F | 0x1F85A..=0x1F85F | 0x1F888..=0x1F88F | 0x1F8AE..=0x1F8FF
         | 0x1F90C..=0x1F93A | 0x1F93C..=0x1F945 | 0x1F947..=0x1FAFF | 0x1FC00..=0x1FFFD)
+}
+
+/// Unicode `Emoji_Presentation=Yes`: a character that shows as a color
+/// emoji with no variation selector. Blink gives such a character the
+/// emoji fallback priority; any other pictograph (`❤` U+2764, `★`, `✓`)
+/// takes the text priority unless U+FE0F follows it.
+pub fn is_emoji_presentation(ch: char) -> bool {
+    let cp = ch as u32;
+    emoji_presentation::RANGES
+        .binary_search_by(|&(first, last)| {
+            if last < cp {
+                std::cmp::Ordering::Less
+            } else if first > cp {
+                std::cmp::Ordering::Greater
+            } else {
+                std::cmp::Ordering::Equal
+            }
+        })
+        .is_ok()
 }
 
 /// Han, Hiragana, Katakana, and the fullwidth forms: break before and
@@ -601,6 +622,30 @@ mod tests {
 
     fn line(words: &[&str]) -> Line {
         words.iter().map(|w| Word::normal(*w)).collect()
+    }
+
+    #[test]
+    fn emoji_presentation_is_a_subset_of_the_pictographs() {
+        for ch in ['\u{231A}', '\u{26A1}', '\u{2B50}', '\u{1F600}', '\u{1FAE9}'] {
+            assert!(is_emoji_presentation(ch), "{ch:?}");
+        }
+        for ch in [
+            '\u{2764}', '\u{2605}', '\u{2713}', '\u{2192}', '\u{00A9}', 'a',
+        ] {
+            assert!(!is_emoji_presentation(ch), "{ch:?}");
+        }
+        let ranges = emoji_presentation::RANGES;
+        assert!(ranges.windows(2).all(|w| w[0].1 + 1 < w[1].0));
+        for &(first, last) in ranges {
+            for cp in first..=last {
+                let ch = char::from_u32(cp).expect("scalar value");
+                // The skin tone modifiers are Extend, not pictographs.
+                assert!(
+                    is_extended_pictographic(ch) || is_regional_indicator(ch) || is_extend(ch),
+                    "{cp:X}"
+                );
+            }
+        }
     }
 
     fn words_of(text: &str) -> Line {

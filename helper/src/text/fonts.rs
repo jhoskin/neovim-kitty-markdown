@@ -65,16 +65,21 @@ fn generic_candidates(generic: &str) -> &'static [&'static str] {
 }
 
 /// Fonts Chrome falls back to for characters the resolved face lacks. The
-/// order follows what CoreText and fontconfig pick on a stock install.
+/// order follows what CoreText and fontconfig pick on a stock install. On
+/// macOS, Chrome 156 draws text-presentation `✓` in Lucida Grande, `★` in
+/// Hiragino Sans (Lucida Grande lacks it), and `❤` in Zapf Dingbats, so
+/// Lucida Grande leads and Zapf Dingbats comes before Arial Unicode MS.
 fn fallback_candidates() -> &'static [&'static str] {
     if cfg!(target_os = "macos") {
         &[
+            "Lucida Grande",
             "PingFang SC",
             "Hiragino Sans",
             "Hiragino Kaku Gothic ProN",
             "Apple SD Gothic Neo",
             "Apple Color Emoji",
             "Apple Symbols",
+            "Zapf Dingbats",
             "Arial Unicode MS",
         ]
     } else {
@@ -213,10 +218,22 @@ impl FontSystem {
 
     /// A face that has a glyph for `ch`, from the platform fallback list,
     /// then from any installed face. `None` when no face covers it. Chrome
-    /// gives emoji presentation characters to the color emoji font before
-    /// any other fallback, so pictographs try it first.
+    /// gives a character with `Emoji_Presentation=Yes` to the color emoji
+    /// font before any other fallback; any other pictograph takes the text
+    /// order.
     pub fn fallback_for(&self, ch: char, weight: Weight, style: Style) -> Option<FontId> {
-        let emoji_first = super::wrap::is_extended_pictographic(ch);
+        self.platform_fallback(ch, super::wrap::is_emoji_presentation(ch), weight, style)
+    }
+
+    /// [`Self::fallback_for`] with the emoji priority given: `emoji_first`
+    /// tries the color emoji font before the rest of the platform list.
+    fn platform_fallback(
+        &self,
+        ch: char,
+        emoji_first: bool,
+        weight: Weight,
+        style: Style,
+    ) -> Option<FontId> {
         let candidates = fallback_candidates()
             .iter()
             .filter(|name| emoji_first == name.contains("Emoji"))
@@ -242,10 +259,13 @@ impl FontSystem {
     /// list in order before it asks the platform, so under mermaid's
     /// `"trebuchet ms", verdana, arial, sans-serif` an `→` is drawn in
     /// Arial and a `├` in Arial while `─` stays in Verdana. A grapheme with
-    /// emoji presentation (`U+FE0F`) skips the list: Chrome draws `❤️` in
-    /// Apple Color Emoji even when a listed family has a text `❤`. Both
-    /// read off `CSS.getPlatformFontsForNode` in the oracle's Chrome 156
-    /// on macOS. What the list cannot cover goes to [`Self::fallback_for`].
+    /// emoji presentation skips the list: Chrome draws `❤️` in Apple Color
+    /// Emoji even when a listed family has a text `❤`. Emoji presentation
+    /// is a following `U+FE0F`, or `Emoji_Presentation=Yes` with no
+    /// `U+FE0E`, as in Blink's `FontFallbackPriority`. A lone `❤` takes the
+    /// text order and Chrome draws it in Zapf Dingbats. All of these read
+    /// off `CSS.getPlatformFontsForNode` in the oracle's Chrome 156 on
+    /// macOS. What the list cannot cover goes to the platform list.
     pub fn fallback_in_chain(
         &self,
         chain: &str,
@@ -254,7 +274,8 @@ impl FontSystem {
         style: Style,
     ) -> Option<FontId> {
         let ch = grapheme.chars().next()?;
-        let emoji = grapheme.contains('\u{FE0F}');
+        let emoji = grapheme.contains('\u{FE0F}')
+            || (super::wrap::is_emoji_presentation(ch) && !grapheme.contains('\u{FE0E}'));
         let listed = (!emoji)
             .then(|| {
                 parse_families(chain)
@@ -263,7 +284,7 @@ impl FontSystem {
                     .find(|&id| self.has_glyph(id, ch))
             })
             .flatten();
-        listed.or_else(|| self.fallback_for(ch, weight, style))
+        listed.or_else(|| self.platform_fallback(ch, emoji, weight, style))
     }
 
     /// True when the face maps `ch` to a glyph other than `.notdef`.
@@ -450,5 +471,36 @@ mod tests {
         assert_eq!(upem, 2048);
         assert!(fonts.has_glyph(fonts.open_sans_regular, 'A'));
         assert!(!fonts.has_glyph(fonts.open_sans_regular, '中'));
+    }
+
+    /// The faces Chrome 156 on macOS reports through
+    /// `CSS.getPlatformFontsForNode` under mermaid's chain for `❤`, `❤️`,
+    /// `★`, and `✓`; `⚡` (`Emoji_Presentation=Yes`) follows the emoji
+    /// priority rule. Elsewhere, or on a Mac without one of these faces,
+    /// there is nothing to check.
+    #[test]
+    fn only_emoji_presentation_goes_to_the_emoji_font_first() {
+        let fonts = FontSystem::new();
+        let (w, s) = (Weight::NORMAL, Style::Normal);
+        let expected = [
+            ("\u{2764}", "Zapf Dingbats"),
+            ("\u{2764}\u{FE0F}", "Apple Color Emoji"),
+            ("\u{2605}", "Hiragino Sans"),
+            ("\u{2713}", "Lucida Grande"),
+            ("\u{26A1}", "Apple Color Emoji"),
+        ];
+        let present = |family: &str| fonts.resolve_family(family, w, s).is_some();
+        if !cfg!(target_os = "macos") || !expected.iter().all(|(_, family)| present(family)) {
+            return;
+        }
+        let chain = "\"trebuchet ms\", verdana, arial, sans-serif";
+        for (grapheme, family) in expected {
+            let face = fonts.fallback_in_chain(chain, grapheme, w, s);
+            assert_eq!(
+                face.and_then(|id| fonts.family_name(id)).as_deref(),
+                Some(family),
+                "{grapheme:?}"
+            );
+        }
     }
 }
