@@ -868,6 +868,40 @@ fn edges_to_render(
     out
 }
 
+/// The two nodes an edge is clipped against.
+///
+/// The top-level graph is painted by `paintLayoutData` of
+/// `layout-algorithms/common/index.ts`, which looks the ends up with
+/// `getRenderedNode(edge.start)` and `getRenderedNode(edge.end)`:
+/// `normalizeDagreEdge` keeps the edge's own `start`/`end` over the graph
+/// key. So an edge that `adjustClustersAndEdges` re-anchored on a child
+/// clips against its cluster, and every unmerged self-loop segment (a
+/// `structuredClone` of the self-loop) clips both ends against the real
+/// node instead of the 10x10 dummies. An id the graph does not know gives
+/// `{}`, a node with no `intersect`, so that path keeps dagre's own ends.
+///
+/// A recursive cluster is painted by `paintDagreLayoutCore`, which uses
+/// `graph.node(e.v)` and `graph.node(e.w)`; there a missing node throws in
+/// `insertEdge`, so the edge is skipped.
+fn edge_end_nodes(
+    graph: &UGraph,
+    edge: &Edge,
+    start: &str,
+    end: &str,
+    top_level: bool,
+) -> Option<(Node, Node)> {
+    if !top_level {
+        let s = graph.node(start)?;
+        let e = graph.node(end)?;
+        return Some((s.node.clone(), e.node.clone()));
+    }
+    let rendered = |own: &str, key: &str| {
+        let id = if own.is_empty() { key } else { own };
+        graph.node(id).map(|n| n.node.clone()).unwrap_or_default()
+    };
+    Some((rendered(&edge.start, start), rendered(&edge.end, end)))
+}
+
 /// A rendered sub-graph: `g.root` and the `diff` of its last group.
 struct SubRender {
     elem: Group,
@@ -905,6 +939,7 @@ fn recursive_render(
     parent_cluster: Option<&UNode>,
 ) -> Result<SubRender, HelperError> {
     let merge_self_loops = should_merge_self_loops(rc.diagram_type);
+    let top_level = parent_cluster.is_none();
     let total_margin =
         rc.config.sub_graph_title_margin_top + rc.config.sub_graph_title_margin_bottom;
     let dir = Dir::parse(&graph.label.rankdir);
@@ -1081,7 +1116,8 @@ fn recursive_render(
         for p in &mut edge.points {
             p.y += edge_offset_y;
         }
-        let (Some(start_node), Some(end_node)) = (graph.node(&start), graph.node(&end)) else {
+        let Some((start_node, end_node)) = edge_end_nodes(graph, &edge, &start, &end, top_level)
+        else {
             continue;
         };
         let EdgeOut {
@@ -1092,8 +1128,8 @@ fn recursive_render(
             &edge,
             &cluster_bounds,
             rc.diagram_type,
-            &start_node.node,
-            &end_node.node,
+            &start_node,
+            &end_node,
             rc.diagram_id,
             &edge_ctx,
         );
@@ -1443,6 +1479,27 @@ mod tests {
         );
         assert!(!g.node("S").expect("S").cluster_node);
         assert!(validate(&g));
+
+        // The top-level painter clips against `edge.end`, the cluster; a
+        // recursive render would clip against the graph key, the anchor.
+        let edge = g.edge(to_s).expect("edge").edge.clone();
+        let ends = |top| edge_end_nodes(&g, &edge, &to_s.v, &to_s.w, top).expect("ends");
+        assert_eq!(ends(true).1.id, "S");
+        assert_eq!(ends(false).1.id, "A");
+    }
+
+    #[test]
+    fn unmerged_self_loop_segments_clip_against_the_node() {
+        let d = data(
+            vec![Node::flowchart("A", "A", "rect")],
+            vec![Edge::flowchart("L_A_A_0", "A", "A")],
+        );
+        let g = prepare_layout(&d, &UnifiedConfig::default());
+        for key in g.edges() {
+            let edge = g.edge(&key).expect("segment").edge.clone();
+            let (s, e) = edge_end_nodes(&g, &edge, &key.v, &key.w, true).expect("ends");
+            assert_eq!((s.id.as_str(), e.id.as_str()), ("A", "A"));
+        }
     }
 
     #[test]
