@@ -1,0 +1,20 @@
+swimlane-beta LR
+  subgraph Customer
+    order[Place order]
+  end
+  subgraph Sales
+    confirm[Confirm order]
+  end
+  subgraph Billing
+    invoice[Send invoice]
+  end
+  subgraph Warehouse
+    pick[Pick items]
+  end
+  subgraph Shipping
+    ship[Ship parcel]
+  end
+  subgraph Support
+    follow[Follow up]
+  end
+  order --> confirm --> invoice --> pick --> ship --> follow

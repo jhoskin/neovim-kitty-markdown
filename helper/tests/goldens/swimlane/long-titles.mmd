@@ -1,0 +1,9 @@
+swimlane-beta TB
+  subgraph ops [Operations and infrastructure on-call rotation]
+    page[Page engineer]
+    ack[Acknowledge alert]
+  end
+  subgraph comms [Customer communications and status page]
+    post[Post status update]
+  end
+  page --> ack --> post

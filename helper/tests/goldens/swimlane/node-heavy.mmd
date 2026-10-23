@@ -1,0 +1,16 @@
+swimlane-beta LR
+  subgraph Intake
+    a[Receive form] --> b(Validate fields)
+    b --> c{Valid?}
+    c -->|yes| d[(Store record)]
+    c -->|no| e[/Return to sender/]
+    d --> f[Assign owner]
+    f --> g[Schedule review]
+    g --> h{{Prioritise}}
+    h --> i[Open ticket]
+  end
+  subgraph Review
+    j[Review ticket]
+  end
+  i --> j
+  e --> a

@@ -1,0 +1,10 @@
+swimlane-beta RL
+  subgraph Client
+    start[Start] --> send[Send request]
+    result[Show result]
+  end
+  subgraph Server
+    handle[Handle request] --> reply[Reply]
+  end
+  send --> handle
+  reply --> result

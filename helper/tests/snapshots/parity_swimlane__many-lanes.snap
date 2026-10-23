@@ -1,0 +1,148 @@
+---
+source: tests/parity_swimlane.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1646" height="140" viewBox="0 0 1646 140" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_swimlane-pointEnd" class="marker swimlane" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-pointStart" class="marker swimlane" viewBox="0 0 10 10" refX="4.5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,5L10,10L10,0Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-pointEnd-margin" class="marker swimlane" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerWidth="10.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L11.5,7L0,14Z" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-pointStart-margin" class="marker swimlane" viewBox="0 0 11.5 14" refX="1" refY="7" markerWidth="11.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <polygon class="arrowMarkerPath" points="0,7 11.5,14 11.5,0" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-circleEnd" class="marker swimlane" viewBox="0 0 10 10" refX="11" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-circleStart" class="marker swimlane" viewBox="0 0 10 10" refX="-1" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-circleEnd-margin" class="marker swimlane" viewBox="0 0 10 10" refX="12.25" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-circleStart-margin" class="marker swimlane" viewBox="0 0 10 10" refX="-2" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-crossEnd" class="marker cross swimlane" viewBox="0 0 11 11" refX="12" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-crossStart" class="marker cross swimlane" viewBox="0 0 11 11" refX="-1" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_swimlane-crossEnd-margin" class="marker cross swimlane" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5"/>
+    </marker>
+    <marker id="my-svg_swimlane-crossStart-margin" class="marker cross swimlane" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5" stroke-dasharray="1,0"/>
+    </marker>
+  </defs>
+  <g class="flowchart" fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters">
+        <g id="Support" class="cluster ">
+          <rect x="1408" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(1495.293, 8)">
+            <text class="nodeLabel" x="27.707" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.707" dy="17">Support</tspan></text>
+          </g>
+        </g>
+        <g id="Shipping" class="cluster ">
+          <rect x="1128" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(1212.918, 8)">
+            <text class="nodeLabel" x="30.082" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="30.082" dy="17">Shipping</tspan></text>
+          </g>
+        </g>
+        <g id="Warehouse" class="cluster ">
+          <rect x="848" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(924.316, 8)">
+            <text class="nodeLabel" x="38.684" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.684" dy="17">Warehouse</tspan></text>
+          </g>
+        </g>
+        <g id="Billing" class="cluster ">
+          <rect x="568" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(660.805, 8)">
+            <text class="nodeLabel" x="22.195" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="22.195" dy="17">Billing</tspan></text>
+          </g>
+        </g>
+        <g id="Sales" class="cluster ">
+          <rect x="288" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(384.988, 8)">
+            <text class="nodeLabel" x="18.012" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.012" dy="17">Sales</tspan></text>
+          </g>
+        </g>
+        <g id="Customer" class="cluster ">
+          <rect x="8" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(89.027, 8)">
+            <text class="nodeLabel" x="33.973" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.973" dy="17">Customer</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g class="edgePaths">
+        <path id="my-svg-L_order_confirm_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M213,70L217.167,70C221.333,70,229.667,70,238,70C246.333,70,254.667,70,263,70C271.333,70,279.667,70,287.333,70C295,70,302,70,305.5,70L309,70" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_confirm_invoice_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M493,70L497.167,70C501.333,70,509.667,70,518,70C526.333,70,534.667,70,543,70C551.333,70,559.667,70,567.333,70C575,70,582,70,585.5,70L589,70" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_invoice_pick_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M773,70L777.167,70C781.333,70,789.667,70,798,70C806.333,70,814.667,70,823,70C831.333,70,839.667,70,847.333,70C855,70,862,70,865.5,70L869,70" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_pick_ship_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M1053,70L1057.167,70C1061.333,70,1069.667,70,1078,70C1086.333,70,1094.667,70,1103,70C1111.333,70,1119.667,70,1127.333,70C1135,70,1142,70,1145.5,70L1149,70" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_ship_follow_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M1333,70L1337.167,70C1341.333,70,1349.667,70,1358,70C1366.333,70,1374.667,70,1383,70C1391.333,70,1399.667,70,1407.333,70C1415,70,1422,70,1425.5,70L1429,70" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="flowchart-order-0" class="node default  " transform="translate(123, 70)">
+          <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Place order</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-confirm-1" class="node default  " transform="translate(403, 70)">
+          <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Confirm order</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-invoice-2" class="node default  " transform="translate(683, 70)">
+          <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Send invoice</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-pick-3" class="node default  " transform="translate(963, 70)">
+          <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Pick items</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-ship-4" class="node default  " transform="translate(1243, 70)">
+          <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Ship parcel</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-follow-5" class="node default  " transform="translate(1523, 70)">
+          <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Follow up</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

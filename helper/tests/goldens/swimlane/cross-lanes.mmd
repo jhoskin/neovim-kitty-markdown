@@ -1,0 +1,21 @@
+swimlane-beta TB
+  subgraph Requester
+    ask([Submit request])
+    done((Done))
+  end
+  subgraph Reviewer
+    check{Complete?}
+    retry[Ask for details]
+    retry --> retry
+  end
+  subgraph Platform
+    build[[Provision]]
+    notify>Notify]
+  end
+  ask --> check
+  check -->|no| retry
+  retry -.-> ask
+  check ==>|yes| build
+  build --> notify
+  notify --> done
+  ask --> notify
