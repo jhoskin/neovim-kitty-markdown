@@ -1,0 +1,98 @@
+---
+source: tests/parity_c4.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="932" height="1103.454" viewBox="0 -70 932 1103.454" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="9" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0L10,5L0,10Z" fill="#cccccc"/>
+    </marker>
+    <marker id="my-svg-arrowend" refX="1" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M10,0L0,5L10,10Z" fill="#cccccc"/>
+    </marker>
+  </defs>
+  <g fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+    <g transform="translate(258, 221)">
+      <g id="my-svg-pay" class="node c4-shape c4-external_system c4-external">
+        <rect class="basic label-container" x="-108" y="-47" width="216" height="94" rx="12" ry="12" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
+        <g class="label" transform="translate(-58.246, -27)" fill="#ffffff">
+          <g class="c4-name" transform="translate(58.246, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Payment</tspan><tspan> Provider</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(58.246, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(58.246, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Takes</tspan><tspan> payments</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(308, 571.973)">
+      <g id="my-svg-customer" class="node c4-shape c4-person">
+        <g class="basic label-container">
+          <rect x="-108" y="-4.027" width="216" height="94" rx="38.232" ry="38.232" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+          <circle cx="0" cy="-40.293" r="49.68" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+        </g>
+        <g class="label" transform="translate(-32.016, 15.973)" fill="#ffffff">
+          <g class="c4-name" transform="translate(32.016, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Customer</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(32.016, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(32.016, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Buys</tspan><tspan> things</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(624, 529)">
+      <g id="my-svg-shop" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-47" width="216" height="94" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-44.243, -27)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Web</tspan><tspan> Shop</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(44.243, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Sells</tspan><tspan> things</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(308, 822.7)">
+      <g id="my-svg-db" class="node c4-shape c4-system_db">
+        <path class="basic label-container outer-path" transform="translate(-108, -60.754)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,105.672A108,15.836,0,0,0,216,105.672L216,15.836" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-44.243, -13.667)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Orders</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(44.243, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Order</tspan><tspan> history</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <rect x="150" y="382" width="632" height="551.454" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="466" y="398.551" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Company</text>
+      <text x="466" y="424.482" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[ENTERPRISE]</text>
+    </g>
+    <g>
+      <line x1="342.271" y1="567.313" x2="516" y2="543.687" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="463.636" y="561.913" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Orders from</text>
+      <path d="M573.431,576Q523.415,670.588,373.367,765.176" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="517.899" y="677.001" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Stores orders in</text>
+      <path d="M568.149,482Q504.575,375,313.851,268" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="494" y="381.413" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Charges cards with</text>
+      <text x="494" y="398.413" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal" font-style="italic">[REST]</text>
+    </g>
+    <text x="216" y="20">Dark theme</text>
+  </g>
+</svg>

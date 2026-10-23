@@ -1,0 +1,246 @@
+---
+source: tests/parity_c4.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1032" height="2914.615" viewBox="0 -70 1032 2914.615" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="9" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0L10,5L0,10Z" fill="#333333"/>
+    </marker>
+    <marker id="my-svg-arrowend" refX="1" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+    <g transform="translate(308, 334.287)">
+      <g id="my-svg-customerA" class="node c4-shape c4-person">
+        <g class="basic label-container">
+          <rect x="-108" y="-10.341" width="216" height="106.628" rx="38.232" ry="38.232" fill="#808080" stroke="#ff0000" stroke-width="2"/>
+          <circle cx="0" cy="-46.607" r="49.68" fill="#808080" stroke="#ff0000" stroke-width="2"/>
+        </g>
+        <g class="label" transform="translate(-76.831, 9.659)" fill="#ff0000">
+          <g class="c4-name" transform="translate(76.831, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ff0000" stroke="#ff0000" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> A</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(76.831, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(76.831, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">A</tspan><tspan> customer</tspan><tspan> of</tspan><tspan> the</tspan><tspan> bank,</tspan><tspan> with</tspan><tspan x="0" dy="1.1em">personal</tspan><tspan> bank</tspan><tspan> accounts.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(624, 318.973)">
+      <g id="my-svg-customerB" class="node c4-shape c4-person">
+        <g class="basic label-container">
+          <rect x="-108" y="4.973" width="216" height="76" rx="34.2" ry="34.2" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+          <circle cx="0" cy="-31.293" r="49.68" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+        </g>
+        <g class="label" transform="translate(-66.418, 24.973)" fill="#ffffff">
+          <g class="c4-name" transform="translate(66.418, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> B</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(66.418, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(308, 620.548)">
+      <g id="my-svg-customerC" class="node c4-shape c4-external_person c4-external">
+        <g class="basic label-container">
+          <rect x="-108" y="-4.027" width="216" height="94" rx="38.232" ry="38.232" fill="#686868" stroke="#8a8a8a" stroke-width="2"/>
+          <circle cx="0" cy="-40.293" r="49.68" fill="#686868" stroke="#8a8a8a" stroke-width="2"/>
+        </g>
+        <g class="label" transform="translate(-66.305, 15.973)" fill="#ffffff">
+          <g class="c4-name" transform="translate(66.305, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> C</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(66.305, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(66.305, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">desc</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(624, 626.862)">
+      <g id="my-svg-customerD" class="node c4-shape c4-person">
+        <g class="basic label-container">
+          <rect x="-108" y="-10.341" width="216" height="106.628" rx="38.232" ry="38.232" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+          <circle cx="0" cy="-46.607" r="49.68" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+        </g>
+        <g class="label" transform="translate(-78.073, 9.659)" fill="#ffffff">
+          <g class="c4-name" transform="translate(78.073, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> D</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(78.073, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(78.073, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">A</tspan><tspan> customer</tspan><tspan> of</tspan><tspan> the</tspan><tspan> bank,</tspan><tspan x="0" dy="1.1em">with</tspan><tspan> personal</tspan><tspan> bank</tspan><tspan> accounts.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(308, 882.777)">
+      <g id="my-svg-SystemAA" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-59.628" width="216" height="119.256" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-82.81, -39.628)" fill="#ffffff">
+          <g class="c4-name" transform="translate(82.81, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Internet</tspan><tspan> Banking</tspan><tspan> System</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(82.81, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(82.81, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Allows</tspan><tspan> customers</tspan><tspan> to</tspan><tspan> view</tspan><tspan x="0" dy="1.1em">information</tspan><tspan> about</tspan><tspan> their</tspan><tspan> bank</tspan><tspan x="0" dy="1.1em">accounts,</tspan><tspan> and</tspan><tspan> make</tspan><tspan> payments.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(358, 1243.8)">
+      <g id="my-svg-SystemE" class="node c4-shape c4-external_system_db c4-external">
+        <path class="basic label-container outer-path" transform="translate(-108, -87.396)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,158.956A108,15.836,0,0,0,216,158.956L216,15.836" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
+        <g class="label" transform="translate(-77.762, -40.309)" fill="#ffffff">
+          <g class="c4-name" transform="translate(77.762, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Mainframe</tspan><tspan> Banking</tspan><tspan x="0" dy="1.1em">System</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(77.762, 37.9)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(77.762, 54.92)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Stores</tspan><tspan> all</tspan><tspan> of</tspan><tspan> the</tspan><tspan> core</tspan><tspan> banking</tspan><tspan x="0" dy="1.1em">information</tspan><tspan> about</tspan><tspan x="0" dy="1.1em">customers,</tspan><tspan> accounts,</tspan><tspan x="0" dy="1.1em">transactions,</tspan><tspan> etc.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(674, 1209.719)">
+      <g id="my-svg-SystemC" class="node c4-shape c4-external_system c4-external">
+        <rect class="basic label-container" x="-108" y="-53.314" width="216" height="106.628" rx="12" ry="12" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
+        <g class="label" transform="translate(-85.96, -33.314)" fill="#ffffff">
+          <g class="c4-name" transform="translate(85.96, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">E-mail</tspan><tspan> system</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(85.96, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(85.96, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">The</tspan><tspan> internal</tspan><tspan> Microsoft</tspan><tspan> Exchange</tspan><tspan x="0" dy="1.1em">e-mail</tspan><tspan> system.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(358, 1505.964)">
+      <g id="my-svg-SystemD" class="node c4-shape c4-system_db">
+        <path class="basic label-container outer-path" transform="translate(-108, -74.768)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,133.7A108,15.836,0,0,0,216,133.7L216,15.836" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-70.374, -27.681)" fill="#ffffff">
+          <g class="c4-name" transform="translate(70.374, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> D</tspan><tspan x="0" dy="1.1em">Database</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(70.374, 37.9)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(70.374, 54.92)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">A</tspan><tspan> system</tspan><tspan> of</tspan><tspan> the</tspan><tspan> bank,</tspan><tspan> with</tspan><tspan x="0" dy="1.1em">personal</tspan><tspan> bank</tspan><tspan> accounts.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(408, 1832.731)">
+      <g id="my-svg-SystemA" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-57.894, -18)" fill="#ffffff">
+          <g class="c4-name" transform="translate(57.894, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> A</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(57.894, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(408, 2030.359)">
+      <g id="my-svg-SystemB" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-59.628" width="216" height="119.256" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-78.404, -39.628)" fill="#ffffff">
+          <g class="c4-name" transform="translate(78.404, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> B</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(78.404, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(78.404, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">A</tspan><tspan> system</tspan><tspan> of</tspan><tspan> the</tspan><tspan> bank,</tspan><tspan> with</tspan><tspan x="0" dy="1.1em">personal</tspan><tspan> bank</tspan><tspan> accounts.</tspan><tspan> next</tspan><tspan x="0" dy="1.1em">line.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <rect x="250" y="1694.731" width="316" height="445.256" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="408" y="1711.282" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary2</text>
+      <text x="408" y="1737.213" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[SYSTEM]</text>
+    </g>
+    <g transform="translate(420.698, 2385.987)">
+      <g id="my-svg-SystemF" class="node c4-shape c4-system_queue">
+        <path class="basic label-container outer-path" transform="translate(-112.233, 32)" d="M0,0A8.466,32,0,0,1,0,-64L224.466,-64A8.466,32,0,0,1,224.466,0M224.466,-64A8.466,32,0,0,0,224.466,0L0,0" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-89.256, -27)" fill="#ffffff">
+          <g class="c4-name" transform="translate(80.791, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> F</tspan><tspan> Queue</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(80.791, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(80.791, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">A</tspan><tspan> system</tspan><tspan> of</tspan><tspan> the</tspan><tspan> bank.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(422.252, 2556.301)">
+      <g id="my-svg-SystemG" class="node c4-shape c4-external_system_queue c4-external">
+        <path class="basic label-container outer-path" transform="translate(-112.751, 38.314)" d="M0,0A9.501,38.314,0,0,1,0,-76.628L225.501,-76.628A9.501,38.314,0,0,1,225.501,0M225.501,-76.628A9.501,38.314,0,0,0,225.501,0L0,0" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
+        <g class="label" transform="translate(-91.768, -33.314)" fill="#ffffff">
+          <g class="c4-name" transform="translate(82.267, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> G</tspan><tspan> Queue</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(82.267, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(82.267, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">A</tspan><tspan> system</tspan><tspan> of</tspan><tspan> the</tspan><tspan> bank,</tspan><tspan> with</tspan><tspan x="0" dy="1.1em">personal</tspan><tspan> bank</tspan><tspan> accounts.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <rect x="250" y="2253.987" width="344.503" height="390.628" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="422.252" y="2270.538" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary3</text>
+      <text x="422.252" y="2296.469" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[boundary]</text>
+    </g>
+    <g>
+      <rect x="200" y="1056.405" width="632" height="1638.211" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="516" y="1072.956" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary</text>
+      <text x="516" y="1098.887" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[ENTERPRISE]</text>
+    </g>
+    <g>
+      <rect x="150" y="138" width="732" height="2606.615" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="516" y="154.551" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary0</text>
+      <text x="516" y="180.482" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[ENTERPRISE]</text>
+    </g>
+    <g>
+      <line x1="308" y1="430.307" x2="308" y2="823.149" fill="none" stroke="#0000ff" stroke-width="1" marker-start="url(#my-svg-arrowend)" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="326.5" y="633.141" text-anchor="middle" fill="#0000ff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Uses</text>
+      <path d="M316.258,942.405Q323.668,1049.455,345.896,1156.505" fill="none" stroke="#0000ff" stroke-width="1" marker-start="url(#my-svg-arrowend)" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="344.577" y="1045.868" text-anchor="middle" fill="#0000ff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Uses</text>
+      <path d="M374.751,942.405Q434.643,1049.405,614.317,1156.405" fill="none" stroke="#0000ff" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="483.034" y="1015.818" text-anchor="middle" fill="#0000ff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Sends e-mails</text>
+      <text x="483.034" y="1032.818" text-anchor="middle" fill="#0000ff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal" font-style="italic">[SMTP]</text>
+      <path d="M651.711,1156.405Q575.819,793.356,348.144,430.307" fill="none" stroke="#ff0000" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="495.927" y="819.769" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Sends e-mails to</text>
+    </g>
+    <text x="266" y="20">System Context diagram for Internet Banking System</text>
+  </g>
+</svg>

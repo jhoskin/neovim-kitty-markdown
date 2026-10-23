@@ -1,0 +1,6 @@
+C4Context
+Person(p, "Customer with a rather long name that wraps", "A customer of the bank who holds personal accounts, savings, a mortgage, and a credit card, and who calls the help desk every week.")
+System(s, "Internet Banking System", "Allows customers to view information about their bank accounts, make payments, set up standing orders, and download statements for any period they choose.")
+SystemQueue(q, "Notifications", "Queues e-mail, SMS, and push messages for delivery to customers in the order they were raised.")
+Rel(p, s, "Uses every day for everything to do with money", "HTTPS")
+Rel(s, q, "Sends notifications")

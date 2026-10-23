@@ -1,0 +1,19 @@
+C4Context
+title Two shapes to a row
+Person(a, "Alice")
+Person(b, "Bob")
+System(s1, "System One")
+System(s2, "System Two")
+System(s3, "System Three")
+Boundary(g1, "Group One") {
+  System(x1, "X1")
+}
+Boundary(g2, "Group Two") {
+  System(x2, "X2")
+}
+Boundary(g3, "Group Three") {
+  System(x3, "X3")
+}
+Rel(a, s1, "Uses")
+Rel(b, s2, "Uses")
+UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="3")

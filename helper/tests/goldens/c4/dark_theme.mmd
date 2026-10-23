@@ -1,0 +1,12 @@
+%%{init: {'theme': 'dark'}}%%
+C4Context
+title Dark theme
+Enterprise_Boundary(b0, "Company") {
+  Person(customer, "Customer", "Buys things")
+  System(shop, "Web Shop", "Sells things")
+  SystemDb(db, "Orders", "Order history")
+}
+System_Ext(pay, "Payment Provider", "Takes payments")
+Rel(customer, shop, "Orders from")
+Rel(shop, db, "Stores orders in")
+Rel(shop, pay, "Charges cards with", "REST")

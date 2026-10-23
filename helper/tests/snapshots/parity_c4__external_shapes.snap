@@ -1,0 +1,159 @@
+---
+source: tests/parity_c4.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="857.397" height="1160.961" viewBox="0 -70 857.397 1160.961" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="9" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0L10,5L0,10Z" fill="#333333"/>
+    </marker>
+    <marker id="my-svg-arrowend" refX="1" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+    <g transform="translate(258, 263.973)">
+      <g id="my-svg-user" class="node c4-shape c4-external_person c4-external">
+        <g class="basic label-container">
+          <rect x="-108" y="-4.027" width="216" height="94" rx="38.232" ry="38.232" fill="#686868" stroke="#8a8a8a" stroke-width="2"/>
+          <circle cx="0" cy="-40.293" r="49.68" fill="#686868" stroke="#8a8a8a" stroke-width="2"/>
+        </g>
+        <g class="label" transform="translate(-52.316, 15.973)" fill="#ffffff">
+          <g class="c4-name" transform="translate(52.316, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Partner</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(52.316, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(52.316, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">An</tspan><tspan> external</tspan><tspan> partner</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(574, 221)">
+      <g id="my-svg-crm" class="node c4-shape c4-external_system c4-external">
+        <rect class="basic label-container" x="-108" y="-47" width="216" height="94" rx="12" ry="12" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
+        <g class="label" transform="translate(-48.109, -27)" fill="#ffffff">
+          <g class="c4-name" transform="translate(48.109, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">CRM</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(48.109, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(48.109, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Customer</tspan><tspan> records</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(258, 514.7)">
+      <g id="my-svg-ledger" class="node c4-shape c4-external_system_db c4-external">
+        <path class="basic label-container outer-path" transform="translate(-108, -60.754)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,105.672A108,15.836,0,0,0,216,105.672L216,15.836" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
+        <g class="label" transform="translate(-44.243, -13.667)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Ledger</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(44.243, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Book</tspan><tspan> of</tspan><tspan> record</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(586.698, 485.946)">
+      <g id="my-svg-events" class="node c4-shape c4-external_system_queue c4-external">
+        <path class="basic label-container outer-path" transform="translate(-112.233, 32)" d="M0,0A8.466,32,0,0,1,0,-64L224.466,-64A8.466,32,0,0,1,224.466,0M224.466,-64A8.466,32,0,0,0,224.466,0L0,0" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
+        <g class="label" transform="translate(-52.709, -27)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Event</tspan><tspan> Bus</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(44.243, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Shared</tspan><tspan> events</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(258, 722.454)">
+      <g id="my-svg-portal" class="node c4-shape c4-external_container c4-external">
+        <rect class="basic label-container" x="-108" y="-47" width="216" height="94" rx="12" ry="12" fill="#b3b3b3" stroke="#a6a6a6" stroke-width="2"/>
+        <g class="label" transform="translate(-54.569, -27)" fill="#ffffff">
+          <g class="c4-name" transform="translate(54.569, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Partner</tspan><tspan> Portal</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(54.569, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> React]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(54.569, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Self-service</tspan><tspan> web</tspan><tspan> app</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(574, 736.207)">
+      <g id="my-svg-warehouse" class="node c4-shape c4-external_container_db c4-external">
+        <path class="basic label-container outer-path" transform="translate(-108, -60.754)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,105.672A108,15.836,0,0,0,216,105.672L216,15.836" fill="#b3b3b3" stroke="#a6a6a6" stroke-width="2"/>
+        <g class="label" transform="translate(-55.33, -13.667)" fill="#ffffff">
+          <g class="c4-name" transform="translate(55.33, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Warehouse</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(55.33, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> Snowflake]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(55.33, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Analytics</tspan><tspan> store</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(270.698, 928.961)">
+      <g id="my-svg-feed" class="node c4-shape c4-external_container_queue c4-external">
+        <path class="basic label-container outer-path" transform="translate(-112.233, 32)" d="M0,0A8.466,32,0,0,1,0,-64L224.466,-64A8.466,32,0,0,1,224.466,0M224.466,-64A8.466,32,0,0,0,224.466,0L0,0" fill="#b3b3b3" stroke="#a6a6a6" stroke-width="2"/>
+        <g class="label" transform="translate(-52.329, -27)" fill="#ffffff">
+          <g class="c4-name" transform="translate(43.864, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Feed</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(43.864, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> Kafka]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(43.864, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Outbound</tspan><tspan> feed</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(599.397, 943.961)">
+      <g id="my-svg-sdk" class="node c4-shape c4-external_component c4-external">
+        <rect class="basic label-container" x="-108" y="-47" width="216" height="94" rx="12" ry="12" fill="#cccccc" stroke="#bfbfbf" stroke-width="2"/>
+        <g class="label" transform="translate(-42.108, -27)" fill="#ffffff">
+          <g class="c4-name" transform="translate(42.108, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">SDK</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(42.108, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Component:</tspan><tspan> Go]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(42.108, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Client</tspan><tspan> library</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <line x1="258" y1="353.679" x2="258" y2="675.454" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="271.5" y="520.979" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Uses</text>
+      <text x="276" y="537.979" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal" font-style="italic">[HTTPS]</text>
+      <path d="M287.618,675.454Q351.809,471.727,544.382,268" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="433" y="478.14" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Reads</text>
+      <path d="M523.431,268Q473.415,362.588,323.367,457.176" fill="none" stroke="#444444" stroke-width="1" marker-start="url(#my-svg-arrowend)" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="438.899" y="369.001" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Syncs</text>
+      <path d="M563.873,517.946Q496.286,707.454,293.524,896.961" fill="none" stroke="#444444" stroke-width="1" marker-start="url(#my-svg-arrowend)"/>
+      <text x="462.698" y="713.867" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Publishes to</text>
+    </g>
+    <text x="178.698" y="20">External elements</text>
+  </g>
+</svg>

@@ -1,0 +1,14 @@
+C4Container
+title External elements
+Person_Ext(user, "Partner", "An external partner")
+System_Ext(crm, "CRM", "Customer records")
+SystemDb_Ext(ledger, "Ledger", "Book of record")
+SystemQueue_Ext(events, "Event Bus", "Shared events")
+Container_Ext(portal, "Partner Portal", "React", "Self-service web app")
+ContainerDb_Ext(warehouse, "Warehouse", "Snowflake", "Analytics store")
+ContainerQueue_Ext(feed, "Feed", "Kafka", "Outbound feed")
+Component_Ext(sdk, "SDK", "Go", "Client library")
+Rel(user, portal, "Uses", "HTTPS")
+Rel(portal, crm, "Reads")
+BiRel(crm, ledger, "Syncs")
+Rel_Back(events, feed, "Publishes to")

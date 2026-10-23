@@ -1,0 +1,16 @@
+C4Context
+title Restyled elements and relationships
+Person(admin, "Administrator", "Runs the platform")
+System(core, "Core Platform", "Does the work")
+SystemDb(store, "Store", "Keeps the data")
+System_Boundary(edge, "Edge") {
+  System(gw, "Gateway", "Routes requests")
+}
+Rel(admin, core, "Configures", "HTTPS")
+Rel(core, store, "Writes to", "SQL")
+Rel(gw, core, "Forwards to")
+UpdateElementStyle(admin, $bgColor="#2E7D32", $borderColor="#1B5E20", $fontColor="yellow")
+UpdateElementStyle(store, $bgColor="orange", $fontColor="black")
+UpdateElementStyle(edge, $borderColor="green", $bgColor="#F1F8E9")
+UpdateRelStyle(admin, core, $textColor="purple", $lineColor="purple", $offsetX="-30")
+UpdateRelStyle(core, store, $lineColor="red", $offsetY="20")

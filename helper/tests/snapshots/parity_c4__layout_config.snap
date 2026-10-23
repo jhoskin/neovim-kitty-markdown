@@ -1,0 +1,148 @@
+---
+source: tests/parity_c4.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1348" height="1197.946" viewBox="0 -70 1348 1197.946" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="9" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0L10,5L0,10Z" fill="#333333"/>
+    </marker>
+    <marker id="my-svg-arrowend" refX="1" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+    <g transform="translate(258, 254.973)">
+      <g id="my-svg-a" class="node c4-shape c4-person">
+        <g class="basic label-container">
+          <rect x="-108" y="4.973" width="216" height="76" rx="34.2" ry="34.2" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+          <circle cx="0" cy="-31.293" r="49.68" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+        </g>
+        <g class="label" transform="translate(-20.567, 24.973)" fill="#ffffff">
+          <g class="c4-name" transform="translate(20.567, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Alice</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(20.567, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(574, 254.973)">
+      <g id="my-svg-b" class="node c4-shape c4-person">
+        <g class="basic label-container">
+          <rect x="-108" y="4.973" width="216" height="76" rx="34.2" ry="34.2" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+          <circle cx="0" cy="-31.293" r="49.68" fill="#08427b" stroke="#073b6f" stroke-width="2"/>
+        </g>
+        <g class="label" transform="translate(-20.567, 24.973)" fill="#ffffff">
+          <g class="c4-name" transform="translate(20.567, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Bob</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(20.567, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(258, 473.946)">
+      <g id="my-svg-s1" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> One</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(574, 473.946)">
+      <g id="my-svg-s2" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> Two</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(258, 649.946)">
+      <g id="my-svg-s3" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-44.276, -18)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.276, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> Three</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.276, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(308, 939.946)">
+      <g id="my-svg-x1" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X1</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <rect x="150" y="801.946" width="316" height="226" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="308" y="818.497" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group One</text>
+      <text x="308" y="844.428" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[system]</text>
+    </g>
+    <g transform="translate(674, 939.946)">
+      <g id="my-svg-x2" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X2</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <rect x="516" y="801.946" width="316" height="226" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="674" y="818.497" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group Two</text>
+      <text x="674" y="844.428" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[system]</text>
+    </g>
+    <g transform="translate(1040, 939.946)">
+      <g id="my-svg-x3" class="node c4-shape c4-system">
+        <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
+          <g class="c4-name" transform="translate(44.243, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X3</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(44.243, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <rect x="882" y="801.946" width="316" height="226" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="1040" y="818.497" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group Three</text>
+      <text x="1040" y="844.428" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[system]</text>
+    </g>
+    <g>
+      <line x1="258" y1="335.679" x2="258" y2="435.946" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="271.5" y="392.226" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Uses</text>
+      <path d="M574,335.679Q574,385.813,574,435.946" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="587.5" y="392.226" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">Uses</text>
+    </g>
+    <text x="424" y="20">Two shapes to a row</text>
+  </g>
+</svg>

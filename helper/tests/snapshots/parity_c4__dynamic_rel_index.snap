@@ -1,0 +1,96 @@
+---
+source: tests/parity_c4.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="932" height="898.197" viewBox="0 -70 932 898.197" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg-arrowhead" refX="9" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0L10,5L0,10Z" fill="#333333"/>
+    </marker>
+    <marker id="my-svg-arrowend" refX="1" refY="5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+    <g transform="translate(258, 259.471)">
+      <g id="my-svg-c4" class="node c4-shape c4-container_db">
+        <path class="basic label-container outer-path" transform="translate(-108, -85.471)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,155.106A108,15.836,0,0,0,216,155.106L216,15.836" fill="#438dd5" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-77.279, -38.384)" fill="#ffffff">
+          <g class="c4-name" transform="translate(77.279, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Database</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(77.279, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> Relational</tspan><tspan> Database</tspan><tspan x="0" dy="1.1em">Schema]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(77.279, 51.07)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Stores</tspan><tspan> user</tspan><tspan> registration</tspan><tspan x="0" dy="1.1em">information,</tspan><tspan> hashed</tspan><tspan x="0" dy="1.1em">authentication</tspan><tspan> credentials,</tspan><tspan x="0" dy="1.1em">access</tspan><tspan> logs,</tspan><tspan> etc.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(574, 239.942)">
+      <g id="my-svg-c1" class="node c4-shape c4-container">
+        <rect class="basic label-container" x="-108" y="-65.942" width="216" height="131.884" rx="12" ry="12" fill="#438dd5" stroke="#3c7fc0" stroke-width="2"/>
+        <g class="label" transform="translate(-85.179, -45.942)" fill="#ffffff">
+          <g class="c4-name" transform="translate(85.179, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Single-Page</tspan><tspan> Application</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(85.179, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> JavaScript</tspan><tspan> and</tspan><tspan> Angular]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(85.179, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Provides</tspan><tspan> all</tspan><tspan> of</tspan><tspan> the</tspan><tspan> Internet</tspan><tspan x="0" dy="1.1em">banking</tspan><tspan> functionality</tspan><tspan> to</tspan><tspan x="0" dy="1.1em">customers</tspan><tspan> via</tspan><tspan> their</tspan><tspan> web</tspan><tspan x="0" dy="1.1em">browser.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(308, 618.569)">
+      <g id="my-svg-c3" class="node c4-shape c4-component">
+        <rect class="basic label-container" x="-108" y="-59.628" width="216" height="119.256" rx="12" ry="12" fill="#85bbf0" stroke="#78a8d8" stroke-width="2"/>
+        <g class="label" transform="translate(-86.394, -39.628)" fill="#ffffff">
+          <g class="c4-name" transform="translate(86.394, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Security</tspan><tspan> Component</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(86.394, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Component:</tspan><tspan> Spring</tspan><tspan> Bean]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(86.394, 39.52)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Provides</tspan><tspan> functionality</tspan><tspan> Related</tspan><tspan> to</tspan><tspan x="0" dy="1.1em">signing</tspan><tspan> in,</tspan><tspan> changing</tspan><tspan> passwords,</tspan><tspan x="0" dy="1.1em">etc.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(624, 618.03)">
+      <g id="my-svg-c2" class="node c4-shape c4-component">
+        <rect class="basic label-container" x="-108" y="-59.089" width="216" height="118.178" rx="12" ry="12" fill="#85bbf0" stroke="#78a8d8" stroke-width="2"/>
+        <g class="label" transform="translate(-76.248, -39.089)" fill="#ffffff">
+          <g class="c4-name" transform="translate(76.248, 1)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Sign</tspan><tspan> In</tspan><tspan> Controller</tspan></text>
+          </g>
+          <g class="c4-type" transform="translate(76.248, 22.5)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Component:</tspan><tspan> Spring</tspan><tspan> MVC</tspan><tspan> Rest</tspan><tspan x="0" dy="1.1em">Controller]</tspan></text>
+          </g>
+          <g class="c4-descr" transform="translate(76.248, 51.07)">
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="11.48" font-weight="normal"><tspan x="0" dy="1em">Allows</tspan><tspan> users</tspan><tspan> to</tspan><tspan> sign</tspan><tspan> in</tspan><tspan> to</tspan><tspan> the</tspan><tspan x="0" dy="1.1em">Internet</tspan><tspan> Banking</tspan><tspan> System.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <rect x="150" y="458.941" width="632" height="269.256" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
+      <text x="466" y="475.492" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">API Application</text>
+      <text x="466" y="501.423" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[CONTAINER]</text>
+    </g>
+    <g>
+      <line x1="582.72" y1="305.884" x2="616.186" y2="558.941" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="668.453" y="398.826" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">1: Submits credentials to</text>
+      <text x="668.453" y="415.826" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal" font-style="italic">[JSON/HTTPS]</text>
+      <path d="M516,618.215Q491,618.3,416,618.385" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="503.5" y="684.713" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">2: Calls isAuthenticated() on</text>
+      <path d="M299.698,558.941Q292.248,451.893,269.901,344.845" fill="none" stroke="#444444" stroke-width="1" marker-end="url(#my-svg-arrowhead)"/>
+      <text x="412.299" y="418.306" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal">3: select * from users where username = ?</text>
+      <text x="412.299" y="435.306" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal" font-style="italic">[JDBC]</text>
+    </g>
+    <text x="216" y="20">Dynamic diagram for Internet Banking System - API Application</text>
+  </g>
+</svg>
