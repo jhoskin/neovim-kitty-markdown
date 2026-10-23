@@ -24,6 +24,7 @@ pub mod sankey;
 pub mod sequence;
 pub mod state;
 pub mod timeline;
+pub mod venn;
 pub mod xychart;
 
 /// What a renderer gets besides the resolved diagram.
@@ -64,6 +65,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &state::DIAGRAM,
         &radar::DIAGRAM,
         &sankey::DIAGRAM,
+        &venn::DIAGRAM,
     ];
     REGISTRY
 }
