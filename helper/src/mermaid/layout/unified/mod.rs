@@ -27,7 +27,7 @@ use crate::mermaid::edges::{
     Edge, EdgeCtx, EdgeLabels, EdgeOut, MarkerRef, insert_edge, insert_edge_label,
     position_edge_label,
 };
-use crate::mermaid::scene::markers::{MarkerType, insert_markers};
+use crate::mermaid::scene::markers::{MarkerType, markers_for, stylesheet_rule};
 use crate::mermaid::scene::path::Command;
 use crate::mermaid::scene::{Common, Element, Group, Marker, Paint, Point, Style, TransformOp};
 use crate::mermaid::shapes::util::{BBox, path_bbox, points_bbox, translate};
@@ -1213,14 +1213,28 @@ pub fn render(
     shapes: &ShapeCtx,
     layout: &dyn GraphLayout,
 ) -> Result<Rendered, HelperError> {
-    let mut markers = insert_markers(&data.markers, &data.diagram_type, &data.diagram_id);
+    // `insertMarkers`, then the stylesheet: the diagram's own marker rules
+    // over `.marker { fill: lineColor; stroke: lineColor }`.
     let marker_paint = Style {
         fill: Some(Paint::Color(shapes.vars.line_color)),
         stroke: Some(Paint::Color(shapes.vars.line_color)),
         ..Style::default()
     };
-    for m in &mut markers {
-        m.apply_paint(&marker_paint);
+    let mut markers = Vec::new();
+    for &ty in &data.markers {
+        let rule = stylesheet_rule(
+            &data.diagram_type,
+            ty,
+            shapes.vars.line_color,
+            shapes.vars.main_bkg,
+        );
+        for mut m in markers_for(ty, &data.diagram_type, &data.diagram_id) {
+            if let Some(rule) = &rule {
+                m.apply_rule(rule);
+            }
+            m.apply_paint(&marker_paint);
+            markers.push(m);
+        }
     }
 
     let mut graph = prepare_layout(data, config);

@@ -2,16 +2,15 @@
 //! unified renderer with dagre, the title, and `setupViewPortForSVG`.
 //!
 //! The shared renderer resolves the flowchart-like stylesheet rules. The
-//! class rules that differ (`styles::class`) are applied in three places:
+//! class rules that differ (`styles::class`) are applied in four places:
 //! the label color and edge label background go into the shapes' theme
 //! variables before the render, the cardinality font
 //! (`.edgeTerminals { font-size: 11px }`) goes in as the shapes' edge
-//! terminal font, and two rules that the shared renderer has no hook for
-//! are applied to its output afterwards:
-//!
-//! - the marker fills (`.extension { fill: transparent !important }` and
-//!   its siblings),
-//! - the note text color (`.noteLabel .nodeLabel { color: noteTextColor }`).
+//! terminal font, the shared marker code resolves the marker fills
+//! (`.extension { fill: transparent !important }` and its siblings, see
+//! `markers::stylesheet_rule`), and the note text color
+//! (`.noteLabel .nodeLabel { color: noteTextColor }`), which the shared
+//! renderer has no hook for, is applied to its output afterwards.
 
 use std::collections::HashMap;
 
@@ -23,7 +22,7 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::unified::{LayoutData, UnifiedConfig, render_with_dagre};
 use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
-    Common, Element, FontSpec, Group, Length, Marker, Paint, Rect, Scene, Style, Text, ViewBox,
+    Common, Element, FontSpec, Group, Length, Paint, Rect, Scene, Style, Text, ViewBox,
 };
 use crate::mermaid::shapes::measure::LabelOpts;
 use crate::mermaid::shapes::util::{BBox, apply_declarations, styles2string};
@@ -101,36 +100,6 @@ fn has_class(g: &Group, class: &str) -> bool {
         .class
         .as_deref()
         .is_some_and(|c| c.split_whitespace().any(|x| x == class))
-}
-
-/// The marker fills of the class stylesheet. The shared renderer painted
-/// every unset fill with `lineColor`; hollow markers get theirs back.
-fn restyle_markers(markers: &mut [Marker], styles: &ClassStyles) {
-    let prefix = format!("{DIAGRAM_ID}_classDiagram-");
-    for marker in markers {
-        let Some(name) = marker.id.strip_prefix(&prefix) else {
-            continue;
-        };
-        let fill = styles.marker_fill(name);
-        let paint = fill.map_or(Paint::None, Paint::Color);
-        marker.style.fill = Some(paint.clone());
-        marker.style.stroke = Some(Paint::Color(styles.line_color));
-        marker.style.stroke_width = Some(1.0);
-        // The lollipop circle keeps its own `fill="transparent"`.
-        if name.starts_with("lollipop") {
-            continue;
-        }
-        for child in &mut marker.children {
-            let common = match child {
-                Element::Path(p) => &mut p.common,
-                Element::Polygon(p) => &mut p.common,
-                Element::Circle(c) => &mut c.common,
-                _ => continue,
-            };
-            common.style.fill = Some(paint.clone());
-            common.style.stroke = Some(Paint::Color(styles.line_color));
-        }
-    }
 }
 
 /// The underline of a static member (`parseClassifier()` returns
@@ -352,7 +321,6 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
     };
     let mut rendered = render_with_dagre(&data, &unified, &shapes)?;
 
-    restyle_markers(&mut rendered.markers, &styles);
     restyle_notes(&mut rendered.root, &styles);
     let class_styles: HashMap<String, Vec<String>> = db
         .classes

@@ -137,7 +137,66 @@ pub fn markers_for(ty: MarkerType, diagram_type: &str, id: &str) -> Vec<Marker> 
     }
 }
 
+/// The rules a diagram stylesheet sets on one marker class, resolved to a
+/// style for the `<marker>` element. Its shapes set no fill or stroke of
+/// their own, so they inherit the rule's paint; `None` leaves the marker
+/// to the shared `.marker { fill: lineColor; stroke: lineColor }` rule.
+///
+/// - `diagrams/class/styles.js`: `[id$="-compositionStart"], .composition
+///   { fill: lineColor !important; stroke: lineColor !important;
+///   stroke-width: 1 }` and the same for `dependency`; `extension` and
+///   `aggregation` take `fill: transparent !important`, and `lollipop`
+///   takes `fill: mainBkg !important` (its circle keeps its own
+///   `fill="transparent"` attribute).
+/// - `diagrams/usecase/styles.ts`: `.marker.extension { fill: mainBkg;
+///   stroke: lineColor }`.
+pub fn stylesheet_rule(
+    diagram_type: &str,
+    ty: MarkerType,
+    line_color: Color,
+    main_bkg: Color,
+) -> Option<Style> {
+    let fill = match (diagram_type, ty) {
+        ("classDiagram", MarkerType::Composition | MarkerType::Dependency) => {
+            Paint::Color(line_color)
+        }
+        ("classDiagram", MarkerType::Extension | MarkerType::Aggregation) => Paint::None,
+        ("classDiagram", MarkerType::Lollipop) => Paint::Color(main_bkg),
+        ("usecase", MarkerType::Extension) => {
+            return Some(Style {
+                fill: Some(Paint::Color(main_bkg)),
+                stroke: Some(Paint::Color(line_color)),
+                ..Style::default()
+            });
+        }
+        _ => return None,
+    };
+    Some(Style {
+        fill: Some(fill),
+        stroke: Some(Paint::Color(line_color)),
+        stroke_width: Some(1.0),
+        ..Style::default()
+    })
+}
+
 impl Marker {
+    /// Applies a stylesheet rule that matches the `<marker>` element
+    /// ([`stylesheet_rule`]): the marker takes the rule, and its shapes
+    /// inherit the rule's fill and stroke where they set none themselves.
+    /// Call it before [`Marker::apply_paint`], which only fills what is
+    /// still unset.
+    pub fn apply_rule(&mut self, rule: &Style) {
+        self.style.fill_unset_from(rule);
+        let inherited = Style {
+            fill: rule.fill.clone(),
+            stroke: rule.stroke.clone(),
+            ..Style::default()
+        };
+        for child in &mut self.children {
+            apply_to_element(child, &inherited);
+        }
+    }
+
     /// Applies the stylesheet paint: every field the marker and its children
     /// leave unset takes the value from `paint`.
     pub fn apply_paint(&mut self, paint: &Style) {

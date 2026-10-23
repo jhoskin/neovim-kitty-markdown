@@ -5,9 +5,9 @@
 use std::collections::BTreeSet;
 
 use kitty_markdown_helper::mermaid::scene::markers::{
-    MarkerType, NEO_ONLY, insert_markers, marker_id, markers_for,
+    MarkerType, NEO_ONLY, insert_markers, marker_id, markers_for, stylesheet_rule,
 };
-use kitty_markdown_helper::mermaid::scene::{Element, MarkerUnits};
+use kitty_markdown_helper::mermaid::scene::{Color, Element, MarkerUnits, Paint};
 
 /// The keys of `const markers = { ... }` at the bottom of `markers.js`, in
 /// source order.
@@ -194,4 +194,36 @@ fn insert_markers_concatenates_in_order() {
     assert_eq!(all[0].id, "g_flowchart-v2-pointEnd");
     assert_eq!(all[4].id, "g_flowchart-v2-circleEnd");
     assert_eq!(all[11].id, "g_flowchart-v2-crossStart-margin");
+}
+
+#[test]
+fn class_stylesheet_rules_fill_the_solid_markers_only() {
+    let line = Color::rgb(0x33, 0x33, 0x33);
+    let bkg = Color::rgb(0xEC, 0xEC, 0xFF);
+    let fill = |ty| stylesheet_rule("classDiagram", ty, line, bkg).and_then(|s| s.fill);
+    assert_eq!(fill(MarkerType::Composition), Some(Paint::Color(line)));
+    assert_eq!(fill(MarkerType::Dependency), Some(Paint::Color(line)));
+    assert_eq!(fill(MarkerType::Extension), Some(Paint::None));
+    assert_eq!(fill(MarkerType::Aggregation), Some(Paint::None));
+    assert_eq!(fill(MarkerType::Lollipop), Some(Paint::Color(bkg)));
+    assert!(stylesheet_rule("flowchart-v2", MarkerType::Point, line, bkg).is_none());
+
+    // The rule paints the hollow arrowhead's path; the lollipop circle keeps
+    // its own `fill="transparent"`.
+    let rule = stylesheet_rule("classDiagram", MarkerType::Extension, line, bkg).expect("rule");
+    let mut ext = markers_for(MarkerType::Extension, "classDiagram", "s").remove(1);
+    ext.apply_rule(&rule);
+    assert_eq!(ext.style.stroke_width, Some(1.0));
+    let Element::Path(head) = &ext.children[0] else {
+        panic!("extensionEnd is a path");
+    };
+    assert_eq!(head.common.style.fill, Some(Paint::None));
+    assert_eq!(head.common.style.stroke, Some(Paint::Color(line)));
+    let rule = stylesheet_rule("classDiagram", MarkerType::Lollipop, line, bkg).expect("rule");
+    let mut lollipop = markers_for(MarkerType::Lollipop, "classDiagram", "s").remove(1);
+    lollipop.apply_rule(&rule);
+    let Element::Circle(circle) = &lollipop.children[0] else {
+        panic!("lollipopEnd is a circle");
+    };
+    assert_eq!(circle.common.style.fill, Some(Paint::None));
 }
