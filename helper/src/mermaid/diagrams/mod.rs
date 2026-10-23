@@ -11,6 +11,7 @@ use crate::mermaid::scene::Scene;
 use crate::text::{FontSystem, TextMetrics};
 
 pub mod block;
+pub mod flowchart;
 pub mod gantt;
 pub mod gitgraph;
 pub mod journey;
@@ -54,6 +55,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &timeline::DIAGRAM,
         &gitgraph::DIAGRAM,
         &kanban::DIAGRAM,
+        &flowchart::DIAGRAM,
     ];
     REGISTRY
 }
