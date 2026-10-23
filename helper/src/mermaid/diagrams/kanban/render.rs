@@ -19,16 +19,12 @@ use super::db::{Item, KanbanDb, Section};
 use crate::error::HelperError;
 use crate::mermaid::config::Resolved;
 use crate::mermaid::diagrams::RenderCtx;
-use crate::mermaid::scene::{
-    Baseline, Color, Common, Element, Group, Length, Scene, Style, TextAnchor, ViewBox,
-};
+use crate::mermaid::scene::{Common, Element, Group, Scene, ViewBox};
 use crate::mermaid::shapes::util::{build_label_group, rect_element, translate};
 use crate::mermaid::shapes::{
     self, KanbanData, LabelBox, LabelMeasurer, LabelOpts, Node, NodeExtra, ShapeCtx,
 };
 use crate::mermaid::styles::kanban::KanbanStyles;
-use crate::text::FontSpec as MeasureSpec;
-use crate::text::measure::HTML_LINE_HEIGHT;
 
 /// mermaid-cli's SVG id; `draw` prefixes every `domId` with it.
 const SVG_ID: &str = "my-svg";
@@ -178,38 +174,6 @@ impl CardLabels {
     }
 }
 
-/// `.kanban-ticket-link { text-decoration: underline }` on the `<a>` that
-/// wraps the ticket label when `ticketBaseUrl` is set. The decoration
-/// propagates into the HTML label in the `<a>`'s own color, black, as a
-/// 1 px line one pixel below each line's baseline; both values are read
-/// off the oracle renders, where Blink keeps a 1 px gap under the baseline
-/// (`ComputeUnderlineOffsetAuto`). The scene has no link, so the line
-/// stands in for the decoration.
-fn ticket_underlines(ticket: &PlacedLabel, baseline: f64) -> Vec<Element> {
-    const THICKNESS: f64 = 1.0;
-    const GAP: f64 = 1.0;
-    ticket
-        .bbox
-        .lines
-        .iter()
-        .enumerate()
-        .filter(|(_, line)| line.width > 0.0)
-        .map(|(i, line)| {
-            let y = ticket.y + i as f64 * ticket.bbox.line_height + baseline + GAP;
-            rect_element(
-                ticket.x,
-                y,
-                line.width,
-                THICKNESS,
-                None,
-                None,
-                "kanban-ticket-link",
-                Style::fill(Color::BLACK),
-            )
-        })
-        .collect()
-}
-
 /// `getData()`'s `kanbanItem` node for one card.
 fn item_node(item: &Item, x: f64, width: f64) -> Node {
     Node {
@@ -232,63 +196,6 @@ fn item_node(item: &Item, x: f64, width: f64) -> Node {
     }
 }
 
-/// `cssStyles: ['text-align: left']` on every card: the style lands on the
-/// label span, and the `<p>` that `markdownToHTML` wraps the text in
-/// inherits it, so a wrapped card line starts at the label's left edge
-/// while the shared label builder centres HTML lines in their box.
-fn left_align_labels(group: &mut Group) {
-    for child in &mut group.children {
-        match child {
-            Element::Group(g) => left_align_labels(g),
-            Element::Text(text) => {
-                text.x = 0.0;
-                text.anchor = Some(TextAnchor::Start);
-                for run in &mut text.runs {
-                    if run.x.is_some() {
-                        run.x = Some(0.0);
-                    }
-                }
-            }
-            _ => {}
-        }
-    }
-}
-
-/// Where Chrome puts the first baseline of an HTML label line, measured
-/// from the top of its line box: the rounded ascent plus half the leading
-/// that `line-height: 1.5` (`addHtmlSpan` in `createText.ts`) adds around
-/// the rounded ascent and descent.
-fn html_baseline(ctx: &RenderCtx<'_>, family: &str, size: f64) -> f64 {
-    let spec = MeasureSpec::new(family.to_string(), size as f32);
-    let shaped = ctx.metrics.shape("x", &spec);
-    let ascent = f64::from(shaped.ascent);
-    let descent = f64::from(shaped.descent);
-    let line_height = f64::from(HTML_LINE_HEIGHT) * size;
-    // The oracle puts the baseline on a whole pixel: an odd leading of 5
-    // px at 16 px Trebuchet MS gives 2 px above, not 2.5.
-    ((line_height - ascent - descent) / 2.0).floor() + ascent
-}
-
-/// The shared label builder centres an HTML line with `dominant-baseline:
-/// central`, which resvg places from the unrounded font metrics, 1 px
-/// below where Chrome draws it. This pass puts the first baseline at
-/// `baseline` below the box top on an alphabetic baseline; later lines
-/// keep their `dy` of one line height.
-fn place_html_baselines(group: &mut Group, baseline: f64) {
-    for child in &mut group.children {
-        match child {
-            Element::Group(g) => place_html_baselines(g, baseline),
-            Element::Text(text) if text.baseline == Some(Baseline::Central) => {
-                text.baseline = Some(Baseline::Alphabetic);
-                if let Some(first) = text.runs.first_mut() {
-                    first.dy = Some(Length::Px(baseline));
-                }
-            }
-            _ => {}
-        }
-    }
-}
-
 /// A measured section: what the first loop of `draw` keeps for the second.
 struct Column<'s> {
     section: &'s Section,
@@ -305,7 +212,6 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
     let mut shape_ctx = ShapeCtx::new(measurer);
     shape_ctx.vars = styles.node_vars();
     shape_ctx.kanban_ticket_base_url = ticket_base_url(resolved);
-    let baseline = html_baseline(ctx, &styles.font_family, styles.font_size);
 
     let sections = db.get_data();
     // Pass one: `insertCluster` for every section, which measures the
@@ -344,7 +250,6 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
             let height = out.height;
             node.y = y + height / 2.0;
             let mut group = out.group;
-            left_align_labels(&mut group);
             group.common.transform = translate(node.x, node.y);
             Bounds::add(
                 &mut bounds,
@@ -356,11 +261,6 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
             let labels = CardLabels::measure(item, item_width, measurer, &shape_ctx);
             for (lx, ly, lw, lh) in labels.boxes() {
                 Bounds::add(&mut bounds, node.x + lx, node.y + ly, lw, lh);
-            }
-            if shape_ctx.kanban_ticket_base_url.is_some() {
-                group
-                    .children
-                    .extend(ticket_underlines(&labels.ticket, baseline));
             }
             item_elements.push(Element::Group(group));
             y = node.y + height / 2.0 + PADDING / 2.0;
@@ -421,7 +321,7 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
     });
     let scene_width = (b.x1 - b.x0) + padding * 2.0;
     let scene_height = (b.y1 - b.y0) + padding * 2.0;
-    let mut root = Group {
+    let root = Group {
         common: Common::default(),
         children: vec![
             Element::Group(Group {
@@ -440,7 +340,6 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
             }),
         ],
     };
-    place_html_baselines(&mut root, baseline);
     Ok(Scene {
         width: scene_width,
         height: scene_height,

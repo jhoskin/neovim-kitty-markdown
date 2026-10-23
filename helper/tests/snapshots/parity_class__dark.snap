@@ -160,7 +160,7 @@ expression: scene_svg(&mmd)
         <g id="my-svg-note0" class="node  " transform="translate(306.309, 104)">
           <rect class="basic label-container outer-path" x="-31.078" y="-18" width="62.156" height="36" fill="#474949" stroke="#2f2f2f" stroke-width="1"/>
           <g class="label noteLabel" transform="translate(-25.078, -12)">
-            <text class="nodeLabel" x="25.078" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#b8b6b6" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.078" dy="17">striped</tspan></text>
+            <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#b8b6b6" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">striped</tspan></text>
           </g>
         </g>
       </g>

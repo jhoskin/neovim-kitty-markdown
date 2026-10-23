@@ -79,17 +79,19 @@ expression: scene.to_svg()
       </g>
       <g id="my-svg-id4" class="node  " transform="translate(815, -247)">
         <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="kanban-ticket-link">
+          <g class="label" transform="translate(-82.5, 0)">
+            <rect x="0" y="18" width="60.359" height="1" fill="#000000"/>
+            <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">MC-2038</tspan></text>
+          </g>
+        </g>
         <g class="label" transform="translate(-82.5, -24)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Create parsing tests</tspan></text>
-        </g>
-        <g class="label" transform="translate(-82.5, 0)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">MC-2038</tspan></text>
         </g>
         <g class="label" transform="translate(-4.453, 0)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">K.Sveidqvist</tspan></text>
         </g>
         <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#ffa500" stroke-width="4"/>
-        <rect class="kanban-ticket-link" x="-82.5" y="18" width="60.359" height="1" fill="#000000"/>
       </g>
       <g id="my-svg-id66" class="node  " transform="translate(815, -186)">
         <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
@@ -112,29 +114,33 @@ expression: scene.to_svg()
       </g>
       <g id="my-svg-id2" class="node  " transform="translate(1020, -162)">
         <rect class="basic label-container __APA__" x="-92.5" y="-64" width="185" height="128" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="kanban-ticket-link">
+          <g class="label" transform="translate(-82.5, 36)">
+            <rect x="0" y="18" width="60.359" height="1" fill="#000000"/>
+            <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">MC-2036</tspan></text>
+          </g>
+        </g>
         <g class="label" transform="translate(-82.5, -60)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Title</tspan><tspan> </tspan><tspan>of</tspan><tspan> </tspan><tspan>diagram</tspan><tspan> </tspan><tspan>is</tspan><tspan> </tspan><tspan x="0" dy="24">more</tspan><tspan> </tspan><tspan>than</tspan><tspan> </tspan><tspan>100</tspan><tspan> </tspan><tspan>chars</tspan><tspan> </tspan><tspan x="0" dy="24">when</tspan><tspan> </tspan><tspan>user</tspan><tspan> </tspan><tspan>duplicates</tspan><tspan> </tspan><tspan x="0" dy="24">diagram</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan>100</tspan><tspan> </tspan><tspan>char</tspan></text>
         </g>
-        <g class="label" transform="translate(-82.5, 36)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">MC-2036</tspan></text>
-        </g>
         <g class="label" transform="translate(82.5, 36)"/>
         <line x1="-90.5" y1="-62" x2="-90.5" y2="62" stroke="#ff0000" stroke-width="4"/>
-        <rect class="kanban-ticket-link" x="-82.5" y="54" width="60.359" height="1" fill="#000000"/>
       </g>
       <g id="my-svg-id3" class="node  " transform="translate(1020, -65)">
         <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="kanban-ticket-link">
+          <g class="label" transform="translate(-82.5, 0)">
+            <rect x="0" y="18" width="60.359" height="1" fill="#000000"/>
+            <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">MC-2037</tspan></text>
+          </g>
+        </g>
         <g class="label" transform="translate(-82.5, -24)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Update DB function</tspan></text>
-        </g>
-        <g class="label" transform="translate(-82.5, 0)">
-          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">MC-2037</tspan></text>
         </g>
         <g class="label" transform="translate(51.375, 0)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">knsv</tspan></text>
         </g>
         <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#ffa500" stroke-width="4"/>
-        <rect class="kanban-ticket-link" x="-82.5" y="18" width="60.359" height="1" fill="#000000"/>
       </g>
       <g id="my-svg-id3" class="node  " transform="translate(1225, -241)">
         <rect class="basic label-container __APA__" x="-92.5" y="-34" width="185" height="68" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>

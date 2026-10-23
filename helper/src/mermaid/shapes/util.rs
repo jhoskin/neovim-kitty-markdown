@@ -8,7 +8,7 @@
 
 use indexmap::IndexMap;
 
-use super::measure::{LabelBox, LabelOpts};
+use super::measure::{LabelAlign, LabelBox, LabelOpts};
 use super::{Node, NodeStyleVars, ShapeCtx, ShapeOut};
 use crate::mermaid::scene::path::Command;
 use crate::mermaid::scene::{
@@ -374,6 +374,31 @@ fn html_wrap_width(node: &Node, html: bool, width: f64) -> Option<f64> {
     (!(html && nowrap)).then_some(width)
 }
 
+/// The `text-align` of a node's label styles. `createText` applies the
+/// label style to the span, and the `<p>` that holds the label lines
+/// inherits it, so a kanban card or a class note starts each line at the
+/// left edge of the label box.
+pub fn label_align(node: &Node) -> LabelAlign {
+    let styles = styles2string(node).label_styles;
+    match styles
+        .get("text-align")
+        .map(|v| v.trim_end_matches("!important").trim())
+    {
+        Some("left" | "start") => LabelAlign::Left,
+        Some("right" | "end") => LabelAlign::Right,
+        _ => LabelAlign::Center,
+    }
+}
+
+/// Where a line of `width` starts in an HTML label box of `box_width`.
+fn line_left(align: LabelAlign, box_width: f64, width: f64) -> f64 {
+    match align {
+        LabelAlign::Center => (box_width - width) / 2.0,
+        LabelAlign::Left => 0.0,
+        LabelAlign::Right => box_width - width,
+    }
+}
+
 /// `labelHelper(parent, node, classes, { ignoreMinWidth })`.
 pub fn label_helper(
     node: &Node,
@@ -415,6 +440,7 @@ pub fn label_helper(
         markdown: is_markdown,
     };
     let mut bbox = ctx.measurer.measure(&label, &opts);
+    bbox.align = label_align(node);
     // `withMinWidth`: SVG text keeps its centring as it grows.
     if bbox.width < min_label_width {
         if !use_html_labels {
@@ -455,7 +481,8 @@ pub fn insert_label(
         min_width: 0.0,
         markdown: true,
     };
-    let bbox = ctx.measurer.measure(text, &opts);
+    let mut bbox = ctx.measurer.measure(text, &opts);
+    bbox.align = label_align(node);
     let transform = if use_html_labels || center_label {
         translate(-bbox.width / 2.0, -bbox.height / 2.0)
     } else {
@@ -649,7 +676,7 @@ fn underlines(bbox: &LabelBox, ctx: &ShapeCtx, color: Color) -> Vec<Element> {
         .map(|(i, line)| {
             let baseline = bbox.baseline + i as f64 * bbox.line_height;
             rect_element(
-                (bbox.width - line.width) / 2.0,
+                line_left(bbox.align, bbox.width, line.width),
                 baseline + gap,
                 line.width,
                 thickness,
@@ -665,7 +692,8 @@ fn underlines(bbox: &LabelBox, ctx: &ShapeCtx, color: Color) -> Vec<Element> {
 /// The text element of a label, in the font it was measured in.
 ///
 /// HTML mode: a `div` with `line-height: 1.5` and `text-align: center`,
-/// so every line is centred in its line box of `line_height` pixels.
+/// so every line is centred in its line box of `line_height` pixels, or
+/// starts at the edge the label's own `text-align` names.
 /// SVG mode: `createFormattedText`, a `text` at `x = 0` whose `tspan`s
 /// sit at `y = i * 1.1 - 0.1 em` with `dy = 1.1em`, anchored `middle` by
 /// `.node .label text { text-anchor: middle }`.
@@ -673,6 +701,12 @@ pub fn label_text(bbox: &LabelBox, fill: Color, html: bool) -> Option<Text> {
     if bbox.is_empty() {
         return None;
     }
+    let (anchor, line_x) = match (html, bbox.align) {
+        (true, LabelAlign::Left) => (TextAnchor::Start, 0.0),
+        (true, LabelAlign::Right) => (TextAnchor::End, bbox.width),
+        (true, LabelAlign::Center) => (TextAnchor::Middle, bbox.width / 2.0),
+        (false, _) => (TextAnchor::Middle, 0.0),
+    };
     let mut runs = Vec::new();
     for (i, line) in bbox.lines.iter().enumerate() {
         for (j, run) in line.runs.iter().enumerate() {
@@ -691,7 +725,7 @@ pub fn label_text(bbox: &LabelBox, fill: Color, html: bool) -> Option<Text> {
             let (x, dy) = if j == 0 {
                 if html {
                     (
-                        Some(bbox.width / 2.0),
+                        Some(line_x),
                         Some(Length::Px(if i == 0 {
                             bbox.baseline
                         } else {
@@ -722,9 +756,9 @@ pub fn label_text(bbox: &LabelBox, fill: Color, html: bool) -> Option<Text> {
             },
             ..Common::default()
         },
-        x: if html { bbox.width / 2.0 } else { 0.0 },
+        x: line_x,
         y: 0.0,
-        anchor: Some(TextAnchor::Middle),
+        anchor: Some(anchor),
         // HTML lines sit on the baseline Chrome computes from the rounded
         // face metrics (`LabelBox::baseline`); `central` would resolve from
         // the unrounded ones and land up to a pixel off.
@@ -1343,5 +1377,22 @@ mod tests {
         assert_eq!(rects[1].y, bbox.baseline + bbox.line_height + 1.0);
         assert_eq!(rects[0].height, 1.0);
         assert!(matches!(g.children.last(), Some(Element::Text(_))));
+    }
+
+    #[test]
+    fn a_text_align_label_style_moves_html_lines_to_that_edge() {
+        let mut node = Node::flowchart("K", "card", "kanbanItem");
+        assert_eq!(label_align(&node), LabelAlign::Center);
+        node.css_styles = vec!["text-align: left".to_string()];
+        assert_eq!(label_align(&node), LabelAlign::Left);
+        let m = FixedMeasurer::SNAPSHOT;
+        let ctx = ShapeCtx::new(&m);
+        let out = label_helper(&node, &ctx, None, false);
+        let text = label_text(&out.bbox, Color::BLACK, true).expect("text");
+        assert_eq!(text.anchor, Some(TextAnchor::Start));
+        assert_eq!(text.x, 0.0);
+        // SVG text keeps the stylesheet's `text-anchor: middle`.
+        let svg = label_text(&out.bbox, Color::BLACK, false).expect("text");
+        assert_eq!(svg.anchor, Some(TextAnchor::Middle));
     }
 }

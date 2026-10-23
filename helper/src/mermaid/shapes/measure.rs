@@ -47,6 +47,17 @@ impl LabelRun {
     }
 }
 
+/// Where an HTML label's lines sit in its box: the `text-align` of the
+/// label span, which the `<p>` that `createText` wraps every HTML label in
+/// inherits. `addHtmlSpan` centres the div, so `Center` is the default.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum LabelAlign {
+    #[default]
+    Center,
+    Left,
+    Right,
+}
+
 /// One line of a label after wrapping.
 #[derive(Debug, Clone, PartialEq, Default)]
 pub struct LabelLine {
@@ -83,6 +94,9 @@ pub struct LabelBox {
     /// HTML label propagates into it. The measurer never sets it; the shape
     /// that wraps the label in the decorating element does.
     pub underline: Option<Color>,
+    /// The `text-align` of the label styles. The measurer leaves it
+    /// centred; the label helpers read it off the node.
+    pub align: LabelAlign,
 }
 
 impl LabelBox {
@@ -245,6 +259,7 @@ impl LabelMeasurer for FixedMeasurer {
             lines,
             font: opts.font.clone(),
             underline: None,
+            align: LabelAlign::Center,
         }
     }
 
@@ -517,6 +532,7 @@ pub fn measure_with_metrics(
         lines,
         font: opts.font.clone(),
         underline: None,
+        align: LabelAlign::Center,
     }
 }
 

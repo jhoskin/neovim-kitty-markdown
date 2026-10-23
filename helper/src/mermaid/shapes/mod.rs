@@ -102,7 +102,9 @@ use crate::error::HelperError;
 use crate::mermaid::scene::{Color, FontSpec, Group, Point};
 
 pub use intersect::Bounds;
-pub use measure::{Dims, FixedMeasurer, LabelBox, LabelLine, LabelMeasurer, LabelOpts, LabelRun};
+pub use measure::{
+    Dims, FixedMeasurer, LabelAlign, LabelBox, LabelLine, LabelMeasurer, LabelOpts, LabelRun,
+};
 
 /// mermaid's `rankdir` / `dir` values.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Default)]
@@ -494,7 +496,8 @@ pub struct ShapeCtx<'a> {
     pub er_min_entity_width: f64,
     /// `state.padding` (8).
     pub state_padding: f64,
-    /// `kanban.ticketBaseUrl`; only affects the link, which the scene omits.
+    /// `kanban.ticketBaseUrl`: the ticket label goes into an underlined
+    /// link. The scene draws the underline, not the link.
     pub kanban_ticket_base_url: Option<String>,
     /// `layout === 'elk'` switches requirement body text to `start`; always
     /// false here because ELK is unsupported.

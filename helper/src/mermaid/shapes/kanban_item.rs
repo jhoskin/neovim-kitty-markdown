@@ -1,12 +1,12 @@
 //! `shapes/kanbanItem.ts`: a kanban card with title, ticket, and assignee.
 
 use super::util::{
-    done, get_node_classes, insert_label, label_helper, line_element, node_style, rect_element,
-    translate,
+    PAGE_TEXT_COLOR, build_label_group, done, get_node_classes, insert_label, label_fill,
+    label_helper, line_element, node_style, rect_element, translate,
 };
 use super::{Intersector, Node, NodeExtra, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
-use crate::mermaid::scene::{Color, Element, Paint, Style};
+use crate::mermaid::scene::{Color, Common, Element, Group, Paint, Style};
 
 /// `colorFromPriority(priority)`; `Medium` draws no stroke.
 fn color_from_priority(priority: &str) -> Option<Color> {
@@ -32,13 +32,28 @@ impl Shape for KanbanItem {
         node.width = Some(node.width.unwrap_or(200.0) - 10.0);
         let mut out = label_helper(node, ctx, Some(&get_node_classes(node, None)), false);
         let padding = node.padding.filter(|p| *p != 0.0).unwrap_or(10.0);
-        let (mut label_el, bbox2) = insert_label(
+        let (mut label_el, mut bbox2) = insert_label(
             data.ticket.as_deref().unwrap_or(""),
             ctx,
             node,
             node.width,
             false,
         );
+        // With `ticketBaseUrl` the ticket label goes into an `<a
+        // class="kanban-ticket-link">`, whose `text-decoration: underline`
+        // the label inherits. The scene has no link, so a group stands in.
+        let link = data.ticket.as_deref().is_some_and(|t| !t.is_empty())
+            && ctx.kanban_ticket_base_url.is_some();
+        if link {
+            bbox2.underline = Some(PAGE_TEXT_COLOR);
+            label_el = build_label_group(
+                &bbox2,
+                ctx,
+                label_fill(ctx, node),
+                "label",
+                label_el.common.transform.clone(),
+            );
+        }
         let (mut label_el_assigned, bbox_assigned) = insert_label(
             data.assigned.as_deref().unwrap_or(""),
             ctx,
@@ -102,7 +117,20 @@ impl Shape for KanbanItem {
         node.height = Some(total_height);
         node.intersector = Intersector::Rect;
         let mut result = done(out, elements, node);
-        result.group.children.push(Element::Group(label_el));
+        if link {
+            // `shapeSvg.insert('svg:a', ':first-child')` after the title,
+            // then the rect in front of it: rect, link, title, assigned.
+            let anchor = Group {
+                common: Common {
+                    class: Some("kanban-ticket-link".to_string()),
+                    ..Common::default()
+                },
+                children: vec![Element::Group(label_el)],
+            };
+            result.group.children.insert(1, Element::Group(anchor));
+        } else {
+            result.group.children.push(Element::Group(label_el));
+        }
         result
             .group
             .children
