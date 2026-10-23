@@ -36,19 +36,19 @@ expression: "render_svg(&data, &layout)"
         <g id="A" class="node default " transform="translate(150, 50)">
           <rect class="basic label-container" x="-90" y="-23" width="180" height="46" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -8)">
-            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Start</tspan></text>
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">Start</tspan></text>
           </g>
         </g>
         <g id="B" class="node default " transform="translate(150, 250)">
           <polygon class="label-container" transform="translate(-82.5, 83)" points="83,0 166,-83 83,-166 0,-83" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -8)">
-            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Decide</tspan></text>
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">Decide</tspan></text>
           </g>
         </g>
         <g id="C" class="node default " transform="translate(150, 450)">
           <path class="basic label-container outer-path" d="M-55.875,-15.5L55.875,-15.5L55.875,-15.5L56.868,-15.468L57.857,-15.373L58.838,-15.214L59.807,-14.993L60.759,-14.71L61.692,-14.367L62.6,-13.965L63.481,-13.505L64.331,-12.99L65.146,-12.422L65.923,-11.802L66.658,-11.134L67.349,-10.421L67.993,-9.664L68.588,-8.868L69.13,-8.035L69.617,-7.169L70.048,-6.274L70.421,-5.353L70.734,-4.41L70.986,-3.449L71.176,-2.474L71.303,-1.488L71.367,-0.497L71.367,0.497L71.303,1.488L71.176,2.474L70.986,3.449L70.734,4.41L70.421,5.353L70.048,6.274L69.617,7.169L69.13,8.035L68.588,8.868L67.993,9.664L67.349,10.421L66.658,11.134L65.923,11.802L65.146,12.422L64.331,12.99L63.481,13.505L62.6,13.965L61.692,14.367L60.759,14.71L59.807,14.993L58.838,15.214L57.857,15.373L56.868,15.468L55.875,15.5L55.875,15.5L-55.875,15.5L-56.868,15.468L-57.857,15.373L-58.838,15.214L-59.807,14.993L-60.759,14.71L-61.692,14.367L-62.6,13.965L-63.481,13.505L-64.331,12.99L-65.146,12.422L-65.923,11.802L-66.658,11.134L-67.349,10.421L-67.993,9.664L-68.588,8.868L-69.13,8.035L-69.617,7.169L-70.048,6.274L-70.421,5.353L-70.734,4.41L-70.986,3.449L-71.176,2.474L-71.303,1.488L-71.367,0.497L-71.367,-0.497L-71.303,-1.488L-71.176,-2.474L-70.986,-3.449L-70.734,-4.41L-70.421,-5.353L-70.048,-6.274L-69.617,-7.169L-69.13,-8.035L-68.588,-8.868L-67.993,-9.664L-67.349,-10.421L-66.658,-11.134L-65.923,-11.802L-65.146,-12.422L-64.331,-12.99L-63.481,-13.505L-62.6,-13.965L-61.692,-14.367L-60.759,-14.71L-59.807,-14.993L-58.838,-15.214L-57.857,-15.373L-56.868,-15.468L-55.875,-15.5Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -8)">
-            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">End</tspan></text>
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">End</tspan></text>
           </g>
         </g>
       </g>

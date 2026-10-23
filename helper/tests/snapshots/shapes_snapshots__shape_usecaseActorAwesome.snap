@@ -6,10 +6,10 @@ width=150 height=144
 <g id="n1" class="node default usecase-actor-variant usecase-actor-awesome">
   <rect class="usecase-actor-outline" x="-75" y="-72" width="150" height="144" opacity="0"/>
   <g class="label actor-label usecase-actor-label" transform="translate(-60, 41)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">Label</tspan></text>
   </g>
   <g class="label usecase-stereotype" transform="translate(-28, 23)">
-    <text class="nodeLabel" x="28" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28" dy="8">«actor»</tspan></text>
+    <text class="nodeLabel" x="28" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28" dy="11.2">«actor»</tspan></text>
   </g>
   <g class="usecase-actor-glyph usecase-actor-awesome" transform="translate(0, -21)">
     <path class="usecase-actor-awesome-silhouette" d="M0,-34C7.18,-34,13,-28.18,13,-21C13,-13.82,7.18,-8,0,-8C-7.18,-8,-13,-13.82,-13,-21C-13,-28.18,-7.18,-34,0,-34ZM-24,25C-24,7,-14,-3,0,-3C14,-3,24,7,24,25C24,28,21,30,18,30L-18,30C-21,30,-24,28,-24,25Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>

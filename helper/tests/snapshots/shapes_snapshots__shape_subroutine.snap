@@ -6,6 +6,6 @@ width=151 height=31
 <g id="n1" class="node default ">
   <polygon class="label-container" transform="translate(-67.5, 15.5)" points="0,0 135,0 135,-31 0,-31 0,0 -8,0 143,0 143,-31 -8,-31 -8,0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <g class="label" transform="translate(-60, -8)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">Label</tspan></text>
   </g>
 </g>

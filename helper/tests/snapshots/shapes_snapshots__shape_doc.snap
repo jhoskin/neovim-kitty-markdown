@@ -6,6 +6,6 @@ width=150 height=57.49591446768339
 <g id="n1" class="node default ">
   <path class="basic label-container outer-path" transform="translate(0, -2.875)" d="M-75,25.875L-75,25.875L-72,26.452L-69,27.023L-66,27.583L-63,28.125L-60,28.645L-57,29.137L-54,29.596L-51,30.017L-48,30.396L-45,30.73L-42,31.015L-39,31.247L-36,31.426L-33,31.548L-30,31.614L-27,31.621L-24,31.57L-21,31.462L-18,31.297L-15,31.078L-12,30.806L-9,30.484L-6,30.116L-3,29.705L0,29.255L3,28.771L6,28.258L9,27.72L12,27.165L15,26.596L18,26.019L21,25.442L24,24.869L27,24.306L30,23.758L33,23.232L36,22.733L39,22.266L42,21.835L45,21.445L48,21.099L51,20.802L54,20.556L57,20.363L60,20.227L63,20.147L66,20.125L69,20.162L72,20.256L75,20.406L75,-25.875L-75,-25.875Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
   <g class="label" transform="translate(-60, -13.75)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="central" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="8">Label</tspan></text>
+    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">Label</tspan></text>
   </g>
 </g>

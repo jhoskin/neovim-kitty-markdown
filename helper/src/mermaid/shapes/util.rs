@@ -583,7 +583,7 @@ pub fn label_text(bbox: &LabelBox, ctx: &ShapeCtx, fill: Color, html: bool) -> O
                     (
                         Some(bbox.width / 2.0),
                         Some(Length::Px(if i == 0 {
-                            bbox.line_height / 2.0
+                            bbox.baseline
                         } else {
                             bbox.line_height
                         })),
@@ -615,8 +615,11 @@ pub fn label_text(bbox: &LabelBox, ctx: &ShapeCtx, fill: Color, html: bool) -> O
         x: if html { bbox.width / 2.0 } else { 0.0 },
         y: 0.0,
         anchor: Some(TextAnchor::Middle),
+        // HTML lines sit on the baseline Chrome computes from the rounded
+        // face metrics (`LabelBox::baseline`); `central` would resolve from
+        // the unrounded ones and land up to a pixel off.
         baseline: Some(if html {
-            Baseline::Central
+            Baseline::Alphabetic
         } else {
             Baseline::Auto
         }),

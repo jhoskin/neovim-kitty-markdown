@@ -70,6 +70,9 @@ pub struct LabelBox {
     pub height: f64,
     /// Line height in pixels, so the renderer can place each line.
     pub line_height: f64,
+    /// HTML labels: the first line's baseline below the box top, where
+    /// Chrome puts it (see [`html_first_baseline`]). Zero for SVG labels.
+    pub baseline: f64,
     pub lines: Vec<LabelLine>,
 }
 
@@ -185,6 +188,12 @@ impl LabelMeasurer for FixedMeasurer {
             width,
             height,
             line_height: self.line_height,
+            // A face with ascent 0.7 and descent 0.3 of the line, centred.
+            baseline: if opts.html {
+                0.7 * self.line_height
+            } else {
+                0.0
+            },
             lines,
         }
     }
@@ -347,6 +356,7 @@ pub fn measure_with_metrics(
             ..LabelBox::default()
         };
     }
+    let mut baseline = 0.0;
     let (y, mut width, height, lines) = if opts.html {
         let html = if opts.markdown {
             markdown::markdown_to_html(text)
@@ -356,6 +366,7 @@ pub fn measure_with_metrics(
         let structured = markdown::html_to_lines(&html);
         let label = metrics.html_label(&structured, &spec, opts.width.map(|w| w as f32));
         let lines = label_lines(&label.lines, |line| metrics.words_width(line, &spec));
+        baseline = html_first_baseline(metrics, &spec, line_height);
         (0.0, f64::from(label.width), f64::from(label.height), lines)
     } else {
         let normalized = markdown::normalize_breaks(text);
@@ -398,8 +409,20 @@ pub fn measure_with_metrics(
         width,
         height,
         line_height,
+        baseline,
         lines,
     }
+}
+
+/// Where Chrome puts the first baseline of an HTML label line: the line box
+/// is `line_height` tall, the primary face's rounded ascent `A` and
+/// descent `D` sit in it with the half-leading floored, so the baseline is
+/// `floor((line_height - (A + D)) / 2) + A` below the line top. Trebuchet
+/// MS at 16 px gives 17, not the 17.5 an unrounded centre would.
+pub fn html_first_baseline(metrics: &TextMetrics<'_>, spec: &TextFont, line_height: f64) -> f64 {
+    let shaped = metrics.shape(" ", spec);
+    let (ascent, descent) = (f64::from(shaped.ascent), f64::from(shaped.descent));
+    ((line_height - (ascent + descent)) / 2.0).floor() + ascent
 }
 
 /// Labels measured in the default theme's family (`"trebuchet ms",
