@@ -1,0 +1,19 @@
+wardley-beta
+title Link Types
+anchor Customer [0.95, 0.90]
+component User [0.90, 0.70]
+component App [0.75, 0.75] label [-40, 15]
+component API [0.60, 0.60] (inertia)
+component Cache [0.65, 0.45]
+component Database [0.15, 0.80]
+component Queue [0.35, 0.30]
+component Worker [0.30, 0.55]
+Customer -> User
+User -> App
+App +> API
+API -> Database
+API +<> Cache
+Cache +'backup'> Database
+API -.-> Queue
+Queue +< Worker
+Worker -> Database; reads rows

@@ -1,0 +1,89 @@
+---
+source: tests/parity_wardley.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="600" viewBox="0 0 900 600" font-family="&quot;Times New Roman&quot;, serif">
+  <defs>
+    <marker id="arrow-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0L10,5L0,10Z" fill="#dc3545" stroke="none"/>
+    </marker>
+    <marker id="link-arrow-end-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0L10,5L0,10Z" fill="#333333" stroke="none"/>
+    </marker>
+    <marker id="link-arrow-start-my-svg" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M10,0L0,5L10,10Z" fill="#333333" stroke="none"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="wardley-map">
+      <rect class="wardley-background" x="0" y="0" width="900" height="600" fill="#ffffff"/>
+      <text class="wardley-title" x="450" y="24" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="12.6" font-weight="bold">Annotations</text>
+      <g class="wardley-axes">
+        <line x1="48" y1="552" x2="852" y2="552" stroke="#333333" stroke-width="1"/>
+        <line x1="48" y1="48" x2="48" y2="552" stroke="#333333" stroke-width="1"/>
+        <text class="wardley-axis-label wardley-axis-label-x" x="450" y="588" text-anchor="middle" fill="#131300" font-size="12" font-weight="bold">Evolution</text>
+        <text class="wardley-axis-label wardley-axis-label-y" transform="rotate(-90, 16, 300)" x="16" y="300" text-anchor="middle" fill="#131300" font-size="12" font-weight="bold">Visibility</text>
+      </g>
+      <g class="wardley-stages">
+        <text class="wardley-stage-label" x="148.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Genesis</text>
+        <line x1="249" y1="48" x2="249" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="349.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Custom Built</text>
+        <line x1="450" y1="48" x2="450" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="550.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Product</text>
+        <line x1="651" y1="48" x2="651" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="751.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Commodity</text>
+      </g>
+      <g class="wardley-links">
+        <line class="wardley-link" x1="605.264" y1="251.914" x2="495.736" y2="297.686" stroke="#333333" stroke-width="1"/>
+        <line class="wardley-link" x1="484.664" y1="302.314" x2="375.136" y2="348.086" stroke="#333333" stroke-width="1"/>
+      </g>
+      <g class="wardley-trends"/>
+      <g class="wardley-nodes">
+        <g class="wardley-node wardley-node--component">
+          <circle cx="610.8" cy="249.6" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="618.8" y="241.6" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">API</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="490.2" cy="300" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="498.2" y="292" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Cache</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="369.6" cy="350.4" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="377.6" y="342.4" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Database</text>
+        </g>
+      </g>
+      <g class="wardley-annotations">
+        <g class="wardley-annotation">
+          <circle cx="570.6" cy="249.6" r="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+          <text x="570.6" y="249.6" text-anchor="middle" dominant-baseline="central" fill="#131300" font-size="10" font-weight="bold">1</text>
+        </g>
+        <g class="wardley-annotation">
+          <circle cx="450" cy="300" r="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+          <text x="450" y="300" text-anchor="middle" dominant-baseline="central" fill="#131300" font-size="10" font-weight="bold">2</text>
+        </g>
+        <g class="wardley-annotation">
+          <circle cx="329.4" cy="350.4" r="10" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+          <text x="329.4" y="350.4" text-anchor="middle" dominant-baseline="central" fill="#131300" font-size="10" font-weight="bold">3</text>
+        </g>
+        <g class="wardley-annotations-box">
+          <rect x="619.712" y="477.872" width="232.288" height="74.128" rx="4" ry="4" fill="#ffffff" stroke="#333333" stroke-width="1.5"/>
+          <text x="629.712" y="503.872" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="11">1. Critical component</text>
+          <text x="629.712" y="519.872" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="11">2. Performance layer</text>
+          <text x="629.712" y="535.872" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="11">3. Data persistence</text>
+        </g>
+      </g>
+      <g class="wardley-notes">
+        <text x="490.2" y="224.4" text-anchor="start" fill="#131300" font-size="11" font-weight="bold">Critical decision point</text>
+        <text x="731.4" y="400.8" text-anchor="start" fill="#131300" font-size="11" font-weight="bold">High risk area</text>
+      </g>
+      <g class="wardley-accelerators">
+        <path d="M249,461.4L289,461.4L289,453.4L309,476.4L289,499.4L289,491.4L249,491.4Z" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+        <text x="279" y="506.4" text-anchor="middle" fill="#131300" font-size="10" font-weight="bold">AI Adoption</text>
+      </g>
+      <g class="wardley-deaccelerators">
+        <path d="M188.4,108.6L148.4,108.6L148.4,100.6L128.4,123.6L148.4,146.6L148.4,138.6L188.4,138.6Z" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+        <text x="158.4" y="153.6" text-anchor="middle" fill="#131300" font-size="10" font-weight="bold">Legacy Constraints</text>
+      </g>
+    </g>
+  </g>
+</svg>

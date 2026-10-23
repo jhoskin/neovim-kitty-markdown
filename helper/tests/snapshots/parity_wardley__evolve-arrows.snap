@@ -1,0 +1,71 @@
+---
+source: tests/parity_wardley.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="600" viewBox="0 0 900 600" font-family="&quot;Times New Roman&quot;, serif">
+  <defs>
+    <marker id="arrow-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0L10,5L0,10Z" fill="#dc3545" stroke="none"/>
+    </marker>
+    <marker id="link-arrow-end-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0L10,5L0,10Z" fill="#333333" stroke="none"/>
+    </marker>
+    <marker id="link-arrow-start-my-svg" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M10,0L0,5L10,10Z" fill="#333333" stroke="none"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="wardley-map">
+      <rect class="wardley-background" x="0" y="0" width="900" height="600" fill="#ffffff"/>
+      <text class="wardley-title" x="450" y="24" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="12.6" font-weight="bold">Evolution</text>
+      <g class="wardley-axes">
+        <line x1="48" y1="552" x2="852" y2="552" stroke="#333333" stroke-width="1"/>
+        <line x1="48" y1="48" x2="48" y2="552" stroke="#333333" stroke-width="1"/>
+        <text class="wardley-axis-label wardley-axis-label-x" x="450" y="588" text-anchor="middle" fill="#131300" font-size="12" font-weight="bold">Evolution</text>
+        <text class="wardley-axis-label wardley-axis-label-y" transform="rotate(-90, 16, 300)" x="16" y="300" text-anchor="middle" fill="#131300" font-size="12" font-weight="bold">Visibility</text>
+      </g>
+      <g class="wardley-stages">
+        <text class="wardley-stage-label" x="148.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Genesis</text>
+        <line x1="249" y1="48" x2="249" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="349.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Custom Built</text>
+        <line x1="450" y1="48" x2="450" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="550.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Product</text>
+        <line x1="651" y1="48" x2="651" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="751.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Commodity</text>
+      </g>
+      <g class="wardley-links">
+        <line class="wardley-link" x1="448.827" y1="79.084" x2="410.973" y2="268.916" stroke="#333333" stroke-width="1"/>
+        <line class="wardley-link" x1="404.716" y1="277.987" x2="294.284" y2="347.213" stroke="#333333" stroke-width="1"/>
+        <line class="wardley-link" x1="284.829" y1="354.51" x2="213.171" y2="421.89" stroke="#333333" stroke-width="1"/>
+        <line class="wardley-link" x1="406.983" y1="269.502" x2="372.417" y2="204.498" stroke="#333333" stroke-width="1"/>
+      </g>
+      <g class="wardley-trends">
+        <line class="wardley-trend" x1="289.2" y1="350.4" x2="643" y2="350.4" stroke="#dc3545" stroke-width="1" stroke-dasharray="4,4" marker-end="url(#arrow-my-svg)"/>
+        <line class="wardley-trend" x1="409.8" y1="274.8" x2="683.2" y2="274.8" stroke="#dc3545" stroke-width="1" stroke-dasharray="4,4" marker-end="url(#arrow-my-svg)"/>
+        <line class="wardley-trend" x1="208.8" y1="426" x2="779.68" y2="426" stroke="#dc3545" stroke-width="1" stroke-dasharray="4,4" marker-end="url(#arrow-my-svg)"/>
+        <line class="wardley-trend" x1="369.6" y1="199.2" x2="562.6" y2="199.2" stroke="#dc3545" stroke-width="1" stroke-dasharray="4,4" marker-end="url(#arrow-my-svg)"/>
+      </g>
+      <g class="wardley-nodes">
+        <g class="wardley-node wardley-node--anchor">
+          <text class="wardley-node-label" x="450" y="70.2" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="10" font-weight="bold">Developer</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="289.2" cy="350.4" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="297.2" y="342.4" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Database</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="409.8" cy="274.8" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="417.8" y="266.8" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">API</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="208.8" cy="426" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="216.8" y="418" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Compute</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="369.6" cy="199.2" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="377.6" y="191.2" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Monitoring</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

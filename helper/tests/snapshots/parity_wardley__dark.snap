@@ -1,0 +1,95 @@
+---
+source: tests/parity_wardley.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="600" viewBox="0 0 900 600" font-family="&quot;Times New Roman&quot;, serif">
+  <defs>
+    <marker id="arrow-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0L10,5L0,10Z" fill="#ff6b6b" stroke="none"/>
+    </marker>
+    <marker id="link-arrow-end-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0L10,5L0,10Z" fill="#d3d3d3" stroke="none"/>
+    </marker>
+    <marker id="link-arrow-start-my-svg" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M10,0L0,5L10,10Z" fill="#d3d3d3" stroke="none"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="wardley-map">
+      <rect class="wardley-background" x="0" y="0" width="900" height="600" fill="#333333"/>
+      <text class="wardley-title" x="450" y="24" text-anchor="middle" dominant-baseline="middle" fill="#e0dfdf" font-size="12.6" font-weight="bold">Tea Shop (dark)</text>
+      <g class="wardley-axes">
+        <line x1="48" y1="552" x2="852" y2="552" stroke="#d3d3d3" stroke-width="1"/>
+        <line x1="48" y1="48" x2="48" y2="552" stroke="#d3d3d3" stroke-width="1"/>
+        <text class="wardley-axis-label wardley-axis-label-x" x="450" y="588" text-anchor="middle" fill="#e0dfdf" font-size="12" font-weight="bold">Evolution</text>
+        <text class="wardley-axis-label wardley-axis-label-y" transform="rotate(-90, 16, 300)" x="16" y="300" text-anchor="middle" fill="#e0dfdf" font-size="12" font-weight="bold">Visibility</text>
+      </g>
+      <g class="wardley-stages">
+        <text class="wardley-stage-label" x="148.5" y="568" text-anchor="middle" fill="#e0dfdf" font-size="10">Genesis</text>
+        <line x1="249" y1="48" x2="249" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="349.5" y="568" text-anchor="middle" fill="#e0dfdf" font-size="10">Custom Built</text>
+        <line x1="450" y1="48" x2="450" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="550.5" y="568" text-anchor="middle" fill="#e0dfdf" font-size="10">Product</text>
+        <line x1="651" y1="48" x2="651" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="751.5" y="568" text-anchor="middle" fill="#e0dfdf" font-size="10">Commodity</text>
+      </g>
+      <g class="wardley-links">
+        <line class="wardley-link" x1="553.347" y1="79.084" x2="539.613" y2="147.956" stroke="#d3d3d3" stroke-width="1"/>
+        <line class="wardley-link" x1="543.803" y1="156.53" x2="693.877" y2="231.79" stroke="#d3d3d3" stroke-width="1"/>
+        <line class="wardley-link" x1="542.92" y1="157.831" x2="686.72" y2="285.929" stroke="#d3d3d3" stroke-width="1" marker-end="url(#link-arrow-end-my-svg)"/>
+        <line class="wardley-link wardley-link--dashed" x1="685.247" y1="290.666" x2="335.353" y2="334.534" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="6,6"/>
+        <line class="wardley-link" x1="334.565" y1="338.333" x2="605.635" y2="498.547" stroke="#d3d3d3" stroke-width="1"/>
+        <text class="wardley-link-label" transform="rotate(30.585, 474.171, 411.553)" x="474.171" y="411.553" text-anchor="middle" dominant-baseline="middle" fill="#e0dfdf" font-size="10">electricity</text>
+      </g>
+      <g class="wardley-trends">
+        <line class="wardley-trend" x1="329.4" y1="335.28" x2="538.48" y2="335.28" stroke="#ff6b6b" stroke-width="1" stroke-dasharray="4,4" marker-end="url(#arrow-my-svg)"/>
+      </g>
+      <g class="wardley-nodes">
+        <g class="wardley-node wardley-node--anchor">
+          <text class="wardley-node-label" x="554.52" y="70.2" text-anchor="middle" dominant-baseline="middle" fill="#000000" font-size="10" font-weight="bold">Business</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="538.44" cy="153.84" r="6" fill="#1f2020" stroke="#d3d3d3" stroke-width="1"/>
+          <text class="wardley-node-label" x="546.44" y="145.84" text-anchor="start" dominant-baseline="auto" fill="#e0dfdf" font-size="10" font-weight="normal">Cup of Tea</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle class="wardley-buy-overlay" cx="699.24" cy="234.48" r="12" fill="#cccccc" stroke="#d3d3d3" stroke-width="1"/>
+          <circle cx="699.24" cy="234.48" r="6" fill="#1f2020" stroke="#d3d3d3" stroke-width="1"/>
+          <text class="wardley-node-label" x="717.24" y="216.48" text-anchor="start" dominant-baseline="auto" fill="#e0dfdf" font-size="10" font-weight="normal">Tea</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="691.2" cy="289.92" r="6" fill="#1f2020" stroke="#d3d3d3" stroke-width="1"/>
+          <text class="wardley-node-label" x="699.2" y="281.92" text-anchor="start" dominant-baseline="auto" fill="#e0dfdf" font-size="10" font-weight="normal">Hot Water</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="329.4" cy="335.28" r="6" fill="#1f2020" stroke="#d3d3d3" stroke-width="1"/>
+          <line class="wardley-inertia" x1="350.4" y1="329.28" x2="350.4" y2="341.28" stroke="#d3d3d3" stroke-width="6"/>
+          <text class="wardley-node-label" x="337.4" y="327.28" text-anchor="start" dominant-baseline="auto" fill="#e0dfdf" font-size="10" font-weight="normal">Kettle</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle class="wardley-market-overlay" cx="610.8" cy="501.6" r="12" fill="#ffffff" stroke="#d3d3d3" stroke-width="1"/>
+          <line class="wardley-market-line" x1="610.8" y1="494.4" x2="604.565" y2="505.2" stroke="#d3d3d3" stroke-width="1"/>
+          <line class="wardley-market-line" x1="604.565" y1="505.2" x2="617.035" y2="505.2" stroke="#d3d3d3" stroke-width="1"/>
+          <line class="wardley-market-line" x1="617.035" y1="505.2" x2="610.8" y2="494.4" stroke="#d3d3d3" stroke-width="1"/>
+          <circle class="wardley-market-dot" cx="610.8" cy="494.4" r="4.2" fill="#ffffff" stroke="#d3d3d3" stroke-width="2"/>
+          <circle class="wardley-market-dot" cx="604.565" cy="505.2" r="4.2" fill="#ffffff" stroke="#d3d3d3" stroke-width="2"/>
+          <circle class="wardley-market-dot" cx="617.035" cy="505.2" r="4.2" fill="#ffffff" stroke="#d3d3d3" stroke-width="2"/>
+          <text class="wardley-node-label" x="628.8" y="483.6" text-anchor="start" dominant-baseline="auto" fill="#e0dfdf" font-size="10" font-weight="normal">Power</text>
+        </g>
+      </g>
+      <g class="wardley-annotations">
+        <g class="wardley-annotation">
+          <circle cx="289.2" cy="335.28" r="10" fill="#ffffff" stroke="#d3d3d3" stroke-width="1.5"/>
+          <text x="289.2" y="335.28" text-anchor="middle" dominant-baseline="central" fill="#e0dfdf" font-size="10" font-weight="bold">1</text>
+        </g>
+        <g class="wardley-annotations-box">
+          <rect x="289.2" y="510" width="204.089" height="42" rx="4" ry="4" fill="#ffffff" stroke="#d3d3d3" stroke-width="1.5"/>
+          <text x="299.2" y="536" text-anchor="start" dominant-baseline="middle" fill="#e0dfdf" font-size="11">1. Kettle inertia</text>
+        </g>
+      </g>
+      <g class="wardley-notes">
+        <text x="441.96" y="400.8" text-anchor="start" fill="#e0dfdf" font-size="11" font-weight="bold">Standardising power</text>
+      </g>
+    </g>
+  </g>
+</svg>

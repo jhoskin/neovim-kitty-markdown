@@ -1,0 +1,18 @@
+%%{init: {"theme": "dark"}}%%
+wardley-beta
+title Tea Shop (dark)
+anchor Business [0.95, 0.63]
+component Cup of Tea [0.79, 0.61]
+component Tea [0.63, 0.81] (buy)
+component Hot Water [0.52, 0.80]
+component Kettle [0.43, 0.35] (inertia)
+component Power [0.10, 0.70] (market)
+Business -> Cup of Tea
+Cup of Tea -> Tea
+Cup of Tea +> Hot Water
+Hot Water -.-> Kettle
+Kettle -> Power; electricity
+evolve Kettle 0.62
+note "Standardising power" [0.30, 0.49]
+annotations [0.05, 0.30]
+annotation 1,[0.43, 0.30] "Kettle inertia"

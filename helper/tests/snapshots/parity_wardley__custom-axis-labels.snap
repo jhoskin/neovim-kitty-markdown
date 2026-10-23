@@ -1,0 +1,62 @@
+---
+source: tests/parity_wardley.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="600" viewBox="0 0 900 600" font-family="&quot;Times New Roman&quot;, serif">
+  <defs>
+    <marker id="arrow-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path d="M0,0L10,5L0,10Z" fill="#dc3545" stroke="none"/>
+    </marker>
+    <marker id="link-arrow-end-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0L10,5L0,10Z" fill="#333333" stroke="none"/>
+    </marker>
+    <marker id="link-arrow-start-my-svg" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="5" markerHeight="5" orient="auto" markerUnits="strokeWidth">
+      <path d="M10,0L0,5L10,10Z" fill="#333333" stroke="none"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="wardley-map">
+      <rect class="wardley-background" x="0" y="0" width="900" height="600" fill="#ffffff"/>
+      <text class="wardley-title" x="450" y="24" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="12.6" font-weight="bold">Custom Stages</text>
+      <g class="wardley-axes">
+        <line x1="48" y1="552" x2="852" y2="552" stroke="#333333" stroke-width="1"/>
+        <line x1="48" y1="48" x2="48" y2="552" stroke="#333333" stroke-width="1"/>
+        <text class="wardley-axis-label wardley-axis-label-x" x="450" y="588" text-anchor="middle" fill="#131300" font-size="12" font-weight="bold">Evolution</text>
+        <text class="wardley-axis-label wardley-axis-label-y" transform="rotate(-90, 16, 300)" x="16" y="300" text-anchor="middle" fill="#131300" font-size="12" font-weight="bold">Visibility</text>
+      </g>
+      <g class="wardley-stages">
+        <text class="wardley-stage-label" x="128.4" y="568" text-anchor="middle" fill="#131300" font-size="10">Genesis / Concept</text>
+        <line x1="208.8" y1="48" x2="208.8" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="309.3" y="568" text-anchor="middle" fill="#131300" font-size="10">Custom / Emerging</text>
+        <line x1="409.8" y1="48" x2="409.8" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="530.4" y="568" text-anchor="middle" fill="#131300" font-size="10">Product / Converging</text>
+        <line x1="651" y1="48" x2="651" y2="552" stroke="#000000" stroke-width="1" stroke-dasharray="5,5" opacity="0.8"/>
+        <text class="wardley-stage-label" x="751.5" y="568" text-anchor="middle" fill="#131300" font-size="10">Commodity / Accepted</text>
+      </g>
+      <g class="wardley-links">
+        <line class="wardley-link" x1="133.763" y1="176.69" x2="324.037" y2="272.11" stroke="#333333" stroke-width="1"/>
+        <line class="wardley-link" x1="335.125" y1="276.595" x2="564.875" y2="348.605" stroke="#333333" stroke-width="1"/>
+        <line class="wardley-link" x1="575.963" y1="353.09" x2="766.237" y2="448.51" stroke="#333333" stroke-width="1"/>
+      </g>
+      <g class="wardley-trends"/>
+      <g class="wardley-nodes">
+        <g class="wardley-node wardley-node--component">
+          <circle cx="128.4" cy="174" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="136.4" y="166" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Novel Idea</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="329.4" cy="274.8" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="337.4" y="266.8" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Custom Solution</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="570.6" cy="350.4" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="578.6" y="342.4" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Product</text>
+        </g>
+        <g class="wardley-node wardley-node--component">
+          <circle cx="771.6" cy="451.2" r="6" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+          <text class="wardley-node-label" x="779.6" y="443.2" text-anchor="start" dominant-baseline="auto" fill="#131300" font-size="10" font-weight="normal">Utility</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

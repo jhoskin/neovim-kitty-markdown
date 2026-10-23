@@ -1,0 +1,15 @@
+wardley-beta
+title Evolution
+anchor Developer [0.95, 0.50]
+component Database [0.40, 0.30]
+component API [0.55, 0.45]
+component Compute [0.25, 0.20]
+component Monitoring [0.70, 0.40]
+Developer -> API
+API -> Database
+Database -> Compute
+API -> Monitoring
+evolve Database 0.75
+evolve API 0.80
+evolve Compute 0.92
+evolve Monitoring 0.65
