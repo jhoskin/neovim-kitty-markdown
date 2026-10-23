@@ -15,5 +15,6 @@ pub mod sankey;
 pub mod sequence;
 pub mod state;
 pub mod timeline;
+pub mod treemap;
 pub mod venn;
 pub mod xychart;

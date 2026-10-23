@@ -24,6 +24,7 @@ pub mod sankey;
 pub mod sequence;
 pub mod state;
 pub mod timeline;
+pub mod treemap;
 pub mod venn;
 pub mod xychart;
 
@@ -66,6 +67,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &radar::DIAGRAM,
         &sankey::DIAGRAM,
         &venn::DIAGRAM,
+        &treemap::DIAGRAM,
     ];
     REGISTRY
 }
