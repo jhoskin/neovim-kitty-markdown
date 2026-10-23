@@ -33,6 +33,7 @@ pub mod treemap;
 pub mod treeview;
 pub mod usecase;
 pub mod venn;
+pub mod wardley;
 pub mod xychart;
 
 /// What a renderer gets besides the resolved diagram.
@@ -82,6 +83,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &usecase::DIAGRAM,
         &eventmodeling::DIAGRAM,
         &cynefin::DIAGRAM,
+        &wardley::DIAGRAM,
     ];
     REGISTRY
 }
