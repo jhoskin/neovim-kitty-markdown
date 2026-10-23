@@ -68,6 +68,20 @@ as a spec proposal instead.
   through `FontSystem::fallback_for` drew arrows in Hiragino Sans and
   lowered cynefin parity by up to 0.006.
 
+- Stylesheet label fonts travel as `Node::label_font` and the `ShapeCtx`
+  fields `edge_label_font`, `edge_terminal_font`, and
+  `edge_label_padding_x`. Inline label styles merge over them, as the
+  browser cascade does. `LabelBox::font` keeps the font a label was
+  measured in, so the label is drawn in the same font.
+- `calculateTextWidth` measures in the root `config.fontFamily` and
+  `config.fontSize`, not in the label font, as mermaid's `utils.ts` does.
+- HTML label widths and line widths round up to 1/64 px, because Blink
+  lays out the label in LayoutUnits and dagre's alignment can depend on
+  the last fraction.
+- Edge terminal labels draw no background. Each carries an unpainted rect
+  as its `getBBox` box (the `setTerminalWidth` box in HTML mode, the text
+  box in SVG mode), so the scene bounds include it.
+
 ## Diagram ports
 
 - Langium grammars are hand-written parsers. Wardley emulates
