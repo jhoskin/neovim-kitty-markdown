@@ -1,0 +1,86 @@
+---
+source: tests/parity_sankey.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 600 400" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <linearGradient id="linearGradient-8" gradientUnits="userSpaceOnUse" x1="10" x2="196.667">
+      <stop offset="0%" stop-color="#4e79a7"/>
+      <stop offset="100%" stop-color="#f28e2c"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-9" gradientUnits="userSpaceOnUse" x1="10" x2="196.667">
+      <stop offset="0%" stop-color="#e15759"/>
+      <stop offset="100%" stop-color="#f28e2c"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-10" gradientUnits="userSpaceOnUse" x1="206.667" x2="393.333">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#76b7b2"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-11" gradientUnits="userSpaceOnUse" x1="206.667" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#59a14f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-12" gradientUnits="userSpaceOnUse" x1="403.333" x2="590">
+      <stop offset="0%" stop-color="#76b7b2"/>
+      <stop offset="100%" stop-color="#edc949"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-13" gradientUnits="userSpaceOnUse" x1="403.333" x2="590">
+      <stop offset="0%" stop-color="#76b7b2"/>
+      <stop offset="100%" stop-color="#af7aa1"/>
+    </linearGradient>
+  </defs>
+  <g fill="#cccccc">
+    <g class="nodes">
+      <g id="node-1" class="node" transform="translate(0, 0)">
+        <rect x="0" y="0" width="10" height="216.25" fill="#4e79a7"/>
+      </g>
+      <g id="node-2" class="node" transform="translate(196.667, 10.29)">
+        <rect x="0" y="0" width="10" height="346" fill="#f28e2c"/>
+      </g>
+      <g id="node-3" class="node" transform="translate(0, 243.25)">
+        <rect x="0" y="0" width="10" height="129.75" fill="#e15759"/>
+      </g>
+      <g id="node-4" class="node" transform="translate(393.333, 162.774)">
+        <rect x="0" y="0" width="10" height="207.6" fill="#76b7b2"/>
+      </g>
+      <g id="node-5" class="node" transform="translate(590, 0)">
+        <rect x="0" y="0" width="10" height="138.4" fill="#59a14f"/>
+      </g>
+      <g id="node-6" class="node" transform="translate(590, 165.4)">
+        <rect x="0" y="0" width="10" height="86.5" fill="#edc949"/>
+      </g>
+      <g id="node-7" class="node" transform="translate(590, 278.9)">
+        <rect x="0" y="0" width="10" height="121.1" fill="#af7aa1"/>
+      </g>
+    </g>
+    <g class="node-labels" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14">
+      <text x="16" y="108.125" text-anchor="start">Coal 50</text>
+      <text x="212.667" y="183.29" text-anchor="start">Power plant 80</text>
+      <text x="16" y="308.125" text-anchor="start">Gas 30</text>
+      <text x="387.333" y="266.574" text-anchor="end">Electricity 48</text>
+      <text x="584" y="69.2" text-anchor="end">Waste heat 32</text>
+      <text x="584" y="208.65" text-anchor="end">Homes 20</text>
+      <text x="584" y="339.45" text-anchor="end">Industry 28</text>
+    </g>
+    <g class="links" fill="none" stroke-opacity="0.5">
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,108.125C103.333,108.125,103.333,118.415,196.667,118.415" stroke="url(#linearGradient-8)" stroke-width="216.25"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,308.125C103.333,308.125,103.333,291.415,196.667,291.415" stroke="url(#linearGradient-9)" stroke-width="129.75"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M206.667,252.49C300,252.49,300,266.574,393.333,266.574" stroke="url(#linearGradient-10)" stroke-width="207.6"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M206.667,79.49C398.333,79.49,398.333,69.2,590,69.2" stroke="url(#linearGradient-11)" stroke-width="138.4"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M403.333,206.024C496.667,206.024,496.667,208.65,590,208.65" stroke="url(#linearGradient-12)" stroke-width="86.5"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M403.333,309.824C496.667,309.824,496.667,339.45,590,339.45" stroke="url(#linearGradient-13)" stroke-width="121.1"/>
+      </g>
+    </g>
+  </g>
+</svg>

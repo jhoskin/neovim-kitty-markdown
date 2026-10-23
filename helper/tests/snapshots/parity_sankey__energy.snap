@@ -1,0 +1,300 @@
+---
+source: tests/parity_sankey.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="403.416" viewBox="0 0 600 403.416" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <linearGradient id="linearGradient-23" gradientUnits="userSpaceOnUse" x1="10" x2="118">
+      <stop offset="0%" stop-color="#4e79a7"/>
+      <stop offset="100%" stop-color="#f28e2c"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-24" gradientUnits="userSpaceOnUse" x1="128" x2="236">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#e15759"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-25" gradientUnits="userSpaceOnUse" x1="128" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#76b7b2"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-26" gradientUnits="userSpaceOnUse" x1="128" x2="236">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#59a14f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-27" gradientUnits="userSpaceOnUse" x1="128" x2="236">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#edc949"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-28" gradientUnits="userSpaceOnUse" x1="10" x2="236">
+      <stop offset="0%" stop-color="#af7aa1"/>
+      <stop offset="100%" stop-color="#e15759"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-29" gradientUnits="userSpaceOnUse" x1="10" x2="236">
+      <stop offset="0%" stop-color="#ff9da7"/>
+      <stop offset="100%" stop-color="#59a14f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-30" gradientUnits="userSpaceOnUse" x1="10" x2="118">
+      <stop offset="0%" stop-color="#9c755f"/>
+      <stop offset="100%" stop-color="#bab0ab"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-31" gradientUnits="userSpaceOnUse" x1="10" x2="118">
+      <stop offset="0%" stop-color="#4e79a7"/>
+      <stop offset="100%" stop-color="#bab0ab"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-32" gradientUnits="userSpaceOnUse" x1="128" x2="236">
+      <stop offset="0%" stop-color="#bab0ab"/>
+      <stop offset="100%" stop-color="#59a14f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-33" gradientUnits="userSpaceOnUse" x1="482" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#e15759"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-34" gradientUnits="userSpaceOnUse" x1="482" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#76b7b2"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-35" gradientUnits="userSpaceOnUse" x1="482" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#59a14f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-36" gradientUnits="userSpaceOnUse" x1="10" x2="118">
+      <stop offset="0%" stop-color="#edc949"/>
+      <stop offset="100%" stop-color="#af7aa1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-37" gradientUnits="userSpaceOnUse" x1="10" x2="118">
+      <stop offset="0%" stop-color="#ff9da7"/>
+      <stop offset="100%" stop-color="#af7aa1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-38" gradientUnits="userSpaceOnUse" x1="246" x2="590">
+      <stop offset="0%" stop-color="#edc949"/>
+      <stop offset="100%" stop-color="#76b7b2"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-39" gradientUnits="userSpaceOnUse" x1="246" x2="590">
+      <stop offset="0%" stop-color="#edc949"/>
+      <stop offset="100%" stop-color="#76b7b2"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-40" gradientUnits="userSpaceOnUse" x1="246" x2="354">
+      <stop offset="0%" stop-color="#edc949"/>
+      <stop offset="100%" stop-color="#9c755f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-41" gradientUnits="userSpaceOnUse" x1="246" x2="590">
+      <stop offset="0%" stop-color="#edc949"/>
+      <stop offset="100%" stop-color="#bab0ab"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-42" gradientUnits="userSpaceOnUse" x1="246" x2="590">
+      <stop offset="0%" stop-color="#edc949"/>
+      <stop offset="100%" stop-color="#e15759"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-43" gradientUnits="userSpaceOnUse" x1="246" x2="590">
+      <stop offset="0%" stop-color="#e15759"/>
+      <stop offset="100%" stop-color="#e15759"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-44" gradientUnits="userSpaceOnUse" x1="246" x2="590">
+      <stop offset="0%" stop-color="#e15759"/>
+      <stop offset="100%" stop-color="#4e79a7"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-45" gradientUnits="userSpaceOnUse" x1="128" x2="236">
+      <stop offset="0%" stop-color="#af7aa1"/>
+      <stop offset="100%" stop-color="#edc949"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-46" gradientUnits="userSpaceOnUse" x1="10" x2="354">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#9c755f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-47" gradientUnits="userSpaceOnUse" x1="246" x2="354">
+      <stop offset="0%" stop-color="#59a14f"/>
+      <stop offset="100%" stop-color="#9c755f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-48" gradientUnits="userSpaceOnUse" x1="246" x2="590">
+      <stop offset="0%" stop-color="#59a14f"/>
+      <stop offset="100%" stop-color="#e15759"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-49" gradientUnits="userSpaceOnUse" x1="364" x2="590">
+      <stop offset="0%" stop-color="#9c755f"/>
+      <stop offset="100%" stop-color="#76b7b2"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-50" gradientUnits="userSpaceOnUse" x1="364" x2="472">
+      <stop offset="0%" stop-color="#9c755f"/>
+      <stop offset="100%" stop-color="#f28e2c"/>
+    </linearGradient>
+  </defs>
+  <g fill="#333333">
+    <g class="nodes">
+      <g id="node-1" class="node" transform="translate(0, 227.234)">
+        <rect x="0" y="0" width="10" height="31.96" fill="#4e79a7"/>
+      </g>
+      <g id="node-2" class="node" transform="translate(118, 179.545)">
+        <rect x="0" y="0" width="10" height="99.657" fill="#f28e2c"/>
+      </g>
+      <g id="node-3" class="node" transform="translate(236, 334.172)">
+        <rect x="0" y="0" width="10" height="65.828" fill="#e15759"/>
+      </g>
+      <g id="node-4" class="node" transform="translate(590, 0)">
+        <rect x="0" y="0" width="10" height="208.934" fill="#76b7b2"/>
+      </g>
+      <g id="node-5" class="node" transform="translate(236, 143.44)">
+        <rect x="0" y="0" width="10" height="114.435" fill="#59a14f"/>
+      </g>
+      <g id="node-6" class="node" transform="translate(236, 269.875)">
+        <rect x="0" y="0" width="10" height="52.297" fill="#edc949"/>
+      </g>
+      <g id="node-7" class="node" transform="translate(0, 391.032)">
+        <rect x="0" y="0" width="10" height="8.968" fill="#af7aa1"/>
+      </g>
+      <g id="node-8" class="node" transform="translate(0, 271.194)">
+        <rect x="0" y="0" width="10" height="8.968" fill="#ff9da7"/>
+      </g>
+      <g id="node-9" class="node" transform="translate(0, 320.553)">
+        <rect x="0" y="0" width="10" height="2.974" fill="#9c755f"/>
+      </g>
+      <g id="node-10" class="node" transform="translate(118, 291.202)">
+        <rect x="0" y="0" width="10" height="19.364" fill="#bab0ab"/>
+      </g>
+      <g id="node-11" class="node" transform="translate(0, 292.163)">
+        <rect x="0" y="0" width="10" height="16.39" fill="#4e79a7"/>
+      </g>
+      <g id="node-12" class="node" transform="translate(472, 208.401)">
+        <rect x="0" y="0" width="10" height="20.327" fill="#f28e2c"/>
+      </g>
+      <g id="node-13" class="node" transform="translate(590, 282.552)">
+        <rect x="0" y="0" width="10" height="58.105" fill="#e15759"/>
+      </g>
+      <g id="node-14" class="node" transform="translate(590, 220.934)">
+        <rect x="0" y="0" width="10" height="5.8" fill="#76b7b2"/>
+      </g>
+      <g id="node-15" class="node" transform="translate(590, 238.734)">
+        <rect x="0" y="0" width="10" height="11.834" fill="#59a14f"/>
+      </g>
+      <g id="node-16" class="node" transform="translate(0, 335.527)">
+        <rect x="0" y="0" width="10" height="10.434" fill="#edc949"/>
+      </g>
+      <g id="node-17" class="node" transform="translate(118, 341.268)">
+        <rect x="0" y="0" width="10" height="31.505" fill="#af7aa1"/>
+      </g>
+      <g id="node-18" class="node" transform="translate(0, 357.96)">
+        <rect x="0" y="0" width="10" height="21.071" fill="#ff9da7"/>
+      </g>
+      <g id="node-19" class="node" transform="translate(354, 0)">
+        <rect x="0" y="0" width="10" height="356.68" fill="#9c755f"/>
+      </g>
+      <g id="node-20" class="node" transform="translate(590, 352.657)">
+        <rect x="0" y="0" width="10" height="0.537" fill="#bab0ab"/>
+      </g>
+      <g id="node-21" class="node" transform="translate(590, 365.194)">
+        <rect x="0" y="0" width="10" height="34.806" fill="#4e79a7"/>
+      </g>
+      <g id="node-22" class="node" transform="translate(0, 0)">
+        <rect x="0" y="0" width="10" height="215.234" fill="#f28e2c"/>
+      </g>
+    </g>
+    <g class="node-labels" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14">
+      <text x="16" y="248.114" text-anchor="start">Agricultural 'waste'</text>
+      <text x="134" y="234.274" text-anchor="start">Bio-conversion</text>
+      <text x="252" y="371.986" text-anchor="start">Liquid</text>
+      <text x="584" y="109.367" text-anchor="end">Losses</text>
+      <text x="252" y="205.557" text-anchor="start">Solid</text>
+      <text x="252" y="300.924" text-anchor="start">Gas</text>
+      <text x="16" y="400.416" text-anchor="start">Biofuel imports</text>
+      <text x="16" y="280.578" text-anchor="start">Biomass imports</text>
+      <text x="16" y="326.94" text-anchor="start">Coal imports</text>
+      <text x="134" y="305.784" text-anchor="start">Coal</text>
+      <text x="16" y="305.258" text-anchor="start">Coal reserves</text>
+      <text x="466" y="223.465" text-anchor="end">District heating</text>
+      <text x="584" y="316.504" text-anchor="end">Industry</text>
+      <text x="584" y="228.734" text-anchor="end">Heating and cooling - commercial</text>
+      <text x="584" y="249.551" text-anchor="end">Heating and cooling - homes</text>
+      <text x="16" y="345.644" text-anchor="start">Gas imports</text>
+      <text x="134" y="361.92" text-anchor="start">Ngas</text>
+      <text x="16" y="373.396" text-anchor="start">Gas reserves</text>
+      <text x="348" y="183.24" text-anchor="end">Thermal generation</text>
+      <text x="584" y="357.825" text-anchor="end">Agriculture</text>
+      <text x="584" y="387.497" text-anchor="end">Road transport</text>
+      <text x="16" y="112.517" text-anchor="start">Nuclear</text>
+    </g>
+    <g class="links" fill="none" stroke-opacity="0.5">
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,243.214C64,243.214,64,195.525,118,195.525" stroke="url(#linearGradient-23)" stroke-width="31.96"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M128,279.126C182,279.126,182,334.249,236,334.249" stroke="url(#linearGradient-24)" stroke-width="1"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M128,182.987C359,182.987,359,205.134,590,205.134" stroke="url(#linearGradient-25)" stroke-width="6.883"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M128,222.343C182,222.343,182,179.354,236,179.354" stroke="url(#linearGradient-26)" stroke-width="71.829"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M128,268.653C182,268.653,182,280.271,236,280.271" stroke="url(#linearGradient-27)" stroke-width="20.792"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,395.516C123,395.516,123,338.809,236,338.809" stroke="url(#linearGradient-28)" stroke-width="8.968"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,275.678C123,275.678,123,219.753,236,219.753" stroke="url(#linearGradient-29)" stroke-width="8.968"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,322.04C64,322.04,64,309.079,118,309.079" stroke="url(#linearGradient-30)" stroke-width="2.974"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,300.358C64,300.358,64,299.397,118,299.397" stroke="url(#linearGradient-31)" stroke-width="16.39"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M128,300.884C182,300.884,182,233.919,236,233.919" stroke="url(#linearGradient-32)" stroke-width="19.364"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M482,227.365C536,227.365,536,295.824,590,295.824" stroke="url(#linearGradient-33)" stroke-width="2.726"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M482,211.284C536,211.284,536,223.817,590,223.817" stroke="url(#linearGradient-34)" stroke-width="5.767"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M482,220.085C536,220.085,536,244.651,590,244.651" stroke="url(#linearGradient-35)" stroke-width="11.834"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,340.744C64,340.744,64,346.485,118,346.485" stroke="url(#linearGradient-36)" stroke-width="10.434"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,368.496C64,368.496,64,362.237,118,362.237" stroke="url(#linearGradient-37)" stroke-width="21.071"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,309.171C418,309.171,418,226.717,590,226.717" stroke="url(#linearGradient-38)" stroke-width="1"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,270.054C418,270.054,418,208.755,590,208.755" stroke="url(#linearGradient-39)" stroke-width="1"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,289.694C300,289.694,300,337.22,354,337.22" stroke="url(#linearGradient-40)" stroke-width="38.92"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,321.904C418,321.904,418,352.925,590,352.925" stroke="url(#linearGradient-41)" stroke-width="1"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,315.411C418,315.411,418,303.411,590,303.411" stroke="url(#linearGradient-42)" stroke-width="12.448"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,349.683C418,349.683,418,325.146,590,325.146" stroke="url(#linearGradient-43)" stroke-width="31.022"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,382.597C418,382.597,418,382.597,590,382.597" stroke="url(#linearGradient-44)" stroke-width="34.806"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M128,357.02C182,357.02,182,306.42,236,306.42" stroke="url(#linearGradient-45)" stroke-width="31.505"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,107.617C182,107.617,182,107.617,354,107.617" stroke="url(#linearGradient-46)" stroke-width="215.234"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,194.703C300,194.703,300,266.497,354,266.497" stroke="url(#linearGradient-47)" stroke-width="102.526"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M246,251.92C418,251.92,418,288.506,590,288.506" stroke="url(#linearGradient-48)" stroke-width="11.909"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M364,100.846C477,100.846,477,100.846,590,100.846" stroke="url(#linearGradient-49)" stroke-width="201.692"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M364,211.856C418,211.856,418,218.565,472,218.565" stroke="url(#linearGradient-50)" stroke-width="20.327"/>
+      </g>
+    </g>
+  </g>
+</svg>

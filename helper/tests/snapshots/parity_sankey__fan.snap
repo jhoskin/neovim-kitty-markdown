@@ -1,0 +1,97 @@
+---
+source: tests/parity_sankey.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="600" height="400" viewBox="0 0 600 400" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <linearGradient id="linearGradient-9" gradientUnits="userSpaceOnUse" x1="10" x2="295">
+      <stop offset="0%" stop-color="#4e79a7"/>
+      <stop offset="100%" stop-color="#f28e2c"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-10" gradientUnits="userSpaceOnUse" x1="10" x2="295">
+      <stop offset="0%" stop-color="#e15759"/>
+      <stop offset="100%" stop-color="#f28e2c"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-11" gradientUnits="userSpaceOnUse" x1="10" x2="295">
+      <stop offset="0%" stop-color="#76b7b2"/>
+      <stop offset="100%" stop-color="#f28e2c"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-12" gradientUnits="userSpaceOnUse" x1="305" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#59a14f"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-13" gradientUnits="userSpaceOnUse" x1="305" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#edc949"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-14" gradientUnits="userSpaceOnUse" x1="305" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#af7aa1"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-15" gradientUnits="userSpaceOnUse" x1="305" x2="590">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#ff9da7"/>
+    </linearGradient>
+  </defs>
+  <g fill="#333333">
+    <g class="nodes">
+      <g id="node-1" class="node" transform="translate(0, 0)">
+        <rect x="0" y="0" width="10" height="158.838" fill="#4e79a7"/>
+      </g>
+      <g id="node-2" class="node" transform="translate(295, 17.128)">
+        <rect x="0" y="0" width="10" height="319" fill="#f28e2c"/>
+      </g>
+      <g id="node-3" class="node" transform="translate(0, 185.838)">
+        <rect x="0" y="0" width="10" height="117.805" fill="#e15759"/>
+      </g>
+      <g id="node-4" class="node" transform="translate(0, 330.643)">
+        <rect x="0" y="0" width="10" height="42.357" fill="#76b7b2"/>
+      </g>
+      <g id="node-5" class="node" transform="translate(590, 0)">
+        <rect x="0" y="0" width="10" height="132.365" fill="#59a14f"/>
+      </g>
+      <g id="node-6" class="node" transform="translate(590, 159.365)">
+        <rect x="0" y="0" width="10" height="105.892" fill="#edc949"/>
+      </g>
+      <g id="node-7" class="node" transform="translate(590, 292.257)">
+        <rect x="0" y="0" width="10" height="48.975" fill="#af7aa1"/>
+      </g>
+      <g id="node-8" class="node" transform="translate(590, 368.232)">
+        <rect x="0" y="0" width="10" height="31.768" fill="#ff9da7"/>
+      </g>
+    </g>
+    <g class="node-labels" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14">
+      <text x="16" y="79.419" text-anchor="start">Wind, onshore 30</text>
+      <text x="311" y="176.628" text-anchor="start">Grid 60.25</text>
+      <text x="16" y="244.741" text-anchor="start">Solar 22.25</text>
+      <text x="16" y="351.822" text-anchor="start">Hydro "run of river" 8</text>
+      <text x="584" y="66.183" text-anchor="end">Homes 25</text>
+      <text x="584" y="212.311" text-anchor="end">Industry 20</text>
+      <text x="584" y="316.745" text-anchor="end">Losses 9.25</text>
+      <text x="584" y="384.116" text-anchor="end">Export 6</text>
+    </g>
+    <g class="links" fill="none" stroke-opacity="0.5">
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,79.419C152.5,79.419,152.5,96.547,295,96.547" stroke="url(#linearGradient-9)" stroke-width="158.838"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,244.741C152.5,244.741,152.5,234.868,295,234.868" stroke="url(#linearGradient-10)" stroke-width="117.805"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M10,351.822C152.5,351.822,152.5,314.949,295,314.949" stroke="url(#linearGradient-11)" stroke-width="42.357"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M305,83.31C447.5,83.31,447.5,66.183,590,66.183" stroke="url(#linearGradient-12)" stroke-width="132.365"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M305,202.439C447.5,202.439,447.5,212.311,590,212.311" stroke="url(#linearGradient-13)" stroke-width="105.892"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M305,279.873C447.5,279.873,447.5,316.745,590,316.745" stroke="url(#linearGradient-14)" stroke-width="48.975"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M305,320.244C447.5,320.244,447.5,384.116,590,384.116" stroke="url(#linearGradient-15)" stroke-width="31.768"/>
+      </g>
+    </g>
+  </g>
+</svg>

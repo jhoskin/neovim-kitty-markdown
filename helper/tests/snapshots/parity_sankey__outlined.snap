@@ -1,0 +1,93 @@
+---
+source: tests/parity_sankey.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="913.656" height="400" viewBox="-129.628 0 913.656 400" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <linearGradient id="linearGradient-8" gradientUnits="userSpaceOnUse" x1="15" x2="195">
+      <stop offset="0%" stop-color="#4e79a7"/>
+      <stop offset="100%" stop-color="#4e79a7"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-9" gradientUnits="userSpaceOnUse" x1="15" x2="195">
+      <stop offset="0%" stop-color="#f28e2c"/>
+      <stop offset="100%" stop-color="#4e79a7"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-10" gradientUnits="userSpaceOnUse" x1="210" x2="585">
+      <stop offset="0%" stop-color="#4e79a7"/>
+      <stop offset="100%" stop-color="#e15759"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-11" gradientUnits="userSpaceOnUse" x1="210" x2="390">
+      <stop offset="0%" stop-color="#4e79a7"/>
+      <stop offset="100%" stop-color="#e15759"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-12" gradientUnits="userSpaceOnUse" x1="210" x2="585">
+      <stop offset="0%" stop-color="#4e79a7"/>
+      <stop offset="100%" stop-color="#bab0ab"/>
+    </linearGradient>
+    <linearGradient id="linearGradient-13" gradientUnits="userSpaceOnUse" x1="405" x2="585">
+      <stop offset="0%" stop-color="#e15759"/>
+      <stop offset="100%" stop-color="#76b7b2"/>
+    </linearGradient>
+  </defs>
+  <g fill="#333333">
+    <g class="nodes">
+      <g id="node-1" class="node" transform="translate(0, 0)">
+        <rect x="0" y="0" width="15" height="134.936" fill="#4e79a7"/>
+      </g>
+      <g id="node-2" class="node" transform="translate(195, 12.989)">
+        <rect x="0" y="0" width="15" height="380" fill="#4e79a7"/>
+      </g>
+      <g id="node-3" class="node" transform="translate(0, 154.936)">
+        <rect x="0" y="0" width="15" height="245.064" fill="#f28e2c"/>
+      </g>
+      <g id="node-4" class="node" transform="translate(585, 0)">
+        <rect x="0" y="0" width="15" height="53.032" fill="#e15759"/>
+      </g>
+      <g id="node-5" class="node" transform="translate(390, 66.285)">
+        <rect x="0" y="0" width="15" height="159.557" fill="#e15759"/>
+      </g>
+      <g id="node-6" class="node" transform="translate(585, 245.682)">
+        <rect x="0" y="0" width="15" height="26.436" fill="#bab0ab"/>
+      </g>
+      <g id="node-7" class="node" transform="translate(585, 73.032)">
+        <rect x="0" y="0" width="15" height="46.632" fill="#76b7b2"/>
+      </g>
+    </g>
+    <g class="node-labels" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14">
+      <text class="sankey-label-bg" x="-6" y="72.368" text-anchor="end" stroke="#ececff" stroke-width="4" stroke-linejoin="round">Wind</text>
+      <text class="sankey-label-bg" x="216" y="207.889" text-anchor="start" stroke="#ececff" stroke-width="4" stroke-linejoin="round">Electricity grid</text>
+      <text class="sankey-label-bg" x="-6" y="282.368" text-anchor="end" stroke="#ececff" stroke-width="4" stroke-linejoin="round">Thermal generation</text>
+      <text class="sankey-label-bg" x="606" y="31.416" text-anchor="start" stroke="#ececff" stroke-width="4" stroke-linejoin="round">Heating and cooling - homes</text>
+      <text class="sankey-label-bg" x="411" y="150.964" text-anchor="start" stroke="#ececff" stroke-width="4" stroke-linejoin="round">Industry</text>
+      <text class="sankey-label-bg" x="606" y="263.8" text-anchor="start" stroke="#ececff" stroke-width="4" stroke-linejoin="round">Losses</text>
+      <text class="sankey-label-bg" x="606" y="101.248" text-anchor="start" stroke="#ececff" stroke-width="4" stroke-linejoin="round">Exports</text>
+      <text class="sankey-label-fg" x="-6" y="72.368" text-anchor="end" fill="#333333">Wind</text>
+      <text class="sankey-label-fg" x="216" y="207.889" text-anchor="start" fill="#333333">Electricity grid</text>
+      <text class="sankey-label-fg" x="-6" y="282.368" text-anchor="end" fill="#333333">Thermal generation</text>
+      <text class="sankey-label-fg" x="606" y="31.416" text-anchor="start" fill="#333333">Heating and cooling - homes</text>
+      <text class="sankey-label-fg" x="411" y="150.964" text-anchor="start" fill="#333333">Industry</text>
+      <text class="sankey-label-fg" x="606" y="263.8" text-anchor="start" fill="#333333">Losses</text>
+      <text class="sankey-label-fg" x="606" y="101.248" text-anchor="start" fill="#333333">Exports</text>
+    </g>
+    <g class="links" fill="none" stroke-opacity="0.5">
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M15,67.468C105,67.468,105,80.458,195,80.458" stroke="url(#linearGradient-8)" stroke-width="134.936"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M15,277.468C105,277.468,105,270.458,195,270.458" stroke="url(#linearGradient-9)" stroke-width="245.064"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M210,39.506C397.5,39.506,397.5,26.516,585,26.516" stroke="url(#linearGradient-10)" stroke-width="53.032"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M210,145.8C300,145.8,300,146.064,390,146.064" stroke="url(#linearGradient-11)" stroke-width="159.557"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M210,238.797C397.5,238.797,397.5,258.9,585,258.9" stroke="url(#linearGradient-12)" stroke-width="26.436"/>
+      </g>
+      <g class="link" style="mix-blend-mode: multiply;">
+        <path d="M405,89.601C495,89.601,495,96.348,585,96.348" stroke="url(#linearGradient-13)" stroke-width="46.632"/>
+      </g>
+    </g>
+  </g>
+</svg>
