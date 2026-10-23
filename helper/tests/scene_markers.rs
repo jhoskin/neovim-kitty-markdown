@@ -227,3 +227,34 @@ fn class_stylesheet_rules_fill_the_solid_markers_only() {
     };
     assert_eq!(circle.common.style.fill, Some(Paint::None));
 }
+
+#[test]
+fn er_stylesheet_rule_leaves_the_circles_white() {
+    // `diagrams/er/styles.ts`: `.marker { fill: none !important; stroke:
+    // lineColor !important; stroke-width: 1 }`.
+    let line = Color::rgb(0x33, 0x33, 0x33);
+    let bkg = Color::rgb(0xEC, 0xEC, 0xFF);
+    let rule = stylesheet_rule("er", MarkerType::ZeroOrOne, line, bkg).expect("rule");
+    let mut marker = markers_for(MarkerType::ZeroOrOne, "er", "s").remove(0);
+    marker.apply_rule(&rule);
+    assert_eq!(marker.style.fill, Some(Paint::None));
+    assert_eq!(marker.style.stroke, Some(Paint::Color(line)));
+    assert_eq!(marker.style.stroke_width, Some(1.0));
+    let Element::Circle(circle) = &marker.children[0] else {
+        panic!("zeroOrOneStart starts with a circle");
+    };
+    assert_eq!(circle.common.style.fill, Some(Paint::Color(Color::WHITE)));
+    assert_eq!(circle.common.style.stroke, Some(Paint::Color(line)));
+    let Element::Path(bar) = &marker.children[1] else {
+        panic!("zeroOrOneStart ends with a path");
+    };
+    assert_eq!(bar.common.style.fill, Some(Paint::None));
+    assert_eq!(bar.common.style.stroke, Some(Paint::Color(line)));
+    for ty in [
+        MarkerType::OnlyOne,
+        MarkerType::OneOrMore,
+        MarkerType::ZeroOrMore,
+    ] {
+        assert!(stylesheet_rule("er", ty, line, bkg).is_some(), "{ty:?}");
+    }
+}

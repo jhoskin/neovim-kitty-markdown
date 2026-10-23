@@ -5,9 +5,9 @@
 //! The renderer overrides `flowchart.nodeSpacing` and `rankSpacing` with
 //! `er.nodeSpacing || 140` and `er.rankSpacing || 80` before the render,
 //! so those are the spacings dagre sees unless the root config sets its
-//! own. The ER stylesheet rules (`styles::er`) that the shared renderer
-//! has no hook for are applied to its output afterwards: the marker paint
-//! and the dashed line pattern. The 14 px relationship labels go in as
+//! own. The ER marker rule is a `markers::stylesheet_rule` arm. The ER
+//! stylesheet rule that the shared renderer has no hook for, the dashed
+//! line pattern (`styles::er`), is applied to its output afterwards. The 14 px relationship labels go in as
 //! the shapes' edge label font.
 
 use serde_json::Value;
@@ -18,12 +18,11 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::unified::{LayoutData, UnifiedConfig, render_with_dagre};
 use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
-    Color, Common, Element, FontSpec, Group, Marker, Paint, Scene, Style, Text, TextAnchor,
-    TextRun, ViewBox,
+    Common, Element, FontSpec, Group, Paint, Scene, Style, Text, TextAnchor, TextRun, ViewBox,
 };
 use crate::mermaid::shapes::ShapeCtx;
 use crate::mermaid::shapes::util::BBox;
-use crate::mermaid::styles::er::{DASHED, EDGE_LABEL_FONT_SIZE, ErStyles, MARKER_STROKE_WIDTH};
+use crate::mermaid::styles::er::{DASHED, EDGE_LABEL_FONT_SIZE, ErStyles};
 use crate::text::measure::FontSpec as MeasureSpec;
 
 use super::db::ErDb;
@@ -65,32 +64,6 @@ fn for_each_group(g: &mut Group, f: &mut dyn FnMut(&mut Group)) {
 
 fn has_class(class: Option<&str>, name: &str) -> bool {
     class.is_some_and(|c| c.split_whitespace().any(|x| x == name))
-}
-
-/// `.marker { fill: none !important; stroke: lineColor !important;
-/// stroke-width: 1 }`. The shared renderer painted every unset fill with
-/// `lineColor`; the paths inherit `none` again, the circles keep their own
-/// white.
-fn restyle_markers(markers: &mut [Marker], line_color: Color) {
-    let prefix = format!("{DIAGRAM_ID}_{DIAGRAM_TYPE}-");
-    for marker in markers.iter_mut().filter(|m| m.id.starts_with(&prefix)) {
-        marker.style.fill = Some(Paint::None);
-        marker.style.stroke = Some(Paint::Color(line_color));
-        marker.style.stroke_width = Some(MARKER_STROKE_WIDTH);
-        for child in &mut marker.children {
-            match child {
-                Element::Path(p) => {
-                    p.common.style.fill = Some(Paint::None);
-                    p.common.style.stroke = Some(Paint::Color(line_color));
-                }
-                Element::Circle(c) => {
-                    c.common.style.fill = Some(Paint::Color(Color::WHITE));
-                    c.common.style.stroke = Some(Paint::Color(line_color));
-                }
-                _ => {}
-            }
-        }
-    }
 }
 
 /// `.edge-pattern-dashed { stroke-dasharray: 8,8 }` on the relationship
@@ -226,7 +199,6 @@ pub fn draw(db: &ErDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene
         sub_graph_title_margin_bottom: *flow.sub_graph_title_margin.bottom,
     };
     let mut rendered = render_with_dagre(&data, &unified, &shapes)?;
-    restyle_markers(&mut rendered.markers, styles.line_color);
     restyle_edges(&mut rendered.root);
 
     let mut bounds = rendered.bounds;

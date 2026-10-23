@@ -150,6 +150,9 @@ pub fn markers_for(ty: MarkerType, diagram_type: &str, id: &str) -> Vec<Marker> 
 ///   `fill="transparent"` attribute).
 /// - `diagrams/usecase/styles.ts`: `.marker.extension { fill: mainBkg;
 ///   stroke: lineColor }`.
+/// - `diagrams/er/styles.ts`: `.marker { fill: none !important; stroke:
+///   lineColor !important; stroke-width: 1 }` on every ER marker. The
+///   paths inherit `none`; the circles keep their own `fill="white"`.
 pub fn stylesheet_rule(
     diagram_type: &str,
     ty: MarkerType,
@@ -162,6 +165,7 @@ pub fn stylesheet_rule(
         }
         ("classDiagram", MarkerType::Extension | MarkerType::Aggregation) => Paint::None,
         ("classDiagram", MarkerType::Lollipop) => Paint::Color(main_bkg),
+        ("er", _) => Paint::None,
         ("usecase", MarkerType::Extension) => {
             return Some(Style {
                 fill: Some(Paint::Color(main_bkg)),
