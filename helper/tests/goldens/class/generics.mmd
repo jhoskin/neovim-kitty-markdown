@@ -1,0 +1,11 @@
+classDiagram
+    class Square~Shape~ {
+        int id
+        List~int~ position
+        setPoints(List~int~ points)
+        getPoints() List~int~
+    }
+    class Repository~T~
+    Square~Shape~ : -List~string~ messages
+    Square~Shape~ : +setMessages(List~string~ messages)
+    Repository~T~ <|-- Square~Shape~

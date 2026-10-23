@@ -1,0 +1,124 @@
+---
+source: tests/parity_class.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="278.063" height="256" viewBox="0 0 278.063 256" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_classDiagram-aggregationStart" class="marker aggregation classDiagram" refX="18" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L1,7L9,1Z" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-aggregationEnd" class="marker aggregation classDiagram" refX="1" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L1,7L9,1Z" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-aggregationStart-margin" class="marker aggregation classDiagram" refX="15" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L1,7L9,1Z" fill="none" stroke="#333333" stroke-width="2"/>
+    </marker>
+    <marker id="my-svg_classDiagram-aggregationEnd-margin" class="marker aggregation classDiagram" refX="1" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L1,7L9,1Z" fill="none" stroke="#333333" stroke-width="2"/>
+    </marker>
+    <marker id="my-svg_classDiagram-extensionStart" class="marker extension classDiagram" refX="18" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M1,7L18,13L18,1Z" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-extensionEnd" class="marker extension classDiagram" refX="1" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M1,1L1,13L18,7Z" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-extensionStart-margin" class="marker extension classDiagram" viewBox="0 0 20 14" refX="18" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
+      <polygon points="10,7 18,13 18,1" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="0"/>
+    </marker>
+    <marker id="my-svg_classDiagram-extensionEnd-margin" class="marker extension classDiagram" viewBox="0 0 20 14" refX="9" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
+      <polygon points="10,1 10,13 18,7" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="0"/>
+    </marker>
+    <marker id="my-svg_classDiagram-compositionStart" class="marker composition classDiagram" refX="18" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L1,7L9,1Z" fill="#333333" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-compositionEnd" class="marker composition classDiagram" refX="1" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L1,7L9,1Z" fill="#333333" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-compositionStart-margin" class="marker composition classDiagram" refX="15" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L1,7L9,1Z" fill="#333333" stroke="#333333" stroke-width="0"/>
+    </marker>
+    <marker id="my-svg_classDiagram-compositionEnd-margin" class="marker composition classDiagram" refX="3.5" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L1,7L9,1Z" fill="#333333" stroke="#333333" stroke-width="0"/>
+    </marker>
+    <marker id="my-svg_classDiagram-dependencyStart" class="marker dependency classDiagram" refX="6" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333" stroke-width="1">
+      <path d="M5,7L9,13L1,7L9,1Z" fill="#333333" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-dependencyEnd" class="marker dependency classDiagram" refX="13" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L14,7L9,1Z" fill="#333333" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-dependencyStart-margin" class="marker dependency classDiagram" refX="4" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333" stroke-width="1">
+      <path d="M5,7L9,13L1,7L9,1Z" fill="#333333" stroke="#333333" stroke-width="0"/>
+    </marker>
+    <marker id="my-svg_classDiagram-dependencyEnd-margin" class="marker dependency classDiagram" refX="16" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333" stroke-width="1">
+      <path d="M18,7L9,13L14,7L9,1Z" fill="#333333" stroke="#333333" stroke-width="0"/>
+    </marker>
+    <marker id="my-svg_classDiagram-lollipopStart" class="marker lollipop classDiagram" refX="13" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="#ececff" stroke="#333333" stroke-width="1">
+      <circle cx="7" cy="7" r="6" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-lollipopEnd" class="marker lollipop classDiagram" refX="1" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="#ececff" stroke="#333333" stroke-width="1">
+      <circle cx="7" cy="7" r="6" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_classDiagram-lollipopStart-margin" class="marker lollipop classDiagram" refX="13" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="#ececff" stroke="#333333" stroke-width="1">
+      <circle cx="7" cy="7" r="6" fill="none" stroke="#333333" stroke-width="2"/>
+    </marker>
+    <marker id="my-svg_classDiagram-lollipopEnd-margin" class="marker lollipop classDiagram" refX="1" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="#ececff" stroke="#333333" stroke-width="1">
+      <circle cx="7" cy="7" r="6" fill="none" stroke="#333333" stroke-width="2"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths"/>
+      <g class="edgeLabels"/>
+      <g class="nodes">
+        <g id="my-svg-classId-BankAccount-0" class="node default " transform="translate(139.031, 128)">
+          <rect class="basic label-container outer-path" x="-131.031" y="-120" width="262.063" height="240" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="annotation-group text" transform="translate(0, -96)"/>
+          <g class="label-group text" transform="translate(-48.531, -96)">
+            <g class="label" transform="translate(0, -12)" font-weight="900">
+              <text class="nodeLabel" x="48.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+                <tspan x="48.531" dy="17" font-weight="bold">BankAccount</tspan>
+              </text>
+            </g>
+          </g>
+          <g class="members-group text" transform="translate(-119.031, -48)">
+            <g class="label" transform="translate(0, -12)">
+              <text class="nodeLabel" x="49.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+                <tspan x="49.492" dy="17">+String owner</tspan>
+              </text>
+            </g>
+            <g class="label" transform="translate(0, 12)">
+              <text class="nodeLabel" x="74.063" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+                <tspan x="74.063" dy="17">+BigDecimal balance</tspan>
+              </text>
+            </g>
+            <g class="label" transform="translate(0, 36)">
+              <text class="nodeLabel" x="21.91" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+                <tspan x="21.91" dy="17">-int id</tspan>
+              </text>
+            </g>
+          </g>
+          <g class="methods-group text" transform="translate(-119.031, 48)">
+            <g class="label" transform="translate(0, -12)">
+              <text class="nodeLabel" x="86.543" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+                <tspan x="86.543" dy="17">+deposit(amount) : bool</tspan>
+              </text>
+            </g>
+            <g class="label" transform="translate(0, 12)">
+              <text class="nodeLabel" x="94.766" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+                <tspan x="94.766" dy="17">+withdrawal(amount) : int</tspan>
+              </text>
+            </g>
+            <g class="label" transform="translate(0, 36)">
+              <text class="nodeLabel" x="51.262" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+                <tspan x="51.262" dy="17">#audit() : void</tspan>
+              </text>
+            </g>
+          </g>
+          <line class="divider" x1="-131.031" y1="-72" x2="131.031" y2="-71.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <line class="divider" x1="-131.031" y1="24" x2="131.031" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

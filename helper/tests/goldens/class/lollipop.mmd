@@ -1,0 +1,7 @@
+classDiagram
+    class Engine {
+        +start()
+    }
+    Engine --() Startable
+    Engine --() Stoppable
+    Car --> Engine

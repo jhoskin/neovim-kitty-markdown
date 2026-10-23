@@ -1,0 +1,13 @@
+classDiagram
+    class Shape {
+        +someAbstractMethod()*
+        +someStaticMethod()$
+        +String staticField$
+        +int count
+        +area() double
+    }
+    class Counter {
+        +increment()$ int
+        +reset()*
+    }
+    Shape <|-- Counter

@@ -1,0 +1,45 @@
+classDiagram
+    class User {
+        +String name
+        +String email
+        +login() bool
+    }
+    class Account {
+        +int id
+        +Decimal balance
+        +close()
+    }
+    class Order {
+        +int number
+        +Date placed
+        +total() Decimal
+    }
+    class LineItem {
+        +int quantity
+        +Decimal price
+    }
+    class Product {
+        +String sku
+        +String title
+    }
+    class Category
+    class Payment {
+        <<abstract>>
+        +Decimal amount
+        +authorize()*
+    }
+    class CardPayment
+    class BankTransfer
+    class Address {
+        +String street
+        +String city
+    }
+    User "1" --> "*" Account : owns
+    Account "1" --> "*" Order : places
+    Order "1" *-- "1..*" LineItem
+    LineItem --> Product
+    Product "*" --> "1" Category
+    Order --> Payment
+    Payment <|-- CardPayment
+    Payment <|-- BankTransfer
+    User o-- Address

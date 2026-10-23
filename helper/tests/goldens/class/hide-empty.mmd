@@ -1,0 +1,15 @@
+---
+config:
+  class:
+    hideEmptyMembersBox: true
+---
+classDiagram
+    class Empty
+    class Tagged {
+        <<interface>>
+    }
+    class Full {
+        +int x
+    }
+    Empty <|-- Full
+    Tagged <|.. Full

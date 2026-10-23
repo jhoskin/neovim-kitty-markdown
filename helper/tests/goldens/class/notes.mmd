@@ -1,0 +1,9 @@
+classDiagram
+    note "This is a general note"
+    note for Duck "can fly\ncan swim"
+    Animal <|-- Duck
+    Animal <|-- Fish
+    class Duck {
+        +String beakColor
+        +swim()
+    }

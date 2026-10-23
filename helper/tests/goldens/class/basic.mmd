@@ -1,0 +1,9 @@
+classDiagram
+    class BankAccount {
+        +String owner
+        +BigDecimal balance
+        -int id
+        +deposit(amount) bool
+        +withdrawal(amount) int
+        #audit() void
+    }

@@ -1,0 +1,20 @@
+%%{init: {"theme": "dark"}}%%
+classDiagram
+    class Animal {
+        +int age
+        +String gender
+        +isMammal() bool
+        +mate()
+    }
+    class Duck {
+        +String beakColor
+        +swim()
+        +quack()
+    }
+    class Zebra {
+        +bool is_wild
+        +run()
+    }
+    Animal <|-- Duck
+    Animal <|-- Zebra
+    note for Zebra "striped"
