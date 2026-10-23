@@ -1,0 +1,11 @@
+architecture-beta
+    service client(internet)[Client]
+    service api(server)[API]
+    service queue(disk)[Queue]
+    service worker(server)[Worker]
+    service db(database)[DB]
+
+    client:R --> L:api
+    api:R <--> L:queue
+    queue:B <-- T:worker
+    worker:L -[writes]- R:db

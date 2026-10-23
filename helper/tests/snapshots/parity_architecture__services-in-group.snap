@@ -1,0 +1,136 @@
+---
+source: tests/parity_architecture.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="646.85" height="463.164" viewBox="-283.425 -166.082 646.85 463.164" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+    <g class="architecture-edges">
+      <g>
+        <path class="edge" d="M-120.925,-43.582L-60.462,-43.582L0,-43.582" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+      <g>
+        <path class="edge" d="M80,-43.582L140.462,-43.582L200.925,-43.582" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+      <g>
+        <path class="edge" d="M40,-3.582L40,57L40,117.582" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+    </g>
+    <g class="architecture-services">
+      <g class="architecture-service" transform="translate(-200.925, -83.582)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">Gateway</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <circle cx="40" cy="40" r="22.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="40" y1="17.5" x2="40" y2="62.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="17.5" y1="40" x2="62.5" y2="40" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <path d="M39.99,17.51C24.71,28.61,24.71,51.39,39.99,62.49" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <path d="M40.01,17.51C55.29,28.61,55.29,51.39,40.01,62.49" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="19.75" y1="30.1" x2="60.25" y2="30.1" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="19.75" y1="49.9" x2="60.25" y2="49.9" fill="none" stroke="#ffffff" stroke-width="2"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="architecture-service" transform="translate(0, -83.582)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">App</tspan><tspan> Server</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <rect x="17.5" y="17.5" width="45" height="45" rx="2" ry="2" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="17.5" y1="32.5" x2="62.5" y2="32.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="17.5" y1="47.5" x2="62.5" y2="47.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <g>
+                <path d="M56.25,25C56.25,25.27,55.8,25.5,55.25,25.5L44.75,25.5C44.2,25.5,43.75,25.27,43.75,25C43.75,24.73,44.2,24.5,44.75,24.5L55.25,24.5C55.8,24.5,56.25,24.73,56.25,25Z" fill="#ffffff" stroke-width="0"/>
+                <path d="M56.25,25C56.25,25.27,55.8,25.5,55.25,25.5L44.75,25.5C44.2,25.5,43.75,25.27,43.75,25C43.75,24.73,44.2,24.5,44.75,24.5L55.25,24.5C55.8,24.5,56.25,24.73,56.25,25Z" fill="none" stroke="#ffffff"/>
+              </g>
+              <g>
+                <path d="M56.25,40C56.25,40.27,55.8,40.5,55.25,40.5L44.75,40.5C44.2,40.5,43.75,40.27,43.75,40C43.75,39.73,44.2,39.5,44.75,39.5L55.25,39.5C55.8,39.5,56.25,39.73,56.25,40Z" fill="#ffffff" stroke-width="0"/>
+                <path d="M56.25,40C56.25,40.27,55.8,40.5,55.25,40.5L44.75,40.5C44.2,40.5,43.75,40.27,43.75,40C43.75,39.73,44.2,39.5,44.75,39.5L55.25,39.5C55.8,39.5,56.25,39.73,56.25,40Z" fill="none" stroke="#ffffff"/>
+              </g>
+              <g>
+                <path d="M56.25,55C56.25,55.27,55.8,55.5,55.25,55.5L44.75,55.5C44.2,55.5,43.75,55.27,43.75,55C43.75,54.73,44.2,54.5,44.75,54.5L55.25,54.5C55.8,54.5,56.25,54.73,56.25,55Z" fill="#ffffff" stroke-width="0"/>
+                <path d="M56.25,55C56.25,55.27,55.8,55.5,55.25,55.5L44.75,55.5C44.2,55.5,43.75,55.27,43.75,55C43.75,54.73,44.2,54.5,44.75,54.5L55.25,54.5C55.8,54.5,56.25,54.73,56.25,55Z" fill="none" stroke="#ffffff"/>
+              </g>
+              <g>
+                <circle cx="32.5" cy="25" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+                <circle cx="27.5" cy="25" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+                <circle cx="22.5" cy="25" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+              </g>
+              <g>
+                <circle cx="32.5" cy="40" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+                <circle cx="27.5" cy="40" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+                <circle cx="22.5" cy="40" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+              </g>
+              <g>
+                <circle cx="32.5" cy="55" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+                <circle cx="27.5" cy="55" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+                <circle cx="22.5" cy="55" r="0.75" fill="#ffffff" stroke="#ffffff"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="architecture-service" transform="translate(0, 117.582)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">Cache</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <rect x="20" y="15" width="40" height="50" rx="1" ry="1" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="24" cy="19.17" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="56" cy="19.17" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="24" cy="60.83" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="56" cy="60.83" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="33.75" rx="14" ry="14.58" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="33.75" rx="4" ry="4.17" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+              <path d="M37.51,42.52L32.68,55.74C32.42,56.45,31.58,56.76,30.92,56.38L26.74,53.96C26.08,53.58,25.93,52.7,26.41,52.12L35.42,41.32C36.3,40.27,37.98,41.24,37.51,42.52Z" fill="#ffffff" stroke-width="0"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="architecture-service" transform="translate(200.925, -83.582)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">Store</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <path d="M20,57.86C20,61.8,28.95,65,40,65C51.05,65,60,61.8,60,57.86" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <path d="M20,45.95C20,49.89,28.95,53.09,40,53.09C51.05,53.09,60,49.89,60,45.95" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <path d="M20,34.05C20,37.99,28.95,41.19,40,41.19C51.05,41.19,60,37.99,60,34.05" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="22.14" rx="20" ry="7.14" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="20" y1="57.86" x2="20" y2="22.14" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="60" y1="57.86" x2="60" y2="22.14" fill="none" stroke="#ffffff" stroke-width="2"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g class="architecture-groups">
+      <rect class="node-bkg" x="-243.425" y="-126.082" width="566.85" height="383.164" fill="none" stroke="#c7c7f1" stroke-width="2" stroke-dasharray="8"/>
+      <g>
+        <g transform="translate(-242.425, -125.082)">
+          <g transform="scale(0.375, 0.375)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <path d="M65,47.5C65,50.26,62.76,52.5,60,52.5L20,52.5C17.24,52.5,15,50.26,15,47.5C15,45.63,16.03,43.99,17.56,43.14C17.52,42.93,17.5,42.72,17.5,42.5C17.5,39.9,19.98,37.76,23.15,37.53C24.8,33.02,29.49,29.77,35,29.77C35.86,29.77,36.69,29.85,37.5,30C39.59,28.43,42.19,27.5,45,27.5C51.1,27.5,56.19,31.88,57.28,37.67C59.42,38.23,61,40.18,61,42.5C61,42.53,61,42.57,60.99,42.6C63.28,43.06,65,45.08,65,47.5Z" fill="none" stroke="#ffffff" stroke-width="2"/>
+            </g>
+          </g>
+        </g>
+        <g transform="translate(-209.425, -119.082)">
+          <text x="0" y="0" text-anchor="start" dominant-baseline="auto"><tspan x="0" dy="1em">Cluster</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

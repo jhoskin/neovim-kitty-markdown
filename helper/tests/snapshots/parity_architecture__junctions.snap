@@ -1,0 +1,139 @@
+---
+source: tests/parity_architecture.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="564.033" height="586.26" viewBox="-220.516 -211.288 564.033 586.26" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
+    <g class="architecture-edges">
+      <g>
+        <path class="edge" d="M-100.516,69.75L-39.945,69.75L60.627,69.75" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+      <g>
+        <path class="edge" d="M60.627,-91.288L60.627,-30.769L60.627,69.75" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+      <g>
+        <path class="edge" d="M60.627,230.788L60.627,170.269L60.627,69.75" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+      <g>
+        <path class="edge" d="M60.627,69.75L162.072,69.75L263.516,69.75" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+      <g>
+        <path class="edge" d="M263.516,-91.288L263.516,-30.769L263.516,69.75" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+      <g>
+        <path class="edge" d="M263.516,230.788L263.516,170.269L263.516,69.75" fill="none" stroke="#333333" stroke-width="3"/>
+      </g>
+    </g>
+    <g class="architecture-services">
+      <g class="architecture-service" transform="translate(-180.516, 29.75)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">Disk</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <rect x="20" y="15" width="40" height="50" rx="1" ry="1" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="24" cy="19.17" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="56" cy="19.17" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="24" cy="60.83" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="56" cy="60.83" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="33.75" rx="14" ry="14.58" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="33.75" rx="4" ry="4.17" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+              <path d="M37.51,42.52L32.68,55.74C32.42,56.45,31.58,56.76,30.92,56.38L26.74,53.96C26.08,53.58,25.93,52.7,26.41,52.12L35.42,41.32C36.3,40.27,37.98,41.24,37.51,42.52Z" fill="#ffffff" stroke-width="0"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="architecture-service" transform="translate(20.627, -171.288)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">Disk</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <rect x="20" y="15" width="40" height="50" rx="1" ry="1" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="24" cy="19.17" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="56" cy="19.17" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="24" cy="60.83" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="56" cy="60.83" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="33.75" rx="14" ry="14.58" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="33.75" rx="4" ry="4.17" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+              <path d="M37.51,42.52L32.68,55.74C32.42,56.45,31.58,56.76,30.92,56.38L26.74,53.96C26.08,53.58,25.93,52.7,26.41,52.12L35.42,41.32C36.3,40.27,37.98,41.24,37.51,42.52Z" fill="#ffffff" stroke-width="0"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="architecture-service" transform="translate(20.627, 230.788)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">Disk</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <rect x="20" y="15" width="40" height="50" rx="1" ry="1" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="24" cy="19.17" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="56" cy="19.17" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="24" cy="60.83" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="56" cy="60.83" rx="0.8" ry="0.83" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="33.75" rx="14" ry="14.58" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <ellipse cx="40" cy="33.75" rx="4" ry="4.17" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+              <path d="M37.51,42.52L32.68,55.74C32.42,56.45,31.58,56.76,30.92,56.38L26.74,53.96C26.08,53.58,25.93,52.7,26.41,52.12L35.42,41.32C36.3,40.27,37.98,41.24,37.51,42.52Z" fill="#ffffff" stroke-width="0"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="architecture-service" transform="translate(223.516, -171.288)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">Gateway</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <circle cx="40" cy="40" r="22.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="40" y1="17.5" x2="40" y2="62.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="17.5" y1="40" x2="62.5" y2="40" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <path d="M39.99,17.51C24.71,28.61,24.71,51.39,39.99,62.49" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <path d="M40.01,17.51C55.29,28.61,55.29,51.39,40.01,62.49" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="19.75" y1="30.1" x2="60.25" y2="30.1" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="19.75" y1="49.9" x2="60.25" y2="49.9" fill="none" stroke="#ffffff" stroke-width="2"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="architecture-service" transform="translate(223.516, 230.788)">
+        <g transform="translate(40, 80)">
+          <text x="0" y="0" text-anchor="middle" dominant-baseline="middle"><tspan x="0" dy="1em">Gateway</tspan></text>
+        </g>
+        <g>
+          <g transform="scale(1, 1)">
+            <g>
+              <rect x="0" y="0" width="80" height="80" fill="#087ebf" stroke-width="0"/>
+              <circle cx="40" cy="40" r="22.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="40" y1="17.5" x2="40" y2="62.5" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="17.5" y1="40" x2="62.5" y2="40" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <path d="M39.99,17.51C24.71,28.61,24.71,51.39,39.99,62.49" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <path d="M40.01,17.51C55.29,28.61,55.29,51.39,40.01,62.49" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="19.75" y1="30.1" x2="60.25" y2="30.1" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <line x1="19.75" y1="49.9" x2="60.25" y2="49.9" fill="none" stroke="#ffffff" stroke-width="2"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g class="architecture-junction" transform="translate(20.627, 29.75)">
+        <g>
+          <rect x="0" y="0" width="80" height="80" fill-opacity="0"/>
+        </g>
+      </g>
+      <g class="architecture-junction" transform="translate(223.516, 29.75)">
+        <g>
+          <rect x="0" y="0" width="80" height="80" fill-opacity="0"/>
+        </g>
+      </g>
+    </g>
+    <g class="architecture-groups"/>
+  </g>
+</svg>

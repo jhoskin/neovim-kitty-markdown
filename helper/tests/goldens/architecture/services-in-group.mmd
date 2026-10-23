@@ -1,0 +1,11 @@
+architecture-beta
+    group cluster(cloud)[Cluster]
+
+    service gateway(internet)[Gateway] in cluster
+    service app(server)[App Server] in cluster
+    service cache(disk)[Cache] in cluster
+    service store(database)[Store] in cluster
+
+    gateway:R -- L:app
+    app:R -- L:store
+    app:B -- T:cache

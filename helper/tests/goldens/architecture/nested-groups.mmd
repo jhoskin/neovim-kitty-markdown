@@ -1,0 +1,13 @@
+architecture-beta
+    group cloud(cloud)[Cloud]
+    group vpc(server)[VPC] in cloud
+    group data(database)[Data Tier] in vpc
+
+    service lb(internet)[Load Balancer] in cloud
+    service web(server)[Web] in vpc
+    service db(database)[Primary] in data
+    service replica(database)[Replica] in data
+
+    lb:R -- L:web
+    web:B -- T:db
+    db:R -- L:replica

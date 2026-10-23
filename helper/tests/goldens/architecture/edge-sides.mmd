@@ -1,0 +1,13 @@
+architecture-beta
+    service center(server)[Center]
+    service left(disk)[West]
+    service right(disk)[East]
+    service top(cloud)[North]
+    service bottom(database)[South]
+    service corner(internet)[Corner]
+
+    left:R -- L:center
+    center:R -- L:right
+    top:B -- T:center
+    center:B -- T:bottom
+    right:T -- L:corner

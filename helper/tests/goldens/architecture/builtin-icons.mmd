@@ -1,0 +1,16 @@
+architecture-beta
+    group icons(cloud)[Built-in icons]
+    group plain[No icon]
+
+    service a(database)[database] in icons
+    service b(server)[server] in icons
+    service c(disk)[disk] in icons
+    service d(internet)[internet] in icons
+    service e(cloud)[cloud] in icons
+    service f[none] in plain
+
+    a:R -- L:b
+    b:R -- L:c
+    c:R -- L:d
+    d:R -- L:e
+    e:B -- T:f
