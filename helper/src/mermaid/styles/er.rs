@@ -37,8 +37,6 @@ use crate::mermaid::theme::ThemeVariables;
 pub const EDGE_LABEL_FONT_SIZE: f64 = 14.0;
 /// `.edge-pattern-dashed { stroke-dasharray: 8,8 }`.
 pub const DASHED: [f64; 2] = [8.0, 8.0];
-/// `.marker { stroke-width: 1 }`.
-pub const MARKER_STROKE_WIDTH: f64 = 1.0;
 
 /// The ER stylesheet values the shared shapes and edges do not cover.
 #[derive(Debug, Clone, PartialEq)]
