@@ -135,9 +135,6 @@ struct BoxFonts {
     strut_line: LineMetrics,
     code_line: LineMetrics,
     code_space: f64,
-    /// The face Chrome picks for `monospace`, by name: resvg maps the
-    /// generic family to its own default, not Chrome's.
-    code_family: String,
 }
 
 impl BoxFonts {
@@ -150,14 +147,7 @@ impl BoxFonts {
         let bold = LineMetrics::of(ctx, &name);
         let code_line = LineMetrics::of(ctx, &code);
         let code_space = f64::from(ctx.metrics.shape(" ", &code).width);
-        let fonts = ctx.metrics.fonts();
-        let code_family = fonts
-            .resolve(MONOSPACE, Weight(code.weight), FaceStyle::Normal)
-            .and_then(|id| fonts.db().face(id))
-            .and_then(|face| face.families.first().map(|(name, _)| name.clone()))
-            .unwrap_or_else(|| MONOSPACE.to_string());
         BoxFonts {
-            code_family,
             name,
             code,
             name_line: strut.with(bold),
@@ -283,7 +273,7 @@ fn box_text(
         ..FontSpec::default()
     };
     let code_font = FontSpec {
-        family: Some(fonts.code_family.clone()),
+        family: Some(MONOSPACE.to_string()),
         ..FontSpec::default()
     };
     // The `foreignObject` clips its content to its own box (`overflow:

@@ -260,6 +260,45 @@ fn preserved_spaces_push_the_next_word_right() {
     );
 }
 
+/// The generic `monospace` draws in the face the font system resolves it
+/// to (Chrome's default, Menlo on macOS), not in resvg's Courier New.
+#[test]
+fn generic_monospace_draws_the_measured_face() {
+    use kitty_markdown_helper::text::fonts::{Style as FaceStyle, Weight};
+    let fonts = kitty_markdown_helper::text::font_system();
+    let Some(face) = fonts.resolve("monospace", Weight::NORMAL, FaceStyle::Normal) else {
+        eprintln!("skipping: no monospace face on this machine");
+        return;
+    };
+    let name = fonts.family_name(face).expect("family name");
+    let draw = |family: &str| {
+        let mut scene = Scene::new(160.0, 30.0);
+        scene.root.children.push(Element::Text(Text {
+            common: Common::with_style(Style::fill(Color::BLACK)),
+            x: 4.0,
+            y: 20.0,
+            anchor: None,
+            baseline: None,
+            font: FontSpec {
+                family: Some(family.to_string()),
+                size: Some(16.0),
+                ..FontSpec::default()
+            },
+            runs: vec![TextRun::new("fn main() {}")],
+        }));
+        render_rgba(
+            &scene,
+            kitty_markdown_helper::mermaid::fontdb(),
+            &RasterOpts::default(),
+        )
+        .unwrap()
+    };
+    assert!(
+        draw("monospace") == draw(&format!("\"{name}\"")),
+        "monospace is not drawn in {name}"
+    );
+}
+
 /// A clip is in the user space of the element that uses it, so a clip rect
 /// at the origin follows the group's translation like mermaid's treemap
 /// cells.

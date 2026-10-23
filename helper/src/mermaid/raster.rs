@@ -35,7 +35,8 @@ use usvg::fontdb;
 
 use crate::mermaid::scene::svg::{SvgOptions, to_svg_with};
 use crate::mermaid::scene::{Color, FontStyle, Scene};
-use crate::text::fonts::{Style as FaceStyle, Weight};
+use crate::text::FontSystem;
+use crate::text::fonts::{FontId, Style as FaceStyle, Weight};
 
 /// The pixel size of a render and the scale from CSS pixels to pixels.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -145,6 +146,60 @@ impl fmt::Display for RasterError {
 
 impl std::error::Error for RasterError {}
 
+fn face_style(style: usvg::FontStyle) -> FaceStyle {
+    match style {
+        usvg::FontStyle::Normal => FaceStyle::Normal,
+        usvg::FontStyle::Italic => FaceStyle::Italic,
+        usvg::FontStyle::Oblique => FaceStyle::Oblique,
+    }
+}
+
+/// True when `id` names the same face in `db` as in the font system's
+/// database, which holds for every database cloned from it (ids survive a
+/// clone). A test that rasterizes with a database of its own gets resvg's
+/// choice instead.
+fn same_face(fonts: &FontSystem, db: &fontdb::Database, id: FontId) -> bool {
+    match (fonts.db().face(id), db.face(id)) {
+        (Some(a), Some(b)) => a.post_script_name == b.post_script_name && a.index == b.index,
+        _ => false,
+    }
+}
+
+/// The font choice resvg draws with, taken from the font system so the
+/// drawn face is the measured face: a generic family maps to Chrome's
+/// platform default (resvg's own `monospace` is Courier New, Chrome's on
+/// macOS is Menlo), names match in any case, and Open Sans is the bundled
+/// pair. Whatever the font system cannot place goes to resvg's default
+/// query. A character the face lacks keeps resvg's own fallback: drawing
+/// it in the face `FontSystem::fallback_for` picks (Hiragino Sans for `→`
+/// under Trebuchet MS) scored up to 0.006 lower on the cynefin goldens.
+fn font_resolver(fonts: &'static FontSystem) -> usvg::FontResolver<'static> {
+    let default_font = usvg::FontResolver::default_font_selector();
+    usvg::FontResolver {
+        select_font: Box::new(move |font, db| {
+            let weight = Weight(font.weight());
+            let style = face_style(font.style());
+            font.families()
+                .iter()
+                .find_map(|family| {
+                    let name = match family {
+                        usvg::FontFamily::Serif => "serif",
+                        usvg::FontFamily::SansSerif => "sans-serif",
+                        usvg::FontFamily::Cursive => "cursive",
+                        usvg::FontFamily::Fantasy => "fantasy",
+                        usvg::FontFamily::Monospace => "monospace",
+                        usvg::FontFamily::Named(name) => name.as_str(),
+                    };
+                    fonts
+                        .resolve_family(name, weight, style)
+                        .filter(|&id| same_face(fonts, db, id))
+                })
+                .or_else(|| default_font(font, db))
+        }),
+        select_fallback: usvg::FontResolver::default_fallback_selector(),
+    }
+}
+
 /// The SVG resvg reads: the scene with Chrome's synthetic bold, which the
 /// font system decides because it resolves families the way the measurer
 /// does.
@@ -179,6 +234,7 @@ pub fn render_pixmap(
     let usvg_opts = usvg::Options {
         dpi: 96.0,
         font_family: scene.font_family.clone(),
+        font_resolver: font_resolver(crate::text::font_system()),
         fontdb,
         ..usvg::Options::default()
     };
