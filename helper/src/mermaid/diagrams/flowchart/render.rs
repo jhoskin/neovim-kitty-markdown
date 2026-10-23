@@ -105,7 +105,9 @@ pub fn draw(db: &FlowDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sce
     shapes.wrapping_width = *fc.wrapping_width;
 
     let mut data = db.get_data();
-    data.diagram_type = "flowchart-v2".to_string();
+    // `data4Layout.type = diag.type`: `flowchart-v2` here, `swimlane` for
+    // the swimlane diagram, which reuses this renderer.
+    data.diagram_type = resolved.diagram_type.to_string();
     data.diagram_id = DIAGRAM_ID.to_string();
     data.direction = db.direction().and_then(Dir::parse).unwrap_or_default();
     data.node_spacing = Some(or_default(*fc.node_spacing, 50.0));

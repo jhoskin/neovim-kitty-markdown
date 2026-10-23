@@ -35,7 +35,9 @@ pub fn parse(code: &str, config: db::DbConfig) -> Result<db::FlowDb, ParseError>
     Ok(flow)
 }
 
-fn parse_error(err: ParseError) -> HelperError {
+/// The error a failed `parse` reports. Public for swimlane, which parses
+/// with the same grammar.
+pub fn parse_error(err: ParseError) -> HelperError {
     match err.kind {
         // A db call threw (an unknown shape, a `linkStyle` index past the
         // end): mermaid reports the error text, not a parse error.

@@ -30,6 +30,7 @@ pub mod requirement;
 pub mod sankey;
 pub mod sequence;
 pub mod state;
+pub mod swimlane;
 pub mod timeline;
 pub mod treemap;
 pub mod treeview;
@@ -88,6 +89,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &cynefin::DIAGRAM,
         &wardley::DIAGRAM,
         &er::DIAGRAM,
+        &swimlane::DIAGRAM,
     ];
     REGISTRY
 }
