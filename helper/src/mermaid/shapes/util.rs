@@ -359,6 +359,21 @@ pub struct LabelHelperOut {
     pub label: Group,
 }
 
+/// The wrapping width `createText` gets, as the label will measure it.
+///
+/// An HTML label whose label styles say `white-space: nowrap` (the class
+/// note) never wraps: `addHtmlSpan` applies the style to the span, so when
+/// the first measure hits `max-width` and the div turns into a fixed-width
+/// `display: table` with `break-spaces`, the span still keeps its line,
+/// and the table grows to that line's width. SVG text wraps by width alone.
+fn html_wrap_width(node: &Node, html: bool, width: f64) -> Option<f64> {
+    let nowrap = styles2string(node)
+        .label_styles
+        .get("white-space")
+        .is_some_and(|v| v.trim_end_matches("!important").trim() == "nowrap");
+    (!(html && nowrap)).then_some(width)
+}
+
 /// `labelHelper(parent, node, classes, { ignoreMinWidth })`.
 pub fn label_helper(
     node: &Node,
@@ -389,7 +404,9 @@ pub fn label_helper(
     let opts = LabelOpts {
         font: label_font(ctx, node),
         html: use_html_labels,
-        width: Some(
+        width: html_wrap_width(
+            node,
+            use_html_labels,
             node.width
                 .or(node.wrapping_width)
                 .unwrap_or(ctx.wrapping_width),
@@ -434,7 +451,7 @@ pub fn insert_label(
     let opts = LabelOpts {
         font: label_font(ctx, node),
         html: use_html_labels,
-        width: Some(width.unwrap_or(ctx.wrapping_width)),
+        width: html_wrap_width(node, use_html_labels, width.unwrap_or(ctx.wrapping_width)),
         min_width: 0.0,
         markdown: true,
     };
@@ -1251,5 +1268,14 @@ mod tests {
         let pts = generate_circle_points(10.0, 0.0, 5.0, 2, 0.0, 180.0);
         assert!((pts[0].x + 15.0).abs() < 1e-9);
         assert!((pts[1].x + 5.0).abs() < 1e-9);
+    }
+
+    #[test]
+    fn a_nowrap_label_style_keeps_html_labels_on_one_line() {
+        let mut node = Node::flowchart("N", "a long note", "note");
+        assert_eq!(html_wrap_width(&node, true, 120.0), Some(120.0));
+        node.css_styles = vec!["white-space: nowrap".to_string()];
+        assert_eq!(html_wrap_width(&node, true, 120.0), None);
+        assert_eq!(html_wrap_width(&node, false, 120.0), Some(120.0));
     }
 }

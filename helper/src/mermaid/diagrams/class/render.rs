@@ -2,15 +2,13 @@
 //! unified renderer with dagre, the title, and `setupViewPortForSVG`.
 //!
 //! The shared renderer resolves the flowchart-like stylesheet rules. The
-//! class rules that differ (`styles::class`) are applied in four places:
-//! the label color and edge label background go into the shapes' theme
-//! variables before the render, the cardinality font
-//! (`.edgeTerminals { font-size: 11px }`) goes in as the shapes' edge
-//! terminal font, the shared marker code resolves the marker fills
-//! (`.extension { fill: transparent !important }` and its siblings, see
-//! `markers::stylesheet_rule`), and the note text color
-//! (`.noteLabel .nodeLabel { color: noteTextColor }`), which the shared
-//! renderer has no hook for, is applied to its output afterwards.
+//! class rules that differ (`styles::class`) go in before the render: the
+//! label color, the edge label background, and the note text color
+//! (`.noteLabel .nodeLabel { color: noteTextColor }`) as the shapes' theme
+//! variables, the cardinality font (`.edgeTerminals { font-size: 11px }`)
+//! as the shapes' edge terminal font. The shared marker code resolves the
+//! marker fills (`.extension { fill: transparent !important }` and its
+//! siblings, see `markers::stylesheet_rule`).
 
 use std::collections::HashMap;
 
@@ -25,8 +23,8 @@ use crate::mermaid::scene::{
     Common, Element, FontSpec, Group, Length, Paint, Rect, Scene, Style, Text, ViewBox,
 };
 use crate::mermaid::shapes::measure::LabelOpts;
-use crate::mermaid::shapes::util::{BBox, apply_declarations, styles2string};
-use crate::mermaid::shapes::{Classifier, Node, NodeStyleVars, ShapeCtx};
+use crate::mermaid::shapes::util::BBox;
+use crate::mermaid::shapes::{Classifier, NodeStyleVars, ShapeCtx};
 use crate::mermaid::styles::class::{ClassStyles, EDGE_TERMINALS_FONT_SIZE};
 use crate::text::TextMetrics;
 use crate::text::fonts::{Style as FontStyleDb, Weight};
@@ -175,46 +173,6 @@ fn underline_statics(
     });
 }
 
-/// `line.attr('style', styles)` in `classBox.ts`: the dividers take the
-/// class's `style` and `classDef` declarations, as the outer rect does.
-fn restyle_dividers(root: &mut Group, class_styles: &HashMap<String, Vec<String>>) {
-    for_each_group(root, &mut |node| {
-        let Some(styles) = node.common.id.as_ref().and_then(|id| class_styles.get(id)) else {
-            return;
-        };
-        let probe = Node {
-            css_styles: styles.clone(),
-            ..Node::default()
-        };
-        let decls = styles2string(&probe).node_styles;
-        for child in &mut node.children {
-            if let Element::Line(line) = child
-                && line.common.class.as_deref() == Some("divider")
-            {
-                apply_declarations(&mut line.common.style, &decls);
-            }
-        }
-    });
-}
-
-/// `.noteLabel .nodeLabel { color: noteTextColor }`.
-fn restyle_notes(root: &mut Group, styles: &ClassStyles) {
-    fn paint(g: &mut Group, color: Paint) {
-        for child in &mut g.children {
-            match child {
-                Element::Text(t) => t.common.style.fill = Some(color.clone()),
-                Element::Group(c) => paint(c, color.clone()),
-                _ => {}
-            }
-        }
-    }
-    for_each_group(root, &mut |g| {
-        if has_class(g, "noteLabel") {
-            paint(g, Paint::Color(styles.note_text_color));
-        }
-    });
-}
-
 /// `utils.insertTitle(svg, 'classDiagramTitleText', titleTopMargin, title)`:
 /// a `text` at the content's horizontal centre, `titleTopMargin` above the
 /// top. The class `classDiagramTitleText` matches no rule, so the text is
@@ -264,7 +222,10 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
     styles.apply_to(&mut vars);
     let mut shapes = ShapeCtx::new(&ctx.metrics);
     shapes.vars = vars;
+    shapes.vars.note_label_color = Some(styles.note_text_color);
     shapes.html_labels = cfg.effective_html_labels();
+    // `labelHelper` wraps at `getConfig().flowchart.wrappingWidth`.
+    shapes.wrapping_width = *cfg.flowchart.wrapping_width;
     shapes.class_padding = conf.class_padding.unwrap_or(12.0);
     shapes.hide_empty_members_box = conf.hide_empty_members_box;
     shapes.edge_terminal_font = FontSpec {
@@ -285,12 +246,6 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
         if !node.is_group {
             let dom_id = node.dom_id.as_deref().unwrap_or(&node.id);
             node.dom_id = Some(format!("{DIAGRAM_ID}-{dom_id}"));
-        }
-        // The note's `white-space: nowrap` label style keeps the span on one
-        // line however narrow the `createText` div is; the shared
-        // `labelHelper` does not read label styles, so the wrap width goes.
-        if node.shape == "note" {
-            node.wrapping_width = Some(f64::INFINITY);
         }
     }
     let data = LayoutData {
@@ -321,14 +276,6 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
     };
     let mut rendered = render_with_dagre(&data, &unified, &shapes)?;
 
-    restyle_notes(&mut rendered.root, &styles);
-    let class_styles: HashMap<String, Vec<String>> = db
-        .classes
-        .values()
-        .filter(|c| !c.styles.is_empty())
-        .map(|c| (format!("{DIAGRAM_ID}-{}", c.dom_id), c.styles.clone()))
-        .collect();
-    restyle_dividers(&mut rendered.root, &class_styles);
     if shapes.html_labels {
         let statics: HashMap<String, (Vec<bool>, Vec<bool>)> = db
             .classes

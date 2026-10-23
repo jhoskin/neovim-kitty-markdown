@@ -93,6 +93,7 @@ impl NodeStyleVars {
             note_bkg_color: color(&["noteBkgColor"], base.note_bkg_color),
             note_border_color: color(&["noteBorderColor", "border2"], base.note_border_color),
             note_text_color: color(&["noteTextColor", "actorTextColor"], base.note_text_color),
+            note_label_color: None,
             background,
             composite_background: color(&["compositeBackground"], background),
             composite_title_background: color(&["compositeTitleBackground"], main_bkg),

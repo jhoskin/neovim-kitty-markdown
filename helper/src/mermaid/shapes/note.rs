@@ -1,5 +1,5 @@
-//! `shapes/note.ts`: the state diagram note, painted with `noteBkgColor`
-//! and `noteBorderColor`.
+//! `shapes/note.ts`: the state and class diagram note, painted with
+//! `noteBkgColor` and `noteBorderColor`.
 
 use super::util::{
     apply_declarations, done, get_node_classes, label_helper, paint_style, rect_element,
@@ -7,7 +7,7 @@ use super::util::{
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
-use crate::mermaid::scene::Paint;
+use crate::mermaid::scene::{Element, Paint};
 
 pub struct Note;
 
@@ -38,6 +38,18 @@ impl Shape for Note {
             style,
         );
         out.label.common.class = Some("label noteLabel".to_string());
+        // A stylesheet rule such as the class diagram's `.noteLabel
+        // .nodeLabel { color: noteTextColor }` colors the label span; an
+        // inline `color` label style still wins over it.
+        if let Some(color) = ctx.vars.note_label_color
+            && !styles2string(node).label_styles.contains_key("color")
+        {
+            for child in &mut out.label.children {
+                if let Element::Text(text) = child {
+                    text.common.style.fill = Some(Paint::Color(color));
+                }
+            }
+        }
         out.label.common.transform = translate(
             -out.bbox.width / 2.0 - out.bbox.x,
             -(out.bbox.height / 2.0) - out.bbox.y,

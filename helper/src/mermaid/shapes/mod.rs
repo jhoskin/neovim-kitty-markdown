@@ -403,6 +403,11 @@ pub struct NodeStyleVars {
     pub note_bkg_color: Color,
     pub note_border_color: Color,
     pub note_text_color: Color,
+    /// The color a diagram stylesheet gives note labels, such as the class
+    /// rule `.noteLabel .nodeLabel { color: noteTextColor }`. `None` when
+    /// the stylesheet has no such rule and note labels keep
+    /// `nodeTextColor`.
+    pub note_label_color: Option<Color>,
     pub background: Color,
     pub composite_background: Color,
     pub composite_title_background: Color,
@@ -444,6 +449,7 @@ impl Default for NodeStyleVars {
             note_bkg_color: hex("#fff5ad"),
             note_border_color: hex("#aaaa33"),
             note_text_color: Color::BLACK,
+            note_label_color: None,
             background: Color::WHITE,
             composite_background: Color::WHITE,
             composite_title_background: hex("#ECECFF"),

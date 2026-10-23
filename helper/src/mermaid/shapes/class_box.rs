@@ -8,8 +8,9 @@
 //! miss on the annotation group) are reproduced where they change a number.
 
 use super::util::{
-    BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, label_font,
-    line_element, measure_text, node_group, node_style, rect_element, translate,
+    BBox, apply_declarations, build_label_group, calculate_text_width, get_node_classes,
+    label_fill, label_font, line_element, measure_text, node_group, node_style, rect_element,
+    styles2string, translate,
 };
 use super::{ClassMember, Classifier, Intersector, Node, NodeExtra, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -314,12 +315,16 @@ impl Shape for ClassBox {
         shape_svg.children.push(rect);
         shape_svg.children.extend(compartments);
 
-        let divider_style = Style {
+        // `line.attr('style', styles)`: the dividers take the class's
+        // `style` and `classDef` declarations over the stylesheet, as the
+        // outer rect does.
+        let mut divider_style = Style {
             stroke: Some(Paint::Color(ctx.vars.node_border)),
             stroke_width: Some(ctx.vars.stroke_width),
             fill: style.fill.clone(),
             ..Style::default()
         };
+        apply_declarations(&mut divider_style, &styles2string(node).node_styles);
         if !members.is_empty() || !methods.is_empty() || render_extra_box {
             let first_line_y = ann_h + label_h + y + padding;
             shape_svg.children.push(line_element(
