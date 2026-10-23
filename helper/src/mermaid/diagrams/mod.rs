@@ -20,6 +20,7 @@ pub mod kanban;
 pub mod packet;
 pub mod pie;
 pub mod sequence;
+pub mod state;
 pub mod timeline;
 pub mod xychart;
 
@@ -58,6 +59,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &kanban::DIAGRAM,
         &flowchart::DIAGRAM,
         &class::DIAGRAM,
+        &state::DIAGRAM,
     ];
     REGISTRY
 }

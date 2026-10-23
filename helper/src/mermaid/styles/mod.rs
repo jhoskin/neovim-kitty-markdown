@@ -11,5 +11,6 @@ pub mod packet;
 pub mod pie;
 pub mod quadrant;
 pub mod sequence;
+pub mod state;
 pub mod timeline;
 pub mod xychart;
