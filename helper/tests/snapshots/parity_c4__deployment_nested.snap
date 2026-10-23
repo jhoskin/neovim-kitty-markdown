@@ -17,7 +17,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-65.942" width="216" height="131.884" rx="12" ry="12" fill="#438dd5" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-86.218, -45.942)" fill="#ffffff">
           <g class="c4-name" transform="translate(86.218, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Mobile</tspan><tspan> App</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Mobile</tspan><tspan> App</tspan></text>
           </g>
           <g class="c4-type" transform="translate(86.218, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> Xamarin]</tspan></text>
@@ -30,7 +30,7 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="150" y="138" width="316" height="281.884" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="308" y="154.551" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Customer's mobile device</text>
+      <text x="308" y="154.551" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Customer's mobile device</text>
       <text x="308" y="180.482" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Apple IOS or Android]</text>
     </g>
     <g transform="translate(724, 386.942)">
@@ -38,7 +38,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-65.942" width="216" height="131.884" rx="12" ry="12" fill="#438dd5" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-85.179, -45.942)" fill="#ffffff">
           <g class="c4-name" transform="translate(85.179, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Single</tspan><tspan> Page</tspan><tspan> Application</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Single</tspan><tspan> Page</tspan><tspan> Application</tspan></text>
           </g>
           <g class="c4-type" transform="translate(85.179, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> JavaScript</tspan><tspan> and</tspan><tspan> Angular]</tspan></text>
@@ -51,13 +51,13 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="566" y="221" width="316" height="281.884" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="724" y="237.551" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Web Browser</text>
+      <text x="724" y="237.551" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Web Browser</text>
       <text x="724" y="256.482" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Google Chrome, Mozilla Firefox,</text>
       <text x="724" y="270.482" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"> Apple Safari or Microsoft Edge]</text>
     </g>
     <g>
       <rect x="516" y="138" width="416" height="414.884" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="724" y="154.551" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Customer's computer</text>
+      <text x="724" y="154.551" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Customer's computer</text>
       <text x="724" y="180.482" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Microsoft Windows or Apple macOS]</text>
     </g>
     <g transform="translate(408, 954.512)">
@@ -65,7 +65,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-59.628" width="216" height="119.256" rx="12" ry="12" fill="#438dd5" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-81.103, -39.628)" fill="#ffffff">
           <g class="c4-name" transform="translate(81.103, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">API</tspan><tspan> Application</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">API</tspan><tspan> Application</tspan></text>
           </g>
           <g class="c4-type" transform="translate(81.103, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> Java</tspan><tspan> and</tspan><tspan> Spring</tspan><tspan> MVC]</tspan></text>
@@ -78,12 +78,12 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="250" y="794.884" width="316" height="269.256" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="408" y="811.435" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Apache Tomcat</text>
+      <text x="408" y="811.435" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Apache Tomcat</text>
       <text x="408" y="837.366" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Apache Tomcat 8.x]</text>
     </g>
     <g>
       <rect x="200" y="730.884" width="416" height="383.256" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="408" y="747.435" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">bigbank-api*** x8</text>
+      <text x="408" y="747.435" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">bigbank-api*** x8</text>
       <text x="408" y="773.366" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Ubuntu 16.04 LTS]</text>
     </g>
     <g transform="translate(874, 954.512)">
@@ -91,7 +91,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-59.628" width="216" height="119.256" rx="12" ry="12" fill="#438dd5" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-86.335, -39.628)" fill="#ffffff">
           <g class="c4-name" transform="translate(86.335, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Web</tspan><tspan> Application</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Web</tspan><tspan> Application</tspan></text>
           </g>
           <g class="c4-type" transform="translate(86.335, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> Java</tspan><tspan> and</tspan><tspan> Spring</tspan><tspan> MVC]</tspan></text>
@@ -104,12 +104,12 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="716" y="794.884" width="316" height="269.256" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="874" y="811.435" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Apache Tomcat</text>
+      <text x="874" y="811.435" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Apache Tomcat</text>
       <text x="874" y="837.366" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Apache Tomcat 8.x]</text>
     </g>
     <g>
       <rect x="666" y="730.884" width="416" height="383.256" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="874" y="747.435" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">bigbank-web*** x4</text>
+      <text x="874" y="747.435" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">bigbank-web*** x4</text>
       <text x="874" y="773.366" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Ubuntu 16.04 LTS]</text>
     </g>
     <g transform="translate(408, 1477.611)">
@@ -117,7 +117,7 @@ expression: scene.to_svg()
         <path class="basic label-container outer-path" transform="translate(-108, -85.471)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,155.106A108,15.836,0,0,0,216,155.106L216,15.836" fill="#438dd5" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-77.279, -38.384)" fill="#ffffff">
           <g class="c4-name" transform="translate(77.279, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Database</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Database</tspan></text>
           </g>
           <g class="c4-type" transform="translate(77.279, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> Relational</tspan><tspan> Database</tspan><tspan x="0" dy="1.1em">Schema]</tspan></text>
@@ -130,12 +130,12 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="250" y="1292.14" width="316" height="320.941" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="408" y="1308.691" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Oracle - Primary</text>
+      <text x="408" y="1308.691" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Oracle - Primary</text>
       <text x="408" y="1334.622" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Oracle 12c]</text>
     </g>
     <g>
       <rect x="200" y="1228.14" width="416" height="434.941" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="408" y="1244.691" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">bigbank-db01</text>
+      <text x="408" y="1244.691" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">bigbank-db01</text>
       <text x="408" y="1270.622" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Ubuntu 16.04 LTS]</text>
     </g>
     <g transform="translate(874, 1477.611)">
@@ -143,7 +143,7 @@ expression: scene.to_svg()
         <path class="basic label-container outer-path" transform="translate(-108, -85.471)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,155.106A108,15.836,0,0,0,216,155.106L216,15.836" fill="#438dd5" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-77.279, -38.384)" fill="#ffffff">
           <g class="c4-name" transform="translate(77.279, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Database</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Database</tspan></text>
           </g>
           <g class="c4-type" transform="translate(77.279, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Container:</tspan><tspan> Relational</tspan><tspan> Database</tspan><tspan x="0" dy="1.1em">Schema]</tspan></text>
@@ -156,17 +156,17 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="716" y="1292.14" width="316" height="320.941" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="874" y="1308.691" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Oracle - Secondary</text>
+      <text x="874" y="1308.691" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Oracle - Secondary</text>
       <text x="874" y="1334.622" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Oracle 12c]</text>
     </g>
     <g>
       <rect x="666" y="1228.14" width="416" height="434.941" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="874" y="1244.691" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">bigbank-db02</text>
+      <text x="874" y="1244.691" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">bigbank-db02</text>
       <text x="874" y="1270.622" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Ubuntu 16.04 LTS]</text>
     </g>
     <g>
       <rect x="150" y="666.884" width="982" height="1046.197" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1"/>
-      <text x="641" y="683.435" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Big Bank plc</text>
+      <text x="641" y="683.435" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Big Bank plc</text>
       <text x="641" y="709.366" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[Big Bank plc data center]</text>
     </g>
     <g>

@@ -182,6 +182,42 @@ fn linear_gradient_reaches_the_pixels() {
     assert!(right[2] > 245 && right[0] < 10, "right {right:?}");
 }
 
+/// Open Sans ships no bold face, so a bold Open Sans text draws with the
+/// synthetic bold stroke and leaves more ink than the regular weight.
+#[test]
+fn bold_open_sans_draws_heavier_than_regular() {
+    use kitty_markdown_helper::mermaid::scene::FontWeight;
+    let ink = |weight: FontWeight| {
+        let mut scene = Scene::new(120.0, 30.0);
+        scene.root.children.push(Element::Text(Text {
+            common: Common::with_style(Style::fill(Color::BLACK)),
+            x: 4.0,
+            y: 20.0,
+            anchor: None,
+            baseline: None,
+            font: FontSpec {
+                family: Some("\"Open Sans\", sans-serif".to_string()),
+                size: Some(16.0),
+                weight: Some(weight),
+                style: None,
+            },
+            runs: vec![TextRun::new("Hello kitty")],
+        }));
+        let img = render_rgba(
+            &scene,
+            kitty_markdown_helper::mermaid::fontdb(),
+            &RasterOpts::default(),
+        )
+        .unwrap();
+        img.pixels().map(|p| 255 - u64::from(p[0])).sum::<u64>()
+    };
+    let (regular, bold) = (ink(FontWeight::Normal), ink(FontWeight::Bold));
+    assert!(
+        bold as f64 > regular as f64 * 1.1,
+        "bold {bold} regular {regular}"
+    );
+}
+
 /// A clip is in the user space of the element that uses it, so a clip rect
 /// at the origin follows the group's translation like mermaid's treemap
 /// cells.

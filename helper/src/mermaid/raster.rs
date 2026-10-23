@@ -33,7 +33,9 @@ use std::sync::Arc;
 use resvg::tiny_skia;
 use usvg::fontdb;
 
-use crate::mermaid::scene::{Color, Scene};
+use crate::mermaid::scene::svg::{SvgOptions, to_svg_with};
+use crate::mermaid::scene::{Color, FontStyle, Scene};
+use crate::text::fonts::{Style as FaceStyle, Weight};
 
 /// The pixel size of a render and the scale from CSS pixels to pixels.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -143,6 +145,25 @@ impl fmt::Display for RasterError {
 
 impl std::error::Error for RasterError {}
 
+/// The SVG resvg reads: the scene with Chrome's synthetic bold, which the
+/// font system decides because it resolves families the way the measurer
+/// does.
+fn raster_svg(scene: &Scene) -> String {
+    let fonts = crate::text::font_system();
+    let probe = |chain: &str, weight: u16, style: FontStyle| {
+        let style = match style {
+            FontStyle::Normal => FaceStyle::Normal,
+            FontStyle::Italic => FaceStyle::Italic,
+            FontStyle::Oblique => FaceStyle::Oblique,
+        };
+        fonts.synthesizes_bold(chain, Weight(weight), style)
+    };
+    let opts = SvgOptions {
+        synthetic_bold: Some(&probe),
+    };
+    to_svg_with(scene, &opts)
+}
+
 /// Rasterizes the scene into a premultiplied RGBA pixmap at the size the
 /// output rule gives. `fontdb` is the database the text package builds
 /// (bundled Open Sans first, then the system fonts).
@@ -161,7 +182,7 @@ pub fn render_pixmap(
         fontdb,
         ..usvg::Options::default()
     };
-    let tree = usvg::Tree::from_str(&scene.to_svg(), &usvg_opts).map_err(RasterError::Svg)?;
+    let tree = usvg::Tree::from_str(&raster_svg(scene), &usvg_opts).map_err(RasterError::Svg)?;
 
     let mut pixmap =
         tiny_skia::Pixmap::new(size.width, size.height).ok_or(RasterError::Canvas {

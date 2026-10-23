@@ -595,12 +595,7 @@ impl<'a> Renderer<'a> {
             .map(|(i, line)| {
                 let dy = i as f64 * font.size - (font.size * (n - 1.0)) / 2.0;
                 Element::Text(Text {
-                    common: Common::with_style(shapes::text_style(
-                        self.metrics,
-                        font,
-                        fill,
-                        italic,
-                    )),
+                    common: Common::with_style(shapes::text_style(fill)),
                     x: x + width / 2.0,
                     y: y + dy + shift,
                     anchor: Some(TextAnchor::Middle),

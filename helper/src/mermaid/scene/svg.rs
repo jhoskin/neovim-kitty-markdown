@@ -4,6 +4,11 @@
 //! fixed order, every number goes through [`fmt_num`], and child elements
 //! keep their scene order. That is what makes insta snapshots of a scene
 //! meaningful, and it also keeps resvg's input stable between runs.
+//!
+//! [`to_svg_with`] can also answer font questions the scene leaves open.
+//! The raster step uses it for synthetic bold (see [`SvgOptions`]); the
+//! snapshots use [`to_svg`], which asks none, so they do not depend on the
+//! fonts a machine has.
 
 use std::collections::BTreeSet;
 use std::fmt::Write;
@@ -14,15 +19,36 @@ use super::{
     GradientUnits, Length, LineCap, LineJoin, LinearGradient, Marker, MarkerUnits, Orient, Paint,
     Point, Scene, Style, Text, TextAnchor, TransformOp, ViewBox,
 };
+use crate::text::fonts::SYNTHETIC_BOLD_GROWTH;
 
 const XMLNS: &str = "http://www.w3.org/2000/svg";
 const XLINK: &str = "http://www.w3.org/1999/xlink";
+
+/// Whether Chrome draws a `font-family` chain at a numeric weight and a
+/// style with a synthetic bold.
+pub type SyntheticBold<'a> = &'a dyn Fn(&str, u16, FontStyle) -> bool;
+
+/// What [`to_svg_with`] may ask about fonts.
+#[derive(Clone, Copy, Default)]
+pub struct SvgOptions<'a> {
+    /// When set, text that Chrome would embolden gets a stroke of its own
+    /// fill, `2 * SYNTHETIC_BOLD_GROWTH * font-size` wide. Skia's fake bold
+    /// strokes and fills the glyph outline in one pass; resvg draws the
+    /// regular face as it is, so the stroke stands in for the emboldening.
+    /// Text with a visible stroke of its own keeps it instead.
+    pub synthetic_bold: Option<SyntheticBold<'a>>,
+}
 
 /// Serializes the scene. The root carries the natural size, the viewBox, and
 /// the default font family; a background rect comes first when the scene
 /// has a background color.
 pub fn to_svg(scene: &Scene) -> String {
-    let mut w = Writer::new();
+    to_svg_with(scene, &SvgOptions::default())
+}
+
+/// [`to_svg`] with the answers in `opts`.
+pub fn to_svg_with(scene: &Scene, opts: &SvgOptions<'_>) -> String {
+    let mut w = Writer::new(opts, Some(&scene.font_family));
     w.open("svg");
     w.attr("xmlns", XMLNS);
     w.attr("xmlns:xlink", XLINK);
@@ -64,12 +90,38 @@ pub fn to_svg(scene: &Scene) -> String {
 
 /// Serializes one element on its own, for tests and debugging.
 pub fn element_to_svg(element: &Element) -> String {
-    let mut w = Writer::new();
+    let mut w = Writer::new(&SvgOptions::default(), None);
     write_element(&mut w, element);
     w.finish()
 }
 
-struct Writer {
+/// The inherited values synthetic bold depends on, as the cascade hands
+/// them to the children of a group.
+#[derive(Debug, Clone, Default)]
+struct Inherited {
+    font: FontSpec,
+    fill: Option<Paint>,
+    fill_opacity: Option<f64>,
+    stroke: Option<Paint>,
+    dashed: bool,
+}
+
+impl Inherited {
+    fn under(&self, style: &Style) -> Inherited {
+        Inherited {
+            font: style.font.merged_over(&self.font),
+            fill: style.fill.clone().or_else(|| self.fill.clone()),
+            fill_opacity: style.fill_opacity.or(self.fill_opacity),
+            stroke: style.stroke.clone().or_else(|| self.stroke.clone()),
+            dashed: style
+                .stroke_dasharray
+                .as_ref()
+                .map_or(self.dashed, |d| !d.is_empty()),
+        }
+    }
+}
+
+struct Writer<'a> {
     out: String,
     depth: usize,
     /// True between `open` and the first child or the close of that tag.
@@ -77,16 +129,74 @@ struct Writer {
     /// The `<clipPath>` ids already written, so a clip that several
     /// elements share is defined once.
     clips: BTreeSet<String>,
+    synthetic_bold: Option<SyntheticBold<'a>>,
+    /// One entry per open group, the root's values first.
+    inherited: Vec<Inherited>,
 }
 
-impl Writer {
-    fn new() -> Writer {
+impl<'a> Writer<'a> {
+    fn new(opts: &SvgOptions<'a>, root_family: Option<&str>) -> Writer<'a> {
+        let root = Inherited {
+            font: FontSpec {
+                family: root_family.map(str::to_string),
+                ..FontSpec::default()
+            },
+            ..Inherited::default()
+        };
         Writer {
             out: String::new(),
             depth: 0,
             tag_open: false,
             clips: BTreeSet::new(),
+            synthetic_bold: opts.synthetic_bold,
+            inherited: vec![root],
         }
+    }
+
+    fn inherited(&self) -> Inherited {
+        self.inherited.last().cloned().unwrap_or_default()
+    }
+
+    /// The stroke that stands in for a synthetic bold of `font` in `fill`,
+    /// or `None` when there is none to draw: no probe, a weight below 600,
+    /// a face with a real bold, an invisible fill, or a visible stroke of
+    /// the text's own.
+    fn bold_stroke(
+        &self,
+        font: &FontSpec,
+        fill: Option<&Paint>,
+        fill_opacity: Option<f64>,
+        stroke: Option<&Paint>,
+        dashed: bool,
+    ) -> Option<Style> {
+        let probe = self.synthetic_bold?;
+        if stroke.is_some_and(|s| *s != Paint::None) {
+            return None;
+        }
+        // SVG's initial fill is black.
+        let fill = fill.cloned().unwrap_or(Paint::Color(Color::BLACK));
+        if fill == Paint::None {
+            return None;
+        }
+        let weight = match font.weight {
+            None | Some(FontWeight::Normal) => 400,
+            Some(FontWeight::Bold) => 700,
+            Some(FontWeight::Number(n)) => n,
+        };
+        let family = font.family.as_deref().unwrap_or(super::DEFAULT_FONT_FAMILY);
+        if !probe(family, weight, font.style.unwrap_or(FontStyle::Normal)) {
+            return None;
+        }
+        // CSS `medium`, the size a text without `font-size` gets.
+        let size = font.size.unwrap_or(16.0);
+        Some(Style {
+            stroke: Some(fill),
+            stroke_width: Some(2.0 * SYNTHETIC_BOLD_GROWTH * size),
+            stroke_opacity: fill_opacity,
+            // An inherited dash pattern would break the outline up.
+            stroke_dasharray: dashed.then(Vec::new),
+            ..Style::default()
+        })
     }
 
     fn indent(&mut self) {
@@ -371,8 +481,7 @@ fn write_style(w: &mut Writer, style: &Style, font: Option<&FontSpec>) {
         w.attr("stroke-width", &fmt_num(v));
     }
     if let Some(dashes) = &style.stroke_dasharray {
-        let parts: Vec<String> = dashes.iter().map(|v| fmt_num(*v)).collect();
-        w.attr("stroke-dasharray", &parts.join(","));
+        w.attr("stroke-dasharray", &dasharray(dashes));
     }
     if let Some(cap) = style.stroke_linecap {
         w.attr("stroke-linecap", line_cap(cap));
@@ -407,6 +516,34 @@ fn write_style(w: &mut Writer, style: &Style, font: Option<&FontSpec>) {
     // declaration, which usvg reads like the attribute.
     if let Some(mode) = style.mix_blend_mode {
         w.attr("style", &format!("mix-blend-mode: {};", blend_mode(mode)));
+    }
+}
+
+/// An empty list is `none`, which cancels an inherited pattern.
+fn dasharray(dashes: &[f64]) -> String {
+    if dashes.is_empty() {
+        return "none".to_string();
+    }
+    let parts: Vec<String> = dashes.iter().map(|v| fmt_num(*v)).collect();
+    parts.join(",")
+}
+
+/// The stroke attributes of a synthetic bold on a `tspan`.
+fn write_bold_stroke(w: &mut Writer, bold: &Style) {
+    if let Some(stroke) = &bold.stroke {
+        w.attr("stroke", &paint(stroke));
+    }
+    if let Some(v) = bold.stroke_width {
+        w.attr("stroke-width", &fmt_num(v));
+    }
+    if let Some(dashes) = &bold.stroke_dasharray {
+        w.attr("stroke-dasharray", &dasharray(dashes));
+    }
+    let opacity = bold
+        .stroke_opacity
+        .or_else(|| bold.stroke.as_ref().and_then(paint_alpha));
+    if let Some(v) = opacity {
+        w.attr("stroke-opacity", &fmt_num(v));
     }
 }
 
@@ -494,9 +631,12 @@ fn write_group(w: &mut Writer, common: &Common, children: &[Element]) {
         return;
     }
     w.children_follow();
+    let inherited = w.inherited().under(&common.style);
+    w.inherited.push(inherited);
     for child in children {
         write_element(w, child);
     }
+    w.inherited.pop();
     w.close("g");
 }
 
@@ -516,6 +656,21 @@ fn write_text(w: &mut Writer, text: &Text) {
     let mut style = text.common.style.clone();
     if text.anchor.is_some() {
         style.text_anchor = None;
+    }
+    let cascade = w.inherited().under(&style);
+    let font = text.font.merged_over(&cascade.font);
+    let bold = w.bold_stroke(
+        &font,
+        cascade.fill.as_ref(),
+        cascade.fill_opacity,
+        cascade.stroke.as_ref(),
+        cascade.dashed,
+    );
+    if let Some(bold) = &bold {
+        style.stroke = bold.stroke.clone();
+        style.stroke_width = bold.stroke_width;
+        style.stroke_opacity = bold.stroke_opacity;
+        style.stroke_dasharray = bold.stroke_dasharray.clone();
     }
     write_style(w, &style, Some(&text.font));
 
@@ -543,6 +698,23 @@ fn write_text(w: &mut Writer, text: &Text) {
             }
         }
         write_font(w, &run.font);
+        // A run that differs from its text in weight, size, or fill needs
+        // its own stroke, or none where the text's does not apply.
+        let run_bold = w.bold_stroke(
+            &run.font.merged_over(&font),
+            run.fill.as_ref().or(cascade.fill.as_ref()),
+            cascade.fill_opacity,
+            cascade.stroke.as_ref(),
+            cascade.dashed,
+        );
+        match (&bold, &run_bold) {
+            (Some(_), Some(own)) if run.font.size.is_some() || run.fill.is_some() => {
+                write_bold_stroke(w, own);
+            }
+            (None, Some(own)) => write_bold_stroke(w, own),
+            (Some(_), None) => w.attr("stroke", "none"),
+            _ => {}
+        }
         w.text_close_inline("tspan", &run.text);
     }
     w.close_inline("text");
@@ -703,6 +875,80 @@ fn write_element(w: &mut Writer, element: &Element) {
 mod tests {
     use super::*;
     use crate::mermaid::scene::{Group, Rect, TextRun};
+
+    fn bold_text(runs: Vec<TextRun>, weight: Option<FontWeight>) -> Element {
+        Element::Text(Text {
+            common: Common::with_style(Style::fill(Color::rgb(1, 2, 3))),
+            x: 0.0,
+            y: 0.0,
+            anchor: None,
+            baseline: None,
+            font: FontSpec {
+                size: Some(10.0),
+                weight,
+                ..FontSpec::default()
+            },
+            runs,
+        })
+    }
+
+    fn with_probe(element: Element) -> String {
+        let probe = |_: &str, weight: u16, _: FontStyle| weight >= 600;
+        let opts = SvgOptions {
+            synthetic_bold: Some(&probe),
+        };
+        let mut scene = Scene::new(1.0, 1.0);
+        scene.root.children.push(element);
+        to_svg_with(&scene, &opts)
+    }
+
+    #[test]
+    fn synthetic_bold_strokes_the_text_in_its_fill() {
+        let svg = with_probe(bold_text(vec![TextRun::new("a")], Some(FontWeight::Bold)));
+        assert!(
+            svg.contains("fill=\"#010203\" stroke=\"#010203\" stroke-width=\"0.467\""),
+            "{svg}"
+        );
+        // Without a probe the scene is written as it is.
+        let mut scene = Scene::new(1.0, 1.0);
+        scene
+            .root
+            .children
+            .push(bold_text(vec![TextRun::new("a")], Some(FontWeight::Bold)));
+        assert!(!scene.to_svg().contains("stroke"));
+    }
+
+    #[test]
+    fn synthetic_bold_follows_the_runs() {
+        let bold_run = TextRun {
+            font: FontSpec {
+                weight: Some(FontWeight::Bold),
+                ..FontSpec::default()
+            },
+            ..TextRun::new("b")
+        };
+        let svg = with_probe(bold_text(vec![TextRun::new("a"), bold_run.clone()], None));
+        assert!(svg.contains("<tspan>a</tspan>"), "{svg}");
+        assert!(
+            svg.contains("<tspan font-weight=\"bold\" stroke=\"#010203\" stroke-width=\"0.467\">b"),
+            "{svg}"
+        );
+        let regular_run = TextRun {
+            font: FontSpec {
+                weight: Some(FontWeight::Normal),
+                ..FontSpec::default()
+            },
+            ..TextRun::new("c")
+        };
+        let svg = with_probe(bold_text(
+            vec![bold_run, regular_run],
+            Some(FontWeight::Bold),
+        ));
+        assert!(
+            svg.contains("<tspan font-weight=\"normal\" stroke=\"none\">c"),
+            "{svg}"
+        );
+    }
 
     #[test]
     fn escapes_text_and_attributes() {

@@ -16,6 +16,12 @@ pub use fontdb::{ID as FontId, Style, Weight};
 const OPEN_SANS_REGULAR: &[u8] = include_bytes!("../../assets/fonts/OpenSans-Regular.ttf");
 const OPEN_SANS_ITALIC: &[u8] = include_bytes!("../../assets/fonts/OpenSans-Italic.ttf");
 
+/// How far Chrome's synthetic bold pushes a glyph outline out on each side,
+/// as a fraction of the font size. Chrome emboldens a face lighter than 600
+/// when the text asks for 600 or more; on the oracle's Open Sans 700 cases
+/// the ink box grows 0.280, 0.327, and 0.374 px at 12, 14, and 16 px.
+pub const SYNTHETIC_BOLD_GROWTH: f64 = 0.02334;
+
 /// The families whose presence the `probe` result reports.
 pub const REPORTED_FAMILIES: [&str; 5] =
     ["trebuchet ms", "verdana", "arial", "open sans", "helvetica"];
@@ -285,6 +291,18 @@ impl FontSystem {
         self.db.face(id).map(|face| face.weight)
     }
 
+    /// True when Chrome draws `chain` at `weight` with a synthetic bold:
+    /// the request is 600 or more and the face it resolves to is lighter
+    /// (Blink's `FontDescription::SyntheticBold` rule). The bundled Open
+    /// Sans has no bold face, so every bold Open Sans text qualifies.
+    pub fn synthesizes_bold(&self, chain: &str, weight: Weight, style: Style) -> bool {
+        weight.0 >= 600
+            && self
+                .resolve(chain, weight, style)
+                .and_then(|id| self.face_weight(id))
+                .is_some_and(|w| w.0 < 600)
+    }
+
     /// Family name of a face as the database lists it, for diagnostics.
     pub fn family_name(&self, id: FontId) -> Option<String> {
         self.db
@@ -357,6 +375,16 @@ mod tests {
                 .resolve("\"No Such Font\"", Weight::NORMAL, Style::Normal)
                 .is_none()
         );
+    }
+
+    #[test]
+    fn bold_open_sans_is_synthesized() {
+        let fonts = FontSystem::new();
+        assert!(fonts.synthesizes_bold("\"Open Sans\", sans-serif", Weight::BOLD, Style::Normal));
+        assert!(fonts.synthesizes_bold("Open Sans", Weight(600), Style::Italic));
+        assert!(!fonts.synthesizes_bold("Open Sans", Weight(500), Style::Normal));
+        assert!(!fonts.synthesizes_bold("Open Sans", Weight::NORMAL, Style::Normal));
+        assert!(!fonts.synthesizes_bold("No Such Font", Weight::BOLD, Style::Normal));
     }
 
     #[test]

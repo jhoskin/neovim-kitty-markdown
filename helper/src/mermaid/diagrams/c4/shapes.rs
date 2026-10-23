@@ -26,7 +26,6 @@ use crate::mermaid::styles::c4::{
 };
 use crate::mermaid::styles::sequence::css_paint;
 use crate::text::TextMetrics;
-use crate::text::fonts::{Style as FaceStyle, Weight};
 
 use super::conf::{C4Font, Conf};
 use super::db::C4Shape;
@@ -174,44 +173,19 @@ fn scene_font(font: &C4Font) -> FontSpec {
     }
 }
 
-/// How far Chrome's synthetic bold pushes the glyph outline out on each
-/// side, as a fraction of the font size (the oracle's Open Sans 700 cases
-/// in `text/measure.rs`).
-const SYNTHETIC_BOLD_GROWTH: f64 = 0.02334;
-
-/// The paint of a text in `font`: the fill, plus a stroke of the same paint
-/// when the font asks for bold and only a lighter face exists. Chrome
-/// emboldens such a face; resvg draws it as it is, so the stroke stands in
-/// for the emboldening.
-pub fn text_style(metrics: &TextMetrics<'_>, font: &C4Font, fill: &Paint, italic: bool) -> Style {
-    let mut style = Style {
+/// The paint of a C4 text: its fill. The raster step draws Chrome's
+/// synthetic bold for a bold font without a bold face.
+pub fn text_style(fill: &Paint) -> Style {
+    Style {
         fill: Some(fill.clone()),
         ..Style::default()
-    };
-    let weight = font.weight_number();
-    if weight >= 600 {
-        let face_style = if italic {
-            FaceStyle::Italic
-        } else {
-            FaceStyle::Normal
-        };
-        let fonts = metrics.fonts();
-        let synthetic = fonts
-            .resolve(&font.family, Weight(weight), face_style)
-            .and_then(|face| fonts.face_weight(face))
-            .is_some_and(|w| w.0 < 600);
-        if synthetic {
-            style.stroke = Some(fill.clone());
-            style.stroke_width = Some(2.0 * SYNTHETIC_BOLD_GROWTH * font.size);
-        }
     }
-    style
 }
 
 /// `createText(sectionEl, text, { useHtmlLabels: false, markdown: false,
 /// width })` as SVG text: one line per `tspan.text-outer-tspan`, centered
 /// on `x = 0`, the first baseline 1 em below the top.
-fn section_text(metrics: &TextMetrics<'_>, bbox: &LabelBox, font: &C4Font, fill: &Paint) -> Text {
+fn section_text(bbox: &LabelBox, font: &C4Font, fill: &Paint) -> Text {
     let mut runs = Vec::new();
     for (i, line) in bbox.lines.iter().enumerate() {
         for (j, run) in line.runs.iter().enumerate() {
@@ -233,7 +207,7 @@ fn section_text(metrics: &TextMetrics<'_>, bbox: &LabelBox, font: &C4Font, fill:
         }
     }
     Text {
-        common: Common::with_style(text_style(metrics, font, fill, false)),
+        common: Common::with_style(text_style(fill)),
         x: 0.0,
         y: 0.0,
         anchor: Some(TextAnchor::Middle),
@@ -281,7 +255,7 @@ fn stacked_label(
                 transform: translate(total_width / 2.0 - b.x - b.width / 2.0, y - b.y),
                 ..Common::default()
             },
-            children: vec![Element::Text(section_text(metrics, b, &section.font, fill))],
+            children: vec![Element::Text(section_text(b, &section.font, fill))],
         }));
         y += b.height + SECTION_GAP;
     }

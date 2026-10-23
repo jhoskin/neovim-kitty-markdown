@@ -20,7 +20,7 @@ expression: scene.to_svg()
         </g>
         <g class="label" transform="translate(-20.567, 24.973)" fill="#ffffff">
           <g class="c4-name" transform="translate(20.567, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Alice</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Alice</tspan></text>
           </g>
           <g class="c4-type" transform="translate(20.567, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
@@ -36,7 +36,7 @@ expression: scene.to_svg()
         </g>
         <g class="label" transform="translate(-20.567, 24.973)" fill="#ffffff">
           <g class="c4-name" transform="translate(20.567, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Bob</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Bob</tspan></text>
           </g>
           <g class="c4-type" transform="translate(20.567, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
@@ -49,7 +49,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
           <g class="c4-name" transform="translate(44.243, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> One</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> One</tspan></text>
           </g>
           <g class="c4-type" transform="translate(44.243, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -62,7 +62,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
           <g class="c4-name" transform="translate(44.243, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> Two</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> Two</tspan></text>
           </g>
           <g class="c4-type" transform="translate(44.243, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -75,7 +75,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-44.276, -18)" fill="#ffffff">
           <g class="c4-name" transform="translate(44.276, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> Three</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">System</tspan><tspan> Three</tspan></text>
           </g>
           <g class="c4-type" transform="translate(44.276, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -88,7 +88,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
           <g class="c4-name" transform="translate(44.243, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X1</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X1</tspan></text>
           </g>
           <g class="c4-type" transform="translate(44.243, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -98,7 +98,7 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="150" y="801.946" width="316" height="226" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
-      <text x="308" y="818.497" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group One</text>
+      <text x="308" y="818.497" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group One</text>
       <text x="308" y="844.428" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[system]</text>
     </g>
     <g transform="translate(674, 939.946)">
@@ -106,7 +106,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
           <g class="c4-name" transform="translate(44.243, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X2</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X2</tspan></text>
           </g>
           <g class="c4-type" transform="translate(44.243, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -116,7 +116,7 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="516" y="801.946" width="316" height="226" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
-      <text x="674" y="818.497" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group Two</text>
+      <text x="674" y="818.497" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group Two</text>
       <text x="674" y="844.428" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[system]</text>
     </g>
     <g transform="translate(1040, 939.946)">
@@ -124,7 +124,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-44.243, -18)" fill="#ffffff">
           <g class="c4-name" transform="translate(44.243, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X3</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">X3</tspan></text>
           </g>
           <g class="c4-type" transform="translate(44.243, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -134,7 +134,7 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="882" y="801.946" width="316" height="226" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
-      <text x="1040" y="818.497" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group Three</text>
+      <text x="1040" y="818.497" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">Group Three</text>
       <text x="1040" y="844.428" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[system]</text>
     </g>
     <g>

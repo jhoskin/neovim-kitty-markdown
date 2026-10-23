@@ -20,7 +20,7 @@ expression: scene.to_svg()
         </g>
         <g class="label" transform="translate(-76.831, 9.659)" fill="#ff0000">
           <g class="c4-name" transform="translate(76.831, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ff0000" stroke="#ff0000" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> A</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> A</tspan></text>
           </g>
           <g class="c4-type" transform="translate(76.831, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ff0000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
@@ -39,7 +39,7 @@ expression: scene.to_svg()
         </g>
         <g class="label" transform="translate(-66.418, 24.973)" fill="#ffffff">
           <g class="c4-name" transform="translate(66.418, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> B</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> B</tspan></text>
           </g>
           <g class="c4-type" transform="translate(66.418, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
@@ -55,7 +55,7 @@ expression: scene.to_svg()
         </g>
         <g class="label" transform="translate(-66.305, 15.973)" fill="#ffffff">
           <g class="c4-name" transform="translate(66.305, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> C</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> C</tspan></text>
           </g>
           <g class="c4-type" transform="translate(66.305, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
@@ -74,7 +74,7 @@ expression: scene.to_svg()
         </g>
         <g class="label" transform="translate(-78.073, 9.659)" fill="#ffffff">
           <g class="c4-name" transform="translate(78.073, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> D</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> Customer</tspan><tspan> D</tspan></text>
           </g>
           <g class="c4-type" transform="translate(78.073, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Person]</tspan></text>
@@ -90,7 +90,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-59.628" width="216" height="119.256" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-82.81, -39.628)" fill="#ffffff">
           <g class="c4-name" transform="translate(82.81, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Internet</tspan><tspan> Banking</tspan><tspan> System</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Internet</tspan><tspan> Banking</tspan><tspan> System</tspan></text>
           </g>
           <g class="c4-type" transform="translate(82.81, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -106,7 +106,7 @@ expression: scene.to_svg()
         <path class="basic label-container outer-path" transform="translate(-108, -87.396)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,158.956A108,15.836,0,0,0,216,158.956L216,15.836" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
         <g class="label" transform="translate(-77.762, -40.309)" fill="#ffffff">
           <g class="c4-name" transform="translate(77.762, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Mainframe</tspan><tspan> Banking</tspan><tspan x="0" dy="1.1em">System</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Mainframe</tspan><tspan> Banking</tspan><tspan x="0" dy="1.1em">System</tspan></text>
           </g>
           <g class="c4-type" transform="translate(77.762, 37.9)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -122,7 +122,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-53.314" width="216" height="106.628" rx="12" ry="12" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
         <g class="label" transform="translate(-85.96, -33.314)" fill="#ffffff">
           <g class="c4-name" transform="translate(85.96, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">E-mail</tspan><tspan> system</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">E-mail</tspan><tspan> system</tspan></text>
           </g>
           <g class="c4-type" transform="translate(85.96, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -138,7 +138,7 @@ expression: scene.to_svg()
         <path class="basic label-container outer-path" transform="translate(-108, -74.768)" d="M0,15.836A108,15.836,0,0,0,216,15.836A108,15.836,0,0,0,0,15.836L0,133.7A108,15.836,0,0,0,216,133.7L216,15.836" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-70.374, -27.681)" fill="#ffffff">
           <g class="c4-name" transform="translate(70.374, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> D</tspan><tspan x="0" dy="1.1em">Database</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> D</tspan><tspan x="0" dy="1.1em">Database</tspan></text>
           </g>
           <g class="c4-type" transform="translate(70.374, 37.9)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -154,7 +154,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-38" width="216" height="76" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-57.894, -18)" fill="#ffffff">
           <g class="c4-name" transform="translate(57.894, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> A</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> A</tspan></text>
           </g>
           <g class="c4-type" transform="translate(57.894, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -167,7 +167,7 @@ expression: scene.to_svg()
         <rect class="basic label-container" x="-108" y="-59.628" width="216" height="119.256" rx="12" ry="12" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-78.404, -39.628)" fill="#ffffff">
           <g class="c4-name" transform="translate(78.404, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> B</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> B</tspan></text>
           </g>
           <g class="c4-type" transform="translate(78.404, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -180,7 +180,7 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="250" y="1694.731" width="316" height="445.256" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
-      <text x="408" y="1711.282" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary2</text>
+      <text x="408" y="1711.282" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary2</text>
       <text x="408" y="1737.213" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[SYSTEM]</text>
     </g>
     <g transform="translate(420.698, 2385.987)">
@@ -188,7 +188,7 @@ expression: scene.to_svg()
         <path class="basic label-container outer-path" transform="translate(-112.233, 32)" d="M0,0A8.466,32,0,0,1,0,-64L224.466,-64A8.466,32,0,0,1,224.466,0M224.466,-64A8.466,32,0,0,0,224.466,0L0,0" fill="#1168bd" stroke="#3c7fc0" stroke-width="2"/>
         <g class="label" transform="translate(-89.256, -27)" fill="#ffffff">
           <g class="c4-name" transform="translate(80.791, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> F</tspan><tspan> Queue</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> F</tspan><tspan> Queue</tspan></text>
           </g>
           <g class="c4-type" transform="translate(80.791, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -204,7 +204,7 @@ expression: scene.to_svg()
         <path class="basic label-container outer-path" transform="translate(-112.751, 38.314)" d="M0,0A9.501,38.314,0,0,1,0,-76.628L225.501,-76.628A9.501,38.314,0,0,1,225.501,0M225.501,-76.628A9.501,38.314,0,0,0,225.501,0L0,0" fill="#999999" stroke="#8a8a8a" stroke-width="2"/>
         <g class="label" transform="translate(-91.768, -33.314)" fill="#ffffff">
           <g class="c4-name" transform="translate(82.267, 1)">
-            <text x="0" y="0" text-anchor="middle" fill="#ffffff" stroke="#ffffff" stroke-width="0.654" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> G</tspan><tspan> Queue</tspan></text>
+            <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="bold"><tspan x="0" dy="1em">Banking</tspan><tspan> System</tspan><tspan> G</tspan><tspan> Queue</tspan></text>
           </g>
           <g class="c4-type" transform="translate(82.267, 22.5)">
             <text x="0" y="0" text-anchor="middle" fill="#ffffff" font-family="&quot;Open Sans&quot;, sans-serif" font-size="10.5" font-weight="normal"><tspan x="0" dy="1em">[Software</tspan><tspan> System]</tspan></text>
@@ -217,17 +217,17 @@ expression: scene.to_svg()
     </g>
     <g>
       <rect x="250" y="2253.987" width="344.503" height="390.628" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
-      <text x="422.252" y="2270.538" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary3</text>
+      <text x="422.252" y="2270.538" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary3</text>
       <text x="422.252" y="2296.469" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[boundary]</text>
     </g>
     <g>
       <rect x="200" y="1056.405" width="632" height="1638.211" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
-      <text x="516" y="1072.956" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary</text>
+      <text x="516" y="1072.956" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary</text>
       <text x="516" y="1098.887" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[ENTERPRISE]</text>
     </g>
     <g>
       <rect x="150" y="138" width="732" height="2606.615" rx="2.5" ry="2.5" fill="none" stroke="#444444" stroke-width="1" stroke-dasharray="7,7"/>
-      <text x="516" y="154.551" text-anchor="middle" fill="#444444" stroke="#444444" stroke-width="0.747" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary0</text>
+      <text x="516" y="154.551" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="16" font-weight="bold">BankBoundary0</text>
       <text x="516" y="180.482" text-anchor="middle" fill="#444444" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal">[ENTERPRISE]</text>
     </g>
     <g>
