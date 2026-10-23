@@ -2,25 +2,81 @@
 
 use super::draw_rect::{RectOptions, draw_rect};
 use super::util::{
-    BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, measure_text,
-    node_group, node_style, paint_style, path_element, rect_element, translate,
+    BBox, Declarations, apply_declarations, build_label_group, calculate_text_width,
+    compile_styles, get_node_classes, label_fill, measure_text, node_group, parse_css_color,
+    path_element, rect_element, styles2string, translate,
 };
 use super::{ErAttribute, Intersector, Node, NodeExtra, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
-use crate::mermaid::scene::{Color, Element, Group, Paint, PathData, Point};
+use crate::mermaid::scene::{Color, Element, Group, Paint, PathData, Point, Style};
+
+/// `strokeWidth` of `userNodeOverrides` when the node sets none.
+const ROUGH_STROKE_WIDTH: f64 = 1.3;
+
+/// The rough.js options of `userNodeOverrides(node, {})` with `roughness:
+/// 0` and `fillStyle: 'solid'`: fill, stroke, stroke width, and dash from
+/// the node's compiled styles, else `mainBkg`, `nodeBorder`, and 1.3.
+fn rough_style(ctx: &ShapeCtx, node: &Node) -> Style {
+    let styles = compile_styles(node);
+    let paint = |key: &str, fallback: Color| {
+        styles
+            .get(key)
+            .filter(|v| !v.is_empty())
+            .and_then(|v| parse_css_color(v))
+            .unwrap_or(Paint::Color(fallback))
+    };
+    let stroke_width = styles
+        .get("stroke-width")
+        .map(|v| v.replace("px", ""))
+        .filter(|v| !v.is_empty())
+        .and_then(|v| v.trim().parse::<f64>().ok())
+        .unwrap_or(ROUGH_STROKE_WIDTH);
+    // `getStrokeDashArray`: one number repeats; `[0, 0]` draws solid.
+    let dash: Vec<f64> = styles
+        .get("stroke-dasharray")
+        .map(|v| {
+            v.split_whitespace()
+                .map(|n| n.parse::<f64>().unwrap_or(0.0))
+                .collect()
+        })
+        .unwrap_or_default();
+    let dash = match dash.as_slice() {
+        [] => None,
+        [a] => Some(vec![*a, *a]),
+        [a, b, ..] => Some(vec![*a, *b]),
+    }
+    .filter(|d| d.iter().any(|v| *v != 0.0));
+    Style {
+        fill: Some(paint("fill", ctx.vars.main_bkg)),
+        stroke: Some(paint("stroke", ctx.vars.node_border)),
+        stroke_width: Some(stroke_width),
+        stroke_dasharray: dash,
+        ..Style::default()
+    }
+}
 
 /// `addText(shapeSvg, labelText, config, translateX, translateY, classes,
 /// style)`: a left-aligned, top-anchored text block.
 fn add_text(ctx: &ShapeCtx, node: &Node, fill: Color, text: &str, class: &str) -> (Group, BBox) {
     let width = calculate_text_width(ctx, node, text) + 100.0;
     let measured = measure_text(ctx, node, text, Some(width), true);
-    let group = build_label_group(
+    let mut group = build_label_group(
         &measured,
         ctx,
         fill,
         &format!("label {class}"),
         translate(0.0, 0.0),
     );
+    // SVG text starts at `x = 0`: the ER stylesheet has no `.node .label
+    // text { text-anchor: middle }` rule, and the placement above assumes
+    // a box that starts at the group origin.
+    if !ctx.html_labels {
+        for child in &mut group.children {
+            if let Element::Text(t) = child {
+                t.anchor = None;
+            }
+        }
+    }
     (
         group,
         BBox {
@@ -89,7 +145,12 @@ impl Shape for ErBox {
             return Ok(draw_rect(node, ctx, options));
         }
 
-        if !ctx.html_labels {
+        // `if (!config.htmlLabels)`: the raw root value, which erBox copies
+        // to `node.useHtmlLabels`. An unset root value is falsy, so the
+        // default config widens the padding even though `createText` draws
+        // HTML labels. A node without the copy falls back to the effective
+        // value.
+        if !node.use_html_labels.unwrap_or(ctx.html_labels) {
             padding *= 1.25;
             text_padding *= 1.25;
         }
@@ -177,10 +238,31 @@ impl Shape for ErBox {
         }
         name_group.common.transform = translate(-name_bbox.width / 2.0, y + text_padding / 2.0);
 
-        let style = node_style(ctx, node);
-        shape_svg
-            .children
-            .push(rect_element(x, y, w, h, None, None, "outer-path", style));
+        // The rough shapes take `options`; afterwards every `path` of the
+        // node gets the stroke declarations of `nodeStyles` and the even
+        // rows all of them (`shapeSvg.selectAll('path').attr('style',
+        // strokeStyles)`, `.row-rect-even path` with `nodeStyles`).
+        let options = rough_style(ctx, node);
+        let node_styles = styles2string(node).node_styles;
+        let stroke_styles: Declarations = node_styles
+            .iter()
+            .filter(|(k, _)| k.contains("stroke"))
+            .map(|(k, v)| (k.clone(), v.clone()))
+            .collect();
+        let with = |mut style: Style, decls: &Declarations| {
+            apply_declarations(&mut style, decls);
+            style
+        };
+        shape_svg.children.push(rect_element(
+            x,
+            y,
+            w,
+            h,
+            None,
+            None,
+            "outer-path",
+            with(options.clone(), &stroke_styles),
+        ));
         for (i, row) in rows.iter().enumerate() {
             let content_row_index = i + 1;
             let is_even = content_row_index % 2 == 0 && row.y_offset != 0.0;
@@ -188,6 +270,11 @@ impl Shape for ErBox {
                 ctx.vars.row_even
             } else {
                 ctx.vars.row_odd
+            };
+            let row_style = Style {
+                fill: Some(Paint::Color(fill)),
+                stroke: Some(Paint::Color(ctx.vars.node_border)),
+                ..options.clone()
             };
             shape_svg.children.push(rect_element(
                 x,
@@ -201,10 +288,13 @@ impl Shape for ErBox {
                 } else {
                     "row-rect-odd"
                 },
-                paint_style(
-                    &ctx.vars,
-                    Paint::Color(fill),
-                    Paint::Color(ctx.vars.node_border),
+                with(
+                    row_style,
+                    if is_even {
+                        &node_styles
+                    } else {
+                        &stroke_styles
+                    },
                 ),
             ));
         }
@@ -214,7 +304,7 @@ impl Shape for ErBox {
         }
 
         let thickness = 0.0001;
-        let divider_style = node_style(ctx, node);
+        let divider_style = with(options, &stroke_styles);
         let mut dividers = vec![line_to_polygon(
             x,
             name_bbox.height + y,
