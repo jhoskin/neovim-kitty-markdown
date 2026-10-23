@@ -7,10 +7,9 @@
 //! so those are the spacings dagre sees unless the root config sets its
 //! own. The ER stylesheet rules (`styles::er`) that the shared renderer
 //! has no hook for are applied to its output afterwards: the marker paint,
-//! the dashed line pattern, and the 14 px relationship labels. Three
+//! the dashed line pattern, and the 14 px relationship labels. Two
 //! measuring rules the shared shapes lack go through [`ErMeasurer`]: the
-//! 14 px label size, Blink's 1/64 px rounding of HTML label widths, and
-//! `calculateTextWidth` in the root font.
+//! 14 px label size and Blink's 1/64 px rounding of HTML label widths.
 
 use std::collections::HashSet;
 
@@ -70,31 +69,14 @@ fn truthy(v: Option<f64>) -> Option<f64> {
 /// wrapping width of `labelHelper` (`flowchart.wrappingWidth`) or the
 /// text width plus 100 (`addText`), so it only matches when that width is
 /// also 200 and the text is a role too.
-///
-/// It also answers `calculateTextWidth(text, config)`, which `erBox` calls
-/// for the minimum entity width and the `addText` wrap width. The shared
-/// shapes pass that through `measure` with no wrap width and no markdown,
-/// which no other ER label does; mermaid measures it as SVG text in the
-/// root `fontFamily` and `fontSize` (`calculateTextDimensions`), not in
-/// the label font.
 struct ErMeasurer<'a, 'f> {
     metrics: &'a TextMetrics<'f>,
     roles: HashSet<String>,
-    /// `config.fontFamily` and `config.fontSize`.
-    text_width_font: MeasureSpec,
 }
 
 impl LabelMeasurer for ErMeasurer<'_, '_> {
     fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
         let inner: &dyn LabelMeasurer = self.metrics;
-        if opts.width.is_none() && !opts.markdown {
-            let mut b = inner.measure(text, opts);
-            b.width = f64::from(
-                self.metrics
-                    .calculate_text_width(text, &self.text_width_font),
-            );
-            return b;
-        }
         let mut b = if opts.width == Some(EDGE_LABEL_WRAP_WIDTH) && self.roles.contains(text) {
             let opts = LabelOpts {
                 font: FontSpec {
@@ -117,6 +99,10 @@ impl LabelMeasurer for ErMeasurer<'_, '_> {
             }
         }
         b
+    }
+
+    fn text_width(&self, text: &str, family: &str, size: f64) -> f64 {
+        self.metrics.text_width(text, family, size)
     }
 }
 
@@ -257,7 +243,6 @@ pub fn draw(db: &ErDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene
     let measurer = ErMeasurer {
         metrics: &ctx.metrics,
         roles,
-        text_width_font: MeasureSpec::new(cfg.font_family.clone(), *cfg.font_size as f32),
     };
 
     let html_labels = cfg.effective_html_labels();

@@ -424,10 +424,17 @@ pub fn measure_text(
     ctx.measurer.measure(text, &opts)
 }
 
-/// `calculateTextWidth(text, config)` stands in for a browser measurement
-/// of the whole string; the measurer gives the same answer here.
-pub fn calculate_text_width(ctx: &ShapeCtx, node: &Node, text: &str) -> f64 {
-    measure_text(ctx, node, text, None, false).width
+/// `calculateTextWidth(text, config)` with `config = getConfig()`: the
+/// root `fontFamily` and `fontSize`, not the label font. mermaid's default
+/// `fontFamily` ends in `;`, which Chrome rejects, so the default config
+/// measures in the page default font and comes out narrower than the
+/// drawn label.
+pub fn calculate_text_width(ctx: &ShapeCtx, text: &str) -> f64 {
+    ctx.measurer.text_width(
+        text,
+        &ctx.vars.config_font_family,
+        ctx.vars.config_font_size,
+    )
 }
 
 /// Parses the absolute-command SVG path strings mermaid writes by hand

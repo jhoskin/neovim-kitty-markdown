@@ -2,51 +2,18 @@
 
 use super::measure::{LabelBox, LabelOpts};
 use super::util::{
-    BBox, build_label_group, get_node_classes, label_fill, line_element, node_group, node_style,
-    rect_element, styles2string, translate,
+    BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, line_element,
+    node_group, node_style, rect_element, styles2string, translate,
 };
 use super::{Intersector, Node, NodeExtra, RequirementData, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
-use crate::mermaid::scene::{
-    Color, DEFAULT_FONT_FAMILY, Element, FontSpec, FontWeight, Group, Style,
-};
-use crate::text::measure::css_family_or_page_default;
+use crate::mermaid::scene::{Color, Element, FontSpec, FontWeight, Group, Style};
 
 /// `userNodeOverrides`: rough.js strokes the box and the divider at
 /// `stroke-width` from the node styles, else 1.3. No requirement stylesheet
 /// rule overrides the attribute (`.divider` sets the group's stroke, which
 /// the path's own attribute beats).
 const ROUGH_STROKE_WIDTH: f64 = 1.3;
-
-/// `calculateTextWidth(inputText, config)`: the SVG text width in the root
-/// config font, rounded. mermaid's default `fontFamily` ends in a `;`,
-/// which Chrome rejects, so the width comes from the page default font
-/// (`"Times New Roman"`) and is narrower than the drawn label; long text
-/// then reaches the `+ 50` limit and wraps. A diagram that sets its own
-/// `fontFamily` sets the theme's too, so a theme family other than the
-/// default chain stands for a valid config family.
-///
-/// The shared `util::calculate_text_width` measures in the theme family
-/// instead; this local version stays until the measurer grows a
-/// `calculateTextDimensions` entry.
-fn calculate_text_width(ctx: &ShapeCtx, text: &str) -> f64 {
-    let config_family = if ctx.vars.font_family == DEFAULT_FONT_FAMILY {
-        format!("{DEFAULT_FONT_FAMILY};")
-    } else {
-        ctx.vars.font_family.clone()
-    };
-    let opts = LabelOpts {
-        font: FontSpec {
-            family: Some(css_family_or_page_default(&config_family).to_string()),
-            ..ctx.font()
-        },
-        html: false,
-        width: None,
-        min_width: 0.0,
-        markdown: false,
-    };
-    (ctx.measurer.measure(text, &opts).width + 0.5).floor()
-}
 
 /// The entities `decodeHTMLEntities` of `createText.ts` decodes.
 const ENTITY: [(&str, &str); 3] = [("&lt;", "<"), ("&gt;", ">"), ("&amp;", "&")];

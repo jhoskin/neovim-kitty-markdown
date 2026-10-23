@@ -122,6 +122,11 @@ pub trait LabelMeasurer {
     /// Measures `text` as `createText` would and returns the box with its
     /// wrapped lines. An empty `text` returns a zero box with no lines.
     fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox;
+
+    /// `calculateTextWidth(text, { fontFamily, fontSize })` of `utils.ts`:
+    /// the widest `<br>` line as SVG text in that font, rounded to whole
+    /// pixels (`calculateTextDimensions`).
+    fn text_width(&self, text: &str, family: &str, size: f64) -> f64;
 }
 
 /// Test fake: every character advances `char_width`, every line is
@@ -196,6 +201,15 @@ impl LabelMeasurer for FixedMeasurer {
             },
             lines,
         }
+    }
+
+    fn text_width(&self, text: &str, _family: &str, _size: f64) -> f64 {
+        let widest = markdown::split_breaks(text)
+            .iter()
+            .map(|line| line.chars().count())
+            .max()
+            .unwrap_or(0);
+        (widest as f64 * self.char_width + 0.5).floor()
     }
 }
 
@@ -433,6 +447,13 @@ impl LabelMeasurer for TextMetrics<'_> {
     fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
         measure_with_metrics(self, text, opts, DEFAULT_FONT_FAMILY)
     }
+
+    /// The rounding (`(w + 0.5).floor()`) and the `sans-serif` comparison
+    /// happen in [`TextMetrics::calculate_text_dimensions`], which also
+    /// swaps an invalid family for the page default as Chrome does.
+    fn text_width(&self, text: &str, family: &str, size: f64) -> f64 {
+        f64::from(self.calculate_text_width(text, &TextFont::new(family, size as f32)))
+    }
 }
 
 /// [`TextMetrics`] bound to the theme's `fontFamily`, the family the
@@ -454,6 +475,10 @@ impl<'m, 'f> ThemedMetrics<'m, 'f> {
 impl LabelMeasurer for ThemedMetrics<'_, '_> {
     fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
         measure_with_metrics(self.metrics, text, opts, &self.family)
+    }
+
+    fn text_width(&self, text: &str, family: &str, size: f64) -> f64 {
+        self.metrics.text_width(text, family, size)
     }
 }
 
@@ -538,6 +563,24 @@ mod metrics_tests {
         assert_eq!((b.width, b.height), (0.0, 0.0));
         assert!(b.lines.is_empty());
         assert_eq!(b.line_height, 24.0);
+    }
+
+    #[test]
+    fn text_width_falls_back_to_the_page_default_family() {
+        let metrics = TextMetrics::new(font_system());
+        let text = "A fairly long label";
+        let invalid = format!("{DEFAULT_FONT_FAMILY};");
+        let page_default = crate::text::measure::css_family_or_page_default(&invalid);
+        let via_config = metrics.text_width(text, &invalid, 16.0);
+        assert_eq!(via_config, metrics.text_width(text, page_default, 16.0));
+        assert_eq!(via_config, via_config.round());
+    }
+
+    #[test]
+    fn fixed_text_width_takes_the_widest_line() {
+        let m = FixedMeasurer::SNAPSHOT;
+        assert_eq!(m.text_width("ab<br>abcd", "x", 16.0), 32.0);
+        assert_eq!(m.text_width("", "x", 16.0), 0.0);
     }
 
     #[test]

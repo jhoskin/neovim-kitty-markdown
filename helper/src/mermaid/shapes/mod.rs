@@ -416,6 +416,12 @@ pub struct NodeStyleVars {
     pub stroke_width: f64,
     pub font_family: String,
     pub font_size: f64,
+    /// The root `config.fontFamily` and `config.fontSize`, which
+    /// `calculateTextWidth(text, config)` measures in rather than the label
+    /// font. The default family keeps its trailing `;`, so Chrome measures
+    /// it in the page default font.
+    pub config_font_family: String,
+    pub config_font_size: f64,
 }
 
 impl Default for NodeStyleVars {
@@ -448,6 +454,9 @@ impl Default for NodeStyleVars {
             stroke_width: 1.0,
             font_family: crate::mermaid::scene::DEFAULT_FONT_FAMILY.to_string(),
             font_size: 16.0,
+            // The `fontFamily` default of `config.schema.yaml`.
+            config_font_family: format!("{};", crate::mermaid::scene::DEFAULT_FONT_FAMILY),
+            config_font_size: 16.0,
         }
     }
 }

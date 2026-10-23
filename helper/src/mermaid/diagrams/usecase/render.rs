@@ -154,6 +154,9 @@ impl LabelMeasurer for KindMeasurer<'_> {
         }
         bbox
     }
+    fn text_width(&self, text: &str, family: &str, size: f64) -> f64 {
+        self.inner.text_width(text, family, size)
+    }
 }
 
 fn mark(text: &mut Option<String>, mark: char) {

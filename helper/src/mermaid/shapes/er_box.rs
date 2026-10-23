@@ -58,7 +58,7 @@ fn rough_style(ctx: &ShapeCtx, node: &Node) -> Style {
 /// `addText(shapeSvg, labelText, config, translateX, translateY, classes,
 /// style)`: a left-aligned, top-anchored text block.
 fn add_text(ctx: &ShapeCtx, node: &Node, fill: Color, text: &str, class: &str) -> (Group, BBox) {
-    let width = calculate_text_width(ctx, node, text) + 100.0;
+    let width = calculate_text_width(ctx, text) + 100.0;
     let measured = measure_text(ctx, node, text, Some(width), true);
     let mut group = build_label_group(
         &measured,
@@ -137,7 +137,7 @@ impl Shape for ErBox {
                 label_padding_y: padding * 1.5,
             };
             let label = node.label.clone().unwrap_or_default();
-            if calculate_text_width(ctx, node, &label) + options.label_padding_x * 2.0
+            if calculate_text_width(ctx, &label) + options.label_padding_x * 2.0
                 < ctx.er_min_entity_width
             {
                 node.width = Some(ctx.er_min_entity_width);

@@ -113,6 +113,8 @@ impl NodeStyleVars {
                 .or_else(|| Some(*config.font_size))
                 .filter(|v| v.is_finite() && *v > 0.0)
                 .unwrap_or(DEFAULT_FONT_SIZE),
+            config_font_family: config.font_family.clone(),
+            config_font_size: *config.font_size,
         }
     }
 }

@@ -33,7 +33,7 @@ fn add_text(
     bold: bool,
     classifier: Classifier,
 ) -> Block {
-    let width = calculate_text_width(ctx, node, text) + 50.0;
+    let width = calculate_text_width(ctx, text) + 50.0;
     // The `g.label` carries `font-weight: bolder` (and the classifier's
     // `font-style: italic`) before `createText` measures, so the browser
     // measures the styled face.
