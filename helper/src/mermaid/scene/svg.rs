@@ -9,9 +9,9 @@ use std::fmt::Write;
 
 use super::path::fmt_num;
 use super::{
-    Baseline, Color, Common, Element, FontSpec, FontStyle, FontWeight, Length, LineCap, LineJoin,
-    Marker, MarkerUnits, Orient, Paint, Point, Scene, Style, Text, TextAnchor, TransformOp,
-    ViewBox,
+    Baseline, BlendMode, Color, Common, Element, FontSpec, FontStyle, FontWeight, GradientUnits,
+    Length, LineCap, LineJoin, LinearGradient, Marker, MarkerUnits, Orient, Paint, Point, Scene,
+    Style, Text, TextAnchor, TransformOp, ViewBox,
 };
 
 const XMLNS: &str = "http://www.w3.org/2000/svg";
@@ -31,11 +31,14 @@ pub fn to_svg(scene: &Scene) -> String {
     w.attr("font-family", &scene.font_family);
     w.children_follow();
 
-    if !scene.defs.is_empty() {
+    if !scene.defs.is_empty() || !scene.linear_gradients.is_empty() {
         w.open("defs");
         w.children_follow();
         for element in &scene.defs {
             write_element(&mut w, element);
+        }
+        for gradient in &scene.linear_gradients {
+            write_linear_gradient(&mut w, gradient);
         }
         w.close("defs");
     }
@@ -392,6 +395,50 @@ fn write_style(w: &mut Writer, style: &Style, font: Option<&FontSpec>) {
     if let Some(id) = &style.marker_end {
         w.attr("marker-end", &format!("url(#{id})"));
     }
+    // mermaid sets the blend mode with d3's `.style()`, so it is a `style`
+    // declaration, which usvg reads like the attribute.
+    if let Some(mode) = style.mix_blend_mode {
+        w.attr("style", &format!("mix-blend-mode: {};", blend_mode(mode)));
+    }
+}
+
+fn blend_mode(mode: BlendMode) -> &'static str {
+    match mode {
+        BlendMode::Normal => "normal",
+        BlendMode::Multiply => "multiply",
+    }
+}
+
+fn write_linear_gradient(w: &mut Writer, g: &LinearGradient) {
+    w.open("linearGradient");
+    w.attr("id", &g.id);
+    w.attr(
+        "gradientUnits",
+        match g.units {
+            GradientUnits::UserSpaceOnUse => "userSpaceOnUse",
+            GradientUnits::ObjectBoundingBox => "objectBoundingBox",
+        },
+    );
+    for (name, value) in [("x1", g.x1), ("y1", g.y1), ("x2", g.x2), ("y2", g.y2)] {
+        if let Some(v) = value {
+            w.attr(name, &fmt_num(v));
+        }
+    }
+    if g.stops.is_empty() {
+        w.close_empty();
+        return;
+    }
+    w.children_follow();
+    for stop in &g.stops {
+        w.open("stop");
+        w.attr("offset", &format!("{}%", fmt_num(stop.offset)));
+        w.attr("stop-color", &color(stop.color));
+        if !stop.color.is_opaque() {
+            w.attr("stop-opacity", &fmt_num(stop.color.a));
+        }
+        w.close_empty();
+    }
+    w.close("linearGradient");
 }
 
 fn write_common_head(w: &mut Writer, common: &Common) {

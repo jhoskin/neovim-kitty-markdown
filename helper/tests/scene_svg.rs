@@ -147,3 +147,59 @@ fn serialization_is_deterministic() {
     assert_eq!(a, b);
     assert!(!a.contains("-0,"), "no negative zero in {a}");
 }
+
+/// A linear gradient goes into `defs` after the other definitions, with
+/// mermaid's attribute order and percent offsets.
+#[test]
+fn linear_gradient_is_written_in_defs() {
+    use kitty_markdown_helper::mermaid::scene::{GradientStop, GradientUnits, LinearGradient};
+    let mut scene = Scene::new(100.0, 20.0);
+    scene.linear_gradients.push(LinearGradient {
+        id: "linearGradient-3".to_string(),
+        units: GradientUnits::UserSpaceOnUse,
+        x1: Some(10.0),
+        y1: None,
+        x2: Some(90.5),
+        y2: None,
+        stops: vec![
+            GradientStop {
+                offset: 0.0,
+                color: Color::from_hex("#4e79a7").unwrap(),
+            },
+            GradientStop {
+                offset: 100.0,
+                color: Color::rgba(255, 0, 0, 0.5),
+            },
+        ],
+    });
+    let svg = scene.to_svg();
+    assert!(
+        svg.contains(
+        "  <defs>\n    <linearGradient id=\"linearGradient-3\" gradientUnits=\"userSpaceOnUse\" x1=\"10\" x2=\"90.5\">\n      <stop offset=\"0%\" stop-color=\"#4e79a7\"/>\n      <stop offset=\"100%\" stop-color=\"#ff0000\" stop-opacity=\"0.5\"/>\n    </linearGradient>\n  </defs>\n"
+        ),
+        "{svg}"
+    );
+}
+
+/// A blend mode is a `style` declaration, as d3's `.style()` writes it,
+/// and comes after every presentation attribute.
+#[test]
+fn mix_blend_mode_is_a_style_declaration() {
+    use kitty_markdown_helper::mermaid::scene::BlendMode;
+    let group = Element::Group(Group {
+        common: Common {
+            class: Some("link".to_string()),
+            style: Style {
+                stroke_opacity: Some(0.5),
+                mix_blend_mode: Some(BlendMode::Multiply),
+                ..Style::default()
+            },
+            ..Common::default()
+        },
+        children: Vec::new(),
+    });
+    assert_eq!(
+        kitty_markdown_helper::mermaid::scene::svg::element_to_svg(&group),
+        "<g class=\"link\" stroke-opacity=\"0.5\" style=\"mix-blend-mode: multiply;\"/>\n"
+    );
+}

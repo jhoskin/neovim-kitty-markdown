@@ -448,6 +448,7 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
         background: None,
         font_family: styles.font_family.clone(),
         defs: Vec::new(),
+        linear_gradients: Vec::new(),
         root,
     })
 }

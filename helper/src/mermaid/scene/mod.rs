@@ -163,6 +163,16 @@ pub struct Style {
     pub text_anchor: Option<TextAnchor>,
     pub marker_start: Option<String>,
     pub marker_end: Option<String>,
+    /// CSS `mix-blend-mode`. It does not inherit, so `fill_unset_from`
+    /// leaves it alone.
+    pub mix_blend_mode: Option<BlendMode>,
+}
+
+/// The CSS `mix-blend-mode` values the diagrams use.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum BlendMode {
+    Normal,
+    Multiply,
 }
 
 impl Style {
@@ -442,6 +452,33 @@ impl ViewBox {
     }
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum GradientUnits {
+    UserSpaceOnUse,
+    ObjectBoundingBox,
+}
+
+/// One `<stop>` of a gradient. `offset` is a percentage, as mermaid writes
+/// it (`offset="100%"`); a translucent color adds `stop-opacity`.
+#[derive(Debug, Clone, PartialEq)]
+pub struct GradientStop {
+    pub offset: f64,
+    pub color: Color,
+}
+
+/// A `<linearGradient>` that a [`Paint::Reference`] names by id. An unset
+/// coordinate keeps the SVG default (`x1`, `y1`, `y2` 0%, `x2` 100%).
+#[derive(Debug, Clone, PartialEq)]
+pub struct LinearGradient {
+    pub id: String,
+    pub units: GradientUnits,
+    pub x1: Option<f64>,
+    pub y1: Option<f64>,
+    pub x2: Option<f64>,
+    pub y2: Option<f64>,
+    pub stops: Vec<GradientStop>,
+}
+
 /// A complete diagram. `width` and `height` are the natural size in CSS
 /// pixels (SPEC.md Definitions, "Natural size"); `view_box` is what mermaid
 /// wrote in the `viewBox` attribute.
@@ -457,6 +494,8 @@ pub struct Scene {
     /// `"trebuchet ms", verdana, arial, sans-serif`.
     pub font_family: String,
     pub defs: Vec<Element>,
+    /// Written in `defs` after [`Scene::defs`].
+    pub linear_gradients: Vec<LinearGradient>,
     pub root: Group,
 }
 
@@ -470,6 +509,7 @@ impl Scene {
             background: None,
             font_family: DEFAULT_FONT_FAMILY.to_string(),
             defs: Vec::new(),
+            linear_gradients: Vec::new(),
             root: Group::default(),
         }
     }

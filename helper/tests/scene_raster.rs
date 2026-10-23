@@ -108,3 +108,76 @@ fn scene_background_is_used_without_an_override() {
     let img = render_rgba(&scene, system_fonts(), &RasterOpts::default()).unwrap();
     assert_eq!(img.get_pixel(2, 2), &Rgba([10, 20, 30, 255]));
 }
+
+fn solid_rect(x: f64, width: f64, paint: Paint) -> Element {
+    Element::Rect(Rect {
+        common: Common::with_style(Style {
+            fill: Some(paint),
+            ..Style::default()
+        }),
+        x,
+        y: 0.0,
+        width,
+        height: 10.0,
+        rx: None,
+        ry: None,
+    })
+}
+
+/// resvg honors the `style="mix-blend-mode: multiply;"` form the scene
+/// writes: blue multiplied over red is black, blue over white stays blue.
+#[test]
+fn multiply_blend_mode_reaches_the_pixels() {
+    use kitty_markdown_helper::mermaid::scene::{BlendMode, Group};
+    let mut scene = Scene::new(40.0, 10.0);
+    scene
+        .root
+        .children
+        .push(solid_rect(0.0, 20.0, Paint::Color(Color::rgb(255, 0, 0))));
+    scene.root.children.push(Element::Group(Group {
+        common: Common::with_style(Style {
+            mix_blend_mode: Some(BlendMode::Multiply),
+            ..Style::default()
+        }),
+        children: vec![solid_rect(10.0, 30.0, Paint::Color(Color::rgb(0, 0, 255)))],
+    }));
+    let img = render_rgba(&scene, system_fonts(), &RasterOpts::default()).unwrap();
+    assert_eq!(*img.get_pixel(5, 5), Rgba([255, 0, 0, 255]));
+    assert_eq!(*img.get_pixel(15, 5), Rgba([0, 0, 0, 255]));
+    assert_eq!(*img.get_pixel(35, 5), Rgba([0, 0, 255, 255]));
+}
+
+/// A user-space linear gradient paints its first stop at `x1` and its last
+/// at `x2`.
+#[test]
+fn linear_gradient_reaches_the_pixels() {
+    use kitty_markdown_helper::mermaid::scene::{GradientStop, GradientUnits, LinearGradient};
+    let mut scene = Scene::new(100.0, 10.0);
+    scene.linear_gradients.push(LinearGradient {
+        id: "g".to_string(),
+        units: GradientUnits::UserSpaceOnUse,
+        x1: Some(0.0),
+        y1: None,
+        x2: Some(100.0),
+        y2: None,
+        stops: vec![
+            GradientStop {
+                offset: 0.0,
+                color: Color::rgb(255, 0, 0),
+            },
+            GradientStop {
+                offset: 100.0,
+                color: Color::rgb(0, 0, 255),
+            },
+        ],
+    });
+    scene
+        .root
+        .children
+        .push(solid_rect(0.0, 100.0, Paint::Reference("g".to_string())));
+    let img = render_rgba(&scene, system_fonts(), &RasterOpts::default()).unwrap();
+    let left = img.get_pixel(0, 5);
+    let right = img.get_pixel(99, 5);
+    assert!(left[0] > 245 && left[2] < 10, "left {left:?}");
+    assert!(right[2] > 245 && right[0] < 10, "right {right:?}");
+}
