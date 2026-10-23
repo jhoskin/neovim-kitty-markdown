@@ -13,6 +13,7 @@ use crate::text::{FontSystem, TextMetrics};
 pub mod block;
 pub mod c4;
 pub mod class;
+pub mod cynefin;
 pub mod eventmodeling;
 pub mod flowchart;
 pub mod gantt;
@@ -80,6 +81,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &treeview::DIAGRAM,
         &usecase::DIAGRAM,
         &eventmodeling::DIAGRAM,
+        &cynefin::DIAGRAM,
     ];
     REGISTRY
 }
