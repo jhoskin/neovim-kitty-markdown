@@ -16,7 +16,7 @@ use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
     Common, Element, FontSpec, Group, Paint, Scene, Style, Text, TextAnchor, TextRun, ViewBox,
 };
-use crate::mermaid::shapes::util::{BBox, styles2string};
+use crate::mermaid::shapes::util::BBox;
 use crate::mermaid::shapes::{Node, ShapeCtx};
 use crate::mermaid::styles::state::{NodeInfo, StateStyles, TITLE_FONT_SIZE};
 use crate::text::measure::FontSpec as MeasureSpec;
@@ -33,20 +33,16 @@ fn truthy_number(value: Option<&Value>) -> Option<f64> {
         .filter(|v| *v != 0.0 && !v.is_nan())
 }
 
-/// What the style walk needs per node group.
+/// What the style walk needs per node group. A `classDef` font weight or
+/// style needs nothing here: the shared label code measures and draws
+/// each label in its inline face.
 fn node_infos(nodes: &[Node]) -> HashMap<String, NodeInfo> {
     nodes
         .iter()
         .map(|n| {
-            let labels = styles2string(n).label_styles;
             let info = NodeInfo {
                 shape: n.shape.clone(),
-                italic: labels
-                    .get("font-style")
-                    .is_some_and(|v| v.trim() == "italic"),
-                bold: labels
-                    .get("font-weight")
-                    .is_some_and(|v| matches!(v.trim(), "bold" | "bolder" | "700" | "800" | "900")),
+                ..NodeInfo::default()
             };
             (n.dom_id().to_string(), info)
         })
