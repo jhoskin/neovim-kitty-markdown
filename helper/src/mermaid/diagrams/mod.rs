@@ -22,6 +22,7 @@ pub mod gitgraph;
 pub mod ishikawa;
 pub mod journey;
 pub mod kanban;
+pub mod mindmap;
 pub mod packet;
 pub mod pie;
 pub mod radar;
@@ -70,6 +71,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &timeline::DIAGRAM,
         &gitgraph::DIAGRAM,
         &kanban::DIAGRAM,
+        &mindmap::DIAGRAM,
         &flowchart::DIAGRAM,
         &class::DIAGRAM,
         &state::DIAGRAM,
