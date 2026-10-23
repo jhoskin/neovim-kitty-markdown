@@ -1,0 +1,108 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [
+      [
+        "a",
+        "b"
+      ],
+      [
+        "j",
+        "c"
+      ]
+    ],
+    "vertical": [
+      [
+        "b",
+        "j"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.001,
+      "id": "a-b",
+      "idealLength": 40.0,
+      "source": "a",
+      "target": "b"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "b-j",
+      "idealLength": 120.0,
+      "source": "b",
+      "target": "j"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "j-c",
+      "idealLength": 120.0,
+      "source": "j",
+      "target": "c"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": true,
+      "height": 180.0,
+      "id": "left",
+      "parent": null,
+      "width": 163.0
+    },
+    {
+      "group": true,
+      "height": 180.0,
+      "id": "right",
+      "parent": null,
+      "width": 163.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "a",
+      "parent": "left",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "b",
+      "parent": "right",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "c",
+      "parent": "right",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "j",
+      "parent": "right",
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "gap": 120.0,
+      "left": "a",
+      "right": "b"
+    },
+    {
+      "bottom": "j",
+      "gap": 120.0,
+      "top": "b"
+    },
+    {
+      "gap": 120.0,
+      "left": "j",
+      "right": "c"
+    }
+  ],
+  "seed": 1
+}

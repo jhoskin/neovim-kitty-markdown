@@ -1,0 +1,172 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [
+      [
+        "left_disk",
+        "junctionCenter",
+        "junctionRight"
+      ],
+      [
+        "top_disk",
+        "top_gateway"
+      ],
+      [
+        "bottom_disk",
+        "bottom_gateway"
+      ]
+    ],
+    "vertical": [
+      [
+        "junctionCenter",
+        "top_disk",
+        "bottom_disk"
+      ],
+      [
+        "junctionRight",
+        "top_gateway",
+        "bottom_gateway"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.45,
+      "id": "left_disk-junctionCenter",
+      "idealLength": 120.0,
+      "source": "left_disk",
+      "target": "junctionCenter"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "top_disk-junctionCenter",
+      "idealLength": 120.0,
+      "source": "top_disk",
+      "target": "junctionCenter"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "bottom_disk-junctionCenter",
+      "idealLength": 120.0,
+      "source": "bottom_disk",
+      "target": "junctionCenter"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "junctionCenter-junctionRight",
+      "idealLength": 120.0,
+      "source": "junctionCenter",
+      "target": "junctionRight"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "top_gateway-junctionRight",
+      "idealLength": 120.0,
+      "source": "top_gateway",
+      "target": "junctionRight"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "bottom_gateway-junctionRight",
+      "idealLength": 120.0,
+      "source": "bottom_gateway",
+      "target": "junctionRight"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "left_disk",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "top_disk",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "bottom_disk",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "top_gateway",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "bottom_gateway",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "junctionCenter",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "junctionRight",
+      "parent": null,
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "gap": 120.0,
+      "left": "left_disk",
+      "right": "junctionCenter"
+    },
+    {
+      "gap": 120.0,
+      "left": "junctionCenter",
+      "right": "junctionRight"
+    },
+    {
+      "bottom": "junctionCenter",
+      "gap": 120.0,
+      "top": "top_disk"
+    },
+    {
+      "bottom": "bottom_disk",
+      "gap": 120.0,
+      "top": "junctionCenter"
+    },
+    {
+      "bottom": "junctionRight",
+      "gap": 120.0,
+      "top": "top_gateway"
+    },
+    {
+      "bottom": "bottom_gateway",
+      "gap": 120.0,
+      "top": "junctionRight"
+    },
+    {
+      "gap": 120.0,
+      "left": "top_disk",
+      "right": "top_gateway"
+    },
+    {
+      "gap": 120.0,
+      "left": "bottom_disk",
+      "right": "bottom_gateway"
+    }
+  ],
+  "seed": 1
+}

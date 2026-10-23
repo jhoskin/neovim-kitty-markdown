@@ -1,0 +1,93 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [],
+    "vertical": [
+      [
+        "db1",
+        "db2",
+        "db3"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.45,
+      "id": "db1-mcp",
+      "idealLength": 120.0,
+      "source": "db1",
+      "target": "mcp"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "db2-mcp",
+      "idealLength": 120.0,
+      "source": "db2",
+      "target": "mcp"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "db3-mcp",
+      "idealLength": 120.0,
+      "source": "db3",
+      "target": "mcp"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": true,
+      "height": 180.0,
+      "id": "api",
+      "parent": null,
+      "width": 163.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "db1",
+      "parent": "api",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "db2",
+      "parent": "api",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "db3",
+      "parent": "api",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "mcp",
+      "parent": "api",
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "bottom": "db2",
+      "gap": 120.0,
+      "top": "db1"
+    },
+    {
+      "bottom": "db3",
+      "gap": 120.0,
+      "top": "db2"
+    },
+    {
+      "gap": 120.0,
+      "left": "db3",
+      "right": "mcp"
+    }
+  ],
+  "seed": 1
+}

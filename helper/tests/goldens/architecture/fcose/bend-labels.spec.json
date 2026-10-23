@@ -1,0 +1,71 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [
+      [
+        "a",
+        "c"
+      ]
+    ],
+    "vertical": [
+      [
+        "b",
+        "c"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.45,
+      "id": "a-b",
+      "idealLength": 120.0,
+      "source": "a",
+      "target": "b"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "b-c",
+      "idealLength": 120.0,
+      "source": "b",
+      "target": "c"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "a",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "b",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "c",
+      "parent": null,
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "gap": 120.0,
+      "left": "a",
+      "right": "c"
+    },
+    {
+      "bottom": "c",
+      "gap": 120.0,
+      "top": "b"
+    }
+  ],
+  "seed": 1
+}

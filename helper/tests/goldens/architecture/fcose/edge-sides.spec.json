@@ -1,0 +1,129 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [
+      [
+        "center",
+        "left",
+        "right"
+      ],
+      [
+        "top",
+        "corner"
+      ]
+    ],
+    "vertical": [
+      [
+        "center",
+        "top",
+        "bottom"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.45,
+      "id": "left-center",
+      "idealLength": 120.0,
+      "source": "left",
+      "target": "center"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "center-right",
+      "idealLength": 120.0,
+      "source": "center",
+      "target": "right"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "top-center",
+      "idealLength": 120.0,
+      "source": "top",
+      "target": "center"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "center-bottom",
+      "idealLength": 120.0,
+      "source": "center",
+      "target": "bottom"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "right-corner",
+      "idealLength": 120.0,
+      "source": "right",
+      "target": "corner"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "center",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "left",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "right",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "top",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "bottom",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "corner",
+      "parent": null,
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "gap": 120.0,
+      "left": "left",
+      "right": "center"
+    },
+    {
+      "gap": 120.0,
+      "left": "center",
+      "right": "right"
+    },
+    {
+      "bottom": "center",
+      "gap": 120.0,
+      "top": "top"
+    },
+    {
+      "bottom": "bottom",
+      "gap": 120.0,
+      "top": "center"
+    }
+  ],
+  "seed": 1
+}

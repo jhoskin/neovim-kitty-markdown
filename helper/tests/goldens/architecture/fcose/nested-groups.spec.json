@@ -1,0 +1,115 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [
+      [
+        "lb",
+        "web"
+      ],
+      [
+        "db",
+        "replica"
+      ]
+    ],
+    "vertical": [
+      [
+        "web",
+        "db"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.001,
+      "id": "lb-web",
+      "idealLength": 40.0,
+      "source": "lb",
+      "target": "web"
+    },
+    {
+      "elasticity": 0.001,
+      "id": "web-db",
+      "idealLength": 40.0,
+      "source": "web",
+      "target": "db"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "db-replica",
+      "idealLength": 120.0,
+      "source": "db",
+      "target": "replica"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": true,
+      "height": 346.0,
+      "id": "cloud",
+      "parent": null,
+      "width": 329.0
+    },
+    {
+      "group": true,
+      "height": 263.0,
+      "id": "vpc",
+      "parent": "cloud",
+      "width": 246.0
+    },
+    {
+      "group": true,
+      "height": 180.0,
+      "id": "data",
+      "parent": "vpc",
+      "width": 163.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "lb",
+      "parent": "cloud",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "web",
+      "parent": "vpc",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "db",
+      "parent": "data",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "replica",
+      "parent": "data",
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "gap": 120.0,
+      "left": "lb",
+      "right": "web"
+    },
+    {
+      "bottom": "db",
+      "gap": 120.0,
+      "top": "web"
+    },
+    {
+      "gap": 120.0,
+      "left": "db",
+      "right": "replica"
+    }
+  ],
+  "seed": 1
+}

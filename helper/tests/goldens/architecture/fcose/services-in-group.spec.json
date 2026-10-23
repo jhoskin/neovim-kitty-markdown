@@ -1,0 +1,98 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [
+      [
+        "gateway",
+        "app",
+        "store"
+      ]
+    ],
+    "vertical": [
+      [
+        "app",
+        "cache"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.45,
+      "id": "gateway-app",
+      "idealLength": 120.0,
+      "source": "gateway",
+      "target": "app"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "app-store",
+      "idealLength": 120.0,
+      "source": "app",
+      "target": "store"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "app-cache",
+      "idealLength": 120.0,
+      "source": "app",
+      "target": "cache"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": true,
+      "height": 180.0,
+      "id": "cluster",
+      "parent": null,
+      "width": 163.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "gateway",
+      "parent": "cluster",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "app",
+      "parent": "cluster",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "cache",
+      "parent": "cluster",
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "store",
+      "parent": "cluster",
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "gap": 120.0,
+      "left": "gateway",
+      "right": "app"
+    },
+    {
+      "gap": 120.0,
+      "left": "app",
+      "right": "store"
+    },
+    {
+      "bottom": "cache",
+      "gap": 120.0,
+      "top": "app"
+    }
+  ],
+  "seed": 1
+}

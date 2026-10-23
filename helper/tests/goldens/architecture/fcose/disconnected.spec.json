@@ -1,0 +1,133 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [
+      [
+        "a",
+        "b"
+      ],
+      [
+        "c",
+        "d"
+      ]
+    ],
+    "vertical": [
+      [
+        "a",
+        "c"
+      ],
+      [
+        "b",
+        "d"
+      ],
+      [
+        "e",
+        "f"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.45,
+      "id": "a-b",
+      "idealLength": 120.0,
+      "source": "a",
+      "target": "b"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "c-d",
+      "idealLength": 120.0,
+      "source": "c",
+      "target": "d"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "e-f",
+      "idealLength": 120.0,
+      "source": "e",
+      "target": "f"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "a-c",
+      "idealLength": 120.0,
+      "source": "a",
+      "target": "c"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "a",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "b",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "c",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "d",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "e",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "f",
+      "parent": null,
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "gap": 120.0,
+      "left": "a",
+      "right": "b"
+    },
+    {
+      "bottom": "c",
+      "gap": 120.0,
+      "top": "a"
+    },
+    {
+      "bottom": "d",
+      "gap": 120.0,
+      "top": "b"
+    },
+    {
+      "gap": 120.0,
+      "left": "c",
+      "right": "d"
+    },
+    {
+      "bottom": "f",
+      "gap": 120.0,
+      "top": "e"
+    }
+  ],
+  "seed": 1
+}

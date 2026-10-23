@@ -1,0 +1,123 @@
+{
+  "alignmentConstraint": {
+    "horizontal": [
+      [
+        "client",
+        "api",
+        "queue"
+      ],
+      [
+        "worker",
+        "db"
+      ]
+    ],
+    "vertical": [
+      [
+        "api",
+        "db"
+      ],
+      [
+        "queue",
+        "worker"
+      ]
+    ]
+  },
+  "edges": [
+    {
+      "elasticity": 0.45,
+      "id": "client-api",
+      "idealLength": 120.0,
+      "source": "client",
+      "target": "api"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "api-queue",
+      "idealLength": 120.0,
+      "source": "api",
+      "target": "queue"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "queue-worker",
+      "idealLength": 120.0,
+      "source": "queue",
+      "target": "worker"
+    },
+    {
+      "elasticity": 0.45,
+      "id": "worker-db",
+      "idealLength": 120.0,
+      "source": "worker",
+      "target": "db"
+    }
+  ],
+  "nodeSeparation": 75,
+  "nodes": [
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "client",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "api",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "queue",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "worker",
+      "parent": null,
+      "width": 80.0
+    },
+    {
+      "group": false,
+      "height": 80.0,
+      "id": "db",
+      "parent": null,
+      "width": 80.0
+    }
+  ],
+  "numIter": 2500.0,
+  "padding": 40.0,
+  "relativePlacementConstraint": [
+    {
+      "gap": 120.0,
+      "left": "client",
+      "right": "api"
+    },
+    {
+      "gap": 120.0,
+      "left": "api",
+      "right": "queue"
+    },
+    {
+      "bottom": "db",
+      "gap": 120.0,
+      "top": "api"
+    },
+    {
+      "bottom": "worker",
+      "gap": 120.0,
+      "top": "queue"
+    },
+    {
+      "gap": 120.0,
+      "left": "db",
+      "right": "worker"
+    }
+  ],
+  "seed": 1
+}

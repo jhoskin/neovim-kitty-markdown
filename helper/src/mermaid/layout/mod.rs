@@ -3,4 +3,5 @@
 
 pub mod d3;
 pub mod dagre;
+pub mod fcose;
 pub mod unified;
