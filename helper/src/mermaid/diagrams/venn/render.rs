@@ -633,6 +633,7 @@ pub fn draw(db: &VennDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sce
         background: None,
         font_family: styles.font_family.clone(),
         defs: Vec::new(),
+        linear_gradients: Vec::new(),
         root: Group {
             common: Common::default(),
             children: root,
