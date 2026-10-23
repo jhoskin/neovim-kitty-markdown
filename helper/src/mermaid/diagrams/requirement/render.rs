@@ -100,24 +100,11 @@ fn restyle_relationship_lines(root: &mut Group, styles: &RequirementStyles) {
 
 /// SVG edge labels: `.edgeLabel .label text { fill: relationLabelColor }`
 /// (HTML labels are spans, which `.label text, span` colors instead).
-///
-/// The label goes in as plain text, whose word split (`nonMarkdownToLines`:
-/// `<[^>]+>|[^\s<>]+`) drops the closing `>` of `<<satisfies>>`; mermaid
-/// lays the markdown out and decodes the entities per word instead, so the
-/// run gets its last `>` back here. The background stays as measured, one
-/// `>` narrower than the oracle's.
 fn restyle_svg_edge_labels(root: &mut Group, styles: &RequirementStyles) {
     fn paint(g: &mut Group, color: &Paint) {
         for child in &mut g.children {
             match child {
-                Element::Text(t) => {
-                    t.common.style.fill = Some(color.clone());
-                    for run in &mut t.runs {
-                        if run.text.starts_with("<<") && !run.text.ends_with(">>") {
-                            run.text.push('>');
-                        }
-                    }
-                }
+                Element::Text(t) => t.common.style.fill = Some(color.clone()),
                 Element::Group(c) => paint(c, color),
                 _ => {}
             }
@@ -185,17 +172,7 @@ pub fn draw(
     shapes.vars = vars;
     shapes.html_labels = cfg.effective_html_labels();
 
-    let (mut nodes, mut edges, direction) = db.get_data();
-    if !shapes.html_labels {
-        // `createText` decodes `&lt;`/`&gt;` in SVG text (`decodeHTMLEntities`);
-        // the label is plain text, so it goes in decoded and unparsed.
-        for edge in &mut edges {
-            if let Some(label) = edge.label.as_mut() {
-                *label = label.replace("&lt;", "<").replace("&gt;", ">");
-            }
-            edge.label_type = Some("text".to_string());
-        }
-    }
+    let (mut nodes, edges, direction) = db.get_data();
     for node in &mut nodes {
         // The unified renderer gives every node the SVG id as a prefix.
         node.dom_id = Some(format!("{DIAGRAM_ID}-{}", node.id));

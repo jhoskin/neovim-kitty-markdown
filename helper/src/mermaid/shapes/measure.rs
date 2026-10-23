@@ -73,6 +73,8 @@ pub struct LabelBox {
     /// HTML labels: the first line's baseline below the box top, where
     /// Chrome puts it (see [`html_first_baseline`]). Zero for SVG labels.
     pub baseline: f64,
+    /// The display text: HTML labels decode entities through `innerHTML`
+    /// and SVG labels through `decodeHTMLEntities`.
     pub lines: Vec<LabelLine>,
 }
 
@@ -319,6 +321,34 @@ fn text_font(font: &FontSpec, family: &str) -> TextFont {
     .style(style)
 }
 
+/// The entities `decodeHTMLEntities` of `createText.ts` decodes.
+const ENTITY: [(&str, &str); 3] = [("&lt;", "<"), ("&gt;", ">"), ("&amp;", "&")];
+
+/// `decodeHTMLEntities(text)` of `createText.ts`: SVG labels write each
+/// word with `textContent`, so the entities `sanitizeText` produced would
+/// show as typed; mermaid decodes these three in one pass, so `&amp;lt;`
+/// becomes `&lt;`.
+pub fn decode_html_entities(text: &str) -> String {
+    let mut out = String::with_capacity(text.len());
+    let mut rest = text;
+    while let Some(i) = rest.find('&') {
+        out.push_str(&rest[..i]);
+        rest = &rest[i..];
+        match ENTITY.iter().find(|(e, _)| rest.starts_with(e)) {
+            Some((e, c)) => {
+                out.push_str(c);
+                rest = &rest[e.len()..];
+            }
+            None => {
+                out.push('&');
+                rest = &rest[1..];
+            }
+        }
+    }
+    out.push_str(rest);
+    out
+}
+
 fn label_lines(lines: &[Line], width: impl Fn(&Line) -> f32) -> Vec<LabelLine> {
     lines
         .iter()
@@ -384,11 +414,16 @@ pub fn measure_with_metrics(
         (0.0, f64::from(label.width), f64::from(label.height), lines)
     } else {
         let normalized = markdown::normalize_breaks(text);
-        let structured = if opts.markdown {
+        let mut structured = if opts.markdown {
             markdown::markdown_to_lines(&normalized)
         } else {
             markdown::non_markdown_to_lines(&normalized)
         };
+        // `updateTextContentAndStyles` decodes each word before it writes
+        // it, and the browser measures the decoded text.
+        for word in structured.iter_mut().flatten() {
+            word.content = decode_html_entities(&word.content);
+        }
         let max_width = opts.width.map_or(f32::INFINITY, |w| w as f32);
         let label = metrics.svg_label(&structured, &spec, max_width);
         let ascent = label
@@ -554,6 +589,24 @@ mod metrics_tests {
             },
         );
         assert!(plain.lines[0].runs.iter().all(|r| !r.bold));
+    }
+
+    #[test]
+    fn svg_labels_decode_entities_per_word() {
+        let metrics = TextMetrics::new(font_system());
+        let svg = metrics.measure("&lt;&lt;Element&gt;&gt; a&amp;lt;b", &open_sans_opts(false));
+        let words: Vec<&str> = svg
+            .lines
+            .iter()
+            .flat_map(|l| l.runs.iter().map(|r| r.text.as_str()))
+            .collect();
+        assert_eq!(words, ["<<Element>>", "a&lt;b"]);
+        // The decoded SVG words advance as far as the HTML label, which the
+        // browser decodes through `innerHTML`.
+        let html = metrics.measure("&lt;&lt;Element&gt;&gt;", &open_sans_opts(true));
+        let decoded = metrics.measure("&lt;&lt;Element&gt;&gt;", &open_sans_opts(false));
+        assert_eq!(html.lines[0].runs[0].text.trim(), "<<Element>>");
+        assert!((decoded.lines[0].width - html.lines[0].width).abs() < 1e-3);
     }
 
     #[test]

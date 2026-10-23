@@ -1,6 +1,6 @@
 //! `shapes/requirementBox.ts`: requirement and element boxes.
 
-use super::measure::{LabelBox, LabelOpts};
+use super::measure::LabelOpts;
 use super::util::{
     BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, line_element,
     node_group, node_style, rect_element, styles2string, translate,
@@ -14,59 +14,6 @@ use crate::mermaid::scene::{Color, Element, FontSpec, FontWeight, Group, Style};
 /// rule overrides the attribute (`.divider` sets the group's stroke, which
 /// the path's own attribute beats).
 const ROUGH_STROKE_WIDTH: f64 = 1.3;
-
-/// The entities `decodeHTMLEntities` of `createText.ts` decodes.
-const ENTITY: [(&str, &str); 3] = [("&lt;", "<"), ("&gt;", ">"), ("&amp;", "&")];
-
-/// `decodeHTMLEntities(text)`: one pass, so `&amp;lt;` becomes `&lt;`.
-fn decode_html_entities(text: &str) -> String {
-    let mut out = String::with_capacity(text.len());
-    let mut rest = text;
-    while let Some(i) = rest.find('&') {
-        out.push_str(&rest[..i]);
-        rest = &rest[i..];
-        match ENTITY.iter().find(|(e, _)| rest.starts_with(e)) {
-            Some((e, c)) => {
-                out.push_str(c);
-                rest = &rest[e.len()..];
-            }
-            None => {
-                out.push('&');
-                rest = &rest[1..];
-            }
-        }
-    }
-    out.push_str(rest);
-    out
-}
-
-/// The label box `createText` produces. SVG labels write each word with
-/// `textContent` after `decodeHTMLEntities` (`&amp;`, `&lt;`, `&gt;`), so
-/// `&lt;&lt;Element&gt;&gt;` shows as `<<Element>>`; the shared SVG text
-/// path keeps entities as they are. For such a label the decoded runs and
-/// their width come from the HTML measurement (one `table-cell` line, the
-/// same advances), and the vertical metrics from the SVG one.
-fn measure_label(ctx: &ShapeCtx, text: &str, opts: &LabelOpts) -> LabelBox {
-    if opts.html || !ENTITY.iter().any(|(e, _)| text.contains(e)) {
-        return ctx.measurer.measure(text, opts);
-    }
-    let runs = ctx.measurer.measure(
-        text,
-        &LabelOpts {
-            html: true,
-            markdown: false,
-            width: None,
-            ..opts.clone()
-        },
-    );
-    let svg = ctx.measurer.measure(&decode_html_entities(text), opts);
-    LabelBox {
-        x: -runs.width / 2.0,
-        width: runs.width,
-        lines: runs.lines,
-        ..svg
-    }
-}
 
 /// `addText(parentGroup, inputText, yOffset, style, alignment)`: a text
 /// block centred on `(0, yOffset)`. Returns `None` for an empty string
@@ -97,7 +44,7 @@ fn add_text(
         min_width: 0.0,
         markdown: true,
     };
-    let mut measured = measure_label(ctx, text, &opts);
+    let mut measured = ctx.measurer.measure(text, &opts);
     if !html {
         measured.height += 6.0;
     }
