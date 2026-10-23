@@ -2,26 +2,26 @@
 source: tests/shapes_snapshots.rs
 expression: text
 ---
-width=164 height=136
+width=236 height=136
 <g id="n1" class="node default ">
-  <rect class="basic label-container outer-path" x="-82" y="-68" width="164" height="136" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-  <g class="label" transform="translate(-60, -56)">
-    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">&lt;&lt;requirement&gt;&gt;</tspan></text>
+  <rect class="basic label-container outer-path" x="-118" y="-68" width="236" height="136" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+  <g class="label" transform="translate(-108, -56)">
+    <text class="nodeLabel" x="108" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="108" dy="11.2">&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;</tspan></text>
   </g>
   <g class="label" transform="translate(-20, -40)" font-weight="bold">
     <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20" dy="11.2" font-weight="bold">Label</tspan></text>
   </g>
-  <g class="label" transform="translate(-72, -4)">
+  <g class="label" transform="translate(-108, -4)">
     <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20" dy="11.2">ID: 1</tspan></text>
   </g>
-  <g class="label" transform="translate(-72, 12)">
+  <g class="label" transform="translate(-108, 12)">
     <text class="nodeLabel" x="56" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="56" dy="11.2">Text: the text</tspan></text>
   </g>
-  <g class="label" transform="translate(-72, 28)">
+  <g class="label" transform="translate(-108, 28)">
     <text class="nodeLabel" x="40" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="40" dy="11.2">Risk: High</tspan></text>
   </g>
-  <g class="label" transform="translate(-72, 44)">
+  <g class="label" transform="translate(-108, 44)">
     <text class="nodeLabel" x="72" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="72" dy="11.2">Verification: Test</tspan></text>
   </g>
-  <line class="divider" x1="-82" y1="-16" x2="82" y2="-16" stroke="#9370db" stroke-width="1"/>
+  <line class="divider" x1="-118" y1="-16" x2="118" y2="-16" stroke="#9370db" stroke-width="1.3"/>
 </g>

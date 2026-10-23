@@ -1,12 +1,105 @@
 //! `shapes/requirementBox.ts`: requirement and element boxes.
 
+use super::measure::{LabelBox, LabelOpts};
 use super::util::{
-    BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, line_element,
-    measure_text, node_group, node_style, rect_element, translate,
+    BBox, build_label_group, get_node_classes, label_fill, line_element, node_group, node_style,
+    rect_element, styles2string, translate,
 };
 use super::{Intersector, Node, NodeExtra, RequirementData, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
-use crate::mermaid::scene::{Color, Element, FontSpec, FontWeight, Group, Paint, Style};
+use crate::mermaid::scene::{
+    Color, DEFAULT_FONT_FAMILY, Element, FontSpec, FontWeight, Group, Style,
+};
+use crate::text::measure::css_family_or_page_default;
+
+/// `userNodeOverrides`: rough.js strokes the box and the divider at
+/// `stroke-width` from the node styles, else 1.3. No requirement stylesheet
+/// rule overrides the attribute (`.divider` sets the group's stroke, which
+/// the path's own attribute beats).
+const ROUGH_STROKE_WIDTH: f64 = 1.3;
+
+/// `calculateTextWidth(inputText, config)`: the SVG text width in the root
+/// config font, rounded. mermaid's default `fontFamily` ends in a `;`,
+/// which Chrome rejects, so the width comes from the page default font
+/// (`"Times New Roman"`) and is narrower than the drawn label; long text
+/// then reaches the `+ 50` limit and wraps. A diagram that sets its own
+/// `fontFamily` sets the theme's too, so a theme family other than the
+/// default chain stands for a valid config family.
+///
+/// The shared `util::calculate_text_width` measures in the theme family
+/// instead; this local version stays until the measurer grows a
+/// `calculateTextDimensions` entry.
+fn calculate_text_width(ctx: &ShapeCtx, text: &str) -> f64 {
+    let config_family = if ctx.vars.font_family == DEFAULT_FONT_FAMILY {
+        format!("{DEFAULT_FONT_FAMILY};")
+    } else {
+        ctx.vars.font_family.clone()
+    };
+    let opts = LabelOpts {
+        font: FontSpec {
+            family: Some(css_family_or_page_default(&config_family).to_string()),
+            ..ctx.font()
+        },
+        html: false,
+        width: None,
+        min_width: 0.0,
+        markdown: false,
+    };
+    (ctx.measurer.measure(text, &opts).width + 0.5).floor()
+}
+
+/// The entities `decodeHTMLEntities` of `createText.ts` decodes.
+const ENTITY: [(&str, &str); 3] = [("&lt;", "<"), ("&gt;", ">"), ("&amp;", "&")];
+
+/// `decodeHTMLEntities(text)`: one pass, so `&amp;lt;` becomes `&lt;`.
+fn decode_html_entities(text: &str) -> String {
+    let mut out = String::with_capacity(text.len());
+    let mut rest = text;
+    while let Some(i) = rest.find('&') {
+        out.push_str(&rest[..i]);
+        rest = &rest[i..];
+        match ENTITY.iter().find(|(e, _)| rest.starts_with(e)) {
+            Some((e, c)) => {
+                out.push_str(c);
+                rest = &rest[e.len()..];
+            }
+            None => {
+                out.push('&');
+                rest = &rest[1..];
+            }
+        }
+    }
+    out.push_str(rest);
+    out
+}
+
+/// The label box `createText` produces. SVG labels write each word with
+/// `textContent` after `decodeHTMLEntities` (`&amp;`, `&lt;`, `&gt;`), so
+/// `&lt;&lt;Element&gt;&gt;` shows as `<<Element>>`; the shared SVG text
+/// path keeps entities as they are. For such a label the decoded runs and
+/// their width come from the HTML measurement (one `table-cell` line, the
+/// same advances), and the vertical metrics from the SVG one.
+fn measure_label(ctx: &ShapeCtx, text: &str, opts: &LabelOpts) -> LabelBox {
+    if opts.html || !ENTITY.iter().any(|(e, _)| text.contains(e)) {
+        return ctx.measurer.measure(text, opts);
+    }
+    let runs = ctx.measurer.measure(
+        text,
+        &LabelOpts {
+            html: true,
+            markdown: false,
+            width: None,
+            ..opts.clone()
+        },
+    );
+    let svg = ctx.measurer.measure(&decode_html_entities(text), opts);
+    LabelBox {
+        x: -runs.width / 2.0,
+        width: runs.width,
+        lines: runs.lines,
+        ..svg
+    }
+}
 
 /// `addText(parentGroup, inputText, yOffset, style, alignment)`: a text
 /// block centred on `(0, yOffset)`. Returns `None` for an empty string
@@ -22,9 +115,23 @@ fn add_text(
     if text.is_empty() {
         return None;
     }
-    let width = calculate_text_width(ctx, node, text) + 50.0;
-    let mut measured = measure_text(ctx, node, text, Some(width), true);
-    if !ctx.use_html_labels(node) {
+    let html = ctx.use_html_labels(node);
+    let width = calculate_text_width(ctx, text) + 50.0;
+    // `node.labelStyle + '; font-weight: bold;'` reaches the div, so the
+    // name is measured bold.
+    let font = FontSpec {
+        weight: bold.then_some(FontWeight::Bold),
+        ..ctx.font()
+    };
+    let opts = LabelOpts {
+        font,
+        html,
+        width: Some(width),
+        min_width: 0.0,
+        markdown: true,
+    };
+    let mut measured = measure_label(ctx, text, &opts);
+    if !html {
         measured.height += 6.0;
     }
     if bold {
@@ -37,6 +144,15 @@ fn add_text(
     let tx = -measured.width / 2.0;
     let ty = -measured.height / 2.0 + y_offset;
     let mut group = build_label_group(&measured, ctx, fill, "label", translate(tx, ty));
+    if !html {
+        // `createFormattedText(..., centerText = !isNode)`: node labels keep
+        // the start anchor, and no requirement rule centres them.
+        for child in &mut group.children {
+            if let Element::Text(t) = child {
+                t.anchor = None;
+            }
+        }
+    }
     if bold {
         group.common.style.font = FontSpec {
             weight: Some(FontWeight::Bold),
@@ -73,8 +189,12 @@ impl Shape for RequirementBox {
         let mut blocks: Vec<(Group, BBox)> = Vec::new();
 
         let type_label = match &data {
-            RequirementData::Requirement { type_name, .. } => format!("<<{type_name}>>"),
-            RequirementData::Element { .. } => "<<Element>>".to_string(),
+            // The entities stay encoded so the markdown pass reads them as
+            // text, not as an HTML tag.
+            RequirementData::Requirement { type_name, .. } => {
+                format!("&lt;&lt;{type_name}&gt;&gt;")
+            }
+            RequirementData::Element { .. } => "&lt;&lt;Element&gt;&gt;".to_string(),
         };
         let type_height = match add_text(ctx, node, fill, &type_label, 0.0, false) {
             Some((g, b)) => {
@@ -137,7 +257,18 @@ impl Shape for RequirementBox {
         let total_height = bbox.height + padding;
         let x = -total_width / 2.0;
         let y = -total_height / 2.0;
-        let style = node_style(ctx, node);
+        let mut style = node_style(ctx, node);
+        if !styles2string(node).node_styles.contains_key("stroke-width") {
+            style.stroke_width = Some(ROUGH_STROKE_WIDTH);
+        }
+        // The divider is a rough line with the same options: the box's
+        // stroke and width, no fill.
+        let divider_style = Style {
+            stroke: style.stroke.clone(),
+            stroke_width: style.stroke_width,
+            stroke_dasharray: style.stroke_dasharray.clone(),
+            ..Style::default()
+        };
         shape_svg.children.push(rect_element(
             x,
             y,
@@ -166,11 +297,7 @@ impl Shape for RequirementBox {
                 x + total_width,
                 line_y,
                 "divider",
-                Style {
-                    stroke: Some(Paint::Color(ctx.vars.node_border)),
-                    stroke_width: Some(ctx.vars.stroke_width),
-                    ..Style::default()
-                },
+                divider_style,
             ));
         }
         node.width = Some(total_width);
