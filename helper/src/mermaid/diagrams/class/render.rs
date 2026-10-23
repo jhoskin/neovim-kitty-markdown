@@ -2,15 +2,15 @@
 //! unified renderer with dagre, the title, and `setupViewPortForSVG`.
 //!
 //! The shared renderer resolves the flowchart-like stylesheet rules. The
-//! class rules that differ (`styles::class`) are applied in two places:
+//! class rules that differ (`styles::class`) are applied in three places:
 //! the label color and edge label background go into the shapes' theme
-//! variables before the render, and three rules that the shared renderer
-//! has no hook for are applied to its output afterwards:
+//! variables before the render, the cardinality font
+//! (`.edgeTerminals { font-size: 11px }`) goes in as the shapes' edge
+//! terminal font, and two rules that the shared renderer has no hook for
+//! are applied to its output afterwards:
 //!
 //! - the marker fills (`.extension { fill: transparent !important }` and
 //!   its siblings),
-//! - the cardinality labels, which `.edgeTerminals { font-size: 11px }`
-//!   draws at 11 px without a background,
 //! - the note text color (`.noteLabel .nodeLabel { color: noteTextColor }`).
 
 use std::collections::HashMap;
@@ -23,13 +23,10 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::unified::{LayoutData, UnifiedConfig, render_with_dagre};
 use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
-    Common, Element, FontSpec, Group, Length, Marker, Paint, Rect, Scene, Style, Text, TransformOp,
-    ViewBox,
+    Common, Element, FontSpec, Group, Length, Marker, Paint, Rect, Scene, Style, Text, ViewBox,
 };
-use crate::mermaid::shapes::measure::{LabelBox, LabelOpts};
-use crate::mermaid::shapes::util::{
-    BBox, apply_declarations, label_text, styles2string, translate,
-};
+use crate::mermaid::shapes::measure::LabelOpts;
+use crate::mermaid::shapes::util::{BBox, apply_declarations, styles2string};
 use crate::mermaid::shapes::{Classifier, Node, NodeStyleVars, ShapeCtx};
 use crate::mermaid::styles::class::{ClassStyles, EDGE_TERMINALS_FONT_SIZE};
 use crate::text::TextMetrics;
@@ -106,33 +103,6 @@ fn has_class(g: &Group, class: &str) -> bool {
         .is_some_and(|c| c.split_whitespace().any(|x| x == class))
 }
 
-fn translation(common: &Common) -> (f64, f64) {
-    common
-        .transform
-        .iter()
-        .fold((0.0, 0.0), |(x, y), op| match op {
-            TransformOp::Translate(dx, dy) => (x + dx, y + dy),
-            _ => (x, y),
-        })
-}
-
-/// The text a label group draws, its runs joined.
-fn group_text(g: &Group) -> String {
-    let mut out = String::new();
-    for child in &g.children {
-        match child {
-            Element::Text(t) => {
-                for run in &t.runs {
-                    out.push_str(&run.text);
-                }
-            }
-            Element::Group(c) => out.push_str(&group_text(c)),
-            _ => {}
-        }
-    }
-    out
-}
-
 /// The marker fills of the class stylesheet. The shared renderer painted
 /// every unset fill with `lineColor`; hollow markers get theirs back.
 fn restyle_markers(markers: &mut [Marker], styles: &ClassStyles) {
@@ -161,70 +131,6 @@ fn restyle_markers(markers: &mut [Marker], styles: &ClassStyles) {
             common.style.stroke = Some(Paint::Color(styles.line_color));
         }
     }
-}
-
-/// Redraws each `g.edgeTerminals` label at 11 px without a background, and
-/// returns the boxes their `foreignObject`s cover (`setTerminalWidth`
-/// widens each to `max(text.length * 9, width)`), which count towards the
-/// SVG's bounding box.
-fn restyle_terminals(root: &mut Group, ctx: &ShapeCtx, styles: &ClassStyles) -> Vec<BBox> {
-    let mut boxes = Vec::new();
-    let font = FontSpec {
-        size: Some(EDGE_TERMINALS_FONT_SIZE),
-        ..ctx.font()
-    };
-    let mut small = ShapeCtx::new(ctx.measurer);
-    small.vars = NodeStyleVars {
-        font_size: EDGE_TERMINALS_FONT_SIZE,
-        ..ctx.vars.clone()
-    };
-    small.html_labels = ctx.html_labels;
-    let html = ctx.html_labels;
-    for_each_group(root, &mut |g| {
-        if !has_class(g, "edgeTerminals") {
-            return;
-        }
-        let text = group_text(g);
-        let opts = LabelOpts {
-            font: font.clone(),
-            html,
-            width: None,
-            min_width: 0.0,
-            markdown: false,
-        };
-        let bbox: LabelBox = small.measurer.measure(&text, &opts);
-        let transform = if html {
-            translate(-bbox.width / 2.0, -bbox.height / 2.0)
-        } else {
-            translate(-(bbox.x + bbox.width / 2.0), -(bbox.y + bbox.height / 2.0))
-        };
-        let mut children = Vec::new();
-        if let Some(mut t) = label_text(&bbox, &small, styles.class_text, html) {
-            t.common.class = Some("edgeLabel".to_string());
-            children.push(Element::Text(t));
-        }
-        g.children = vec![Element::Group(Group {
-            common: Common {
-                class: Some("inner".to_string()),
-                transform,
-                ..Common::default()
-            },
-            children,
-        })];
-        let (tx, ty) = translation(&g.common);
-        let width = if html {
-            (text.chars().count() as f64 * 9.0).max(bbox.width)
-        } else {
-            bbox.width
-        };
-        boxes.push(BBox {
-            x: tx - bbox.width / 2.0,
-            y: ty - bbox.height / 2.0,
-            width,
-            height: bbox.height,
-        });
-    });
-    boxes
 }
 
 /// The underline of a static member (`parseClassifier()` returns
@@ -392,6 +298,10 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
     shapes.html_labels = cfg.effective_html_labels();
     shapes.class_padding = conf.class_padding.unwrap_or(12.0);
     shapes.hide_empty_members_box = conf.hide_empty_members_box;
+    shapes.edge_terminal_font = FontSpec {
+        size: Some(EDGE_TERMINALS_FONT_SIZE),
+        ..FontSpec::default()
+    };
 
     let data_conf = DataConfig {
         padding: conf.class_padding,
@@ -451,7 +361,6 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
         .map(|c| (format!("{DIAGRAM_ID}-{}", c.dom_id), c.styles.clone()))
         .collect();
     restyle_dividers(&mut rendered.root, &class_styles);
-    let terminal_boxes = restyle_terminals(&mut rendered.root, &shapes, &styles);
     if shapes.html_labels {
         let statics: HashMap<String, (Vec<bool>, Vec<bool>)> = db
             .classes
@@ -474,9 +383,7 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
             &shapes.vars.font_family,
         );
     }
-    let mut bounds = terminal_boxes
-        .into_iter()
-        .fold(rendered.bounds, |acc, b| acc.union(b));
+    let mut bounds = rendered.bounds;
 
     let mut children = vec![Element::Group(rendered.root)];
     if let Some(title) = resolved.title().filter(|t| !t.is_empty()) {

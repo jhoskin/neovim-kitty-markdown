@@ -303,6 +303,49 @@ pub fn label_fill(ctx: &ShapeCtx, node: &Node) -> Color {
         .unwrap_or(ctx.vars.node_text_color)
 }
 
+/// The font declarations of an inline label style (`font-size: 20px;
+/// font-weight: bold`), which the browser applies to the label span over
+/// every stylesheet rule. Values it cannot read are left unset.
+pub fn font_from_declarations(decls: &Declarations) -> FontSpec {
+    let mut font = FontSpec::default();
+    for (key, value) in decls {
+        let value = value.trim().trim_end_matches("!important").trim();
+        match key.as_str() {
+            "font-size" => font.size = parse_px(value).filter(|v| *v > 0.0).or(font.size),
+            "font-family" if !value.is_empty() => font.family = Some(value.to_string()),
+            "font-weight" => {
+                font.weight = match value {
+                    "normal" => Some(FontWeight::Normal),
+                    // `bolder` over the normal weight of every label resolves
+                    // to 700.
+                    "bold" | "bolder" => Some(FontWeight::Bold),
+                    other => other.parse::<u16>().ok().map(FontWeight::Number),
+                }
+                .or(font.weight);
+            }
+            "font-style" => {
+                font.style = match value {
+                    "italic" => Some(FontStyle::Italic),
+                    "oblique" => Some(FontStyle::Oblique),
+                    "normal" => Some(FontStyle::Normal),
+                    _ => None,
+                }
+                .or(font.style);
+            }
+            _ => {}
+        }
+    }
+    font
+}
+
+/// The font a node's labels are measured and drawn in: the inline label
+/// styles over the diagram rule for this node (`Node::label_font`) over
+/// the theme font, the cascade the browser resolves for the label span.
+pub fn label_font(ctx: &ShapeCtx, node: &Node) -> FontSpec {
+    font_from_declarations(&styles2string(node).label_styles)
+        .merged_over(&node.label_font.merged_over(&ctx.font()))
+}
+
 // ---------------------------------------------------------------------------
 // Labels
 
@@ -344,7 +387,7 @@ pub fn label_helper(
         0.0
     };
     let opts = LabelOpts {
-        font: ctx.font(),
+        font: label_font(ctx, node),
         html: use_html_labels,
         width: Some(
             node.width
@@ -389,7 +432,7 @@ pub fn insert_label(
 ) -> (Group, LabelBox) {
     let use_html_labels = ctx.use_html_labels(node);
     let opts = LabelOpts {
-        font: ctx.font(),
+        font: label_font(ctx, node),
         html: use_html_labels,
         width: Some(width.unwrap_or(ctx.wrapping_width)),
         min_width: 0.0,
@@ -415,7 +458,7 @@ pub fn measure_text(
     markdown: bool,
 ) -> LabelBox {
     let opts = LabelOpts {
-        font: ctx.font(),
+        font: label_font(ctx, node),
         html: ctx.use_html_labels(node),
         width,
         min_width: 0.0,
@@ -553,20 +596,20 @@ pub fn build_label_group(
         },
         children: Vec::new(),
     };
-    if let Some(text) = label_text(bbox, ctx, fill, ctx.html_labels) {
+    if let Some(text) = label_text(bbox, fill, ctx.html_labels) {
         group.children.push(Element::Text(text));
     }
     group
 }
 
-/// The text element of a label.
+/// The text element of a label, in the font it was measured in.
 ///
 /// HTML mode: a `div` with `line-height: 1.5` and `text-align: center`,
 /// so every line is centred in its line box of `line_height` pixels.
 /// SVG mode: `createFormattedText`, a `text` at `x = 0` whose `tspan`s
 /// sit at `y = i * 1.1 - 0.1 em` with `dy = 1.1em`, anchored `middle` by
 /// `.node .label text { text-anchor: middle }`.
-pub fn label_text(bbox: &LabelBox, ctx: &ShapeCtx, fill: Color, html: bool) -> Option<Text> {
+pub fn label_text(bbox: &LabelBox, fill: Color, html: bool) -> Option<Text> {
     if bbox.is_empty() {
         return None;
     }
@@ -630,7 +673,7 @@ pub fn label_text(bbox: &LabelBox, ctx: &ShapeCtx, fill: Color, html: bool) -> O
         } else {
             Baseline::Auto
         }),
-        font: ctx.font(),
+        font: bbox.font.clone(),
         runs,
     })
 }
@@ -1093,6 +1136,60 @@ pub fn group_element(class: &str, transform: Vec<TransformOp>, children: Vec<Ele
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::mermaid::shapes::FixedMeasurer;
+
+    #[test]
+    fn inline_label_fonts_win_over_the_node_rule_and_the_theme() {
+        let m = FixedMeasurer::SNAPSHOT;
+        let ctx = ShapeCtx::new(&m);
+        let mut node = Node::flowchart("A", "A", "rect");
+        node.label_font = FontSpec {
+            family: Some("\"Open Sans\", sans-serif".to_string()),
+            size: Some(14.0),
+            ..FontSpec::default()
+        };
+        node.css_styles = vec!["font-size:20px".to_string(), "font-weight:bold".to_string()];
+        let font = label_font(&ctx, &node);
+        assert_eq!(font.size, Some(20.0));
+        assert_eq!(font.weight, Some(FontWeight::Bold));
+        assert_eq!(font.family.as_deref(), Some("\"Open Sans\", sans-serif"));
+        node.css_styles.clear();
+        assert_eq!(label_font(&ctx, &node).size, Some(14.0));
+        node.label_font = FontSpec::default();
+        assert_eq!(label_font(&ctx, &node), ctx.font());
+    }
+
+    #[test]
+    fn font_declarations_parse_like_css() {
+        let decls: Declarations = [
+            ("font-size", "12px !important"),
+            ("font-weight", "600"),
+            ("font-style", "italic"),
+            ("font-family", "Arial"),
+            ("color", "red"),
+        ]
+        .into_iter()
+        .map(|(k, v)| (k.to_string(), v.to_string()))
+        .collect();
+        let font = font_from_declarations(&decls);
+        assert_eq!(font.size, Some(12.0));
+        assert_eq!(font.weight, Some(FontWeight::Number(600)));
+        assert_eq!(font.style, Some(FontStyle::Italic));
+        assert_eq!(font.family.as_deref(), Some("Arial"));
+    }
+
+    #[test]
+    fn labels_draw_in_the_font_they_were_measured_in() {
+        let m = FixedMeasurer::SNAPSHOT;
+        let ctx = ShapeCtx::new(&m);
+        let mut node = Node::flowchart("A", "Hello", "rect");
+        node.label_font.size = Some(12.0);
+        let out = label_helper(&node, &ctx, None, false);
+        let Some(Element::Text(text)) = out.label.children.first() else {
+            panic!("no label text");
+        };
+        assert_eq!(text.font.size, Some(12.0));
+    }
 
     #[test]
     fn css_colors_parse() {

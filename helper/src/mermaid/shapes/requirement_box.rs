@@ -2,8 +2,8 @@
 
 use super::measure::LabelOpts;
 use super::util::{
-    BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, line_element,
-    node_group, node_style, rect_element, styles2string, translate,
+    BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, label_font,
+    line_element, node_group, node_style, rect_element, styles2string, translate,
 };
 use super::{Intersector, Node, NodeExtra, RequirementData, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -35,7 +35,7 @@ fn add_text(
     // name is measured bold.
     let font = FontSpec {
         weight: bold.then_some(FontWeight::Bold),
-        ..ctx.font()
+        ..label_font(ctx, node)
     };
     let opts = LabelOpts {
         font,

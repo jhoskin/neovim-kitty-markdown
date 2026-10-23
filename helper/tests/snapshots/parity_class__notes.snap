@@ -90,7 +90,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-25.672, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="25.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.672" dy="17" font-weight="bold">Animal</tspan></text>
+              <text class="nodeLabel" x="25.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="25.672" dy="17" font-weight="bold">Animal</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-25.672, 30)"/>
@@ -103,7 +103,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -48)"/>
           <g class="label-group text" transform="translate(-18.344, -48)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="18.344" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.344" dy="17" font-weight="bold">Duck</tspan></text>
+              <text class="nodeLabel" x="18.344" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="18.344" dy="17" font-weight="bold">Duck</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-72.473, 0)">
@@ -124,7 +124,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-15.242, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="15.242" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="15.242" dy="17" font-weight="bold">Fish</tspan></text>
+              <text class="nodeLabel" x="15.242" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="15.242" dy="17" font-weight="bold">Fish</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-15.242, 30)"/>

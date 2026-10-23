@@ -19,11 +19,12 @@ use std::collections::HashMap;
 use crate::mermaid::scene::curves::{self, CurveKind, ROUNDED_RADIUS};
 use crate::mermaid::scene::markers::marker_id;
 use crate::mermaid::scene::{
-    Color, Common, Element, Group, Paint, Path, PathData, Point, Rect, Style,
+    Color, Common, Element, FontSpec, Group, Paint, Path, PathData, Point, Rect, Style,
 };
 use crate::mermaid::shapes::measure::{LabelBox, LabelOpts};
 use crate::mermaid::shapes::util::{
-    Declarations, apply_declarations, label_text, parse_css_color, translate,
+    Declarations, apply_declarations, font_from_declarations, label_text, parse_css_color,
+    translate,
 };
 use crate::mermaid::shapes::{Bounds, Intersector, Look, Node, ShapeCtx};
 
@@ -1017,58 +1018,119 @@ fn label_color(edge: &Edge, ctx: &ShapeCtx) -> Color {
         .unwrap_or(ctx.vars.node_text_color)
 }
 
+/// The font an edge's labels are measured and drawn in: the edge's
+/// inline label styles over the diagram's rule (`base`) over the theme
+/// font.
+fn edge_font(edge: &Edge, ctx: &ShapeCtx, base: &FontSpec) -> FontSpec {
+    font_from_declarations(&declarations(edge.label_style.iter().cloned()))
+        .merged_over(&base.merged_over(&ctx.font()))
+}
+
+/// Which `insertEdgeLabel` branch built a label block.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum LabelKind {
+    /// `createText(..., { addSvgBackground: true })`: the edge label.
+    Main,
+    /// `createLabel`: a terminal label, drawn without a background.
+    Terminal,
+}
+
+/// An unpainted rect that stands in for a box `getBBox()` counts but the
+/// scene has no element for: a terminal label's `foreignObject`, or its
+/// SVG text (the scene bounds leave text out).
+fn hit_box(x: f64, y: f64, width: f64, height: f64) -> Element {
+    Element::Rect(Rect {
+        common: Common {
+            style: Style {
+                fill: Some(Paint::None),
+                stroke: Some(Paint::None),
+                ..Style::default()
+            },
+            ..Common::default()
+        },
+        x,
+        y,
+        width,
+        height,
+        rx: None,
+        ry: None,
+    })
+}
+
 /// One edge label block: the inner `g.label` holding the background and
 /// the text, centred by `computeLabelTransform`, plus its measured box.
 fn label_block(
     text: &str,
     ctx: &ShapeCtx,
     color: Color,
+    font: FontSpec,
     markdown: bool,
     width: Option<f64>,
+    kind: LabelKind,
 ) -> (Group, LabelBox) {
     let opts = LabelOpts {
-        font: ctx.font(),
+        font,
         html: ctx.html_labels,
         width,
         min_width: 0.0,
         markdown,
     };
-    let bbox = ctx.measurer.measure(text, &opts);
+    let mut bbox = ctx.measurer.measure(text, &opts);
+    if kind == LabelKind::Main && ctx.html_labels && !bbox.is_empty() {
+        // The `.labelBkg` div's padding is inside its client rect.
+        bbox.width += 2.0 * ctx.edge_label_padding_x;
+    }
     let mut children = Vec::new();
     if !bbox.is_empty() {
-        // HTML labels: the `.edgeLabel` span and its `p` paint
-        // `edgeLabelBackground` behind the text; SVG labels: a `rect.background`
-        // 2 px around the text at opacity 0.5.
-        let (bx, by, bw, bh, opacity) = if ctx.html_labels {
-            (0.0, 0.0, bbox.width, bbox.height, None)
-        } else {
-            (
-                bbox.x - 2.0,
-                bbox.y - 2.0,
-                bbox.width + 4.0,
-                bbox.height + 4.0,
-                Some(0.5),
-            )
-        };
-        children.push(Element::Rect(Rect {
-            common: Common {
-                class: Some("background".to_string()),
-                style: Style {
-                    fill: Some(Paint::Color(ctx.vars.edge_label_background)),
-                    stroke: Some(Paint::None),
-                    opacity,
-                    ..Style::default()
-                },
-                ..Common::default()
-            },
-            x: bx,
-            y: by,
-            width: bw,
-            height: bh,
-            rx: None,
-            ry: None,
-        }));
-        if let Some(mut text) = label_text(&bbox, ctx, color, ctx.html_labels) {
+        match kind {
+            LabelKind::Main => {
+                // HTML labels: the `.edgeLabel` span and its `p` paint
+                // `edgeLabelBackground` behind the text; SVG labels: a
+                // `rect.background` 2 px around the text at opacity 0.5.
+                let (bx, by, bw, bh, opacity) = if ctx.html_labels {
+                    (0.0, 0.0, bbox.width, bbox.height, None)
+                } else {
+                    (
+                        bbox.x - 2.0,
+                        bbox.y - 2.0,
+                        bbox.width + 4.0,
+                        bbox.height + 4.0,
+                        Some(0.5),
+                    )
+                };
+                children.push(Element::Rect(Rect {
+                    common: Common {
+                        class: Some("background".to_string()),
+                        style: Style {
+                            fill: Some(Paint::Color(ctx.vars.edge_label_background)),
+                            stroke: Some(Paint::None),
+                            opacity,
+                            ..Style::default()
+                        },
+                        ..Common::default()
+                    },
+                    x: bx,
+                    y: by,
+                    width: bw,
+                    height: bh,
+                    rx: None,
+                    ry: None,
+                }));
+            }
+            LabelKind::Terminal => {
+                // `setTerminalWidth`: an HTML label's `foreignObject` is
+                // `max(value.length * 9, width)` wide. `createLabel` adds
+                // no SVG background, and the only diagram with terminal
+                // labels (class) paints no HTML one.
+                children.push(if ctx.html_labels {
+                    let units = text.encode_utf16().count() as f64;
+                    hit_box(0.0, 0.0, (units * 9.0).max(bbox.width), bbox.height)
+                } else {
+                    hit_box(bbox.x, bbox.y, bbox.width, bbox.height)
+                });
+            }
+        }
+        if let Some(mut text) = label_text(&bbox, color, ctx.html_labels) {
             text.common.class = Some("edgeLabel".to_string());
             children.push(Element::Text(text));
         }
@@ -1098,7 +1160,15 @@ pub fn insert_edge_label(edge: &mut Edge, ctx: &ShapeCtx) -> EdgeLabels {
     let label = edge.label.clone().unwrap_or_default();
     let is_markdown = edge.label_type.as_deref() == Some("markdown");
     // `createText` defaults `width` to 200 when neither branch sets it.
-    let (inner, bbox) = label_block(&label, ctx, color, is_markdown, Some(200.0));
+    let (inner, bbox) = label_block(
+        &label,
+        ctx,
+        color,
+        edge_font(edge, ctx, &ctx.edge_label_font),
+        is_markdown,
+        Some(200.0),
+        LabelKind::Main,
+    );
     let (width, height) = if ctx.html_labels || bbox.is_empty() {
         (bbox.width, bbox.height)
     } else {
@@ -1115,9 +1185,19 @@ pub fn insert_edge_label(edge: &mut Edge, ctx: &ShapeCtx) -> EdgeLabels {
     edge.width = width;
     edge.height = height;
 
+    let terminal_font = edge_font(edge, ctx, &ctx.edge_terminal_font);
     let terminal = |text: &Option<String>| -> Option<Group> {
         let text = text.as_deref().filter(|t| !t.is_empty())?;
-        let (mut inner, _) = label_block(text, ctx, color, false, None);
+        // `createLabel` passes `width: Number.POSITIVE_INFINITY`.
+        let (mut inner, _) = label_block(
+            text,
+            ctx,
+            color,
+            terminal_font.clone(),
+            false,
+            None,
+            LabelKind::Terminal,
+        );
         inner.common.class = Some("inner".to_string());
         Some(Group {
             common: Common {
@@ -1221,6 +1301,62 @@ pub fn generate_rounded_path(points: &[Point], radius: f64) -> PathData {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::mermaid::shapes::FixedMeasurer;
+
+    fn rects(g: &Group) -> Vec<&Rect> {
+        g.children
+            .iter()
+            .flat_map(|c| match c {
+                Element::Group(inner) => rects(inner),
+                Element::Rect(r) => vec![r],
+                _ => Vec::new(),
+            })
+            .collect()
+    }
+
+    fn first_text(g: &Group) -> Option<&crate::mermaid::scene::Text> {
+        g.children.iter().find_map(|c| match c {
+            Element::Group(inner) => first_text(inner),
+            Element::Text(t) => Some(t),
+            _ => None,
+        })
+    }
+
+    #[test]
+    fn edge_labels_take_the_diagram_font_and_padding() {
+        let m = FixedMeasurer::SNAPSHOT;
+        let mut ctx = ShapeCtx::new(&m);
+        ctx.edge_label_font.size = Some(10.0);
+        ctx.edge_label_padding_x = 2.0;
+        let mut edge = Edge::flowchart("e", "A", "B");
+        edge.label = Some("abc".to_string());
+        let labels = insert_edge_label(&mut edge, &ctx);
+        // Three 8 px characters plus 2 px of padding each side.
+        assert_eq!(edge.width, 28.0);
+        let label = labels.label.expect("label");
+        assert_eq!(first_text(&label).and_then(|t| t.font.size), Some(10.0));
+        edge.label_style = vec!["font-size:18px".to_string()];
+        let labels = insert_edge_label(&mut edge, &ctx);
+        let label = labels.label.expect("label");
+        assert_eq!(first_text(&label).and_then(|t| t.font.size), Some(18.0));
+    }
+
+    #[test]
+    fn terminal_labels_have_no_background_and_a_foreign_object_box() {
+        let m = FixedMeasurer::SNAPSHOT;
+        let mut ctx = ShapeCtx::new(&m);
+        ctx.edge_terminal_font.size = Some(11.0);
+        let mut edge = Edge::flowchart("e", "A", "B");
+        edge.start_label_left = Some("1".to_string());
+        let labels = insert_edge_label(&mut edge, &ctx);
+        let terminal = labels.start_left.expect("terminal");
+        let boxes = rects(&terminal);
+        assert_eq!(boxes.len(), 1);
+        assert_eq!(boxes[0].common.style.fill, Some(Paint::None));
+        // `setTerminalWidth`: max(1 * 9, 8).
+        assert_eq!((boxes[0].width, boxes[0].height), (9.0, 16.0));
+        assert_eq!(first_text(&terminal).and_then(|t| t.font.size), Some(11.0));
+    }
 
     #[test]
     fn intersection_keeps_the_js_numbers() {

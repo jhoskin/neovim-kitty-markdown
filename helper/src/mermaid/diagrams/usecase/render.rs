@@ -5,11 +5,9 @@
 //! The use case stylesheet sets fonts per kind of element through the
 //! `--mermaid-usecase-*` custom properties: actor labels in the actor
 //! font (14 px Open Sans by default), use case labels in the use case
-//! font (12 px), edge labels at 10 px, everything else in the theme font.
-//! The shared shapes measure every label in the theme font, so a
-//! [`KindMeasurer`] wraps the text measurer: the renderer marks each
-//! label with a private-use character that names its font, and the
-//! measurer strips the mark and measures in that font. After the render,
+//! font (12 px), edge labels at 10 px with 2 px of padding on each side,
+//! everything else in the theme font. Those go into the shapes as the
+//! nodes' label fonts and the edge label font. After the render,
 //! [`restyle`] applies the stylesheet rules the shapes have no hook for
 //! (see `styles::usecase`).
 
@@ -27,11 +25,11 @@ use crate::mermaid::scene::{
     Common, Element, FontSpec, FontWeight, Group, LineCap, Marker, Paint, Scene, Style, Text,
     TextRun, ViewBox,
 };
-use crate::mermaid::shapes::measure::{LabelBox, LabelMeasurer, LabelOpts};
+use crate::mermaid::shapes::measure::LabelOpts;
 use crate::mermaid::shapes::util::{
     BBox, Declarations, NodeStyles, parse_css_color, styles2string,
 };
-use crate::mermaid::shapes::{Node, NodeExtra, NodeStyleVars, ShapeCtx};
+use crate::mermaid::shapes::{Node, NodeStyleVars, ShapeCtx};
 use crate::mermaid::styles::usecase::{
     DASHED_RELATIONSHIP, EDGE_LABEL_FONT_SIZE, EDGE_LABEL_PADDING_X, SHAPE_STROKE_WIDTH,
     UsecaseStyles,
@@ -41,12 +39,6 @@ use crate::mermaid::styles::usecase::{
 pub const DIAGRAM_ID: &str = "my-svg";
 /// `conf?.nodeSpacing || 50`-style fallbacks of the unified renderer.
 const DEFAULT_SPACING: f64 = 50.0;
-
-/// The marks [`KindMeasurer`] reads: the actor font, the use case font,
-/// and the edge label font.
-const MARK_ACTOR: char = '\u{E000}';
-const MARK_USECASE: char = '\u{E001}';
-const MARK_EDGE: char = '\u{E002}';
 
 fn number(v: Option<&Value>) -> Option<f64> {
     match v? {
@@ -118,53 +110,6 @@ impl Conf {
     }
 }
 
-/// Measures a marked label in its kind's font, an unmarked one as the
-/// inner measurer would.
-struct KindMeasurer<'m> {
-    inner: &'m dyn LabelMeasurer,
-    actor: FontSpec,
-    usecase: FontSpec,
-    edge: FontSpec,
-}
-
-impl LabelMeasurer for KindMeasurer<'_> {
-    fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
-        let Some(mark) = text
-            .chars()
-            .find(|c| matches!(*c, MARK_ACTOR | MARK_USECASE | MARK_EDGE))
-        else {
-            return self.inner.measure(text, opts);
-        };
-        let font = match mark {
-            MARK_ACTOR => &self.actor,
-            MARK_USECASE => &self.usecase,
-            _ => &self.edge,
-        };
-        let stripped: String = text.chars().filter(|c| *c != mark).collect();
-        let opts = LabelOpts {
-            font: font.merged_over(&opts.font),
-            ..opts.clone()
-        };
-        let mut bbox = self.inner.measure(&stripped, &opts);
-        if mark == MARK_EDGE && opts.html && !bbox.is_empty() {
-            bbox.width += 2.0 * EDGE_LABEL_PADDING_X;
-            for line in &mut bbox.lines {
-                line.width += 2.0 * EDGE_LABEL_PADDING_X;
-            }
-        }
-        bbox
-    }
-    fn text_width(&self, text: &str, family: &str, size: f64) -> f64 {
-        self.inner.text_width(text, family, size)
-    }
-}
-
-fn mark(text: &mut Option<String>, mark: char) {
-    if let Some(t) = text.as_mut().filter(|t| !t.is_empty()) {
-        t.insert(0, mark);
-    }
-}
-
 /// What [`restyle`] needs per node group: its kind and its own styles.
 struct NodeInfo {
     kind: NodeKind,
@@ -204,19 +149,12 @@ fn class_starts(common: &Common, prefix: &str) -> bool {
         .is_some_and(|c| c.split_whitespace().any(|x| x.starts_with(prefix)))
 }
 
-/// Sets the font and fill of every text below `g`.
-fn paint_texts(g: &mut Group, font: Option<&FontSpec>, fill: Option<Paint>) {
+/// Sets the fill of every text below `g`.
+fn paint_texts(g: &mut Group, fill: &Paint) {
     for child in &mut g.children {
         match child {
-            Element::Text(t) => {
-                if let Some(f) = font {
-                    t.font = f.merged_over(&t.font);
-                }
-                if let Some(p) = &fill {
-                    t.common.style.fill = Some(p.clone());
-                }
-            }
-            Element::Group(c) => paint_texts(c, font, fill.clone()),
+            Element::Text(t) => t.common.style.fill = Some(fill.clone()),
+            Element::Group(c) => paint_texts(c, fill),
             _ => {}
         }
     }
@@ -317,8 +255,6 @@ struct Restyle<'a> {
     nodes: &'a HashMap<String, NodeInfo>,
     edges: &'a HashMap<String, EdgeInfo>,
     styles: &'a UsecaseStyles,
-    conf: &'a Conf,
-    edge_font: &'a FontSpec,
 }
 
 fn label_color(info: &NodeInfo) -> Option<Paint> {
@@ -333,31 +269,27 @@ fn restyle(g: &mut Group, r: &Restyle<'_>) {
             NodeKind::Actor => {
                 restyle_actor(g, info, r.styles);
                 let fill = user_color.unwrap_or(Paint::Color(r.styles.actor_text));
-                paint_texts(g, Some(&r.conf.actor_font), Some(fill));
+                paint_texts(g, &fill);
             }
             NodeKind::UseCase => {
                 restyle_usecase(g, info, r.styles);
                 let fill = user_color.unwrap_or(Paint::Color(r.styles.primary_text));
-                paint_texts(g, Some(&r.conf.usecase_font), Some(fill));
+                paint_texts(g, &fill);
             }
             NodeKind::Note => {
-                paint_texts(g, None, Some(Paint::Color(r.styles.note_text)));
+                paint_texts(g, &Paint::Color(r.styles.note_text));
             }
             NodeKind::Json => {
                 restyle_json(g, info, r.styles);
                 let fill = user_color.unwrap_or(Paint::Color(r.styles.primary_text));
-                paint_texts(g, None, Some(fill));
+                paint_texts(g, &fill);
             }
             NodeKind::Boundary => {}
         }
         return;
     }
     if has_class(&g.common, "edgeLabel") {
-        paint_texts(
-            g,
-            Some(r.edge_font),
-            Some(Paint::Color(r.styles.primary_text)),
-        );
+        paint_texts(g, &Paint::Color(r.styles.primary_text));
         return;
     }
     for child in &mut g.children {
@@ -459,22 +391,19 @@ pub fn draw(
     let mut vars = NodeStyleVars::from_theme(tv, cfg);
     let styles = UsecaseStyles::resolve(tv, &vars);
     styles.apply_to(&mut vars);
-    let edge_font = FontSpec {
+    let mut shapes = ShapeCtx::new(&ctx.metrics);
+    shapes.vars = vars;
+    shapes.html_labels = cfg.effective_html_labels();
+    shapes.wrapping_width = conf.data.wrapping_width;
+    // `.relationship-label, .edgeLabel { font-family; font-size: 10px;
+    // font-weight: normal }` and `.labelBkg { padding: 0 2px }`.
+    shapes.edge_label_font = FontSpec {
         family: Some(styles.font_family.clone()),
         size: Some(EDGE_LABEL_FONT_SIZE),
         weight: Some(FontWeight::Normal),
         style: None,
     };
-    let measurer = KindMeasurer {
-        inner: &ctx.metrics,
-        actor: conf.actor_font.clone(),
-        usecase: conf.usecase_font.clone(),
-        edge: edge_font.clone(),
-    };
-    let mut shapes = ShapeCtx::new(&measurer);
-    shapes.vars = vars;
-    shapes.html_labels = cfg.effective_html_labels();
-    shapes.wrapping_width = conf.data.wrapping_width;
+    shapes.edge_label_padding_x = EDGE_LABEL_PADDING_X;
 
     let data = db.get_data(&conf.data);
     let mut nodes: Vec<Node> = data.nodes;
@@ -482,16 +411,12 @@ pub fn draw(
     for (node, kind) in nodes.iter_mut().zip(&data.kinds) {
         let dom_id = format!("{DIAGRAM_ID}-{}", node.dom_id());
         node.dom_id = Some(dom_id.clone());
-        let label_mark = match kind {
-            NodeKind::Actor => Some(MARK_ACTOR),
-            NodeKind::UseCase => Some(MARK_USECASE),
-            _ => None,
-        };
-        if let Some(m) = label_mark {
-            mark(&mut node.label, m);
-            if let NodeExtra::Usecase { stereotype, .. } = &mut node.extra {
-                mark(stereotype, m);
-            }
+        // `.usecase-actor .nodeLabel` and `.usecase-element .nodeLabel`
+        // reach every label of the node, the stereotype included.
+        match kind {
+            NodeKind::Actor => node.label_font = conf.actor_font.clone(),
+            NodeKind::UseCase => node.label_font = conf.usecase_font.clone(),
+            _ => {}
         }
         node_info.insert(
             dom_id,
@@ -504,7 +429,6 @@ pub fn draw(
     let mut edges = data.edges;
     let mut edge_info = HashMap::new();
     for (edge, kind) in edges.iter_mut().zip(&data.edge_kinds) {
-        mark(&mut edge.label, MARK_EDGE);
         let mut inline = Declarations::new();
         for decl in edge.css_compiled_styles.iter().chain(&edge.style) {
             if let Some((k, v)) = decl.split_once(':') {
@@ -558,8 +482,6 @@ pub fn draw(
             nodes: &node_info,
             edges: &edge_info,
             styles: &styles,
-            conf: &conf,
-            edge_font: &edge_font,
         },
     );
     restyle_markers(&mut rendered.markers, &styles);

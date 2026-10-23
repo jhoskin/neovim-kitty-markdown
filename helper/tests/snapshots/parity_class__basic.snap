@@ -76,7 +76,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -96)"/>
           <g class="label-group text" transform="translate(-48.531, -96)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="48.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="48.531" dy="17" font-weight="bold">BankAccount</tspan></text>
+              <text class="nodeLabel" x="48.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="48.531" dy="17" font-weight="bold">BankAccount</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-119.031, -48)">

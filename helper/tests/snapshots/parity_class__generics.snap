@@ -82,7 +82,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -96)"/>
           <g class="label-group text" transform="translate(-57.492, -96)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="57.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="57.492" dy="17" font-weight="bold">Square&lt;Shape&gt;</tspan></text>
+              <text class="nodeLabel" x="57.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="57.492" dy="17" font-weight="bold">Square&lt;Shape&gt;</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-158.957, -48)">
@@ -115,7 +115,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-54.16, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="54.16" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="54.16" dy="17" font-weight="bold">Repository&lt;T&gt;</tspan></text>
+              <text class="nodeLabel" x="54.16" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="54.16" dy="17" font-weight="bold">Repository&lt;T&gt;</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-54.16, 30)"/>

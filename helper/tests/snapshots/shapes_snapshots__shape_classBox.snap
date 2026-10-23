@@ -12,7 +12,7 @@ width=132 height=136
   </g>
   <g class="label-group text" transform="translate(-20, -28)">
     <g class="label" transform="translate(0, -8)" font-weight="900">
-      <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20" dy="11.2" font-weight="bold">Label</tspan></text>
+      <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="20" dy="11.2" font-weight="bold">Label</tspan></text>
     </g>
   </g>
   <g class="members-group text" transform="translate(-54, 12)">
@@ -22,7 +22,7 @@ width=132 height=136
   </g>
   <g class="methods-group text" transform="translate(-54, 52)">
     <g class="label" transform="translate(0, -8)" font-style="italic">
-      <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20" dy="11.2" font-style="italic">run()</tspan></text>
+      <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-style="italic"><tspan x="20" dy="11.2" font-style="italic">run()</tspan></text>
     </g>
   </g>
   <line class="divider" x1="-66" y1="-12" x2="66" y2="-11.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>

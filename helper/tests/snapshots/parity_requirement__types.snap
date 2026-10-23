@@ -64,7 +64,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="62.605" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.605" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-35.766, -60)" font-weight="bold">
-            <text class="nodeLabel" x="35.766" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="35.766" dy="17" font-weight="bold">plain_req</tspan></text>
+            <text class="nodeLabel" x="35.766" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="35.766" dy="17" font-weight="bold">plain_req</tspan></text>
           </g>
           <g class="label" transform="translate(-94.773, -16)">
             <text class="nodeLabel" x="16.676" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.676" dy="17">ID: 1</tspan></text>
@@ -86,7 +86,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="102.598" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="102.598" dy="17">&lt;&lt;Functional Requirement&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-33.875, -60)" font-weight="bold">
-            <text class="nodeLabel" x="33.875" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.875" dy="17" font-weight="bold">func_req</tspan></text>
+            <text class="nodeLabel" x="33.875" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="33.875" dy="17" font-weight="bold">func_req</tspan></text>
           </g>
           <g class="label" transform="translate(-113.441, -16)">
             <text class="nodeLabel" x="23.809" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.809" dy="17">ID: 1.1</tspan></text>
@@ -108,7 +108,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="97.742" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="97.742" dy="17">&lt;&lt;Interface Requirement&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-35.672, -60)" font-weight="bold">
-            <text class="nodeLabel" x="35.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="35.672" dy="17" font-weight="bold">iface_req</tspan></text>
+            <text class="nodeLabel" x="35.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="35.672" dy="17" font-weight="bold">iface_req</tspan></text>
           </g>
           <g class="label" transform="translate(-114.254, -16)">
             <text class="nodeLabel" x="23.809" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.809" dy="17">ID: 1.2</tspan></text>
@@ -130,7 +130,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="110.473" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="110.473" dy="17">&lt;&lt;Performance Requirement&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-33.008, -60)" font-weight="bold">
-            <text class="nodeLabel" x="33.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.008" dy="17" font-weight="bold">perf_req</tspan></text>
+            <text class="nodeLabel" x="33.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="33.008" dy="17" font-weight="bold">perf_req</tspan></text>
           </g>
           <g class="label" transform="translate(-122.93, -16)">
             <text class="nodeLabel" x="23.809" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.809" dy="17">ID: 1.3</tspan></text>
@@ -152,7 +152,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="93.461" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="93.461" dy="17">&lt;&lt;Physical Requirement&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-34.492, -36)" font-weight="bold">
-            <text class="nodeLabel" x="34.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="34.492" dy="17" font-weight="bold">phys_req</tspan></text>
+            <text class="nodeLabel" x="34.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="34.492" dy="17" font-weight="bold">phys_req</tspan></text>
           </g>
           <g class="label" transform="translate(-93.461, 8)">
             <text class="nodeLabel" x="23.809" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.809" dy="17">ID: 1.4</tspan></text>
@@ -168,7 +168,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="79.363" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="79.363" dy="17">&lt;&lt;Design Constraint&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-41.844, -24)" font-weight="bold">
-            <text class="nodeLabel" x="41.844" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="41.844" dy="17" font-weight="bold">design_con</tspan></text>
+            <text class="nodeLabel" x="41.844" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="41.844" dy="17" font-weight="bold">design_con</tspan></text>
           </g>
           <g class="label" transform="translate(-91.398, 20)">
             <text class="nodeLabel" x="91.398" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="91.398" dy="17">Text: a design constraint.</tspan></text>

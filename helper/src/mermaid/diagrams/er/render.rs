@@ -6,12 +6,10 @@
 //! `er.nodeSpacing || 140` and `er.rankSpacing || 80` before the render,
 //! so those are the spacings dagre sees unless the root config sets its
 //! own. The ER stylesheet rules (`styles::er`) that the shared renderer
-//! has no hook for are applied to its output afterwards: the marker paint,
-//! the dashed line pattern, and the 14 px relationship labels. Two
-//! measuring rules the shared shapes lack go through [`ErMeasurer`]: the
-//! 14 px label size and Blink's 1/64 px rounding of HTML label widths.
-
-use std::collections::HashSet;
+//! has no hook for are applied to its output afterwards: the marker paint
+//! and the dashed line pattern. The 14 px relationship labels go in as
+//! the shapes' edge label font. Blink's 1/64 px rounding of HTML label
+//! widths, which the shared shapes lack, goes through [`ErMeasurer`].
 
 use serde_json::Value;
 
@@ -43,8 +41,6 @@ const VIEWPORT_PADDING: f64 = 8.0;
 /// `conf?.nodeSpacing || 140`, `conf?.rankSpacing || 80`.
 const DEFAULT_NODE_SPACING: f64 = 140.0;
 const DEFAULT_RANK_SPACING: f64 = 80.0;
-/// `insertEdgeLabel` measures a label with `createText`'s default width.
-const EDGE_LABEL_WRAP_WIDTH: f64 = 200.0;
 
 fn number(v: Option<&Value>) -> Option<f64> {
     match v? {
@@ -59,36 +55,15 @@ fn truthy(v: Option<f64>) -> Option<f64> {
     v.filter(|n| *n != 0.0 && !n.is_nan())
 }
 
-/// Measures the relationship labels at the 14 px of `.edgeLabel .label`.
-///
-/// The shared `insertEdgeLabel` measures every label in the shapes' font,
-/// 16 px here, and dagre sizes the label ranks from that. This wrapper
-/// stands in until the shape context carries an edge label font size: a
-/// call is an edge label when it wraps at `createText`'s default 200 px
-/// and its text is a relationship role. An entity label measures with the
-/// wrapping width of `labelHelper` (`flowchart.wrappingWidth`) or the
-/// text width plus 100 (`addText`), so it only matches when that width is
-/// also 200 and the text is a role too.
+/// Rounds HTML label widths up to Blink's 1/64 px `LayoutUnit`.
 struct ErMeasurer<'a, 'f> {
     metrics: &'a TextMetrics<'f>,
-    roles: HashSet<String>,
 }
 
 impl LabelMeasurer for ErMeasurer<'_, '_> {
     fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
         let inner: &dyn LabelMeasurer = self.metrics;
-        let mut b = if opts.width == Some(EDGE_LABEL_WRAP_WIDTH) && self.roles.contains(text) {
-            let opts = LabelOpts {
-                font: FontSpec {
-                    size: Some(EDGE_LABEL_FONT_SIZE),
-                    ..opts.font.clone()
-                },
-                ..opts.clone()
-            };
-            inner.measure(text, &opts)
-        } else {
-            inner.measure(text, opts)
-        };
+        let mut b = inner.measure(text, opts);
         if opts.html {
             // Blink lays the shrink-to-fit `div` out in LayoutUnits, 1/64 px,
             // rounding the text width up; dagre's alignment choice is
@@ -151,28 +126,13 @@ fn restyle_markers(markers: &mut [Marker], line_color: Color) {
     }
 }
 
-/// Sets the font size of every text under `g`.
-fn set_font_size(g: &mut Group, size: f64) {
-    for child in &mut g.children {
-        match child {
-            Element::Text(t) => t.font.size = Some(size),
-            Element::Group(c) => set_font_size(c, size),
-            _ => {}
-        }
-    }
-}
-
 /// `.edge-pattern-dashed { stroke-dasharray: 8,8 }` on the relationship
-/// lines, and `.edgeLabel .label { font-size: 14px }` on their labels.
-/// The SVG label background (`.edgeLabel .label rect { fill:
+/// lines. The SVG label background (`.edgeLabel .label rect { fill:
 /// edgeLabelBackground }`) has no `opacity` rule here, unlike the
 /// flowchart one the shared label follows.
 fn restyle_edges(root: &mut Group) {
     for_each_group(root, &mut |g| {
         let label = has_class(g.common.class.as_deref(), "label");
-        if has_class(g.common.class.as_deref(), "edgeLabel") {
-            set_font_size(g, EDGE_LABEL_FONT_SIZE);
-        }
         for child in &mut g.children {
             match child {
                 Element::Path(p)
@@ -239,10 +199,8 @@ pub fn draw(db: &ErDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene
     let tv = &resolved.theme_variables;
 
     let (mut nodes, edges, direction) = db.get_data();
-    let roles: HashSet<String> = edges.iter().filter_map(|e| e.label.clone()).collect();
     let measurer = ErMeasurer {
         metrics: &ctx.metrics,
-        roles,
     };
 
     let html_labels = cfg.effective_html_labels();
@@ -252,6 +210,11 @@ pub fn draw(db: &ErDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene
     styles.apply_to(&mut shapes.vars, html_labels);
     shapes.html_labels = html_labels;
     shapes.wrapping_width = *cfg.flowchart.wrapping_width;
+    // `.edgeLabel .label { font-size: 14px }`.
+    shapes.edge_label_font = FontSpec {
+        size: Some(EDGE_LABEL_FONT_SIZE),
+        ..FontSpec::default()
+    };
     // `config.er?.diagramPadding ?? 10`, `config.er?.entityPadding ?? 6`,
     // `config.er!.minEntityWidth!`.
     shapes.er_diagram_padding = *er.diagram_padding;

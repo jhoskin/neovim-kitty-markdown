@@ -82,7 +82,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -84)"/>
           <g class="label-group text" transform="translate(-22.352, -84)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="22.352" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="22.352" dy="17" font-weight="bold">Shape</tspan></text>
+              <text class="nodeLabel" x="22.352" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="22.352" dy="17" font-weight="bold">Shape</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-97.184, -36)">
@@ -96,7 +96,7 @@ expression: scene_svg(&mmd)
           </g>
           <g class="methods-group text" transform="translate(-97.184, 36)">
             <g class="label" transform="translate(0, -12)" font-style="italic">
-              <text class="nodeLabel" x="86.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="86.008" dy="17" font-style="italic">+someAbstractMethod()</tspan></text>
+              <text class="nodeLabel" x="86.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-style="italic"><tspan x="86.008" dy="17" font-style="italic">+someAbstractMethod()</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
               <text class="nodeLabel" x="75.574" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="75.574" dy="17">+someStaticMethod()</tspan></text>
@@ -114,7 +114,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -51)"/>
           <g class="label-group text" transform="translate(-30.059, -51)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="30.059" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="30.059" dy="17" font-weight="bold">Counter</tspan></text>
+              <text class="nodeLabel" x="30.059" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="30.059" dy="17" font-weight="bold">Counter</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-79.314, -3)"/>
@@ -124,7 +124,7 @@ expression: scene_svg(&mmd)
               <rect x="0" y="18.5" width="128.57" height="1" fill="#131300"/>
             </g>
             <g class="label" transform="translate(0, 12)" font-style="italic">
-              <text class="nodeLabel" x="28.594" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.594" dy="17" font-style="italic">+reset()</tspan></text>
+              <text class="nodeLabel" x="28.594" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-style="italic"><tspan x="28.594" dy="17" font-style="italic">+reset()</tspan></text>
             </g>
           </g>
           <line class="divider" x1="-91.314" y1="-27" x2="91.314" y2="-26.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>

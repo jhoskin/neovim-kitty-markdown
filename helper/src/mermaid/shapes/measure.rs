@@ -76,6 +76,8 @@ pub struct LabelBox {
     /// The display text: HTML labels decode entities through `innerHTML`
     /// and SVG labels through `decodeHTMLEntities`.
     pub lines: Vec<LabelLine>,
+    /// The font the label was measured in, so it is drawn in the same one.
+    pub font: FontSpec,
 }
 
 impl LabelBox {
@@ -160,6 +162,7 @@ impl LabelMeasurer for FixedMeasurer {
         if text.is_empty() {
             return LabelBox {
                 line_height: self.line_height,
+                font: opts.font.clone(),
                 ..LabelBox::default()
             };
         }
@@ -202,6 +205,7 @@ impl LabelMeasurer for FixedMeasurer {
                 0.0
             },
             lines,
+            font: opts.font.clone(),
         }
     }
 
@@ -397,6 +401,7 @@ pub fn measure_with_metrics(
     if text.is_empty() {
         return LabelBox {
             line_height,
+            font: opts.font.clone(),
             ..LabelBox::default()
         };
     }
@@ -460,6 +465,7 @@ pub fn measure_with_metrics(
         line_height,
         baseline,
         lines,
+        font: opts.font.clone(),
     }
 }
 

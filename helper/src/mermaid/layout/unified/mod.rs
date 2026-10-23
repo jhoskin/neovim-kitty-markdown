@@ -957,6 +957,9 @@ fn recursive_render(
                 state_padding: rc.shapes.state_padding,
                 kanban_ticket_base_url: rc.shapes.kanban_ticket_base_url.clone(),
                 elk: rc.shapes.elk,
+                edge_label_font: rc.shapes.edge_label_font.clone(),
+                edge_label_padding_x: rc.shapes.edge_label_padding_x,
+                edge_terminal_font: rc.shapes.edge_terminal_font.clone(),
             };
             ctx.dir = dir.or(rc.shapes.dir);
             let out = insert_node(&mut node, &ctx)?;

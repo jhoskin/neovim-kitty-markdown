@@ -50,7 +50,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="62.605" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.605" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-31.762, -60)" font-weight="bold">
-            <text class="nodeLabel" x="31.762" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="31.762" dy="17" font-weight="bold">test_req</tspan></text>
+            <text class="nodeLabel" x="31.762" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="31.762" dy="17" font-weight="bold">test_req</tspan></text>
           </g>
           <g class="label" transform="translate(-96.137, -16)">
             <text class="nodeLabel" x="16.676" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.676" dy="17">ID: 1</tspan></text>
@@ -72,7 +72,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="62.605" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#003366" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.605" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-37.832, -60)" font-weight="bold">
-            <text class="nodeLabel" x="37.832" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#003366" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="37.832" dy="17" font-weight="bold">other_req</tspan></text>
+            <text class="nodeLabel" x="37.832" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#003366" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="37.832" dy="17" font-weight="bold">other_req</tspan></text>
           </g>
           <g class="label" transform="translate(-74.719, -16)">
             <text class="nodeLabel" x="16.676" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#003366" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.676" dy="17">ID: 2</tspan></text>
@@ -94,7 +94,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="46.336" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="46.336" dy="17">&lt;&lt;Element&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-41.395, -24)" font-weight="bold">
-            <text class="nodeLabel" x="41.395" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="41.395" dy="17" font-weight="bold">test_entity</tspan></text>
+            <text class="nodeLabel" x="41.395" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="41.395" dy="17" font-weight="bold">test_entity</tspan></text>
           </g>
           <g class="label" transform="translate(-59.047, 20)">
             <text class="nodeLabel" x="59.047" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="59.047" dy="17">Type: simulation</tspan></text>
@@ -107,7 +107,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="46.336" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="46.336" dy="17">&lt;&lt;Element&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-37.504, -24)" font-weight="bold">
-            <text class="nodeLabel" x="37.504" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="37.504" dy="17" font-weight="bold">test_elem</tspan></text>
+            <text class="nodeLabel" x="37.504" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="37.504" dy="17" font-weight="bold">test_elem</tspan></text>
           </g>
           <g class="label" transform="translate(-57.422, 20)">
             <text class="nodeLabel" x="57.422" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="57.422" dy="17">Type: shorthand</tspan></text>

@@ -279,6 +279,10 @@ pub struct Node {
     /// `labelType`: `markdown`, `text`, or `string`.
     pub label_type: Option<String>,
     pub label_style: Option<String>,
+    /// The font a diagram stylesheet gives this node's labels, such as
+    /// `.usecase-actor .nodeLabel { font-size: 14px }`. Unset fields keep
+    /// the theme font; the inline `label_style` fonts override it.
+    pub label_font: FontSpec,
     /// `description` of `rectWithTitle`.
     pub description: Vec<String>,
     pub parent_id: Option<String>,
@@ -489,6 +493,17 @@ pub struct ShapeCtx<'a> {
     /// `layout === 'elk'` switches requirement body text to `start`; always
     /// false here because ELK is unsupported.
     pub elk: bool,
+    /// The font the diagram stylesheet gives edge labels, such as ER's
+    /// `.edgeLabel .label { font-size: 14px }`. Unset fields keep the theme
+    /// font; the edge's inline label styles override it.
+    pub edge_label_font: FontSpec,
+    /// Horizontal padding of the HTML edge label box on each side, from a
+    /// `.labelBkg { padding: 0 2px }` rule: `createText` puts that class on
+    /// the div it measures with `getBoundingClientRect()`.
+    pub edge_label_padding_x: f64,
+    /// The font of the edge terminal labels (`g.edgeTerminals`), such as
+    /// class diagram's `.edgeTerminals { font-size: 11px }`.
+    pub edge_terminal_font: FontSpec,
 }
 
 impl<'a> ShapeCtx<'a> {
@@ -508,6 +523,9 @@ impl<'a> ShapeCtx<'a> {
             state_padding: 8.0,
             kanban_ticket_base_url: None,
             elk: false,
+            edge_label_font: FontSpec::default(),
+            edge_label_padding_x: 0.0,
+            edge_terminal_font: FontSpec::default(),
         }
     }
 

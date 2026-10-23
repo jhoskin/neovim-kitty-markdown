@@ -9,7 +9,7 @@ width=236 height=136
     <text class="nodeLabel" x="108" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="108" dy="11.2">&amp;lt;&amp;lt;requirement&amp;gt;&amp;gt;</tspan></text>
   </g>
   <g class="label" transform="translate(-20, -40)" font-weight="bold">
-    <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20" dy="11.2" font-weight="bold">Label</tspan></text>
+    <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="20" dy="11.2" font-weight="bold">Label</tspan></text>
   </g>
   <g class="label" transform="translate(-108, -4)">
     <text class="nodeLabel" x="20" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20" dy="11.2">ID: 1</tspan></text>

@@ -8,8 +8,8 @@
 //! miss on the annotation group) are reproduced where they change a number.
 
 use super::util::{
-    BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, line_element,
-    measure_text, node_group, node_style, rect_element, translate,
+    BBox, build_label_group, calculate_text_width, get_node_classes, label_fill, label_font,
+    line_element, measure_text, node_group, node_style, rect_element, translate,
 };
 use super::{ClassMember, Classifier, Intersector, Node, NodeExtra, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -42,7 +42,7 @@ fn add_text(
             font: FontSpec {
                 weight: bold.then_some(FontWeight::Bold),
                 style: (classifier == Classifier::Abstract).then_some(FontStyle::Italic),
-                ..ctx.font()
+                ..label_font(ctx, node)
             },
             html: ctx.use_html_labels(node),
             width: Some(width),
