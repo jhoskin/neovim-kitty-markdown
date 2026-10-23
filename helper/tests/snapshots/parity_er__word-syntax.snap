@@ -1,0 +1,135 @@
+---
+source: tests/parity_er.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="455.094" height="557" viewBox="0 0 455.094 557" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_er-onlyOneStart" class="marker onlyOne er" refX="0" refY="9" markerWidth="18" markerHeight="18" orient="auto" markerUnits="strokeWidth" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M9,0L9,18M15,0L15,18" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_er-onlyOneEnd" class="marker onlyOne er" refX="18" refY="9" markerWidth="18" markerHeight="18" orient="auto" markerUnits="strokeWidth" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M3,0L3,18M9,0L9,18" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_er-zeroOrOneStart" class="marker zeroOrOne er" refX="0" refY="9" markerWidth="30" markerHeight="18" orient="auto" markerUnits="strokeWidth" fill="none" stroke="#333333" stroke-width="1">
+      <circle cx="21" cy="9" r="6" fill="#ffffff" stroke="#333333"/>
+      <path d="M9,0L9,18" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_er-zeroOrOneEnd" class="marker zeroOrOne er" refX="30" refY="9" markerWidth="30" markerHeight="18" orient="auto" markerUnits="strokeWidth" fill="none" stroke="#333333" stroke-width="1">
+      <circle cx="9" cy="9" r="6" fill="#ffffff" stroke="#333333"/>
+      <path d="M21,0L21,18" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_er-oneOrMoreStart" class="marker oneOrMore er" refX="18" refY="18" markerWidth="45" markerHeight="36" orient="auto" markerUnits="strokeWidth" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M0,18Q18,0,36,18Q18,36,0,18M42,9L42,27" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_er-oneOrMoreEnd" class="marker oneOrMore er" refX="27" refY="18" markerWidth="45" markerHeight="36" orient="auto" markerUnits="strokeWidth" fill="none" stroke="#333333" stroke-width="1">
+      <path d="M3,9L3,27M9,18Q27,0,45,18Q27,36,9,18" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_er-zeroOrMoreStart" class="marker zeroOrMore er" refX="18" refY="18" markerWidth="57" markerHeight="36" orient="auto" markerUnits="strokeWidth" fill="none" stroke="#333333" stroke-width="1">
+      <circle cx="48" cy="18" r="6" fill="#ffffff" stroke="#333333"/>
+      <path d="M0,18Q18,0,36,18Q18,36,0,18" fill="none" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_er-zeroOrMoreEnd" class="marker zeroOrMore er" refX="39" refY="18" markerWidth="57" markerHeight="36" orient="auto" markerUnits="strokeWidth" fill="none" stroke="#333333" stroke-width="1">
+      <circle cx="9" cy="18" r="6" fill="#ffffff" stroke="#333333"/>
+      <path d="M21,18Q39,0,57,18Q39,36,21,18" fill="none" stroke="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="my-svg-id_entity-CAR-0_entity-NAMED-DRIVER-1_0" class=" edge-thickness-normal edge-pattern-solid relationshipLine" d="M58.84,135.5L58.84,151.167C58.84,166.833,58.84,198.167,60.862,222.25C62.884,246.333,66.928,263.167,68.95,271.583L70.972,280" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#my-svg_er-onlyOneStart)" marker-end="url(#my-svg_er-zeroOrMoreEnd)"/>
+        <path id="my-svg-id_entity-PERSON-2_entity-NAMED-DRIVER-1_1" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M271.403,179L263.263,187.417C255.123,195.833,238.843,212.667,217.827,229.5C196.812,246.333,171.062,263.167,158.186,271.583L145.311,280" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="8,8" marker-start="url(#my-svg_er-zeroOrMoreStart)" marker-end="url(#my-svg_er-zeroOrMoreEnd)"/>
+        <path id="my-svg-id_entity-PERSON-2_entity-TEAM-3_2" class=" edge-thickness-normal edge-pattern-solid relationshipLine" d="M369.401,179L370.907,187.417C372.414,195.833,375.428,212.667,376.935,229.5C378.441,246.333,378.441,263.167,378.441,271.583L378.441,280" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#my-svg_er-oneOrMoreStart)" marker-end="url(#my-svg_er-onlyOneEnd)"/>
+        <path id="my-svg-id_entity-TEAM-3_entity-LEAGUE-4_3" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M378.441,364L378.441,372.417C378.441,380.833,378.441,397.667,378.441,414.5C378.441,431.333,378.441,448.167,378.441,456.583L378.441,465" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="8,8" marker-start="url(#my-svg_er-zeroOrOneStart)" marker-end="url(#my-svg_er-oneOrMoreEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel" transform="translate(58.84, 229.5)">
+          <g class="label" transform="translate(-19.609, -10.5)">
+            <rect class="background" x="0" y="0" width="39.219" height="21" fill="#f9ffec" fill-opacity="0.5" stroke="none"/>
+            <text class="edgeLabel" x="19.609" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="19.609" dy="15">allows</tspan></text>
+          </g>
+        </g>
+        <g class="edgeLabel" transform="translate(222.563, 229.5)">
+          <g class="label" transform="translate(-4.836, -10.5)">
+            <rect class="background" x="0" y="0" width="9.672" height="21" fill="#f9ffec" fill-opacity="0.5" stroke="none"/>
+            <text class="edgeLabel" x="4.836" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="4.836" dy="15">is</tspan></text>
+          </g>
+        </g>
+        <g class="edgeLabel" transform="translate(378.441, 229.5)">
+          <g class="label" transform="translate(-23.859, -10.5)">
+            <rect class="background" x="0" y="0" width="47.719" height="21" fill="#f9ffec" fill-opacity="0.5" stroke="none"/>
+            <text class="edgeLabel" x="23.859" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="23.859" dy="15">plays in</tspan></text>
+          </g>
+        </g>
+        <g class="edgeLabel" transform="translate(378.441, 414.5)">
+          <g class="label" transform="translate(-14.984, -10.5)">
+            <rect class="background" x="0" y="0" width="29.969" height="21" fill="#f9ffec" fill-opacity="0.5" stroke="none"/>
+            <text class="edgeLabel" x="14.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="14.984" dy="15">joins</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="my-svg-entity-CAR-0" class="node default " transform="translate(58.84, 93.5)">
+          <rect class="basic label-container" x="-50" y="-42" width="100" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-14.164, -12)">
+            <text class="nodeLabel" x="14.164" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="14.164" dy="17">CAR</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-entity-NAMED-DRIVER-1" class="node default " transform="translate(81.063, 322)">
+          <rect class="basic label-container" x="-73.062" y="-42" width="146.125" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-53.062, -12)">
+            <text class="nodeLabel" x="53.063" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="53.063" dy="17">NAMED-DRIVER</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-entity-PERSON-2" class="node default " transform="translate(354.094, 93.5)">
+          <rect class="outer-path" x="-93" y="-85.5" width="186" height="171" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+          <rect class="row-rect-odd" x="-93" y="-42.75" width="186" height="42.75" fill="#ffffff" stroke="#9370db" stroke-width="1.3"/>
+          <rect class="row-rect-even" x="-93" y="0" width="186" height="42.75" fill="#f1f1ff" stroke="#9370db" stroke-width="1.3"/>
+          <rect class="row-rect-odd" x="-93" y="42.75" width="186" height="42.75" fill="#ffffff" stroke="#9370db" stroke-width="1.3"/>
+          <g class="label name" transform="translate(-27.75, -76.125)">
+            <text class="nodeLabel" x="27.75" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.75" dy="17">PERSON</tspan></text>
+          </g>
+          <g class="label attribute-type" transform="translate(-80.5, -33.375)">
+            <text class="nodeLabel" x="20.188" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20.188" dy="17">string</tspan></text>
+          </g>
+          <g class="label attribute-name" transform="translate(-9.25, -33.375)">
+            <text class="nodeLabel" x="35.07" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="35.07" dy="17">firstName</tspan></text>
+          </g>
+          <g class="label attribute-keys" transform="translate(105.5, -33.375)"/>
+          <g class="label attribute-comment" transform="translate(105.5, -33.375)"/>
+          <g class="label attribute-type" transform="translate(-80.5, 9.375)">
+            <text class="nodeLabel" x="23.125" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.125" dy="17">string?</tspan></text>
+          </g>
+          <g class="label attribute-name" transform="translate(-9.25, 9.375)">
+            <text class="nodeLabel" x="44.875" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="44.875" dy="17">middleName</tspan></text>
+          </g>
+          <g class="label attribute-keys" transform="translate(105.5, 9.375)"/>
+          <g class="label attribute-comment" transform="translate(105.5, 9.375)"/>
+          <g class="label attribute-type" transform="translate(-80.5, 52.125)">
+            <text class="nodeLabel" x="20.188" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20.188" dy="17">string</tspan></text>
+          </g>
+          <g class="label attribute-name" transform="translate(-9.25, 52.125)">
+            <text class="nodeLabel" x="33.289" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.289" dy="17">lastName</tspan></text>
+          </g>
+          <g class="label attribute-keys" transform="translate(105.5, 52.125)"/>
+          <g class="label attribute-comment" transform="translate(105.5, 52.125)"/>
+          <path class="divider" d="M-93,-42.75L-93,-42.75L93,-42.75L93,-42.75Z" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+          <path class="divider" d="M-21.75,-42.75L-21.75,-42.75L-21.75,85.5L-21.75,85.5Z" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+          <path class="divider" d="M-93,-42.75L-93,-42.75L93,-42.75L93,-42.75Z" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+        </g>
+        <g id="my-svg-entity-TEAM-3" class="node default " transform="translate(378.441, 322)">
+          <rect class="basic label-container" x="-50" y="-42" width="100" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-19.328, -12)">
+            <text class="nodeLabel" x="19.328" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.328" dy="17">TEAM</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-entity-LEAGUE-4" class="node default " transform="translate(378.441, 507)">
+          <rect class="basic label-container" x="-47.937" y="-42" width="95.875" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-27.937, -12)">
+            <text class="nodeLabel" x="27.938" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.938" dy="17">LEAGUE</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

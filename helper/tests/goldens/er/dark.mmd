@@ -1,0 +1,13 @@
+%%{init: {"theme": "dark"}}%%
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    CUSTOMER {
+        string name
+        string email UK
+    }
+    ORDER ||--|{ LINE-ITEM : contains
+    ORDER {
+        int orderNumber PK
+        string deliveryAddress "where it goes"
+    }
+    CUSTOMER }|..|{ DELIVERY-ADDRESS : uses

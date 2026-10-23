@@ -1,0 +1,12 @@
+erDiagram
+    CUSTOMER:::warm ||--o{ ORDER : places
+    ORDER {
+        int id PK
+        date placedAt
+    }
+    PRODUCT ||--o{ LINE_ITEM : "appears in"
+    ORDER ||--|{ LINE_ITEM : contains
+    classDef warm fill:#f96,stroke:#333,stroke-width:4px
+    classDef cool fill:#bbf,stroke:#f66,color:#fff
+    class ORDER,PRODUCT cool
+    style LINE_ITEM fill:#9f9,stroke-dasharray: 5 5

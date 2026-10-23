@@ -1,0 +1,26 @@
+erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    CUSTOMER ||--o{ ADDRESS : "lives at"
+    CUSTOMER ||--o| LOYALTY_CARD : holds
+    ORDER ||--|{ LINE_ITEM : contains
+    ORDER }o--|| PAYMENT : "paid by"
+    ORDER ||--o| SHIPMENT : ships
+    SHIPMENT }o--|| CARRIER : "carried by"
+    LINE_ITEM }o--|| PRODUCT : references
+    PRODUCT }o--|| CATEGORY : "belongs to"
+    PRODUCT }o..o{ SUPPLIER : "supplied by"
+    CUSTOMER {
+        int id PK
+        string name
+        string email UK
+    }
+    ORDER {
+        int id PK
+        int customerId FK
+        date placedAt
+    }
+    PRODUCT {
+        string sku PK
+        string title
+        float price
+    }
