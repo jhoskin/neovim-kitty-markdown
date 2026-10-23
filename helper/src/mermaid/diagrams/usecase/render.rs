@@ -22,8 +22,8 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::unified::{LayoutData, UnifiedConfig, render_with_dagre};
 use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
-    Common, Element, FontSpec, FontWeight, Group, LineCap, Marker, Paint, Scene, Style, Text,
-    TextRun, ViewBox,
+    Common, Element, FontSpec, FontWeight, Group, LineCap, Paint, Scene, Style, Text, TextRun,
+    ViewBox,
 };
 use crate::mermaid::shapes::measure::LabelOpts;
 use crate::mermaid::shapes::util::{
@@ -324,26 +324,6 @@ fn restyle(g: &mut Group, r: &Restyle<'_>) {
     }
 }
 
-/// `.marker.extension { fill: mainBkg; stroke: lineColor }`.
-fn restyle_markers(markers: &mut [Marker], s: &UsecaseStyles) {
-    let prefix = format!("{DIAGRAM_ID}_usecase-extension");
-    for marker in markers {
-        if !marker.id.starts_with(&prefix) {
-            continue;
-        }
-        marker.style.fill = Some(Paint::Color(s.main_bkg));
-        for child in &mut marker.children {
-            let common = match child {
-                Element::Path(p) => &mut p.common,
-                Element::Polygon(p) => &mut p.common,
-                _ => continue,
-            };
-            common.style.fill = Some(Paint::Color(s.main_bkg));
-            common.style.stroke = Some(Paint::Color(s.line_color));
-        }
-    }
-}
-
 /// `utils.insertTitle(svg, 'usecaseDiagramTitleText', 0, title)`: a
 /// start-anchored text at the content's horizontal centre on `y = 0`.
 fn title_element(title: &str, bounds: BBox, shapes: &ShapeCtx) -> (Element, BBox) {
@@ -484,8 +464,6 @@ pub fn draw(
             styles: &styles,
         },
     );
-    restyle_markers(&mut rendered.markers, &styles);
-
     let mut bounds = rendered.bounds;
     let mut children = vec![Element::Group(rendered.root)];
     if let Some(title) = resolved.title().filter(|t| !t.is_empty()) {
