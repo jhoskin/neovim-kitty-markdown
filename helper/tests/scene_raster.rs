@@ -218,6 +218,48 @@ fn bold_open_sans_draws_heavier_than_regular() {
     );
 }
 
+/// `xml:space="preserve"` keeps a run of spaces, so the second word lands
+/// further right than under the default, which collapses the run.
+#[test]
+fn preserved_spaces_push_the_next_word_right() {
+    use kitty_markdown_helper::mermaid::scene::XmlSpace;
+    let right_edge = |space: Option<XmlSpace>| {
+        let mut scene = Scene::new(200.0, 30.0);
+        scene.root.children.push(Element::Text(Text {
+            common: Common::with_style(Style {
+                fill: Some(Paint::Color(Color::BLACK)),
+                xml_space: space,
+                ..Style::default()
+            }),
+            x: 4.0,
+            y: 20.0,
+            anchor: None,
+            baseline: None,
+            font: FontSpec {
+                size: Some(16.0),
+                ..FontSpec::default()
+            },
+            runs: vec![TextRun::new("a      b")],
+        }));
+        let img = render_rgba(
+            &scene,
+            kitty_markdown_helper::mermaid::fontdb(),
+            &RasterOpts::default(),
+        )
+        .unwrap();
+        (0..img.width())
+            .rev()
+            .find(|&x| (0..img.height()).any(|y| img.get_pixel(x, y)[0] < 128))
+            .unwrap_or(0)
+    };
+    let collapsed = right_edge(None);
+    let preserved = right_edge(Some(XmlSpace::Preserve));
+    assert!(
+        preserved > collapsed + 15,
+        "preserved {preserved} collapsed {collapsed}"
+    );
+}
+
 /// A clip is in the user space of the element that uses it, so a clip rect
 /// at the origin follows the group's translation like mermaid's treemap
 /// cells.

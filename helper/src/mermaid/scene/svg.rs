@@ -17,7 +17,7 @@ use super::path::fmt_num;
 use super::{
     Baseline, BlendMode, ClipPath, Color, Common, Element, FontSpec, FontStyle, FontWeight,
     GradientUnits, Length, LineCap, LineJoin, LinearGradient, Marker, MarkerUnits, Orient, Paint,
-    Point, Scene, Style, Text, TextAnchor, TransformOp, ViewBox,
+    Point, Scene, Style, Text, TextAnchor, TransformOp, ViewBox, XmlSpace,
 };
 use crate::text::fonts::SYNTHETIC_BOLD_GROWTH;
 
@@ -512,6 +512,15 @@ fn write_style(w: &mut Writer, style: &Style, font: Option<&FontSpec>) {
     if let Some(clip) = &style.clip_path {
         w.attr("clip-path", &format!("url(#{})", clip.id));
     }
+    if let Some(space) = style.xml_space {
+        w.attr(
+            "xml:space",
+            match space {
+                XmlSpace::Default => "default",
+                XmlSpace::Preserve => "preserve",
+            },
+        );
+    }
     // mermaid sets the blend mode with d3's `.style()`, so it is a `style`
     // declaration, which usvg reads like the attribute.
     if let Some(mode) = style.mix_blend_mode {
@@ -997,6 +1006,26 @@ mod tests {
             "<g>\n  <clipPath id=\"c0\">\n    <rect x=\"0\" y=\"0\" width=\"8\" height=\"4\"/>\n  \
              </clipPath>\n  <text x=\"1\" y=\"2\" clip-path=\"url(#c0)\">a</text>\n  \
              <text x=\"1\" y=\"2\" clip-path=\"url(#c0)\">b</text>\n</g>\n"
+        );
+    }
+
+    #[test]
+    fn preserved_space_reaches_the_text() {
+        let text = Text {
+            common: Common::with_style(Style {
+                xml_space: Some(XmlSpace::Preserve),
+                ..Style::default()
+            }),
+            x: 0.0,
+            y: 0.0,
+            anchor: None,
+            baseline: None,
+            font: FontSpec::default(),
+            runs: vec![TextRun::new("  a  b ")],
+        };
+        assert_eq!(
+            element_to_svg(&Element::Text(text)),
+            "<text x=\"0\" y=\"0\" xml:space=\"preserve\">  a  b </text>\n"
         );
     }
 

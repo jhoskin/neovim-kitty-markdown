@@ -17,7 +17,7 @@ use crate::error::HelperError;
 use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::scene::{
     Baseline, Common, Element, FontSpec, FontStyle, FontWeight, Group, Line, Paint, Path, Rect,
-    Scene, Style, Text, TextRun, TransformOp, ViewBox,
+    Scene, Style, Text, TextRun, TransformOp, ViewBox, XmlSpace,
 };
 use crate::mermaid::shapes::util::parse_svg_path;
 use crate::mermaid::styles::treeview::TreeViewStyles;
@@ -73,29 +73,6 @@ pub fn builtin_icon(reference: &str) -> Result<&'static str, HelperError> {
     }
 }
 
-/// SVG text under the default `xml:space` drops leading and trailing
-/// spaces and collapses runs, where the stylesheet's `white-space: pre`
-/// keeps them. A no-break space has the same advance and survives.
-fn preserve_spaces(text: &str) -> String {
-    let chars: Vec<char> = text.chars().collect();
-    let first = chars.iter().position(|c| *c != ' ');
-    let last = chars.iter().rposition(|c| *c != ' ');
-    let mut out = String::with_capacity(text.len());
-    for (i, c) in chars.iter().enumerate() {
-        let outside = match (first, last) {
-            (Some(f), Some(l)) => i < f || i > l,
-            _ => true,
-        };
-        let repeated = i > 0 && chars[i - 1] == ' ';
-        if *c == ' ' && (outside || repeated) {
-            out.push('\u{a0}');
-        } else {
-            out.push(*c);
-        }
-    }
-    out
-}
-
 struct Painter<'a> {
     ctx: &'a RenderCtx<'a>,
     cfg: &'a TreeViewConfig,
@@ -146,6 +123,10 @@ impl Painter<'_> {
                 class: Some(class.to_string()),
                 style: Style {
                     fill: Some(fill),
+                    // The stylesheet's `white-space: pre` on the labels
+                    // keeps every space, where SVG's default would drop
+                    // the leading and trailing ones and collapse runs.
+                    xml_space: Some(XmlSpace::Preserve),
                     ..Style::default()
                 },
                 ..Common::default()
@@ -155,7 +136,7 @@ impl Painter<'_> {
             anchor: None,
             baseline: Some(Baseline::Middle),
             font,
-            runs: vec![TextRun::new(preserve_spaces(content))],
+            runs: vec![TextRun::new(content)],
         })
     }
 
@@ -410,14 +391,6 @@ pub fn draw(
 #[cfg(test)]
 mod tests {
     use super::*;
-
-    #[test]
-    fn spaces_that_svg_would_drop_become_no_break_spaces() {
-        assert_eq!(preserve_spaces("a b"), "a b");
-        assert_eq!(preserve_spaces("a  b"), "a \u{a0}b");
-        assert_eq!(preserve_spaces(" a "), "\u{a0}a\u{a0}");
-        assert_eq!(preserve_spaces("  "), "\u{a0}\u{a0}");
-    }
 
     #[test]
     fn only_the_builtin_icons_draw() {

@@ -6,81 +6,81 @@ expression: scene.to_svg()
   <g>
     <g class="tree-view">
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="5" y="14.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">/</text>
+        <text class="treeView-node-label treeView-node-dir" x="5" y="14.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">/</text>
       </g>
       <line class="treeView-node-line" x1="-10" y1="14.5" x2="0" y2="14.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="20" y="43.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">packages</text>
+        <text class="treeView-node-label treeView-node-dir" x="20" y="43.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">packages</text>
       </g>
       <line class="treeView-node-line" x1="5" y1="43.5" x2="15" y2="43.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="35" y="72.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">mermaid</text>
+        <text class="treeView-node-label treeView-node-dir" x="35" y="72.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">mermaid</text>
       </g>
       <line class="treeView-node-line" x1="20" y1="72.5" x2="30" y2="72.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="50" y="101.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">src</text>
+        <text class="treeView-node-label treeView-node-dir" x="50" y="101.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">src</text>
       </g>
       <line class="treeView-node-line" x1="35" y1="101.5" x2="45" y2="101.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="65" y="130.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">diagrams</text>
+        <text class="treeView-node-label treeView-node-dir" x="65" y="130.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">diagrams</text>
       </g>
       <line class="treeView-node-line" x1="50" y1="130.5" x2="60" y2="130.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="80" y="159.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">treeView</text>
+        <text class="treeView-node-label treeView-node-dir" x="80" y="159.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">treeView</text>
       </g>
       <line class="treeView-node-line" x1="65" y1="159.5" x2="75" y2="159.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="95" y="188.5" dominant-baseline="middle" fill="#000000" font-size="16">parser.ts</text>
+        <text class="treeView-node-label" x="95" y="188.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">parser.ts</text>
       </g>
       <line class="treeView-node-line" x1="80" y1="188.5" x2="90" y2="188.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="95" y="217.5" dominant-baseline="middle" fill="#000000" font-size="16">renderer.ts</text>
+        <text class="treeView-node-label" x="95" y="217.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">renderer.ts</text>
       </g>
       <line class="treeView-node-line" x1="80" y1="217.5" x2="90" y2="217.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="95" y="246.5" dominant-baseline="middle" fill="#000000" font-size="16">styles.ts</text>
+        <text class="treeView-node-label" x="95" y="246.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">styles.ts</text>
       </g>
       <line class="treeView-node-line" x1="80" y1="246.5" x2="90" y2="246.5" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="80" y1="174" x2="80" y2="247" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="80" y="275.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">treemap</text>
+        <text class="treeView-node-label treeView-node-dir" x="80" y="275.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">treemap</text>
       </g>
       <line class="treeView-node-line" x1="65" y1="275.5" x2="75" y2="275.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="95" y="304.5" dominant-baseline="middle" fill="#000000" font-size="16">db.ts</text>
+        <text class="treeView-node-label" x="95" y="304.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">db.ts</text>
       </g>
       <line class="treeView-node-line" x1="80" y1="304.5" x2="90" y2="304.5" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="80" y1="290" x2="80" y2="305" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="65" y1="145" x2="65" y2="276" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="65" y="333.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">rendering-util</text>
+        <text class="treeView-node-label treeView-node-dir" x="65" y="333.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">rendering-util</text>
       </g>
       <line class="treeView-node-line" x1="50" y1="333.5" x2="60" y2="333.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="80" y="362.5" dominant-baseline="middle" fill="#000000" font-size="16">icons.ts</text>
+        <text class="treeView-node-label" x="80" y="362.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">icons.ts</text>
       </g>
       <line class="treeView-node-line" x1="65" y1="362.5" x2="75" y2="362.5" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="65" y1="348" x2="65" y2="363" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="50" y1="116" x2="50" y2="334" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="50" y="391.5" dominant-baseline="middle" fill="#000000" font-size="16">package.json</text>
+        <text class="treeView-node-label" x="50" y="391.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">package.json</text>
       </g>
       <line class="treeView-node-line" x1="35" y1="391.5" x2="45" y2="391.5" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="35" y1="87" x2="35" y2="392" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="35" y="420.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">parser</text>
+        <text class="treeView-node-label treeView-node-dir" x="35" y="420.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">parser</text>
       </g>
       <line class="treeView-node-line" x1="20" y1="420.5" x2="30" y2="420.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="50" y="449.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">src</text>
+        <text class="treeView-node-label treeView-node-dir" x="50" y="449.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">src</text>
       </g>
       <line class="treeView-node-line" x1="35" y1="449.5" x2="45" y2="449.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="65" y="478.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">language</text>
+        <text class="treeView-node-label treeView-node-dir" x="65" y="478.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">language</text>
       </g>
       <line class="treeView-node-line" x1="50" y1="478.5" x2="60" y2="478.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="80" y="507.5" dominant-baseline="middle" fill="#000000" font-size="16">treeView.langium</text>
+        <text class="treeView-node-label" x="80" y="507.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">treeView.langium</text>
       </g>
       <line class="treeView-node-line" x1="65" y1="507.5" x2="75" y2="507.5" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="65" y1="493" x2="65" y2="508" stroke="#000000" stroke-width="1"/>
@@ -88,7 +88,7 @@ expression: scene.to_svg()
       <line class="treeView-node-line" x1="35" y1="435" x2="35" y2="450" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="20" y1="58" x2="20" y2="421" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="20" y="536.5" dominant-baseline="middle" fill="#000000" font-size="16">README.md</text>
+        <text class="treeView-node-label" x="20" y="536.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">README.md</text>
       </g>
       <line class="treeView-node-line" x1="5" y1="536.5" x2="15" y2="536.5" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="5" y1="29" x2="5" y2="537" stroke="#000000" stroke-width="1"/>

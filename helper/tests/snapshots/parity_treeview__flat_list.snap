@@ -6,31 +6,31 @@ expression: scene.to_svg()
   <g>
     <g class="tree-view">
       <g>
-        <text class="treeView-node-label treeView-node-dir" x="5" y="14.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold">/</text>
+        <text class="treeView-node-label treeView-node-dir" x="5" y="14.5" dominant-baseline="middle" fill="#000000" font-size="16" font-weight="bold" xml:space="preserve">/</text>
       </g>
       <line class="treeView-node-line" x1="-10" y1="14.5" x2="0" y2="14.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="20" y="43.5" dominant-baseline="middle" fill="#000000" font-size="16">Cargo.toml</text>
+        <text class="treeView-node-label" x="20" y="43.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">Cargo.toml</text>
       </g>
       <line class="treeView-node-line" x1="5" y1="43.5" x2="15" y2="43.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="20" y="72.5" dominant-baseline="middle" fill="#000000" font-size="16">Cargo.lock</text>
+        <text class="treeView-node-label" x="20" y="72.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">Cargo.lock</text>
       </g>
       <line class="treeView-node-line" x1="5" y1="72.5" x2="15" y2="72.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="20" y="101.5" dominant-baseline="middle" fill="#000000" font-size="16">README.md</text>
+        <text class="treeView-node-label" x="20" y="101.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">README.md</text>
       </g>
       <line class="treeView-node-line" x1="5" y1="101.5" x2="15" y2="101.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="20" y="130.5" dominant-baseline="middle" fill="#000000" font-size="16">LICENSE</text>
+        <text class="treeView-node-label" x="20" y="130.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">LICENSE</text>
       </g>
       <line class="treeView-node-line" x1="5" y1="130.5" x2="15" y2="130.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="20" y="159.5" dominant-baseline="middle" fill="#000000" font-size="16">justfile</text>
+        <text class="treeView-node-label" x="20" y="159.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">justfile</text>
       </g>
       <line class="treeView-node-line" x1="5" y1="159.5" x2="15" y2="159.5" stroke="#000000" stroke-width="1"/>
       <g>
-        <text class="treeView-node-label" x="20" y="188.5" dominant-baseline="middle" fill="#000000" font-size="16">.gitignore</text>
+        <text class="treeView-node-label" x="20" y="188.5" dominant-baseline="middle" fill="#000000" font-size="16" xml:space="preserve">.gitignore</text>
       </g>
       <line class="treeView-node-line" x1="5" y1="188.5" x2="15" y2="188.5" stroke="#000000" stroke-width="1"/>
       <line class="treeView-node-line" x1="5" y1="29" x2="5" y2="189" stroke="#000000" stroke-width="1"/>

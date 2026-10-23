@@ -171,6 +171,19 @@ pub struct Style {
     /// without a scene-level list; the serializer writes each id's
     /// `<clipPath>` once, just before its first user.
     pub clip_path: Option<ClipPath>,
+    /// `xml:space`. It inherits, as CSS `white-space` does.
+    pub xml_space: Option<XmlSpace>,
+}
+
+/// How text keeps its white space. SVG's `xml:space="preserve"` is the
+/// form resvg reads of CSS `white-space: pre`: every space survives, and a
+/// tab or a newline draws as one space.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum XmlSpace {
+    /// Runs of white space collapse to one space, and a text drops its
+    /// leading and trailing space.
+    Default,
+    Preserve,
 }
 
 /// A `<clipPath>` in the default `clipPathUnits="userSpaceOnUse"`: its
@@ -258,6 +271,9 @@ impl Style {
         self.font = self.font.merged_over(&base.font);
         if self.text_anchor.is_none() {
             self.text_anchor = base.text_anchor;
+        }
+        if self.xml_space.is_none() {
+            self.xml_space = base.xml_space;
         }
     }
 }
