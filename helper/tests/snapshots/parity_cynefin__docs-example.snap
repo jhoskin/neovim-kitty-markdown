@@ -1,0 +1,75 @@
+---
+source: tests/parity_cynefin.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="880" height="680" viewBox="0 0 880 680" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g transform="translate(40, 40)">
+      <g class="cynefin-backgrounds">
+        <rect class="cynefinDomain" x="0" y="0" width="400" height="300" fill="#e8f5e9" fill-opacity="0.4"/>
+        <rect class="cynefinDomain" x="400" y="0" width="400" height="300" fill="#e3f2fd" fill-opacity="0.4"/>
+        <rect class="cynefinDomain" x="0" y="300" width="400" height="300" fill="#fbe9e7" fill-opacity="0.4"/>
+        <rect class="cynefinDomain" x="400" y="300" width="400" height="300" fill="#fff8e1" fill-opacity="0.4"/>
+      </g>
+      <g class="cynefin-boundaries">
+        <path class="cynefinBoundary" d="M404.857,0C415.326,42.857,383.91,42.857,394.379,85.714C391.477,128.571,403.719,128.571,400.817,171.429C409.757,214.286,393.624,214.286,402.564,257.143C394.202,300,402.28,300,393.919,342.857C405.195,385.714,389.832,385.714,401.108,428.571C396.104,471.429,403.987,471.429,398.982,514.286C410.105,557.143,394.403,557.143,405.526,600" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="6,3"/>
+        <path class="cynefinBoundary" d="M0,303.149C57.143,315.1,57.143,280.05,114.286,292.002C171.429,284.551,171.429,315.449,228.571,307.998C285.714,308.199,285.714,296.154,342.857,296.355C400,291.109,400,310.997,457.143,305.75C514.286,309.56,514.286,289.71,571.429,293.52C628.571,282.889,628.571,317.042,685.714,306.411C742.857,310.34,742.857,294.681,800,298.61" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="6,3"/>
+        <path class="cynefinCliff" d="M400,300C424,360,364,465,412,525C376,555,407.2,585,400,600" fill="none" stroke="#8b0000" stroke-width="4"/>
+      </g>
+      <path class="cynefinConfusion" d="M280,300A120,90,0,1,1,520,300A120,90,0,1,1,280,300Z" fill="#f3e5f5" fill-opacity="0.5" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <g class="cynefin-labels">
+        <text class="cynefinDomainLabel" x="200" y="120" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Complex</text>
+        <text class="cynefinDomainLabel" x="600" y="120" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Complicated</text>
+        <text class="cynefinDomainLabel" x="200" y="420" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Chaotic</text>
+        <text class="cynefinDomainLabel" x="600" y="420" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Clear</text>
+        <text class="cynefinDomainLabel" x="400" y="290" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Confusion</text>
+      </g>
+      <g class="cynefin-subtitles">
+        <text class="cynefinSubtitle" x="200" y="140" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Probe → Sense → Respond</text>
+        <text class="cynefinSubtitle" x="200" y="155" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Emergent Practices</text>
+        <text class="cynefinSubtitle" x="600" y="140" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Sense → Analyse → Respond</text>
+        <text class="cynefinSubtitle" x="600" y="155" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Good Practices</text>
+        <text class="cynefinSubtitle" x="200" y="440" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Act → Sense → Respond</text>
+        <text class="cynefinSubtitle" x="200" y="455" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Novel Practices</text>
+        <text class="cynefinSubtitle" x="600" y="440" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Sense → Categorise → Respond</text>
+        <text class="cynefinSubtitle" x="600" y="455" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Best Practices</text>
+        <text class="cynefinSubtitle" x="400" y="308" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-size="11" font-style="italic">Disorder</text>
+      </g>
+      <g class="cynefin-items">
+        <g transform="translate(130.639, 175)">
+          <rect class="cynefinItem" x="0" y="0" width="138.723" height="26" rx="4" ry="4" fill="#e8f5e9" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="69.361" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Investigate root cause</text>
+        </g>
+        <g transform="translate(130.612, 205)">
+          <rect class="cynefinItem" x="0" y="0" width="138.775" height="26" rx="4" ry="4" fill="#e8f5e9" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="69.388" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Run chaos experiment</text>
+        </g>
+        <g transform="translate(519.169, 175)">
+          <rect class="cynefinItem" x="0" y="0" width="161.662" height="26" rx="4" ry="4" fill="#e3f2fd" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="80.831" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Analyze performance data</text>
+        </g>
+        <g transform="translate(531.066, 205)">
+          <rect class="cynefinItem" x="0" y="0" width="137.867" height="26" rx="4" ry="4" fill="#e3f2fd" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="68.934" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Expert review needed</text>
+        </g>
+        <g transform="translate(121.99, 475)">
+          <rect class="cynefinItem" x="0" y="0" width="156.02" height="26" rx="4" ry="4" fill="#fbe9e7" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="78.01" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Page on-call immediately</text>
+        </g>
+        <g transform="translate(550.074, 475)">
+          <rect class="cynefinItem" x="0" y="0" width="99.852" height="26" rx="4" ry="4" fill="#fff8e1" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="49.926" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Restart service</text>
+        </g>
+        <g transform="translate(547.229, 505)">
+          <rect class="cynefinItem" x="0" y="0" width="105.541" height="26" rx="4" ry="4" fill="#fff8e1" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="52.771" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Apply known fix</text>
+        </g>
+        <g transform="translate(329.399, 322)">
+          <rect class="cynefinItem" x="0" y="0" width="141.201" height="26" rx="4" ry="4" fill="#f3e5f5" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="70.601" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Unknown failure mode</text>
+        </g>
+      </g>
+      <text class="cynefinTitle" x="400" y="-20" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="18" font-weight="bold">Incident Response</text>
+    </g>
+  </g>
+</svg>

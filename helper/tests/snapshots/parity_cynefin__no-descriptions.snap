@@ -1,0 +1,49 @@
+---
+source: tests/parity_cynefin.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="580" viewBox="0 0 1080 580" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="cynefin-arrow-my-svg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" markerUnits="strokeWidth">
+      <path class="cynefinArrowHead" d="M0,0L10,5L0,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g>
+    <g transform="translate(40, 40)">
+      <g class="cynefin-backgrounds">
+        <rect class="cynefinDomain" x="0" y="0" width="500" height="250" fill="#e8f5e9" fill-opacity="0.4"/>
+        <rect class="cynefinDomain" x="500" y="0" width="500" height="250" fill="#e3f2fd" fill-opacity="0.4"/>
+        <rect class="cynefinDomain" x="0" y="250" width="500" height="250" fill="#fbe9e7" fill-opacity="0.4"/>
+        <rect class="cynefinDomain" x="500" y="250" width="500" height="250" fill="#fff8e1" fill-opacity="0.4"/>
+      </g>
+      <g class="cynefin-boundaries">
+        <path class="cynefinBoundary" d="M501.618,0C506.105,35.714,493.838,35.714,498.325,71.429C488.907,107.143,508.598,107.143,499.18,142.857C511.061,178.571,484.141,178.571,496.023,214.286C488.196,250,501.866,250,494.04,285.714C494.647,321.429,495.262,321.429,495.87,357.143C488.776,392.857,500.103,392.857,493.009,428.571C497.82,464.286,491.835,464.286,496.646,500" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="6,3"/>
+        <path class="cynefinBoundary" d="M0,252.436C71.429,253.342,71.429,250.19,142.857,251.097C214.286,245.079,214.286,257.648,285.714,251.63C357.143,259.418,357.143,237.436,428.571,245.224C500,237.455,500,256.188,571.429,248.419C642.857,254.344,642.857,239.791,714.286,245.717C785.714,244.033,785.714,250.32,857.143,248.636C928.571,252.202,928.571,253.341,1000,256.907" fill="none" stroke="#333333" stroke-width="2" stroke-dasharray="6,3"/>
+        <path class="cynefinCliff" d="M500,250C530,300,455,387.5,515,437.5C470,462.5,509,487.5,500,500" fill="none" stroke="#8b0000" stroke-width="4"/>
+      </g>
+      <path class="cynefinConfusion" d="M350,250A150,75,0,1,1,650,250A150,75,0,1,1,350,250Z" fill="#f3e5f5" fill-opacity="0.5" stroke="#333333" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <g class="cynefin-labels">
+        <text class="cynefinDomainLabel" x="250" y="125" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Complex</text>
+        <text class="cynefinDomainLabel" x="750" y="125" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Complicated</text>
+        <text class="cynefinDomainLabel" x="250" y="375" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Chaotic</text>
+        <text class="cynefinDomainLabel" x="750" y="375" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Clear</text>
+        <text class="cynefinDomainLabel" x="500" y="250" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="16" font-weight="bold">Confusion</text>
+      </g>
+      <g class="cynefin-items">
+        <g transform="translate(201.472, 140)">
+          <rect class="cynefinItem" x="0" y="0" width="97.057" height="26" rx="4" ry="4" fill="#e8f5e9" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="48.528" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Adaptive work</text>
+        </g>
+        <g transform="translate(704.762, 390)">
+          <rect class="cynefinItem" x="0" y="0" width="90.477" height="26" rx="4" ry="4" fill="#fff8e1" fill-opacity="0.95" stroke="#333333" stroke-width="1"/>
+          <text class="cynefinItemText" x="45.238" y="13" text-anchor="middle" dominant-baseline="central" fill="#333333" font-size="12">Routine work</text>
+        </g>
+      </g>
+      <g class="cynefin-arrows">
+        <path class="cynefinArrowLine" d="M750,125Q712.5,250,750,375" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#cynefin-arrow-my-svg)"/>
+        <path class="cynefinArrowLine" d="M250,375Q393.75,350,500,250" fill="none" stroke="#333333" stroke-width="2" marker-end="url(#cynefin-arrow-my-svg)"/>
+        <text class="cynefinArrowLabel" x="393.75" y="344" text-anchor="middle" dominant-baseline="auto" fill="#333333" font-size="11">Lost</text>
+      </g>
+    </g>
+  </g>
+</svg>
