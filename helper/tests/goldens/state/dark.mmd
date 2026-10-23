@@ -1,0 +1,12 @@
+%%{init: {"theme": "dark"}}%%
+stateDiagram-v2
+    [*] --> Idle
+    Idle --> Working : job
+    state Working {
+        [*] --> Fetch
+        Fetch --> Process
+        Process --> [*]
+    }
+    Working --> Done : finished
+    note right of Done : All work is complete
+    Done --> [*]

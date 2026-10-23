@@ -1,0 +1,16 @@
+stateDiagram-v2
+    [*] --> Created
+    Created --> Submitted : submit
+    Submitted --> Validating
+    Validating --> Rejected : invalid
+    Validating --> Approved : valid
+    Rejected --> Created : edit
+    Approved --> Paying
+    Paying --> Paid : ok
+    Paying --> PaymentFailed : declined
+    PaymentFailed --> Paying : retry
+    Paid --> Packing
+    Packing --> Shipped
+    Shipped --> Delivered
+    Delivered --> Closed
+    Closed --> [*]

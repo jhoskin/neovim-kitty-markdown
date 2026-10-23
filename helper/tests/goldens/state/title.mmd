@@ -1,0 +1,8 @@
+---
+title: Order states
+---
+stateDiagram-v2
+    [*] --> Waiting
+    Waiting --> Waiting : poll
+    Waiting --> Done
+    Done --> [*]
