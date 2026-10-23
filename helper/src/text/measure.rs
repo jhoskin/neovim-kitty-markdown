@@ -208,10 +208,9 @@ impl Shaped {
 /// upright face: x' = x + y / 4.
 const SYNTHETIC_OBLIQUE_SKEW: f32 = 0.25;
 /// How far a synthetic bold pushes the ink out on each side, as a fraction
-/// of the font size. Measured on the oracle's Open Sans 700 cases, where
-/// Chrome emboldens the 400 face: the box grows 0.280, 0.327, and 0.374 px
-/// at 12, 14, and 16 px.
-const SYNTHETIC_BOLD_INK_GROWTH: f32 = 0.02334;
+/// of the font size. The raster step draws the same growth, so the measured
+/// box and the drawn ink come from one constant.
+const SYNTHETIC_BOLD_INK_GROWTH: f32 = crate::text::fonts::SYNTHETIC_BOLD_GROWTH as f32;
 
 /// What Chrome fakes when the matched face lacks the requested style.
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Default)]
