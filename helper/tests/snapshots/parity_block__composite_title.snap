@@ -45,8 +45,8 @@ expression: scene.to_svg()
     <g class="block">
       <g id="my-svg-compoundBlock" class="node default flowchart-label default flowchart-label" transform="translate(83.063, 0)">
         <rect class="basic cluster composite label-container" x="-83.062" y="-52" width="166.125" height="104" rx="0" ry="0" fill="#ffffde" fill-opacity="0.5" stroke="#aaaa33" stroke-width="1" stroke-opacity="0.2"/>
-        <g class="label" transform="translate(-59.184, -12)">
-          <text class="nodeLabel" x="59.184" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="59.184" dy="17">Compound block</tspan></text>
+        <g class="label" transform="translate(-59.187, -12)">
+          <text class="nodeLabel" x="59.188" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="59.188" dy="17">Compound block</tspan></text>
         </g>
       </g>
       <g id="my-svg-block2" class="node default flowchart-label " transform="translate(83.063, -24)">
@@ -57,8 +57,8 @@ expression: scene.to_svg()
       </g>
       <g id="my-svg-block3" class="node default flowchart-label " transform="translate(83.063, 24)">
         <rect class="basic label-container" x="-75.062" y="-20" width="150.125" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-        <g class="label" transform="translate(-23.301, -12)">
-          <text class="nodeLabel" x="23.301" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.301" dy="17">block3</tspan></text>
+        <g class="label" transform="translate(-23.305, -12)">
+          <text class="nodeLabel" x="23.305" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.305" dy="17">block3</tspan></text>
         </g>
       </g>
       <g id="my-svg-A" class="node default flowchart-label " transform="translate(257.188, 0)">

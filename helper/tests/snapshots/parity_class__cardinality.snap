@@ -2,7 +2,7 @@
 source: tests/parity_class.rs
 expression: scene_svg(&mmd)
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="489.922" height="258" viewBox="0 0 489.922 258" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="489.93" height="258" viewBox="0 0 489.93 258" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_classDiagram-aggregationStart" class="marker aggregation classDiagram" refX="18" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
       <path d="M18,7L9,13L1,7L9,1Z" fill="none" stroke="#333333"/>
@@ -71,65 +71,65 @@ expression: scene_svg(&mmd)
       <g class="edgePaths">
         <path id="my-svg-id_Customer_Ticket_1" class=" edge-thickness-normal edge-pattern-solid relation" d="M55.656,92L55.656,98.167C55.656,104.333,55.656,116.667,55.656,128C55.656,139.333,55.656,149.667,55.656,154.833L55.656,160" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_classDiagram-dependencyEnd)"/>
         <path id="my-svg-id_Student_Course_2" class=" edge-thickness-normal edge-pattern-solid relation" d="M194.438,92L194.438,98.167C194.438,104.333,194.438,116.667,194.438,128C194.438,139.333,194.438,149.667,194.438,154.833L194.438,160" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_classDiagram-dependencyEnd)"/>
-        <path id="my-svg-id_Galaxy_Star_3" class=" edge-thickness-normal edge-pattern-solid relation" d="M322.504,92L322.504,98.167C322.504,104.333,322.504,116.667,322.504,128C322.504,139.333,322.504,149.667,322.504,154.833L322.504,160" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_classDiagram-dependencyEnd)"/>
-        <path id="my-svg-id_Order_Invoice_4" class=" edge-thickness-normal edge-pattern-solid relation" d="M443.148,109.25L443.148,112.542C443.148,115.833,443.148,122.417,443.148,131.875C443.148,141.333,443.148,153.667,443.148,159.833L443.148,166" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#my-svg_classDiagram-compositionStart)"/>
+        <path id="my-svg-id_Galaxy_Star_3" class=" edge-thickness-normal edge-pattern-solid relation" d="M322.508,92L322.508,98.167C322.508,104.333,322.508,116.667,322.508,128C322.508,139.333,322.508,149.667,322.508,154.833L322.508,160" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_classDiagram-dependencyEnd)"/>
+        <path id="my-svg-id_Order_Invoice_4" class=" edge-thickness-normal edge-pattern-solid relation" d="M443.156,109.25L443.156,112.542C443.156,115.833,443.156,122.417,443.156,131.875C443.156,141.333,443.156,153.667,443.156,159.833L443.156,166" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#my-svg_classDiagram-compositionStart)"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel">
           <g class="label" transform="translate(0, 0)"/>
         </g>
         <g class="edgeTerminals" transform="translate(40.656, 109.5)">
-          <g class="inner" transform="translate(-2.884, -8.25)">
+          <g class="inner" transform="translate(-2.891, -8.25)">
             <rect x="0" y="0" width="9" height="16.5" fill="none" stroke="none"/>
-            <text class="edgeLabel" x="2.884" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="2.884" dy="12">1</tspan></text>
+            <text class="edgeLabel" x="2.891" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="2.891" dy="12">1</tspan></text>
           </g>
         </g>
         <g class="edgeTerminals" transform="translate(70.656, 148.5)">
-          <g class="inner" transform="translate(-2.02, -8.25)">
+          <g class="inner" transform="translate(-2.023, -8.25)">
             <rect x="0" y="0" width="9" height="16.5" fill="none" stroke="none"/>
-            <text class="edgeLabel" x="2.02" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="2.02" dy="12">*</tspan></text>
+            <text class="edgeLabel" x="2.023" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="2.023" dy="12">*</tspan></text>
           </g>
         </g>
         <g class="edgeLabel">
           <g class="label" transform="translate(0, 0)"/>
         </g>
         <g class="edgeTerminals" transform="translate(179.438, 109.5)">
-          <g class="inner" transform="translate(-2.884, -8.25)">
+          <g class="inner" transform="translate(-2.891, -8.25)">
             <rect x="0" y="0" width="9" height="16.5" fill="none" stroke="none"/>
-            <text class="edgeLabel" x="2.884" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="2.884" dy="12">1</tspan></text>
+            <text class="edgeLabel" x="2.891" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="2.891" dy="12">1</tspan></text>
           </g>
         </g>
         <g class="edgeTerminals" transform="translate(209.438, 148.5)">
-          <g class="inner" transform="translate(-8.943, -8.25)">
+          <g class="inner" transform="translate(-8.945, -8.25)">
             <rect x="0" y="0" width="36" height="16.5" fill="none" stroke="none"/>
-            <text class="edgeLabel" x="8.943" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="8.943" dy="12">1..*</tspan></text>
+            <text class="edgeLabel" x="8.945" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="8.945" dy="12">1..*</tspan></text>
           </g>
         </g>
-        <g class="edgeLabel" transform="translate(322.504, 129)">
+        <g class="edgeLabel" transform="translate(322.508, 129)">
           <g class="label" transform="translate(-29.891, -12)">
             <rect class="background" x="0" y="0" width="59.781" height="24" fill="#ececff" stroke="none"/>
             <text class="edgeLabel" x="29.891" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="29.891" dy="17">contains</tspan></text>
           </g>
         </g>
-        <g class="edgeTerminals" transform="translate(337.504, 148.5)">
-          <g class="inner" transform="translate(-13.173, -8.25)">
+        <g class="edgeTerminals" transform="translate(337.508, 148.5)">
+          <g class="inner" transform="translate(-13.18, -8.25)">
             <rect x="0" y="0" width="36" height="16.5" fill="none" stroke="none"/>
-            <text class="edgeLabel" x="13.173" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="13.173" dy="12">many</tspan></text>
+            <text class="edgeLabel" x="13.18" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="13.18" dy="12">many</tspan></text>
           </g>
         </g>
         <g class="edgeLabel">
           <g class="label" transform="translate(0, 0)"/>
         </g>
-        <g class="edgeTerminals" transform="translate(428.148, 109.5)">
-          <g class="inner" transform="translate(-9.808, -8.25)">
+        <g class="edgeTerminals" transform="translate(428.156, 109.5)">
+          <g class="inner" transform="translate(-9.812, -8.25)">
             <rect x="0" y="0" width="36" height="16.5" fill="none" stroke="none"/>
-            <text class="edgeLabel" x="9.808" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="9.808" dy="12">0..1</tspan></text>
+            <text class="edgeLabel" x="9.813" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="9.813" dy="12">0..1</tspan></text>
           </g>
         </g>
-        <g class="edgeTerminals" transform="translate(458.148, 148.5)">
-          <g class="inner" transform="translate(-2.884, -8.25)">
+        <g class="edgeTerminals" transform="translate(458.156, 148.5)">
+          <g class="inner" transform="translate(-2.891, -8.25)">
             <rect x="0" y="0" width="9" height="16.5" fill="none" stroke="none"/>
-            <text class="edgeLabel" x="2.884" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="2.884" dy="12">1</tspan></text>
+            <text class="edgeLabel" x="2.891" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="11"><tspan x="2.891" dy="12">1</tspan></text>
           </g>
         </g>
       </g>
@@ -148,17 +148,17 @@ expression: scene_svg(&mmd)
           <line class="divider" x1="-47.656" y1="24" x2="47.656" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         </g>
         <g id="my-svg-classId-Ticket-1" class="node default " transform="translate(55.656, 208)">
-          <rect class="basic label-container outer-path" x="-35.23" y="-42" width="70.461" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <rect class="basic label-container outer-path" x="-35.234" y="-42" width="70.469" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="annotation-group text" transform="translate(0, -18)"/>
-          <g class="label-group text" transform="translate(-23.23, -18)">
+          <g class="label-group text" transform="translate(-23.234, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="23.23" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="23.23" dy="17" font-weight="bold">Ticket</tspan></text>
+              <text class="nodeLabel" x="23.234" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="23.234" dy="17" font-weight="bold">Ticket</tspan></text>
             </g>
           </g>
-          <g class="members-group text" transform="translate(-23.23, 30)"/>
-          <g class="methods-group text" transform="translate(-23.23, 60)"/>
-          <line class="divider" x1="-35.23" y1="6" x2="35.23" y2="6.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-          <line class="divider" x1="-35.23" y1="24" x2="35.23" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="members-group text" transform="translate(-23.234, 30)"/>
+          <g class="methods-group text" transform="translate(-23.234, 60)"/>
+          <line class="divider" x1="-35.234" y1="6" x2="35.234" y2="6.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <line class="divider" x1="-35.234" y1="24" x2="35.234" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         </g>
         <g id="my-svg-classId-Student-2" class="node default " transform="translate(194.438, 50)">
           <rect class="basic label-container outer-path" x="-41.125" y="-42" width="82.25" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
@@ -186,33 +186,33 @@ expression: scene_svg(&mmd)
           <line class="divider" x1="-37.609" y1="6" x2="37.609" y2="6.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <line class="divider" x1="-37.609" y1="24" x2="37.609" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         </g>
-        <g id="my-svg-classId-Galaxy-4" class="node default " transform="translate(322.504, 50)">
-          <rect class="basic label-container outer-path" x="-36.941" y="-42" width="73.883" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g id="my-svg-classId-Galaxy-4" class="node default " transform="translate(322.508, 50)">
+          <rect class="basic label-container outer-path" x="-36.945" y="-42" width="73.891" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="annotation-group text" transform="translate(0, -18)"/>
-          <g class="label-group text" transform="translate(-24.941, -18)">
+          <g class="label-group text" transform="translate(-24.945, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="24.941" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="24.941" dy="17" font-weight="bold">Galaxy</tspan></text>
+              <text class="nodeLabel" x="24.945" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="24.945" dy="17" font-weight="bold">Galaxy</tspan></text>
             </g>
           </g>
-          <g class="members-group text" transform="translate(-24.941, 30)"/>
-          <g class="methods-group text" transform="translate(-24.941, 60)"/>
-          <line class="divider" x1="-36.941" y1="6" x2="36.941" y2="6.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-          <line class="divider" x1="-36.941" y1="24" x2="36.941" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="members-group text" transform="translate(-24.945, 30)"/>
+          <g class="methods-group text" transform="translate(-24.945, 60)"/>
+          <line class="divider" x1="-36.945" y1="6" x2="36.945" y2="6.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <line class="divider" x1="-36.945" y1="24" x2="36.945" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         </g>
-        <g id="my-svg-classId-Star-5" class="node default " transform="translate(322.504, 208)">
-          <rect class="basic label-container outer-path" x="-26.941" y="-42" width="53.883" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g id="my-svg-classId-Star-5" class="node default " transform="translate(322.508, 208)">
+          <rect class="basic label-container outer-path" x="-26.945" y="-42" width="53.891" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="annotation-group text" transform="translate(0, -18)"/>
-          <g class="label-group text" transform="translate(-14.941, -18)">
+          <g class="label-group text" transform="translate(-14.945, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="14.941" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="14.941" dy="17" font-weight="bold">Star</tspan></text>
+              <text class="nodeLabel" x="14.945" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="14.945" dy="17" font-weight="bold">Star</tspan></text>
             </g>
           </g>
-          <g class="members-group text" transform="translate(-14.941, 30)"/>
-          <g class="methods-group text" transform="translate(-14.941, 60)"/>
-          <line class="divider" x1="-26.941" y1="6" x2="26.941" y2="6.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-          <line class="divider" x1="-26.941" y1="24" x2="26.941" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="members-group text" transform="translate(-14.945, 30)"/>
+          <g class="methods-group text" transform="translate(-14.945, 60)"/>
+          <line class="divider" x1="-26.945" y1="6" x2="26.945" y2="6.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <line class="divider" x1="-26.945" y1="24" x2="26.945" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         </g>
-        <g id="my-svg-classId-Order-6" class="node default " transform="translate(443.148, 50)">
+        <g id="my-svg-classId-Order-6" class="node default " transform="translate(443.156, 50)">
           <rect class="basic label-container outer-path" x="-33.703" y="-42" width="67.406" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-21.703, -18)">
@@ -225,7 +225,7 @@ expression: scene_svg(&mmd)
           <line class="divider" x1="-33.703" y1="6" x2="33.703" y2="6.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <line class="divider" x1="-33.703" y1="24" x2="33.703" y2="24.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         </g>
-        <g id="my-svg-classId-Invoice-7" class="node default " transform="translate(443.148, 208)">
+        <g id="my-svg-classId-Invoice-7" class="node default " transform="translate(443.156, 208)">
           <rect class="basic label-container outer-path" x="-38.773" y="-42" width="77.547" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-26.773, -18)">

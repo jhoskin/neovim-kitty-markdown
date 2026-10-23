@@ -414,9 +414,20 @@ pub fn measure_with_metrics(
         };
         let structured = markdown::html_to_lines(&html);
         let label = metrics.html_label(&structured, &spec, opts.width.map(|w| w as f32));
-        let lines = label_lines(&label.lines, |line| metrics.words_width(line, &spec));
+        let lines = label_lines(&label.lines, |line| metrics.words_width(line, &spec))
+            .into_iter()
+            .map(|line| LabelLine {
+                width: layout_unit_ceil(line.width),
+                ..line
+            })
+            .collect();
         baseline = html_first_baseline(metrics, &spec, line_height);
-        (0.0, f64::from(label.width), f64::from(label.height), lines)
+        (
+            0.0,
+            layout_unit_ceil(f64::from(label.width)),
+            f64::from(label.height),
+            lines,
+        )
     } else {
         let normalized = markdown::normalize_breaks(text);
         let mut structured = if opts.markdown {
@@ -467,6 +478,15 @@ pub fn measure_with_metrics(
         lines,
         font: opts.font.clone(),
     }
+}
+
+/// Rounds a width up to Blink's `LayoutUnit` of 1/64 px. Chrome lays the
+/// shrink-to-fit label `div` out in LayoutUnits and rounds the text width
+/// up, so `getBoundingClientRect()` reports a multiple of 1/64; dagre's
+/// alignment choice can turn on that last fraction. The epsilon keeps an
+/// exact multiple from rounding up once more.
+pub fn layout_unit_ceil(v: f64) -> f64 {
+    (v * 64.0 - 1e-6).ceil() / 64.0
 }
 
 /// Where Chrome puts the first baseline of an HTML label line: the line box
@@ -558,6 +578,16 @@ mod metrics_tests {
     }
 
     #[test]
+    fn html_widths_are_layout_units() {
+        let metrics = TextMetrics::new(font_system());
+        let b = metrics.measure("Hello world", &open_sans_opts(true));
+        assert_eq!(b.width * 64.0, (b.width * 64.0).round());
+        assert_eq!(b.lines[0].width, b.width);
+        assert_eq!(layout_unit_ceil(2.0), 2.0);
+        assert_eq!(layout_unit_ceil(2.001), 2.015625);
+    }
+
+    #[test]
     fn svg_label_is_centred_with_the_bbox_y() {
         let metrics = TextMetrics::new(font_system());
         let b = metrics.measure("Hello", &open_sans_opts(false));
@@ -608,11 +638,11 @@ mod metrics_tests {
             .collect();
         assert_eq!(words, ["<<Element>>", "a&lt;b"]);
         // The decoded SVG words advance as far as the HTML label, which the
-        // browser decodes through `innerHTML`.
+        // browser decodes through `innerHTML` (up to its 1/64 px rounding).
         let html = metrics.measure("&lt;&lt;Element&gt;&gt;", &open_sans_opts(true));
         let decoded = metrics.measure("&lt;&lt;Element&gt;&gt;", &open_sans_opts(false));
         assert_eq!(html.lines[0].runs[0].text.trim(), "<<Element>>");
-        assert!((decoded.lines[0].width - html.lines[0].width).abs() < 1e-3);
+        assert!((decoded.lines[0].width - html.lines[0].width).abs() < 1.0 / 64.0);
     }
 
     #[test]

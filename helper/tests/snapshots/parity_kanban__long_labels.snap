@@ -2,7 +2,7 @@
 source: tests/parity_kanban.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="773.305" height="436" viewBox="90 -310 773.305 436" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="773.313" height="436" viewBox="90 -310 773.313 436" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <g>
     <g class="sections">
       <g id="my-svg-backlog" class="cluster section-1">
@@ -13,8 +13,8 @@ expression: scene.to_svg()
       </g>
       <g id="my-svg-next" class="cluster section-2">
         <rect x="305" y="-300" width="200" height="211" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(377.113, -300)">
-          <text class="nodeLabel" x="27.887" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.887" dy="17">Next up</tspan></text>
+        <g class="cluster-label" transform="translate(377.109, -300)">
+          <text class="nodeLabel" x="27.891" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.891" dy="17">Next up</tspan></text>
         </g>
       </g>
     </g>
@@ -59,7 +59,7 @@ expression: scene.to_svg()
         <g class="label" transform="translate(-82.5, 12)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">KM-12</tspan></text>
         </g>
-        <g class="label" transform="translate(-107.508, 12)">
+        <g class="label" transform="translate(-107.516, 12)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">a.very.long.assignee.name</tspan></text>
         </g>
       </g>

@@ -33,9 +33,9 @@ expression: scene_svg(&mmd)
           <g class="label" transform="translate(0, 0)"/>
         </g>
         <g class="edgeLabel" transform="translate(194, 149)">
-          <g class="label" transform="translate(-11.684, -12)">
-            <rect class="background" x="0" y="0" width="23.367" height="24" fill="#585858" stroke="none"/>
-            <text class="edgeLabel" x="11.684" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="11.684" dy="17">job</tspan></text>
+          <g class="label" transform="translate(-11.687, -12)">
+            <rect class="background" x="0" y="0" width="23.375" height="24" fill="#585858" stroke="none"/>
+            <text class="edgeLabel" x="11.688" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="11.688" dy="17">job</tspan></text>
           </g>
         </g>
         <g class="edgeLabel" transform="translate(194, 631)">

@@ -2,7 +2,7 @@
 source: tests/parity_requirement.rs
 expression: scene_svg(&mmd)
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="896.867" height="362" viewBox="0 0 896.867 362" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="896.875" height="362" viewBox="0 0 896.875 362" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_requirement-requirement_containsStart" refX="0" refY="10" markerWidth="20" markerHeight="20" orient="auto" markerUnits="strokeWidth" fill="#333333" stroke="#333333">
       <g fill="#333333" stroke="#333333">
@@ -19,53 +19,53 @@ expression: scene_svg(&mmd)
     <g class="root">
       <g class="clusters"/>
       <g class="edgePaths">
-        <path id="my-svg-bare-target-0" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M64.336,110L64.336,121.833C64.336,133.667,64.336,157.333,92.879,179.569C121.422,201.806,178.508,222.611,207.051,233.014L235.594,243.417" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="10,7" marker-end="url(#my-svg_requirement-requirement_arrowEnd)"/>
+        <path id="my-svg-bare-target-0" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M64.336,110L64.336,121.833C64.336,133.667,64.336,157.333,92.878,179.569C121.421,201.805,178.505,222.61,207.048,233.013L235.59,243.415" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="10,7" marker-end="url(#my-svg_requirement-requirement_arrowEnd)"/>
         <path id="my-svg-typed-target-1" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M239.719,132L239.719,140.167C239.719,148.333,239.719,164.667,246.339,179C252.958,193.333,266.198,205.667,272.818,211.833L279.437,218" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="10,7" marker-end="url(#my-svg_requirement-requirement_arrowEnd)"/>
         <path id="my-svg-documented-target-2" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M465.148,132L465.148,140.167C465.148,148.333,465.148,164.667,458.529,179C451.909,193.333,438.669,205.667,432.05,211.833L425.43,218" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="10,7" marker-end="url(#my-svg_requirement-requirement_arrowEnd)"/>
-        <path id="my-svg-quoted element-target-3" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M755.199,144L755.199,150.167C755.199,156.333,755.199,168.667,707.545,187.257C659.891,205.847,564.582,230.693,516.928,243.117L469.273,255.54" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="10,7" marker-end="url(#my-svg_requirement-requirement_arrowEnd)"/>
+        <path id="my-svg-quoted element-target-3" class=" edge-thickness-normal edge-pattern-dashed relationshipLine" d="M755.203,144L755.203,150.167C755.203,156.333,755.203,168.667,707.549,187.257C659.895,205.846,564.586,230.693,516.932,243.116L469.277,255.539" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="10,7" marker-end="url(#my-svg_requirement-requirement_arrowEnd)"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel" transform="translate(64.336, 181)">
-          <g class="label" transform="translate(-45.754, -12)">
-            <rect class="background" x="0" y="0" width="91.508" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="45.754" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="45.754" dy="17">&lt;&lt;satisfies&gt;&gt;</tspan></text>
+          <g class="label" transform="translate(-45.758, -12)">
+            <rect class="background" x="0" y="0" width="91.516" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="45.758" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="45.758" dy="17">&lt;&lt;satisfies&gt;&gt;</tspan></text>
           </g>
         </g>
         <g class="edgeLabel" transform="translate(239.719, 181)">
-          <g class="label" transform="translate(-45.754, -12)">
-            <rect class="background" x="0" y="0" width="91.508" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="45.754" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="45.754" dy="17">&lt;&lt;satisfies&gt;&gt;</tspan></text>
+          <g class="label" transform="translate(-45.758, -12)">
+            <rect class="background" x="0" y="0" width="91.516" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="45.758" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="45.758" dy="17">&lt;&lt;satisfies&gt;&gt;</tspan></text>
           </g>
         </g>
         <g class="edgeLabel" transform="translate(465.148, 181)">
-          <g class="label" transform="translate(-43.293, -12)">
-            <rect class="background" x="0" y="0" width="86.586" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="43.293" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="43.293" dy="17">&lt;&lt;verifies&gt;&gt;</tspan></text>
+          <g class="label" transform="translate(-43.297, -12)">
+            <rect class="background" x="0" y="0" width="86.594" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="43.297" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="43.297" dy="17">&lt;&lt;verifies&gt;&gt;</tspan></text>
           </g>
         </g>
-        <g class="edgeLabel" transform="translate(755.199, 181)">
-          <g class="label" transform="translate(-43.293, -12)">
-            <rect class="background" x="0" y="0" width="86.586" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="43.293" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="43.293" dy="17">&lt;&lt;verifies&gt;&gt;</tspan></text>
+        <g class="edgeLabel" transform="translate(755.203, 181)">
+          <g class="label" transform="translate(-43.297, -12)">
+            <rect class="background" x="0" y="0" width="86.594" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="43.297" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="43.297" dy="17">&lt;&lt;verifies&gt;&gt;</tspan></text>
           </g>
         </g>
       </g>
       <g class="nodes">
         <g id="my-svg-target" class="node default " transform="translate(352.434, 286)">
-          <rect class="basic label-container outer-path" x="-116.84" y="-68" width="233.68" height="136" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
-          <g class="label" transform="translate(-62.605, -60)">
-            <text class="nodeLabel" x="62.605" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.605" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
+          <rect class="basic label-container outer-path" x="-116.844" y="-68" width="233.688" height="136" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+          <g class="label" transform="translate(-62.609, -60)">
+            <text class="nodeLabel" x="62.609" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.609" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
           </g>
-          <g class="label" transform="translate(-22.637, -36)" font-weight="bold">
-            <text class="nodeLabel" x="22.637" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="22.637" dy="17" font-weight="bold">target</tspan></text>
+          <g class="label" transform="translate(-22.641, -36)" font-weight="bold">
+            <text class="nodeLabel" x="22.641" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="22.641" dy="17" font-weight="bold">target</tspan></text>
           </g>
-          <g class="label" transform="translate(-106.84, 8)">
-            <text class="nodeLabel" x="16.676" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.676" dy="17">ID: 7</tspan></text>
+          <g class="label" transform="translate(-106.844, 8)">
+            <text class="nodeLabel" x="16.68" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.68" dy="17">ID: 7</tspan></text>
           </g>
-          <g class="label" transform="translate(-106.84, 32)">
-            <text class="nodeLabel" x="106.84" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="106.84" dy="17">Text: the target requirement.</tspan></text>
+          <g class="label" transform="translate(-106.844, 32)">
+            <text class="nodeLabel" x="106.844" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="106.844" dy="17">Text: the target requirement.</tspan></text>
           </g>
-          <line class="divider" x1="-116.84" y1="0" x2="116.84" y2="0" stroke="#9370db" stroke-width="1.3"/>
+          <line class="divider" x1="-116.844" y1="0" x2="116.844" y2="0" stroke="#9370db" stroke-width="1.3"/>
         </g>
         <g id="my-svg-bare" class="node default " transform="translate(64.336, 76)">
           <rect class="basic label-container outer-path" x="-56.336" y="-34" width="112.672" height="68" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
@@ -101,21 +101,21 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="96.383" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="96.383" dy="17">Doc Ref: reqs/documented</tspan></text>
           </g>
         </g>
-        <g id="my-svg-quoted element" class="node default " transform="translate(755.199, 76)">
-          <rect class="basic label-container outer-path" x="-133.668" y="-68" width="267.336" height="136" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
+        <g id="my-svg-quoted element" class="node default " transform="translate(755.203, 76)">
+          <rect class="basic label-container outer-path" x="-133.672" y="-68" width="267.344" height="136" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
           <g class="label" transform="translate(-46.336, -60)">
             <text class="nodeLabel" x="46.336" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="46.336" dy="17">&lt;&lt;Element&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-59.672, -36)" font-weight="bold">
             <text class="nodeLabel" x="59.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="59.672" dy="17" font-weight="bold">quoted element</tspan></text>
           </g>
-          <g class="label" transform="translate(-123.668, 8)">
+          <g class="label" transform="translate(-123.672, 8)">
             <text class="nodeLabel" x="55.617" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="55.617" dy="17">Type: test suite</tspan></text>
           </g>
-          <g class="label" transform="translate(-123.668, 32)">
-            <text class="nodeLabel" x="123.668" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="123.668" dy="17">Doc Ref: github.com/all_the_tests</tspan></text>
+          <g class="label" transform="translate(-123.672, 32)">
+            <text class="nodeLabel" x="123.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="123.672" dy="17">Doc Ref: github.com/all_the_tests</tspan></text>
           </g>
-          <line class="divider" x1="-133.668" y1="0" x2="133.668" y2="0" stroke="#9370db" stroke-width="1.3"/>
+          <line class="divider" x1="-133.672" y1="0" x2="133.672" y2="0" stroke="#9370db" stroke-width="1.3"/>
         </g>
       </g>
     </g>

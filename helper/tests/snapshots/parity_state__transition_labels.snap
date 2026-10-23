@@ -13,19 +13,19 @@ expression: scene_svg(&mmd)
       <g class="clusters"/>
       <g class="edgePaths">
         <path id="my-svg-edge0" class=" edge-thickness-normal edge-pattern-solid transition" d="M76,22L76,26.167C76,30.333,76,38.667,76,47C76,55.333,76,63.667,76,67.833L76,72" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
-        <path id="my-svg-edge1" class=" edge-thickness-normal edge-pattern-solid transition" d="M66.868,112L64.052,118.167C61.236,124.333,55.604,136.667,55.604,149C55.604,161.333,61.236,173.667,64.052,179.833L66.868,186" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+        <path id="my-svg-edge1" class=" edge-thickness-normal edge-pattern-solid transition" d="M66.866,112L64.05,118.167C61.234,124.333,55.601,136.667,55.601,149C55.601,161.333,61.234,173.667,64.05,179.833L66.866,186" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
         <path id="my-svg-edge2" class=" edge-thickness-normal edge-pattern-solid transition" d="M64.295,226L60.686,232.167C57.077,238.333,49.859,250.667,49.859,263C49.859,275.333,57.077,287.667,60.686,293.833L64.295,300" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
         <path id="my-svg-edge3" class=" edge-thickness-normal edge-pattern-solid transition" d="M87.705,300L91.314,293.833C94.923,287.667,102.141,275.333,102.141,263C102.141,250.667,94.923,238.333,91.314,232.167L87.705,226" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
-        <path id="my-svg-edge4" class=" edge-thickness-normal edge-pattern-solid transition" d="M85.132,186L87.948,179.833C90.764,173.667,96.396,161.333,96.396,149C96.396,136.667,90.764,124.333,87.948,118.167L85.132,112" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+        <path id="my-svg-edge4" class=" edge-thickness-normal edge-pattern-solid transition" d="M85.134,186L87.95,179.833C90.766,173.667,96.399,161.333,96.399,149C96.399,136.667,90.766,124.333,87.95,118.167L85.134,112" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel">
           <g class="label" transform="translate(0, 0)"/>
         </g>
-        <g class="edgeLabel" transform="translate(49.973, 149)">
-          <g class="label" transform="translate(-16.895, -12)">
-            <rect class="background" x="0" y="0" width="33.789" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="16.895" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.895" dy="17">start</tspan></text>
+        <g class="edgeLabel" transform="translate(49.969, 149)">
+          <g class="label" transform="translate(-16.898, -12)">
+            <rect class="background" x="0" y="0" width="33.797" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="16.898" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.898" dy="17">start</tspan></text>
           </g>
         </g>
         <g class="edgeLabel" transform="translate(42.641, 263)">
@@ -40,10 +40,10 @@ expression: scene_svg(&mmd)
             <text class="edgeLabel" x="26.086" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="26.086" dy="17">resume</tspan></text>
           </g>
         </g>
-        <g class="edgeLabel" transform="translate(102.027, 149)">
-          <g class="label" transform="translate(-15.16, -12)">
-            <rect class="background" x="0" y="0" width="30.32" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="15.16" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="15.16" dy="17">stop</tspan></text>
+        <g class="edgeLabel" transform="translate(102.031, 149)">
+          <g class="label" transform="translate(-15.164, -12)">
+            <rect class="background" x="0" y="0" width="30.328" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="15.164" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="15.164" dy="17">stop</tspan></text>
           </g>
         </g>
       </g>

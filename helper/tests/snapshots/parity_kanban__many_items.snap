@@ -19,8 +19,8 @@ expression: scene.to_svg()
       </g>
       <g id="my-svg-c" class="cluster section-3">
         <rect x="510" y="-300" width="200" height="79" rx="5" ry="5" fill="#ffb9ff" stroke="#ffb9ff" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(582.902, -300)">
-          <text class="nodeLabel" x="27.098" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.098" dy="17">Gamma</tspan></text>
+        <g class="cluster-label" transform="translate(582.898, -300)">
+          <text class="nodeLabel" x="27.102" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.102" dy="17">Gamma</tspan></text>
         </g>
       </g>
     </g>

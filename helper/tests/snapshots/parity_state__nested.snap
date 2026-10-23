@@ -53,8 +53,8 @@ expression: scene_svg(&mmd)
                   <g>
                     <rect class="outer" x="8" y="8" width="276" height="797" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
                   </g>
-                  <g class="cluster-label" transform="translate(120.707, 9)">
-                    <text class="nodeLabel" x="25.293" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.293" dy="17">Second</tspan></text>
+                  <g class="cluster-label" transform="translate(120.703, 9)">
+                    <text class="nodeLabel" x="25.297" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.297" dy="17">Second</tspan></text>
                   </g>
                   <rect class="inner" x="8" y="34" width="276" height="767" fill="#f0f0f0" stroke="#9370db" stroke-width="1"/>
                 </g>
@@ -87,8 +87,8 @@ expression: scene_svg(&mmd)
                       <g>
                         <rect class="outer" x="8" y="8" width="206" height="443" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
                       </g>
-                      <g class="cluster-label" transform="translate(92.137, 9)">
-                        <text class="nodeLabel" x="18.863" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.863" dy="17">Third</tspan></text>
+                      <g class="cluster-label" transform="translate(92.133, 9)">
+                        <text class="nodeLabel" x="18.867" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.867" dy="17">Third</tspan></text>
                       </g>
                       <rect class="inner" x="8" y="34" width="206" height="413" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
                     </g>

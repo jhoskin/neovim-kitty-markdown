@@ -63,9 +63,9 @@ expression: scene(&mmd).to_svg()
           <g class="label" transform="translate(0, 0)"/>
         </g>
         <g class="edgeLabel" transform="translate(133, 323)">
-          <g class="label" transform="translate(-11.324, -12)">
-            <rect class="background" x="0" y="0" width="22.648" height="24" fill="#e8e8e8" stroke="none"/>
-            <text class="edgeLabel" x="11.324" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="11.324" dy="17">Yes</tspan></text>
+          <g class="label" transform="translate(-11.328, -12)">
+            <rect class="background" x="0" y="0" width="22.656" height="24" fill="#e8e8e8" stroke="none"/>
+            <text class="edgeLabel" x="11.328" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="11.328" dy="17">Yes</tspan></text>
           </g>
         </g>
         <g class="edgeLabel">

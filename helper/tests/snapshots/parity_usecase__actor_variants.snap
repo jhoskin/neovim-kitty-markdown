@@ -57,8 +57,8 @@ expression: scene.to_svg()
     <g class="root">
       <g class="clusters"/>
       <g class="edgePaths">
-        <path id="my-svg-edge-0" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M121.475,68.5L126.851,68.5C132.228,68.5,142.981,68.5,162.612,91.714C182.243,114.928,210.751,161.356,225.005,184.57L239.26,207.784" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
-        <path id="my-svg-edge-1" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M119.537,239.5L125.236,239.5C130.936,239.5,142.335,239.5,151.535,239.5C160.734,239.5,167.734,239.5,171.234,239.5L174.734,239.5" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-edge-0" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M121.477,68.5L126.853,68.5C132.229,68.5,142.982,68.5,162.612,91.714C182.243,114.928,210.751,161.356,225.005,184.57L239.26,207.784" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-edge-1" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M119.539,239.5L125.238,239.5C130.938,239.5,142.336,239.5,151.535,239.5C160.734,239.5,167.734,239.5,171.234,239.5L174.734,239.5" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
         <path id="my-svg-edge-2" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M128.734,410.5L132.901,410.5C137.068,410.5,145.401,410.5,163.822,387.286C182.243,364.072,210.751,317.644,225.005,294.43L239.26,271.216" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
         <path id="my-svg-edge-3" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M117.305,593L123.376,593C129.448,593,141.591,593,151.163,593C160.734,593,167.734,593,171.234,593L174.734,593" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
         <path id="my-svg-edge-4" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M338.734,593L342.901,593C347.068,593,355.401,593,363.068,593C370.734,593,377.734,593,381.234,593L384.734,593" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
@@ -82,18 +82,18 @@ expression: scene.to_svg()
       </g>
       <g class="nodes">
         <g id="my-svg-usecase-Normal" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(68.367, 68.5)">
-          <rect class="usecase-actor-outline" x="-53.107" y="-60.5" width="106.215" height="121" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-43.107, 29.5)">
-            <text class="nodeLabel" x="43.107" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="43.107" dy="16">Normal actor</tspan></text>
+          <rect class="usecase-actor-outline" x="-53.109" y="-60.5" width="106.219" height="121" opacity="0"/>
+          <g class="label actor-label usecase-actor-label" transform="translate(-43.109, 29.5)">
+            <text class="nodeLabel" x="43.109" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="43.109" dy="16">Normal actor</tspan></text>
           </g>
           <g class="usecase-actor-glyph usecase-actor-shape usecase-actor-normal" transform="translate(0, -14.5)" fill="#ececff" stroke="#9370db" stroke-width="2">
             <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#ececff" stroke="#9370db" stroke-width="2"/>
           </g>
         </g>
         <g id="my-svg-usecase-Hollow" class="node default usecase-actor usecase-actor-hollow usecase-actor-variant usecase-actor-hollow" transform="translate(68.367, 239.5)">
-          <rect class="usecase-actor-outline" x="-51.169" y="-60.5" width="102.339" height="121" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-41.169, 29.5)">
-            <text class="nodeLabel" x="41.169" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="41.169" dy="16">Hollow actor</tspan></text>
+          <rect class="usecase-actor-outline" x="-51.172" y="-60.5" width="102.344" height="121" opacity="0"/>
+          <g class="label actor-label usecase-actor-label" transform="translate(-41.172, 29.5)">
+            <text class="nodeLabel" x="41.172" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="41.172" dy="16">Hollow actor</tspan></text>
           </g>
           <g class="usecase-actor-glyph usecase-actor-hollow" transform="translate(0, -14.5)" fill="#ececff" stroke="#9370db" stroke-width="2">
             <circle class="usecase-actor-hollow-head" cx="0" cy="-23" r="9" fill="none" stroke="#9370db" stroke-width="2"/>
@@ -111,8 +111,8 @@ expression: scene.to_svg()
         </g>
         <g id="my-svg-usecase-Agent" class="node default usecase-actor usecase-actor-normal usecase-business usecase-actor-variant usecase-actor-normal" transform="translate(68.367, 593)">
           <rect class="usecase-actor-outline" x="-48.937" y="-72" width="97.875" height="144" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-36.989, 41)">
-            <text class="nodeLabel" x="36.989" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="36.989" dy="16">Sales agent</tspan></text>
+          <g class="label actor-label usecase-actor-label" transform="translate(-36.992, 41)">
+            <text class="nodeLabel" x="36.992" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="36.992" dy="16">Sales agent</tspan></text>
           </g>
           <g class="label usecase-stereotype" transform="translate(-38.937, 18)">
             <text class="nodeLabel" x="38.938" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="38.938" dy="16">«Employee»</tspan></text>
@@ -133,8 +133,8 @@ expression: scene.to_svg()
           <g class="label usecase-label" transform="translate(-60, 1)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">Prepare quote</tspan></text>
           </g>
-          <g class="label usecase-stereotype" transform="translate(-19.157, -19)">
-            <text class="nodeLabel" x="19.157" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="19.157" dy="13">«Core»</tspan></text>
+          <g class="label usecase-stereotype" transform="translate(-19.164, -19)">
+            <text class="nodeLabel" x="19.164" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="19.164" dy="13">«Core»</tspan></text>
           </g>
           <path class="usecase-business-marker" d="M62,24.646L78,-8.666" fill="none" stroke="#9370db" stroke-width="1"/>
         </g>

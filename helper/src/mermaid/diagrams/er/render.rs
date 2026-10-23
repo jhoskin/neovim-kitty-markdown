@@ -8,8 +8,7 @@
 //! own. The ER stylesheet rules (`styles::er`) that the shared renderer
 //! has no hook for are applied to its output afterwards: the marker paint
 //! and the dashed line pattern. The 14 px relationship labels go in as
-//! the shapes' edge label font. Blink's 1/64 px rounding of HTML label
-//! widths, which the shared shapes lack, goes through [`ErMeasurer`].
+//! the shapes' edge label font.
 
 use serde_json::Value;
 
@@ -22,10 +21,9 @@ use crate::mermaid::scene::{
     Color, Common, Element, FontSpec, Group, Marker, Paint, Scene, Style, Text, TextAnchor,
     TextRun, ViewBox,
 };
+use crate::mermaid::shapes::ShapeCtx;
 use crate::mermaid::shapes::util::BBox;
-use crate::mermaid::shapes::{LabelBox, LabelMeasurer, LabelOpts, ShapeCtx};
 use crate::mermaid::styles::er::{DASHED, EDGE_LABEL_FONT_SIZE, ErStyles, MARKER_STROKE_WIDTH};
-use crate::text::TextMetrics;
 use crate::text::measure::FontSpec as MeasureSpec;
 
 use super::db::ErDb;
@@ -53,37 +51,6 @@ fn number(v: Option<&Value>) -> Option<f64> {
 /// A truthy number, as `x || 140` reads it.
 fn truthy(v: Option<f64>) -> Option<f64> {
     v.filter(|n| *n != 0.0 && !n.is_nan())
-}
-
-/// Rounds HTML label widths up to Blink's 1/64 px `LayoutUnit`.
-struct ErMeasurer<'a, 'f> {
-    metrics: &'a TextMetrics<'f>,
-}
-
-impl LabelMeasurer for ErMeasurer<'_, '_> {
-    fn measure(&self, text: &str, opts: &LabelOpts) -> LabelBox {
-        let inner: &dyn LabelMeasurer = self.metrics;
-        let mut b = inner.measure(text, opts);
-        if opts.html {
-            // Blink lays the shrink-to-fit `div` out in LayoutUnits, 1/64 px,
-            // rounding the text width up; dagre's alignment choice is
-            // sensitive to that last fraction.
-            b.width = layout_unit_ceil(b.width);
-            for line in &mut b.lines {
-                line.width = layout_unit_ceil(line.width);
-            }
-        }
-        b
-    }
-
-    fn text_width(&self, text: &str, family: &str, size: f64) -> f64 {
-        self.metrics.text_width(text, family, size)
-    }
-}
-
-/// Rounds up to Blink's `LayoutUnit` of 1/64 px.
-fn layout_unit_ceil(v: f64) -> f64 {
-    (v * 64.0 - 1e-6).ceil() / 64.0
 }
 
 /// Visits every group of the tree, parents before children.
@@ -199,12 +166,8 @@ pub fn draw(db: &ErDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene
     let tv = &resolved.theme_variables;
 
     let (mut nodes, edges, direction) = db.get_data();
-    let measurer = ErMeasurer {
-        metrics: &ctx.metrics,
-    };
-
     let html_labels = cfg.effective_html_labels();
-    let mut shapes = ShapeCtx::new(&measurer);
+    let mut shapes = ShapeCtx::new(&ctx.metrics);
     shapes.vars = crate::mermaid::shapes::NodeStyleVars::from_theme(tv, cfg);
     let styles = ErStyles::resolve(tv, &shapes.vars);
     styles.apply_to(&mut shapes.vars, html_labels);

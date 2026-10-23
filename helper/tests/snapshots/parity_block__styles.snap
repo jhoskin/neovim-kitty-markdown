@@ -51,8 +51,8 @@ expression: scene.to_svg()
       </g>
       <g id="my-svg-B" class="node default flowchart-label " transform="translate(119.594, 0)">
         <rect class="basic label-container" x="-20.719" y="-20" width="41.438" height="40" rx="0" ry="0" fill="#bbbbff" stroke="#ff6666" stroke-width="2" stroke-dasharray="5,5"/>
-        <g class="label" transform="translate(-4.527, -12)">
-          <text class="nodeLabel" x="4.527" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.527" dy="17">B</tspan></text>
+        <g class="label" transform="translate(-4.531, -12)">
+          <text class="nodeLabel" x="4.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.531" dy="17">B</tspan></text>
         </g>
       </g>
       <path id="my-svg-my-svg-1-A-B" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link LS-a1 LE-b1" d="M41.438,0L46.224,0C51.01,0,60.583,0,69.49,0C78.396,0,86.635,0,90.755,0L94.875,0" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_block-pointEnd)"/>

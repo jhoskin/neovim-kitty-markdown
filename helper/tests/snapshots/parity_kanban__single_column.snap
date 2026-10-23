@@ -7,8 +7,8 @@ expression: scene.to_svg()
     <g class="sections">
       <g id="my-svg-only" class="cluster section-1">
         <rect x="100" y="-300" width="200" height="249" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(155.527, -300)">
-          <text class="nodeLabel" x="44.473" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="44.473" dy="17">Only column</tspan></text>
+        <g class="cluster-label" transform="translate(155.523, -300)">
+          <text class="nodeLabel" x="44.477" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="44.477" dy="17">Only column</tspan></text>
         </g>
       </g>
     </g>
@@ -37,7 +37,7 @@ expression: scene.to_svg()
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Third</tspan><tspan> </tspan><tspan>card</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan>an</tspan><tspan> </tspan><tspan x="0" dy="24">assignee</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 12)"/>
-        <g class="label" transform="translate(58.836, 12)">
+        <g class="label" transform="translate(58.828, 12)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">pat</tspan></text>
         </g>
       </g>

@@ -47,8 +47,8 @@ expression: scene_svg(&mmd)
               <g>
                 <rect class="outer" x="8" y="8" width="422" height="110" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
               </g>
-              <g class="cluster-label" transform="translate(214.473, 9)">
-                <text class="nodeLabel" x="4.527" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.527" dy="17">B</tspan></text>
+              <g class="cluster-label" transform="translate(214.469, 9)">
+                <text class="nodeLabel" x="4.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.531" dy="17">B</tspan></text>
               </g>
               <rect class="inner" x="8" y="34" width="422" height="80" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
             </g>

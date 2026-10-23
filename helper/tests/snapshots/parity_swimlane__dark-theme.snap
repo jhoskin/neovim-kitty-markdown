@@ -52,14 +52,14 @@ expression: scene_svg(&mmd)
         </g>
         <g id="Warehouse" class="cluster ">
           <rect x="518" y="152" width="485" height="124" fill="#474949" stroke="#ffffff" stroke-width="1" stroke-opacity="0.25"/>
-          <g class="cluster-label" transform="translate(721.816, 152)">
-            <text class="nodeLabel" x="38.684" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#f9fffe" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.684" dy="17">Warehouse</tspan></text>
+          <g class="cluster-label" transform="translate(721.813, 152)">
+            <text class="nodeLabel" x="38.688" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#f9fffe" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.688" dy="17">Warehouse</tspan></text>
           </g>
         </g>
         <g id="Customer" class="cluster ">
           <rect x="8" y="13" width="460" height="248" fill="#474949" stroke="#ffffff" stroke-width="1" stroke-opacity="0.25"/>
-          <g class="cluster-label" transform="translate(204.027, 13)">
-            <text class="nodeLabel" x="33.973" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#f9fffe" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.973" dy="17">Customer</tspan></text>
+          <g class="cluster-label" transform="translate(204.023, 13)">
+            <text class="nodeLabel" x="33.977" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#f9fffe" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.977" dy="17">Customer</tspan></text>
           </g>
         </g>
       </g>

@@ -2,7 +2,7 @@
 source: tests/parity_mindmap.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="258.184" height="242" viewBox="-2 -2 258.184 242" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="258.195" height="242" viewBox="-2 -2 258.195 242" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_mindmap-pointEnd" class="marker mindmap" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
       <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
@@ -21,10 +21,10 @@ expression: scene.to_svg()
     <g class="root">
       <g class="clusters"/>
       <g class="edgePaths">
-        <path id="my-svg-edge_0_1" class=" edge-thickness-normal edge-pattern-solid edge section-edge-0 edge-depth-1" d="M90.875,41.083L81.182,45.403C71.49,49.722,52.104,58.361,42.411,67.681C32.719,77,32.719,87,32.719,92L32.719,97" fill="none" stroke="#ffff78" stroke-width="11"/>
-        <path id="my-svg-edge_0_2" class=" edge-thickness-normal edge-pattern-solid edge section-edge-1 edge-depth-1" d="M126.965,42L126.965,46.167C126.965,50.333,126.965,58.667,126.965,67C126.965,75.333,126.965,83.667,126.965,87.833L126.965,92" fill="none" stroke="#d7ff86" stroke-width="11"/>
-        <path id="my-svg-edge_0_3" class=" edge-thickness-normal edge-pattern-solid edge section-edge-2 edge-depth-1" d="M163.055,41.072L172.758,45.393C182.462,49.715,201.87,58.357,211.574,68.512C221.277,78.667,221.277,90.333,221.277,96.167L221.277,102" fill="none" stroke="#c286ff" stroke-width="11"/>
-        <path id="my-svg-edge_3_4" class=" edge-thickness-normal edge-pattern-solid edge section-edge-2 edge-depth-3" d="M221.277,136L221.277,141.833C221.277,147.667,221.277,159.333,221.277,169.333C221.277,179.333,221.277,187.667,221.277,191.833L221.277,196" fill="none" stroke="#c286ff" stroke-width="5"/>
+        <path id="my-svg-edge_0_1" class=" edge-thickness-normal edge-pattern-solid edge section-edge-0 edge-depth-1" d="M90.875,41.084L81.182,45.404C71.49,49.723,52.104,58.361,42.411,67.681C32.719,77,32.719,87,32.719,92L32.719,97" fill="none" stroke="#ffff78" stroke-width="11"/>
+        <path id="my-svg-edge_0_2" class=" edge-thickness-normal edge-pattern-solid edge section-edge-1 edge-depth-1" d="M126.969,42L126.969,46.167C126.969,50.333,126.969,58.667,126.969,67C126.969,75.333,126.969,83.667,126.969,87.833L126.969,92" fill="none" stroke="#d7ff86" stroke-width="11"/>
+        <path id="my-svg-edge_0_3" class=" edge-thickness-normal edge-pattern-solid edge section-edge-2 edge-depth-1" d="M163.063,41.072L172.767,45.394C182.471,49.715,201.88,58.357,211.585,68.512C221.289,78.667,221.289,90.333,221.289,96.167L221.289,102" fill="none" stroke="#c286ff" stroke-width="11"/>
+        <path id="my-svg-edge_3_4" class=" edge-thickness-normal edge-pattern-solid edge section-edge-2 edge-depth-3" d="M221.289,136L221.289,141.833C221.289,147.667,221.289,159.333,221.289,169.333C221.289,179.333,221.289,187.667,221.289,191.833L221.289,196" fill="none" stroke="#c286ff" stroke-width="5"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel">
@@ -41,11 +41,11 @@ expression: scene.to_svg()
         </g>
       </g>
       <g class="nodes">
-        <g id="my-svg-node_0" class="node mindmap-node section-root section--1 " transform="translate(126.965, 25)">
-          <path id="my-svg-node_0" class="node-bkg node-" d="M-36.09,12L-36.09,-12Q-36.09,-17,-31.09,-17L31.09,-17Q36.09,-17,36.09,-12L36.09,12Q36.09,17,31.09,17L-31.09,17Q-36.09,17,-36.09,12Z" fill="#0000ec" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-36.09" y1="17" x2="36.09" y2="17" stroke="#ffffb9" stroke-width="3"/>
-          <g class="label" transform="translate(-16.09, -12)">
-            <text class="nodeLabel" x="16.09" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.09" dy="17">Root</tspan></text>
+        <g id="my-svg-node_0" class="node mindmap-node section-root section--1 " transform="translate(126.969, 25)">
+          <path id="my-svg-node_0" class="node-bkg node-" d="M-36.094,12L-36.094,-12Q-36.094,-17,-31.094,-17L31.094,-17Q36.094,-17,36.094,-12L36.094,12Q36.094,17,31.094,17L-31.094,17Q-36.094,17,-36.094,12Z" fill="#0000ec" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-36.094" y1="17" x2="36.094" y2="17" stroke="#ffffb9" stroke-width="3"/>
+          <g class="label" transform="translate(-16.094, -12)">
+            <text class="nodeLabel" x="16.094" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.094" dy="17">Root</tspan></text>
           </g>
         </g>
         <g id="my-svg-node_1" class="node mindmap-node section-0 urgent large " transform="translate(32.719, 119)">
@@ -54,20 +54,20 @@ expression: scene.to_svg()
             <text class="nodeLabel" x="4.719" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.719" dy="17">A</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_2" class="node mindmap-node section-1 " transform="translate(126.965, 119)">
-          <rect class="basic label-container" x="-19.527" y="-27" width="39.055" height="54" rx="5" ry="5" fill="#d7ff86" stroke="none" stroke-width="1"/>
-          <g class="label" transform="translate(-4.527, -12)">
-            <text class="nodeLabel" x="4.527" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.527" dy="17">B</tspan></text>
+        <g id="my-svg-node_2" class="node mindmap-node section-1 " transform="translate(126.969, 119)">
+          <rect class="basic label-container" x="-19.531" y="-27" width="39.063" height="54" rx="5" ry="5" fill="#d7ff86" stroke="none" stroke-width="1"/>
+          <g class="label" transform="translate(-4.531, -12)">
+            <text class="nodeLabel" x="4.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.531" dy="17">B</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_3" class="node mindmap-node section-2 hot " transform="translate(221.277, 119)">
-          <path id="my-svg-node_3" class="node-bkg node-" d="M-24.785,12L-24.785,-12Q-24.785,-17,-19.785,-17L19.785,-17Q24.785,-17,24.785,-12L24.785,12Q24.785,17,19.785,17L-19.785,17Q-24.785,17,-24.785,12Z" fill="#c286ff" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-24.785" y1="17" x2="24.785" y2="17" stroke="#dcffb9" stroke-width="3"/>
-          <g class="label" transform="translate(-4.785, -12)">
-            <text class="nodeLabel" x="4.785" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.785" dy="17">C</tspan></text>
+        <g id="my-svg-node_3" class="node mindmap-node section-2 hot " transform="translate(221.289, 119)">
+          <path id="my-svg-node_3" class="node-bkg node-" d="M-24.789,12L-24.789,-12Q-24.789,-17,-19.789,-17L19.789,-17Q24.789,-17,24.789,-12L24.789,12Q24.789,17,19.789,17L-19.789,17Q-24.789,17,-24.789,12Z" fill="#c286ff" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-24.789" y1="17" x2="24.789" y2="17" stroke="#dcffb9" stroke-width="3"/>
+          <g class="label" transform="translate(-4.789, -12)">
+            <text class="nodeLabel" x="4.789" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.789" dy="17">C</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_4" class="node mindmap-node section-2 " transform="translate(221.277, 213)">
+        <g id="my-svg-node_4" class="node mindmap-node section-2 " transform="translate(221.289, 213)">
           <path id="my-svg-node_4" class="node-bkg node-" d="M-24.906,12L-24.906,-12Q-24.906,-17,-19.906,-17L19.906,-17Q24.906,-17,24.906,-12L24.906,12Q24.906,17,19.906,17L-19.906,17Q-24.906,17,-24.906,12Z" fill="#c286ff" stroke="none" stroke-width="1"/>
           <line class="node-line-" x1="-24.906" y1="17" x2="24.906" y2="17" stroke="#dcffb9" stroke-width="3"/>
           <g class="label" transform="translate(-4.906, -12)">

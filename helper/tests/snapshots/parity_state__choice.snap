@@ -25,15 +25,15 @@ expression: scene_svg(&mmd)
           <g class="label" transform="translate(0, 0)"/>
         </g>
         <g class="edgeLabel" transform="translate(76, 227)">
-          <g class="label" transform="translate(-25.23, -12)">
-            <rect class="background" x="0" y="0" width="50.461" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="25.23" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.23" dy="17">if n &lt; 0</tspan></text>
+          <g class="label" transform="translate(-25.234, -12)">
+            <rect class="background" x="0" y="0" width="50.469" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="25.234" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.234" dy="17">if n &lt; 0</tspan></text>
           </g>
         </g>
         <g class="edgeLabel" transform="translate(262, 227)">
-          <g class="label" transform="translate(-29.426, -12)">
-            <rect class="background" x="0" y="0" width="58.852" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="29.426" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="29.426" dy="17">if n &gt;= 0</tspan></text>
+          <g class="label" transform="translate(-29.43, -12)">
+            <rect class="background" x="0" y="0" width="58.859" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="29.43" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="29.43" dy="17">if n &gt;= 0</tspan></text>
           </g>
         </g>
       </g>

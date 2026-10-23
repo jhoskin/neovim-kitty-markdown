@@ -87,11 +87,11 @@ expression: scene_svg(&mmd)
           </g>
           <g class="members-group text" transform="translate(-97.184, -36)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="65.09" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="65.09" dy="17">+String staticField</tspan></text>
-              <rect x="0" y="18.5" width="130.18" height="1" fill="#131300"/>
+              <text class="nodeLabel" x="65.094" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="65.094" dy="17">+String staticField</tspan></text>
+              <rect x="0" y="18.5" width="130.188" height="1" fill="#131300"/>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="36.598" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="36.598" dy="17">+int count</tspan></text>
+              <text class="nodeLabel" x="36.602" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="36.602" dy="17">+int count</tspan></text>
             </g>
           </g>
           <g class="methods-group text" transform="translate(-97.184, 36)">
@@ -99,8 +99,8 @@ expression: scene_svg(&mmd)
               <text class="nodeLabel" x="86.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-style="italic"><tspan x="86.008" dy="17" font-style="italic">+someAbstractMethod()</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="75.574" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="75.574" dy="17">+someStaticMethod()</tspan></text>
-              <rect x="0" y="18.5" width="151.148" height="1" fill="#131300"/>
+              <text class="nodeLabel" x="75.578" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="75.578" dy="17">+someStaticMethod()</tspan></text>
+              <rect x="0" y="18.5" width="151.156" height="1" fill="#131300"/>
             </g>
             <g class="label" transform="translate(0, 36)">
               <text class="nodeLabel" x="58.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="58.008" dy="17">+area() : double</tspan></text>
@@ -110,25 +110,25 @@ expression: scene_svg(&mmd)
           <line class="divider" x1="-109.184" y1="12" x2="109.184" y2="12.001" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         </g>
         <g id="my-svg-classId-Counter-1" class="node default " transform="translate(117.184, 349)">
-          <rect class="basic label-container outer-path" x="-91.314" y="-75" width="182.629" height="150" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <rect class="basic label-container outer-path" x="-91.32" y="-75" width="182.641" height="150" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="annotation-group text" transform="translate(0, -51)"/>
-          <g class="label-group text" transform="translate(-30.059, -51)">
+          <g class="label-group text" transform="translate(-30.062, -51)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="30.059" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="30.059" dy="17" font-weight="bold">Counter</tspan></text>
+              <text class="nodeLabel" x="30.063" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="30.063" dy="17" font-weight="bold">Counter</tspan></text>
             </g>
           </g>
-          <g class="members-group text" transform="translate(-79.314, -3)"/>
-          <g class="methods-group text" transform="translate(-79.314, 27)">
+          <g class="members-group text" transform="translate(-79.32, -3)"/>
+          <g class="methods-group text" transform="translate(-79.32, 27)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="64.285" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="64.285" dy="17">+increment() : int</tspan></text>
-              <rect x="0" y="18.5" width="128.57" height="1" fill="#131300"/>
+              <text class="nodeLabel" x="64.289" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="64.289" dy="17">+increment() : int</tspan></text>
+              <rect x="0" y="18.5" width="128.578" height="1" fill="#131300"/>
             </g>
             <g class="label" transform="translate(0, 12)" font-style="italic">
               <text class="nodeLabel" x="28.594" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-style="italic"><tspan x="28.594" dy="17" font-style="italic">+reset()</tspan></text>
             </g>
           </g>
-          <line class="divider" x1="-91.314" y1="-27" x2="91.314" y2="-26.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-          <line class="divider" x1="-91.314" y1="-3" x2="91.314" y2="-2.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <line class="divider" x1="-91.32" y1="-27" x2="91.32" y2="-26.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <line class="divider" x1="-91.32" y1="-3" x2="91.32" y2="-2.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         </g>
       </g>
     </g>

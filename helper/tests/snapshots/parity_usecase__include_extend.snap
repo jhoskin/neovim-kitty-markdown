@@ -2,7 +2,7 @@
 source: tests/parity_usecase.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="691.623" height="269" viewBox="-12 -12 691.623 269" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="691.641" height="269" viewBox="-12 -12 691.641 269" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_usecase-pointEnd" class="marker usecase" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
       <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
@@ -57,25 +57,25 @@ expression: scene.to_svg()
     <g class="root">
       <g class="clusters"/>
       <g class="edgePaths">
-        <path id="my-svg-edge-0" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-generalization" d="M126,68.5L140.076,68.5C154.153,68.5,182.306,68.5,207.584,68.5C232.862,68.5,255.265,68.5,266.466,68.5L277.668,68.5" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-extensionEnd)"/>
-        <path id="my-svg-edge-1" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-include" d="M412.918,208L420.143,208C427.369,208,441.82,208,455.604,208C469.388,208,482.506,208,489.064,208L495.623,208" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="3" marker-end="url(#my-svg_usecase-pointEnd)"/>
-        <path id="my-svg-edge-2" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-extend" d="M137.696,185.274L149.823,179.728C161.95,174.183,186.205,163.091,209.853,162.814C233.501,162.537,256.542,173.074,268.063,178.342L279.584,183.611" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="3" marker-end="url(#my-svg_usecase-pointEnd)"/>
-        <path id="my-svg-edge-3" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-generalization" d="M164.418,216.58L172.092,217.442C179.765,218.304,195.112,220.027,207.602,220.348C220.092,220.668,229.725,219.587,234.541,219.046L239.358,218.505" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-extensionEnd)"/>
+        <path id="my-svg-edge-0" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-generalization" d="M126,68.5L140.077,68.5C154.154,68.5,182.307,68.5,207.586,68.5C232.865,68.5,255.268,68.5,266.47,68.5L277.672,68.5" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-extensionEnd)"/>
+        <path id="my-svg-edge-1" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-include" d="M412.922,208L420.148,208C427.375,208,441.828,208,455.615,208C469.401,208,482.521,208,489.081,208L495.641,208" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="3" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-edge-2" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-extend" d="M137.697,185.274L149.824,179.729C161.951,174.183,186.206,163.091,209.855,162.814C233.503,162.537,256.545,173.074,268.066,178.342L279.588,183.611" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="3" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-edge-3" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-generalization" d="M164.418,216.58L172.092,217.442C179.766,218.304,195.113,220.027,207.604,220.348C220.094,220.668,229.728,219.587,234.545,219.046L239.361,218.505" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-extensionEnd)"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel">
           <g class="label" transform="translate(0, 0)"/>
         </g>
-        <g class="edgeLabel" transform="translate(456.271, 208)">
-          <g class="label" transform="translate(-18.353, -7.5)">
-            <rect class="background" x="0" y="0" width="36.705" height="15" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="18.353" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="18.353" dy="11">include</tspan></text>
+        <g class="edgeLabel" transform="translate(456.281, 208)">
+          <g class="label" transform="translate(-18.359, -7.5)">
+            <rect class="background" x="0" y="0" width="36.719" height="15" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="18.359" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="18.359" dy="11">include</tspan></text>
           </g>
         </g>
-        <g class="edgeLabel" transform="translate(210.459, 152)">
-          <g class="label" transform="translate(-17.459, -7.5)">
-            <rect class="background" x="0" y="0" width="34.918" height="15" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="17.459" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="17.459" dy="11">extend</tspan></text>
+        <g class="edgeLabel" transform="translate(210.461, 152)">
+          <g class="label" transform="translate(-17.461, -7.5)">
+            <rect class="background" x="0" y="0" width="34.922" height="15" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="17.461" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="17.461" dy="11">extend</tspan></text>
           </g>
         </g>
         <g class="edgeLabel">
@@ -92,22 +92,22 @@ expression: scene.to_svg()
             <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#ececff" stroke="#9370db" stroke-width="2"/>
           </g>
         </g>
-        <g id="my-svg-usecase-Person" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(332.918, 68.5)">
+        <g id="my-svg-usecase-Person" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(332.922, 68.5)">
           <rect class="usecase-actor-outline" x="-38" y="-60.5" width="76" height="121" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-22.842, 29.5)">
-            <text class="nodeLabel" x="22.842" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="22.842" dy="16">Person</tspan></text>
+          <g class="label actor-label usecase-actor-label" transform="translate(-22.844, 29.5)">
+            <text class="nodeLabel" x="22.844" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="22.844" dy="16">Person</tspan></text>
           </g>
           <g class="usecase-actor-glyph usecase-actor-shape usecase-actor-normal" transform="translate(0, -14.5)" fill="#ececff" stroke="#9370db" stroke-width="2">
             <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#ececff" stroke="#9370db" stroke-width="2"/>
           </g>
         </g>
-        <g id="my-svg-usecase-Checkout" class="node default usecase-element usecase-ellipse " transform="translate(332.918, 208)">
+        <g id="my-svg-usecase-Checkout" class="node default usecase-element usecase-ellipse " transform="translate(332.922, 208)">
           <ellipse class="basic label-container" cx="0" cy="0" rx="80" ry="29" fill="#ececff" stroke="#9370db" stroke-width="2"/>
           <g class="label" transform="translate(-60, -9)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">Checkout</tspan></text>
           </g>
         </g>
-        <g id="my-svg-usecase-Payment" class="node default usecase-element usecase-ellipse " transform="translate(579.623, 208)">
+        <g id="my-svg-usecase-Payment" class="node default usecase-element usecase-ellipse " transform="translate(579.641, 208)">
           <ellipse class="basic label-container" cx="0" cy="0" rx="80" ry="29" fill="#ececff" stroke="#9370db" stroke-width="2"/>
           <g class="label" transform="translate(-60, -9)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">Process payment</tspan></text>

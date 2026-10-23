@@ -46,20 +46,20 @@ expression: scene_svg(&mmd)
       <g class="clusters">
         <g id="Support" class="cluster ">
           <rect x="1408" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(1495.293, 8)">
-            <text class="nodeLabel" x="27.707" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.707" dy="17">Support</tspan></text>
+          <g class="cluster-label" transform="translate(1495.289, 8)">
+            <text class="nodeLabel" x="27.711" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.711" dy="17">Support</tspan></text>
           </g>
         </g>
         <g id="Shipping" class="cluster ">
           <rect x="1128" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(1212.918, 8)">
-            <text class="nodeLabel" x="30.082" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="30.082" dy="17">Shipping</tspan></text>
+          <g class="cluster-label" transform="translate(1212.914, 8)">
+            <text class="nodeLabel" x="30.086" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="30.086" dy="17">Shipping</tspan></text>
           </g>
         </g>
         <g id="Warehouse" class="cluster ">
           <rect x="848" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(924.316, 8)">
-            <text class="nodeLabel" x="38.684" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.684" dy="17">Warehouse</tspan></text>
+          <g class="cluster-label" transform="translate(924.313, 8)">
+            <text class="nodeLabel" x="38.688" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.688" dy="17">Warehouse</tspan></text>
           </g>
         </g>
         <g id="Billing" class="cluster ">
@@ -70,14 +70,14 @@ expression: scene_svg(&mmd)
         </g>
         <g id="Sales" class="cluster ">
           <rect x="288" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(384.988, 8)">
-            <text class="nodeLabel" x="18.012" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.012" dy="17">Sales</tspan></text>
+          <g class="cluster-label" transform="translate(384.984, 8)">
+            <text class="nodeLabel" x="18.016" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.016" dy="17">Sales</tspan></text>
           </g>
         </g>
         <g id="Customer" class="cluster ">
           <rect x="8" y="8" width="230" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(89.027, 8)">
-            <text class="nodeLabel" x="33.973" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.973" dy="17">Customer</tspan></text>
+          <g class="cluster-label" transform="translate(89.023, 8)">
+            <text class="nodeLabel" x="33.977" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.977" dy="17">Customer</tspan></text>
           </g>
         </g>
       </g>

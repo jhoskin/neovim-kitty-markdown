@@ -7,26 +7,26 @@ expression: scene.to_svg()
     <g class="sections">
       <g id="my-svg-todo" class="cluster section-1">
         <rect x="100" y="-300" width="200" height="275" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(183.309, -300)">
-          <text class="nodeLabel" x="16.691" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.691" dy="17">Todo</tspan></text>
+        <g class="cluster-label" transform="translate(183.305, -300)">
+          <text class="nodeLabel" x="16.695" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.695" dy="17">Todo</tspan></text>
         </g>
       </g>
       <g id="my-svg-doing" class="cluster section-2">
         <rect x="305" y="-300" width="200" height="79" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(366.168, -300)">
-          <text class="nodeLabel" x="38.832" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.832" dy="17">In progress</tspan></text>
+        <g class="cluster-label" transform="translate(366.164, -300)">
+          <text class="nodeLabel" x="38.836" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.836" dy="17">In progress</tspan></text>
         </g>
       </g>
       <g id="my-svg-done" class="cluster section-3">
         <rect x="510" y="-300" width="200" height="128" rx="5" ry="5" fill="#ffb9ff" stroke="#ffb9ff" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(592.066, -300)">
-          <text class="nodeLabel" x="17.934" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="17.934" dy="17">Done</tspan></text>
+        <g class="cluster-label" transform="translate(592.063, -300)">
+          <text class="nodeLabel" x="17.938" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="17.938" dy="17">Done</tspan></text>
         </g>
       </g>
       <g id="my-svg-blocked" class="cluster section-4">
         <rect x="715" y="-300" width="200" height="50" rx="5" ry="5" fill="#ffb9dc" stroke="#ffb9dc" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(787.004, -300)">
-          <text class="nodeLabel" x="27.996" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.996" dy="17">Blocked</tspan></text>
+        <g class="cluster-label" transform="translate(787, -300)">
+          <text class="nodeLabel" x="28" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28" dy="17">Blocked</tspan></text>
         </g>
       </g>
     </g>

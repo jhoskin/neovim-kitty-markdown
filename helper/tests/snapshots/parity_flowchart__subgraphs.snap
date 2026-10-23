@@ -46,14 +46,14 @@ expression: scene(&mmd).to_svg()
       <g class="clusters">
         <g id="three" class="cluster ">
           <rect x="8" y="8" width="260" height="278" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(118.621, 8)">
-            <text class="nodeLabel" x="19.379" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.379" dy="17">three</tspan></text>
+          <g class="cluster-label" transform="translate(118.617, 8)">
+            <text class="nodeLabel" x="19.383" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.383" dy="17">three</tspan></text>
           </g>
         </g>
         <g id="one" class="cluster ">
           <rect x="848" y="8" width="250" height="278" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(959.973, 8)">
-            <text class="nodeLabel" x="13.027" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="13.027" dy="17">one</tspan></text>
+          <g class="cluster-label" transform="translate(959.969, 8)">
+            <text class="nodeLabel" x="13.031" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="13.031" dy="17">one</tspan></text>
           </g>
         </g>
       </g>
@@ -78,8 +78,8 @@ expression: scene(&mmd).to_svg()
           <g class="clusters">
             <g id="two" class="cluster ">
               <rect x="8" y="8" width="510" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-              <g class="cluster-label" transform="translate(249.582, 8)">
-                <text class="nodeLabel" x="13.418" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="13.418" dy="17">two</tspan></text>
+              <g class="cluster-label" transform="translate(249.578, 8)">
+                <text class="nodeLabel" x="13.422" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="13.422" dy="17">two</tspan></text>
               </g>
             </g>
           </g>

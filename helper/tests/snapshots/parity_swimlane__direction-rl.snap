@@ -52,8 +52,8 @@ expression: scene_svg(&mmd)
         </g>
         <g id="Client" class="cluster ">
           <rect x="8" y="152" width="1200" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(586.668, 152)">
-            <text class="nodeLabel" x="21.332" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="21.332" dy="17">Client</tspan></text>
+          <g class="cluster-label" transform="translate(586.664, 152)">
+            <text class="nodeLabel" x="21.336" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="21.336" dy="17">Client</tspan></text>
           </g>
         </g>
       </g>

@@ -7,14 +7,14 @@ expression: scene.to_svg()
     <g class="sections">
       <g id="my-svg-open" class="cluster section-1">
         <rect x="100" y="-300" width="200" height="176" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(181.418, -300)">
-          <text class="nodeLabel" x="18.582" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.582" dy="17">Open</tspan></text>
+        <g class="cluster-label" transform="translate(181.414, -300)">
+          <text class="nodeLabel" x="18.586" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.586" dy="17">Open</tspan></text>
         </g>
       </g>
       <g id="my-svg-closed" class="cluster section-2">
         <rect x="305" y="-300" width="200" height="91" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(381.504, -300)">
-          <text class="nodeLabel" x="23.496" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.496" dy="17">Closed</tspan></text>
+        <g class="cluster-label" transform="translate(381.5, -300)">
+          <text class="nodeLabel" x="23.5" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.5" dy="17">Closed</tspan></text>
         </g>
       </g>
     </g>

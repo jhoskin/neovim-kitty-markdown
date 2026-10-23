@@ -63,9 +63,9 @@ expression: scene.to_svg()
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel" transform="translate(749, 402.5)">
-          <g class="label" transform="translate(-16.106, -7.5)">
-            <rect class="background" x="0" y="0" width="32.213" height="15" fill="#ffffff" stroke="none"/>
-            <text class="edgeLabel" x="16.106" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#111111" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="16.106" dy="11">orders</tspan></text>
+          <g class="label" transform="translate(-16.109, -7.5)">
+            <rect class="background" x="0" y="0" width="32.219" height="15" fill="#ffffff" stroke="none"/>
+            <text class="edgeLabel" x="16.109" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#111111" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="16.109" dy="11">orders</tspan></text>
           </g>
         </g>
         <g class="edgeLabel">
@@ -77,9 +77,9 @@ expression: scene.to_svg()
       </g>
       <g class="nodes">
         <g id="my-svg-usecase-Guest" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(749, 309.5)">
-          <rect class="usecase-actor-outline" x="-65.477" y="-60.5" width="130.954" height="121" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-55.477, 29.5)">
-            <text class="nodeLabel" x="55.477" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="55.477" dy="16">Restaurant guest</tspan></text>
+          <rect class="usecase-actor-outline" x="-65.484" y="-60.5" width="130.969" height="121" opacity="0"/>
+          <g class="label actor-label usecase-actor-label" transform="translate(-55.484, 29.5)">
+            <text class="nodeLabel" x="55.484" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="55.484" dy="16">Restaurant guest</tspan></text>
           </g>
           <g class="usecase-actor-glyph usecase-actor-shape usecase-actor-normal" transform="translate(0, -14.5)" fill="#eeeeee" stroke="#d4d4d4" stroke-width="2">
             <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#eeeeee" stroke="#d4d4d4" stroke-width="2"/>
@@ -109,8 +109,8 @@ expression: scene.to_svg()
           <g class="nodes">
             <g id="my-svg-usecase-Chef" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(83.5, 103.5)">
               <rect class="usecase-actor-outline" x="-38" y="-60.5" width="76" height="121" opacity="0"/>
-              <g class="label actor-label usecase-actor-label" transform="translate(-14.988, 29.5)">
-                <text class="nodeLabel" x="14.988" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="14.988" dy="16">Chef</tspan></text>
+              <g class="label actor-label usecase-actor-label" transform="translate(-14.992, 29.5)">
+                <text class="nodeLabel" x="14.992" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="14.992" dy="16">Chef</tspan></text>
               </g>
               <g class="usecase-actor-glyph usecase-actor-shape usecase-actor-normal" transform="translate(0, -14.5)" fill="#eeeeee" stroke="#d4d4d4" stroke-width="2">
                 <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#eeeeee" stroke="#d4d4d4" stroke-width="2"/>

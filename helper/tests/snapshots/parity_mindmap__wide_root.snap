@@ -2,7 +2,7 @@
 source: tests/parity_mindmap.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1619.344" height="138" viewBox="-2 -2 1619.344 138" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1619.406" height="138" viewBox="-2 -2 1619.406 138" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_mindmap-pointEnd" class="marker mindmap" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
       <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
@@ -21,19 +21,19 @@ expression: scene.to_svg()
     <g class="root">
       <g class="clusters"/>
       <g class="edgePaths">
-        <path id="my-svg-edge_0_1" class=" edge-thickness-normal edge-pattern-solid edge section-edge-0 edge-depth-1" d="M783.301,27.38L660.769,33.983C538.237,40.587,293.173,53.793,170.641,64.563C48.109,75.333,48.109,83.667,48.109,87.833L48.109,92" fill="none" stroke="#ffff78" stroke-width="11"/>
-        <path id="my-svg-edge_0_2" class=" edge-thickness-normal edge-pattern-solid edge section-edge-1 edge-depth-1" d="M783.301,27.841L681.831,34.367C580.362,40.894,377.423,53.947,275.954,64.64C174.484,75.333,174.484,83.667,174.484,87.833L174.484,92" fill="none" stroke="#d7ff86" stroke-width="11"/>
-        <path id="my-svg-edge_0_3" class=" edge-thickness-normal edge-pattern-solid edge section-edge-2 edge-depth-1" d="M783.301,28.57L704.059,34.975C624.816,41.38,466.332,54.19,387.09,64.762C307.848,75.333,307.848,83.667,307.848,87.833L307.848,92" fill="none" stroke="#c286ff" stroke-width="11"/>
-        <path id="my-svg-edge_0_4" class=" edge-thickness-normal edge-pattern-solid edge section-edge-3 edge-depth-1" d="M783.301,29.837L726.742,36.03C670.184,42.224,557.066,54.612,500.508,64.973C443.949,75.333,443.949,83.667,443.949,87.833L443.949,92" fill="none" stroke="#ff86ff" stroke-width="11"/>
-        <path id="my-svg-edge_0_5" class=" edge-thickness-normal edge-pattern-solid edge section-edge-4 edge-depth-1" d="M783.301,32.443L749.124,38.202C714.947,43.962,646.592,55.481,612.415,65.407C578.238,75.333,578.238,83.667,578.238,87.833L578.238,92" fill="none" stroke="#ff86c2" stroke-width="11"/>
-        <path id="my-svg-edge_0_6" class=" edge-thickness-normal edge-pattern-solid edge section-edge-5 edge-depth-1" d="M783.301,40.746L771.028,45.122C758.755,49.497,734.21,58.249,721.937,66.791C709.664,75.333,709.664,83.667,709.664,87.833L709.664,92" fill="none" stroke="#ff8686" stroke-width="11"/>
-        <path id="my-svg-edge_0_7" class=" edge-thickness-normal edge-pattern-solid edge section-edge-6 edge-depth-1" d="M827.465,42L827.465,46.167C827.465,50.333,827.465,58.667,827.465,67C827.465,75.333,827.465,83.667,827.465,87.833L827.465,92" fill="none" stroke="#ffc286" stroke-width="11"/>
-        <path id="my-svg-edge_0_8" class=" edge-thickness-normal edge-pattern-solid edge section-edge-7 edge-depth-1" d="M871.629,40.153L884.671,44.627C897.712,49.102,923.796,58.051,936.837,66.692C949.879,75.333,949.879,83.667,949.879,87.833L949.879,92" fill="none" stroke="#c2ff86" stroke-width="11"/>
-        <path id="my-svg-edge_0_9" class=" edge-thickness-normal edge-pattern-solid edge section-edge-8 edge-depth-1" d="M871.629,32.508L905.445,38.256C939.262,44.005,1006.895,55.503,1040.711,65.418C1074.527,75.333,1074.527,83.667,1074.527,87.833L1074.527,92" fill="none" stroke="#86ffc2" stroke-width="11"/>
-        <path id="my-svg-edge_0_10" class=" edge-thickness-normal edge-pattern-solid edge section-edge-9 edge-depth-1" d="M871.629,29.974L926.415,36.145C981.202,42.316,1090.775,54.658,1145.561,64.996C1200.348,75.333,1200.348,83.667,1200.348,87.833L1200.348,92" fill="none" stroke="#86ffff" stroke-width="11"/>
-        <path id="my-svg-edge_0_11" class=" edge-thickness-normal edge-pattern-solid edge section-edge-10 edge-depth-1" d="M871.629,28.617L949.738,35.014C1027.848,41.411,1184.066,54.206,1262.176,64.77C1340.285,75.333,1340.285,83.667,1340.285,87.833L1340.285,92" fill="none" stroke="#86c2ff" stroke-width="11"/>
-        <path id="my-svg-edge_0_12" class=" edge-thickness-normal edge-pattern-solid edge section-edge-0 edge-depth-1" d="M871.629,27.894L971.081,34.412C1070.534,40.93,1269.439,53.965,1368.891,64.649C1468.344,75.333,1468.344,83.667,1468.344,87.833L1468.344,92" fill="none" stroke="#ffff78" stroke-width="11"/>
-        <path id="my-svg-edge_0_13" class=" edge-thickness-normal edge-pattern-solid edge section-edge-1 edge-depth-1" d="M871.629,27.472L989.335,34.06C1107.042,40.648,1342.454,53.824,1460.161,64.579C1577.867,75.333,1577.867,83.667,1577.867,87.833L1577.867,92" fill="none" stroke="#d7ff86" stroke-width="11"/>
+        <path id="my-svg-edge_0_1" class=" edge-thickness-normal edge-pattern-solid edge section-edge-0 edge-depth-1" d="M783.328,27.38L660.792,33.983C538.255,40.587,293.182,53.793,170.646,64.563C48.109,75.333,48.109,83.667,48.109,87.833L48.109,92" fill="none" stroke="#ffff78" stroke-width="11"/>
+        <path id="my-svg-edge_0_2" class=" edge-thickness-normal edge-pattern-solid edge section-edge-1 edge-depth-1" d="M783.328,27.841L681.854,34.367C580.38,40.894,377.432,53.947,275.958,64.64C174.484,75.333,174.484,83.667,174.484,87.833L174.484,92" fill="none" stroke="#d7ff86" stroke-width="11"/>
+        <path id="my-svg-edge_0_3" class=" edge-thickness-normal edge-pattern-solid edge section-edge-2 edge-depth-1" d="M783.328,28.57L704.082,34.975C624.836,41.38,466.344,54.19,387.098,64.762C307.852,75.333,307.852,83.667,307.852,87.833L307.852,92" fill="none" stroke="#c286ff" stroke-width="11"/>
+        <path id="my-svg-edge_0_4" class=" edge-thickness-normal edge-pattern-solid edge section-edge-3 edge-depth-1" d="M783.328,29.836L726.767,36.03C670.206,42.224,557.083,54.612,500.522,64.973C443.961,75.333,443.961,83.667,443.961,87.833L443.961,92" fill="none" stroke="#ff86ff" stroke-width="11"/>
+        <path id="my-svg-edge_0_5" class=" edge-thickness-normal edge-pattern-solid edge section-edge-4 edge-depth-1" d="M783.328,32.442L749.15,38.202C714.971,43.962,646.615,55.481,612.436,65.407C578.258,75.333,578.258,83.667,578.258,87.833L578.258,92" fill="none" stroke="#ff86c2" stroke-width="11"/>
+        <path id="my-svg-edge_0_6" class=" edge-thickness-normal edge-pattern-solid edge section-edge-5 edge-depth-1" d="M783.328,40.745L771.055,45.121C758.781,49.497,734.234,58.248,721.961,66.791C709.688,75.333,709.688,83.667,709.688,87.833L709.688,92" fill="none" stroke="#ff8686" stroke-width="11"/>
+        <path id="my-svg-edge_0_7" class=" edge-thickness-normal edge-pattern-solid edge section-edge-6 edge-depth-1" d="M827.492,42L827.492,46.167C827.492,50.333,827.492,58.667,827.492,67C827.492,75.333,827.492,83.667,827.492,87.833L827.492,92" fill="none" stroke="#ffc286" stroke-width="11"/>
+        <path id="my-svg-edge_0_8" class=" edge-thickness-normal edge-pattern-solid edge section-edge-7 edge-depth-1" d="M871.656,40.152L884.699,44.626C897.742,49.101,923.828,58.051,936.871,66.692C949.914,75.333,949.914,83.667,949.914,87.833L949.914,92" fill="none" stroke="#c2ff86" stroke-width="11"/>
+        <path id="my-svg-edge_0_9" class=" edge-thickness-normal edge-pattern-solid edge section-edge-8 edge-depth-1" d="M871.656,32.507L905.475,38.256C939.294,44.005,1006.932,55.502,1040.751,65.418C1074.57,75.333,1074.57,83.667,1074.57,87.833L1074.57,92" fill="none" stroke="#86ffc2" stroke-width="11"/>
+        <path id="my-svg-edge_0_10" class=" edge-thickness-normal edge-pattern-solid edge section-edge-9 edge-depth-1" d="M871.656,29.974L926.447,36.145C981.237,42.316,1090.818,54.658,1145.608,64.996C1200.398,75.333,1200.398,83.667,1200.398,87.833L1200.398,92" fill="none" stroke="#86ffff" stroke-width="11"/>
+        <path id="my-svg-edge_0_11" class=" edge-thickness-normal edge-pattern-solid edge section-edge-10 edge-depth-1" d="M871.656,28.617L949.771,35.014C1027.885,41.411,1184.115,54.206,1262.229,64.769C1340.344,75.333,1340.344,83.667,1340.344,87.833L1340.344,92" fill="none" stroke="#86c2ff" stroke-width="11"/>
+        <path id="my-svg-edge_0_12" class=" edge-thickness-normal edge-pattern-solid edge section-edge-0 edge-depth-1" d="M871.656,27.894L971.115,34.412C1070.573,40.929,1269.49,53.965,1368.948,64.649C1468.406,75.333,1468.406,83.667,1468.406,87.833L1468.406,92" fill="none" stroke="#ffff78" stroke-width="11"/>
+        <path id="my-svg-edge_0_13" class=" edge-thickness-normal edge-pattern-solid edge section-edge-1 edge-depth-1" d="M871.656,27.472L989.368,34.06C1107.081,40.648,1342.505,53.824,1460.217,64.579C1577.93,75.333,1577.93,83.667,1577.93,87.833L1577.93,92" fill="none" stroke="#d7ff86" stroke-width="11"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel">
@@ -77,7 +77,7 @@ expression: scene.to_svg()
         </g>
       </g>
       <g class="nodes">
-        <g id="my-svg-node_0" class="node mindmap-node section-root section--1 " transform="translate(827.465, 25)">
+        <g id="my-svg-node_0" class="node mindmap-node section-root section--1 " transform="translate(827.492, 25)">
           <path id="my-svg-node_0" class="node-bkg node-" d="M-44.164,12L-44.164,-12Q-44.164,-17,-39.164,-17L39.164,-17Q44.164,-17,44.164,-12L44.164,12Q44.164,17,39.164,17L-39.164,17Q-44.164,17,-44.164,12Z" fill="#0000ec" stroke="none" stroke-width="1"/>
           <line class="node-line-" x1="-44.164" y1="17" x2="44.164" y2="17" stroke="#ffffb9" stroke-width="3"/>
           <g class="label" transform="translate(-24.164, -12)">
@@ -98,77 +98,77 @@ expression: scene.to_svg()
             <text class="nodeLabel" x="16.266" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.266" dy="17">Beta</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_3" class="node mindmap-node section-2 " transform="translate(307.848, 109)">
-          <path id="my-svg-node_3" class="node-bkg node-" d="M-47.098,12L-47.098,-12Q-47.098,-17,-42.098,-17L42.098,-17Q47.098,-17,47.098,-12L47.098,12Q47.098,17,42.098,17L-42.098,17Q-47.098,17,-47.098,12Z" fill="#c286ff" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-47.098" y1="17" x2="47.098" y2="17" stroke="#dcffb9" stroke-width="3"/>
-          <g class="label" transform="translate(-27.098, -12)">
-            <text class="nodeLabel" x="27.098" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.098" dy="17">Gamma</tspan></text>
+        <g id="my-svg-node_3" class="node mindmap-node section-2 " transform="translate(307.852, 109)">
+          <path id="my-svg-node_3" class="node-bkg node-" d="M-47.102,12L-47.102,-12Q-47.102,-17,-42.102,-17L42.102,-17Q47.102,-17,47.102,-12L47.102,12Q47.102,17,42.102,17L-42.102,17Q-47.102,17,-47.102,12Z" fill="#c286ff" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-47.102" y1="17" x2="47.102" y2="17" stroke="#dcffb9" stroke-width="3"/>
+          <g class="label" transform="translate(-27.102, -12)">
+            <text class="nodeLabel" x="27.102" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.102" dy="17">Gamma</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_4" class="node mindmap-node section-3 " transform="translate(443.949, 109)">
-          <path id="my-svg-node_4" class="node-bkg node-" d="M-39.004,12L-39.004,-12Q-39.004,-17,-34.004,-17L34.004,-17Q39.004,-17,39.004,-12L39.004,12Q39.004,17,34.004,17L-34.004,17Q-39.004,17,-39.004,12Z" fill="#ff86ff" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-39.004" y1="17" x2="39.004" y2="17" stroke="#b9ffb9" stroke-width="3"/>
-          <g class="label" transform="translate(-19.004, -12)">
-            <text class="nodeLabel" x="19.004" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.004" dy="17">Delta</tspan></text>
+        <g id="my-svg-node_4" class="node mindmap-node section-3 " transform="translate(443.961, 109)">
+          <path id="my-svg-node_4" class="node-bkg node-" d="M-39.008,12L-39.008,-12Q-39.008,-17,-34.008,-17L34.008,-17Q39.008,-17,39.008,-12L39.008,12Q39.008,17,34.008,17L-34.008,17Q-39.008,17,-39.008,12Z" fill="#ff86ff" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-39.008" y1="17" x2="39.008" y2="17" stroke="#b9ffb9" stroke-width="3"/>
+          <g class="label" transform="translate(-19.008, -12)">
+            <text class="nodeLabel" x="19.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.008" dy="17">Delta</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_5" class="node mindmap-node section-4 " transform="translate(578.238, 109)">
-          <path id="my-svg-node_5" class="node-bkg node-" d="M-45.285,12L-45.285,-12Q-45.285,-17,-40.285,-17L40.285,-17Q45.285,-17,45.285,-12L45.285,12Q45.285,17,40.285,17L-40.285,17Q-45.285,17,-45.285,12Z" fill="#ff86c2" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-45.285" y1="17" x2="45.285" y2="17" stroke="#b9ffdc" stroke-width="3"/>
-          <g class="label" transform="translate(-25.285, -12)">
-            <text class="nodeLabel" x="25.285" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.285" dy="17">Epsilon</tspan></text>
+        <g id="my-svg-node_5" class="node mindmap-node section-4 " transform="translate(578.258, 109)">
+          <path id="my-svg-node_5" class="node-bkg node-" d="M-45.289,12L-45.289,-12Q-45.289,-17,-40.289,-17L40.289,-17Q45.289,-17,45.289,-12L45.289,12Q45.289,17,40.289,17L-40.289,17Q-45.289,17,-45.289,12Z" fill="#ff86c2" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-45.289" y1="17" x2="45.289" y2="17" stroke="#b9ffdc" stroke-width="3"/>
+          <g class="label" transform="translate(-25.289, -12)">
+            <text class="nodeLabel" x="25.289" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.289" dy="17">Epsilon</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_6" class="node mindmap-node section-5 " transform="translate(709.664, 109)">
+        <g id="my-svg-node_6" class="node mindmap-node section-5 " transform="translate(709.688, 109)">
           <path id="my-svg-node_6" class="node-bkg node-" d="M-36.141,12L-36.141,-12Q-36.141,-17,-31.141,-17L31.141,-17Q36.141,-17,36.141,-12L36.141,12Q36.141,17,31.141,17L-31.141,17Q-36.141,17,-36.141,12Z" fill="#ff8686" stroke="none" stroke-width="1"/>
           <line class="node-line-" x1="-36.141" y1="17" x2="36.141" y2="17" stroke="#b9ffff" stroke-width="3"/>
           <g class="label" transform="translate(-16.141, -12)">
             <text class="nodeLabel" x="16.141" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.141" dy="17">Zeta</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_7" class="node mindmap-node section-6 " transform="translate(827.465, 109)">
-          <path id="my-svg-node_7" class="node-bkg node-" d="M-31.66,12L-31.66,-12Q-31.66,-17,-26.66,-17L26.66,-17Q31.66,-17,31.66,-12L31.66,12Q31.66,17,26.66,17L-26.66,17Q-31.66,17,-31.66,12Z" fill="#ffc286" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-31.66" y1="17" x2="31.66" y2="17" stroke="#b9dcff" stroke-width="3"/>
-          <g class="label" transform="translate(-11.66, -12)">
-            <text class="nodeLabel" x="11.66" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="11.66" dy="17">Eta</tspan></text>
+        <g id="my-svg-node_7" class="node mindmap-node section-6 " transform="translate(827.492, 109)">
+          <path id="my-svg-node_7" class="node-bkg node-" d="M-31.664,12L-31.664,-12Q-31.664,-17,-26.664,-17L26.664,-17Q31.664,-17,31.664,-12L31.664,12Q31.664,17,26.664,17L-26.664,17Q-31.664,17,-31.664,12Z" fill="#ffc286" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-31.664" y1="17" x2="31.664" y2="17" stroke="#b9dcff" stroke-width="3"/>
+          <g class="label" transform="translate(-11.664, -12)">
+            <text class="nodeLabel" x="11.664" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="11.664" dy="17">Eta</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_8" class="node mindmap-node section-7 " transform="translate(949.879, 109)">
-          <path id="my-svg-node_8" class="node-bkg node-" d="M-40.754,12L-40.754,-12Q-40.754,-17,-35.754,-17L35.754,-17Q40.754,-17,40.754,-12L40.754,12Q40.754,17,35.754,17L-35.754,17Q-40.754,17,-40.754,12Z" fill="#c2ff86" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-40.754" y1="17" x2="40.754" y2="17" stroke="#dcb9ff" stroke-width="3"/>
-          <g class="label" transform="translate(-20.754, -12)">
-            <text class="nodeLabel" x="20.754" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20.754" dy="17">Theta</tspan></text>
+        <g id="my-svg-node_8" class="node mindmap-node section-7 " transform="translate(949.914, 109)">
+          <path id="my-svg-node_8" class="node-bkg node-" d="M-40.758,12L-40.758,-12Q-40.758,-17,-35.758,-17L35.758,-17Q40.758,-17,40.758,-12L40.758,12Q40.758,17,35.758,17L-35.758,17Q-40.758,17,-40.758,12Z" fill="#c2ff86" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-40.758" y1="17" x2="40.758" y2="17" stroke="#dcb9ff" stroke-width="3"/>
+          <g class="label" transform="translate(-20.758, -12)">
+            <text class="nodeLabel" x="20.758" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20.758" dy="17">Theta</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_9" class="node mindmap-node section-8 " transform="translate(1074.527, 109)">
-          <path id="my-svg-node_9" class="node-bkg node-" d="M-33.895,12L-33.895,-12Q-33.895,-17,-28.895,-17L28.895,-17Q33.895,-17,33.895,-12L33.895,12Q33.895,17,28.895,17L-28.895,17Q-33.895,17,-33.895,12Z" fill="#86ffc2" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-33.895" y1="17" x2="33.895" y2="17" stroke="#ffb9dc" stroke-width="3"/>
-          <g class="label" transform="translate(-13.895, -12)">
-            <text class="nodeLabel" x="13.895" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="13.895" dy="17">Iota</tspan></text>
+        <g id="my-svg-node_9" class="node mindmap-node section-8 " transform="translate(1074.57, 109)">
+          <path id="my-svg-node_9" class="node-bkg node-" d="M-33.898,12L-33.898,-12Q-33.898,-17,-28.898,-17L28.898,-17Q33.898,-17,33.898,-12L33.898,12Q33.898,17,28.898,17L-28.898,17Q-33.898,17,-33.898,12Z" fill="#86ffc2" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-33.898" y1="17" x2="33.898" y2="17" stroke="#ffb9dc" stroke-width="3"/>
+          <g class="label" transform="translate(-13.898, -12)">
+            <text class="nodeLabel" x="13.898" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="13.898" dy="17">Iota</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_10" class="node mindmap-node section-9 " transform="translate(1200.348, 109)">
-          <path id="my-svg-node_10" class="node-bkg node-" d="M-41.926,12L-41.926,-12Q-41.926,-17,-36.926,-17L36.926,-17Q41.926,-17,41.926,-12L41.926,12Q41.926,17,36.926,17L-36.926,17Q-41.926,17,-41.926,12Z" fill="#86ffff" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-41.926" y1="17" x2="41.926" y2="17" stroke="#ffb9b9" stroke-width="3"/>
-          <g class="label" transform="translate(-21.926, -12)">
-            <text class="nodeLabel" x="21.926" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="21.926" dy="17">Kappa</tspan></text>
+        <g id="my-svg-node_10" class="node mindmap-node section-9 " transform="translate(1200.398, 109)">
+          <path id="my-svg-node_10" class="node-bkg node-" d="M-41.93,12L-41.93,-12Q-41.93,-17,-36.93,-17L36.93,-17Q41.93,-17,41.93,-12L41.93,12Q41.93,17,36.93,17L-36.93,17Q-41.93,17,-41.93,12Z" fill="#86ffff" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-41.93" y1="17" x2="41.93" y2="17" stroke="#ffb9b9" stroke-width="3"/>
+          <g class="label" transform="translate(-21.93, -12)">
+            <text class="nodeLabel" x="21.93" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="21.93" dy="17">Kappa</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_11" class="node mindmap-node section-10 " transform="translate(1340.285, 109)">
-          <path id="my-svg-node_11" class="node-bkg node-" d="M-48.012,12L-48.012,-12Q-48.012,-17,-43.012,-17L43.012,-17Q48.012,-17,48.012,-12L48.012,12Q48.012,17,43.012,17L-43.012,17Q-48.012,17,-48.012,12Z" fill="#86c2ff" stroke="none" stroke-width="1"/>
-          <line class="node-line-" x1="-48.012" y1="17" x2="48.012" y2="17" stroke="#ffdcb9" stroke-width="3"/>
-          <g class="label" transform="translate(-28.012, -12)">
-            <text class="nodeLabel" x="28.012" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.012" dy="17">Lambda</tspan></text>
+        <g id="my-svg-node_11" class="node mindmap-node section-10 " transform="translate(1340.344, 109)">
+          <path id="my-svg-node_11" class="node-bkg node-" d="M-48.016,12L-48.016,-12Q-48.016,-17,-43.016,-17L43.016,-17Q48.016,-17,48.016,-12L48.016,12Q48.016,17,43.016,17L-43.016,17Q-48.016,17,-48.016,12Z" fill="#86c2ff" stroke="none" stroke-width="1"/>
+          <line class="node-line-" x1="-48.016" y1="17" x2="48.016" y2="17" stroke="#ffdcb9" stroke-width="3"/>
+          <g class="label" transform="translate(-28.016, -12)">
+            <text class="nodeLabel" x="28.016" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.016" dy="17">Lambda</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_12" class="node mindmap-node section-0 " transform="translate(1468.344, 109)">
+        <g id="my-svg-node_12" class="node mindmap-node section-0 " transform="translate(1468.406, 109)">
           <path id="my-svg-node_12" class="node-bkg node-" d="M-30.047,12L-30.047,-12Q-30.047,-17,-25.047,-17L25.047,-17Q30.047,-17,30.047,-12L30.047,12Q30.047,17,25.047,17L-25.047,17Q-30.047,17,-30.047,12Z" fill="#ffff78" stroke="none" stroke-width="1"/>
           <line class="node-line-" x1="-30.047" y1="17" x2="30.047" y2="17" stroke="#ababff" stroke-width="3"/>
           <g class="label" transform="translate(-10.047, -12)">
             <text class="nodeLabel" x="10.047" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="10.047" dy="17">Mu</tspan></text>
           </g>
         </g>
-        <g id="my-svg-node_13" class="node mindmap-node section-1 " transform="translate(1577.867, 109)">
+        <g id="my-svg-node_13" class="node mindmap-node section-1 " transform="translate(1577.93, 109)">
           <path id="my-svg-node_13" class="node-bkg node-" d="M-29.477,12L-29.477,-12Q-29.477,-17,-24.477,-17L24.477,-17Q29.477,-17,29.477,-12L29.477,12Q29.477,17,24.477,17L-24.477,17Q-29.477,17,-29.477,12Z" fill="#d7ff86" stroke="none" stroke-width="1"/>
           <line class="node-line-" x1="-29.477" y1="17" x2="29.477" y2="17" stroke="#d0b9ff" stroke-width="3"/>
           <g class="label" transform="translate(-9.477, -12)">

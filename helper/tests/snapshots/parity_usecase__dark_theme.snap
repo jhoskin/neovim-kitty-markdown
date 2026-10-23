@@ -2,7 +2,7 @@
 source: tests/parity_usecase.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="659.688" height="427" viewBox="-12 -12 659.688 427" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="659.703" height="427" viewBox="-12 -12 659.703 427" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_usecase-pointEnd" class="marker usecase" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#d3d3d3" stroke="#d3d3d3">
       <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#d3d3d3" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="1,0"/>
@@ -57,18 +57,18 @@ expression: scene.to_svg()
     <g class="root">
       <g class="clusters">
         <g id="my-svg-usecase-desk" class="cluster usecase-system-boundary usecase-system-boundary-package default system-boundary system-boundary-package">
-          <rect class="boundary-tab system-boundary-package-tab label-container" x="170.982" y="164" width="89.836" height="34" fill="#474949" stroke="#ffffff" stroke-width="1" stroke-opacity="0.25"/>
-          <rect class="boundary-body label-container" x="170.982" y="198" width="456.705" height="94" fill="#474949" stroke="#ffffff" stroke-width="1" stroke-opacity="0.25"/>
-          <g class="cluster-label system-boundary-title" transform="translate(180.982, 169)">
-            <text class="nodeLabel" x="34.918" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#f9fffe" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="34.918" dy="17">Help desk</tspan></text>
+          <rect class="boundary-tab system-boundary-package-tab label-container" x="170.984" y="164" width="89.844" height="34" fill="#474949" stroke="#ffffff" stroke-width="1" stroke-opacity="0.25"/>
+          <rect class="boundary-body label-container" x="170.984" y="198" width="456.719" height="94" fill="#474949" stroke="#ffffff" stroke-width="1" stroke-opacity="0.25"/>
+          <g class="cluster-label system-boundary-title" transform="translate(180.984, 169)">
+            <text class="nodeLabel" x="34.922" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#f9fffe" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="34.922" dy="17">Help desk</tspan></text>
           </g>
         </g>
       </g>
       <g class="edgePaths">
-        <path id="my-svg-edge-0" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M313.982,106.622L328.208,120.894C342.433,135.165,370.884,163.707,394.614,180.733C418.344,197.759,437.352,203.268,446.857,206.023L456.361,208.777" fill="none" stroke="#d3d3d3" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
-        <path id="my-svg-edge-1" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M120.982,228L125.149,228C129.316,228,137.649,228,145.982,228C154.316,228,162.649,228,170.316,228C177.982,228,184.982,228,188.482,228L191.982,228" fill="none" stroke="#d3d3d3" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
-        <path id="my-svg-edge-2" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-include" d="M355.982,228L363.208,228C370.433,228,384.884,228,398.668,228C412.452,228,425.57,228,432.129,228L438.688,228" fill="none" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="3" marker-end="url(#my-svg_usecase-pointEnd)"/>
-        <path id="my-svg-note-0-edge" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-note" d="M319.108,327L332.479,316.458C345.85,305.917,372.593,284.833,396.108,271.352C419.624,257.87,439.914,251.99,450.058,249.049L460.203,246.109" fill="none" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="3"/>
+        <path id="my-svg-edge-0" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M313.984,106.62L328.211,120.892C342.438,135.164,370.891,163.707,394.622,180.733C418.354,197.759,437.365,203.269,446.87,206.023L456.375,208.778" fill="none" stroke="#d3d3d3" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-edge-1" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M120.984,228L125.151,228C129.318,228,137.651,228,145.984,228C154.318,228,162.651,228,170.318,228C177.984,228,184.984,228,188.484,228L191.984,228" fill="none" stroke="#d3d3d3" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-edge-2" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-include" d="M355.984,228L363.211,228C370.438,228,384.891,228,398.677,228C412.464,228,425.583,228,432.143,228L438.703,228" fill="none" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="3" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-note-0-edge" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-note" d="M319.113,327L332.484,316.458C345.856,305.917,372.6,284.833,396.117,271.351C419.635,257.87,439.926,251.989,450.072,249.049L460.217,246.109" fill="none" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="3"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel">
@@ -77,10 +77,10 @@ expression: scene.to_svg()
         <g class="edgeLabel">
           <g class="label" transform="translate(0, 0)"/>
         </g>
-        <g class="edgeLabel" transform="translate(399.335, 228)">
-          <g class="label" transform="translate(-18.353, -7.5)">
-            <rect class="background" x="0" y="0" width="36.705" height="15" fill="#585858" stroke="none"/>
-            <text class="edgeLabel" x="18.353" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="18.353" dy="11">include</tspan></text>
+        <g class="edgeLabel" transform="translate(399.344, 228)">
+          <g class="label" transform="translate(-18.359, -7.5)">
+            <rect class="background" x="0" y="0" width="36.719" height="15" fill="#585858" stroke="none"/>
+            <text class="edgeLabel" x="18.359" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="18.359" dy="11">include</tspan></text>
           </g>
         </g>
         <g class="edgeLabel">
@@ -88,38 +88,38 @@ expression: scene.to_svg()
         </g>
       </g>
       <g class="nodes">
-        <g id="my-svg-usecase-User" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(275.982, 68.5)">
+        <g id="my-svg-usecase-User" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(275.984, 68.5)">
           <rect class="usecase-actor-outline" x="-38" y="-60.5" width="76" height="121" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-15.23, 29.5)">
-            <text class="nodeLabel" x="15.23" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#d3d3d3" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="15.23" dy="16">User</tspan></text>
+          <g class="label actor-label usecase-actor-label" transform="translate(-15.234, 29.5)">
+            <text class="nodeLabel" x="15.234" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#d3d3d3" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="15.234" dy="16">User</tspan></text>
           </g>
           <g class="usecase-actor-glyph usecase-actor-shape usecase-actor-normal" transform="translate(0, -14.5)" fill="#1f2020" stroke="#cccccc" stroke-width="2">
             <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#1f2020" stroke="#cccccc" stroke-width="2"/>
           </g>
         </g>
-        <g id="my-svg-usecase-Support" class="node default usecase-actor usecase-actor-hollow usecase-actor-variant usecase-actor-hollow" transform="translate(64.491, 228)">
-          <rect class="usecase-actor-outline" x="-56.491" y="-60.5" width="112.982" height="121" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-46.491, 29.5)">
-            <text class="nodeLabel" x="46.491" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#d3d3d3" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="46.491" dy="16">Support agent</tspan></text>
+        <g id="my-svg-usecase-Support" class="node default usecase-actor usecase-actor-hollow usecase-actor-variant usecase-actor-hollow" transform="translate(64.492, 228)">
+          <rect class="usecase-actor-outline" x="-56.492" y="-60.5" width="112.984" height="121" opacity="0"/>
+          <g class="label actor-label usecase-actor-label" transform="translate(-46.492, 29.5)">
+            <text class="nodeLabel" x="46.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#d3d3d3" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="46.492" dy="16">Support agent</tspan></text>
           </g>
           <g class="usecase-actor-glyph usecase-actor-hollow" transform="translate(0, -14.5)" fill="#1f2020" stroke="#cccccc" stroke-width="2">
             <circle class="usecase-actor-hollow-head" cx="0" cy="-23" r="9" fill="none" stroke="#cccccc" stroke-width="2"/>
             <path class="usecase-actor-hollow-body" d="M-22,-10L22,-10L22,0L6,0L22,17L13,28L0,13L-13,28L-22,17L-6,0L-22,0Z" fill="none" stroke="#cccccc" stroke-width="2"/>
           </g>
         </g>
-        <g id="my-svg-usecase-Ticket" class="node default usecase-element usecase-ellipse " transform="translate(522.688, 228)">
+        <g id="my-svg-usecase-Ticket" class="node default usecase-element usecase-ellipse " transform="translate(522.703, 228)">
           <ellipse class="basic label-container" cx="0" cy="0" rx="80" ry="29" fill="#1f2020" stroke="#cccccc" stroke-width="2"/>
           <g class="label" transform="translate(-60, -9)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">Open ticket</tspan></text>
           </g>
         </g>
-        <g id="my-svg-usecase-Resolve" class="node default usecase-element usecase-ellipse " transform="translate(275.982, 228)">
+        <g id="my-svg-usecase-Resolve" class="node default usecase-element usecase-ellipse " transform="translate(275.984, 228)">
           <ellipse class="basic label-container" cx="0" cy="0" rx="80" ry="29" fill="#1f2020" stroke="#cccccc" stroke-width="2"/>
           <g class="label" transform="translate(-60, -9)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">Resolve ticket</tspan></text>
           </g>
         </g>
-        <g id="my-svg-usecase-note-0" class="node default usecase-note " transform="translate(275.982, 361)">
+        <g id="my-svg-usecase-note-0" class="node default usecase-note " transform="translate(275.984, 361)">
           <rect class="basic label-container outer-path" x="-70" y="-34" width="140" height="68" fill="#474949" stroke="#2f2f2f" stroke-width="1"/>
           <g class="label noteLabel" transform="translate(-60, -24)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#b8b6b6" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Needs</tspan><tspan> </tspan><tspan>a</tspan><tspan> </tspan><tspan>valid</tspan><tspan> </tspan><tspan x="60" dy="24">account</tspan></text>

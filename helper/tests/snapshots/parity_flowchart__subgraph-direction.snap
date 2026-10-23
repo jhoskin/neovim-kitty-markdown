@@ -79,8 +79,8 @@ expression: scene(&mmd).to_svg()
               <g class="clusters">
                 <g id="B2" class="cluster ">
                   <rect x="8" y="8" width="250" height="308" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-                  <g class="cluster-label" transform="translate(124.277, 8)">
-                    <text class="nodeLabel" x="8.723" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="8.723" dy="17">B2</tspan></text>
+                  <g class="cluster-label" transform="translate(124.273, 8)">
+                    <text class="nodeLabel" x="8.727" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="8.727" dy="17">B2</tspan></text>
                   </g>
                 </g>
               </g>
@@ -111,8 +111,8 @@ expression: scene(&mmd).to_svg()
               <g class="clusters">
                 <g id="B1" class="cluster ">
                   <rect x="8" y="8" width="560" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-                  <g class="cluster-label" transform="translate(279.277, 8)">
-                    <text class="nodeLabel" x="8.723" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="8.723" dy="17">B1</tspan></text>
+                  <g class="cluster-label" transform="translate(279.273, 8)">
+                    <text class="nodeLabel" x="8.727" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="8.727" dy="17">B1</tspan></text>
                   </g>
                 </g>
               </g>

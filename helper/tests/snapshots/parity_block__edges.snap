@@ -2,7 +2,7 @@
 source: tests/parity_block.rs
 expression: scene.to_svg()
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="156.965" height="290" viewBox="-7.504 -145 156.965 290" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="156.984" height="290" viewBox="-7.5 -145 156.984 290" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_block-pointEnd" class="marker block" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
       <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
@@ -43,65 +43,65 @@ expression: scene.to_svg()
   </defs>
   <g font-size="16">
     <g class="block">
-      <g id="my-svg-A" class="node default flowchart-label " transform="translate(21.41, -120)">
-        <rect class="basic label-container" x="-21.41" y="-20" width="42.82" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+      <g id="my-svg-A" class="node default flowchart-label " transform="translate(21.414, -120)">
+        <rect class="basic label-container" x="-21.414" y="-20" width="42.828" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-4.719, -12)">
           <text class="nodeLabel" x="4.719" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.719" dy="17">A</tspan></text>
         </g>
       </g>
-      <g id="my-svg-B" class="node default flowchart-label " transform="translate(21.41, -72)">
-        <rect class="basic label-container" x="-21.41" y="-20" width="42.82" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-        <g class="label" transform="translate(-4.527, -12)">
-          <text class="nodeLabel" x="4.527" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.527" dy="17">B</tspan></text>
+      <g id="my-svg-B" class="node default flowchart-label " transform="translate(21.414, -72)">
+        <rect class="basic label-container" x="-21.414" y="-20" width="42.828" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-4.531, -12)">
+          <text class="nodeLabel" x="4.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.531" dy="17">B</tspan></text>
         </g>
       </g>
-      <g id="my-svg-C" class="node default flowchart-label " transform="translate(72.23, -72)">
-        <rect class="basic label-container" x="-21.41" y="-20" width="42.82" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-        <g class="label" transform="translate(-4.785, -12)">
-          <text class="nodeLabel" x="4.785" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.785" dy="17">C</tspan></text>
+      <g id="my-svg-C" class="node default flowchart-label " transform="translate(72.242, -72)">
+        <rect class="basic label-container" x="-21.414" y="-20" width="42.828" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-4.789, -12)">
+          <text class="nodeLabel" x="4.789" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.789" dy="17">C</tspan></text>
         </g>
       </g>
-      <g id="my-svg-D" class="node default flowchart-label " transform="translate(72.23, -24)">
-        <rect class="basic label-container" x="-21.41" y="-20" width="42.82" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+      <g id="my-svg-D" class="node default flowchart-label " transform="translate(72.242, -24)">
+        <rect class="basic label-container" x="-21.414" y="-20" width="42.828" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-4.906, -12)">
           <text class="nodeLabel" x="4.906" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.906" dy="17">D</tspan></text>
         </g>
       </g>
-      <g id="my-svg-E" class="node default flowchart-label " transform="translate(123.051, -24)">
-        <rect class="basic label-container" x="-21.41" y="-20" width="42.82" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-        <g class="label" transform="translate(-4.285, -12)">
-          <text class="nodeLabel" x="4.285" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.285" dy="17">E</tspan></text>
+      <g id="my-svg-E" class="node default flowchart-label " transform="translate(123.07, -24)">
+        <rect class="basic label-container" x="-21.414" y="-20" width="42.828" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-4.289, -12)">
+          <text class="nodeLabel" x="4.289" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.289" dy="17">E</tspan></text>
         </g>
       </g>
-      <g id="my-svg-F" class="node default flowchart-label " transform="translate(123.051, 24)">
-        <rect class="basic label-container" x="-21.41" y="-20" width="42.82" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-        <g class="label" transform="translate(-4.199, -12)">
-          <text class="nodeLabel" x="4.199" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.199" dy="17">F</tspan></text>
+      <g id="my-svg-F" class="node default flowchart-label " transform="translate(123.07, 24)">
+        <rect class="basic label-container" x="-21.414" y="-20" width="42.828" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-4.203, -12)">
+          <text class="nodeLabel" x="4.203" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.203" dy="17">F</tspan></text>
         </g>
       </g>
-      <g id="my-svg-G" class="node default flowchart-label " transform="translate(21.41, 72)">
-        <rect class="basic label-container" x="-21.41" y="-20" width="42.82" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-        <g class="label" transform="translate(-5.41, -12)">
-          <text class="nodeLabel" x="5.41" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="5.41" dy="17">G</tspan></text>
+      <g id="my-svg-G" class="node default flowchart-label " transform="translate(21.414, 72)">
+        <rect class="basic label-container" x="-21.414" y="-20" width="42.828" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-5.414, -12)">
+          <text class="nodeLabel" x="5.414" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="5.414" dy="17">G</tspan></text>
         </g>
       </g>
-      <g id="my-svg-H" class="node default flowchart-label " transform="translate(21.41, 120)">
-        <rect class="basic label-container" x="-21.41" y="-20" width="42.82" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+      <g id="my-svg-H" class="node default flowchart-label " transform="translate(21.414, 120)">
+        <rect class="basic label-container" x="-21.414" y="-20" width="42.828" height="40" rx="0" ry="0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
         <g class="label" transform="translate(-5.234, -12)">
           <text class="nodeLabel" x="5.234" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="5.234" dy="17">H</tspan></text>
         </g>
       </g>
-      <path id="my-svg-my-svg-1-A-B" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link LS-a1 LE-b1" d="M21.41,-100L21.41,-99.333C21.41,-98.667,21.41,-97.333,21.41,-96.667C21.41,-96,21.41,-96,21.41,-96L21.41,-96" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_block-pointEnd)"/>
-      <g class="edgeLabel" transform="translate(21.41, -96)">
+      <path id="my-svg-my-svg-1-A-B" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link LS-a1 LE-b1" d="M21.414,-100L21.414,-99.333C21.414,-98.667,21.414,-97.333,21.414,-96.667C21.414,-96,21.414,-96,21.414,-96L21.414,-96" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_block-pointEnd)"/>
+      <g class="edgeLabel" transform="translate(21.414, -96)">
         <g class="label" transform="translate(-4.453, -12)">
           <rect class="background" x="0" y="0" width="8.906" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
           <text class="edgeLabel" x="4.453" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.453" dy="17">X</tspan></text>
         </g>
       </g>
-      <path id="my-svg-my-svg-1-C-D" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link LS-a1 LE-b1" d="M72.23,-52L72.23,-51.333C72.23,-50.667,72.23,-49.333,72.23,-48C72.23,-46.667,72.23,-45.333,72.23,-44.667L72.23,-44" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_block-crossEnd)"/>
-      <path id="my-svg-my-svg-1-E-F" class=" edge-thickness-thick edge-pattern-solid edge-thickness-thick edge-pattern-solid flowchart-link LS-a1 LE-b1" d="M123.051,-4L123.051,-3.333C123.051,-2.667,123.051,-1.333,123.051,0C123.051,1.333,123.051,2.667,123.051,3.333L123.051,4" fill="none" stroke="#333333" stroke-width="3.5" marker-end="url(#my-svg_block-circleEnd)"/>
-      <path id="my-svg-my-svg-1-G-H" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-dotted flowchart-link LS-a1 LE-b1" d="M21.41,92L21.41,92.667C21.41,93.333,21.41,94.667,21.41,95.333C21.41,96,21.41,96,21.41,96L21.41,96" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="2" marker-end="url(#my-svg_block-pointEnd)"/>
-      <g class="edgeLabel" transform="translate(21.41, 96)">
+      <path id="my-svg-my-svg-1-C-D" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link LS-a1 LE-b1" d="M72.242,-52L72.242,-51.333C72.242,-50.667,72.242,-49.333,72.242,-48C72.242,-46.667,72.242,-45.333,72.242,-44.667L72.242,-44" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_block-crossEnd)"/>
+      <path id="my-svg-my-svg-1-E-F" class=" edge-thickness-thick edge-pattern-solid edge-thickness-thick edge-pattern-solid flowchart-link LS-a1 LE-b1" d="M123.07,-4L123.07,-3.333C123.07,-2.667,123.07,-1.333,123.07,0C123.07,1.333,123.07,2.667,123.07,3.333L123.07,4" fill="none" stroke="#333333" stroke-width="3.5" marker-end="url(#my-svg_block-circleEnd)"/>
+      <path id="my-svg-my-svg-1-G-H" class=" edge-thickness-normal edge-pattern-dotted edge-thickness-normal edge-pattern-dotted flowchart-link LS-a1 LE-b1" d="M21.414,92L21.414,92.667C21.414,93.333,21.414,94.667,21.414,95.333C21.414,96,21.414,96,21.414,96L21.414,96" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="2" marker-end="url(#my-svg_block-pointEnd)"/>
+      <g class="edgeLabel" transform="translate(21.414, 96)">
         <g class="label" transform="translate(-23.914, -12)">
           <rect class="background" x="0" y="0" width="47.828" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
           <text class="edgeLabel" x="23.914" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.914" dy="17">dotted</tspan></text>

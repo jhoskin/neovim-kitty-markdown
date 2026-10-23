@@ -7,8 +7,8 @@ expression: scene.to_svg()
     <g class="sections">
       <g id="my-svg-Ideas" class="cluster section-1">
         <rect x="100" y="-300" width="200" height="128" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(181.512, -300)">
-          <text class="nodeLabel" x="18.488" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.488" dy="17">Ideas</tspan></text>
+        <g class="cluster-label" transform="translate(181.508, -300)">
+          <text class="nodeLabel" x="18.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.492" dy="17">Ideas</tspan></text>
         </g>
       </g>
       <g id="my-svg-Later" class="cluster section-2">

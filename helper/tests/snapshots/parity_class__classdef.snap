@@ -2,7 +2,7 @@
 source: tests/parity_class.rs
 expression: scene_svg(&mmd)
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="207.336" height="234" viewBox="0 0 207.336 234" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="207.344" height="234" viewBox="0 0 207.344 234" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_classDiagram-aggregationStart" class="marker aggregation classDiagram" refX="18" refY="7" markerWidth="190" markerHeight="240" orient="auto" markerUnits="userSpaceOnUse" fill="none" stroke="#333333" stroke-width="1">
       <path d="M18,7L9,13L1,7L9,1Z" fill="none" stroke="#333333"/>
@@ -69,8 +69,8 @@ expression: scene_svg(&mmd)
     <g class="root">
       <g class="clusters"/>
       <g class="edgePaths">
-        <path id="my-svg-id_Animal_Mineral_1" class=" edge-thickness-normal edge-pattern-solid relation" d="M70.119,91.834L66.342,96.028C62.565,100.223,55.011,108.611,51.234,115.972C47.457,123.333,47.457,129.667,47.457,132.833L47.457,136" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_classDiagram-dependencyEnd)"/>
-        <path id="my-svg-id_Animal_Plant_2" class=" edge-thickness-normal edge-pattern-solid relation" d="M145.463,91.834L149.24,96.028C153.017,100.223,160.571,108.611,164.348,115.972C168.125,123.333,168.125,129.667,168.125,132.833L168.125,136" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_classDiagram-dependencyEnd)"/>
+        <path id="my-svg-id_Animal_Mineral_1" class=" edge-thickness-normal edge-pattern-solid relation" d="M70.125,91.833L66.348,96.027C62.57,100.222,55.016,108.611,51.238,115.972C47.461,123.333,47.461,129.667,47.461,132.833L47.461,136" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_classDiagram-dependencyEnd)"/>
+        <path id="my-svg-id_Animal_Plant_2" class=" edge-thickness-normal edge-pattern-solid relation" d="M145.469,91.833L149.246,96.027C153.023,100.222,160.578,108.611,164.355,115.972C168.133,123.333,168.133,129.667,168.133,132.833L168.133,136" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_classDiagram-dependencyEnd)"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel">
@@ -81,7 +81,7 @@ expression: scene_svg(&mmd)
         </g>
       </g>
       <g class="nodes">
-        <g id="my-svg-classId-Animal-0" class="node default someclass " transform="translate(107.791, 50)">
+        <g id="my-svg-classId-Animal-0" class="node default someclass " transform="translate(107.797, 50)">
           <rect class="basic label-container outer-path" x="-37.672" y="-42" width="75.344" height="84" fill="#ff9966" stroke="#333333" stroke-width="2"/>
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-25.672, -18)">
@@ -94,20 +94,20 @@ expression: scene_svg(&mmd)
           <line class="divider" x1="-37.672" y1="6" x2="37.672" y2="6.001" fill="#ff9966" stroke="#333333" stroke-width="2"/>
           <line class="divider" x1="-37.672" y1="24" x2="37.672" y2="24.001" fill="#ff9966" stroke="#333333" stroke-width="2"/>
         </g>
-        <g id="my-svg-classId-Mineral-1" class="node default " transform="translate(47.457, 184)">
-          <rect class="basic label-container outer-path" x="-39.457" y="-42" width="78.914" height="84" fill="#bbbbff" stroke="#ff6666" stroke-width="2" stroke-dasharray="5,5"/>
+        <g id="my-svg-classId-Mineral-1" class="node default " transform="translate(47.461, 184)">
+          <rect class="basic label-container outer-path" x="-39.461" y="-42" width="78.922" height="84" fill="#bbbbff" stroke="#ff6666" stroke-width="2" stroke-dasharray="5,5"/>
           <g class="annotation-group text" transform="translate(0, -18)"/>
-          <g class="label-group text" transform="translate(-27.457, -18)">
+          <g class="label-group text" transform="translate(-27.461, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="27.457" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="27.457" dy="17" font-weight="bold">Mineral</tspan></text>
+              <text class="nodeLabel" x="27.461" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#ffffff" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="27.461" dy="17" font-weight="bold">Mineral</tspan></text>
             </g>
           </g>
-          <g class="members-group text" transform="translate(-27.457, 30)"/>
-          <g class="methods-group text" transform="translate(-27.457, 60)"/>
-          <line class="divider" x1="-39.457" y1="6" x2="39.457" y2="6.001" fill="#bbbbff" stroke="#ff6666" stroke-width="2" stroke-dasharray="5,5"/>
-          <line class="divider" x1="-39.457" y1="24" x2="39.457" y2="24.001" fill="#bbbbff" stroke="#ff6666" stroke-width="2" stroke-dasharray="5,5"/>
+          <g class="members-group text" transform="translate(-27.461, 30)"/>
+          <g class="methods-group text" transform="translate(-27.461, 60)"/>
+          <line class="divider" x1="-39.461" y1="6" x2="39.461" y2="6.001" fill="#bbbbff" stroke="#ff6666" stroke-width="2" stroke-dasharray="5,5"/>
+          <line class="divider" x1="-39.461" y1="24" x2="39.461" y2="24.001" fill="#bbbbff" stroke="#ff6666" stroke-width="2" stroke-dasharray="5,5"/>
         </g>
-        <g id="my-svg-classId-Plant-2" class="node default someclass " transform="translate(168.125, 184)">
+        <g id="my-svg-classId-Plant-2" class="node default someclass " transform="translate(168.133, 184)">
           <rect class="basic label-container outer-path" x="-31.211" y="-42" width="62.422" height="84" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-19.211, -18)">

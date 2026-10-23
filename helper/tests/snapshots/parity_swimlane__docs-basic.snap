@@ -2,7 +2,7 @@
 source: tests/parity_swimlane.rs
 expression: scene_svg(&mmd)
 ---
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1719.906" height="430" viewBox="0 0 1719.906 430" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1719.922" height="430" viewBox="0 0 1719.922 430" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
   <defs>
     <marker id="my-svg_swimlane-pointEnd" class="marker swimlane" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
       <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
@@ -45,46 +45,46 @@ expression: scene_svg(&mmd)
     <g class="root">
       <g class="clusters">
         <g id="Engineering" class="cluster ">
-          <rect x="655.414" y="154" width="546.492" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(886.832, 154)">
+          <rect x="655.422" y="154" width="546.5" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(886.844, 154)">
             <text class="nodeLabel" x="41.828" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="41.828" dy="17">Engineering</tspan></text>
           </g>
         </g>
         <g id="Support" class="cluster ">
-          <rect x="263" y="8" width="1193.906" height="126" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(832.246, 8)">
-            <text class="nodeLabel" x="27.707" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.707" dy="17">Support</tspan></text>
+          <rect x="263" y="8" width="1193.922" height="126" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(832.25, 8)">
+            <text class="nodeLabel" x="27.711" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="27.711" dy="17">Support</tspan></text>
           </g>
         </g>
         <g id="Customer" class="cluster ">
-          <rect x="8" y="298" width="1703.906" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
-          <g class="cluster-label" transform="translate(825.98, 298)">
-            <text class="nodeLabel" x="33.973" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.973" dy="17">Customer</tspan></text>
+          <rect x="8" y="298" width="1703.922" height="124" fill="#ffffde" stroke="#aaaa33" stroke-width="1"/>
+          <g class="cluster-label" transform="translate(825.984, 298)">
+            <text class="nodeLabel" x="33.977" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.977" dy="17">Customer</tspan></text>
           </g>
         </g>
       </g>
       <g class="edgePaths">
         <path id="my-svg-L_request_triage_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M213,360L217.167,360C221.333,360,229.667,360,238,360C246.333,360,254.667,360,275.963,316.953C297.259,273.906,331.518,187.811,348.648,144.764L365.777,101.717" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
-        <path id="my-svg-L_triage_answer_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M468,63.161L483.618,61.801C499.236,60.441,530.471,57.72,561.707,56.36C592.943,55,624.178,55,658.963,55C693.747,55,732.081,55,777.622,55C823.163,55,875.911,55,928.66,55C981.409,55,1034.158,55,1079.699,55C1125.24,55,1163.573,55,1186.906,55C1210.24,55,1218.573,55,1226.245,55.457C1233.917,55.915,1240.929,56.829,1244.434,57.286L1247.94,57.744" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
-        <path id="my-svg-L_triage_investigate_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M468,78.839L483.618,80.199C499.236,81.559,530.471,84.28,561.707,85.64C592.943,87,624.178,87,654.508,103.502C684.837,120.005,714.26,153.009,728.971,169.512L743.683,186.014" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
-        <path id="my-svg-L_investigate_fix_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M860.414,216L871.788,216C883.163,216,905.911,216,927.993,216C950.076,216,971.491,216,982.199,216L992.906,216" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
-        <path id="my-svg-L_fix_answer_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M1176.906,216L1181.073,216C1185.24,216,1193.573,216,1201.906,195.333C1210.24,174.667,1218.573,133.333,1226.251,111.995C1233.93,90.656,1240.954,89.313,1244.466,88.641L1247.977,87.969" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
-        <path id="my-svg-L_answer_receive_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M1431.906,70L1436.073,70C1440.24,70,1448.573,70,1456.906,118.333C1465.24,166.667,1473.573,263.333,1481.24,311.667C1488.906,360,1495.906,360,1499.406,360L1502.906,360" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_triage_answer_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M468,63.162L483.618,61.801C499.237,60.441,530.474,57.721,561.711,56.36C592.948,55,624.185,55,658.97,55C693.755,55,732.089,55,777.63,55C823.172,55,875.922,55,928.672,55C981.422,55,1034.172,55,1079.714,55C1125.255,55,1163.589,55,1186.922,55C1210.255,55,1218.589,55,1226.261,55.457C1233.933,55.915,1240.944,56.829,1244.45,57.286L1247.955,57.744" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_triage_investigate_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M468,78.838L483.618,80.199C499.237,81.559,530.474,84.279,561.711,85.64C592.948,87,624.185,87,654.515,103.502C684.845,120.005,714.268,153.009,728.979,169.512L743.69,186.014" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_investigate_fix_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M860.422,216L871.797,216C883.172,216,905.922,216,928.005,216C950.089,216,971.505,216,982.214,216L992.922,216" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_fix_answer_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M1176.922,216L1181.089,216C1185.255,216,1193.589,216,1201.922,195.333C1210.255,174.667,1218.589,133.333,1226.267,111.995C1233.946,90.656,1240.969,89.313,1244.481,88.641L1247.993,87.969" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
+        <path id="my-svg-L_answer_receive_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M1431.922,70L1436.089,70C1440.255,70,1448.589,70,1456.922,118.333C1465.255,166.667,1473.589,263.333,1481.255,311.667C1488.922,360,1495.922,360,1499.422,360L1502.922,360" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_swimlane-pointEnd)"/>
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel">
           <g class="label" transform="translate(0, 0)"/>
         </g>
-        <g class="edgeLabel" transform="translate(928.66, 55)">
-          <g class="label" transform="translate(-43.246, -12)">
-            <rect class="background" x="0" y="0" width="86.492" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="43.246" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="43.246" dy="17">Known issue</tspan></text>
+        <g class="edgeLabel" transform="translate(928.672, 55)">
+          <g class="label" transform="translate(-43.25, -12)">
+            <rect class="background" x="0" y="0" width="86.5" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="43.25" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="43.25" dy="17">Known issue</tspan></text>
           </g>
         </g>
-        <g class="edgeLabel" transform="translate(561.707, 87)">
-          <g class="label" transform="translate(-68.707, -12)">
-            <rect class="background" x="0" y="0" width="137.414" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="68.707" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="68.707" dy="17">Needs code change</tspan></text>
+        <g class="edgeLabel" transform="translate(561.711, 87)">
+          <g class="label" transform="translate(-68.711, -12)">
+            <rect class="background" x="0" y="0" width="137.422" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="68.711" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="68.711" dy="17">Needs code change</tspan></text>
           </g>
         </g>
         <g class="edgeLabel">
@@ -104,7 +104,7 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Request service</tspan></text>
           </g>
         </g>
-        <g id="flowchart-receive-1" class="node default  " transform="translate(1596.906, 360)">
+        <g id="flowchart-receive-1" class="node default  " transform="translate(1596.922, 360)">
           <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -12)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Receive update</tspan></text>
@@ -116,19 +116,19 @@ expression: scene_svg(&mmd)
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Triage request</tspan></text>
           </g>
         </g>
-        <g id="flowchart-answer-3" class="node default  " transform="translate(1341.906, 70)">
+        <g id="flowchart-answer-3" class="node default  " transform="translate(1341.922, 70)">
           <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -12)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Send answer</tspan></text>
           </g>
         </g>
-        <g id="flowchart-investigate-4" class="node default  " transform="translate(770.414, 216)">
+        <g id="flowchart-investigate-4" class="node default  " transform="translate(770.422, 216)">
           <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -12)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Investigate issue</tspan></text>
           </g>
         </g>
-        <g id="flowchart-fix-5" class="node default  " transform="translate(1086.906, 216)">
+        <g id="flowchart-fix-5" class="node default  " transform="translate(1086.922, 216)">
           <rect class="basic label-container" x="-90" y="-27" width="180" height="54" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -12)">
             <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Prepare fix</tspan></text>

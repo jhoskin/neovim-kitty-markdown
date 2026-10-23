@@ -7,8 +7,8 @@ expression: scene.to_svg()
     <g class="sections">
       <g id="my-svg-todo" class="cluster section-1">
         <rect x="100" y="-300" width="200" height="140" rx="5" ry="5" fill="#771955" stroke="#771955" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(183.309, -300)">
-          <text class="nodeLabel" x="16.691" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.691" dy="17">Todo</tspan></text>
+        <g class="cluster-label" transform="translate(183.305, -300)">
+          <text class="nodeLabel" x="16.695" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.695" dy="17">Todo</tspan></text>
         </g>
       </g>
       <g id="my-svg-doing" class="cluster section-2">
@@ -19,8 +19,8 @@ expression: scene.to_svg()
       </g>
       <g id="my-svg-done" class="cluster section-3">
         <rect x="510" y="-300" width="200" height="91" rx="5" ry="5" fill="#754628" stroke="#754628" stroke-width="1"/>
-        <g class="cluster-label" transform="translate(592.066, -300)">
-          <text class="nodeLabel" x="17.934" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="17.934" dy="17">Done</tspan></text>
+        <g class="cluster-label" transform="translate(592.063, -300)">
+          <text class="nodeLabel" x="17.938" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="17.938" dy="17">Done</tspan></text>
         </g>
       </g>
     </g>
@@ -31,7 +31,7 @@ expression: scene.to_svg()
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Draft the release notes</tspan></text>
         </g>
         <g class="label" transform="translate(-82.5, 0)"/>
-        <g class="label" transform="translate(54.336, 0)">
+        <g class="label" transform="translate(54.328, 0)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">sam</tspan></text>
         </g>
         <line x1="-90.5" y1="-26" x2="-90.5" y2="26" stroke="#ffa500" stroke-width="4"/>
@@ -63,7 +63,7 @@ expression: scene.to_svg()
         <g class="label" transform="translate(-82.5, 0)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">REL-5</tspan></text>
         </g>
-        <g class="label" transform="translate(54.336, 0)">
+        <g class="label" transform="translate(54.328, 0)">
           <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">sam</tspan></text>
         </g>
       </g>

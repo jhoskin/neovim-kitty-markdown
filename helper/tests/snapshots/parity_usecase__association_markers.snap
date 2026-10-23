@@ -91,8 +91,8 @@ expression: scene.to_svg()
       <g class="nodes">
         <g id="my-svg-usecase-User" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(46, 152.5)">
           <rect class="usecase-actor-outline" x="-38" y="-60.5" width="76" height="121" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-15.23, 29.5)">
-            <text class="nodeLabel" x="15.23" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="15.23" dy="16">User</tspan></text>
+          <g class="label actor-label usecase-actor-label" transform="translate(-15.234, 29.5)">
+            <text class="nodeLabel" x="15.234" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="15.234" dy="16">User</tspan></text>
           </g>
           <g class="usecase-actor-glyph usecase-actor-shape usecase-actor-normal" transform="translate(0, -14.5)" fill="#ececff" stroke="#9370db" stroke-width="2">
             <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#ececff" stroke="#9370db" stroke-width="2"/>
@@ -100,8 +100,8 @@ expression: scene.to_svg()
         </g>
         <g id="my-svg-usecase-Support" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(592, 68.5)">
           <rect class="usecase-actor-outline" x="-38" y="-60.5" width="76" height="121" opacity="0"/>
-          <g class="label actor-label usecase-actor-label" transform="translate(-26.264, 29.5)">
-            <text class="nodeLabel" x="26.264" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="26.264" dy="16">Support</tspan></text>
+          <g class="label actor-label usecase-actor-label" transform="translate(-26.266, 29.5)">
+            <text class="nodeLabel" x="26.266" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="26.266" dy="16">Support</tspan></text>
           </g>
           <g class="usecase-actor-glyph usecase-actor-shape usecase-actor-normal" transform="translate(0, -14.5)" fill="#ececff" stroke="#9370db" stroke-width="2">
             <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#ececff" stroke="#9370db" stroke-width="2"/>

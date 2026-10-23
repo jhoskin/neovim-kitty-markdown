@@ -23,17 +23,17 @@ expression: scene_svg(&mmd)
       </g>
       <g class="edgeLabels">
         <g class="edgeLabel" transform="translate(464, 217)">
-          <g class="label" transform="translate(-45.754, -12)">
-            <rect class="background" x="0" y="0" width="91.508" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
-            <text class="edgeLabel" x="45.754" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="45.754" dy="17">&lt;&lt;satisfies&gt;&gt;</tspan></text>
+          <g class="label" transform="translate(-45.758, -12)">
+            <rect class="background" x="0" y="0" width="91.516" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="45.758" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="45.758" dy="17">&lt;&lt;satisfies&gt;&gt;</tspan></text>
           </g>
         </g>
       </g>
       <g class="nodes">
         <g id="my-svg-long_req" class="node default " transform="translate(464, 358)">
           <rect class="basic label-container outer-path" x="-456" y="-104" width="912" height="208" fill="#ececff" stroke="#9370db" stroke-width="1.3"/>
-          <g class="label" transform="translate(-62.605, -96)">
-            <text class="nodeLabel" x="62.605" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.605" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
+          <g class="label" transform="translate(-62.609, -96)">
+            <text class="nodeLabel" x="62.609" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.609" dy="17">&lt;&lt;Requirement&gt;&gt;</tspan></text>
           </g>
           <g class="label" transform="translate(-33, -72)" font-weight="bold">
             <text class="nodeLabel" x="33" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-weight="bold"><tspan x="33" dy="17" font-weight="bold">long_req</tspan></text>
