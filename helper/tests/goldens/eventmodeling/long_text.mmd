@@ -1,0 +1,12 @@
+eventmodeling
+
+tf 01 ui CheckoutPageWithAVeryLongDescriptiveNameThatKeepsGoingBeyondTheMaximumBoxWidth
+tf 02 cmd PlaceOrder { customer: string, items: list of order lines with product ids and quantities, shipping: address with street city and postal code }
+tf 03 evt OrderPlaced [[OrderPlacedData]]
+
+data OrderPlacedData {
+  orderId: string
+  customerId: string
+  lines: [ { productId: string, quantity: number, unitPrice: number } ]
+  total: number
+}

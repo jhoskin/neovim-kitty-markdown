@@ -1,0 +1,74 @@
+---
+source: tests/parity_eventmodeling.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1546" height="470" viewBox="-30 -30 1546 470" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="em-arrowhead-my-svg" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0,0 10,3.5 0,7" fill="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="em-swimlane">
+      <rect x="0" y="0" width="1486" height="130" rx="3" fill="#fafafa" stroke="#f0f0f0"/>
+      <text x="30" y="30" font-weight="bold">UI/Automation</text>
+    </g>
+    <g class="em-swimlane">
+      <rect x="0" y="140" width="1486" height="130" rx="3" fill="#fafafa" stroke="#f0f0f0"/>
+      <text x="30" y="170" font-weight="bold">Command/Read Model</text>
+    </g>
+    <g class="em-swimlane">
+      <rect x="0" y="280" width="1486" height="130" rx="3" fill="#fafafa" stroke="#f0f0f0"/>
+      <text x="30" y="310" font-weight="bold">Events</text>
+    </g>
+    <g class="em-box">
+      <rect x="250" y="15" width="149" height="100" rx="3" fill="#ffffff" stroke="#dbdada"/>
+      <text x="324.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartUI</text>
+    </g>
+    <g class="em-box">
+      <rect x="329" y="155" width="165" height="100" rx="3" fill="#bcd6fe" stroke="#679ac3"/>
+      <text x="411.5" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">AddItem</text>
+    </g>
+    <g class="em-box">
+      <rect x="424" y="295" width="183" height="100" rx="3" fill="#ffb778" stroke="#c19a0f"/>
+      <text x="515.5" y="350.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ItemAdded</text>
+    </g>
+    <g class="em-box">
+      <rect x="537" y="155" width="174" height="100" rx="3" fill="#d3f1a2" stroke="#a3b732"/>
+      <text x="624" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartItems</text>
+    </g>
+    <g class="em-box">
+      <rect x="641" y="15" width="170" height="100" rx="3" fill="#ffffff" stroke="#dbdada"/>
+      <text x="726" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartView</text>
+    </g>
+    <g class="em-box">
+      <rect x="821" y="15" width="213" height="100" rx="3" fill="#edb3f6" stroke="#b88cbf"/>
+      <text x="927.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">PriceProcessor</text>
+    </g>
+    <g class="em-box">
+      <rect x="964" y="155" width="195" height="100" rx="3" fill="#bcd6fe" stroke="#679ac3"/>
+      <text x="1061.5" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ChangePrice</text>
+    </g>
+    <g class="em-box">
+      <rect x="1089" y="295" width="204" height="100" rx="3" fill="#ffb778" stroke="#c19a0f"/>
+      <text x="1191" y="350.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">PriceChanged</text>
+    </g>
+    <g class="em-box">
+      <rect x="1223" y="155" width="148" height="100" rx="3" fill="#d3f1a2" stroke="#a3b732"/>
+      <text x="1297" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">Prices</text>
+    </g>
+    <g class="em-box">
+      <rect x="1301" y="15" width="160" height="100" rx="3" fill="#edb3f6" stroke="#b88cbf"/>
+      <text x="1381" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">Notifier</text>
+    </g>
+    <path class="em-relation" d="M349.333,115L384,155" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M439,255L485,295" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M546,295L595,255" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M653,155L697.667,115" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M653,155L892,115" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M963,115L1029,155" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M1094,255L1157,295" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M1225,295L1272.333,255" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M1321.667,155L1354.333,115" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+  </g>
+</svg>

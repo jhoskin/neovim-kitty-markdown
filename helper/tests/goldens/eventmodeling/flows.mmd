@@ -1,0 +1,13 @@
+eventmodeling
+
+tf 01 ui CartUI
+tf 02 cmd AddItem
+tf 03 evt ItemAdded
+tf 04 cmd RemoveItem ->> 01
+tf 05 evt ItemRemoved
+rf 06 evt External.InventoryChanged
+tf 07 pcr InventoryProcessor
+tf 08 cmd ChangeInventory
+tf 09 evt Cart.InventoryChanged
+rf 10 rmo CartItems ->> 03 ->> 05 ->> 09
+tf 11 ui Shop.CartView

@@ -1,0 +1,51 @@
+---
+source: tests/parity_eventmodeling.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1111.667" height="470" viewBox="-30 -30 1111.667 470" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="em-arrowhead-my-svg" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0,0 10,3.5 0,7" fill="#d3d3d3"/>
+    </marker>
+  </defs>
+  <g fill="#cccccc" font-size="16">
+    <g class="em-swimlane">
+      <rect x="0" y="0" width="1051.667" height="130" rx="3" fill="#404040" stroke="#525252"/>
+      <text x="30" y="30" font-weight="bold">UI/Automation</text>
+    </g>
+    <g class="em-swimlane">
+      <rect x="0" y="140" width="1051.667" height="130" rx="3" fill="#404040" stroke="#525252"/>
+      <text x="30" y="170" font-weight="bold">Command/Read Model</text>
+    </g>
+    <g class="em-swimlane">
+      <rect x="0" y="280" width="1051.667" height="130" rx="3" fill="#404040" stroke="#525252"/>
+      <text x="30" y="310" font-weight="bold">Events</text>
+    </g>
+    <g class="em-box">
+      <rect x="250" y="15" width="149" height="100" rx="3" fill="#2d2d2d" stroke="#555555"/>
+      <text x="324.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartUI</text>
+    </g>
+    <g class="em-box">
+      <rect x="329" y="155" width="280.333" height="100" rx="3" fill="#3e547c" stroke="#5c6d8c"/>
+      <text x="469.167" y="191.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">AddItem</text>
+      <text x="339" y="229.5" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: string</text>
+    </g>
+    <g class="em-box">
+      <rect x="539.333" y="295" width="280.333" height="100" rx="3" fill="#7c5f3e" stroke="#8c755c"/>
+      <text x="679.5" y="331.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ItemAdded</text>
+      <text x="549.333" y="369.5" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: string</text>
+    </g>
+    <g class="em-box">
+      <rect x="749.667" y="155" width="174" height="100" rx="3" fill="#547c3e" stroke="#6d8c5c"/>
+      <text x="836.667" y="210.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartItems</text>
+    </g>
+    <g class="em-box">
+      <rect x="853.667" y="15" width="173" height="100" rx="3" fill="#78517b" stroke="#8a6d8c"/>
+      <text x="940.167" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">Checkout</text>
+    </g>
+    <path class="em-relation" d="M349.333,115L422.444,155" fill="none" stroke="#d3d3d3" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M515.889,255L632.778,295" fill="none" stroke="#d3d3d3" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M726.222,295L807.667,255" fill="none" stroke="#d3d3d3" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M865.667,155L911.333,115" fill="none" stroke="#d3d3d3" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+  </g>
+</svg>

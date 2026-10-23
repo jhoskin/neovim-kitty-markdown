@@ -1,0 +1,57 @@
+---
+source: tests/parity_eventmodeling.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1813.667" height="502" viewBox="-30 -30 1813.667 502" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="em-arrowhead-my-svg" refX="10" refY="3.5" markerWidth="10" markerHeight="7" orient="auto" markerUnits="strokeWidth">
+      <polygon points="0,0 10,3.5 0,7" fill="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="em-swimlane">
+      <rect x="0" y="0" width="1753.667" height="130" rx="3" fill="#fafafa" stroke="#f0f0f0"/>
+      <text x="30" y="30" font-weight="bold">UI/Automation</text>
+    </g>
+    <g class="em-swimlane">
+      <rect x="0" y="140" width="1753.667" height="146" rx="3" fill="#fafafa" stroke="#f0f0f0"/>
+      <text x="30" y="170" font-weight="bold">Command/Read Model</text>
+    </g>
+    <g class="em-swimlane">
+      <rect x="0" y="296" width="1753.667" height="146" rx="3" fill="#fafafa" stroke="#f0f0f0"/>
+      <text x="30" y="326" font-weight="bold">Events</text>
+    </g>
+    <g class="em-box">
+      <rect x="250" y="15" width="149" height="100" rx="3" fill="#ffffff" stroke="#dbdada"/>
+      <text x="324.5" y="70.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">CartUI</text>
+    </g>
+    <g class="em-box">
+      <rect x="329" y="155" width="408" height="116" rx="3" fill="#bcd6fe" stroke="#679ac3"/>
+      <text x="533" y="190" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">AddItem</text>
+      <text x="339" y="228" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: 'john'</text>
+      <text x="339" y="247" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo"> image: 'avatar_john'  price: 20.4</text>
+    </g>
+    <g class="em-box">
+      <rect x="667" y="311" width="397.667" height="116" rx="3" fill="#ffb778" stroke="#c19a0f"/>
+      <text x="865.833" y="346" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ItemAdded</text>
+      <text x="677" y="384" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: string  image: string</text>
+      <text x="677" y="403" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo"> price: number</text>
+    </g>
+    <g class="em-box">
+      <rect x="994.667" y="155" width="406.333" height="116" rx="3" fill="#bcd6fe" stroke="#679ac3"/>
+      <text x="1197.833" y="190" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">AddItem</text>
+      <text x="1004.667" y="228" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: 'jack'</text>
+      <text x="1004.667" y="247" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo"> image: 'avatar_jack'  price: 12.5</text>
+    </g>
+    <g class="em-box">
+      <rect x="1331" y="311" width="397.667" height="116" rx="3" fill="#ffb778" stroke="#c19a0f"/>
+      <text x="1529.833" y="346" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-weight="bold">ItemAdded</text>
+      <text x="1341" y="384" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo">description: string  image: string</text>
+      <text x="1341" y="403" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="Menlo"> price: number</text>
+    </g>
+    <path class="em-relation" d="M349.333,115L465,155" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M601,271L799.556,311" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M932.111,311L1130.111,271" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+    <path class="em-relation" d="M1265.556,271L1463.556,311" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#em-arrowhead-my-svg)"/>
+  </g>
+</svg>

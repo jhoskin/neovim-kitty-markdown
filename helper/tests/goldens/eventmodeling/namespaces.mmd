@@ -1,0 +1,9 @@
+eventmodeling
+
+rf 01 evt Inventory.InventoryChanged
+rf 02 evt External.InventoryChanged
+tf 03 pcr Sync.Processor
+tf 04 cmd Stock.Reserve `json`{ "sku": "A-1", "qty": 2 }
+tf 05 evt Stock.Reserved
+tf 06 rmo Stock.Levels
+tf 07 ui Sync.Monitor
