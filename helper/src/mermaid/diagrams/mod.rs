@@ -19,6 +19,7 @@ pub mod journey;
 pub mod kanban;
 pub mod packet;
 pub mod pie;
+pub mod radar;
 pub mod sequence;
 pub mod state;
 pub mod timeline;
@@ -60,6 +61,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &flowchart::DIAGRAM,
         &class::DIAGRAM,
         &state::DIAGRAM,
+        &radar::DIAGRAM,
     ];
     REGISTRY
 }

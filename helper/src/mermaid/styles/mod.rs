@@ -10,6 +10,7 @@ pub mod kanban;
 pub mod packet;
 pub mod pie;
 pub mod quadrant;
+pub mod radar;
 pub mod sequence;
 pub mod state;
 pub mod timeline;
