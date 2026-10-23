@@ -20,5 +20,6 @@ pub mod state;
 pub mod timeline;
 pub mod treemap;
 pub mod treeview;
+pub mod usecase;
 pub mod venn;
 pub mod xychart;
