@@ -1,0 +1,40 @@
+---
+source: tests/parity_radar.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="700" viewBox="0 0 700 700" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g transform="translate(350, 350)">
+      <circle class="radarGraticule" cx="0" cy="0" r="60" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="120" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="180" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="240" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="300" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <line class="radarAxisLine" x1="0" y1="0" x2="0" y2="-240" stroke="#0b0b0b" stroke-width="2"/>
+      <text class="radarAxisLabel" x="0" y="-349" text-anchor="middle" dominant-baseline="auto" fill="#333333" font-size="12">A</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="228.254" y2="-74.164" stroke="#0b0b0b" stroke-width="2"/>
+      <text class="radarAxisLabel" x="331.919" y="-107.847" text-anchor="start" dominant-baseline="auto" fill="#333333" font-size="12">B</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="141.068" y2="194.164" stroke="#0b0b0b" stroke-width="2"/>
+      <text class="radarAxisLabel" x="205.137" y="282.347" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">C</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-141.068" y2="194.164" stroke="#0b0b0b" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-205.137" y="282.347" text-anchor="end" dominant-baseline="hanging" fill="#333333" font-size="12">D</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-228.254" y2="-74.164" stroke="#0b0b0b" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-331.919" y="-107.847" text-anchor="end" dominant-baseline="auto" fill="#333333" font-size="12">E</text>
+      <path class="radarCurve-0" d="M0,-60C159.777,-37.751,71.806,-119.331,114.127,-37.082C156.447,45.167,207.879,53.125,105.801,145.623C3.723,238.122,15.379,289.495,-141.068,194.164C-297.516,98.833,-341.744,8.961,-285.317,-92.705C-228.89,-194.371,-159.777,-82.249,0,-60Z" fill="#ff0000" fill-opacity="0.2" stroke="#ff0000" stroke-width="2"/>
+      <path class="radarCurve-1" d="M0,-300C114.127,-322.249,185.933,-252.413,228.254,-74.164C270.574,104.085,225.316,77.125,105.801,145.623C-13.714,214.122,-5.388,162.748,-70.534,97.082C-135.68,31.416,-85.277,140.292,-57.063,-18.541C-28.85,-177.374,-114.127,-277.751,0,-300Z" fill="#00ff00" fill-opacity="0.2" stroke="#00ff00" stroke-width="2"/>
+      <path class="radarCurve-2" d="M0,-180C136.952,-180,128.87,-185.872,171.19,-55.623C213.511,74.626,216.598,65.125,105.801,145.623C-4.995,226.122,4.995,226.122,-105.801,145.623C-216.598,65.125,-213.511,74.626,-171.19,-55.623C-128.87,-185.872,-136.952,-180,0,-180Z" fill="#0000ff" fill-opacity="0.2" stroke="#0000ff" stroke-width="2"/>
+      <g transform="translate(262.5, -262.5)">
+        <rect class="radarLegendBox-0" x="0" y="0" width="12" height="12" fill="#ff0000" fill-opacity="0.2" stroke="#ff0000"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">c1</text>
+      </g>
+      <g transform="translate(262.5, -242.5)">
+        <rect class="radarLegendBox-1" x="0" y="0" width="12" height="12" fill="#00ff00" fill-opacity="0.2" stroke="#00ff00"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">c2</text>
+      </g>
+      <g transform="translate(262.5, -222.5)">
+        <rect class="radarLegendBox-2" x="0" y="0" width="12" height="12" fill="#0000ff" fill-opacity="0.2" stroke="#0000ff"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">c3</text>
+      </g>
+    </g>
+  </g>
+</svg>

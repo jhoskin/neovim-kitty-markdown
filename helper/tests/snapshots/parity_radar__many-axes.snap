@@ -1,0 +1,53 @@
+---
+source: tests/parity_radar.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="700" viewBox="0 0 700 700" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g transform="translate(350, 350)">
+      <circle class="radarGraticule" cx="0" cy="0" r="60" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="120" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="180" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="240" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="300" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <line class="radarAxisLine" x1="0" y1="0" x2="0" y2="-300" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="0" y="-319" text-anchor="middle" dominant-baseline="auto" fill="#333333" font-size="12">Speed</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="162.192" y2="-252.376" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="172.464" y="-268.36" text-anchor="start" dominant-baseline="auto" fill="#333333" font-size="12">Safety</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="272.89" y2="-124.625" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="290.173" y="-132.517" text-anchor="start" dominant-baseline="auto" fill="#333333" font-size="12">Tooling</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="296.946" y2="42.694" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="315.753" y="45.398" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">Docs</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="226.725" y2="196.458" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="241.084" y="208.901" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">Libraries</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="84.52" y2="287.848" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="89.873" y="306.078" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">Async</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-84.52" y2="287.848" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-89.873" y="306.078" text-anchor="end" dominant-baseline="hanging" fill="#333333" font-size="12">Generics</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-226.725" y2="196.458" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-241.084" y="208.901" text-anchor="end" dominant-baseline="hanging" fill="#333333" font-size="12">Macros</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-296.946" y2="42.694" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-315.753" y="45.398" text-anchor="end" dominant-baseline="hanging" fill="#333333" font-size="12">FFI</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-272.89" y2="-124.625" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-290.173" y="-132.517" text-anchor="end" dominant-baseline="auto" fill="#333333" font-size="12">Community</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-162.192" y2="-252.376" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-172.464" y="-268.36" text-anchor="end" dominant-baseline="auto" fill="#333333" font-size="12">Jobs</text>
+      <path class="radarCurve-0" d="M0,-270C44.116,-287.162,125.079,-281.327,162.192,-252.376C199.305,-223.425,205.5,-148.41,218.312,-99.7C231.124,-50.989,247.69,-6.172,237.557,34.156C227.424,74.483,189.034,109.073,158.707,137.521C128.381,165.968,99.076,180.831,59.164,201.494C19.252,222.156,-31.321,263.259,-76.068,259.063C-120.815,254.867,-176.599,215.047,-204.052,176.812C-231.506,138.578,-235.133,81.163,-237.557,34.156C-239.981,-12.851,-242.153,-68.151,-218.312,-99.7C-194.471,-131.248,-134.428,-122.475,-97.315,-151.426C-60.202,-180.377,-44.116,-252.838,0,-270Z" fill="#8686ff" fill-opacity="0.5" stroke="#8686ff" stroke-width="2"/>
+      <path class="radarCurve-1" d="M0,-240C41.359,-235.71,76.422,-200.514,113.535,-176.663C150.648,-152.812,202.276,-134.813,218.312,-99.7C234.347,-64.586,214.141,-13.781,207.863,29.886C201.584,73.553,203.785,118.206,181.38,157.167C158.975,196.127,115.523,256.421,76.068,259.063C36.612,261.705,-30.072,210.07,-50.712,172.709C-71.352,135.348,-23.677,64.297,-45.345,39.292C-67.012,14.286,-148.764,49.245,-178.168,25.617C-207.572,1.988,-226.542,-61.022,-218.312,-99.7C-210.081,-138.378,-166.867,-178.05,-129.754,-201.901C-92.641,-225.752,-41.359,-244.29,0,-240Z" fill="#ffff78" fill-opacity="0.5" stroke="#ffff78" stroke-width="2"/>
+      <path class="radarCurve-2" d="M0,-90C38.602,-72.838,48.622,-126.658,81.096,-126.188C113.57,-125.718,159.376,-115.221,191.023,-87.237C222.669,-59.253,261.182,-9.803,267.252,38.425C273.321,86.653,263.537,173.63,226.725,196.458C189.913,219.286,95.002,186.533,50.712,172.709C6.421,158.884,-13.624,134.48,-33.808,115.139C-53.992,95.798,-38.428,73.43,-68.017,58.937C-97.607,44.444,-173.034,61.092,-207.863,29.886C-242.691,-1.319,-283.411,-80.93,-272.89,-124.625C-262.368,-168.319,-192.364,-233.025,-145.973,-227.138C-99.582,-221.252,-38.602,-107.162,0,-90Z" fill="#d7ff86" fill-opacity="0.5" stroke="#d7ff86" stroke-width="2"/>
+      <g transform="translate(262.5, -262.5)">
+        <rect class="radarLegendBox-0" x="0" y="0" width="12" height="12" fill="#8686ff" fill-opacity="0.5" stroke="#8686ff"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">Rust</text>
+      </g>
+      <g transform="translate(262.5, -242.5)">
+        <rect class="radarLegendBox-1" x="0" y="0" width="12" height="12" fill="#ffff78" fill-opacity="0.5" stroke="#ffff78"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">Go</text>
+      </g>
+      <g transform="translate(262.5, -222.5)">
+        <rect class="radarLegendBox-2" x="0" y="0" width="12" height="12" fill="#d7ff86" fill-opacity="0.5" stroke="#d7ff86"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">Python</text>
+      </g>
+      <text class="radarTitle" x="0" y="-350" text-anchor="middle" dominant-baseline="hanging" fill="#333333" font-size="16">Language features</text>
+    </g>
+  </g>
+</svg>

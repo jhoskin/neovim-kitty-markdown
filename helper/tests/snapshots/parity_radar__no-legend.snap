@@ -1,0 +1,28 @@
+---
+source: tests/parity_radar.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="700" viewBox="0 0 700 700" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g transform="translate(350, 350)">
+      <circle class="radarGraticule" cx="0" cy="0" r="60" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="120" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="180" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="240" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="300" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <line class="radarAxisLine" x1="0" y1="0" x2="0" y2="-300" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="0" y="-319" text-anchor="middle" dominant-baseline="auto" fill="#333333" font-size="12">Design</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="285.317" y2="-92.705" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="303.387" y="-98.576" text-anchor="start" dominant-baseline="auto" fill="#333333" font-size="12">Code</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="176.336" y2="242.705" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="187.503" y="258.076" text-anchor="start" dominant-baseline="hanging" fill="#333333" font-size="12">Ops</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-176.336" y2="242.705" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-187.503" y="258.076" text-anchor="end" dominant-baseline="hanging" fill="#333333" font-size="12">Data</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-285.317" y2="-92.705" stroke="#333333" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-303.387" y="-98.576" text-anchor="end" dominant-baseline="auto" fill="#333333" font-size="12">People</text>
+      <path class="radarCurve-0" d="M0,-240C67.905,-230.544,108.131,-86.134,114.127,-37.082C120.122,11.97,72.655,17.481,35.267,48.541C-2.121,79.601,-51.302,169.635,-105.801,145.623C-160.301,121.611,-303.303,-27.149,-285.317,-92.705C-267.331,-158.261,-67.905,-249.456,0,-240Z" fill="#8686ff" fill-opacity="0.5" stroke="#8686ff" stroke-width="2"/>
+      <path class="radarCurve-1" d="M0,-60C67.905,-69.456,261.335,-135.913,285.317,-92.705C309.299,-49.497,201.563,161.9,141.068,194.164C80.574,226.428,-27.151,136.394,-70.534,97.082C-113.917,57.77,-126.118,-10.378,-114.127,-37.082C-102.136,-63.786,-67.905,-50.544,0,-60Z" fill="#ffff78" fill-opacity="0.5" stroke="#ffff78" stroke-width="2"/>
+      <text class="radarTitle" x="0" y="-350" text-anchor="middle" dominant-baseline="hanging" fill="#333333" font-size="16">Team skills</text>
+    </g>
+  </g>
+</svg>

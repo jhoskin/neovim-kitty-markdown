@@ -1,0 +1,42 @@
+---
+source: tests/parity_radar.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="700" viewBox="0 0 700 700" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g transform="translate(350, 350)">
+      <circle class="radarGraticule" cx="0" cy="0" r="75" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="150" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="225" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <circle class="radarGraticule" cx="0" cy="0" r="300" fill="#dedede" fill-opacity="0.3" stroke="#dedede" stroke-width="1"/>
+      <line class="radarAxisLine" x1="0" y1="0" x2="0" y2="-300" stroke="#d3d3d3" stroke-width="2"/>
+      <text class="radarAxisLabel" x="0" y="-319" text-anchor="middle" dominant-baseline="auto" fill="#cccccc" font-size="12">Quality</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="259.808" y2="-150" stroke="#d3d3d3" stroke-width="2"/>
+      <text class="radarAxisLabel" x="276.262" y="-159.5" text-anchor="start" dominant-baseline="auto" fill="#cccccc" font-size="12">Cost</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="259.808" y2="150" stroke="#d3d3d3" stroke-width="2"/>
+      <text class="radarAxisLabel" x="276.262" y="159.5" text-anchor="start" dominant-baseline="hanging" fill="#cccccc" font-size="12">Time</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="0" y2="300" stroke="#d3d3d3" stroke-width="2"/>
+      <text class="radarAxisLabel" x="0" y="319" text-anchor="middle" dominant-baseline="hanging" fill="#cccccc" font-size="12">Scope</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-259.808" y2="150" stroke="#d3d3d3" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-276.262" y="159.5" text-anchor="end" dominant-baseline="hanging" fill="#cccccc" font-size="12">Risk</text>
+      <line class="radarAxisLine" x1="0" y1="0" x2="-259.808" y2="-150" stroke="#d3d3d3" stroke-width="2"/>
+      <text class="radarAxisLabel" x="-276.262" y="-159.5" text-anchor="end" dominant-baseline="auto" fill="#cccccc" font-size="12">Value</text>
+      <path class="radarCurve-0" d="M0,-233.333C58.89,-227.667,114.893,-140,144.338,-83.333C173.782,-26.667,197.742,40.5,173.205,100C148.668,159.5,44.167,275.167,0,266.667C-44.167,258.167,-52.25,115.167,-86.603,50C-120.955,-15.167,-216.795,-68.5,-202.073,-116.667C-187.35,-164.833,-58.89,-239,0,-233.333Z" fill="#1f2020" fill-opacity="0.5" stroke="#1f2020" stroke-width="2"/>
+      <path class="radarCurve-1" d="M0,-200C63.797,-202.833,182.443,-162,202.073,-116.667C221.703,-71.333,149.822,-4.167,115.47,66.667C81.118,137.5,44.167,297.167,0,300C-44.167,302.833,-114.893,151.333,-144.338,83.333C-173.782,15.333,-197.742,-51.833,-173.205,-100C-148.668,-148.167,-63.797,-197.167,0,-200Z" fill="#0b0000" fill-opacity="0.5" stroke="#0b0000" stroke-width="2"/>
+      <path class="radarCurve-2" d="M0,-300C58.89,-283,71.88,-109.5,86.603,-50C101.325,9.5,101.325,1.833,86.603,50C71.88,98.167,24.537,236.167,0,233.333C-24.537,230.5,-13.568,98.5,-57.735,33.333C-101.902,-31.833,-269.623,-93.333,-259.808,-150C-249.993,-206.667,-58.89,-317,0,-300Z" fill="#4d1037" fill-opacity="0.5" stroke="#4d1037" stroke-width="2"/>
+      <g transform="translate(262.5, -262.5)">
+        <rect class="radarLegendBox-0" x="0" y="0" width="12" height="12" fill="#1f2020" fill-opacity="0.5" stroke="#1f2020"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#cccccc" font-size="12">Plan</text>
+      </g>
+      <g transform="translate(262.5, -242.5)">
+        <rect class="radarLegendBox-1" x="0" y="0" width="12" height="12" fill="#0b0000" fill-opacity="0.5" stroke="#0b0000"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#cccccc" font-size="12">Actual</text>
+      </g>
+      <g transform="translate(262.5, -222.5)">
+        <rect class="radarLegendBox-2" x="0" y="0" width="12" height="12" fill="#4d1037" fill-opacity="0.5" stroke="#4d1037"/>
+        <text class="radarLegendText" x="16" y="0" text-anchor="start" dominant-baseline="hanging" fill="#cccccc" font-size="12">Ideal</text>
+      </g>
+      <text class="radarTitle" x="0" y="-350" text-anchor="middle" dominant-baseline="hanging" fill="#cccccc" font-size="16">Dark theme</text>
+    </g>
+  </g>
+</svg>
