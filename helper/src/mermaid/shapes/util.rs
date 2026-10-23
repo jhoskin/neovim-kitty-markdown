@@ -613,10 +613,53 @@ pub fn build_label_group(
         },
         children: Vec::new(),
     };
+    if ctx.html_labels
+        && let Some(color) = bbox.underline
+    {
+        group.children.extend(underlines(bbox, ctx, color));
+    }
     if let Some(text) = label_text(bbox, fill, ctx.html_labels) {
         group.children.push(Element::Text(text));
     }
     group
+}
+
+/// The `color` a decorating ancestor resolves `text-decoration-color:
+/// currentcolor` against. No mermaid stylesheet sets `color` on the
+/// `g.label` or `<a>` that carries a label's underline, so it is the page
+/// default. The line takes the decorating box's color, not the label
+/// text's: in the oracle's Chrome a red label under an underlined `g` gets
+/// a black line.
+pub const PAGE_TEXT_COLOR: Color = Color::BLACK;
+
+/// The lines Blink paints for a `text-decoration: underline` that reaches
+/// an HTML label from an ancestor, before the text as Blink paints them:
+/// one under each line's advance, `max(1, ceil(thickness / 2))` below the
+/// alphabetic baseline (`ComputeUnderlineOffsetAuto`), as thick as
+/// `LabelMeasurer::underline_thickness`. Read off the oracle at 14, 16,
+/// and 18 px Trebuchet MS: a 1 px line 1 px under the baseline. The gaps
+/// `text-decoration-skip-ink` leaves around descenders are not drawn.
+fn underlines(bbox: &LabelBox, ctx: &ShapeCtx, color: Color) -> Vec<Element> {
+    let thickness = ctx.measurer.underline_thickness(&bbox.font);
+    let gap = (thickness / 2.0).ceil().max(1.0);
+    bbox.lines
+        .iter()
+        .enumerate()
+        .filter(|(_, line)| line.width > 0.0)
+        .map(|(i, line)| {
+            let baseline = bbox.baseline + i as f64 * bbox.line_height;
+            rect_element(
+                (bbox.width - line.width) / 2.0,
+                baseline + gap,
+                line.width,
+                thickness,
+                None,
+                None,
+                "",
+                Style::fill(color),
+            )
+        })
+        .collect()
 }
 
 /// The text element of a label, in the font it was measured in.
@@ -1277,5 +1320,28 @@ mod tests {
         node.css_styles = vec!["white-space: nowrap".to_string()];
         assert_eq!(html_wrap_width(&node, true, 120.0), None);
         assert_eq!(html_wrap_width(&node, false, 120.0), Some(120.0));
+    }
+
+    #[test]
+    fn an_inherited_underline_sits_one_pixel_under_each_baseline() {
+        use crate::mermaid::shapes::LabelMeasurer;
+        let m = FixedMeasurer::SNAPSHOT;
+        let ctx = ShapeCtx::new(&m);
+        let mut bbox = m.measure("ab<br>c", &LabelOpts::default());
+        bbox.underline = Some(PAGE_TEXT_COLOR);
+        let g = build_label_group(&bbox, &ctx, Color::BLACK, "label", Vec::new());
+        let rects: Vec<&Rect> = g
+            .children
+            .iter()
+            .filter_map(|e| match e {
+                Element::Rect(r) => Some(r),
+                _ => None,
+            })
+            .collect();
+        assert_eq!(rects.len(), 2);
+        assert_eq!(rects[0].y, bbox.baseline + 1.0);
+        assert_eq!(rects[1].y, bbox.baseline + bbox.line_height + 1.0);
+        assert_eq!(rects[0].height, 1.0);
+        assert!(matches!(g.children.last(), Some(Element::Text(_))));
     }
 }

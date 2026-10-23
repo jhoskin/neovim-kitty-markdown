@@ -10,8 +10,6 @@
 //! marker fills (`.extension { fill: transparent !important }` and its
 //! siblings, see `markers::stylesheet_rule`).
 
-use std::collections::HashMap;
-
 use serde_json::Value;
 
 use crate::error::HelperError;
@@ -20,16 +18,14 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::unified::{LayoutData, UnifiedConfig, render_with_dagre};
 use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
-    Common, Element, FontSpec, Group, Length, Paint, Rect, Scene, Style, Text, TextAnchor, ViewBox,
+    Common, Element, FontSpec, Group, Paint, Scene, Style, Text, TextAnchor, ViewBox,
 };
 use crate::mermaid::shapes::measure::LabelOpts;
 use crate::mermaid::shapes::util::BBox;
-use crate::mermaid::shapes::{Classifier, NodeStyleVars, ShapeCtx};
+use crate::mermaid::shapes::{NodeStyleVars, ShapeCtx};
 use crate::mermaid::styles::class::{ClassStyles, EDGE_TERMINALS_FONT_SIZE};
-use crate::text::TextMetrics;
-use crate::text::fonts::{Style as FontStyleDb, Weight};
 
-use super::db::{ClassDb, ClassMember, DataConfig};
+use super::db::{ClassDb, DataConfig};
 
 /// mermaid-cli renders into `<svg id="my-svg">`; marker and node ids hang
 /// off it.
@@ -81,96 +77,6 @@ impl Conf {
             title_top_margin: state_num("titleTopMargin").unwrap_or(DEFAULT_TITLE_TOP_MARGIN),
         }
     }
-}
-
-/// Visits every group of the tree, parents before children.
-fn for_each_group(g: &mut Group, f: &mut dyn FnMut(&mut Group)) {
-    f(g);
-    for child in &mut g.children {
-        if let Element::Group(c) = child {
-            for_each_group(c, f);
-        }
-    }
-}
-
-fn has_class(g: &Group, class: &str) -> bool {
-    g.common
-        .class
-        .as_deref()
-        .is_some_and(|c| c.split_whitespace().any(|x| x == class))
-}
-
-/// The underline of a static member (`parseClassifier()` returns
-/// `text-decoration:underline;` for `$`). The scene has no text
-/// decoration, so the underline is a rect in the text color, placed and
-/// sized from the font's `post` table as Blink does, under the full
-/// advance width. Blink's skip-ink gaps around descenders are left out.
-fn underline_statics(
-    root: &mut Group,
-    statics: &HashMap<String, (Vec<bool>, Vec<bool>)>,
-    metrics: &TextMetrics<'_>,
-    family: &str,
-) {
-    let fonts = metrics.fonts();
-    let face = fonts.resolve(family, Weight::NORMAL, FontStyleDb::Normal);
-    let post = face.and_then(|id| {
-        fonts.with_face(id, |f| {
-            let upem = f64::from(f.units_per_em());
-            f.underline_metrics()
-                .map(|m| (-f64::from(m.position) / upem, f64::from(m.thickness) / upem))
-        })
-    });
-    // Without a `post` table Blink falls back to a 1/9 em offset and a
-    // 1/18 em stroke.
-    let (offset_em, thickness_em) = post.flatten().unwrap_or((1.0 / 9.0, 1.0 / 18.0));
-    for_each_group(root, &mut |node| {
-        let Some((members, methods)) = node.common.id.as_ref().and_then(|id| statics.get(id))
-        else {
-            return;
-        };
-        for child in &mut node.children {
-            let Element::Group(compartment) = child else {
-                continue;
-            };
-            let flags = if has_class(compartment, "members-group") {
-                members
-            } else if has_class(compartment, "methods-group") {
-                methods
-            } else {
-                continue;
-            };
-            let labels = compartment.children.iter_mut().filter_map(|e| match e {
-                Element::Group(g) => Some(g),
-                _ => None,
-            });
-            for (label, _) in labels.zip(flags.iter()).filter(|(_, s)| **s) {
-                let Some(text) = label.children.iter().find_map(|e| match e {
-                    Element::Text(t) => Some(t.clone()),
-                    _ => None,
-                }) else {
-                    continue;
-                };
-                let size = text.font.size.unwrap_or(16.0);
-                let baseline = match text.runs.first().and_then(|r| r.dy) {
-                    Some(Length::Px(dy)) => text.y + dy,
-                    _ => text.y,
-                };
-                let thickness = (thickness_em * size).round().max(1.0);
-                label.children.push(Element::Rect(Rect {
-                    common: Common::with_style(Style {
-                        fill: text.common.style.fill.clone(),
-                        ..Style::default()
-                    }),
-                    x: text.x - text.x.abs(),
-                    y: baseline + (offset_em * size).round() - thickness / 2.0,
-                    width: 2.0 * text.x.abs(),
-                    height: thickness,
-                    rx: None,
-                    ry: None,
-                }));
-            }
-        }
-    });
 }
 
 /// `utils.insertTitle(svg, 'classDiagramTitleText', titleTopMargin, title)`:
@@ -276,30 +182,8 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
         sub_graph_title_margin_top: *flow.sub_graph_title_margin.top,
         sub_graph_title_margin_bottom: *flow.sub_graph_title_margin.bottom,
     };
-    let mut rendered = render_with_dagre(&data, &unified, &shapes)?;
+    let rendered = render_with_dagre(&data, &unified, &shapes)?;
 
-    if shapes.html_labels {
-        let statics: HashMap<String, (Vec<bool>, Vec<bool>)> = db
-            .classes
-            .values()
-            .map(|c| {
-                let is_static = |m: &ClassMember| m.shape_classifier() == Classifier::Static;
-                (
-                    format!("{DIAGRAM_ID}-{}", c.dom_id),
-                    (
-                        c.members.iter().map(is_static).collect(),
-                        c.methods.iter().map(is_static).collect(),
-                    ),
-                )
-            })
-            .collect();
-        underline_statics(
-            &mut rendered.root,
-            &statics,
-            &ctx.metrics,
-            &shapes.vars.font_family,
-        );
-    }
     let mut bounds = rendered.bounds;
 
     let mut children = vec![Element::Group(rendered.root)];

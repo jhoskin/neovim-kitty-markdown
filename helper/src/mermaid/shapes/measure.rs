@@ -9,8 +9,9 @@
 //! charges a fixed advance per character.
 
 use crate::mermaid::scene::{
-    DEFAULT_FONT_FAMILY, FontSpec, FontStyle as SceneFontStyle, FontWeight,
+    Color, DEFAULT_FONT_FAMILY, FontSpec, FontStyle as SceneFontStyle, FontWeight,
 };
+use crate::text::fonts::Weight;
 use crate::text::markdown::{self, Line, WordType};
 use crate::text::measure::{
     FontSpec as TextFont, FontStyle as TextStyle, HTML_LINE_HEIGHT, SVG_LINE_HEIGHT_EM, TextMetrics,
@@ -78,6 +79,10 @@ pub struct LabelBox {
     pub lines: Vec<LabelLine>,
     /// The font the label was measured in, so it is drawn in the same one.
     pub font: FontSpec,
+    /// The color of a `text-decoration: underline` that an ancestor of an
+    /// HTML label propagates into it. The measurer never sets it; the shape
+    /// that wraps the label in the decorating element does.
+    pub underline: Option<Color>,
 }
 
 impl LabelBox {
@@ -131,6 +136,39 @@ pub trait LabelMeasurer {
     /// the widest `<br>` line as SVG text in that font, rounded to whole
     /// pixels (`calculateTextDimensions`).
     fn text_width(&self, text: &str, family: &str, size: f64) -> f64;
+
+    /// The thickness in pixels Blink gives `text-decoration: underline` in
+    /// `font` (`text-decoration-thickness: auto`): the face's `post`
+    /// underline thickness, rounded to whole pixels and at least 1. The
+    /// default charges 1/18 em, Blink's value for a face without one.
+    fn underline_thickness(&self, font: &FontSpec) -> f64 {
+        blink_underline_thickness(font.size.unwrap_or(DEFAULT_FONT_SIZE) / 18.0)
+    }
+}
+
+/// Blink snaps a decoration's thickness to whole device pixels, never
+/// below one.
+fn blink_underline_thickness(px: f64) -> f64 {
+    px.round().max(1.0)
+}
+
+/// The `post` table's underline thickness of the face `family` resolves
+/// to, in pixels.
+fn post_underline_thickness(metrics: &TextMetrics<'_>, font: &FontSpec, family: &str) -> f64 {
+    let spec = text_font(font, family);
+    let fonts = metrics.fonts();
+    let em = fonts
+        .resolve(&spec.family, Weight(spec.weight), spec.style.into())
+        .and_then(|id| {
+            fonts.with_face(id, |face| {
+                let upem = f64::from(face.units_per_em());
+                face.underline_metrics()
+                    .map(|m| f64::from(m.thickness) / upem)
+            })
+        })
+        .flatten()
+        .unwrap_or(1.0 / 18.0);
+    blink_underline_thickness(em * f64::from(spec.size))
 }
 
 /// Test fake: every character advances `char_width`, every line is
@@ -206,6 +244,7 @@ impl LabelMeasurer for FixedMeasurer {
             },
             lines,
             font: opts.font.clone(),
+            underline: None,
         }
     }
 
@@ -477,6 +516,7 @@ pub fn measure_with_metrics(
         baseline,
         lines,
         font: opts.font.clone(),
+        underline: None,
     }
 }
 
@@ -515,6 +555,10 @@ impl LabelMeasurer for TextMetrics<'_> {
     fn text_width(&self, text: &str, family: &str, size: f64) -> f64 {
         f64::from(self.calculate_text_width(text, &TextFont::new(family, size as f32)))
     }
+
+    fn underline_thickness(&self, font: &FontSpec) -> f64 {
+        post_underline_thickness(self, font, DEFAULT_FONT_FAMILY)
+    }
 }
 
 /// [`TextMetrics`] bound to the theme's `fontFamily`, the family the
@@ -540,6 +584,10 @@ impl LabelMeasurer for ThemedMetrics<'_, '_> {
 
     fn text_width(&self, text: &str, family: &str, size: f64) -> f64 {
         self.metrics.text_width(text, family, size)
+    }
+
+    fn underline_thickness(&self, font: &FontSpec) -> f64 {
+        post_underline_thickness(self.metrics, font, &self.family)
     }
 }
 

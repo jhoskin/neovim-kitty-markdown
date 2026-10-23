@@ -8,9 +8,9 @@
 //! miss on the annotation group) are reproduced where they change a number.
 
 use super::util::{
-    BBox, apply_declarations, build_label_group, calculate_text_width, get_node_classes,
-    label_fill, label_font, line_element, measure_text, node_group, node_style, rect_element,
-    styles2string, translate,
+    BBox, PAGE_TEXT_COLOR, apply_declarations, build_label_group, calculate_text_width,
+    get_node_classes, label_fill, label_font, line_element, measure_text, node_group, node_style,
+    rect_element, styles2string, translate,
 };
 use super::{ClassMember, Classifier, Intersector, Node, NodeExtra, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -68,6 +68,11 @@ fn add_text(
                 run.italic = true;
             }
         }
+    }
+    // `parseClassifier()` gives a static member `text-decoration:underline;`
+    // on its `g.label`, and the HTML label inside inherits the decoration.
+    if classifier == Classifier::Static {
+        measured.underline = Some(PAGE_TEXT_COLOR);
     }
     let ty = -measured.height / (2.0 * lines) + y_offset;
     let mut group = build_label_group(&measured, ctx, fill, "label", translate(0.0, ty));

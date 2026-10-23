@@ -87,8 +87,8 @@ expression: scene_svg(&mmd)
           </g>
           <g class="members-group text" transform="translate(-97.184, -36)">
             <g class="label" transform="translate(0, -12)">
+              <rect x="0" y="18" width="130.188" height="1" fill="#000000"/>
               <text class="nodeLabel" x="65.094" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="65.094" dy="17">+String staticField</tspan></text>
-              <rect x="0" y="18.5" width="130.188" height="1" fill="#131300"/>
             </g>
             <g class="label" transform="translate(0, 12)">
               <text class="nodeLabel" x="36.602" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="36.602" dy="17">+int count</tspan></text>
@@ -99,8 +99,8 @@ expression: scene_svg(&mmd)
               <text class="nodeLabel" x="86.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-style="italic"><tspan x="86.008" dy="17" font-style="italic">+someAbstractMethod()</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
+              <rect x="0" y="18" width="151.156" height="1" fill="#000000"/>
               <text class="nodeLabel" x="75.578" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="75.578" dy="17">+someStaticMethod()</tspan></text>
-              <rect x="0" y="18.5" width="151.156" height="1" fill="#131300"/>
             </g>
             <g class="label" transform="translate(0, 36)">
               <text class="nodeLabel" x="58.008" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="58.008" dy="17">+area() : double</tspan></text>
@@ -120,8 +120,8 @@ expression: scene_svg(&mmd)
           <g class="members-group text" transform="translate(-79.32, -3)"/>
           <g class="methods-group text" transform="translate(-79.32, 27)">
             <g class="label" transform="translate(0, -12)">
+              <rect x="0" y="18" width="128.578" height="1" fill="#000000"/>
               <text class="nodeLabel" x="64.289" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="64.289" dy="17">+increment() : int</tspan></text>
-              <rect x="0" y="18.5" width="128.578" height="1" fill="#131300"/>
             </g>
             <g class="label" transform="translate(0, 12)" font-style="italic">
               <text class="nodeLabel" x="28.594" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16" font-style="italic"><tspan x="28.594" dy="17" font-style="italic">+reset()</tspan></text>
