@@ -28,6 +28,7 @@ pub mod sequence;
 pub mod state;
 pub mod timeline;
 pub mod treemap;
+pub mod treeview;
 pub mod venn;
 pub mod xychart;
 
@@ -74,6 +75,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &c4::DIAGRAM,
         &ishikawa::DIAGRAM,
         &requirement::DIAGRAM,
+        &treeview::DIAGRAM,
     ];
     REGISTRY
 }
