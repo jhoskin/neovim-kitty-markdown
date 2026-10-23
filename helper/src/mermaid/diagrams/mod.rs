@@ -16,6 +16,7 @@ pub mod class;
 pub mod flowchart;
 pub mod gantt;
 pub mod gitgraph;
+pub mod ishikawa;
 pub mod journey;
 pub mod kanban;
 pub mod packet;
@@ -70,6 +71,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &venn::DIAGRAM,
         &treemap::DIAGRAM,
         &c4::DIAGRAM,
+        &ishikawa::DIAGRAM,
     ];
     REGISTRY
 }
