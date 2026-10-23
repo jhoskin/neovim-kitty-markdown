@@ -24,6 +24,11 @@ as a spec proposal instead.
 - Cynefin seeds its boundary waves from the SVG id `my-svg`, so its oracle
   output is deterministic and the helper uses the same seed.
   `goldens.mjs` still renders mindmap and cynefin five times per case.
+- Architecture always lays out with fcose: `layoutArchitecture` never
+  reads `config.layout`. It runs fcose twice under `withSeededRandom(1)`,
+  so its oracle output is deterministic and needs one golden per case.
+  `helper/tests/fcose.rs` replays 14 graphs dumped from cytoscape 3.34.4
+  and fcose 2.2.0 and matches every position to 1e-6.
 - Venn diagrams with four or more sets use V8's `Math.random` generator
   (xorshift128+) with a fixed seed. The oracle seeds it per page, so no
   golden case has four sets.
@@ -65,5 +70,10 @@ as a spec proposal instead.
   first, so the renderer ports `getTheme` as presentation attributes.
 - Sankey rounds the viewBox to single precision, as `getBBox` does, so a
   node bottom at 400.00000000000006 gives 400 rows, not 401.
+- Architecture measures cytoscape label widths in Helvetica Neue, as the
+  oracle's cytoscape stylesheet does, and adds the 1 px group border that
+  the default stylesheet gives every group to the bounds.
+- Architecture icon text (`service x "text"`) is drawn as SVG text, not as
+  the oracle's HTML `foreignObject`.
 - The dagre dummy node id counter resets once per diagram render, so two
   renders of one source give the same SVG.
