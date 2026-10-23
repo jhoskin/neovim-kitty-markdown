@@ -25,7 +25,7 @@ use crate::mermaid::shapes::measure::{LabelBox, LabelOpts};
 use crate::mermaid::shapes::util::{
     Declarations, apply_declarations, label_text, parse_css_color, translate,
 };
-use crate::mermaid::shapes::{Bounds, Look, Node, ShapeCtx};
+use crate::mermaid::shapes::{Bounds, Intersector, Look, Node, ShapeCtx};
 
 /// `edge.thickness` of `types.ts`.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -835,7 +835,12 @@ pub fn insert_edge(
 
     // Original clipping: drop dagre's own end points and clip the next
     // ones to the node shapes.
-    if points.len() >= 2 {
+    // `if (head.intersect && tail.intersect)`: a cluster node drawn by a
+    // sub-render has no intersect, and the path keeps dagre's own ends.
+    if points.len() >= 2
+        && start_node.intersector != Intersector::None
+        && end_node.intersector != Intersector::None
+    {
         let inner: Vec<Point> = points[1..points.len() - 1].to_vec();
         let first_inner = inner
             .first()
