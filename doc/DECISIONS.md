@@ -52,6 +52,22 @@ as a spec proposal instead.
   between them. Under the default `xml:space`, that whitespace becomes a
   trailing space and moves centered lines by half a space.
 
+- Clip paths and `xml:space` are fields on the scene `Style`, next to
+  `mix_blend_mode`, because many renderers build `Common`, `Text`, and
+  `Scene` as full struct literals. A clip reference carries its own
+  `<clipPath>` definition, and the serializer writes each id once, before
+  its first user.
+- Chrome draws bold text in a font that has no bold face (Open Sans here)
+  by thickening the outline. The raster step adds a stroke of the fill,
+  2 x 0.02334 x font size wide, to that text only. `Scene::to_svg` does
+  not look up fonts, so the SVG snapshots do not depend on the installed
+  fonts.
+- The raster font resolver asks `FontSystem` for each family, so the drawn
+  face is the measured face (`monospace` draws in Menlo on macOS and in
+  DejaVu Sans Mono on Linux). Glyph fallback stays with resvg: routing it
+  through `FontSystem::fallback_for` drew arrows in Hiragino Sans and
+  lowered cynefin parity by up to 0.006.
+
 ## Diagram ports
 
 - Langium grammars are hand-written parsers. Wardley emulates
