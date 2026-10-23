@@ -11,6 +11,7 @@ use crate::mermaid::scene::Scene;
 use crate::text::{FontSystem, TextMetrics};
 
 pub mod block;
+pub mod c4;
 pub mod class;
 pub mod flowchart;
 pub mod gantt;
@@ -68,6 +69,7 @@ pub fn registry() -> &'static [&'static dyn Diagram] {
         &sankey::DIAGRAM,
         &venn::DIAGRAM,
         &treemap::DIAGRAM,
+        &c4::DIAGRAM,
     ];
     REGISTRY
 }
