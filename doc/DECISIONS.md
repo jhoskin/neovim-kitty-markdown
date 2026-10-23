@@ -84,9 +84,20 @@ as a spec proposal instead.
 
 - The measurer tries the rest of the CSS `font-family` list before the
   platform fallback list, as Chrome does: under mermaid's chain, `→` comes
-  from Arial, because Trebuchet MS and Verdana lack it. A grapheme with
-  U+FE0F skips the list and goes to Apple Color Emoji. The raster step
-  still uses resvg's fallback, because its hook does not get the CSS list.
+  from Arial, because Trebuchet MS and Verdana lack it.
+- Only a grapheme with U+FE0F, or an Emoji_Presentation=Yes character with
+  no U+FE0E, skips the CSS list and tries Apple Color Emoji first, as
+  Blink's emoji fallback does. The table is generated from Unicode 16.0
+  `emoji-data.txt` into `text/wrap/emoji_presentation.rs`.
+- On macOS the platform fallback list starts with Lucida Grande and puts
+  Zapf Dingbats before Arial Unicode MS. With that order, `✓`, `★`, and a
+  lone `❤` resolve to Lucida Grande, Hiragino Sans, and Zapf Dingbats, the
+  faces Chrome 156 draws them in.
+- Raster glyph fallback stays with resvg. usvg 0.48 redraws a whole text
+  run in a fallback face when that face covers every character of the run,
+  so a fallback by CSS list drew the cynefin subtitles in Arial Italic and
+  lowered cynefin by 0.0013. A fix needs one `<text>` per font run or a
+  patched usvg.
 - An inherited `text-decoration: underline` on an HTML label is a rect per
   line, drawn before the text, in the page default black. Its thickness is
   the face's `post` underline thickness rounded (at least 1 px), and it
