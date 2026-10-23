@@ -20,7 +20,7 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::unified::{LayoutData, UnifiedConfig, render_with_dagre};
 use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
-    Common, Element, FontSpec, Group, Length, Paint, Rect, Scene, Style, Text, ViewBox,
+    Common, Element, FontSpec, Group, Length, Paint, Rect, Scene, Style, Text, TextAnchor, ViewBox,
 };
 use crate::mermaid::shapes::measure::LabelOpts;
 use crate::mermaid::shapes::util::BBox;
@@ -175,8 +175,9 @@ fn underline_statics(
 
 /// `utils.insertTitle(svg, 'classDiagramTitleText', titleTopMargin, title)`:
 /// a `text` at the content's horizontal centre, `titleTopMargin` above the
-/// top. The class `classDiagramTitleText` matches no rule, so the text is
-/// start-anchored in the root font.
+/// top, with `.attr('text-anchor', 'middle')`. The class
+/// `classDiagramTitleText` matches no rule, so the text is in the root
+/// font.
 fn title_element(title: &str, bounds: BBox, conf: &Conf, ctx: &ShapeCtx) -> (Element, BBox) {
     let x = bounds.x + bounds.width / 2.0;
     let y = -conf.title_top_margin;
@@ -195,15 +196,16 @@ fn title_element(title: &str, bounds: BBox, conf: &Conf, ctx: &ShapeCtx) -> (Ele
         },
         x,
         y,
-        anchor: None,
+        anchor: Some(TextAnchor::Middle),
         baseline: None,
         font: FontSpec::default(),
         runs: vec![crate::mermaid::scene::TextRun::new(title)],
     };
-    // The SVG text box: the em box above and below the baseline.
+    // The SVG text box: the em box above and below the baseline, centred
+    // on `x`.
     let size = ctx.vars.font_size;
     let bbox = BBox {
-        x,
+        x: x - m.width / 2.0,
         y: y - size * 0.9,
         width: m.width,
         height: m.height.max(size * 1.1),
@@ -332,4 +334,37 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
         children,
     };
     Ok(scene)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::mermaid::shapes::FixedMeasurer;
+
+    #[test]
+    fn the_title_is_centred_on_the_content() {
+        let m = FixedMeasurer::SNAPSHOT;
+        let ctx = ShapeCtx::new(&m);
+        let conf = Conf {
+            class_padding: None,
+            hierarchical: false,
+            hide_empty_members_box: false,
+            node_spacing: DEFAULT_SPACING,
+            rank_spacing: DEFAULT_SPACING,
+            title_top_margin: DEFAULT_TITLE_TOP_MARGIN,
+        };
+        let bounds = BBox {
+            x: 10.0,
+            y: 0.0,
+            width: 200.0,
+            height: 100.0,
+        };
+        let (el, bbox) = title_element("Title", bounds, &conf, &ctx);
+        let Element::Text(text) = el else {
+            panic!("the title is a text");
+        };
+        assert_eq!(text.anchor, Some(TextAnchor::Middle));
+        assert_eq!(text.x, 110.0);
+        assert_eq!(bbox.x + bbox.width / 2.0, 110.0);
+    }
 }
