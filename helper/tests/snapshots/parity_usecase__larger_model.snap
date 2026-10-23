@@ -1,0 +1,210 @@
+---
+source: tests/parity_usecase.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="876.722" height="684.25" viewBox="-12 -12 876.722 684.25" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_usecase-pointEnd" class="marker usecase" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-pointStart" class="marker usecase" viewBox="0 0 10 10" refX="4.5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,5L10,10L10,0Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-pointEnd-margin" class="marker usecase" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerWidth="10.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L11.5,7L0,14Z" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-pointStart-margin" class="marker usecase" viewBox="0 0 11.5 14" refX="1" refY="7" markerWidth="11.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <polygon class="arrowMarkerPath" points="0,7 11.5,14 11.5,0" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-circleEnd" class="marker usecase" viewBox="0 0 10 10" refX="11" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-circleStart" class="marker usecase" viewBox="0 0 10 10" refX="-1" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-circleEnd-margin" class="marker usecase" viewBox="0 0 10 10" refX="12.25" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-circleStart-margin" class="marker usecase" viewBox="0 0 10 10" refX="-2" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-crossEnd" class="marker cross usecase" viewBox="0 0 11 11" refX="12" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-crossStart" class="marker cross usecase" viewBox="0 0 11 11" refX="-1" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-crossEnd-margin" class="marker cross usecase" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5"/>
+    </marker>
+    <marker id="my-svg_usecase-crossStart-margin" class="marker cross usecase" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_usecase-extensionStart" class="marker extension usecase" refX="18" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="#ececff" stroke="#333333">
+      <path d="M1,7L18,13L18,1Z" fill="#ececff" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_usecase-extensionEnd" class="marker extension usecase" refX="1" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="#ececff" stroke="#333333">
+      <path d="M1,1L1,13L18,7Z" fill="#ececff" stroke="#333333"/>
+    </marker>
+    <marker id="my-svg_usecase-extensionStart-margin" class="marker extension usecase" viewBox="0 0 20 14" refX="18" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="#ececff" stroke="#333333">
+      <polygon points="10,7 18,13 18,1" fill="#ececff" stroke="#333333" stroke-width="2" stroke-dasharray="0"/>
+    </marker>
+    <marker id="my-svg_usecase-extensionEnd-margin" class="marker extension usecase" viewBox="0 0 20 14" refX="9" refY="7" markerWidth="20" markerHeight="28" orient="auto" markerUnits="userSpaceOnUse" fill="#ececff" stroke="#333333">
+      <polygon points="10,1 10,13 18,7" fill="#ececff" stroke="#333333" stroke-width="2" stroke-dasharray="0"/>
+    </marker>
+    <marker id="my-svg_usecase-pointEnd__6b46c1" class="marker usecase" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#6b46c1" stroke="#6b46c1" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters">
+        <g id="my-svg-usecase-ordering" class="cluster usecase-system-boundary usecase-system-boundary-package default system-boundary system-boundary-package system">
+          <rect class="boundary-tab system-boundary-package-tab label-container" x="332.032" y="8" width="137.43" height="34" fill="#ffffde" stroke="#c8a02a" stroke-width="2"/>
+          <rect class="boundary-body label-container" x="332.032" y="42" width="512.689" height="413.25" fill="#ffffde" stroke="#c8a02a" stroke-width="2"/>
+          <g class="cluster-label system-boundary-title" transform="translate(342.032, 13)">
+            <text class="nodeLabel" x="58.715" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="58.715" dy="17">Ordering System</tspan></text>
+          </g>
+        </g>
+      </g>
+      <g class="edgePaths">
+        <path id="my-svg-starts" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M92.032,122.427L96.199,126.064C100.366,129.701,108.699,136.976,128.699,140.613C148.699,144.25,180.366,144.25,212.032,144.25C243.699,144.25,275.366,144.25,295.366,144.25C315.366,144.25,323.699,144.25,334.828,147.217C345.957,150.185,359.882,156.119,366.845,159.087L373.807,162.054" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-edge-0" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M92.032,77.129L96.199,76.274C100.366,75.42,108.699,73.71,128.699,72.855C148.699,72,180.366,72,212.032,72C243.699,72,275.366,72,295.366,72C315.366,72,323.699,72,331.366,72C339.032,72,346.032,72,349.532,72L353.032,72" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-pays" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-include" d="M517.032,189L524.258,189C531.483,189,545.934,189,564.383,189C582.833,189,605.281,189,616.505,189L627.729,189" fill="none" stroke="#6b46c1" stroke-width="2" stroke-dasharray="3" marker-end="url(#my-svg_usecase-pointEnd__6b46c1)"/>
+        <path id="my-svg-edge-1" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M260.97,401.25L268.647,401.25C276.324,401.25,291.678,401.25,303.522,401.25C315.366,401.25,323.699,401.25,331.366,401.25C339.032,401.25,346.032,401.25,349.532,401.25L353.032,401.25" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-edge-2" class=" edge-thickness-normal edge-pattern-solid default relationship relationship-association" d="M517.032,401.25L524.258,401.25C531.483,401.25,545.934,401.25,565.922,415.585C585.909,429.921,611.434,458.592,624.196,472.927L636.958,487.262" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_usecase-pointEnd)"/>
+        <path id="my-svg-note-0-edge" class=" edge-thickness-normal edge-pattern-dotted default relationship relationship-note" d="M282.032,233.25L286.199,233.25C290.366,233.25,298.699,233.25,307.032,233.25C315.366,233.25,323.699,233.25,335.392,230.078C347.085,226.906,362.137,220.563,369.664,217.391L377.19,214.219" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="3"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel" transform="translate(212.032, 144.25)">
+          <g class="label" transform="translate(-29.703, -7.5)">
+            <rect class="background" x="0" y="0" width="59.405" height="15" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="29.703" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="29.703" dy="11">places order</tspan></text>
+          </g>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel" transform="translate(560.385, 189)">
+          <g class="label" transform="translate(-18.353, -7.5)">
+            <rect class="background" x="0" y="0" width="36.705" height="15" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="18.353" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="10" font-weight="normal"><tspan x="18.353" dy="11">include</tspan></text>
+          </g>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="my-svg-usecase-Customer" class="node default usecase-actor usecase-actor-normal usecase-actor-variant usecase-actor-normal" transform="translate(50.016, 85.75)">
+          <rect class="usecase-actor-outline" x="-42.016" y="-60.5" width="84.032" height="121" opacity="0"/>
+          <g class="label actor-label usecase-actor-label" transform="translate(-32.016, 29.5)">
+            <text class="nodeLabel" x="32.016" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="32.016" dy="16">Customer</tspan></text>
+          </g>
+          <g class="usecase-actor-glyph usecase-actor-shape usecase-actor-normal" transform="translate(0, -14.5)" fill="#ececff" stroke="#9370db" stroke-width="2">
+            <path class="usecase-actor-stick" d="M0,-12C6.627,-12,12,-17.373,12,-24C12,-30.627,6.627,-36,0,-36C-6.627,-36,-12,-30.627,-12,-24C-12,-17.373,-6.627,-12,0,-12ZM0,-12L0,8M-17,-5L17,-5M0,8L-15,28M0,8L15,28" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+          </g>
+        </g>
+        <g id="my-svg-usecase-Staff" class="node default usecase-actor usecase-actor-hollow usecase-business usecase-actor-variant usecase-actor-hollow" transform="translate(212.032, 401.25)">
+          <rect class="usecase-actor-outline" x="-48.937" y="-72" width="97.875" height="144" opacity="0"/>
+          <g class="label actor-label usecase-actor-label" transform="translate(-35.629, 41)">
+            <text class="nodeLabel" x="35.629" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="35.629" dy="16">Order staff</tspan></text>
+          </g>
+          <g class="label usecase-stereotype" transform="translate(-38.937, 18)">
+            <text class="nodeLabel" x="38.938" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;Open Sans&quot;, sans-serif" font-size="14" font-weight="normal"><tspan x="38.938" dy="16">«Employee»</tspan></text>
+          </g>
+          <g class="usecase-actor-glyph usecase-actor-hollow" transform="translate(0, -26)" fill="#ececff" stroke="#9370db" stroke-width="2">
+            <circle class="usecase-actor-hollow-head" cx="0" cy="-23" r="9" fill="none" stroke="#9370db" stroke-width="2"/>
+            <path class="usecase-actor-hollow-body" d="M-22,-10L22,-10L22,0L6,0L22,17L13,28L0,13L-13,28L-22,17L-6,0L-22,0Z" fill="none" stroke="#9370db" stroke-width="2"/>
+            <path class="usecase-business-marker usecase-actor-business-marker" d="M1.077,-14.065L8.277,-26.535" fill="none" stroke="#9370db" stroke-width="2"/>
+          </g>
+        </g>
+        <g id="my-svg-usecase-Browse" class="node default usecase-element usecase-ellipse " transform="translate(437.032, 72)">
+          <ellipse class="basic label-container" cx="0" cy="0" rx="80" ry="29" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+          <g class="label" transform="translate(-60, -9)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">Browse products</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-usecase-Checkout" class="node default usecase-element usecase-ellipse critical " transform="translate(437.032, 189)">
+          <ellipse class="basic label-container" cx="0" cy="0" rx="80" ry="38" fill="#ececff" stroke="#cc3333" stroke-width="3"/>
+          <g class="label" transform="translate(-60, -18)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">«Core»</tspan><tspan x="60" dy="18">Checkout</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-usecase-Payment" class="node default usecase-element usecase-ellipse " transform="translate(711.729, 189)">
+          <ellipse class="basic label-container" cx="0" cy="0" rx="80" ry="29" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+          <g class="label" transform="translate(-60, -9)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">Process payment</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-usecase-Review" class="node default usecase-element usecase-rect " transform="translate(437.032, 401.25)">
+          <rect class="basic label-container" x="-80" y="-19" width="160" height="38" fill="#ececff" stroke="#9370db" stroke-width="2"/>
+          <g class="label" transform="translate(-60, -9)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;Open Sans&quot;, sans-serif" font-size="12" font-weight="normal"><tspan x="60" dy="13">Review order</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-usecase-note-0" class="node default usecase-note " transform="translate(212.032, 233.25)">
+          <rect class="basic label-container outer-path" x="-70" y="-46" width="140" height="92" fill="#fff5ad" stroke="#aaaa33" stroke-width="1"/>
+          <g class="label noteLabel" transform="translate(-60, -36)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Validates</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan x="60" dy="24" font-weight="bold">cart</tspan><tspan> </tspan><tspan>before</tspan><tspan> </tspan><tspan x="60" dy="24">payment</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-usecase-OrderData" class="node default usecase-json-table data usecase-json-table" transform="translate(711.729, 571.25)">
+          <rect class="label-container usecase-json-border" x="-107.992" y="-81" width="215.984" height="162" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+          <g class="usecase-json-table-grid">
+            <rect class="usecase-json-cell usecase-json-title-cell" x="-106.992" y="-80" width="213.984" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+            <g class="label usecase-json-title" transform="translate(-60, -76)">
+              <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">OrderData</tspan></text>
+            </g>
+            <g class="usecase-json-row" transform="translate(0, -48)">
+              <rect class="usecase-json-cell usecase-json-value-cell" x="34.359" y="0" width="72.633" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+              <rect class="usecase-json-cell usecase-json-key-cell" x="-106.992" y="0" width="141.352" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+              <g class="label usecase-json-key" transform="translate(-57.711, 4)">
+                <text class="nodeLabel" x="21.395" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="21.395" dy="17">status</tspan></text>
+              </g>
+              <g class="label usecase-json-value" transform="translate(42.359, 4)">
+                <text class="nodeLabel" x="28.316" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.316" dy="17">pending</tspan></text>
+              </g>
+            </g>
+            <g class="usecase-json-row" transform="translate(0, -16)">
+              <rect class="usecase-json-cell usecase-json-value-cell" x="34.359" y="0" width="72.633" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+              <rect class="usecase-json-cell usecase-json-key-cell" x="-106.992" y="0" width="141.352" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+              <g class="label usecase-json-key" transform="translate(-88.598, 4)">
+                <text class="nodeLabel" x="52.281" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="52.281" dy="17">items[0].name</tspan></text>
+              </g>
+              <g class="label usecase-json-value" transform="translate(53.527, 4)">
+                <text class="nodeLabel" x="17.148" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="17.148" dy="17">Book</tspan></text>
+              </g>
+            </g>
+            <g class="usecase-json-row" transform="translate(0, 16)">
+              <rect class="usecase-json-cell usecase-json-value-cell" x="34.359" y="0" width="72.633" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+              <rect class="usecase-json-cell usecase-json-key-cell" x="-106.992" y="0" width="141.352" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+              <g class="label usecase-json-key" transform="translate(-98.992, 4)">
+                <text class="nodeLabel" x="62.676" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="62.676" dy="17">items[0].quantity</tspan></text>
+              </g>
+              <g class="label usecase-json-value" transform="translate(66.48, 4)">
+                <text class="nodeLabel" x="4.195" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="4.195" dy="17">1</tspan></text>
+              </g>
+            </g>
+            <g class="usecase-json-row" transform="translate(0, 48)">
+              <rect class="usecase-json-cell usecase-json-value-cell" x="34.359" y="0" width="72.633" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+              <rect class="usecase-json-cell usecase-json-key-cell" x="-106.992" y="0" width="141.352" height="32" fill="#ececff" stroke="#3572a5" stroke-width="1"/>
+              <g class="label usecase-json-key" transform="translate(-53.516, 4)">
+                <text class="nodeLabel" x="17.199" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="17.199" dy="17">total</tspan></text>
+              </g>
+              <g class="label usecase-json-value" transform="translate(50.957, 4)">
+                <text class="nodeLabel" x="19.719" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="19.719" dy="17">29.95</tspan></text>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

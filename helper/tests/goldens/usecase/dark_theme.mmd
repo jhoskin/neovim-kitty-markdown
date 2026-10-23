@@ -1,0 +1,16 @@
+---
+config:
+  theme: dark
+---
+usecase-beta
+direction LR
+actor User
+actor Support("Support agent")@{ type: hollow }
+systemBoundary desk["Help desk"]@{ type: package }
+  Ticket("Open ticket")
+  Resolve("Resolve ticket")
+end
+note for Ticket "Needs a valid account"
+User --> Ticket
+Support --> Resolve
+Resolve ..> : include Ticket

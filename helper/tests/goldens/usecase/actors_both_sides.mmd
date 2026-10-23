@@ -1,0 +1,9 @@
+usecase-beta
+direction LR
+actor Customer
+actor Bank("Payment provider")
+Browse("Browse products")
+Pay("Pay for order")
+Customer --> Browse
+Customer --> Pay
+Pay --> Bank

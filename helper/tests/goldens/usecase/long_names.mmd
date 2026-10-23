@@ -1,0 +1,9 @@
+usecase-beta
+direction TB
+actor Administrator("System administrator with elevated privileges")
+Configure("Configure the single sign-on integration for every tenant")
+Audit("Review the audit log of all privileged operations")
+Export[Export the monthly compliance report to the archive]
+Administrator --> Configure
+Administrator --> Audit
+Audit --> Export

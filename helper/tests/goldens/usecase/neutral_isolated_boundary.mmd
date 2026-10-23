@@ -1,0 +1,17 @@
+---
+config:
+  theme: neutral
+---
+usecase-beta
+direction TB
+actor Guest("Restaurant guest")
+systemBoundary Kitchen["Kitchen services"]
+  actor Chef
+  Prepare("Prepare meal")
+  Plate("Plate meal")
+end
+note for Guest "Orders at the counter"
+Chef --> Prepare
+Prepare --> Plate
+Guest -- "orders" --> Order("Place order")
+Order ---> Pay("Pay bill")

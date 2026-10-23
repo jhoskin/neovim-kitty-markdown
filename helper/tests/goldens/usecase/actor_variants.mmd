@@ -1,0 +1,14 @@
+usecase-beta
+direction LR
+actor Normal("Normal actor")
+actor Hollow("Hollow actor")@{ type: hollow }
+actor Awesome("Awesome actor")@{ type: awesome }
+actor Agent("Sales agent")@{ business: true } <<Employee>>
+Manage("Manage catalog")
+Quote("Prepare quote")@{ business: true } <<Core>>
+Archive[Archive quote] <<Record>>
+Normal --> Manage
+Hollow --> Manage
+Awesome --> Manage
+Agent --> Quote
+Quote --> Archive
