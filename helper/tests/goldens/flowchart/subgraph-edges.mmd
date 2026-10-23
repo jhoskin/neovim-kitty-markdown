@@ -1,0 +1,7 @@
+flowchart LR
+    A[Client] --> S
+    subgraph S [Service]
+        x[Parse] --> y[Handle]
+    end
+    S --> B[Store]
+    S -.->|audit| C[Log]

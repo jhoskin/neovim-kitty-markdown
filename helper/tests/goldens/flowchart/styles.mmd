@@ -1,0 +1,8 @@
+flowchart LR
+    A:::someclass --> B[Styled]
+    B --> C[Class two]
+    C --> D[Plain]
+    classDef someclass fill:#f96,stroke:#333,stroke-width:4px
+    classDef other fill:#bbf,stroke:#f66,stroke-width:2px,color:#fff,stroke-dasharray: 5 5
+    class C other
+    style B fill:#f9f,stroke:#333,stroke-width:4px

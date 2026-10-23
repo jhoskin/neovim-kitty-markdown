@@ -1,0 +1,11 @@
+flowchart LR
+    A@{ shape: manual-file, label: "File Handling" }
+    B@{ shape: manual-input, label: "User Input" }
+    C@{ shape: docs, label: "Multiple Documents" }
+    D@{ shape: procs, label: "Process Automation" }
+    E@{ shape: paper-tape, label: "Paper Records" }
+    F@{ shape: cyl, label: "Database" }
+    G@{ shape: hex, label: "Prepare" }
+    H@{ shape: delay, label: "Wait" }
+    A --> B --> C --> D
+    E --> F --> G --> H

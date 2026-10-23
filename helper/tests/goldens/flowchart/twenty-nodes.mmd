@@ -1,0 +1,25 @@
+flowchart TD
+    n1[Request] --> n2[Validate]
+    n2 --> n3{Valid?}
+    n3 -->|no| n4[Reject]
+    n3 -->|yes| n5[Load user]
+    n5 --> n6[Check quota]
+    n6 --> n7{Within quota?}
+    n7 -->|no| n8[Throttle]
+    n7 -->|yes| n9[Enqueue]
+    n9 --> n10[Worker A]
+    n9 --> n11[Worker B]
+    n9 --> n12[Worker C]
+    n10 --> n13[Merge]
+    n11 --> n13
+    n12 --> n13
+    n13 --> n14[Store]
+    n14 --> n15[(Database)]
+    n14 --> n16[Notify]
+    n16 --> n17([Email])
+    n16 --> n18([Webhook])
+    n8 --> n19[Retry later]
+    n4 --> n20((Done))
+    n17 --> n20
+    n18 --> n20
+    n19 --> n20

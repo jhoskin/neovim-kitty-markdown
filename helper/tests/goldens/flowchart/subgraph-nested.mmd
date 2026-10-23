@@ -1,0 +1,10 @@
+flowchart TB
+    start[Start] --> outer
+    subgraph outer [Outer group]
+        x[X] --> y[Y]
+        subgraph inner [Inner group]
+            p[P] --> q[Q]
+        end
+        y --> p
+    end
+    q --> finish[Finish]

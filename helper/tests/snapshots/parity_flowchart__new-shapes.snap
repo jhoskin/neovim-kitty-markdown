@@ -1,0 +1,133 @@
+---
+source: tests/parity_flowchart.rs
+expression: scene(&mmd).to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="805" height="293.212" viewBox="0 0 805 293.212" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,5L10,10L10,0Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerWidth="10.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L11.5,7L0,14Z" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerWidth="11.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <polygon class="arrowMarkerPath" points="0,7 11.5,14 11.5,0" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="12.25" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5" stroke-dasharray="1,0"/>
+    </marker>
+  </defs>
+  <g class="flowchart" fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="my-svg-L_A_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M127.25,87.5L138.042,87.5C148.833,87.5,170.417,87.5,184.708,87.5C199,87.5,206,87.5,209.5,87.5L213,87.5" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_B_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M367,87.5L371.167,87.5C375.333,87.5,383.667,87.5,391.333,87.5C399,87.5,406,87.5,409.5,87.5L413,87.5" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_C_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M587,87.5L591.167,87.5C595.333,87.5,603.667,87.5,611.333,87.5C619,87.5,626,87.5,629.5,87.5L633,87.5" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_E_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M162.5,246.24L167.417,246.24C172.333,246.24,182.167,246.24,191.833,246.24C201.5,246.24,211,246.24,215.75,246.24L220.5,246.24" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_F_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M359.5,246.24L364.917,246.24C370.333,246.24,381.167,246.24,391.375,246.24C401.583,246.24,411.167,246.24,415.958,246.24L420.75,246.24" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_G_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M579.25,246.24L584.708,246.24C590.167,246.24,601.083,246.24,610.407,246.24C619.731,246.24,627.462,246.24,631.328,246.24L635.194,246.24" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="flowchart-A-0" class="node default  " transform="translate(87.5, 87.5)">
+          <path class="outer-path" transform="translate(-79.5, 79.5)" d="M0,-159L159,-159L79.5,0Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -72)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">File Handling</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-B-2" class="node default  " transform="translate(292, 87.5)">
+          <path class="basic label-container  outer-path" transform="translate(0, 13.5)" d="M-75,-27L-75,27L75,27L75,-54Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, 1.5)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">User Input</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-C-4" class="node default  " transform="translate(502, 87.5)">
+          <g class="basic label-container outer-path" transform="translate(0, -5.812)">
+            <path d="M-85,-39.406L-85,59.406L-85,59.406L-82,60.573L-79,61.728L-76,62.859L-73,63.956L-70,65.007L-67,66.001L-64,66.928L-61,67.78L-58,68.547L-55,69.222L-52,69.797L-49,70.268L-46,70.629L-43,70.876L-40,71.008L-37,71.023L-34,70.92L-31,70.701L-28,70.369L-25,69.925L-22,69.375L-19,68.724L-16,67.98L-13,67.149L-10,66.239L-7,65.261L-4,64.223L-1,63.137L2,62.013L5,60.863L8,59.698L11,58.531L14,57.372L17,56.233L20,55.127L23,54.064L26,53.054L29,52.109L32,51.238L35,50.449L38,49.751L41,49.15L44,48.652L47,48.263L50,47.987L53,47.826L56,47.782L59,47.856L62,48.046L65,48.35L65,38.35L75,38.35L75,28.35L85,28.35L85,-59.406L-65,-59.406L-65,-49.406L-75,-49.406L-75,-39.406Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M-75,-39.406L65,-39.406L65,38.35L75,38.35L75,-49.406L-75,-49.406Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-70, -25.625)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Multiple</tspan><tspan> </tspan><tspan x="60" dy="24">Documents</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-D-6" class="node default  " transform="translate(717, 87.5)">
+          <g class="basic label-container outer-path">
+            <path d="M-80,-34L-80,44L70,44L70,39L75,39L75,34L80,34L80,-44L-70,-44L-70,-39L-75,-39L-75,-34Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M-75,-34L70,-34L70,39L75,39L75,-39L-75,-39Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-65, -19)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Process</tspan><tspan> </tspan><tspan x="60" dy="24">Automation</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-E-8" class="node default  " transform="translate(87.5, 246.24)">
+          <path class="basic label-container" d="M-75,24.375L-75,24.375L-72,24.986L-69,25.587L-66,26.17L-63,26.724L-60,27.24L-57,27.712L-54,28.131L-51,28.491L-48,28.786L-45,29.011L-42,29.164L-39,29.24L-36,29.24L-33,29.164L-30,29.011L-27,28.786L-24,28.491L-21,28.131L-18,27.712L-15,27.24L-12,26.724L-9,26.17L-6,25.587L-3,24.986L0,24.375L3,23.764L6,23.163L9,22.58L12,22.026L15,21.51L18,21.038L21,20.619L24,20.259L27,19.964L30,19.739L33,19.586L36,19.51L39,19.51L42,19.586L45,19.739L48,19.964L51,20.259L54,20.619L57,21.038L60,21.51L63,22.026L66,22.58L69,23.163L72,23.764L75,24.375L75,-24.375L75,-24.375L72,-24.986L69,-25.587L66,-26.17L63,-26.724L60,-27.24L57,-27.712L54,-28.131L51,-28.491L48,-28.786L45,-29.011L42,-29.164L39,-29.24L36,-29.24L33,-29.164L30,-29.011L27,-28.786L24,-28.491L21,-28.131L18,-27.712L15,-27.24L12,-26.724L9,-26.17L6,-25.587L3,-24.986L0,-24.375L-3,-23.764L-6,-23.163L-9,-22.58L-12,-22.026L-15,-21.51L-18,-21.038L-21,-20.619L-24,-20.259L-27,-19.964L-30,-19.739L-33,-19.586L-36,-19.51L-39,-19.51L-42,-19.586L-45,-19.739L-48,-19.964L-51,-20.259L-54,-20.619L-57,-21.038L-60,-21.51L-63,-22.026L-66,-22.58L-69,-23.163L-72,-23.764L-75,-24.375Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Paper Records</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-F-10" class="node default  " transform="translate(292, 246.24)">
+          <path class="basic label-container outer-path" transform="translate(-67.5, -38.971)" d="M0,12.981A67.5,12.981,0,0,0,135,12.981A67.5,12.981,0,0,0,0,12.981L0,64.962A67.5,12.981,0,0,0,135,64.962L135,12.981" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -2)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Database</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-G-12" class="node default  " transform="translate(502, 246.24)">
+          <polygon class="label-container" transform="translate(-77.25, 19.5)" points="9.75,0 144.75,0 154.5,-19.5 144.75,-39 9.75,-39 0,-19.5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Prepare</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-H-14" class="node default  " transform="translate(717, 246.24)">
+          <path class="basic label-container outer-path" d="M-77.813,-27L50.813,-27L50.813,-27L52.543,-26.945L54.266,-26.778L55.975,-26.502L57.662,-26.117L59.321,-25.625L60.945,-25.027L62.528,-24.326L64.063,-23.526L65.543,-22.628L66.962,-21.638L68.315,-20.559L69.597,-19.395L70.801,-18.152L71.923,-16.834L72.958,-15.447L73.902,-13.997L74.751,-12.489L75.502,-10.929L76.152,-9.325L76.697,-7.682L77.136,-6.008L77.467,-4.309L77.688,-2.593L77.799,-0.865L77.799,0.865L77.688,2.593L77.467,4.309L77.136,6.008L76.697,7.682L76.152,9.325L75.502,10.929L74.751,12.489L73.902,13.997L72.958,15.447L71.923,16.834L70.801,18.152L69.597,19.395L68.315,20.559L66.962,21.638L65.543,22.628L64.063,23.526L62.528,24.326L60.945,25.027L59.321,25.625L57.662,26.117L55.975,26.502L54.266,26.778L52.543,26.945L50.813,27L50.813,27L-77.813,27Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Wait</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
