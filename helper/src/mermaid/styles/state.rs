@@ -17,9 +17,7 @@
 use std::collections::HashMap;
 
 use crate::mermaid::config::MermaidConfig;
-use crate::mermaid::scene::{
-    Color, Element, FontStyle, FontWeight, Group, Paint, Text, TextAnchor,
-};
+use crate::mermaid::scene::{Color, Element, Group, Paint, Text, TextAnchor};
 use crate::mermaid::shapes::NodeStyleVars;
 use crate::mermaid::shapes::vars::parse_color;
 use crate::mermaid::theme::ThemeVariables;
@@ -44,8 +42,6 @@ pub const TITLE_FONT_SIZE: f64 = 18.0;
 #[derive(Debug, Clone, Default)]
 pub struct NodeInfo {
     pub shape: String,
-    pub italic: bool,
-    pub bold: bool,
 }
 
 #[derive(Debug, Clone, PartialEq)]
@@ -130,8 +126,6 @@ impl StateStyles {
         {
             scope.rough = matches!(info.shape.as_str(), "choice" | "fork" | "join" | "note");
             scope.left = info.shape == "rectWithTitle";
-            scope.italic = info.italic;
-            scope.bold = info.bold;
         }
         for child in &mut group.children {
             match child {
@@ -173,12 +167,6 @@ impl StateStyles {
                     if scope.left && t.anchor == Some(TextAnchor::Middle) {
                         left_align(t);
                     }
-                    if scope.italic {
-                        t.font.style = Some(FontStyle::Italic);
-                    }
-                    if scope.bold {
-                        t.font.weight = Some(FontWeight::Bold);
-                    }
                 }
                 _ => {}
             }
@@ -195,8 +183,6 @@ struct Scope {
     rough: bool,
     /// Inside a `rectWithTitle`, whose label `div`s set no `text-align`.
     left: bool,
-    italic: bool,
-    bold: bool,
 }
 
 /// `rectWithTitle` builds its two label `div`s without the `text-align:

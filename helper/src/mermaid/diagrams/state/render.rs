@@ -42,7 +42,6 @@ fn node_infos(nodes: &[Node]) -> HashMap<String, NodeInfo> {
         .map(|n| {
             let info = NodeInfo {
                 shape: n.shape.clone(),
-                ..NodeInfo::default()
             };
             (n.dom_id().to_string(), info)
         })
