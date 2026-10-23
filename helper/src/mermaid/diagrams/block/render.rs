@@ -20,8 +20,7 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::edges::{self, Edge, EdgeCtx, EdgePaths, Pattern, Thickness};
 use crate::mermaid::scene::markers::{MarkerType, insert_markers};
 use crate::mermaid::scene::{
-    Baseline, Common, Element, FontSpec, Group, Length, Marker, Paint, Point, Scene, Style,
-    TransformOp, ViewBox,
+    Common, Element, FontSpec, Group, Marker, Paint, Point, Scene, Style, TransformOp, ViewBox,
 };
 use crate::mermaid::shapes::util::{
     BBox, Declarations, apply_declarations, base_node_style, done, get_node_classes,
@@ -30,14 +29,11 @@ use crate::mermaid::shapes::util::{
 };
 use crate::mermaid::shapes::{self, Intersector, Look, Node, ShapeCtx, ShapeOut};
 use crate::mermaid::styles::block::BlockStyles;
-use crate::text::{FontSpec as MeasureSpec, TextMetrics};
 
 /// mermaid-cli's SVG id; `db.setDiagramId(id)` prefixes every node id.
 const SVG_ID: &str = "my-svg";
 /// `block.padding` of the config schema.
 const DEFAULT_PADDING: f64 = 8.0;
-/// `line-height: 1.5` of the HTML label div.
-const HTML_LINE_HEIGHT: f64 = 1.5;
 
 // ---------------------------------------------------------------------------
 // Nodes
@@ -474,47 +470,6 @@ fn element_bbox(element: &Element, offset: (f64, f64)) -> BBox {
 // ---------------------------------------------------------------------------
 // draw
 
-/// Places the lines of every HTML label on the baseline Chrome gives them.
-///
-/// `label_text` centres each line in its `line-height: 1.5` box with
-/// `dominant-baseline: central`, which resvg resolves from the unrounded
-/// font metrics. Chrome's inline layout puts the baseline at
-/// `floor((lineHeight - (ascent + descent)) / 2) + ascent` with the rounded
-/// metrics (`FontHeight::AddLeading`), about one pixel higher for the
-/// default font. Temporary: the fix belongs in `shapes::util::label_text`;
-/// this pass goes away when that lands.
-fn html_baselines(element: &mut Element, metrics: &TextMetrics<'_>, family: &str) {
-    match element {
-        Element::Group(g) => {
-            for child in &mut g.children {
-                html_baselines(child, metrics, family);
-            }
-        }
-        Element::Text(text) if text.baseline == Some(Baseline::Central) => {
-            let size = text.font.size.unwrap_or(16.0);
-            let spec = MeasureSpec::new(text.font.family.as_deref().unwrap_or(family), size as f32);
-            let Some(face) = metrics.fonts().resolve(
-                &spec.family,
-                crate::text::fonts::Weight(spec.weight),
-                spec.style.into(),
-            ) else {
-                return;
-            };
-            let (ascent, descent) = metrics.face_ascent_descent(face, size as f32);
-            let (ascent, descent) = (f64::from(ascent), f64::from(descent));
-            let line_height = HTML_LINE_HEIGHT * size;
-            let first = ((line_height - (ascent + descent)) / 2.0).floor() + ascent;
-            text.baseline = Some(Baseline::Alphabetic);
-            if let Some(run) = text.runs.first_mut()
-                && run.dy.is_some()
-            {
-                run.dy = Some(Length::Px(first));
-            }
-        }
-        _ => {}
-    }
-}
-
 /// `performOperations`: every block, then its children, depth first.
 fn tree_order(db: &BlockDb) -> Vec<usize> {
     fn walk(db: &BlockDb, blocks: &[usize], out: &mut Vec<usize>) {
@@ -727,11 +682,6 @@ pub fn draw(
         bh + magic_factor + 10.0
     };
 
-    if shape_ctx.html_labels {
-        for child in &mut children {
-            html_baselines(child, &ctx.metrics, &styles.font_family);
-        }
-    }
     let nodes = Group {
         common: Common {
             class: Some("block".to_string()),
