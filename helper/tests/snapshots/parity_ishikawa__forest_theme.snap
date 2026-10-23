@@ -1,0 +1,76 @@
+---
+source: tests/parity_ishikawa.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="441.943" height="580.134" viewBox="-349.943 -40.775 441.943 580.134" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="ishikawa-arrow-my-svg" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto" markerUnits="strokeWidth">
+      <path class="ishikawa-arrow" d="M10,0L0,5L10,10Z" fill="#000000"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="ishikawa">
+      <line class="ishikawa-spine" x1="-329.943" y1="312.5" x2="0" y2="312.5" fill="none" stroke="#000000" stroke-width="2"/>
+      <g class="ishikawa-head-group" transform="translate(0, 312.5)">
+        <path class="ishikawa-head" d="M0,-52.8L0,52.8Q144,0,0,-52.8Z" fill="#cde498" stroke="#000000" stroke-width="2"/>
+        <text class="ishikawa-head-label" transform="translate(33, 1.339)" x="0" y="-4.739" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14" font-weight="600"><tspan x="0" dy="0">Plants</tspan><tspan x="0" dy="16.8">wilting</tspan></text>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-20" y1="312.5" x2="-63.492" y2="3.041" fill="none" stroke="#000000" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-104.71" y="-20.775" width="82.438" height="23" fill="#cde498" stroke="#000000" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-63.492" y="-3.775" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-63.492" dy="0">Water</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-30.873" y1="235.135" x2="-95.873" y2="235.135" fill="none" stroke="#000000" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-95.873" y="239.319" text-anchor="end" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-95.873" dy="0">Too much</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-63.373" y1="235.135" x2="-74.246" y2="157.771" fill="none" stroke="#000000" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label up" x="-74.246" y="157.771" text-anchor="end" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-74.246" dy="0">Poor drainage</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-52.619" y1="80.406" x2="-82.619" y2="80.406" fill="none" stroke="#000000" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-82.619" y="84.59" text-anchor="end" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-82.619" dy="0">Too little</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-20" y1="312.5" x2="-46.095" y2="498.175" fill="none" stroke="#000000" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-83.986" y="496.359" width="75.781" height="23" fill="#cde498" stroke="#000000" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-46.095" y="513.359" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-46.095" dy="0">Light</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-33.047" y1="405.338" x2="-63.047" y2="405.338" fill="none" stroke="#000000" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-63.047" y="409.521" text-anchor="end" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-63.047" dy="0">Shade</tspan></text>
+        </g>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-172.636" y1="312.5" x2="-216.128" y2="3.041" fill="none" stroke="#000000" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-248.909" y="-20.775" width="65.563" height="23" fill="#cde498" stroke="#000000" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-216.128" y="-3.775" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-216.128" dy="0">Soil</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-187.134" y1="209.347" x2="-217.134" y2="209.347" fill="none" stroke="#000000" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-217.134" y="213.531" text-anchor="end" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-217.134" dy="0">Compacted</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-201.631" y1="106.194" x2="-231.631" y2="106.194" fill="none" stroke="#000000" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-231.631" y="110.378" text-anchor="end" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-231.631" dy="0">Low nutrients</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-172.636" y1="312.5" x2="-198.731" y2="498.175" fill="none" stroke="#000000" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-236.829" y="496.359" width="76.195" height="23" fill="#cde498" stroke="#000000" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-198.731" y="513.359" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-198.731" dy="0">Pests</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-181.335" y1="374.392" x2="-211.335" y2="374.392" fill="none" stroke="#000000" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-211.335" y="378.575" text-anchor="end" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-211.335" dy="0">Aphids</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-190.033" y1="436.284" x2="-220.033" y2="436.284" fill="none" stroke="#000000" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-220.033" y="440.467" text-anchor="end" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-220.033" dy="0">Root rot</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,72 @@
+---
+source: tests/parity_ishikawa.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="464.917" height="580.134" viewBox="-372.917 -6.017 464.917 580.134" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="ishikawa-arrow-my-svg" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto" markerUnits="strokeWidth">
+      <path class="ishikawa-arrow" d="M10,0L0,5L10,10Z" fill="#d3d3d3"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="ishikawa">
+      <line class="ishikawa-spine" x1="-352.917" y1="250" x2="0" y2="250" fill="none" stroke="#d3d3d3" stroke-width="2"/>
+      <g class="ishikawa-head-group" transform="translate(0, 250)">
+        <path class="ishikawa-head" d="M0,-52.8L0,52.8Q144,0,0,-52.8Z" fill="#1f2020" stroke="#d3d3d3" stroke-width="2"/>
+        <text class="ishikawa-head-label" transform="translate(33, 1.339)" x="0" y="-4.739" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14" font-weight="600"><tspan x="0" dy="0">Build is</tspan><tspan x="0" dy="16.8">slow</tspan></text>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-20" y1="250" x2="-49.823" y2="37.8" fill="none" stroke="#d3d3d3" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-95.085" y="13.983" width="90.523" height="23" fill="#1f2020" stroke="#d3d3d3" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-49.823" y="30.983" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-49.823" dy="0">Tooling</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-29.941" y1="179.267" x2="-59.941" y2="179.267" fill="none" stroke="#d3d3d3" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-59.941" y="183.45" text-anchor="end" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-59.941" dy="0">Old compiler</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-39.882" y1="108.533" x2="-69.882" y2="108.533" fill="none" stroke="#d3d3d3" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-69.882" y="112.717" text-anchor="end" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-69.882" dy="0">Cold caches</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-20" y1="250" x2="-59.764" y2="532.934" fill="none" stroke="#d3d3d3" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-97.662" y="531.117" width="75.797" height="23" fill="#1f2020" stroke="#d3d3d3" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-59.764" y="548.117" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-59.764" dy="0">Code</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-29.941" y1="320.733" x2="-94.941" y2="320.733" fill="none" stroke="#d3d3d3" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-94.941" y="324.917" text-anchor="end" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-94.941" dy="0">Large modules</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-62.441" y1="320.733" x2="-72.382" y2="391.467" fill="none" stroke="#d3d3d3" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label down" x="-72.382" y="403.486" text-anchor="end" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-72.382" dy="0">Generated code</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-49.823" y1="462.2" x2="-79.823" y2="462.2" fill="none" stroke="#d3d3d3" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-79.823" y="466.384" text-anchor="end" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-79.823" dy="0">Heavy macros</tspan></text>
+        </g>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-198.691" y1="250" x2="-228.514" y2="37.8" fill="none" stroke="#d3d3d3" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-298.248" y="13.983" width="139.469" height="23" fill="#1f2020" stroke="#d3d3d3" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-228.514" y="30.983" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-228.514" dy="0">Infrastructure</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-213.602" y1="143.9" x2="-243.602" y2="143.9" fill="none" stroke="#d3d3d3" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-243.602" y="148.083" text-anchor="end" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-243.602" dy="0">Shared runners</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-198.691" y1="250" x2="-238.455" y2="532.934" fill="none" stroke="#d3d3d3" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-284.744" y="531.117" width="92.578" height="23" fill="#1f2020" stroke="#d3d3d3" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-238.455" y="548.117" text-anchor="middle" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-238.455" dy="0">Process</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-218.573" y1="391.467" x2="-248.573" y2="391.467" fill="none" stroke="#d3d3d3" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-248.573" y="387.25" text-anchor="end" dominant-baseline="alphabetic" fill="#cccccc" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-248.573" dy="0">Full rebuild on</tspan><tspan x="-248.573" dy="16.8">every change</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
