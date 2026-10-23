@@ -1,0 +1,27 @@
+---
+source: tests/parity_venn.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="450" viewBox="0 0 800 450" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <text class="venn-title" x="400" y="16" text-anchor="middle" dominant-baseline="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="32">Disjoint and overlapping</text>
+    <g transform="translate(0, 24)">
+      <g class="venn-area venn-circle venn-set-0">
+        <path d="M15,213A184.968,184.968,0,1,0,384.935,213A184.968,184.968,0,1,0,15,213" fill="#8cb42f" fill-opacity="0.1" stroke="#8cb42f" stroke-width="2.5" stroke-opacity="0.95"/>
+        <text class="label" x="135" y="213" text-anchor="middle" fill="#2e3b0f" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="135" dy="0.35em">Animals</tspan></text>
+      </g>
+      <g class="venn-area venn-circle venn-set-1">
+        <path d="M255.003,213A116.984,116.984,0,1,0,488.97,213A116.984,116.984,0,1,0,255.003,213" fill="#6aff19" fill-opacity="0.1" stroke="#6aff19" stroke-width="2.5" stroke-opacity="0.95"/>
+        <text class="label" x="436" y="212" text-anchor="middle" fill="#2d7f00" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="436" dy="0.35em">Pets</tspan></text>
+      </g>
+      <g class="venn-area venn-circle venn-set-2">
+        <path d="M498.45,213A143.275,143.275,0,1,0,785,213A143.275,143.275,0,1,0,498.45,213" fill="#99cc66" fill-opacity="0.3" stroke="#336633" stroke-width="6" stroke-opacity="0.95"/>
+        <text class="label" x="641" y="213" text-anchor="middle" fill="#4d7326" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="641" dy="0.35em">Plants</tspan></text>
+      </g>
+      <g class="venn-area venn-intersection">
+        <path d="M345.644,326.979A116.984,116.984,0,0,1,345.644,99.021A184.968,184.968,0,0,1,345.644,326.979" fill="#ffd27f" fill-opacity="1"/>
+        <text class="label" x="319" y="213" text-anchor="middle" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="319" dy="0.35em">Pet animals</tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

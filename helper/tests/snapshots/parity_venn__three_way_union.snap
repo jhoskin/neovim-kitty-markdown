@@ -1,0 +1,38 @@
+---
+source: tests/parity_venn.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="450" viewBox="0 0 800 450" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g transform="translate(0, 0)">
+      <g class="venn-area venn-circle venn-set-0">
+        <path d="M178.514,299.252A135.748,135.748,0,1,0,450.011,299.252A135.748,135.748,0,1,0,178.514,299.252" fill="#5353ff" fill-opacity="0.1" stroke="#5353ff" stroke-width="2.5" stroke-opacity="0.95"/>
+        <text class="label" x="268" y="325" text-anchor="middle" fill="#0000b9" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="268" dy="0.35em">Desirable</tspan></text>
+      </g>
+      <g class="venn-area venn-circle venn-set-1">
+        <path d="M349.989,299.252A135.748,135.748,0,1,0,621.486,299.252A135.748,135.748,0,1,0,349.989,299.252" fill="#ffff45" fill-opacity="0.1" stroke="#ffff45" stroke-width="2.5" stroke-opacity="0.95"/>
+        <text class="label" x="531" y="325" text-anchor="middle" fill="#abab00" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="531" dy="0.35em">Feasible</tspan></text>
+      </g>
+      <g class="venn-area venn-circle venn-set-2">
+        <path d="M264.252,150.748A135.748,135.748,0,1,0,535.749,150.748A135.748,135.748,0,1,0,264.252,150.748" fill="#b5ff20" fill-opacity="0.1" stroke="#b5ff20" stroke-width="2.5" stroke-opacity="0.95"/>
+        <text class="label" x="400" y="98" text-anchor="middle" fill="#598600" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="400" dy="0.35em">Viable</tspan></text>
+      </g>
+      <g class="venn-area venn-intersection">
+        <path d="M400,194.005A135.748,135.748,0,0,1,448.277,277.622A135.748,135.748,0,0,1,351.723,277.622A135.748,135.748,0,0,1,400,194.005" fill="none" fill-opacity="0"/>
+        <text class="label" x="399" y="249" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="399" dy="0.35em">Innovation</tspan></text>
+      </g>
+      <g class="venn-area venn-intersection">
+        <path d="M400,404.498A135.748,135.748,0,0,1,400,194.005A135.748,135.748,0,0,1,400,404.498" fill="none" fill-opacity="0"/>
+        <text class="label" x="400" y="330" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="400" dy="0.35em"></tspan></text>
+      </g>
+      <g class="venn-area venn-intersection">
+        <path d="M265.986,172.378A135.748,135.748,0,0,1,448.277,277.622A135.748,135.748,0,0,1,265.986,172.378" fill="none" fill-opacity="0"/>
+        <text class="label" x="329" y="209" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="329" dy="0.35em"></tspan></text>
+      </g>
+      <g class="venn-area venn-intersection">
+        <path d="M351.723,277.622A135.748,135.748,0,0,1,534.015,172.378A135.748,135.748,0,0,1,351.723,277.622" fill="none" fill-opacity="0"/>
+        <text class="label" x="470" y="209" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="470" dy="0.35em"></tspan></text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,28 @@
+---
+source: tests/parity_venn.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="800" height="450" viewBox="0 0 800 450" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g transform="translate(0, 0)">
+      <g class="venn-area venn-circle venn-set-0">
+        <path d="M84.216,225A210,210,0,1,0,504.216,225A210,210,0,1,0,84.216,225" fill="#ff6b6b" fill-opacity="0.1" stroke="#ff6b6b" stroke-width="2.5" stroke-opacity="0.95"/>
+        <text class="label" x="237" y="225" text-anchor="middle" fill="#d10000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="237" dy="0.35em">Alpha</tspan></text>
+      </g>
+      <g class="venn-area venn-circle venn-set-1">
+        <path d="M390.453,225A162.665,162.665,0,1,0,715.784,225A162.665,162.665,0,1,0,390.453,225" fill="#ffff45" fill-opacity="0.1" stroke="#ffff45" stroke-width="2.5" stroke-opacity="0.95"/>
+        <text class="label" x="610" y="225" text-anchor="middle" fill="#abab00" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="610" dy="0.35em">Beta</tspan></text>
+      </g>
+      <g class="venn-area venn-intersection">
+        <path d="M457.734,356.765A162.665,162.665,0,0,1,457.734,93.235A210,210,0,0,1,457.734,356.765" fill="none" fill-opacity="0"/>
+        <text class="label" x="447" y="225" text-anchor="middle" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="24"><tspan x="447" dy="0.35em">AB</tspan></text>
+      </g>
+      <g class="venn-text-nodes">
+        <g class="venn-text-area">
+          <text class="venn-text-node" x="156.757" y="263.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#ff0000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="20"><tspan x="156.757">React</tspan></text>
+          <text class="venn-text-node" x="307.068" y="263.5" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="20"><tspan x="307.068">Design Systems</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
