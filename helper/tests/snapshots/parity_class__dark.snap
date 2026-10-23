@@ -90,33 +90,23 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -72)"/>
           <g class="label-group text" transform="translate(-25.672, -72)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="25.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="25.672" dy="17" font-weight="bold">Animal</tspan>
-              </text>
+              <text class="nodeLabel" x="25.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.672" dy="17" font-weight="bold">Animal</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-81.309, -24)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="29.012" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="29.012" dy="17">+int age</tspan>
-              </text>
+              <text class="nodeLabel" x="29.012" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="29.012" dy="17">+int age</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="52.082" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="52.082" dy="17">+String gender</tspan>
-              </text>
+              <text class="nodeLabel" x="52.082" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="52.082" dy="17">+String gender</tspan></text>
             </g>
           </g>
           <g class="methods-group text" transform="translate(-81.309, 48)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="68.473" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="68.473" dy="17">+isMammal() : bool</tspan>
-              </text>
+              <text class="nodeLabel" x="68.473" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="68.473" dy="17">+isMammal() : bool</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="28.449" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="28.449" dy="17">+mate()</tspan>
-              </text>
+              <text class="nodeLabel" x="28.449" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.449" dy="17">+mate()</tspan></text>
             </g>
           </g>
           <line class="divider" x1="-93.309" y1="-48" x2="93.309" y2="-47.999" fill="#1f2020" stroke="#cccccc" stroke-width="1"/>
@@ -127,28 +117,20 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -60)"/>
           <g class="label-group text" transform="translate(-18.344, -60)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="18.344" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="18.344" dy="17" font-weight="bold">Duck</tspan>
-              </text>
+              <text class="nodeLabel" x="18.344" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.344" dy="17" font-weight="bold">Duck</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-72.473, -12)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="63.301" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="63.301" dy="17">+String beakColor</tspan>
-              </text>
+              <text class="nodeLabel" x="63.301" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="63.301" dy="17">+String beakColor</tspan></text>
             </g>
           </g>
           <g class="methods-group text" transform="translate(-72.473, 36)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="28.184" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="28.184" dy="17">+swim()</tspan>
-              </text>
+              <text class="nodeLabel" x="28.184" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.184" dy="17">+swim()</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="31.098" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="31.098" dy="17">+quack()</tspan>
-              </text>
+              <text class="nodeLabel" x="31.098" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="31.098" dy="17">+quack()</tspan></text>
             </g>
           </g>
           <line class="divider" x1="-84.473" y1="-36" x2="84.473" y2="-35.999" fill="#1f2020" stroke="#cccccc" stroke-width="1"/>
@@ -159,23 +141,17 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -48)"/>
           <g class="label-group text" transform="translate(-21.16, -48)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="21.16" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="21.16" dy="17" font-weight="bold">Zebra</tspan>
-              </text>
+              <text class="nodeLabel" x="21.16" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="21.16" dy="17" font-weight="bold">Zebra</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-57.354, 0)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="46.773" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="46.773" dy="17">+bool is_wild</tspan>
-              </text>
+              <text class="nodeLabel" x="46.773" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="46.773" dy="17">+bool is_wild</tspan></text>
             </g>
           </g>
           <g class="methods-group text" transform="translate(-57.354, 48)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="21.922" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="21.922" dy="17">+run()</tspan>
-              </text>
+              <text class="nodeLabel" x="21.922" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#e0dfdf" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="21.922" dy="17">+run()</tspan></text>
             </g>
           </g>
           <line class="divider" x1="-69.354" y1="-24" x2="69.354" y2="-23.999" fill="#1f2020" stroke="#cccccc" stroke-width="1"/>
@@ -184,9 +160,7 @@ expression: scene_svg(&mmd)
         <g id="my-svg-note0" class="node  " transform="translate(306.299, 104)">
           <rect class="basic label-container outer-path" x="-31.078" y="-18" width="62.156" height="36" fill="#474949" stroke="#2f2f2f" stroke-width="1"/>
           <g class="label noteLabel" transform="translate(-25.078, -12)">
-            <text class="nodeLabel" x="25.078" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#b8b6b6" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-              <tspan x="25.078" dy="17">striped</tspan>
-            </text>
+            <text class="nodeLabel" x="25.078" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#b8b6b6" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.078" dy="17">striped</tspan></text>
           </g>
         </g>
       </g>

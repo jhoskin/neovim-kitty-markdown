@@ -86,9 +86,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, 0)"/>
           <g class="label-group text" transform="translate(-23.527, 0)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="23.527" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="23.527" dy="17" font-weight="bold">Empty</tspan>
-              </text>
+              <text class="nodeLabel" x="23.527" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="23.527" dy="17" font-weight="bold">Empty</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-23.527, 48)"/>
@@ -98,16 +96,12 @@ expression: scene_svg(&mmd)
           <rect class="basic label-container outer-path" x="-53.172" y="-36" width="106.344" height="72" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="annotation-group text" transform="translate(-41.172, -12)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="41.172" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="41.172" dy="17">«interface»</tspan>
-              </text>
+              <text class="nodeLabel" x="41.172" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="41.172" dy="17">«interface»</tspan></text>
             </g>
           </g>
           <g class="label-group text" transform="translate(-25.543, 12)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="25.543" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="25.543" dy="17" font-weight="bold">Tagged</tspan>
-              </text>
+              <text class="nodeLabel" x="25.543" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.543" dy="17" font-weight="bold">Tagged</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-41.172, 60)"/>
@@ -118,16 +112,12 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -36)"/>
           <g class="label-group text" transform="translate(-13.738, -36)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="13.738" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="13.738" dy="17" font-weight="bold">Full</tspan>
-              </text>
+              <text class="nodeLabel" x="13.738" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="13.738" dy="17" font-weight="bold">Full</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-27.307, 12)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="20.438" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="20.438" dy="17">+int x</tspan>
-              </text>
+              <text class="nodeLabel" x="20.438" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="20.438" dy="17">+int x</tspan></text>
             </g>
           </g>
           <g class="methods-group text" transform="translate(-27.307, 60)"/>

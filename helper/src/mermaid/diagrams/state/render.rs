@@ -14,14 +14,12 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::unified::{LayoutData, UnifiedConfig, render_with_dagre};
 use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
-    Baseline, Common, Element, FontSpec, FontWeight, Group, Length, Paint, Scene, Style, Text,
-    TextAnchor, TextRun, ViewBox,
+    Common, Element, FontSpec, Group, Paint, Scene, Style, Text, TextAnchor, TextRun, ViewBox,
 };
 use crate::mermaid::shapes::util::{BBox, styles2string};
 use crate::mermaid::shapes::{Node, ShapeCtx};
 use crate::mermaid::styles::state::{NodeInfo, StateStyles, TITLE_FONT_SIZE};
-use crate::text::TextMetrics;
-use crate::text::measure::{FontSpec as MeasureSpec, FontStyle as MeasureStyle};
+use crate::text::measure::FontSpec as MeasureSpec;
 
 /// The `padding` `draw` hands `setupViewPortForSVG`.
 const VIEWPORT_PADDING: f64 = 8.0;
@@ -53,82 +51,6 @@ fn node_infos(nodes: &[Node]) -> HashMap<String, NodeInfo> {
             (n.dom_id().to_string(), info)
         })
         .collect()
-}
-
-/// Places HTML label text on the baseline Blink gives it.
-///
-/// The shared label builder draws an HTML line at `dy = lineHeight / 2`
-/// with `dominant-baseline: central`, which resvg resolves from the
-/// unrounded font ascent and descent. Blink lays the line box out with the
-/// ascent and descent rounded to whole pixels and the half-leading
-/// floored, so its baseline sits at `floor((lineHeight - (A + D)) / 2) +
-/// A`; for Trebuchet MS at 16 px that is 17 px into a 24 px line, where
-/// `central` lands at 17.73 px and the text reads one pixel low against
-/// the oracle. This rewrites the first line's `dy` to the Blink baseline
-/// and switches to the alphabetic baseline; later lines keep their
-/// `lineHeight` steps.
-fn blink_html_baselines(group: &mut Group, metrics: &TextMetrics<'_>, family: &str, size: f64) {
-    for child in &mut group.children {
-        match child {
-            Element::Group(g) => blink_html_baselines(g, metrics, family, size),
-            Element::Text(t) if t.baseline == Some(Baseline::Central) => {
-                blink_text_baseline(t, metrics, family, size);
-                merge_runs(t);
-            }
-            _ => {}
-        }
-    }
-}
-
-fn blink_text_baseline(t: &mut Text, metrics: &TextMetrics<'_>, family: &str, size: f64) {
-    let family = t.font.family.clone().unwrap_or_else(|| family.to_string());
-    let size = t.font.size.unwrap_or(size);
-    let mut spec = MeasureSpec::new(family, size as f32);
-    if matches!(t.font.weight, Some(FontWeight::Bold)) {
-        spec = spec.weight(700);
-    }
-    if matches!(t.font.style, Some(crate::mermaid::scene::FontStyle::Italic)) {
-        spec = spec.style(MeasureStyle::Italic);
-    }
-    let shaped = metrics.shape("x", &spec);
-    let (ascent, descent) = (f64::from(shaped.ascent), f64::from(shaped.descent));
-    let Some(first) = t.runs.first_mut() else {
-        return;
-    };
-    let Some(Length::Px(half_line)) = first.dy else {
-        return;
-    };
-    let line_height = half_line * 2.0;
-    first.dy = Some(Length::Px(
-        ((line_height - (ascent + descent)) / 2.0).floor() + ascent,
-    ));
-    t.baseline = Some(Baseline::Alphabetic);
-}
-
-/// Joins the word and space runs of one HTML line into one `tspan`.
-///
-/// The shared label builder keeps every word and every space of an HTML
-/// line as its own run. The serializer indents each `tspan` on its own
-/// line, and usvg reads that indentation as one more space between runs,
-/// so `The state` draws with a double gap. A run with no position and the
-/// same font and fill as the one before it continues the same text, so
-/// joining them changes nothing but the whitespace.
-fn merge_runs(t: &mut Text) {
-    let mut merged: Vec<TextRun> = Vec::with_capacity(t.runs.len());
-    for run in t.runs.drain(..) {
-        match merged.last_mut() {
-            Some(prev)
-                if run.x.is_none()
-                    && run.dy.is_none()
-                    && run.font == prev.font
-                    && run.fill == prev.fill =>
-            {
-                prev.text.push_str(&run.text);
-            }
-            _ => merged.push(run),
-        }
-    }
-    t.runs = merged;
 }
 
 /// `utils.insertTitle(svg, 'statediagramTitleText', titleTopMargin, title)`:
@@ -224,12 +146,6 @@ pub fn render(
     let rendered = render_with_dagre(&data, &config, &shapes)?;
     let mut root = rendered.root;
     styles.apply(&mut root, &infos);
-    blink_html_baselines(
-        &mut root,
-        &ctx.metrics,
-        &styles.vars.font_family,
-        styles.vars.font_size,
-    );
 
     let mut bounds = rendered.bounds;
     let mut children = vec![Element::Group(root)];

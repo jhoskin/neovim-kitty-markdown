@@ -82,43 +82,29 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -96)"/>
           <g class="label-group text" transform="translate(-57.492, -96)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="57.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="57.492" dy="17" font-weight="bold">Square&lt;Shape&gt;</tspan>
-              </text>
+              <text class="nodeLabel" x="57.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="57.492" dy="17" font-weight="bold">Square&lt;Shape&gt;</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-158.957, -48)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="18.973" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="18.973" dy="17">int id</tspan>
-              </text>
+              <text class="nodeLabel" x="18.973" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.973" dy="17">int id</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="61.754" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="61.754" dy="17">List&lt;int&gt; position</tspan>
-              </text>
+              <text class="nodeLabel" x="61.754" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="61.754" dy="17">List&lt;int&gt; position</tspan></text>
             </g>
             <g class="label" transform="translate(0, 36)">
-              <text class="nodeLabel" x="79.969" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="79.969" dy="17">-List&lt;string&gt; messages</tspan>
-              </text>
+              <text class="nodeLabel" x="79.969" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="79.969" dy="17">-List&lt;string&gt; messages</tspan></text>
             </g>
           </g>
           <g class="methods-group text" transform="translate(-158.957, 48)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="93.27" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="93.27" dy="17">setPoints(List&lt;int&gt; points)</tspan>
-              </text>
+              <text class="nodeLabel" x="93.27" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="93.27" dy="17">setPoints(List&lt;int&gt; points)</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="77.582" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="77.582" dy="17">getPoints() : List&lt;int&gt;</tspan>
-              </text>
+              <text class="nodeLabel" x="77.582" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="77.582" dy="17">getPoints() : List&lt;int&gt;</tspan></text>
             </g>
             <g class="label" transform="translate(0, 36)">
-              <text class="nodeLabel" x="130.211" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="130.211" dy="17">+setMessages(List&lt;string&gt; messages)</tspan>
-              </text>
+              <text class="nodeLabel" x="130.211" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="130.211" dy="17">+setMessages(List&lt;string&gt; messages)</tspan></text>
             </g>
           </g>
           <line class="divider" x1="-170.957" y1="-72" x2="170.957" y2="-71.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
@@ -129,9 +115,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-54.16, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="54.16" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="54.16" dy="17" font-weight="bold">Repository&lt;T&gt;</tspan>
-              </text>
+              <text class="nodeLabel" x="54.16" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="54.16" dy="17" font-weight="bold">Repository&lt;T&gt;</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-54.16, 30)"/>

@@ -90,9 +90,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-25.672, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="25.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="25.672" dy="17" font-weight="bold">Animal</tspan>
-              </text>
+              <text class="nodeLabel" x="25.672" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.672" dy="17" font-weight="bold">Animal</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-25.672, 30)"/>
@@ -105,23 +103,17 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -48)"/>
           <g class="label-group text" transform="translate(-18.344, -48)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="18.344" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="18.344" dy="17" font-weight="bold">Duck</tspan>
-              </text>
+              <text class="nodeLabel" x="18.344" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="18.344" dy="17" font-weight="bold">Duck</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-72.473, 0)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="63.301" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="63.301" dy="17">+String beakColor</tspan>
-              </text>
+              <text class="nodeLabel" x="63.301" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="63.301" dy="17">+String beakColor</tspan></text>
             </g>
           </g>
           <g class="methods-group text" transform="translate(-72.473, 48)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="28.184" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="28.184" dy="17">+swim()</tspan>
-              </text>
+              <text class="nodeLabel" x="28.184" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.184" dy="17">+swim()</tspan></text>
             </g>
           </g>
           <line class="divider" x1="-84.473" y1="-24" x2="84.473" y2="-23.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
@@ -132,9 +124,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-15.242, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="15.242" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="15.242" dy="17" font-weight="bold">Fish</tspan>
-              </text>
+              <text class="nodeLabel" x="15.242" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="15.242" dy="17" font-weight="bold">Fish</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-15.242, 30)"/>
@@ -145,17 +135,13 @@ expression: scene_svg(&mmd)
         <g id="my-svg-note0" class="node  " transform="translate(285.836, 50)">
           <rect class="basic label-container outer-path" x="-82.883" y="-18" width="165.766" height="36" fill="#fff5ad" stroke="#aaaa33" stroke-width="1"/>
           <g class="label noteLabel" transform="translate(-76.883, -12)">
-            <text class="nodeLabel" x="76.883" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-              <tspan x="76.883" dy="17">This is a general note</tspan>
-            </text>
+            <text class="nodeLabel" x="76.883" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="76.883" dy="17">This is a general note</tspan></text>
           </g>
         </g>
         <g id="my-svg-note1" class="node  " transform="translate(82.473, 50)">
           <rect class="basic label-container outer-path" x="-70.48" y="-18" width="140.961" height="36" fill="#fff5ad" stroke="#aaaa33" stroke-width="1"/>
           <g class="label noteLabel" transform="translate(-64.48, -12)">
-            <text class="nodeLabel" x="64.48" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-              <tspan x="64.48" dy="17">can fly\ncan swim</tspan>
-            </text>
+            <text class="nodeLabel" x="64.48" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="64.48" dy="17">can fly\ncan swim</tspan></text>
           </g>
         </g>
       </g>

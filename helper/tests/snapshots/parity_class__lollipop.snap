@@ -90,17 +90,13 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -39)"/>
           <g class="label-group text" transform="translate(-24.996, -39)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="24.996" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="24.996" dy="17" font-weight="bold">Engine</tspan>
-              </text>
+              <text class="nodeLabel" x="24.996" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="24.996" dy="17" font-weight="bold">Engine</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-39.463, 9)"/>
           <g class="methods-group text" transform="translate(-39.463, 39)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="26.965" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="26.965" dy="17">+start()</tspan>
-              </text>
+              <text class="nodeLabel" x="26.965" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="26.965" dy="17">+start()</tspan></text>
             </g>
           </g>
           <line class="divider" x1="-51.463" y1="-15" x2="51.463" y2="-14.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
@@ -111,9 +107,7 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -18)"/>
           <g class="label-group text" transform="translate(-12.574, -18)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="12.574" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="12.574" dy="17" font-weight="bold">Car</tspan>
-              </text>
+              <text class="nodeLabel" x="12.574" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="12.574" dy="17" font-weight="bold">Car</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-12.574, 30)"/>
@@ -124,17 +118,13 @@ expression: scene_svg(&mmd)
         <g id="my-svg-interface0" class="node  " transform="translate(40.887, 330)">
           <rect class="basic label-container" x="-32.887" y="-12" width="65.773" height="24" fill="#ececff" stroke="#9370db" stroke-width="1" opacity="0"/>
           <g class="label" transform="translate(-32.887, -12)">
-            <text class="nodeLabel" x="32.887" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-              <tspan x="32.887" dy="17">Startable</tspan>
-            </text>
+            <text class="nodeLabel" x="32.887" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="32.887" dy="17">Startable</tspan></text>
           </g>
         </g>
         <g id="my-svg-interface1" class="node  " transform="translate(159.383, 330)">
           <rect class="basic label-container" x="-35.609" y="-12" width="71.219" height="24" fill="#ececff" stroke="#9370db" stroke-width="1" opacity="0"/>
           <g class="label" transform="translate(-35.609, -12)">
-            <text class="nodeLabel" x="35.609" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-              <tspan x="35.609" dy="17">Stoppable</tspan>
-            </text>
+            <text class="nodeLabel" x="35.609" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="35.609" dy="17">Stoppable</tspan></text>
           </g>
         </g>
       </g>

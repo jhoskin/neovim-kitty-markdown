@@ -23,8 +23,8 @@ use crate::mermaid::diagrams::RenderCtx;
 use crate::mermaid::layout::unified::{LayoutData, UnifiedConfig, render_with_dagre};
 use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
-    Baseline, Common, Element, FontSpec, FontWeight, Group, Length, Marker, Paint, Rect, Scene,
-    Style, Text, TransformOp, ViewBox,
+    Common, Element, FontSpec, Group, Length, Marker, Paint, Rect, Scene, Style, Text, TransformOp,
+    ViewBox,
 };
 use crate::mermaid::shapes::measure::{LabelBox, LabelOpts};
 use crate::mermaid::shapes::util::{
@@ -34,7 +34,6 @@ use crate::mermaid::shapes::{Classifier, Node, NodeStyleVars, ShapeCtx};
 use crate::mermaid::styles::class::{ClassStyles, EDGE_TERMINALS_FONT_SIZE};
 use crate::text::TextMetrics;
 use crate::text::fonts::{Style as FontStyleDb, Weight};
-use crate::text::measure::FontSpec as TextFont;
 
 use super::db::{ClassDb, ClassMember, DataConfig};
 
@@ -226,47 +225,6 @@ fn restyle_terminals(root: &mut Group, ctx: &ShapeCtx, styles: &ClassStyles) -> 
         });
     });
     boxes
-}
-
-/// Puts every HTML label line on the baseline Blink gives it. The shared
-/// renderer centres a line in its `line-height: 1.5` box with
-/// `dominant-baseline: central`, which resvg resolves from the unrounded
-/// font metrics. Blink rounds the ascent and descent to whole pixels and
-/// floors the half-leading (`FontHeight::AddLeading`), so the baseline sits
-/// `floor((lineHeight - ascent - descent) / 2) + ascent` below the line
-/// top; for Trebuchet MS at 16 px that is 17 px, not 17.73.
-fn snap_html_baselines(root: &mut Group, metrics: &TextMetrics<'_>, default_family: &str) {
-    fn visit(g: &mut Group, metrics: &TextMetrics<'_>, family: &str) {
-        for child in &mut g.children {
-            match child {
-                Element::Group(c) => visit(c, metrics, family),
-                Element::Text(t) if t.baseline == Some(Baseline::Central) => {
-                    let size = t.font.size.unwrap_or(16.0);
-                    let weight = match t.font.weight {
-                        Some(FontWeight::Bold) => 700,
-                        Some(FontWeight::Number(n)) => n,
-                        _ => 400,
-                    };
-                    let spec =
-                        TextFont::new(t.font.family.as_deref().unwrap_or(family), size as f32)
-                            .weight(weight);
-                    let shaped = metrics.shape("x", &spec);
-                    let (ascent, descent) = (f64::from(shaped.ascent), f64::from(shaped.descent));
-                    let line_height = size * 1.5;
-                    let baseline = ((line_height - ascent - descent) / 2.0).floor() + ascent;
-                    // The first run of the first line carries `dy = lh / 2`.
-                    if let Some(first) = t.runs.first_mut()
-                        && let Some(Length::Px(dy)) = first.dy
-                    {
-                        first.dy = Some(Length::Px(dy - line_height / 2.0 + baseline));
-                    }
-                    t.baseline = Some(Baseline::Alphabetic);
-                }
-                _ => {}
-            }
-        }
-    }
-    visit(root, metrics, default_family);
 }
 
 /// The underline of a static member (`parseClassifier()` returns
@@ -495,7 +453,6 @@ pub fn draw(db: &ClassDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sc
     restyle_dividers(&mut rendered.root, &class_styles);
     let terminal_boxes = restyle_terminals(&mut rendered.root, &shapes, &styles);
     if shapes.html_labels {
-        snap_html_baselines(&mut rendered.root, &ctx.metrics, &shapes.vars.font_family);
         let statics: HashMap<String, (Vec<bool>, Vec<bool>)> = db
             .classes
             .values()

@@ -46,9 +46,7 @@ expression: scene_svg(&mmd)
         <g id="my-svg-state-Still-3" class="node  statediagram-state " transform="translate(76, 92)">
           <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -12)">
-            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-              <tspan x="60" dy="17">Still</tspan>
-            </text>
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Still</tspan></text>
           </g>
         </g>
         <g id="my-svg-state-root_end-5" class="node default" transform="translate(66, 349)">
@@ -60,17 +58,13 @@ expression: scene_svg(&mmd)
         <g id="my-svg-state-Moving-4" class="node  statediagram-state " transform="translate(117.5, 182)">
           <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -12)">
-            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-              <tspan x="60" dy="17">Moving</tspan>
-            </text>
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Moving</tspan></text>
           </g>
         </g>
         <g id="my-svg-state-Crash-5" class="node  statediagram-state " transform="translate(117.5, 272)">
           <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
           <g class="label" transform="translate(-60, -12)">
-            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-              <tspan x="60" dy="17">Crash</tspan>
-            </text>
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Crash</tspan></text>
           </g>
         </g>
       </g>

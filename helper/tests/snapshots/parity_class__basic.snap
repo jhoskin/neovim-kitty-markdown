@@ -76,43 +76,29 @@ expression: scene_svg(&mmd)
           <g class="annotation-group text" transform="translate(0, -96)"/>
           <g class="label-group text" transform="translate(-48.531, -96)">
             <g class="label" transform="translate(0, -12)" font-weight="900">
-              <text class="nodeLabel" x="48.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="48.531" dy="17" font-weight="bold">BankAccount</tspan>
-              </text>
+              <text class="nodeLabel" x="48.531" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="48.531" dy="17" font-weight="bold">BankAccount</tspan></text>
             </g>
           </g>
           <g class="members-group text" transform="translate(-119.031, -48)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="49.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="49.492" dy="17">+String owner</tspan>
-              </text>
+              <text class="nodeLabel" x="49.492" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="49.492" dy="17">+String owner</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="74.063" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="74.063" dy="17">+BigDecimal balance</tspan>
-              </text>
+              <text class="nodeLabel" x="74.063" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="74.063" dy="17">+BigDecimal balance</tspan></text>
             </g>
             <g class="label" transform="translate(0, 36)">
-              <text class="nodeLabel" x="21.91" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="21.91" dy="17">-int id</tspan>
-              </text>
+              <text class="nodeLabel" x="21.91" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="21.91" dy="17">-int id</tspan></text>
             </g>
           </g>
           <g class="methods-group text" transform="translate(-119.031, 48)">
             <g class="label" transform="translate(0, -12)">
-              <text class="nodeLabel" x="86.543" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="86.543" dy="17">+deposit(amount) : bool</tspan>
-              </text>
+              <text class="nodeLabel" x="86.543" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="86.543" dy="17">+deposit(amount) : bool</tspan></text>
             </g>
             <g class="label" transform="translate(0, 12)">
-              <text class="nodeLabel" x="94.766" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="94.766" dy="17">+withdrawal(amount) : int</tspan>
-              </text>
+              <text class="nodeLabel" x="94.766" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="94.766" dy="17">+withdrawal(amount) : int</tspan></text>
             </g>
             <g class="label" transform="translate(0, 36)">
-              <text class="nodeLabel" x="51.262" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16">
-                <tspan x="51.262" dy="17">#audit() : void</tspan>
-              </text>
+              <text class="nodeLabel" x="51.262" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="51.262" dy="17">#audit() : void</tspan></text>
             </g>
           </g>
           <line class="divider" x1="-131.031" y1="-72" x2="131.031" y2="-71.999" fill="#ececff" stroke="#9370db" stroke-width="1"/>
