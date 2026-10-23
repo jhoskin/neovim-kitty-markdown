@@ -58,6 +58,11 @@ const UNSEEDED_RUNS = 5;
  * same way and crops the golden.
  */
 const WIDTH_DEPENDENT = new Set(["gantt"]);
+/**
+ * Folders whose `.mmd` cases are checked against oracle SVG geometry, not
+ * against PNG goldens. Rendering PNGs there would only leave stray files.
+ */
+const SVG_ORACLE_DIRS = new Set(["unified"]);
 
 function fail(message) {
   console.error(`goldens: ${message}`);
@@ -167,6 +172,7 @@ let skipped = 0;
 
 const types = readdirSync(goldensDir)
   .filter((name) => statSync(join(goldensDir, name)).isDirectory())
+  .filter((name) => !SVG_ORACLE_DIRS.has(name))
   .sort()
   .filter((type) => onlyType === null || type === onlyType);
 
