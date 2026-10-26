@@ -277,3 +277,7 @@ These entries replace the macOS platform fallback list in Fonts and text.
   same. The unknown name still counts as a theme change, so
   `themeVariables` next to it derive a new theme from the base config
   theme.
+- A failed CLI command writes its reason on one line: each line break
+  becomes the two characters `\n` and each backslash becomes `\\`.
+  `printf '%b'` gives the multi-line oracle text back. Every failure exits
+  with status 1.

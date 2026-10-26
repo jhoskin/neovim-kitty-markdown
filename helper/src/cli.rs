@@ -3,7 +3,7 @@
 //! for direct evaluation and for the parity harness.
 //!
 //! `main` parses, calls one `run_*` function per subcommand, and turns the
-//! [`CliError`] into a stderr line and an exit status (R-146). The render,
+//! [`CliError`] into one stderr line and exit status 1 (R-146, R-324). The render,
 //! compare, and measure functions are the integration points for the
 //! modules that own those features.
 
@@ -85,31 +85,37 @@ pub struct MeasureArgs {
     pub mode: String,
 }
 
-/// Exit status for a feature that is not wired up yet, distinct from a
-/// failed render (1) so a harness can tell the two apart.
-pub const EXIT_NOT_IMPLEMENTED: u8 = 2;
-
-/// A command failure: the one line `main` prints to stderr and the exit
-/// status it returns.
+/// A command failure: `main` writes [`CliError::stderr_line`] and exits
+/// with status 1 (R-324).
 #[derive(Debug)]
 pub struct CliError {
     pub message: String,
-    pub exit_code: u8,
 }
 
 impl CliError {
     pub fn new(message: impl Into<String>) -> Self {
         CliError {
             message: message.into(),
-            exit_code: 1,
         }
     }
 
-    pub fn not_implemented(command: &str) -> Self {
-        CliError {
-            message: format!("`{command}` is not implemented yet"),
-            exit_code: EXIT_NOT_IMPLEMENTED,
+    /// The one stderr line, `kitty-markdown-helper: <reason>`. A mermaid
+    /// parse error has its excerpt, caret line, and expected tokens on
+    /// lines of their own, and the no-diagram-type message holds the whole
+    /// diagram text. Each line break becomes the two characters `\n` and a
+    /// backslash becomes `\\`, so the reason stays on one line and
+    /// `printf '%b'` gives the oracle text back.
+    pub fn stderr_line(&self) -> String {
+        let mut reason = String::with_capacity(self.message.len());
+        for c in self.message.chars() {
+            match c {
+                '\\' => reason.push_str("\\\\"),
+                '\n' => reason.push_str("\\n"),
+                '\r' => reason.push_str("\\r"),
+                c => reason.push(c),
+            }
         }
+        format!("kitty-markdown-helper: {reason}")
     }
 }
 
@@ -176,7 +182,8 @@ pub fn run_render(args: RenderArgs) -> Result<(), CliError> {
             theme: &args.theme,
             background: mermaid::parse_background(&args.background),
         })?;
-        std::fs::write(&args.output, &out.png)?;
+        std::fs::write(&args.output, &out.png)
+            .map_err(|e| CliError::new(format!("cannot write {}: {e}", args.output.display())))?;
         (out.width, out.height)
     } else {
         return Err(CliError::new("render needs --image, --svg, or --mermaid"));

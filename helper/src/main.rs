@@ -9,8 +9,8 @@ fn main() -> ExitCode {
     match cli::run(command) {
         Ok(()) => ExitCode::SUCCESS,
         Err(err) => {
-            eprintln!("kitty-markdown-helper: {err}");
-            ExitCode::from(err.exit_code)
+            eprintln!("{}", err.stderr_line());
+            ExitCode::FAILURE
         }
     }
 }
