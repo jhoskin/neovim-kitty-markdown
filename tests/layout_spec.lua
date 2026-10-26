@@ -778,6 +778,76 @@ describe('layout', function()
     end
   end)
 
+  describe('installed parsers (R-209)', function()
+    local root = vim.fs.dirname(vim.fs.dirname(vim.fn.fnamemodify(here, ':p')))
+    local child = vim.fs.joinpath(fixtures, 'layout_child.lua')
+    local docs = {}
+    for name, kind in vim.fs.dir(fixtures) do
+      if kind == 'file' and name:match('%.md$') then
+        docs[#docs + 1] = vim.fs.joinpath(fixtures, name)
+      end
+    end
+    table.sort(docs)
+
+    local function run_child(rtp)
+      local cmd = { vim.v.progpath, '--clean', '-l', child, root, rtp }
+      vim.list_extend(cmd, docs)
+      local res = vim.system(cmd, { text = true }):wait()
+      assert.are.equal(0, res.code, res.stderr)
+      return vim.json.decode(res.stdout)
+    end
+
+    local function expected_models()
+      local out = {}
+      for i, path in ipairs(docs) do
+        local buf = vim.api.nvim_create_buf(false, true)
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.fn.readfile(path))
+        out[i] = vim.inspect(layout.build(parser.parse(buf), OPTS))
+      end
+      return out
+    end
+
+    local function assert_same_models(got)
+      local want = expected_models()
+      assert.are.equal(#want, #got.models)
+      for i = 1, #want do
+        assert.are.equal(want[i], got.models[i], docs[i])
+      end
+    end
+
+    it('gives the same model when no parser is on the runtimepath', function()
+      local got = run_child(root .. ',' .. vim.env.VIMRUNTIME)
+      for _, lib in ipairs(got.parsers) do
+        assert.is_nil(lib:match('markdown'), 'parser left on the runtimepath: ' .. lib)
+      end
+      assert_same_models(got)
+    end)
+
+    it('gives the same model when only markdown_inline is missing', function()
+      local dir = vim.fn.tempname()
+      vim.fn.mkdir(dir .. '/parser', 'p')
+      local bundled = vim.api.nvim_get_runtime_file('parser/markdown.*', true)
+      assert.is_true(#bundled > 0)
+      local src = bundled[#bundled]
+      vim.uv.fs_copyfile(src, dir .. '/parser/' .. vim.fs.basename(src))
+      local got = run_child(dir .. ',' .. root .. ',' .. vim.env.VIMRUNTIME)
+      vim.fn.delete(dir, 'rf')
+      assert_same_models(got)
+    end)
+
+    it('gives the same model with another markdown parser first on the runtimepath', function()
+      -- A user parser (for example from nvim-treesitter) sits in the data
+      -- site directory. Without one there is nothing to shadow the bundled
+      -- parser, so the check only runs where one is installed.
+      local site = vim.fs.joinpath(vim.fn.stdpath('data'), 'site')
+      if not vim.uv.fs_stat(vim.fs.joinpath(site, 'parser', 'markdown.so')) then
+        return
+      end
+      local got = run_child(site .. ',' .. root .. ',' .. vim.env.VIMRUNTIME)
+      assert_same_models(got)
+    end)
+  end)
+
   describe('performance (R-023)', function()
     it('lays out a 1000-line document in under 150 ms', function()
       local chunk = {

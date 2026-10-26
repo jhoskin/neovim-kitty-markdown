@@ -116,13 +116,15 @@ end
 local Walk = {}
 Walk.__index = Walk
 
-function Walk.new(bufnr)
+-- `shared` carries the state a nested walk (the body of a footnote) shares
+-- with the document walk: link definitions and slug occurrences.
+function Walk.new(lines, shared)
   local self = setmetatable({}, Walk)
-  self.bufnr = bufnr
-  self.lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  self.lines = lines
+  self.source = table.concat(lines, '\n') .. '\n'
   self.inline_roots = {}
-  self.defs = {}
-  self.slug_counts = {}
+  self.defs = shared and shared.defs or {}
+  self.slug_counts = shared and shared.slug_counts or {}
   self.skip = {}
   return self
 end
@@ -408,7 +410,7 @@ function Walk:inline_node(node, out)
     local open_len = 1
     for child in node:iter_children() do
       if child:type() == 'latex_span_delimiter' then
-        open_len = #get_text(child, self.bufnr)
+        open_len = #get_text(child, self.source)
         break
       end
     end
@@ -683,7 +685,7 @@ function Walk:list(node, out)
           if t == 'list_marker_dot' or t == 'list_marker_parenthesis' then
             block.ordered = true
             if first_marker then
-              block.start = tonumber(get_text(child, self.bufnr):match('%d+')) or 1
+              block.start = tonumber(get_text(child, self.source):match('%d+')) or 1
             end
           end
           first_marker = false
@@ -757,8 +759,8 @@ function Walk:fenced_code(node, out)
   local info = first_named(node, 'info_string')
   if info then
     local language = first_named(info, 'language')
-    lang = language and get_text(language, self.bufnr)
-      or trim(get_text(info, self.bufnr)):match('^%S+')
+    lang = language and get_text(language, self.source)
+      or trim(get_text(info, self.source)):match('^%S+')
     if lang == '' then
       lang = nil
     end
@@ -766,7 +768,7 @@ function Walk:fenced_code(node, out)
   local delimiter = first_named(node, 'fenced_code_block_delimiter')
   local indent = 0
   if delimiter then
-    local text = get_text(delimiter, self.bufnr)
+    local text = get_text(delimiter, self.source)
     indent = #text:match('^ *')
   end
   local content = first_named(node, 'code_fence_content')
@@ -853,7 +855,7 @@ end
 function Walk:reference_definition(node, out)
   local src_start, src_end = self:rows(node)
   local label_node = first_named(node, 'link_label')
-  local label = label_node and get_text(label_node, self.bufnr):sub(2, -2) or ''
+  local label = label_node and get_text(label_node, self.source):sub(2, -2) or ''
   if label:match('^%^') then
     -- `[^label]: word` is a footnote whose body is one word
     local line = self.lines[src_start] or ''
@@ -877,11 +879,11 @@ function Walk:collect_definitions(node)
     local label_node = first_named(node, 'link_label')
     local dest = first_named(node, 'link_destination')
     if label_node and dest then
-      local label = get_text(label_node, self.bufnr):sub(2, -2)
+      local label = get_text(label_node, self.source):sub(2, -2)
       if not label:match('^%^') then
         local key = normalize_label(label)
         if self.defs[key] == nil then
-          self.defs[key] = strip_angle(get_text(dest, self.bufnr))
+          self.defs[key] = strip_angle(get_text(dest, self.source))
         end
       end
     end
@@ -936,20 +938,102 @@ function Walk:block(node, out)
   -- block_continuation and markers carry no content of their own
 end
 
---- Parse a markdown buffer into the block list. The list also carries
---- `dir`, the directory of the buffer name, which the layout uses to
---- resolve relative image and file paths when `opts.dir` is absent.
-function M.parse(bufnr)
-  bufnr = bufnr or vim.api.nvim_get_current_buf()
-  local walk = Walk.new(bufnr)
-  local parser = vim.treesitter.get_parser(bufnr, 'markdown')
+-- The walk loads the markdown grammars that ship with Neovim by file path,
+-- under names of its own. A parser of another version on 'runtimepath' (for
+-- example one from nvim-treesitter), a runtimepath with no parser
+-- directory, or a missing `markdown_inline` then gives the same tree
+-- (R-209). The injection query is the plugin's own too: it injects only
+-- the inline grammar, so no parser of a code fence language is loaded.
+local LANG = 'kitty_markdown'
+local INLINE_LANG = 'kitty_markdown_inline'
+local INJECTIONS = '([(inline) (pipe_table_cell)] @injection.content'
+  .. ' (#set! injection.language "'
+  .. INLINE_LANG
+  .. '"))'
+
+-- Directories that may hold the bundled parsers, most specific first: the
+-- runtime directory, the `lib/nvim/parser` directory of the install prefix
+-- (where release archives and Homebrew put them), and last the parser
+-- directories on 'runtimepath', the bundled ones (late on the path) first.
+local function parser_dirs()
+  local dirs = {}
+  local runtime = vim.env.VIMRUNTIME
+  if runtime and runtime ~= '' then
+    dirs[#dirs + 1] = vim.fs.joinpath(runtime, 'parser')
+    dirs[#dirs + 1] = vim.fs.normalize(vim.fs.joinpath(runtime, '../../../lib/nvim/parser'))
+  end
+  local prog = vim.v.progpath
+  if prog and prog ~= '' then
+    local prefix = vim.fs.dirname(vim.fs.dirname(vim.fn.resolve(prog)))
+    dirs[#dirs + 1] = vim.fs.joinpath(prefix, 'lib/nvim/parser')
+  end
+  local found = vim.api.nvim_get_runtime_file('parser/markdown_inline.*', true)
+  for i = #found, 1, -1 do
+    dirs[#dirs + 1] = vim.fs.dirname(found[i])
+  end
+  return dirs
+end
+
+local function library(dir, name)
+  for _, ext in ipairs({ 'so', 'dll', 'dylib' }) do
+    local path = vim.fs.joinpath(dir, name .. '.' .. ext)
+    if vim.uv.fs_stat(path) then
+      return path
+    end
+  end
+  return nil
+end
+
+local languages_ready = false
+
+local function load_languages()
+  if languages_ready then
+    return
+  end
+  for _, dir in ipairs(parser_dirs()) do
+    local block_lib = library(dir, 'markdown')
+    local inline_lib = library(dir, 'markdown_inline')
+    if block_lib and inline_lib then
+      local language = vim.treesitter.language
+      local ok_block = language.add(LANG, { path = block_lib, symbol_name = 'markdown' })
+      local ok_inline =
+        language.add(INLINE_LANG, { path = inline_lib, symbol_name = 'markdown_inline' })
+      if ok_block and ok_inline then
+        languages_ready = true
+        return
+      end
+    end
+  end
+  error('kitty-markdown: no markdown tree-sitter parser found in the Neovim install', 0)
+end
+
+-- Move every source row in a block list by `offset`: the rows of a nested
+-- body are relative to the body, not to the document.
+local function shift_rows(value, offset)
+  for key, field in pairs(value) do
+    if type(field) == 'table' then
+      shift_rows(field, offset)
+    elseif type(field) == 'number' and (key == 'src_start' or key == 'src_end' or key == 'row') then
+      value[key] = field + offset
+    end
+  end
+end
+
+-- Parse lines into the block list. `shared` is the state of the document
+-- walk when the lines are a nested body; `row_offset` moves the source rows
+-- of the result to the rows of that body in the document.
+local function parse_lines(lines, shared, row_offset)
+  load_languages()
+  local walk = Walk.new(lines, shared)
+  local parser =
+    vim.treesitter.get_string_parser(walk.source, LANG, { injections = { [LANG] = INJECTIONS } })
   parser:parse(true)
   local root
   parser:for_each_tree(function(tree, ltree)
     local lang = ltree:lang()
-    if lang == 'markdown' and not root then
+    if lang == LANG and not root then
       root = tree:root()
-    elseif lang == 'markdown_inline' then
+    elseif lang == INLINE_LANG then
       local node = tree:root()
       local sr, sc = node:start()
       walk.inline_roots[key_of(sr, sc)] = node
@@ -960,6 +1044,22 @@ function M.parse(bufnr)
     walk:collect_definitions(root)
     walk:block(root, blocks)
   end
+  if row_offset and row_offset ~= 0 then
+    shift_rows(blocks, row_offset)
+  end
+  return blocks
+end
+
+function Walk:parse_nested(lines, row_offset)
+  return parse_lines(lines, { defs = self.defs, slug_counts = self.slug_counts }, row_offset)
+end
+
+--- Parse a markdown buffer into the block list. The list also carries
+--- `dir`, the directory of the buffer name, which the layout uses to
+--- resolve relative image and file paths when `opts.dir` is absent.
+function M.parse(bufnr)
+  bufnr = bufnr or vim.api.nvim_get_current_buf()
+  local blocks = parse_lines(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false))
   local name = vim.api.nvim_buf_get_name(bufnr)
   blocks.dir = name ~= '' and vim.fs.dirname(name) or nil
   return blocks

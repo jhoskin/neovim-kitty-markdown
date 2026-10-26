@@ -174,3 +174,17 @@ as a spec proposal instead.
   of that block to the preview.
 - An image failure message that does not contain the image source gets
   the source in front: `<path or URL>: <helper message>`.
+
+## Markdown layout
+
+- The parser loads the `markdown` and `markdown_inline` grammars that ship
+  with Neovim by file path, under the names `kitty_markdown` and
+  `kitty_markdown_inline`, and parses a string copy of the buffer with its
+  own injection query (inline content only). It looks in
+  `$VIMRUNTIME/parser`, then `lib/nvim/parser` of the install prefix
+  (found from `$VIMRUNTIME` and from `v:progpath`), then the parser
+  directories on 'runtimepath', bundled ones first. A user parser of
+  another version, a runtimepath with no parser directory, or a missing
+  `markdown_inline` then give the same model (R-209), and no code fence
+  language parser is loaded. With no bundled grammar anywhere, `parse`
+  raises an error.
