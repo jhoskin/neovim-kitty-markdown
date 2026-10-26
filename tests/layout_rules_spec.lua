@@ -218,6 +218,39 @@ describe('layout rules', function()
     end)
   end)
 
+  describe('duplicate slugs (R-206, R-275)', function()
+    local function slugs(headings)
+      local lines = {}
+      for _, h in ipairs(headings) do
+        lines[#lines + 1] = '# ' .. h
+        lines[#lines + 1] = ''
+      end
+      local model = build(lines)
+      local by_line = {}
+      for slug, line in pairs(model.anchors) do
+        by_line[#by_line + 1] = { line, slug }
+      end
+      table.sort(by_line, function(a, b)
+        return a[1] < b[1]
+      end)
+      local out = {}
+      for i, entry in ipairs(by_line) do
+        out[i] = entry[2]
+      end
+      return out
+    end
+
+    it('follows github-slugger for suffixed duplicates', function()
+      assert.are.same(
+        { 'dup', 'dup-1', 'dup-1-1', 'dup-2' },
+        slugs({ 'Dup', 'Dup', 'Dup-1', 'Dup' })
+      )
+      assert.are.same({ 'a-1', 'a', 'a-2' }, slugs({ 'a-1', 'a', 'a' }))
+      assert.are.same({ 'x', 'x-1', 'x-2', 'x-3' }, slugs({ 'x', 'x-1', 'x', 'x' }))
+      assert.are.same({ 'b', 'b-1', 'b-2', 'b-1-1' }, slugs({ 'b', 'b', 'b', 'b-1' }))
+    end)
+  end)
+
   describe('inline math delimiters (R-062, R-280)', function()
     local literal = {
       'Price $5 and $10 here.',

@@ -831,12 +831,17 @@ function Walk:heading(node, out)
   inlines = lift_images(inlines, lifted, true)
   local text = plain_text(inlines)
   local layout = require('kitty-markdown.layout')
-  local slug = layout.slug(text)
-  local count = self.slug_counts[slug]
-  self.slug_counts[slug] = (count or 0) + 1
-  if count then
-    slug = slug .. '-' .. count
+  -- github-slugger: count up from the base slug until the result is one
+  -- no earlier heading took, then mark the result itself as taken, so
+  -- `a`, `a`, `a-1` give `a`, `a-1`, `a-1-1` (R-275)
+  local base = layout.slug(text)
+  local slug = base
+  local taken = self.slug_counts
+  while taken[slug] ~= nil do
+    taken[base] = taken[base] + 1
+    slug = base .. '-' .. taken[base]
   end
+  taken[slug] = 0
   out[#out + 1] = {
     kind = 'heading',
     level = level,
