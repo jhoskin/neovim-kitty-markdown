@@ -139,3 +139,12 @@ as a spec proposal instead.
   applies them before the shared `.marker` paint.
 - The dagre dummy node id counter resets once per diagram render, so two
   renders of one source give the same SVG.
+- The theme tells its own `KittyMarkdown*` groups from a user or
+  colorscheme group by the `nvim_get_hl` read-back of what it last wrote.
+  A group that reads back the same is the plugin's and gets the current
+  palette; an empty group is defined again; any other group is kept and
+  stops being the plugin's (R-076, R-281, R-282). A user definition equal
+  to the plugin's own is not told apart, which the user cannot see.
+- The theme registers its `ColorScheme` autocmd (augroup
+  `kitty-markdown-theme`) on the first `apply`, which `setup` runs, so a
+  colorscheme load defines the groups again before any preview opens.
