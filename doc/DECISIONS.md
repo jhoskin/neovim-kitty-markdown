@@ -148,3 +148,29 @@ as a spec proposal instead.
 - The theme registers its `ColorScheme` autocmd (augroup
   `kitty-markdown-theme`) on the first `apply`, which `setup` runs, so a
   colorscheme load defines the groups again before any preview opens.
+
+## Preview and helper client
+
+- A URL is a source that starts with an RFC 3986 scheme
+  (`^%a[%w+.-]*:`), the same pattern the layout uses to leave a source
+  unresolved. The scheme compares in lower case, so `HTTP://` is fetched.
+  Any other scheme fails in the plugin with `fetch_failed` and `status`
+  0, before a helper request, so a `file://` URL never reaches the
+  remote cache (R-225, R-287).
+- When the preview window is the last non-float window of its tab page,
+  closing the preview shows the source buffer in it, or a new empty
+  buffer when the source is unloaded, and resets the preview window
+  options to their global values (R-252).
+- `:KittyMarkdown refresh` re-renders only the preview of the current
+  source; the other previews get their placed images transmitted and
+  placed again without a re-render, so a refresh does not re-request
+  their failed blocks.
+- A helper exit no longer writes the stderr tail to `:messages`. Every
+  `vim.notify` level reaches `:messages`, and R-313 allows one message
+  per exit; `helper.stderr_tail()` keeps the lines.
+- Scroll sync finds the top-level parser block whose source range holds
+  the cursor line (the first one, so a paragraph wins over the image
+  lifted out of it), or the nearest block above, and maps the first line
+  of that block to the preview.
+- An image failure message that does not contain the image source gets
+  the source in front: `<path or URL>: <helper message>`.

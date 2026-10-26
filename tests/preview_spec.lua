@@ -151,6 +151,8 @@ describe('preview', function()
     vim.env.KM_NVIM = vim.v.progpath
     vim.env.KM_PREVIEW_PNG = png
     vim.env.KM_FAKE_CACHED = nil
+    vim.env.KM_FAKE_FETCHED = nil
+    vim.env.KM_FAKE_PREPARED = nil
     vim.env.TMUX = nil
     vim.o.termguicolors = true
     vim.o.background = 'light'
@@ -256,7 +258,9 @@ describe('preview', function()
       assert.are.equal(2, vim.fn.tabpagenr('$'))
       assert.are.equal(p.win, vim.api.nvim_get_current_win())
       preview.close(buf)
-      assert.are.equal(1, vim.fn.tabpagenr('$'))
+      -- R-252: the tab page stays, on another buffer
+      assert.are.equal(2, vim.fn.tabpagenr('$'))
+      vim.cmd('tabonly')
       local f = preview.open(buf, 'float')
       local cfg = vim.api.nvim_win_get_config(f.win)
       assert.are.equal('editor', cfg.relative)
@@ -641,6 +645,83 @@ describe('preview', function()
     end
   )
 
+  describe('close of the last window of a tab page (R-252)', function()
+    local function check_released(p, other, tabs)
+      assert.is_true(vim.api.nvim_win_is_valid(p.win))
+      assert.is_false(vim.api.nvim_buf_is_valid(p.buf))
+      local shown = vim.api.nvim_win_get_buf(p.win)
+      assert.are_not.equal(p.buf, shown)
+      if other then
+        assert.are.equal(other, shown)
+      end
+      assert.are.equal(tabs or 2, vim.fn.tabpagenr('$'))
+    end
+
+    it('keeps the window of a closed tab preview on the source', function()
+      local buf = fixture_buf()
+      local p = preview.open(buf, 'tab')
+      answer_probe(true)
+      local b = wait_state(buf, 1, 'placed')
+      assert.is_true(preview.close(buf))
+      check_released(p, buf)
+      assert.are.equal(1, bytes_matching('a=d,d=I,i=' .. b.image_id .. ',q=2'))
+      assert.is_nil(preview.get(buf))
+      -- the preview window options do not stay on the source
+      assert.are.equal(vim.go.number, vim.wo[p.win].number)
+      assert.are.equal(vim.go.wrap, vim.wo[p.win].wrap)
+      assert.are.equal(vim.go.winhighlight, vim.wo[p.win].winhighlight)
+    end)
+
+    it('keeps the tab page when a tab preview is toggled off from inside it', function()
+      local buf = fixture_buf()
+      local p = preview.open(buf, 'tab')
+      assert.are.equal(p.win, vim.api.nvim_get_current_win())
+      assert.is_nil(preview.toggle(p.buf))
+      check_released(p, buf)
+      assert.is_nil(preview.get(buf))
+    end)
+
+    it('keeps the tab page when q closes a tab preview', function()
+      local buf = fixture_buf()
+      local p = preview.open(buf, 'tab')
+      vim.api.nvim_feedkeys('q', 'x', false)
+      check_released(p, buf)
+    end)
+
+    it('keeps the window on a new buffer when the source is wiped', function()
+      local buf = fixture_buf()
+      local p = preview.open(buf, 'tab')
+      vim.api.nvim_buf_delete(buf, { force = true })
+      assert.is_true(wait_for(function()
+        return not vim.api.nvim_buf_is_valid(p.buf)
+      end))
+      -- the wipe closed the tab page of the source window
+      check_released(p, nil, 1)
+      assert.are.equal('', vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(p.win)))
+      assert.is_nil(preview.get(buf))
+    end)
+
+    it('keeps a split preview that became the last window of its tab page', function()
+      local buf = fixture_buf()
+      local p = preview.open(buf, 'split')
+      vim.api.nvim_set_current_win(p.win)
+      vim.cmd('only')
+      vim.cmd('tab split')
+      assert.is_true(preview.close(buf))
+      assert.is_true(vim.api.nvim_win_is_valid(p.win))
+      assert.is_false(vim.api.nvim_buf_is_valid(p.buf))
+    end)
+
+    it('still closes a tab preview window that shares its tab page', function()
+      local buf = fixture_buf()
+      local p = preview.open(buf, 'tab')
+      vim.cmd('split')
+      assert.is_true(preview.close(buf))
+      assert.is_false(vim.api.nvim_win_is_valid(p.win))
+      assert.is_false(vim.api.nvim_buf_is_valid(p.buf))
+    end)
+  end)
+
   describe('close (R-008, R-011)', function()
     it('deletes images, closes the window, and wipes the buffer', function()
       local buf = fixture_buf()
@@ -757,9 +838,11 @@ describe('preview', function()
       end
       assert.are.equal(1, preview.sync_target(model, 1))
       assert.are.equal(line_of('A paragraph'), preview.sync_target(model, 3))
-      -- the second source line of the paragraph lands inside it
+      -- without block ranges the second source line lands inside it
       local inside = preview.sync_target(model, 4)
       assert.is_true(inside >= line_of('A paragraph') and inside < model.blocks[1].line)
+      -- with them it lands on the first line of the paragraph (R-248)
+      assert.are.equal(line_of('A paragraph'), preview.sync_target(model, 4, p.source_blocks))
       -- the image anchor line, not the separator before or after it
       assert.are.equal(model.blocks[1].line, preview.sync_target(model, 6))
       assert.are.equal(line_of('Section Two'), preview.sync_target(model, 12))
@@ -806,6 +889,369 @@ describe('preview', function()
       config.setup({ placement = 'split', scroll_sync = false })
       local q = preview.open(buf, 'split')
       assert.is_nil(q.sync_timer)
+    end)
+  end)
+
+  describe('scroll sync to the block start (R-248, R-340, R-341)', function()
+    local function line_of(model, needle)
+      for i, line in ipairs(model.lines) do
+        if line:find(needle, 1, true) then
+          return i
+        end
+      end
+      error('no ' .. needle)
+    end
+
+    it('targets the first line of the block under the cursor', function()
+      local lines = {
+        '---',
+        'title: x',
+        '---',
+        '',
+        '# Heading',
+        '',
+      }
+      local para = #lines + 1
+      for i = 1, 6 do
+        lines[#lines + 1] = 'Paragraph line ' .. i .. ' with words.'
+      end
+      lines[#lines + 1] = ''
+      local list = #lines + 1
+      for i = 1, 30 do
+        lines[#lines + 1] = '- item ' .. i
+        if i % 5 == 0 then
+          lines[#lines + 1] = '  - nested ' .. i
+        end
+      end
+      local list_end = #lines
+      lines[#lines + 1] = ''
+      local quote = #lines + 1
+      lines[#lines + 1] = '> quote one'
+      lines[#lines + 1] = '> quote two'
+      lines[#lines + 1] = '> quote three'
+      lines[#lines + 1] = ''
+      local code = #lines + 1
+      lines[#lines + 1] = '```lua'
+      lines[#lines + 1] = 'local a = 1'
+      lines[#lines + 1] = 'local b = 2'
+      lines[#lines + 1] = '```'
+      lines[#lines + 1] = ''
+      lines[#lines + 1] = '| a | b |'
+      local tbl = #lines
+      lines[#lines + 1] = '| - | - |'
+      lines[#lines + 1] = '| 1 | 2 |'
+      lines[#lines + 1] = '| 3 | 4 |'
+      local buf = make_buf(lines)
+      local p = preview.open(buf, 'split')
+      local model = p.model
+      local first_para = line_of(model, 'Paragraph line 1')
+      for l = para, para + 5 do
+        assert.are.equal(first_para, preview.sync(buf, l), 'paragraph line ' .. l)
+      end
+      local first_item = line_of(model, 'item 1')
+      for _, l in ipairs({ list, list + 1, list + 12, list + 20, list_end }) do
+        assert.are.equal(first_item, preview.sync(buf, l), 'list line ' .. l)
+      end
+      local first_quote = line_of(model, 'quote one')
+      assert.are.equal(first_quote, preview.sync(buf, quote + 2))
+      local code_start = preview.sync(buf, code)
+      assert.are.equal(code_start, preview.sync(buf, code + 2))
+      local table_start = preview.sync(buf, tbl)
+      assert.are.equal(table_start, preview.sync(buf, tbl + 3))
+      -- R-340: a blank line belongs to the block above
+      assert.are.equal(first_para, preview.sync(buf, para + 6))
+      assert.are.equal(first_item, preview.sync(buf, list_end + 1))
+      -- R-341: front matter goes to line 1
+      assert.are.equal(1, preview.sync(buf, 2))
+      assert.are.equal(line_of(model, 'Heading'), preview.sync(buf, 5))
+    end)
+
+    it('follows the source cursor to the block start', function()
+      local lines = { '# Top', '' }
+      for i = 1, 80 do
+        lines[#lines + 1] = 'Line ' .. i .. ' of one long paragraph.'
+      end
+      local buf = make_buf(lines)
+      local p = preview.open(buf, 'split')
+      local start = line_of(p.model, 'Line 1 ')
+      vim.api.nvim_win_set_cursor(0, { 70, 0 })
+      vim.api.nvim_exec_autocmds('CursorMoved', { buffer = buf })
+      assert.is_true(wait_for(function()
+        return vim.api.nvim_win_get_cursor(p.win)[1] == start
+      end, 1000))
+    end)
+  end)
+
+  describe('refresh (R-017, R-130, R-196, R-244, R-310)', function()
+    it('re-transmits the placed images of every open preview', function()
+      -- narrow text, so the second split does not change the block keys
+      config.setup({ placement = 'split', text_width = 16 })
+      local a = make_buf(vim.fn.readfile(fixtures .. '/doc.md'), 'a.md')
+      preview.open(a, 'split')
+      answer_probe(true)
+      local ba = wait_state(a, 1, 'placed')
+      local b2 = make_buf({ '![B alt](pic.png)' }, 'b.md')
+      preview.open(b2, 'split')
+      local bb = wait_state(b2, 1, 'placed')
+      local c = make_buf({ '# Not shown' }, 'c.txt')
+      vim.bo[c].filetype = 'text'
+      for _, id in ipairs({ ba.image_id, bb.image_id }) do
+        assert.are.equal(1, bytes_matching('a=t,f=100,t=d,i=' .. id .. ','))
+      end
+      -- from the source of one preview
+      preview.render(a, { reprobe = true })
+      for _, id in ipairs({ ba.image_id, bb.image_id }) do
+        assert.are.equal(2, bytes_matching('a=t,f=100,t=d,i=' .. id .. ','))
+        assert.are.equal(2, bytes_matching('a=p,U=1,i=' .. id .. ','))
+      end
+      answer_probe(true)
+      -- the probe callback runs scheduled; let it finish before the next
+      settle()
+      -- from a buffer that has no preview
+      require('kitty-markdown').refresh()
+      assert.are.equal(c, vim.api.nvim_get_current_buf())
+      for _, id in ipairs({ ba.image_id, bb.image_id }) do
+        assert.are.equal(3, bytes_matching('a=t,f=100,t=d,i=' .. id .. ','))
+      end
+      assert.are.equal(3, bytes_matching('a=q'))
+      answer_probe(true)
+      assert.are.equal('placed', block(a, 1).state)
+      assert.are.equal('placed', block(b2, 1).state)
+    end)
+
+    local function crash()
+      local done = false
+      helper.request('image.prepare', { path = tmp .. '/crash.png', width_px = 10 }, function()
+        done = true
+      end)
+      assert.is_true(wait_for(function()
+        return done and not helper.is_running()
+      end))
+    end
+
+    local function restart_errors()
+      local n = 0
+      for _, msg in ipairs(notices_at(vim.log.levels.ERROR)) do
+        if msg:find('60 seconds', 1, true) then
+          n = n + 1
+        end
+      end
+      return n
+    end
+
+    it('clears the restart stop with no preview and needs three new exits', function()
+      for _ = 1, 3 do
+        crash()
+      end
+      assert.are.equal('failed', helper.state())
+      assert.are.equal(1, restart_errors())
+      local other = vim.api.nvim_create_buf(true, false)
+      vim.bo[other].filetype = 'lua'
+      vim.api.nvim_set_current_buf(other)
+      require('kitty-markdown').refresh()
+      assert.are.equal('absent', helper.state())
+      crash()
+      assert.are.equal('absent', helper.state())
+      crash()
+      assert.are.equal('absent', helper.state())
+      assert.are.equal(1, restart_errors())
+      crash()
+      assert.are.equal('failed', helper.state())
+      assert.are.equal(2, restart_errors())
+      -- an unnamed scratch buffer with no filetype clears it as well
+      vim.api.nvim_set_current_buf(vim.api.nvim_create_buf(false, true))
+      require('kitty-markdown').refresh()
+      assert.are.equal('absent', helper.state())
+    end)
+  end)
+
+  describe('helper exit messages (R-195, R-198, R-313)', function()
+    it('writes one WARN and nothing per block when the helper dies', function()
+      local buf = make_buf({
+        '![Slow one](slow.png)',
+        '',
+        '![Slow two](slow-2.png)',
+        '',
+        '![Boom](crash.png)',
+        '',
+        '```mermaid',
+        'flowchart LR',
+        '  A --> B',
+        '```',
+        '',
+        '![Remote](https://example.com/slow.png)',
+      })
+      preview.open(buf, 'split')
+      answer_probe(true)
+      for n = 1, 3 do
+        assert.are.equal('helper exited', wait_state(buf, n, 'failed').reason)
+      end
+      settle(600)
+      local own = {}
+      for _, n in ipairs(notices) do
+        if n.level ~= vim.log.levels.INFO then
+          own[#own + 1] = n
+        end
+      end
+      assert.are.equal(1, #own)
+      assert.are.equal(vim.log.levels.WARN, own[1].level)
+      assert.matches('helper exited with', own[1].msg)
+    end)
+  end)
+
+  describe('URL schemes (R-079, R-225, R-287)', function()
+    it('fails every scheme other than http and https without a request', function()
+      local file = tmp .. '/pic.png'
+      local sources = {
+        'file://' .. file,
+        'FILE://' .. file,
+        'File:' .. file,
+        'ftp://example.com/a.png',
+        'data:image/png;base64,iVBORw0KGgo=',
+        'gopher://example.com/a.png',
+        'x-custom+app.v2:thing.png',
+        's3://bucket/key.png',
+        'mailto:a@example.com',
+      }
+      local lines = {}
+      for i, src in ipairs(sources) do
+        lines[#lines + 1] = string.format('![S%d](%s)', i, src)
+        lines[#lines + 1] = ''
+      end
+      local remote_before = vim.fn.glob(cache.dirs().remote .. '/*', true, true)
+      local requests = {}
+      local real_request = helper.request
+      helper.request = function(method, params, cb)
+        requests[#requests + 1] = { method = method, params = params }
+        return real_request(method, params, cb)
+      end
+      local buf = make_buf(lines)
+      preview.open(buf, 'split')
+      answer_probe(true)
+      for n = 1, #sources do
+        local b = wait_state(buf, n, 'failed')
+        assert.are.equal('fetch failed', b.reason, sources[n])
+        assert.matches('fetch failed', rows_of(buf, b)[2])
+      end
+      helper.request = real_request
+      for _, r in ipairs(requests) do
+        assert.is_true(r.method ~= 'fetch' and r.method ~= 'image.prepare', r.method)
+      end
+      local errors = notices_at(vim.log.levels.ERROR)
+      assert.are.equal(#sources, #errors)
+      assert.are.equal(
+        'kitty-markdown: image S1: fetch_failed: file://'
+          .. file
+          .. ': unsupported URL scheme "file"',
+        errors[1]
+      )
+      assert.are.same(remote_before, vim.fn.glob(cache.dirs().remote .. '/*', true, true))
+    end)
+
+    it('fetches http and https in any case and reads plain paths', function()
+      local buf = make_buf({
+        '![A](https://example.com/a.png)',
+        '',
+        '![B](HTTP://example.com/b.png)',
+        '',
+        '![C](HtTpS://example.com/c.png)',
+        '',
+        '![D](pic.png)',
+        '',
+        '![E](' .. tmp .. '/pic.png)',
+      })
+      preview.open(buf, 'split')
+      answer_probe(true)
+      for n = 1, 5 do
+        wait_state(buf, n, 'placed')
+      end
+    end)
+
+    it('shows remote images off for http with remote images disabled', function()
+      config.setup({ placement = 'split', remote_images = { enabled = false } })
+      local buf = make_buf({ '![R](https://example.com/r.png)', '', '![F](file:///x.png)' })
+      preview.open(buf, 'split')
+      answer_probe(true)
+      assert.are.equal('remote images off', wait_state(buf, 1, 'failed').reason)
+      assert.are.equal('fetch failed', wait_state(buf, 2, 'failed').reason)
+    end)
+  end)
+
+  describe(':messages text (R-288)', function()
+    it('names the path or URL and the cause of each failure', function()
+      local buf = make_buf({
+        '![Bad](err-unsupported_format.png)',
+        '',
+        '![](err-too_large.png)',
+        '',
+        '![Gone](https://example.com/err-fetch_failed.png)',
+        '',
+        '![Missing](missing.png)',
+      })
+      preview.open(buf, 'split')
+      answer_probe(true)
+      for n = 1, 4 do
+        wait_state(buf, n, 'failed')
+      end
+      local errors = notices_at(vim.log.levels.ERROR)
+      assert.are.equal(4, #errors)
+      assert.are.equal(
+        'kitty-markdown: image Bad: unsupported_format: '
+          .. tmp
+          .. '/err-unsupported_format.png: fake unsupported_format',
+        errors[1]
+      )
+      assert.are.equal(
+        'kitty-markdown: image image: too_large: ' .. tmp .. '/err-too_large.png: fake too_large',
+        errors[2]
+      )
+      assert.are.equal(
+        'kitty-markdown: image Gone: fetch_failed: '
+          .. 'https://example.com/err-fetch_failed.png: fake fetch_failed',
+        errors[3]
+      )
+      -- a message that names the path already keeps its own text
+      assert.are.equal(
+        'kitty-markdown: image Missing: io: cannot read ' .. tmp .. '/missing.png',
+        errors[4]
+      )
+    end)
+  end)
+
+  describe('cache keep set (R-152, R-328)', function()
+    it('keeps the prepared PNG and the fetched file of a remote image', function()
+      vim.fn.mkdir(tmp .. '/remote', 'p')
+      vim.fn.mkdir(tmp .. '/images', 'p')
+      local fetched = tmp .. '/remote/abc'
+      local prepared = tmp .. '/images/def.png'
+      vim.fn.writefile(vim.fn.readblob(png), fetched)
+      vim.fn.writefile(vim.fn.readblob(png), prepared)
+      vim.env.KM_FAKE_FETCHED = fetched
+      vim.env.KM_FAKE_PREPARED = prepared
+      config.setup({ placement = 'split', cache = { max_bytes = 1 } })
+      local sent
+      local real_request = helper.request
+      helper.request = function(method, params, cb)
+        if method == 'cache.gc' then
+          sent = params
+        end
+        return real_request(method, params, cb)
+      end
+      local buf = make_buf({ '![R](https://example.com/r.png)', '', '![L](pic.png)' })
+      preview.open(buf, 'split')
+      answer_probe(true)
+      wait_state(buf, 1, 'placed')
+      wait_state(buf, 2, 'placed')
+      assert.is_true(wait_for(function()
+        return sent ~= nil
+      end))
+      helper.request = real_request
+      local keep = vim.deepcopy(sent.keep)
+      table.sort(keep)
+      assert.are.same({ prepared, fetched }, { keep[1], keep[3] })
+      assert.is_true(vim.tbl_contains(keep, fetched))
+      assert.is_true(vim.tbl_contains(keep, prepared))
+      assert.are.equal(3, #keep)
     end)
   end)
 

@@ -11,7 +11,9 @@
 --   without an answer; any other path is read as a PNG and scaled to the
 --   requested width without upscaling.
 -- - `fetch` with a URL that contains `err-<code>` answers that error;
---   otherwise it answers with the file named by `$KM_PREVIEW_PNG`.
+--   otherwise it answers with the file named by `$KM_FAKE_FETCHED`, or
+--   `$KM_PREVIEW_PNG` when that is unset.
+-- - `image.prepare` answers with the path `$KM_FAKE_PREPARED` when set.
 -- - `mermaid.render` with a `%% err <code> [line]` comment answers that
 --   error; otherwise it answers with `$KM_PREVIEW_PNG`.
 -- - `cache.gc` and `probe` answer like the real helper would; `probe`
@@ -150,6 +152,11 @@ methods['image.prepare'] = function(id, params)
     return
   end
   local result, err = image_result(params.path, params)
+  -- `$KM_FAKE_PREPARED` names the prepared PNG, as the real helper's
+  -- `images/<key>.png`, apart from the fetched file it was made from.
+  if result and vim.env.KM_FAKE_PREPARED then
+    result.path = vim.env.KM_FAKE_PREPARED
+  end
   local function answer()
     if err then
       reply_error(id, err)
@@ -170,7 +177,7 @@ methods.fetch = function(id, params)
     reply_error(id, error_for(code))
     return
   end
-  local path = vim.env.KM_PREVIEW_PNG
+  local path = vim.env.KM_FAKE_FETCHED or vim.env.KM_PREVIEW_PNG
   local info = path and png_info(path)
   if not info then
     reply_error(id, { code = 'fetch_failed', message = 'no KM_PREVIEW_PNG', data = { status = 0 } })

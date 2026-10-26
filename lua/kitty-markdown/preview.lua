@@ -47,7 +47,22 @@ local REASONS = {
 
 -- Codes that are a state of the plugin, not a failure of one block, so
 -- they do not repeat in `:messages` on every render.
-local QUIET_CODES = { remote_images_off = true, no_helper = true }
+-- A helper exit fails every waiting block at once; the helper module
+-- writes the one WARN for it, so the blocks stay quiet (R-195, R-313).
+local QUIET_CODES = { remote_images_off = true, no_helper = true, helper_exit = true }
+
+local WINDOW_OPTIONS = {
+  number = false,
+  relativenumber = false,
+  cursorline = false,
+  list = false,
+  wrap = false,
+  spell = false,
+  signcolumn = 'no',
+  foldcolumn = '0',
+  foldenable = false,
+  winhighlight = 'Normal:KittyMarkdownText',
+}
 
 local ns = api.nvim_create_namespace('kitty-markdown-preview')
 local previews = {}
@@ -226,6 +241,20 @@ local function show_text_box(p, b)
   set_rows(p, b, box_rows(desc.width_cells, title_of(desc), nil, nil, body, BOX_TEXT))
 end
 
+-- The `:messages` text of a failed image names the path or URL it was
+-- for (R-288). Helper messages such as "unsupported image format: unknown"
+-- carry only the cause, so the target goes in front of them.
+local function message_of(desc, err)
+  local msg = tostring(err.message or '')
+  if desc.kind ~= 'image' or desc.source == '' or msg:find(desc.source, 1, true) then
+    return msg
+  end
+  if msg == '' then
+    return desc.source
+  end
+  return desc.source .. ': ' .. msg
+end
+
 local function fail_block(p, b, err)
   local desc = b.desc
   b.reason = reason_of(err)
@@ -245,7 +274,7 @@ local function fail_block(p, b, err)
         desc.kind,
         title_of(desc),
         tostring(err.code),
-        tostring(err.message or '')
+        message_of(desc, err)
       ),
       vim.log.levels.ERROR
     )
@@ -318,8 +347,17 @@ local function settle(p, gen)
   end
 end
 
+-- The URL scheme of an image source, lower case, or nil for a path. The
+-- pattern is the RFC 3986 scheme syntax the layout uses to leave a URL
+-- unresolved, so both agree on what is a URL.
+local function scheme_of(source)
+  local scheme = source:match('^(%a[%w+.-]*):')
+  return scheme and scheme:lower() or nil
+end
+
 local function request_block(p, b, gen)
   local desc = b.desc
+  b.fetched = nil
   local width_px = math.floor(desc.width_cells * p.cell.width_px)
   local function done(err, result)
     if not live(p, b, gen) then
@@ -357,8 +395,22 @@ local function request_block(p, b, gen)
     end
     helper.request('image.prepare', params, done)
   end
-  if not desc.source:match('^https?://') then
+  local scheme = scheme_of(desc.source)
+  if not scheme then
     prepare(desc.source)
+    return
+  end
+  if scheme ~= 'http' and scheme ~= 'https' then
+    -- Only http and https are fetched. A `file://` URL is not read as a
+    -- local path either, so it never reaches the helper or the remote
+    -- cache (R-225, R-287). Scheduled for the batch counter, as below.
+    vim.schedule(function()
+      done({
+        code = 'fetch_failed',
+        message = string.format('unsupported URL scheme "%s"', scheme),
+        data = { status = 0 },
+      })
+    end)
     return
   end
   local remote = config.get().remote_images
@@ -384,6 +436,7 @@ local function request_block(p, b, gen)
       return
     end
     note_result(result)
+    b.fetched = result.path
     prepare(result.path)
   end)
 end
@@ -532,6 +585,18 @@ local function place_blocks(p, model, gen, opts)
   end
 end
 
+-- The source line range of each top-level block, in document order, so
+-- scroll sync can find the block under the cursor (R-248).
+local function source_blocks(blocks)
+  local out = {}
+  for _, block in ipairs(blocks) do
+    if block.src_start then
+      out[#out + 1] = { block.src_start, block.src_end or block.src_start }
+    end
+  end
+  return out
+end
+
 local function do_render(p, opts)
   opts = opts or {}
   if not api.nvim_buf_is_valid(p.src_buf) or not api.nvim_buf_is_valid(p.buf) then
@@ -555,7 +620,9 @@ local function do_render(p, opts)
       sizes[key] = { width_px = b.width_px, height_px = b.height_px, image_id = b.image_id }
     end
   end
-  local model = require('kitty-markdown').layout(p.src_buf, {
+  local blocks = require('kitty-markdown.parser').parse(p.src_buf)
+  p.source_blocks = source_blocks(blocks)
+  local model = require('kitty-markdown.layout').build(blocks, {
     width = api.nvim_win_get_width(p.win),
     cell = cell,
     sizes = sizes,
@@ -601,11 +668,33 @@ end
 
 -- Scroll sync --------------------------------------------------------------
 
+-- The first source line of the top-level block under `src_line`. A line
+-- outside every block, such as a blank line between two, belongs to the
+-- block above it (R-248, R-340). The first block that holds the line wins,
+-- so a paragraph comes before the image lifted out of it.
+local function block_start(ranges, src_line)
+  local above, above_end = nil, nil
+  for _, r in ipairs(ranges) do
+    if r[1] <= src_line and src_line <= r[2] then
+      return r[1]
+    end
+    if r[2] < src_line and (above_end == nil or r[2] > above_end) then
+      above, above_end = r[1], r[2]
+    end
+  end
+  return above or src_line
+end
+
 --- The preview line that starts the block under source line `src_line`.
---- The last preview line whose source line is at most `src_line` sits in
---- that block; the result is the first line of its run, less the blank
+--- `ranges` (optional) are the source line ranges of the top-level blocks;
+--- with them a line inside a block maps to the start of that block. The
+--- last preview line whose source line is at most that line sits in the
+--- block; the result is the first line of its run, less the blank
 --- separator that precedes a block and carries its source line.
-function M.sync_target(model, src_line)
+function M.sync_target(model, src_line, ranges)
+  if ranges then
+    src_line = block_start(ranges, src_line)
+  end
   local source_lines = model.source_lines
   local lo, hi, best = 1, #source_lines, 1
   while lo <= hi do
@@ -649,7 +738,7 @@ function M.sync(src_buf, src_line)
   if not p or not p.model or not api.nvim_win_is_valid(p.win) then
     return nil
   end
-  local target = M.sync_target(p.model, src_line)
+  local target = M.sync_target(p.model, src_line, p.source_blocks)
   local topline = M.sync_topline(target, api.nvim_win_get_height(p.win))
   api.nvim_win_call(p.win, function()
     vim.fn.winrestview({ topline = topline, lnum = target, col = 0 })
@@ -679,6 +768,35 @@ end
 
 -- Teardown -------------------------------------------------------------------
 
+-- True when `win` is the only window of its tab page that is not a
+-- float. Closing it would close the tab page (R-252).
+local function last_in_tab(win)
+  if api.nvim_win_get_config(win).relative ~= '' then
+    return false
+  end
+  for _, w in ipairs(api.nvim_tabpage_list_wins(api.nvim_win_get_tabpage(win))) do
+    if w ~= win and api.nvim_win_get_config(w).relative == '' then
+      return false
+    end
+  end
+  return true
+end
+
+-- Keep the last window of a tab page open on another buffer: the source
+-- when it is still loaded, else a new empty buffer (R-252). The window
+-- options of the preview go back to their global values.
+local function release_window(p)
+  local other = p.src_buf
+  if not (api.nvim_buf_is_valid(other) and api.nvim_buf_is_loaded(other)) then
+    other = api.nvim_create_buf(true, false)
+  end
+  api.nvim_win_set_buf(p.win, other)
+  for name in pairs(WINDOW_OPTIONS) do
+    local value = api.nvim_get_option_value(name, { scope = 'global' })
+    api.nvim_set_option_value(name, value, { win = p.win, scope = 'local' })
+  end
+end
+
 -- Drop the state of a preview and free its images. The window and buffer
 -- go now, or on the next loop iteration when an autocommand asked, since
 -- a window cannot close from inside its own WinClosed.
@@ -701,7 +819,11 @@ local function teardown(p, deferred)
   p.blocks = {}
   local function cleanup()
     if api.nvim_win_is_valid(p.win) then
-      pcall(api.nvim_win_close, p.win, true)
+      if last_in_tab(p.win) then
+        pcall(release_window, p)
+      else
+        pcall(api.nvim_win_close, p.win, true)
+      end
     end
     if api.nvim_buf_is_valid(p.buf) then
       pcall(api.nvim_buf_delete, p.buf, { force = true })
@@ -811,19 +933,6 @@ local function create_buffer(src_buf)
   bo.modifiable = false
   return buf
 end
-
-local WINDOW_OPTIONS = {
-  number = false,
-  relativenumber = false,
-  cursorline = false,
-  list = false,
-  wrap = false,
-  spell = false,
-  signcolumn = 'no',
-  foldcolumn = '0',
-  foldenable = false,
-  winhighlight = 'Normal:KittyMarkdownText',
-}
 
 local function open_window(buf, placement)
   local win
@@ -937,22 +1046,38 @@ function M.get(src_buf)
   return resolve(src_buf or api.nvim_get_current_buf())
 end
 
---- Render the preview of `src_buf` again. With `opts.reprobe` the terminal
---- is probed again, the helper restart counter is cleared, and every
---- placed image is transmitted again (R-017, R-130). Returns true when a
---- preview existed.
+-- Send the data and the placement of every placed image of `p` again,
+-- since a reattach may have lost the terminal's copy (R-130).
+local function retransmit(p)
+  for _, b in pairs(p.blocks) do
+    if b.state == 'placed' and b.image_id and b.path then
+      transport.transmit(b.image_id, b.path, true)
+      transport.place(b.image_id, b.cols, b.rows)
+    end
+  end
+end
+
+--- Render the preview of `src_buf` again. With `opts.reprobe` the helper
+--- restart stop is cleared and the terminal is probed again, also when
+--- `src_buf` has no preview, and every placed image of every open preview
+--- is transmitted again (R-017, R-130, R-310). Returns true when a
+--- preview of `src_buf` existed.
 function M.render(src_buf, opts)
   opts = opts or {}
   local p = resolve(src_buf or api.nvim_get_current_buf())
-  if not p then
-    return false
-  end
   if opts.reprobe then
     helper.reset_failures()
     start_probe()
-    return do_render(p, { force = true })
+    for _, q in pairs(previews) do
+      if q ~= p then
+        retransmit(q)
+      end
+    end
   end
-  return do_render(p)
+  if not p then
+    return false
+  end
+  return do_render(p, { force = opts.reprobe })
 end
 
 --- Render every open preview again.
@@ -969,13 +1094,19 @@ function M.retheme()
   M.render_all()
 end
 
---- The cache paths of every placed image, which `cache.gc` keeps (R-152).
+--- The cache paths of every placed image and of the fetched file of each
+--- placed remote image, which `cache.gc` keeps (R-152, R-328).
 function M.in_use_paths()
   local out = {}
   for _, p in pairs(previews) do
     for _, b in pairs(p.blocks) do
       if b.state == 'placed' and b.path then
         out[#out + 1] = b.path
+        -- The fetched original of a remote image stays too, so the next
+        -- render finds it in `remote` and does not fetch again (R-328).
+        if b.fetched and b.fetched ~= b.path then
+          out[#out + 1] = b.fetched
+        end
       end
     end
   end

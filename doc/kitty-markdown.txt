@@ -68,9 +68,15 @@ buffer is never changed.
     Close the preview when one exists, otherwise open one.
 
 :KittyMarkdown refresh
-    Re-render the preview, probe the terminal again, and transmit every
-    placed image again. Run it after a tmux or zmx reattach, or after the
-    helper stopped restarting (|kitty-markdown-troubleshooting|).
+    Re-render the preview of the current buffer, probe the terminal again,
+    and transmit every placed image of every open preview again. Run it
+    after a tmux or zmx reattach, or after the helper stopped restarting
+    (|kitty-markdown-troubleshooting|). It clears the restart stop from any
+    buffer, also when no preview is open.
+
+An argument that the subcommand does not accept, such as a third argument
+or a placement after `close`, shows `unexpected argument "<argument>"` and
+the command does nothing.
 
 Placements:
 
@@ -88,6 +94,15 @@ column, and the fold column, and does not wrap.
 
 One preview exists per source buffer. Unloading or deleting the source
 buffer closes its preview. Closing the preview window drops the preview.
+When the preview window is the last window of its tab page, as a `tab`
+preview is, closing the preview keeps the window and shows the source
+buffer in it (or an empty buffer when the source is gone), so the tab page
+stays open.
+
+Scroll sync puts the first line of the block under the source cursor in
+the top third of the preview window. A cursor inside a long list targets
+the first line of the list; a cursor on a blank line targets the block
+above it.
 
 ==============================================================================
 4. KEYS                                                  *kitty-markdown-keys*
@@ -251,6 +266,9 @@ Images ~
 
 - A relative path resolves against the directory of the markdown file. An
   absolute path is used as written.
+- Only `http` and `https` URLs (in any letter case) are fetched. Every
+  other URL scheme, `file://` included, shows `fetch failed`; write a
+  `file://` image as a plain path instead.
 - PNG, JPEG, GIF (first frame), WebP, BMP, and SVG.
 - An image wider than the text width scales down to it and keeps its
   aspect ratio. An image never scales up past its native size. An `<img>`
@@ -288,7 +306,9 @@ diagram type and a one-line reason:
   `too tall`                    More than 297 rows or columns.
 
 The full error goes to |:messages| as
-`kitty-markdown: <kind> <alt>: <code>: <message>`. Nothing pops up.
+`kitty-markdown: <kind> <alt>: <code>: <message>`. For an image the
+message names the path or URL and the cause. Nothing pops up. A helper
+exit writes one warning and no message per block.
 
 ==============================================================================
 8. TEXT-ONLY MODE                                   *kitty-markdown-text-only*
@@ -347,8 +367,10 @@ No helper binary ~
 
 The helper keeps exiting ~
     After three exits within 60 seconds the plugin stops restarting the
-    helper and says so. Fix the cause (the last stderr lines are in
-    |:messages| at the DEBUG level) and run `:KittyMarkdown refresh`.
+    helper and says so. Fix the cause and run `:KittyMarkdown refresh`.
+    The last stderr lines of the helper are in >vim
+    :lua =require('kitty-markdown.helper').stderr_tail()
+<   The stop then needs three new exits within 60 seconds.
 
 A diagram shows "Parse error on line <n>" ~
     The full mermaid error, with the caret line and the expected tokens, is
