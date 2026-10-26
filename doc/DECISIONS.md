@@ -203,3 +203,42 @@ as a spec proposal instead.
   and adds the result to the definition.
 - A hidden inline HTML comment leaves the spaces on both sides of it;
   the layout shows one space between the words there.
+
+## Fallback text measurement
+
+These entries replace the macOS platform fallback list in Fonts and text.
+
+- On macOS the measurer asks CoreText for the platform fallback, through
+  `CTFontCreateForString` with the primary face as the base, as Blink's
+  `PlatformFallbackFontForCharacter` does. It keeps the family name and
+  matches the requested weight and style in it. A fixed list gave Han to
+  Hiragino Sans (Chrome: PingFang SC), Arabic italic, Devanagari, and Thai
+  to Arial Unicode MS (Chrome: Geeza Pro, Kohinoor Devanagari, Thonburi),
+  and `₹` to Geneva (Chrome: Helvetica), up to 8 px wide. CoreText's
+  cascade list is compiled into the framework, so FFI is the only source.
+  Linux keeps the fontconfig-order list.
+- The font database also loads
+  `/System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved`,
+  where macOS keeps PingFang. It loads after the system fonts, so resvg's
+  own glyph fallback still finds the earlier faces first.
+- PingFang keeps its outlines in a table that ttf-parser does not read.
+  Its ink boxes come from `CTFontCreatePathForGlyph` and
+  `CGPathGetPathBoundingBox`.
+- A grapheme with emoji presentation goes to the color emoji face even when
+  the primary face has a text glyph (`☺️` under Arial).
+- A synthetic oblique skews the glyph outline and takes the tight box of
+  the skewed curves. Skewing the corners of the upright box was up to
+  1.4 px too wide.
+- The horizontal `trak` table adds to each cluster's advance at the font
+  size in CSS px: the track of value 0, or the only track. This applies
+  only to PingFang among the stock faces (track 1, 20 units at 16 px).
+  Chrome does not shift the glyph by half the tracking, as HarfBuzz would.
+- A color emoji box reaches one pixel above the em box, whatever the
+  primary face. Under a synthetic oblique its right edge moves by the skew
+  of that top, rounded up to a whole pixel.
+- `measure.mjs` replaces `<br>` with a space in SVG mode, as
+  `drawSimpleText` does, and records the face of each fallback grapheme
+  with `CSS.getPlatformFontsForNode`.
+- The raster step keeps resvg's glyph fallback, so drawn fallback glyphs
+  can still differ from the measured face. resvg cannot draw PingFang
+  outlines at all, because its outline table is not one usvg reads.
