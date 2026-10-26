@@ -157,6 +157,28 @@ describe('layout rules', function()
     end)
   end)
 
+  describe('alerts in any letter case (R-267)', function()
+    local kinds = {
+      { 'note', 'NOTE', 'Note' },
+      { 'Warning', 'WARNING', 'Warning' },
+      { 'tIp', 'TIP', 'Tip' },
+      { 'important', 'IMPORTANT', 'Important' },
+      { 'Caution', 'CAUTION', 'Caution' },
+    }
+    for _, k in ipairs(kinds) do
+      it('recognizes [!' .. k[1] .. ']', function()
+        local model = build({ '> [!' .. k[1] .. ']', '> body text' })
+        local upper = build({ '> [!' .. k[2] .. ']', '> body text' })
+        assert.are.same(upper.lines, model.lines)
+        assert.are.same(upper.highlights, model.highlights)
+        local title = icons.alert[k[2]] .. ' ' .. k[3]
+        assert.are.equal(icons.quote .. ' ' .. title, texts(model)[1])
+        local group = 'KittyMarkdownAlert' .. k[3]
+        assert.is_true(vim.tbl_contains(groups_at(model, 1, k[3]), group))
+      end)
+    end
+  end)
+
   describe('HTML comments (R-270)', function()
     it('hides a comment block and keeps one blank line between its neighbors', function()
       assert.are.same({ 'a', '', 'b' }, texts(build({ 'a', '', '<!-- hidden -->', '', 'b' })))

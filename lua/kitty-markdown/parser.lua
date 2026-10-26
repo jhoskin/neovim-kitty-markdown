@@ -1002,8 +1002,9 @@ function Walk:block_quote(node, out)
   if first and first.kind == 'paragraph' then
     local a, b = first.inlines[1], first.inlines[2]
     local kind
-    if a and a.type == 'text' and a.text:match('^%[!%u+%]%s*$') then
-      kind = a.text:match('^%[!(%u+)%]')
+    -- GitHub reads the kind in any letter case (R-267)
+    if a and a.type == 'text' and a.text:match('^%[!%a+%]%s*$') then
+      kind = a.text:match('^%[!(%a+)%]'):upper()
     end
     if kind and ALERT_KINDS[kind] then
       table.remove(first.inlines, 1)
