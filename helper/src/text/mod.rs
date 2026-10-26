@@ -78,8 +78,9 @@ mod fontdb_tests {
             if name.chars().all(|c| !c.is_uppercase()) {
                 continue;
             }
+            let alias = name.to_lowercase();
             let query = fontdb::Query {
-                families: &[fontdb::Family::Name(&name.to_lowercase())],
+                families: &[fontdb::Family::Name(&alias)],
                 weight: face.weight,
                 stretch: face.stretch,
                 style: face.style,

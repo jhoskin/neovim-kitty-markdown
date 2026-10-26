@@ -1432,10 +1432,13 @@ mod css_family_tests {
 #[cfg(test)]
 mod cjk_tests {
     use super::*;
+    #[cfg(target_os = "macos")]
     use crate::text::font_system;
 
+    #[cfg(target_os = "macos")]
     const MERMAID_CHAIN: &str = "\"trebuchet ms\", verdana, arial, sans-serif";
 
+    #[cfg(target_os = "macos")]
     fn postscript(fonts: &FontSystem, face: FontId) -> String {
         fonts
             .db()

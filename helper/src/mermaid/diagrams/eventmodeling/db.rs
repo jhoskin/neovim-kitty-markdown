@@ -339,8 +339,7 @@ fn text_props(frame: &Frame, data_entities: &[DataEntity], metrics: &TextMetrics
 
     if let Some(html) = &to_html {
         content.push_str(&format!(
-            "{BR}{BR}<code style=\"text-align: left; display: block;max-width:{}px\">{html}</code>",
-            TEXT_MAX_WIDTH
+            "{BR}{BR}<code style=\"text-align: left; display: block;max-width:{TEXT_MAX_WIDTH}px\">{html}</code>"
         ));
     }
     let dims = metrics.calculate_text_dimensions(&svg_text(&content), &spec);

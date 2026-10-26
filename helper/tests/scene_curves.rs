@@ -342,8 +342,7 @@ fn curves_match_d3() {
         let actual = curves::line(&points(set), *kind).to_svg();
         if actual != *expected {
             failures.push(format!(
-                "{:?} on {set}:\n  expected {expected}\n  actual   {actual}",
-                kind
+                "{kind:?} on {set}:\n  expected {expected}\n  actual   {actual}"
             ));
         }
     }

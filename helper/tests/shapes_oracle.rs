@@ -27,7 +27,7 @@ const ORACLE: FixedMeasurer = FixedMeasurer {
 };
 
 fn fmt3(v: f64) -> String {
-    format!("{:.3}", v)
+    format!("{v:.3}")
 }
 
 #[test]
