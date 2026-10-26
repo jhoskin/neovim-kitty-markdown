@@ -1,0 +1,51 @@
+---
+source: tests/parity_ishikawa.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="373.175" height="580.134" viewBox="-260.631 -40.572 373.175 580.134" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="ishikawa-arrow-my-svg" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto" markerUnits="strokeWidth">
+      <path class="ishikawa-arrow" d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="ishikawa">
+      <line class="ishikawa-spine" x1="-240.631" y1="333.333" x2="0" y2="333.333" fill="none" stroke="#333333" stroke-width="2"/>
+      <g class="ishikawa-head-group" transform="translate(0, 333.333)">
+        <path class="ishikawa-head" d="M0,-36L0,36Q185.088,0,0,-36Z" fill="#ececff" stroke="#333333" stroke-width="2"/>
+        <text class="ishikawa-head-label" transform="translate(41.56, 1.339)" x="0" y="3.661" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14" font-weight="600"><tspan x="0" dy="0">品質の低下</tspan></text>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-20" y1="333.333" x2="-66.391" y2="3.244" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-94.551" y="-20.572" width="56.32" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-66.391" y="-3.572" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-66.391" dy="0">人</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-43.196" y1="168.289" x2="-73.196" y2="168.289" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-73.196" y="172.472" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-73.196" dy="0">訓練不足</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-20" y1="333.333" x2="-43.196" y2="498.378" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-79.516" y="496.562" width="72.64" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-43.196" y="513.562" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-43.196" dy="0">機械</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-31.598" y1="415.856" x2="-61.598" y2="415.856" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-61.598" y="420.039" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-61.598" dy="0">故障 🔧</tspan></text>
+        </g>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-138.476" y1="333.333" x2="-184.867" y2="3.244" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-221.187" y="-20.572" width="72.64" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-184.867" y="-3.572" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-184.867" dy="0">方法</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-161.671" y1="168.289" x2="-191.671" y2="168.289" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-191.671" y="172.472" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-191.671" dy="0">手順書</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
