@@ -35,9 +35,17 @@ vim.api.nvim_create_user_command('KittyMarkdown', function(cmd)
     )
     return
   end
+  -- The first argument no subcommand accepts is the one the error names:
+  -- a bad placement before a third argument (R-250).
+  local unexpected = nil
   if placement and not (takes_placement[sub] and vim.tbl_contains(placements, placement)) then
+    unexpected = placement
+  elseif cmd.fargs[3] then
+    unexpected = cmd.fargs[3]
+  end
+  if unexpected then
     vim.notify(
-      string.format('kitty-markdown: unexpected argument %s', vim.inspect(placement)),
+      string.format('kitty-markdown: unexpected argument %s', vim.inspect(unexpected)),
       vim.log.levels.ERROR
     )
     return

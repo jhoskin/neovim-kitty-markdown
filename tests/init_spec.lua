@@ -94,6 +94,37 @@ describe('init', function()
     assert.matches('unexpected argument', notices[#notices].msg)
   end)
 
+  it('rejects a third argument by name and does nothing (R-250)', function()
+    vim.g.loaded_kitty_markdown = nil
+    dofile(root .. '/plugin/kitty-markdown.lua')
+    local buf = markdown_buf({ '# Title' })
+    vim.api.nvim_set_current_buf(buf)
+    local function rejects(line, arg)
+      local before = #notices
+      vim.cmd(line)
+      assert.are.equal(before + 1, #notices, line)
+      assert.are.equal(
+        string.format('kitty-markdown: unexpected argument "%s"', arg),
+        notices[#notices].msg
+      )
+      assert.are.equal(vim.log.levels.ERROR, notices[#notices].level)
+    end
+    rejects('KittyMarkdown open split extra', 'extra')
+    rejects('KittyMarkdown open tab tab', 'tab')
+    rejects('KittyMarkdown toggle float 3', '3')
+    assert.is_nil(preview.get(buf))
+    vim.cmd('KittyMarkdown open split')
+    local p = preview.get(buf)
+    assert.is_not_nil(p)
+    vim.api.nvim_set_current_win(vim.fn.bufwinid(buf))
+    rejects('KittyMarkdown toggle split x', 'x')
+    rejects('KittyMarkdown close tab more', 'tab')
+    rejects('KittyMarkdown open float more', 'more')
+    assert.are.equal(p, preview.get(buf))
+    assert.is_true(vim.api.nvim_win_is_valid(p.win))
+    rejects('KittyMarkdown refresh split now', 'split')
+  end)
+
   it('routes the command to the preview of the current buffer (R-002, R-008)', function()
     vim.g.loaded_kitty_markdown = nil
     dofile(root .. '/plugin/kitty-markdown.lua')
