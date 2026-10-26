@@ -2,22 +2,22 @@
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
-      "Edit(./held_out/**)",
-      "Edit(./REVIEW.md)"
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/held_out/**)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/REVIEW.md)"
     ],
     "deny": [
-      "Edit(./lua/**)",
-      "Edit(./plugin/**)",
-      "Edit(./doc/**)",
-      "Edit(./helper/**)",
-      "Edit(./tests/**)",
-      "Edit(./.claude/**)",
-      "Edit(./.github/**)",
-      "Edit(./AGENTS.md)",
-      "Edit(./README.md)",
-      "Edit(./SPEC.md)",
-      "Edit(./justfile)",
-      "Edit(./.gitignore)"
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/lua/**)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/plugin/**)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/doc/**)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/helper/**)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/tests/**)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/.claude/**)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/.github/**)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/AGENTS.md)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/README.md)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/SPEC.md)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/justfile)",
+      "Edit(//Users/joh/dev/neovim-kitty-markdown/.gitignore)"
     ]
   }
 }

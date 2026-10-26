@@ -2,26 +2,38 @@
 
 ## Purpose
 
-Two Claude Code sessions work in this repo: a dev agent and a QA agent.
-Each session reads this file at start. Read the Roles section, find your
-role, and follow the rules for it. The Purpose, Roles, Access rules,
-Workflow, and Spec rules sections belong to Joh. The dev agent edits the
-Architecture and Conventions sections only.
+Three Claude Code sessions work in this repo: an architect agent, a dev
+agent, and a QA agent. Each session reads this file at start. Read the
+Roles section, find your role, and follow the rules for it. This file,
+`SPEC.md`, and `README.md` belong to Joh. The architect agent edits them
+when Joh asks. No other agent edits them.
 
 ## Roles
 
+Architect agent:
+
+- Owns `SPEC.md`, `README.md`, and this file.
+- Turns Joh's decisions and the dev agent's proposals into spec text.
+- Does not change `lua/`, `plugin/`, `doc/`, `helper/`, `tests/`,
+  `held_out/`, `REVIEW.md`, or `.claude/`. A change it needs in a
+  dev-owned path goes to the dev agent as a task. A change under
+  `.claude/` goes to Joh.
+
 Dev agent:
 
-- Owns `SPEC.md`, `lua/`, `plugin/`, `doc/`, `helper/`, `tests/`, and the
-  Architecture and Conventions sections of this file.
-- Writes the spec, the implementation, and the unit tests.
+- Owns `lua/`, `plugin/`, `doc/`, `helper/`, and `tests/`.
+- Writes the implementation and the unit tests.
+- Records the architecture in `doc/ARCHITECTURE.md`, the conventions in
+  `doc/CONVENTIONS.md`, and internal decisions in `doc/DECISIONS.md`.
 - Reads `REVIEW.md` and fixes what it reports.
+- Proposes spec wording for a gap or for a change the user can see. It
+  does not edit `SPEC.md`.
 
 QA agent:
 
 - Owns `held_out/` and `REVIEW.md`.
 - Writes and runs the hidden tests and evals under `held_out/`.
-- Checks the code against `SPEC.md` and the Conventions section.
+- Checks the code against `SPEC.md` and `doc/CONVENTIONS.md`.
 - Writes `REVIEW.md`. Does not change `lua/`, `plugin/`, `doc/`,
   `helper/`, `tests/`, `SPEC.md`, or this file. A problem in one of those
   goes into `REVIEW.md`.
@@ -37,8 +49,9 @@ The dev agent must not read `held_out/` by any route:
 - Not through a subagent, a script, or a test runner pointed at it.
 
 The project settings file `.claude/settings.json` denies Read and Edit
-under `held_out/`. Every session that loads the project settings gets
-that deny, so a plain `claude` session is the dev session. The deny rule
+under every folder named `held_out`, in this checkout and in each
+worktree. Every session that loads the project settings gets that deny,
+so a plain `claude` session is the dev session. The deny rule
 covers the file tools and the common shell file commands. This rule covers
 everything else.
 
@@ -60,19 +73,48 @@ one against a dev-owned path.
 
 The QA agent reads every folder.
 
+The architect session also skips the project settings and loads
+`.claude/settings.architect.json`:
+
+```sh
+claude --setting-sources user --settings .claude/settings.architect.json \
+  --append-system-prompt 'Read AGENTS.md first and follow the architect agent role.'
+```
+
+That file allows Edit on `SPEC.md`, `README.md`, and this file. It denies
+Edit on every dev-owned path, `.claude/`, `.github/`, `REVIEW.md`, and
+`held_out/`, and Read under `held_out/`. The architect agent does not
+write a dev-owned path through a shell command or a script either. It
+reads every folder except `held_out/`.
+
+Every path rule in the three settings files is an absolute path that
+starts with `//`. Do not write a rule that starts with `./` or `/`.
+Claude Code resolves such a rule against the current directory of the
+session, and that directory changes when a Bash command runs `cd`. After
+`cd helper`, a rule `./held_out/**` no longer covers `held_out/`. A rule
+with one folder name, such as `./tests/**`, also matches a folder of
+that name at any depth, so it blocks `held_out/tests/`. The rules name
+the path of this checkout. If the checkout moves, change the rules in
+all three files. Tests on 2026-10-25 with Claude Code 2.1.310 confirmed
+this behavior.
+
 ## Workflow
 
-1. The dev agent writes or updates `SPEC.md`. Every requirement has a stable
-   ID in the form `R-001`, one testable statement each. IDs are never
-   reused or renumbered.
+1. The architect agent writes or updates `SPEC.md` from Joh's decisions
+   and the dev agent's proposals. Every requirement has a stable ID in the
+   form `R-001`, one testable statement each. IDs are never reused or
+   renumbered.
 2. The dev agent implements the requirement in `lua/` or `helper/` and adds
    unit tests in `tests/` or `helper/tests/`. All unit tests pass before
-   the work is done.
+   the work is done. A decision the spec does not make and the user cannot
+   see goes into `doc/DECISIONS.md`. A decision the user can see goes to
+   the architect agent as a proposal.
 3. The QA agent runs everything under `held_out/`, compares the behavior
    with each requirement in `SPEC.md`, and writes `REVIEW.md`.
 4. The dev agent reads `REVIEW.md` and fixes each finding, starting with
-   the highest severity. A finding that is wrong gets a reply in the
-   spec or the code comments, not a silent skip.
+   the highest severity. A finding that is wrong gets a reply in
+   `doc/DECISIONS.md`, in the code comments, or as a spec proposal, not a
+   silent skip.
 5. Repeat.
 
 `REVIEW.md` is gitignored. The QA agent overwrites it on each run. The dev
@@ -83,6 +125,13 @@ agent does not delete or edit it.
 - `SPEC.md` is the source of truth. Code and tests follow it.
 - When behavior changes, change the spec first, then the code.
 - A requirement states what the user sees, not how the code does it.
+- An internal decision (an algorithm, a data layout, a limit the user
+  cannot observe) goes into `doc/DECISIONS.md`, not into `SPEC.md`. Two
+  kinds of internal decision are requirements: a value that two
+  components compute independently and must agree on, and a measurable
+  acceptance criterion for a parity check.
+- A proposal does not reserve a requirement ID. The architect agent
+  assigns the next free ID when the requirement enters `SPEC.md`.
 - `REVIEW.md` cites requirements by ID.
 - Every requirement uses one EARS pattern:
   - Ubiquitous: "The `<system>` shall `<response>`."
@@ -97,6 +146,12 @@ agent does not delete or edit it.
   sentence has at most 25 words, no contractions, approved vocabulary.
 
 ## Architecture
+
+Migration: this section moves to `doc/ARCHITECTURE.md` and the
+Conventions section moves to `doc/CONVENTIONS.md`. The dev agent copies
+both as its next task and says so in its report. The architect agent then
+deletes them here. Until then both sections are read-only. Record new
+facts in the `doc/` files, not here.
 
 The product is `kitty-markdown.nvim`, a Neovim plugin that renders a
 markdown buffer into a read-only preview. Text is rendered in terminal
@@ -236,7 +291,9 @@ font set. A pin bump is a spec change and goes through Joh.
 
 ## Conventions
 
-The dev agent owns this section. Record decisions here, not in chat.
+The dev agent owns this section. It moves to `doc/CONVENTIONS.md` (see
+the Architecture note). Record decisions in `doc/DECISIONS.md`, not in
+chat.
 
 ### Language and toolchain
 
@@ -307,8 +364,8 @@ The dev agent owns this section. Record decisions here, not in chat.
   typed per module and carry a stable `code` string for the protocol.
 - Comments say why, not what. No commented-out code.
 - Commits: Conventional Commits, `type(scope): description`, one logical
-  change per commit, each commit builds and passes tests. No issue tracker
-  footer; this repo has no Linear project.
+  change per commit, each commit builds and passes tests. Commits carry
+  no issue tracker footer.
 - Markdown files pass `markdownlint-cli2` with MD013 off.
 
 ### Lua module contracts
