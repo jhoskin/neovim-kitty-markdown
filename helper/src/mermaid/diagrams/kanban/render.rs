@@ -107,6 +107,17 @@ fn diagram_padding(resolved: &Resolved) -> f64 {
         .unwrap_or(8.0)
 }
 
+/// `conf.mindmap?.useMaxWidth ?? defaultConfig.kanban.useMaxWidth`, the
+/// mindmap section again.
+fn use_max_width(resolved: &Resolved) -> bool {
+    resolved
+        .config
+        .mindmap
+        .get("useMaxWidth")
+        .and_then(Value::as_bool)
+        .unwrap_or(true)
+}
+
 fn html_opts(ctx: &ShapeCtx, width: f64) -> LabelOpts {
     LabelOpts {
         font: ctx.font(),
@@ -319,8 +330,17 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
         x1: 0.0,
         y1: 0.0,
     });
-    let scene_width = (b.x1 - b.x0) + padding * 2.0;
-    let scene_height = (b.y1 - b.y0) + padding * 2.0;
+    let mut scene_width = (b.x1 - b.x0) + padding * 2.0;
+    let mut scene_height = (b.y1 - b.y0) + padding * 2.0;
+    // A fixed-size SVG (`useMaxWidth: false`) is drawn by the browser at
+    // scale 1 and the screenshot clip rounds its size up to whole pixels,
+    // so the fraction is page background on the right and bottom. Growing
+    // the frame to whole pixels from the same origin gives the raster that
+    // picture; a `useMaxWidth` SVG is scaled to its clip width instead.
+    if !use_max_width(resolved) {
+        scene_width = scene_width.ceil();
+        scene_height = scene_height.ceil();
+    }
     let root = Group {
         common: Common::default(),
         children: vec![

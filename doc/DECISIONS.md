@@ -247,3 +247,9 @@ These entries replace the macOS platform fallback list in Fonts and text.
   kept as written, so `R&D` shows as `R&D`. A label with a tag keeps the
   tags and escapes the text between them (`&` shows as `&amp;`), as the
   HTML parse and serialize in the oracle does.
+- A kanban (`mindmap.useMaxWidth: false`) or ishikawa
+  (`ishikawa.useMaxWidth: false`) diagram with a fixed size grows its
+  frame to whole pixels from the same origin. The browser draws a fixed
+  SVG at scale 1 into a clip rounded up to whole pixels, so the helper
+  output keeps scale 1 and the oracle height, not the height that
+  scaling the width up to whole pixels gives.

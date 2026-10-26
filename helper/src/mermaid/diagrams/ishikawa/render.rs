@@ -717,15 +717,22 @@ pub fn draw(
     ctx: &RenderCtx<'_>,
 ) -> Result<Scene, HelperError> {
     let styles = IshikawaStyles::resolve(&resolved.theme_variables);
-    let padding = resolved.raw["ishikawa"]["diagramPadding"]
-        .as_f64()
-        .unwrap_or(20.0);
+    let frame = Frame {
+        padding: resolved.raw["ishikawa"]["diagramPadding"]
+            .as_f64()
+            .unwrap_or(20.0),
+        // `drawConfig.ishikawa?.useMaxWidth ?? false`; the config defaults
+        // carry `true`.
+        use_max_width: resolved.raw["ishikawa"]["useMaxWidth"]
+            .as_bool()
+            .unwrap_or(false),
+    };
     let mut scene = Scene::new(0.0, 0.0);
     scene.font_family = styles.font_family.clone();
     // `if (!root) return;`: mermaid leaves the SVG without a viewBox; the
     // scene keeps an empty padded frame.
     let Some(root) = db.root() else {
-        return Ok(framed(scene, Bounds::points(0.0, 0.0, 0.0, 0.0), padding));
+        return Ok(frame.apply(scene, Bounds::points(0.0, 0.0, 0.0, 0.0)));
     };
     scene.defs.push(arrow_marker(&styles));
 
@@ -795,19 +802,46 @@ pub fn draw(
     if let Some(b) = painter.bounds {
         bounds = bounds.union(b);
     }
-    Ok(framed(scene, bounds, padding))
+    Ok(frame.apply(scene, bounds))
 }
 
-/// `applyPaddedViewBox(svg, pad, useMaxWidth)`: the viewBox is the bounds
-/// grown by `pad` on every side, and `configureSvgSize` gives the SVG that
-/// size (as `max-width` with `useMaxWidth`).
-fn framed(mut scene: Scene, bounds: Bounds, pad: f64) -> Scene {
-    let w = bounds.width() + pad * 2.0;
-    let h = bounds.height() + pad * 2.0;
-    scene.width = w;
-    scene.height = h;
-    scene.view_box = ViewBox::new(bounds.min_x - pad, bounds.min_y - pad, w, h);
-    scene
+/// The arguments of `applyPaddedViewBox(svg, pad, useMaxWidth)`.
+struct Frame {
+    padding: f64,
+    use_max_width: bool,
+}
+
+impl Frame {
+    /// `applyPaddedViewBox`: the viewBox is the bounds grown by `pad` on
+    /// every side, and `configureSvgSize` gives the SVG that size, as
+    /// `max-width` with `useMaxWidth` and as fixed attributes without it.
+    fn apply(&self, mut scene: Scene, bounds: Bounds) -> Scene {
+        let pad = self.padding;
+        let (w, h) = fixed_size_frame(
+            bounds.width() + pad * 2.0,
+            bounds.height() + pad * 2.0,
+            self.use_max_width,
+        );
+        scene.width = w;
+        scene.height = h;
+        scene.view_box = ViewBox::new(bounds.min_x - pad, bounds.min_y - pad, w, h);
+        scene
+    }
+}
+
+/// The scene size for a frame of `w` by `h`. A fixed-size SVG
+/// (`useMaxWidth: false`) is drawn by the browser at scale 1, and the
+/// screenshot clip rounds its size up to whole pixels, so the fraction is
+/// page background on the right and bottom. Growing the frame to whole
+/// pixels from the same origin gives the raster that picture; a
+/// `useMaxWidth` SVG is scaled to its clip width instead and keeps its
+/// size.
+fn fixed_size_frame(w: f64, h: f64, use_max_width: bool) -> (f64, f64) {
+    if use_max_width {
+        (w, h)
+    } else {
+        (w.ceil(), h.ceil())
+    }
 }
 
 #[cfg(test)]

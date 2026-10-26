@@ -150,3 +150,22 @@ fn an_empty_board_is_a_parse_error() {
     let err = render_with_theme("kanban\n", "default").expect_err("no statement");
     assert_eq!(err.code(), "parse_error");
 }
+
+/// `mindmap.useMaxWidth: false` gives a fixed-size SVG: the frame grows to
+/// whole pixels from the same origin, as the browser's clip does, so the
+/// raster keeps scale 1.
+#[test]
+fn a_fixed_size_board_keeps_scale_one_in_whole_pixels() {
+    // The long assignee overflows its card to the left, so the frame
+    // starts at a fraction.
+    let body = "kanban\n  a[A]\n    a1[one]@{ assigned: 'a.very.long.assignee.name' }\n";
+    let fixed = render_scene(&format!(
+        "---\nconfig:\n  mindmap:\n    useMaxWidth: false\n---\n{body}"
+    ));
+    let fluid = render_scene(body);
+    assert!(fluid.width.fract() > 0.0, "{}", fluid.width);
+    assert_eq!(fixed.width, fluid.width.ceil());
+    assert_eq!(fixed.height, fluid.height.ceil());
+    assert_eq!(fixed.view_box.x, fluid.view_box.x);
+    assert_eq!(fixed.view_box.width, fixed.width);
+}

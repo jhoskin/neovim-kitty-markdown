@@ -11,7 +11,7 @@ use kitty_markdown_helper::error::HelperError;
 use kitty_markdown_helper::mermaid::config::{self, BaseConfig};
 use kitty_markdown_helper::mermaid::diagrams::ishikawa::DIAGRAM;
 use kitty_markdown_helper::mermaid::diagrams::{Diagram, RenderCtx};
-use kitty_markdown_helper::mermaid::raster::{Background, RasterOpts, render_rgba};
+use kitty_markdown_helper::mermaid::raster::{Background, OutputSize, RasterOpts, render_rgba};
 use kitty_markdown_helper::mermaid::scene::{Color, Scene};
 use kitty_markdown_helper::mermaid::{self};
 use kitty_markdown_helper::text::{self, TextMetrics};
@@ -136,6 +136,28 @@ fn every_builtin_theme_renders() {
         let scene = render_with_theme(DOCS_EXAMPLE, theme).expect(theme);
         assert!(!scene.root.children.is_empty(), "{theme}");
     }
+}
+
+/// `useMaxWidth: false` gives a fixed-size SVG, which the browser draws at
+/// scale 1 into a clip rounded up to whole pixels: the oracle PNG of this
+/// 267.05 by 580.13 diagram is 268 by 581, not the 583 rows that scaling
+/// the width up to 268 px would give.
+#[test]
+fn a_fixed_size_diagram_keeps_scale_one_in_whole_pixels() {
+    let body = "ishikawa-beta\n    Blurry Photo\n        Process\n            Out of focus\n        User\n            Shaky hands\n";
+    let fixed = render_scene(&format!(
+        "---\nconfig:\n  ishikawa:\n    useMaxWidth: false\n---\n{body}"
+    ));
+    let fluid = render_scene(body);
+    assert_eq!(fixed.width, fluid.width.ceil());
+    assert_eq!(fixed.height, fluid.height.ceil());
+    assert_eq!(fixed.view_box.x, fluid.view_box.x);
+    assert_eq!(fixed.view_box.y, fluid.view_box.y);
+    assert_eq!(fixed.view_box.width, fixed.width);
+    let size = OutputSize::for_target(fixed.width, fixed.height, PARITY_WIDTH);
+    assert_eq!((size.width, size.height, size.scale), (268, 581, 1.0));
+    // The default keeps the fractional frame and scales it to the clip.
+    assert!(fluid.width.fract() > 0.0);
 }
 
 /// DOMPurify hands back a label with no `<` unchanged, so `&` shows as
