@@ -32,10 +32,18 @@ impl Shape for KanbanItem {
         node.width = Some(node.width.unwrap_or(200.0) - 10.0);
         let mut out = label_helper(node, ctx, Some(&get_node_classes(node, None)), false);
         let padding = node.padding.filter(|p| *p != 0.0).unwrap_or(10.0);
+        // `insertLabel` gets `useHtmlLabels: kanbanNode.useHtmlLabels`,
+        // which `getData` never sets, so the ticket and the assignee follow
+        // `getEffectiveHtmlLabels` alone; only the title went through
+        // `labelHelper`'s `node.useHtmlLabels || evaluate(htmlLabels)`.
+        let meta_node = Node {
+            use_html_labels: None,
+            ..node.clone()
+        };
         let (mut label_el, mut bbox2) = insert_label(
             data.ticket.as_deref().unwrap_or(""),
             ctx,
-            node,
+            &meta_node,
             node.width,
             false,
         );
@@ -57,7 +65,7 @@ impl Shape for KanbanItem {
         let (mut label_el_assigned, bbox_assigned) = insert_label(
             data.assigned.as_deref().unwrap_or(""),
             ctx,
-            node,
+            &meta_node,
             node.width,
             false,
         );
