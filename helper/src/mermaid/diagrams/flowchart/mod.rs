@@ -64,8 +64,9 @@ impl Diagram for Flowchart {
                 feature: "layout: elk".to_string(),
             });
         }
+        // `Diagram.fromText` encodes the entity codes before it parses.
         let flow = parse(
-            resolved.parse_text(),
+            &resolved.encoded_parse_text(),
             db::DbConfig::from_config(&resolved.config),
         )
         .map_err(parse_error)?;

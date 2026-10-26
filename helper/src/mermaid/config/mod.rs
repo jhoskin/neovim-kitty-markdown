@@ -24,6 +24,7 @@ pub mod defaults;
 pub mod merge;
 
 use serde_json::{Map, Value, json};
+use std::borrow::Cow;
 
 pub use appearance::Appearance;
 pub use defaults::{
@@ -80,6 +81,9 @@ pub struct Resolved {
     pub preprocessed: Preprocessed,
     /// The text the diagram parser receives; see [`Resolved::parse_text`].
     pub parse_text: String,
+    /// Whether `parse_text` already went through `encodeEntities`; see
+    /// [`Resolved::with_encoded_entities`].
+    pub entities_encoded: bool,
 }
 
 impl Resolved {
@@ -107,8 +111,21 @@ impl Resolved {
         let encoded = preprocess::encode_entities(source);
         (encoded != source).then(|| Resolved {
             parse_text: format!("{encoded}\n"),
+            entities_encoded: true,
             ..self.clone()
         })
+    }
+
+    /// `encodeEntities` over the parse text, for a diagram whose labels
+    /// decode the entity codes again as mermaid's do. Encoding twice would
+    /// drop a second `;` from a `style` line, so text that
+    /// [`Resolved::with_encoded_entities`] made is returned as it is.
+    pub fn encoded_parse_text(&self) -> Cow<'_, str> {
+        if self.entities_encoded {
+            Cow::Borrowed(&self.parse_text)
+        } else {
+            Cow::Owned(preprocess::encode_entities(&self.parse_text))
+        }
     }
 }
 
@@ -370,6 +387,7 @@ pub fn resolve(source: &str, base: &BaseConfig) -> Result<Resolved, HelperError>
         appearance,
         preprocessed,
         parse_text,
+        entities_encoded: false,
     })
 }
 
@@ -381,6 +399,20 @@ mod tests {
         BaseConfig::new("default")
     }
 
+    #[test]
+    fn entities_are_encoded_once() {
+        let source = "graph TD\n  A[#quot;a#quot;]\n  style A fill:#f9f;stroke:#333;";
+        let r = resolve(source, &BaseConfig::new("default")).unwrap();
+        let once = r.encoded_parse_text().into_owned();
+        // mermaid reads `#f9f;` as an entity once the last `;` is gone.
+        assert!(
+            once.contains("fill:\u{fb02}\u{b0}f9f\u{b6}\u{df}stroke:#333\n"),
+            "{once}"
+        );
+        assert!(once.contains("\u{fb02}\u{b0}quot\u{b6}\u{df}"), "{once}");
+        let encoded = r.with_encoded_entities().unwrap();
+        assert_eq!(encoded.encoded_parse_text(), once);
+    }
     #[test]
     fn base_config_wins_over_per_diagram_defaults() {
         let r = resolve("graph TD\n  A-->B", &base()).unwrap();

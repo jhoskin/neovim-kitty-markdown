@@ -8,6 +8,10 @@
 //! [`measure_with_metrics`]); the tests use [`FixedMeasurer`], which
 //! charges a fixed advance per character.
 
+use std::sync::LazyLock;
+
+use regex::Regex;
+
 use crate::mermaid::scene::{
     Color, DEFAULT_FONT_FAMILY, FontSpec, FontStyle as SceneFontStyle, FontWeight,
 };
@@ -320,6 +324,29 @@ mod tests {
     use super::*;
 
     #[test]
+    fn entity_codes_round_trip_as_mermaid_does() {
+        let src = "A[\"a #quot;b#quot; #9829; #+12; #lt;\"]";
+        let encoded = crate::mermaid::preprocess::encode_entities(src);
+        assert_eq!(encoded, "A[\"a ﬂ°quot¶ßbﬂ°quot¶ß ﬂ°°9829¶ß #+12; ﬂ°lt¶ß\"]");
+        assert_eq!(
+            decode_entities(&encoded),
+            "A[\"a &quot;b&quot; &#9829; #+12; &lt;\"]"
+        );
+    }
+
+    #[test]
+    fn char_refs_decode_except_markup() {
+        assert_eq!(
+            decode_char_refs("<p>&quot;&#9829;&#x2665;&hearts;&nope;</p>"),
+            "<p>\"♥♥♥&nope;</p>"
+        );
+        assert_eq!(
+            decode_char_refs("&#60;b&#62; &#38; &lt;"),
+            "&lt;b&gt; &amp; &lt;"
+        );
+    }
+
+    #[test]
     fn fixed_measurer_counts_characters_and_lines() {
         let m = FixedMeasurer::SNAPSHOT;
         let b = m.measure("Hello<br/>World!", &LabelOpts::default());
@@ -407,6 +434,106 @@ pub fn decode_html_entities(text: &str) -> String {
     out
 }
 
+/// The marker `encodeEntities` writes for `#` of a numeric code.
+const ENCODED_NUMERIC: &str = "ﬂ°°";
+/// The marker for `#` of a named code.
+const ENCODED_NAMED: &str = "ﬂ°";
+/// The marker for the closing `;`.
+const ENCODED_END: &str = "¶ß";
+
+/// `decodeEntities(text)` of `utils.ts`: the markers back to `&#`, `&`,
+/// and `;`. `labelHelper` and `createText` call it on every label, so a
+/// code reaches the label HTML as a character reference.
+pub fn decode_entities(text: &str) -> String {
+    text.replace(ENCODED_NUMERIC, "&#")
+        .replace(ENCODED_NAMED, "&")
+        .replace(ENCODED_END, ";")
+}
+
+/// Named character references a label is likely to use, beyond the five
+/// [`markdown::html_to_lines`] reads itself. The HTML parser knows every
+/// HTML5 name; a name missing here shows as typed.
+const NAMED_REFS: [(&str, char); 46] = [
+    ("quot", '"'),
+    ("apos", '\''),
+    ("nbsp", '\u{a0}'),
+    ("copy", '©'),
+    ("reg", '®'),
+    ("trade", '™'),
+    ("hearts", '♥'),
+    ("spades", '♠'),
+    ("clubs", '♣'),
+    ("diams", '♦'),
+    ("euro", '€'),
+    ("pound", '£'),
+    ("yen", '¥'),
+    ("cent", '¢'),
+    ("sect", '§'),
+    ("para", '¶'),
+    ("deg", '°'),
+    ("plusmn", '±'),
+    ("times", '×'),
+    ("divide", '÷'),
+    ("middot", '·'),
+    ("laquo", '«'),
+    ("raquo", '»'),
+    ("lsquo", '‘'),
+    ("rsquo", '’'),
+    ("ldquo", '“'),
+    ("rdquo", '”'),
+    ("ndash", '–'),
+    ("mdash", '—'),
+    ("hellip", '…'),
+    ("bull", '•'),
+    ("larr", '←'),
+    ("rarr", '→'),
+    ("uarr", '↑'),
+    ("darr", '↓'),
+    ("harr", '↔'),
+    ("lArr", '⇐'),
+    ("rArr", '⇒'),
+    ("hArr", '⇔'),
+    ("le", '≤'),
+    ("ge", '≥'),
+    ("ne", '≠'),
+    ("infin", '∞'),
+    ("micro", 'µ'),
+    ("frac12", '½'),
+    ("iexcl", '¡'),
+];
+
+static CHAR_REF: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r"&(?:#([0-9]{1,7})|#[xX]([0-9a-fA-F]{1,6})|([A-Za-z][A-Za-z0-9]*));")
+        .expect("static regex")
+});
+
+/// The character references of label HTML as the browser's HTML parser
+/// reads them, for the HTML label path. `&`, `<`, and `>` stay references
+/// so [`markdown::html_to_lines`] keeps them text, not markup.
+fn decode_char_refs(html: &str) -> String {
+    CHAR_REF
+        .replace_all(html, |caps: &regex::Captures<'_>| {
+            let decoded = if let Some(dec) = caps.get(1) {
+                dec.as_str().parse::<u32>().ok().and_then(char::from_u32)
+            } else if let Some(hex) = caps.get(2) {
+                u32::from_str_radix(hex.as_str(), 16)
+                    .ok()
+                    .and_then(char::from_u32)
+            } else {
+                let name = &caps[3];
+                NAMED_REFS.iter().find(|(n, _)| *n == name).map(|(_, c)| *c)
+            };
+            match decoded {
+                Some('&') => "&amp;".to_string(),
+                Some('<') => "&lt;".to_string(),
+                Some('>') => "&gt;".to_string(),
+                Some(c) => c.to_string(),
+                None => caps[0].to_string(),
+            }
+        })
+        .into_owned()
+}
+
 fn label_lines(lines: &[Line], width: impl Fn(&Line) -> f32) -> Vec<LabelLine> {
     lines
         .iter()
@@ -445,6 +572,10 @@ pub fn measure_with_metrics(
     opts: &LabelOpts,
     family: &str,
 ) -> LabelBox {
+    // `createText(…, decodeEntities(label))`: the entity markers of the
+    // source become character references before the label is built.
+    let decoded = decode_entities(text);
+    let text = decoded.as_str();
     let spec = text_font(&opts.font, family);
     let size = f64::from(spec.size);
     let line_height = if opts.html {
@@ -466,7 +597,7 @@ pub fn measure_with_metrics(
         } else {
             markdown::non_markdown_to_html(text)
         };
-        let structured = markdown::html_to_lines(&html);
+        let structured = markdown::html_to_lines(&decode_char_refs(&html));
         let label = metrics.html_label(&structured, &spec, opts.width.map(|w| w as f32));
         let lines = label_lines(&label.lines, |line| metrics.words_width(line, &spec))
             .into_iter()

@@ -290,3 +290,7 @@ These entries replace the macOS platform fallback list in Fonts and text.
   (`NodeStyleVars::node_rule`) paints both paths and also gives the fork
   bar and the start and end dots the node colors. Class, ER, requirement,
   note, and choice shapes keep one path for now.
+- Flowchart and state diagrams encode entity codes (`#quot;`, `#9829;`)
+  before they parse, as `Diagram.fromText` does, and the label measurer
+  decodes them. HTML labels then decode character references with a table
+  of common names; a name missing from the table shows as typed.

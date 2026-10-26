@@ -55,9 +55,10 @@ pub fn parse_source(code: &str) -> Result<StateDb, HelperError> {
     Ok(StateDb::new(doc))
 }
 
-/// [`parse_source`] over the resolved diagram's cleaned text.
+/// [`parse_source`] over the resolved diagram's cleaned text, with the
+/// entity codes encoded as `Diagram.fromText` does.
 pub fn parse(resolved: &Resolved) -> Result<StateDb, HelperError> {
-    parse_source(resolved.parse_text())
+    parse_source(&resolved.encoded_parse_text())
 }
 
 impl Diagram for State {
