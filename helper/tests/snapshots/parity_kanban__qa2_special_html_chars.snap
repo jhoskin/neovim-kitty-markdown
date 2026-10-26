@@ -1,0 +1,60 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="425" height="245" viewBox="90 -310 425 245" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-a" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="225" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(132.398, -300)">
+          <text class="nodeLabel" x="67.602" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="67.602" dy="17">Quotes " and ' here</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-b" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="91" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(351.656, -300)">
+          <text class="nodeLabel" x="53.344" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="53.344" dy="17">Section # and "</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-a1" class="node  " transform="translate(200, -241)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-34" width="185" height="68" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Ampersand</tspan><tspan> </tspan><tspan>&amp;</tspan><tspan> </tspan><tspan>entity</tspan><tspan> </tspan><tspan x="0" dy="24">&lt;tag&gt;</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 24)"/>
+        <g class="label" transform="translate(82.5, 24)"/>
+      </g>
+      <g id="my-svg-a2" class="node  " transform="translate(200, -180)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17"># hash entity and "</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-a3" class="node  " transform="translate(200, -119)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-34" width="185" height="68" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Less</tspan><tspan> </tspan><tspan>&lt;</tspan><tspan> </tspan><tspan>than</tspan><tspan> </tspan><tspan>and</tspan><tspan> </tspan><tspan>&gt;</tspan><tspan> </tspan><tspan x="0" dy="24">greater</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 24)"/>
+        <g class="label" transform="translate(82.5, 24)"/>
+      </g>
+      <g id="my-svg-b1" class="node  " transform="translate(405, -247)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Ticket entity</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">#12</tspan></text>
+        </g>
+        <g class="label" transform="translate(43.703, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">&lt;me&gt;</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

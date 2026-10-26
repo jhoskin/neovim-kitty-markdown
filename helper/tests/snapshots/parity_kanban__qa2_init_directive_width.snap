@@ -1,0 +1,47 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="625" height="106.5" viewBox="140 -460 625 106.5" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-a" class="cluster section-1">
+        <rect x="150" y="-450" width="300" height="86.5" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(250.43, -450)">
+          <text class="nodeLabel" x="49.57" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="49.57" dy="15">Directive config</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-b" class="cluster section-2">
+        <rect x="455" y="-450" width="300" height="76" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(592.938, -450)">
+          <text class="nodeLabel" x="12.063" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="12.063" dy="15">Two</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-a1" class="node  " transform="translate(300, -399.25)">
+        <rect class="basic label-container __APA__" x="-142.5" y="-25.75" width="285" height="51.5" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="kanban-ticket-link">
+          <g class="label" transform="translate(-132.5, 0)">
+            <rect x="0" y="16" width="21.078" height="1" fill="#000000"/>
+            <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="0" dy="15">D-1</tspan></text>
+          </g>
+        </g>
+        <g class="label" transform="translate(-132.5, -21)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="0" dy="15">Card</tspan></text>
+        </g>
+        <g class="label" transform="translate(109.813, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="0" dy="15">kim</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-b1" class="node  " transform="translate(605, -404.5)">
+        <rect class="basic label-container __APA__" x="-142.5" y="-20.5" width="285" height="41" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-132.5, -10.5)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14"><tspan x="0" dy="15">Card two wraps maybe</tspan></text>
+        </g>
+        <g class="label" transform="translate(-132.5, 10.5)"/>
+        <g class="label" transform="translate(132.5, 10.5)"/>
+      </g>
+    </g>
+  </g>
+</svg>

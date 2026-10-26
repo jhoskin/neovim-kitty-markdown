@@ -1,0 +1,180 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="2475" height="99" viewBox="90 -310 2475 99" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-f1" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="79" rx="5" ry="5" fill="#e1efc0" stroke="#e1efc0" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(171.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 1</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f2" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="79" rx="5" ry="5" fill="#a7e498" stroke="#a7e498" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(376.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 2</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f3" class="cluster section-3">
+        <rect x="510" y="-300" width="200" height="79" rx="5" ry="5" fill="#98e4af" stroke="#98e4af" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(581.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 3</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f4" class="cluster section-4">
+        <rect x="715" y="-300" width="200" height="79" rx="5" ry="5" fill="#98e4d5" stroke="#98e4d5" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(786.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 4</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f5" class="cluster section-5">
+        <rect x="920" y="-300" width="200" height="79" rx="5" ry="5" fill="#98cde4" stroke="#98cde4" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(991.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 5</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f6" class="cluster section-6">
+        <rect x="1125" y="-300" width="200" height="79" rx="5" ry="5" fill="#98a7e4" stroke="#98a7e4" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1196.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 6</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f7" class="cluster section-7">
+        <rect x="1330" y="-300" width="200" height="79" rx="5" ry="5" fill="#d598e4" stroke="#d598e4" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1401.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 7</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f8" class="cluster section-8">
+        <rect x="1535" y="-300" width="200" height="79" rx="5" ry="5" fill="#e498a7" stroke="#e498a7" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1606.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 8</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f9" class="cluster section-9">
+        <rect x="1740" y="-300" width="200" height="79" rx="5" ry="5" fill="#e4af98" stroke="#e4af98" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1811.016, -300)">
+          <text class="nodeLabel" x="28.984" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="28.984" dy="17">Forest 9</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f10" class="cluster section-10">
+        <rect x="1945" y="-300" width="200" height="79" rx="5" ry="5" fill="#e4d598" stroke="#e4d598" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(2011.82, -300)">
+          <text class="nodeLabel" x="33.18" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.18" dy="17">Forest 10</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f11" class="cluster section-11">
+        <rect x="2150" y="-300" width="200" height="79" rx="5" ry="5" fill="#000000" stroke="none"/>
+        <g class="cluster-label" transform="translate(2216.82, -300)">
+          <text class="nodeLabel" x="33.18" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.18" dy="17">Forest 11</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-f12" class="cluster section-12">
+        <rect x="2355" y="-300" width="200" height="79" rx="5" ry="5" fill="#000000" stroke="none"/>
+        <g class="cluster-label" transform="translate(2421.82, -300)">
+          <text class="nodeLabel" x="33.18" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.18" dy="17">Forest 12</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-f1a" class="node  " transform="translate(200, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 1</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f2a" class="node  " transform="translate(405, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 2</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f3a" class="node  " transform="translate(610, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 3</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f4a" class="node  " transform="translate(815, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 4</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f5a" class="node  " transform="translate(1020, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 5</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f6a" class="node  " transform="translate(1225, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 6</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f7a" class="node  " transform="translate(1430, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 7</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f8a" class="node  " transform="translate(1635, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 8</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f9a" class="node  " transform="translate(1840, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 9</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f10a" class="node  " transform="translate(2045, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 10</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f11a" class="node  " transform="translate(2250, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 11</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-f12a" class="node  " transform="translate(2455, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#13540c" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card 12</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+    </g>
+  </g>
+</svg>

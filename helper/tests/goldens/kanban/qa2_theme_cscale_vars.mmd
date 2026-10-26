@@ -1,0 +1,20 @@
+---
+config:
+  theme: base
+  themeVariables:
+    cScale0: '#ff0000'
+    cScale1: '#00aa00'
+    cScale2: '#0000ff'
+    cScaleLabel0: '#ffffff'
+    cScaleLabel1: '#ffffff'
+    textColor: '#333399'
+    background: '#ffeedd'
+    nodeBorder: '#663300'
+---
+kanban
+  a[Red]
+    a1[Card]
+  b[Green]
+    b1[Card]@{ priority: 'High' }
+  c[Blue]
+    c1[Card]@{ ticket: C-1 }

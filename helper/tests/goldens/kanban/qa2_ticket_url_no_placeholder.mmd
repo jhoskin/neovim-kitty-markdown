@@ -1,0 +1,10 @@
+---
+config:
+  kanban:
+    ticketBaseUrl: 'https://example.com/tickets/'
+---
+kanban
+  a[Open]
+    a1[Has ticket]@{ ticket: NP-1 }
+    a2[No ticket]@{ assigned: 'jo' }
+    a3[Ticket and all]@{ ticket: NP-3, assigned: 'jo', priority: 'Very High' }

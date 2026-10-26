@@ -1,0 +1,57 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="425" height="352" viewBox="90 -310 425 352" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-a" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="332" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(183.266, -300)">
+          <text class="nodeLabel" x="16.734" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.734" dy="17">Long</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-b" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="131" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(379.633, -300)">
+          <text class="nodeLabel" x="25.367" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="25.367" dy="17">Tickets</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-a1" class="node  " transform="translate(200, -151)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-124" width="185" height="248" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -120)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">This</tspan><tspan> </tspan><tspan>card</tspan><tspan> </tspan><tspan>has</tspan><tspan> </tspan><tspan>a</tspan><tspan> </tspan><tspan>very</tspan><tspan> </tspan><tspan x="0" dy="24">long</tspan><tspan> </tspan><tspan>label</tspan><tspan> </tspan><tspan>that</tspan><tspan> </tspan><tspan>will</tspan><tspan> </tspan><tspan x="0" dy="24">wrap</tspan><tspan> </tspan><tspan>onto</tspan><tspan> </tspan><tspan>many</tspan><tspan> </tspan><tspan>lines</tspan><tspan> </tspan><tspan x="0" dy="24">inside</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan>card</tspan><tspan> </tspan><tspan>because</tspan><tspan> </tspan><tspan x="0" dy="24">it</tspan><tspan> </tspan><tspan>keeps</tspan><tspan> </tspan><tspan>going</tspan><tspan> </tspan><tspan>and</tspan><tspan> </tspan><tspan x="0" dy="24">going</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan>more</tspan><tspan> </tspan><tspan>and</tspan><tspan> </tspan><tspan x="0" dy="24">more</tspan><tspan> </tspan><tspan>words</tspan><tspan> </tspan><tspan>until</tspan><tspan> </tspan><tspan>it</tspan><tspan> </tspan><tspan>is</tspan><tspan> </tspan><tspan x="0" dy="24">about</tspan><tspan> </tspan><tspan>ten</tspan><tspan> </tspan><tspan>lines</tspan><tspan> </tspan><tspan>tall</tspan><tspan> </tspan><tspan>in</tspan><tspan> </tspan><tspan x="0" dy="24">total,</tspan><tspan> </tspan><tspan>which</tspan><tspan> </tspan><tspan>is</tspan><tspan> </tspan><tspan>a</tspan><tspan> </tspan><tspan>lot</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 96)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">L-1</tspan></text>
+        </g>
+        <g class="label" transform="translate(56.578, 96)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">kim</tspan></text>
+        </g>
+        <line x1="-90.5" y1="-122" x2="-90.5" y2="122" stroke="#ffa500" stroke-width="4"/>
+      </g>
+      <g id="my-svg-a2" class="node  " transform="translate(200, 0)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Short after</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-b1" class="node  " transform="translate(405, -227)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-40" width="185" height="80" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -48)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">a</tspan><tspan> </tspan><tspan>ticket</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan>spaces</tspan><tspan> </tspan><tspan x="0" dy="24">that</tspan><tspan> </tspan><tspan>wraps</tspan><tspan> </tspan><tspan>over</tspan><tspan> </tspan><tspan>two</tspan><tspan> </tspan><tspan x="0" dy="24">lines</tspan><tspan> </tspan><tspan>of</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan>card</tspan></text>
+        </g>
+        <g class="label" transform="translate(-92.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">someone</tspan><tspan> </tspan><tspan>else</tspan><tspan> </tspan><tspan>entirely</tspan><tspan> </tspan><tspan x="0" dy="24">here</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

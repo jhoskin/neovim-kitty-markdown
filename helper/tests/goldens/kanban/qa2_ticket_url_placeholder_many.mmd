@@ -1,0 +1,11 @@
+---
+config:
+  kanban:
+    ticketBaseUrl: 'https://tracker.example/#TICKET#/view?id=#TICKET#'
+---
+kanban
+  a[One]
+    a1[Short]@{ ticket: A-1 }
+    a2[Long ticket wraps]@{ ticket: VERY-LONG-TICKET-IDENTIFIER-NUMBER-0001 }
+  b[Two]
+    b1[Number ticket]@{ ticket: 77, assigned: 'li' }

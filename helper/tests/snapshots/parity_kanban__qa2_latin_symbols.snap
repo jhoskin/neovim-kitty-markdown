@@ -1,0 +1,77 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="425" height="269" viewBox="90 -310 425 269" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-a" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="249" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(129.844, -300)">
+          <text class="nodeLabel" x="70.156" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="70.156" dy="17">Événements à venir</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-b" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="201" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(346.828, -300)">
+          <text class="nodeLabel" x="58.172" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="58.172" dy="17">Ñandú Øre Æble</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-a1" class="node  " transform="translate(200, -235)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-40" width="185" height="80" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Ça</tspan><tspan> </tspan><tspan>coûte</tspan><tspan> </tspan><tspan>12</tspan><tspan> </tspan><tspan>€</tspan><tspan> </tspan><tspan>ou</tspan><tspan> </tspan><tspan>£10</tspan><tspan> </tspan><tspan>±</tspan><tspan> </tspan><tspan x="0" dy="24">5</tspan><tspan> </tspan><tspan>%</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(23.188, 12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">François</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-a2" class="node  " transform="translate(200, -168)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">© ® ™ § ¶ † ‡ • … « » ‹ ›</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-a3" class="node  " transform="translate(200, -101)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-40" width="185" height="80" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Dashes</tspan><tspan> </tspan><tspan>–</tspan><tspan> </tspan><tspan>and</tspan><tspan> </tspan><tspan>—</tspan><tspan> </tspan><tspan>and</tspan><tspan> </tspan><tspan x="0" dy="24">“curly”</tspan><tspan> </tspan><tspan>‘quotes’</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">ÉTÉ-2026</tspan></text>
+        </g>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+      <g id="my-svg-b1" class="node  " transform="translate(405, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Straße Größe Fußgänger</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+        <line x1="-90.5" y1="-20" x2="-90.5" y2="20" stroke="#ffa500" stroke-width="4"/>
+      </g>
+      <g id="my-svg-b2" class="node  " transform="translate(405, -192)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-34" width="185" height="68" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Łódź</tspan><tspan> </tspan><tspan>Kraków</tspan><tspan> </tspan><tspan>Gdańsk</tspan><tspan> </tspan><tspan x="0" dy="24">Wrocław</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 24)"/>
+        <g class="label" transform="translate(82.5, 24)"/>
+      </g>
+      <g id="my-svg-b3" class="node  " transform="translate(405, -131)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">čšž ěřů ő ű ă ș ț</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+    </g>
+  </g>
+</svg>
