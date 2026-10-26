@@ -157,6 +157,10 @@ as a spec proposal instead.
   `getData` lists every node of the id after each such section, and the
   renderer filters that list by id again, so `k` sections of one id draw
   `k^3` cards in all.
+- Kanban SVG text labels (`htmlLabels: false`) start at `x = 0`, because
+  the kanban sheet has no `text-anchor` rule. The shared label builder
+  centres SVG text, as the flowchart sheet does, so the kanban renderer
+  sets the anchor of its label texts back to `start` after building them.
 
 ## Preview and helper client
 

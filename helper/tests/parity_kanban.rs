@@ -202,6 +202,33 @@ fn entity_codes_show_as_characters() {
     }
 }
 
+/// `htmlLabels: false` turns every kanban label into SVG text, which
+/// starts at `x = 0` (the kanban sheet sets no `text-anchor`) and steps
+/// 1.1 em per row; section titles take `.section-N text { fill:
+/// cScaleLabel<N + 1> }`.
+#[test]
+fn html_labels_false_draws_start_anchored_svg_text() {
+    let body = "kanban\n  a[Todo]\n    a1[One two three four five six seven eight]@{ ticket: H-1, assigned: 'kim' }\n  b[Done]\n";
+    let html_scene = render_scene(body);
+    let svg_scene = render_scene(&format!("---\nconfig:\n  htmlLabels: false\n---\n{body}"));
+    let html = html_scene.to_svg();
+    let svg = svg_scene.to_svg();
+    assert!(!html.contains("dy=\"1.1em\""), "{html}");
+    assert!(svg.contains("dy=\"1.1em\""), "{svg}");
+    assert!(!svg.contains("text-anchor=\"middle\""), "{svg}");
+    // `section-2` takes the default theme's white `cScaleLabel3`.
+    let white_text = "fill=\"#ffffff\" font-family";
+    assert_eq!(svg.matches(white_text).count(), 1, "{svg}");
+    assert!(!html.contains(white_text), "{html}");
+    // SVG rows are 1.1 em, not the 1.5 of HTML, so the card is shorter.
+    assert!(
+        svg_scene.height < html_scene.height,
+        "{} {}",
+        svg_scene.height,
+        html_scene.height
+    );
+}
+
 /// `getData()` lists, after each section, every node whose `parentId` is
 /// the section's id, and the renderer then gathers a section's cards with
 /// the same filter over that list. With `k` sections of one id and one

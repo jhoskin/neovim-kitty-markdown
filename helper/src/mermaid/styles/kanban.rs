@@ -3,9 +3,10 @@
 //! The sheet has two parts the kanban renderer paints with: the
 //! `genSections` loop, which colors `.section-N rect` from the `cScale`
 //! palette, and the `.node rect { fill: background; stroke: nodeBorder }`
-//! rule that replaces the flowchart `mainBkg` fill for the cards. Labels
-//! are HTML in the oracle, so `.cluster-label, .label { color: textColor }`
-//! is the only text rule that lands on anything.
+//! rule that replaces the flowchart `mainBkg` fill for the cards. HTML
+//! labels take `.cluster-label, .label { color: textColor }`; SVG text
+//! labels (`htmlLabels: false`) take its `fill`, except that a section
+//! title also matches `.section-N text { fill: cScaleLabel<N + 1> }`.
 
 use serde_json::Value;
 
@@ -29,6 +30,9 @@ pub struct KanbanStyles {
     /// `adjuster(cScale<i>, 10)` for `i` in `0..THEME_COLOR_LIMIT`: the
     /// fill of `.section-${i - 1} rect`.
     section_fills: Vec<Color>,
+    /// `cScaleLabel<i>` for `i` in `0..THEME_COLOR_LIMIT`: the fill of
+    /// `.section-${i - 1} text`.
+    section_text_fills: Vec<Color>,
 }
 
 impl KanbanStyles {
@@ -51,6 +55,9 @@ impl KanbanStyles {
                 }
             })
             .collect();
+        let section_text_fills = (0..THEME_COLOR_LIMIT)
+            .map(|i| color(&format!("cScaleLabel{i}")))
+            .collect();
         let font_size = tv
             .str("fontSize")
             .and_then(|s| s.trim().trim_end_matches("px").parse::<f64>().ok())
@@ -65,7 +72,19 @@ impl KanbanStyles {
             background: color("background"),
             node_border: color("nodeBorder"),
             section_fills,
+            section_text_fills,
         }
+    }
+
+    /// The fill of an SVG text section title: `.section-N text { fill:
+    /// cScaleLabel<N + 1> }` is more specific than the `fill: textColor`
+    /// the text would inherit from `.cluster-label`. Past `section-10` only
+    /// the inherited fill is left. HTML titles never match `text`.
+    pub fn section_text_fill(&self, n: usize) -> Color {
+        self.section_text_fills
+            .get(n + 1)
+            .copied()
+            .unwrap_or(self.text_color)
     }
 
     /// `.section-N rect { fill: adjuster(cScale<N + 1>, 10); stroke: the
@@ -126,6 +145,12 @@ mod tests {
         let s11 = styles.section_rect(11);
         assert_eq!(s11.fill, Some(Paint::Color(styles.text_color)));
         assert_eq!(s11.stroke, Some(Paint::None));
+        // SVG titles: `section-2` takes `cScaleLabel3`, which is white in
+        // the default theme (the oracle's `.section-2 text{fill:#ffffff}`),
+        // and past the sheet the inherited text color.
+        assert_eq!(styles.section_text_fill(1), Color::BLACK);
+        assert_eq!(styles.section_text_fill(2), Color::WHITE);
+        assert_eq!(styles.section_text_fill(11), styles.text_color);
     }
 
     #[test]

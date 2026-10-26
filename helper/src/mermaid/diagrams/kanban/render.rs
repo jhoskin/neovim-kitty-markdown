@@ -7,11 +7,15 @@
 //! `setupGraphViewbox` and the mindmap padding. The cards are the
 //! `kanbanItem` shape through `shapes::insert_node`.
 //!
-//! Labels are HTML in the oracle. `draw` sets `conf.htmlLabels = false` on
-//! a copy (`getConfig()` returns `assignWithDepth({}, currentConfig)`),
-//! so `labelHelper`, `insertLabel`, and `kanbanSection`, which all call
-//! `getConfig()` again, measure `foreignObject` labels with `line-height
-//! 1.5`. The scene therefore uses the shapes' HTML label mode.
+//! Labels are HTML by default. `draw` sets `conf.htmlLabels = false` on a
+//! copy (`getConfig()` returns `assignWithDepth({}, currentConfig)`), so
+//! `labelHelper`, `insertLabel`, and `kanbanSection`, which all call
+//! `getConfig()` again, read the user's config instead: the card title
+//! follows `evaluate(htmlLabels)` (`labelHelper`), and the ticket, the
+//! assignee, and the section title follow `getEffectiveHtmlLabels`, which
+//! also reads the deprecated `flowchart.htmlLabels`. HTML labels measure
+//! with `line-height 1.5`; SVG text labels with the 1.1 em `tspan` rows,
+//! starting at `x = 0`: the kanban sheet sets no `text-anchor`.
 
 use serde_json::Value;
 
@@ -19,7 +23,7 @@ use super::db::{Item, KanbanDb, Section};
 use crate::error::HelperError;
 use crate::mermaid::config::Resolved;
 use crate::mermaid::diagrams::RenderCtx;
-use crate::mermaid::scene::{Common, Element, Group, Scene, ViewBox};
+use crate::mermaid::scene::{Common, Element, Group, Scene, TextAnchor, ViewBox};
 use crate::mermaid::shapes::util::{build_label_group, rect_element, translate};
 use crate::mermaid::shapes::{
     self, KanbanData, LabelBox, LabelMeasurer, LabelOpts, Node, NodeExtra, ShapeCtx,
@@ -118,13 +122,48 @@ fn use_max_width(resolved: &Resolved) -> bool {
         .unwrap_or(true)
 }
 
-fn html_opts(ctx: &ShapeCtx, width: f64) -> LabelOpts {
+fn label_opts(ctx: &ShapeCtx, html: bool, width: f64) -> LabelOpts {
     LabelOpts {
         font: ctx.font(),
-        html: ctx.html_labels,
+        html,
         width: Some(width),
         min_width: 0.0,
         markdown: true,
+    }
+}
+
+/// The two label rules of the kanban shapes (see the module docs).
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+struct HtmlLabels {
+    /// `labelHelper`: `node.useHtmlLabels || evaluate(htmlLabels)`; kanban
+    /// nodes never set `useHtmlLabels`.
+    title: bool,
+    /// `getEffectiveHtmlLabels(getConfig())`.
+    effective: bool,
+}
+
+impl HtmlLabels {
+    fn from_config(resolved: &Resolved) -> HtmlLabels {
+        HtmlLabels {
+            title: resolved.config.html_labels != Some(false),
+            effective: resolved.config.effective_html_labels(),
+        }
+    }
+}
+
+/// `createText` writes SVG text `tspan`s at `x = 0`, and no kanban rule
+/// sets a `text-anchor`, so SVG labels start where their group does. The
+/// shared label builder centres SVG text, as the flowchart sheet's
+/// `text-anchor: middle` does; this puts every text of a kanban label back
+/// at the start. HTML card labels are `text-align: left` and start there
+/// already.
+fn anchor_text_at_start(elements: &mut [Element]) {
+    for element in elements {
+        match element {
+            Element::Text(text) => text.anchor = Some(TextAnchor::Start),
+            Element::Group(group) => anchor_text_at_start(&mut group.children),
+            _ => {}
+        }
     }
 }
 
@@ -144,11 +183,18 @@ struct CardLabels {
 }
 
 impl CardLabels {
-    fn measure(item: &Item, node_width: f64, measurer: &dyn LabelMeasurer, ctx: &ShapeCtx) -> Self {
-        let opts = html_opts(ctx, node_width - ITEM_LABEL_INSET);
-        let title = measurer.measure(&item.label, &opts);
-        let ticket = measurer.measure(item.ticket.as_deref().unwrap_or(""), &opts);
-        let assigned = measurer.measure(item.assigned.as_deref().unwrap_or(""), &opts);
+    fn measure(
+        item: &Item,
+        node_width: f64,
+        html: HtmlLabels,
+        measurer: &dyn LabelMeasurer,
+        ctx: &ShapeCtx,
+    ) -> Self {
+        let width = node_width - ITEM_LABEL_INSET;
+        let title = measurer.measure(&item.label, &label_opts(ctx, html.title, width));
+        let meta = label_opts(ctx, html.effective, width);
+        let ticket = measurer.measure(item.ticket.as_deref().unwrap_or(""), &meta);
+        let assigned = measurer.measure(item.assigned.as_deref().unwrap_or(""), &meta);
         Self::place(title, ticket, assigned, node_width)
     }
 
@@ -195,18 +241,20 @@ impl CardLabels {
         y1 - y0
     }
 
-    /// The `foreignObject` boxes for the diagram bounds. A label with no
-    /// text has no box.
+    /// The `foreignObject` or `text` boxes for the diagram bounds: an SVG
+    /// text box starts `bbox.y` below its group, at the glyph tops. A label
+    /// with no text has no box.
     fn boxes(&self) -> impl Iterator<Item = (f64, f64, f64, f64)> + '_ {
         [&self.title, &self.ticket, &self.assigned]
             .into_iter()
             .filter(|l| !l.bbox.is_empty())
-            .map(|l| (l.x, l.y, l.bbox.width, l.bbox.height))
+            .map(|l| (l.x, l.y + l.bbox.y, l.bbox.width, l.bbox.height))
     }
 }
 
-/// `getData()`'s `kanbanItem` node for one card.
-fn item_node(item: &Item, x: f64, width: f64) -> Node {
+/// `getData()`'s `kanbanItem` node for one card. `use_html_labels`
+/// carries the title rule into `labelHelper`.
+fn item_node(item: &Item, x: f64, width: f64, html: HtmlLabels) -> Node {
     Node {
         id: item.id.clone(),
         dom_id: Some(format!("{SVG_ID}-{}", item.id)),
@@ -218,6 +266,7 @@ fn item_node(item: &Item, x: f64, width: f64) -> Node {
         css_styles: vec!["text-align: left".to_string()],
         width: Some(width),
         x,
+        use_html_labels: Some(html.title),
         extra: NodeExtra::Kanban(KanbanData {
             ticket: item.ticket.clone(),
             assigned: item.assigned.clone(),
@@ -255,8 +304,10 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
     let width = section_width(resolved);
     let styles = KanbanStyles::from_theme(&resolved.theme_variables);
     let measurer: &dyn LabelMeasurer = &ctx.metrics;
+    let html = HtmlLabels::from_config(resolved);
     let mut shape_ctx = ShapeCtx::new(measurer);
     shape_ctx.vars = styles.node_vars();
+    shape_ctx.html_labels = html.effective;
     shape_ctx.kanban_ticket_base_url = ticket_base_url(resolved);
 
     let sections = db.get_data();
@@ -269,7 +320,10 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
         let x = width * cnt as f64 + ((cnt - 1) as f64 * PADDING) / 2.0;
         // `kanbanSection`: `createText(labelEl, node.label, { useHtmlLabels,
         // isNode: true, width: node.width })`.
-        let label_bbox = measurer.measure(&section.label, &html_opts(&shape_ctx, width));
+        let label_bbox = measurer.measure(
+            &section.label,
+            &label_opts(&shape_ctx, html.effective, width),
+        );
         max_label_height = max_label_height.max(label_bbox.height);
         columns.push(Column {
             section,
@@ -289,13 +343,14 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
     for column in &columns {
         let mut y = top;
         for item in column_items(&sections, column.section) {
-            let mut node = item_node(item, column.x, item_width);
+            let mut node = item_node(item, column.x, item_width, html);
             let out = shapes::insert_node(&mut node, &shape_ctx)?;
-            let labels = CardLabels::measure(item, item_width, measurer, &shape_ctx);
+            let labels = CardLabels::measure(item, item_width, html, measurer, &shape_ctx);
             let height = labels.group_height(out.height);
             node.y = y + height / 2.0;
             let mut group = out.group;
             group.common.transform = translate(node.x, node.y);
+            anchor_text_at_start(&mut group.children);
             Bounds::add(
                 &mut bounds,
                 node.x - out.width / 2.0,
@@ -329,18 +384,26 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
         // node.y - node.height / 2 + subGraphTitleTopMargin))` with the
         // flowchart `subGraphTitleMargin.top` of 0.
         let label_x = column.x - column.label_bbox.width / 2.0;
-        let label = build_label_group(
+        let label_fill = if column.label_bbox.html {
+            styles.text_color
+        } else {
+            styles.section_text_fill(column.cnt)
+        };
+        let mut label = build_label_group(
             &column.label_bbox,
             &shape_ctx,
-            styles.text_color,
+            label_fill,
             "cluster-label",
             translate(label_x, rect_y),
         );
+        if !column.label_bbox.html {
+            anchor_text_at_start(&mut label.children);
+        }
         if !column.label_bbox.is_empty() {
             Bounds::add(
                 &mut bounds,
                 label_x,
-                rect_y,
+                rect_y + column.label_bbox.y,
                 column.label_bbox.width,
                 column.label_bbox.height,
             );
