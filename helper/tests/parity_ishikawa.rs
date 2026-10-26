@@ -137,3 +137,13 @@ fn every_builtin_theme_renders() {
         assert!(!scene.root.children.is_empty(), "{theme}");
     }
 }
+
+/// DOMPurify hands back a label with no `<` unchanged, so `&` shows as
+/// written; with a tag in the label the text is escaped instead.
+#[test]
+fn ampersands_show_as_written_unless_the_label_has_a_tag() {
+    let svg = render_scene("ishikawa-beta\n    R&D delay\n    Q&A\n        a<br>b & c\n").to_svg();
+    assert!(svg.contains(">R&amp;D delay<"), "{svg}");
+    assert!(svg.contains(">Q&amp;A<"), "{svg}");
+    assert!(svg.contains(">b &amp;amp; c<"), "{svg}");
+}

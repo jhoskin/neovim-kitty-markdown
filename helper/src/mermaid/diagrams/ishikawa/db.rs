@@ -95,12 +95,19 @@ impl IshikawaDb {
     }
 }
 
-/// `common.sanitizeText(text, config)` under `securityLevel: strict`:
-/// DOMPurify parses the text as HTML and serializes it back, so a bare `&`,
-/// `<`, or `>` comes out as an entity, which `.text()` then shows as
-/// written. A `<br>` tag in any spelling comes back as `<br>`, which
-/// `splitLines` then splits on.
+/// `common.sanitizeText(text, config)` under `securityLevel: strict`.
+///
+/// DOMPurify returns a string with no `<` unchanged (its fast path), so a
+/// bare `&` or `>` reaches `.text()` as written. Any other string is
+/// parsed as HTML and serialized back: a `<br>` tag in any spelling comes
+/// back as `<br>`, which `splitLines` then splits on, other tags stay, and
+/// the text between them is escaped (`&`, `<`, and `>` become entities
+/// that `.text()` then shows as written). A character reference that is
+/// already in the text decodes and serializes back to itself.
 pub fn sanitize_text(text: &str) -> String {
+    if !text.contains('<') {
+        return text.to_string();
+    }
     let mut out = String::with_capacity(text.len());
     let mut rest = text;
     while let Some(c) = rest.chars().next() {
@@ -108,6 +115,17 @@ pub fn sanitize_text(text: &str) -> String {
             && let Some(len) = br_tag_len(rest)
         {
             out.push_str("<br>");
+            rest = &rest[len..];
+            continue;
+        }
+        // Another tag, or a character reference: kept as written.
+        let kept = match c {
+            '<' => tag_len(rest),
+            '&' => entity_len(rest),
+            _ => None,
+        };
+        if let Some(len) = kept {
+            out.push_str(&rest[..len]);
             rest = &rest[len..];
             continue;
         }
@@ -120,6 +138,34 @@ pub fn sanitize_text(text: &str) -> String {
         rest = &rest[c.len_utf8()..];
     }
     out
+}
+
+/// The byte length of a start or end tag at the start of `text`: `<`, an
+/// optional `/`, an ASCII letter, and everything up to the next `>`. The
+/// HTML tokenizer reads a `<` before anything else as text.
+fn tag_len(text: &str) -> Option<usize> {
+    let bytes = text.as_bytes();
+    let name = if bytes.get(1) == Some(&b'/') { 2 } else { 1 };
+    if !bytes.get(name).is_some_and(u8::is_ascii_alphabetic) {
+        return None;
+    }
+    text.find('>').map(|i| i + 1)
+}
+
+/// The byte length of a character reference at the start of `text`:
+/// `&name;`, `&#digits;`, or `&#xhex;`.
+fn entity_len(text: &str) -> Option<usize> {
+    let body = text.strip_prefix('&')?;
+    let end = body.find(';')?;
+    let name = &body[..end];
+    let valid = match name.strip_prefix('#') {
+        Some(num) => match num.strip_prefix(['x', 'X']) {
+            Some(hex) => !hex.is_empty() && hex.chars().all(|c| c.is_ascii_hexdigit()),
+            None => !num.is_empty() && num.chars().all(|c| c.is_ascii_digit()),
+        },
+        None => !name.is_empty() && name.chars().all(|c| c.is_ascii_alphanumeric()),
+    };
+    valid.then_some(end + 2)
 }
 
 /// The byte length of a `<br>`, `<br/>`, or `<br />` tag at the start of
@@ -174,5 +220,25 @@ mod tests {
     fn sanitize_escapes_markup_but_keeps_line_breaks() {
         assert_eq!(sanitize_text("a & b < c"), "a &amp; b &lt; c");
         assert_eq!(sanitize_text("one<br/>two<BR >x"), "one<br>two<br>x");
+        assert_eq!(
+            sanitize_text("R&D<br>Q&amp;A > 1"),
+            "R&amp;D<br>Q&amp;A &gt; 1"
+        );
+        assert_eq!(sanitize_text("<b>bold</b> & <2"), "<b>bold</b> &amp; &lt;2");
+    }
+
+    /// DOMPurify's fast path: a string with no `<` comes back unchanged,
+    /// so the oracle shows `R&D`, not `R&amp;D`.
+    #[test]
+    fn sanitize_keeps_text_without_a_tag_as_written() {
+        for text in [
+            "R&D",
+            "Q&A & more",
+            "a > b",
+            "&amp; stays",
+            "\"quoted\" 'x'",
+        ] {
+            assert_eq!(sanitize_text(text), text);
+        }
     }
 }

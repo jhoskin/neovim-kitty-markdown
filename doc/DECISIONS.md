@@ -242,3 +242,8 @@ These entries replace the macOS platform fallback list in Fonts and text.
 - The raster step keeps resvg's glyph fallback, so drawn fallback glyphs
   can still differ from the measured face. resvg cannot draw PingFang
   outlines at all, because its outline table is not one usvg reads.
+
+- Ishikawa labels follow DOMPurify's fast path: a label with no `<` is
+  kept as written, so `R&D` shows as `R&D`. A label with a tag keeps the
+  tags and escapes the text between them (`&` shows as `&amp;`), as the
+  HTML parse and serialize in the oracle does.
