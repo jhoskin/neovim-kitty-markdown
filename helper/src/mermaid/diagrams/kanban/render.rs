@@ -227,6 +227,21 @@ fn item_node(item: &Item, x: f64, width: f64) -> Node {
     }
 }
 
+/// `data4Layout.nodes.filter((node) => node.parentId === section.id)`.
+/// `getData` pushes each section's children right after it, so when `k`
+/// sections share an id, every one of them gets those children `k` times
+/// over, in node order. (`Section::items` already holds every node of the
+/// id, so the board shows `k^3` copies in all, as the oracle does.)
+fn column_items<'s>(
+    sections: &'s [Section],
+    section: &'s Section,
+) -> impl Iterator<Item = &'s Item> {
+    sections
+        .iter()
+        .filter(move |s| s.id == section.id)
+        .flat_map(|s| s.items.iter())
+}
+
 /// A measured section: what the first loop of `draw` keeps for the second.
 struct Column<'s> {
     section: &'s Section,
@@ -273,7 +288,7 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
     let mut item_elements = Vec::new();
     for column in &columns {
         let mut y = top;
-        for item in &column.section.items {
+        for item in column_items(&sections, column.section) {
             let mut node = item_node(item, column.x, item_width);
             let out = shapes::insert_node(&mut node, &shape_ctx)?;
             let labels = CardLabels::measure(item, item_width, measurer, &shape_ctx);

@@ -153,6 +153,10 @@ as a spec proposal instead.
   character. A section title is measured decoded; the oracle measures the
   encoded markers and decodes them only in the finished SVG, so a section
   title with an entity code can be centred a few pixels apart.
+- Kanban sections that share an id repeat their cards as the oracle does:
+  `getData` lists every node of the id after each such section, and the
+  renderer filters that list by id again, so `k` sections of one id draw
+  `k^3` cards in all.
 
 ## Preview and helper client
 

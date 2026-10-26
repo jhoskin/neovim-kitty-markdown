@@ -201,3 +201,22 @@ fn entity_codes_show_as_characters() {
         assert!(!svg.contains(code), "{code} left as typed:\n{svg}");
     }
 }
+
+/// `getData()` lists, after each section, every node whose `parentId` is
+/// the section's id, and the renderer then gathers a section's cards with
+/// the same filter over that list. With `k` sections of one id and one
+/// card each, every section gets the `k` cards once per section: `k * k`
+/// cards per section, `k^3` on the board.
+#[test]
+fn sections_with_one_id_repeat_the_shared_cards() {
+    for copies in [1_usize, 2, 3] {
+        let mut source = String::from("kanban\n");
+        for i in 0..copies {
+            source.push_str(&format!("  s[Copy {i}]\n    c{i}[Card {i}]\n"));
+        }
+        source.push_str("  t[Other]\n    o1[Other card]\n");
+        let svg = render_scene(&source).to_svg();
+        let cards = svg.matches("basic label-container").count();
+        assert_eq!(cards, copies.pow(3) + 1, "{copies} copies:\n{svg}");
+    }
+}
