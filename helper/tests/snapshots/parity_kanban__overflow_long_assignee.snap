@@ -1,0 +1,40 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="324.125" height="212" viewBox="-14.125 -310 324.125 212" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-a" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="192" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(173.57, -300)">
+          <text class="nodeLabel" x="26.43" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="26.43" dy="17">Owners</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-a1" class="node  " transform="translate(200, -247)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-28" width="185" height="56" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -24)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Short title</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)"/>
+        <g class="label" transform="translate(-204.125, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">a.very.long.assignee.name.that.goes.on</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-a2" class="node  " transform="translate(200, -166)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-46" width="185" height="92" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -48)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Card</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan>a</tspan><tspan> </tspan><tspan>ticket</tspan><tspan> </tspan><tspan>and</tspan><tspan> </tspan><tspan x="0" dy="24">a</tspan><tspan> </tspan><tspan>long</tspan><tspan> </tspan><tspan>owner</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">VERYLONGTICKET-</tspan><tspan x="0" dy="24">123456</tspan></text>
+        </g>
+        <g class="label" transform="translate(-113.328, 0)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">someone.with.a.long.name</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
