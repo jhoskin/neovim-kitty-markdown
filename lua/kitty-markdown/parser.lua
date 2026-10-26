@@ -159,8 +159,10 @@ function Walk:slice(sr, sc, er, ec)
       from = skip
     end
     local to = row == er and ec or #line
-    -- an empty row inside a span still separates the words around it
-    if to > from or row < er then
+    -- an empty row inside a span still separates the words around it, and
+    -- so does a span that ends at the start of a row: the soft break before
+    -- a styled run, a code span, or a link is one space (R-029)
+    if to > from or row < er or row > sr then
       pieces[#pieces + 1] = { text = line:sub(from + 1, math.max(to, from)), row = row + 1 }
     end
   end
@@ -213,9 +215,45 @@ local function split_text(text, row, out)
   end
 end
 
+-- Inline math with single dollar signs, as GitHub finds it (R-280): a `$`
+-- opens only when a character other than a space or `$` follows it, and
+-- the span closes at the next `$` only when a character other than a space
+-- comes before that `$`. A span holds no `$` of its own, so in
+-- `$5 and $10` neither dollar sign pairs. A `\$` neither opens nor closes.
+-- Returns the start and the end byte of the next span from `pos`, or nil.
+local function find_math(text, pos)
+  local function can_open(at)
+    local after = text:sub(at + 1, at + 1)
+    local before = at > 1 and text:sub(at - 1, at - 1) or ''
+    return after ~= '' and not after:match('[%s$]') and before ~= '$' and before ~= '\\'
+  end
+  local open = text:find('$', pos, true)
+  while open do
+    local close = text:find('$', open + 1, true)
+    while close and text:sub(close - 1, close - 1) == '\\' do
+      close = text:find('$', close + 1, true)
+    end
+    if not close then
+      return nil
+    end
+    if
+      can_open(open)
+      and not text:sub(close - 1, close - 1):match('%s')
+      and text:sub(close + 1, close + 1) ~= '$'
+    then
+      return open, close
+    end
+    open = close
+  end
+  return nil
+end
+
 -- Emit the text pieces of a slice. A newline inside a slice is a soft break,
--- shown as one space; the whitespace around it is dropped.
+-- shown as one space; the whitespace around it is dropped. Inline math is
+-- found here, on the joined text, so a span may cross a soft break.
 local function emit_pieces(pieces, out)
+  local parts, starts, rows = {}, {}, {}
+  local len = 0
   for i, piece in ipairs(pieces) do
     local text = piece.text
     if i > 1 then
@@ -225,9 +263,49 @@ local function emit_pieces(pieces, out)
       text = text:gsub('%s+$', '') .. ' '
     end
     if text ~= '' then
-      split_text(text, piece.row, out)
+      parts[#parts + 1] = text
+      starts[#starts + 1] = len + 1
+      rows[#rows + 1] = piece.row
+      len = len + #text
     end
   end
+  local joined = table.concat(parts)
+  -- Plain text from byte `a` to byte `b`, split at the piece boundaries so
+  -- each item keeps the row it came from.
+  local function plain(a, b)
+    for k = 1, #starts do
+      local s = math.max(a, starts[k])
+      local e = math.min(b, (starts[k + 1] or len + 1) - 1)
+      if e >= s then
+        split_text(joined:sub(s, e), rows[k], out)
+      end
+    end
+  end
+  local function row_at(byte)
+    local row = rows[1]
+    for k = 1, #starts do
+      if starts[k] <= byte then
+        row = rows[k]
+      end
+    end
+    return row
+  end
+  local pos = 1
+  while pos <= len do
+    local open, close = find_math(joined, pos)
+    if not open then
+      break
+    end
+    plain(pos, open - 1)
+    out[#out + 1] = {
+      type = 'math',
+      tex = trim(joined:sub(open + 1, close - 1)),
+      display = false,
+      row = row_at(open),
+    }
+    pos = close + 1
+  end
+  plain(pos, len)
 end
 
 function Walk:inline_root(node)
@@ -255,13 +333,72 @@ local DELIMITERS = {
   latex_span_delimiter = true,
 }
 
+-- Obsidian wikilinks and embeds (`[[Page]]`, `[[Page|alias]]`,
+-- `![[image.png]]`) are not links on GitHub, so they stay as written
+-- (R-036). The inline grammar reads them as a link inside brackets or as an
+-- image; this finds their ranges, per row, as 0-based `{ row, s, e }` with
+-- `e` exclusive.
+function Walk:wikilinks(node)
+  local spans = {}
+  local sr, _, er = node:range()
+  for row = sr, er do
+    local line = self.lines[row + 1] or ''
+    local pos = 1
+    while true do
+      local s, e = line:find('!?%[%[[^%[%]]+%]%]', pos)
+      if not s then
+        break
+      end
+      spans[#spans + 1] = { row, s - 1, e }
+      pos = e + 1
+    end
+  end
+  return spans
+end
+
+local LINK_NODES = {
+  shortcut_link = true,
+  full_reference_link = true,
+  collapsed_reference_link = true,
+  inline_link = true,
+  image = true,
+}
+
+-- A child that stays in the surrounding text: a single-dollar math span
+-- (the text scan of `emit_pieces` applies GitHub's delimiter rules to it)
+-- and a link or image node that overlaps a wikilink.
+function Walk:is_literal(child, wikilinks)
+  if child:type() == 'latex_block' then
+    local first = child:child(0)
+    if first and first:type() == 'latex_span_delimiter' and #get_text(first, self.source) == 1 then
+      return true
+    end
+  end
+  if not LINK_NODES[child:type()] then
+    return false
+  end
+  local csr, csc, cer, cec = child:range()
+  for _, span in ipairs(wikilinks) do
+    local row, s, e = span[1], span[2], span[3]
+    if row >= csr and row <= cer then
+      local from = row == csr and csc or 0
+      local to = row == cer and cec or math.huge
+      if from < e and to > s then
+        return true
+      end
+    end
+  end
+  return false
+end
+
 -- Recursive walk of one inline tree node into inline items. Text between
 -- the named children is plain text; delimiters are skipped.
 function Walk:inlines_of(node, out)
   local _, _, er, ec = node:range()
   local cur_row, cur_col = node:start()
+  local wikilinks = self:wikilinks(node)
   for child in node:iter_children() do
-    if child:named() then
+    if child:named() and not self:is_literal(child, wikilinks) then
       local csr, csc, cer, cec = child:range()
       emit_pieces(self:slice(cur_row, cur_col, csr, csc), out)
       if not DELIMITERS[child:type()] then
