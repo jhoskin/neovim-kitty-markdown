@@ -1,0 +1,38 @@
+---
+source: tests/parity_pie.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="590.122" height="450" viewBox="0 0 590.122 450" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g transform="translate(225, 225)">
+      <g>
+        <circle class="pieOuterCircle" cx="0" cy="0" r="186" fill="none" stroke="#000000" stroke-width="2"/>
+        <path class="pieCircle" d="M0,-185A185,185,0,0,1,108.74,149.668L0,0Z" fill="#ececff" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M108.74,149.668A185,185,0,0,1,-175.945,57.168L0,0Z" fill="#ffffde" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M-175.945,57.168A185,185,0,0,1,-108.74,-149.668L0,0Z" fill="#b5ff20" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <path class="pieCircle" d="M-108.74,-149.668A185,185,0,0,1,0,-185L0,0Z" fill="#b9b9ff" stroke="#000000" stroke-width="2" opacity="0.7"/>
+        <text class="slice" transform="translate(131.959, -42.876)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">40%</text>
+        <text class="slice" transform="translate(-42.876, 131.959)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">30%</text>
+        <text class="slice" transform="translate(-131.959, -42.876)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">20%</text>
+        <text class="slice" transform="translate(-42.876, -131.959)" x="0" y="0" text-anchor="middle" fill="#333333" font-size="17">10%</text>
+      </g>
+      <text class="pieTitleText" x="0" y="-200" text-anchor="middle" fill="#000000" font-size="25">水果 🍎 과일</text>
+      <g class="legend" transform="translate(216, -44)">
+        <rect x="0" y="0" width="18" height="18" fill="#ececff" stroke="#ececff"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">苹果 🍎</text>
+      </g>
+      <g class="legend" transform="translate(216, -22)">
+        <rect x="0" y="0" width="18" height="18" fill="#ffffde" stroke="#ffffde"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">바나나</text>
+      </g>
+      <g class="legend" transform="translate(216, 0)">
+        <rect x="0" y="0" width="18" height="18" fill="#b5ff20" stroke="#b5ff20"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">みかん 🍊</text>
+      </g>
+      <g class="legend" transform="translate(216, 22)">
+        <rect x="0" y="0" width="18" height="18" fill="#b9b9ff" stroke="#b9b9ff"/>
+        <text class="legendText" x="22" y="14" fill="#000000" font-size="17">Other ★</text>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,71 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="630" height="232" viewBox="90 -310 630 232" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-todo" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="212" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(168, -300)">
+          <text class="nodeLabel" x="32" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="32" dy="17">やること</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-doing" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="107" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(380.516, -300)">
+          <text class="nodeLabel" x="24.484" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="24.484" dy="17">作業中</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-done" class="cluster section-3">
+        <rect x="510" y="-300" width="200" height="79" rx="5" ry="5" fill="#ffb9ff" stroke="#ffb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(593.68, -300)">
+          <text class="nodeLabel" x="16.32" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.32" dy="17">完了</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-t1" class="node  " transform="translate(200, -235)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-40" width="185" height="80" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">ロ</tspan><tspan>グ</tspan><tspan>イ</tspan><tspan>ン</tspan><tspan>画</tspan><tspan>面</tspan><tspan>の</tspan><tspan>バ</tspan><tspan>グ</tspan><tspan>を</tspan><tspan>直</tspan><tspan x="0" dy="24">す</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">バグ-42</tspan></text>
+        </g>
+        <g class="label" transform="translate(-13.031, 12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">たなかたろう</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-t2" class="node  " transform="translate(200, -144)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-46" width="185" height="92" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">ダ</tspan><tspan>ー</tspan><tspan>ク</tspan><tspan>モ</tspan><tspan>ー</tspan><tspan>ド</tspan><tspan>と</tspan><tspan>ハ</tspan><tspan>イ</tspan><tspan>コ</tspan><tspan>ン</tspan><tspan x="0" dy="24">ト</tspan><tspan>ラ</tspan><tspan>ス</tspan><tspan>ト</tspan><tspan>の</tspan><tspan>テ</tspan><tspan>ー</tspan><tspan>マ</tspan><tspan>を</tspan><tspan>追</tspan><tspan x="0" dy="24">加</tspan><tspan>す</tspan><tspan>る</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 36)"/>
+        <g class="label" transform="translate(82.5, 36)"/>
+        <line x1="-90.5" y1="-44" x2="-90.5" y2="44" stroke="#0000ff" stroke-width="4"/>
+      </g>
+      <g id="my-svg-d1" class="node  " transform="translate(405, -239)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-34" width="185" height="68" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">ドキュメントの翻訳</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">文書-7</tspan></text>
+        </g>
+        <g class="label" transform="translate(-92.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">や</tspan><tspan>ま</tspan><tspan>だ</tspan><tspan>は</tspan><tspan>な</tspan><tspan>こ</tspan><tspan>さ</tspan><tspan>ん</tspan><tspan>と</tspan><tspan>さ</tspan><tspan x="0" dy="24">と</tspan><tspan>う</tspan><tspan>い</tspan><tspan>ち</tspan><tspan>ろ</tspan><tspan>う</tspan><tspan>さ</tspan><tspan>ん</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-x1" class="node  " transform="translate(610, -253)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-22" width="185" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Mixed かな and English</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 12)"/>
+        <g class="label" transform="translate(82.5, 12)"/>
+      </g>
+    </g>
+  </g>
+</svg>
