@@ -2,7 +2,7 @@
 
 use super::util::{
     create_path_from_points, done, generate_circle_points, get_node_classes, label_helper,
-    node_style, path_element, points_bbox, update_node_bounds,
+    node_style, points_bbox, rough_path_element, update_node_bounds,
 };
 use super::{Dims, Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -61,11 +61,12 @@ impl Shape for Stadium {
         let out = label_helper(node, ctx, Some(&get_node_classes(node, None)), false);
         let (w, h) = stadium_dimensions(out.bbox.dims(), padding_x, padding_y);
         let points = stadium_points(w, h);
-        let path = path_element(
+        let path = rough_path_element(
             create_path_from_points(&points),
             "basic label-container outer-path",
             node_style(ctx, node),
             Vec::new(),
+            &ctx.vars,
         );
         update_node_bounds(node, points_bbox(&points));
         node.intersector = Intersector::Polygon(points);

@@ -1,12 +1,12 @@
 //! `shapes/curlyBraceLeft.ts`: the comment shape.
 //!
-//! The brace is drawn with `fill: 'none'` but sits under `.node path`,
-//! whose `fill: mainBkg` wins over the attribute, so both paths take the
-//! node style; the box path only hides its stroke (`stroke-opacity 0`).
+//! Both paths are drawn with `fill: 'none'`, so rough.js writes stroke
+//! paths only and nothing fills the brace; the box path hides its stroke
+//! too (`stroke-opacity 0`) and only serves the bounds and the intersect.
 
 use super::util::{
     create_open_path_from_points, create_path_from_points, done, generate_circle_points,
-    get_node_classes, group_element, label_helper, node_style, path_element, points_bbox,
+    get_node_classes, group_element, label_helper, node_style, points_bbox, rough_stroke_element,
     translate, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
@@ -108,13 +108,8 @@ impl Shape for CurlyBraceLeft {
             "text",
             translate(radius, 0.0),
             vec![
-                path_element(create_open_path_from_points(&points), "", style, Vec::new()),
-                path_element(
-                    create_path_from_points(&rect_points),
-                    "",
-                    rect_style,
-                    Vec::new(),
-                ),
+                rough_stroke_element(&create_open_path_from_points(&points), style),
+                rough_stroke_element(&create_path_from_points(&rect_points), rect_style),
             ],
         );
         out.label.common.transform = translate(

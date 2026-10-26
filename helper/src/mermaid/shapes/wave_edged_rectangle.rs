@@ -2,7 +2,7 @@
 
 use super::util::{
     create_path_from_points, done, generate_full_sine_wave_points, get_node_classes, label_helper,
-    node_style, path_element, points_bbox, translate, update_node_bounds,
+    node_style, points_bbox, rough_path_element, translate, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -58,11 +58,12 @@ impl Shape for WaveEdgedRectangle {
         points.push(Point::new(w / 2.0 + extra_w, -final_h / 2.0));
         points.push(Point::new(-w / 2.0 - extra_w, -final_h / 2.0));
 
-        let path = path_element(
+        let path = rough_path_element(
             create_path_from_points(&points),
             "basic label-container outer-path",
             node_style(ctx, node),
             translate(0.0, -wave_amplitude / 2.0),
+            &ctx.vars,
         );
         out.label.common.transform = translate(
             -w / 2.0 + node.padding() - out.bbox.x,

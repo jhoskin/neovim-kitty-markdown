@@ -1,9 +1,14 @@
 //! `shapes/stateEnd.ts`: a ring with a filled dot. The ring takes
 //! `lineColor` at width 2 over `mainBkg`; the dot takes `stateBorder ??
-//! nodeBorder`.
+//! nodeBorder`. Under the flowchart's `.node path` rule (the `fr-circ`
+//! shape) both rough.js circles take the node colors and the rule's
+//! stroke width instead.
 
 use super::state_start::fix_state_dot_size;
-use super::util::{apply_declarations, circle_element, node_group, styles2string};
+use super::util::{
+    apply_declarations, circle_element, circle_path, node_group, node_style, rough_path_element,
+    styles2string,
+};
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
 use crate::mermaid::scene::{Common, Element, Group, Paint, Style};
@@ -19,6 +24,38 @@ impl Shape for StateEnd {
             .get("fill")
             .and_then(|f| super::util::parse_css_color(f));
         let outer_r = node.width() / 2.0;
+        // `rc.circle(0, 0, innerNodeRadius)` takes a diameter.
+        let inner_r = ((node.width() * 5.0) / 14.0) / 2.0;
+        if ctx.vars.node_rule {
+            let style = node_style(ctx, node);
+            let circles = [outer_r, inner_r]
+                .into_iter()
+                .map(|r| {
+                    rough_path_element(
+                        circle_path(0.0, 0.0, r),
+                        "",
+                        style.clone(),
+                        Vec::new(),
+                        &ctx.vars,
+                    )
+                })
+                .collect();
+            shape_svg.children.push(Element::Group(Group {
+                common: Common {
+                    class: Some("outer-path".to_string()),
+                    ..Common::default()
+                },
+                children: circles,
+            }));
+            node.width = Some(outer_r * 2.0);
+            node.height = Some(outer_r * 2.0);
+            node.intersector = Intersector::Circle(outer_r);
+            return Ok(ShapeOut {
+                group: shape_svg,
+                width: outer_r * 2.0,
+                height: outer_r * 2.0,
+            });
+        }
         let mut outer = Style {
             fill: Some(user_fill.unwrap_or(Paint::Color(ctx.vars.main_bkg))),
             stroke: Some(Paint::Color(ctx.vars.line_color)),
@@ -27,8 +64,6 @@ impl Shape for StateEnd {
         };
         apply_declarations(&mut outer, &node_styles);
         let inner_fill = ctx.vars.state_border.unwrap_or(ctx.vars.node_border);
-        // `rc.circle(0, 0, innerNodeRadius)` takes a diameter.
-        let inner_r = ((node.width() * 5.0) / 14.0) / 2.0;
         let mut inner = Style {
             fill: Some(Paint::Color(inner_fill)),
             stroke: Some(Paint::Color(inner_fill)),

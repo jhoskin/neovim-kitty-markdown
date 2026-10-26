@@ -281,3 +281,12 @@ These entries replace the macOS platform fallback list in Fonts and text.
   becomes the two characters `\n` and each backslash becomes `\\`.
   `printf '%b'` gives the multi-line oracle text back. Every failure exits
   with status 1.
+
+- The shapes that rough.js draws in the classic look draw the same two
+  paths: a fill path and a stroke path with every segment twice, each pass
+  its own subpath. Chrome and tiny-skia stroke 1 px lines as hairlines
+  one segment at a time, so the second pass makes the outline as dark as
+  the oracle's. The flowchart stylesheet's `.node path` rule
+  (`NodeStyleVars::node_rule`) paints both paths and also gives the fork
+  bar and the start and end dots the node colors. Class, ER, requirement,
+  note, and choice shapes keep one path for now.

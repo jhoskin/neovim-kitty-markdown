@@ -1,7 +1,7 @@
 //! `shapes/crossedCircle.ts`: the summary shape, label-less.
 
 use super::util::{
-    circle_element, get_node_classes, group_element, node_group, node_style, path_element,
+    circle_path, get_node_classes, group_element, node_group, node_style, rough_path_element,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -37,8 +37,14 @@ impl Shape for CrossedCircle {
             "outer-path",
             Vec::new(),
             vec![
-                circle_element(0.0, 0.0, radius, "", style.clone()),
-                path_element(create_line(radius), "", style, Vec::new()),
+                rough_path_element(
+                    circle_path(0.0, 0.0, radius),
+                    "",
+                    style.clone(),
+                    Vec::new(),
+                    &ctx.vars,
+                ),
+                rough_path_element(create_line(radius), "", style, Vec::new(), &ctx.vars),
             ],
         ));
         node.width = Some(radius * 2.0);

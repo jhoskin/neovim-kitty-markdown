@@ -116,6 +116,7 @@ impl NodeStyleVars {
                 .unwrap_or(DEFAULT_FONT_SIZE),
             config_font_family: config.font_family.clone(),
             config_font_size: *config.font_size,
+            node_rule: false,
         }
     }
 }

@@ -2,7 +2,7 @@
 
 use super::util::{
     create_path_from_points, done, generate_full_sine_wave_points, get_node_classes, group_element,
-    label_helper, node_style, path_element, points_bbox, translate, update_node_bounds,
+    label_helper, node_style, points_bbox, rough_path_element, translate, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -72,13 +72,20 @@ impl Shape for MultiWaveEdgedRectangle {
             "basic label-container outer-path",
             translate(0.0, -wave_amplitude / 2.0),
             vec![
-                path_element(
+                rough_path_element(
                     create_path_from_points(&outer),
                     "",
                     style.clone(),
                     Vec::new(),
+                    &ctx.vars,
                 ),
-                path_element(create_path_from_points(&inner), "", style, Vec::new()),
+                rough_path_element(
+                    create_path_from_points(&inner),
+                    "",
+                    style,
+                    Vec::new(),
+                    &ctx.vars,
+                ),
             ],
         );
         out.label.common.transform = translate(

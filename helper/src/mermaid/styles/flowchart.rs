@@ -34,7 +34,10 @@ pub struct FlowchartStyles {
 
 impl FlowchartStyles {
     pub fn resolve(tv: &ThemeVariables, config: &MermaidConfig) -> FlowchartStyles {
-        let vars = NodeStyleVars::from_theme(tv, config);
+        let vars = NodeStyleVars {
+            node_rule: true,
+            ..NodeStyleVars::from_theme(tv, config)
+        };
         FlowchartStyles {
             text_color: vars.text_color,
             font_family: vars.font_family.clone(),

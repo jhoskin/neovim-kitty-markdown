@@ -3,7 +3,7 @@
 
 use super::util::{
     create_open_path_from_points, create_path_from_points, done, get_node_classes, group_element,
-    label_helper, node_style, path_element, points_bbox, translate, update_node_bounds,
+    label_helper, node_style, points_bbox, rough_stroke_element, translate, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -89,13 +89,8 @@ impl Shape for CurlyBraceRight {
             "text",
             translate(-radius, 0.0),
             vec![
-                path_element(create_open_path_from_points(&points), "", style, Vec::new()),
-                path_element(
-                    create_path_from_points(&rect_points),
-                    "",
-                    rect_style,
-                    Vec::new(),
-                ),
+                rough_stroke_element(&create_open_path_from_points(&points), style),
+                rough_stroke_element(&create_path_from_points(&rect_points), rect_style),
             ],
         );
         out.label.common.transform = translate(

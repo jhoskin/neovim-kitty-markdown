@@ -2,7 +2,7 @@
 
 use super::util::{
     create_open_path_from_points, create_path_from_points, done, generate_circle_points,
-    get_node_classes, group_element, label_helper, node_style, path_element, points_bbox,
+    get_node_classes, group_element, label_helper, node_style, points_bbox, rough_stroke_element,
     translate, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
@@ -122,19 +122,9 @@ impl Shape for CurlyBraces {
             "text",
             translate(radius - radius / 4.0, 0.0),
             vec![
-                path_element(
-                    create_open_path_from_points(&right),
-                    "",
-                    style.clone(),
-                    Vec::new(),
-                ),
-                path_element(create_open_path_from_points(&left), "", style, Vec::new()),
-                path_element(
-                    create_path_from_points(&rect_points),
-                    "",
-                    rect_style,
-                    Vec::new(),
-                ),
+                rough_stroke_element(&create_open_path_from_points(&right), style.clone()),
+                rough_stroke_element(&create_open_path_from_points(&left), style),
+                rough_stroke_element(&create_path_from_points(&rect_points), rect_style),
             ],
         );
         out.label.common.transform = translate(

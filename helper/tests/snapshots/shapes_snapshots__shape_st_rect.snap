@@ -5,8 +5,14 @@ expression: text
 width=160 height=56
 <g id="n1" class="node default ">
   <g class="basic label-container outer-path">
-    <path d="M-80,-18L-80,28L70,28L70,23L75,23L75,18L80,18L80,-28L-70,-28L-70,-23L-75,-23L-75,-18Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-    <path d="M-75,-18L70,-18L70,23L75,23L75,-23L-75,-23Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+    <g>
+      <path d="M-80,-18L-80,28L70,28L70,23L75,23L75,18L80,18L80,-28L-70,-28L-70,-23L-75,-23L-75,-18Z" fill="#ececff" stroke="none" stroke-width="1"/>
+      <path d="M-80,-18L-80,28M-80,-18L-80,28M-80,28L70,28M-80,28L70,28M70,28L70,23M70,28L70,23M70,23L75,23M70,23L75,23M75,23L75,18M75,23L75,18M75,18L80,18M75,18L80,18M80,18L80,-28M80,18L80,-28M80,-28L-70,-28M80,-28L-70,-28M-70,-28L-70,-23M-70,-28L-70,-23M-70,-23L-75,-23M-70,-23L-75,-23M-75,-23L-75,-18M-75,-23L-75,-18M-75,-18L-80,-18M-75,-18L-80,-18" fill="none" stroke="#9370db" stroke-width="1"/>
+    </g>
+    <g>
+      <path d="M-75,-18L70,-18L70,23L75,23L75,-23L-75,-23Z" fill="#ececff" stroke="none" stroke-width="1"/>
+      <path d="M-75,-18L70,-18M-75,-18L70,-18M70,-18L70,23M70,-18L70,23M70,23L75,23M70,23L75,23M75,23L75,-23M75,23L75,-23M75,-23L-75,-23M75,-23L-75,-23M-75,-23L-75,-18M-75,-23L-75,-18" fill="none" stroke="#9370db" stroke-width="1"/>
+    </g>
   </g>
   <g class="label" transform="translate(-65, -3)">
     <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">Label</tspan></text>

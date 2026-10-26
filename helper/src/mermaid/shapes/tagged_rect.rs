@@ -2,7 +2,7 @@
 
 use super::util::{
     create_path_from_points, done, get_node_classes, group_element, label_helper, node_style,
-    path_element, points_bbox, update_node_bounds,
+    points_bbox, rough_path_element, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -60,13 +60,20 @@ impl Shape for TaggedRect {
             "basic label-container outer-path",
             Vec::new(),
             vec![
-                path_element(
+                rough_path_element(
                     create_path_from_points(&rect_points),
                     "",
                     style.clone(),
                     Vec::new(),
+                    &ctx.vars,
                 ),
-                path_element(create_path_from_points(&tag_points), "", style, Vec::new()),
+                rough_path_element(
+                    create_path_from_points(&tag_points),
+                    "",
+                    style,
+                    Vec::new(),
+                    &ctx.vars,
+                ),
             ],
         );
         update_node_bounds(node, points_bbox(&rect_points));

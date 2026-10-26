@@ -1,0 +1,12 @@
+flowchart TD
+    A@{ shape: rect, label: "Process" } --> B@{ shape: rounded, label: "Event" }
+    B --> C@{ shape: stadium, label: "Terminal" }
+    C --> D@{ shape: fr-rect, label: "Subprocess" }
+    D --> E@{ shape: cyl, label: "Database" }
+    E --> F@{ shape: circle, label: "Start" }
+    F --> G@{ shape: odd, label: "Odd" }
+    G --> H@{ shape: diam, label: "Decision" }
+    H --> I@{ shape: hex, label: "Prepare" }
+    I --> J@{ shape: lean-r, label: "In Out" }
+    J --> K@{ shape: lean-l, label: "Out In" }
+    K --> L@{ shape: trap-b, label: "Priority" }

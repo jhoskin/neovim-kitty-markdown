@@ -1,8 +1,8 @@
 //! `shapes/slopedRect.ts`: manual input.
 
 use super::util::{
-    create_path_from_points, done, get_node_classes, label_helper, node_style, path_element,
-    points_bbox, translate, update_node_bounds,
+    create_path_from_points, done, get_node_classes, label_helper, node_style, points_bbox,
+    rough_path_element, translate, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -41,11 +41,12 @@ impl Shape for SlopedRect {
             Point::new(x + w, y + h),
             Point::new(x + w, y - h / 2.0),
         ];
-        let path = path_element(
+        let path = rough_path_element(
             create_path_from_points(&points),
             "basic label-container  outer-path",
             node_style(ctx, node),
             translate(0.0, h / 4.0),
+            &ctx.vars,
         );
         out.label.common.transform = translate(
             -w / 2.0 + node.padding() - out.bbox.x,

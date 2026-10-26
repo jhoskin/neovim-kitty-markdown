@@ -1,0 +1,195 @@
+---
+source: tests/parity_flowchart.rs
+expression: scene(&mmd).to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="203.486" height="1343.199" viewBox="-0.007 0 203.486 1343.199" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_flowchart-v2-pointEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L10,5L0,10Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-pointStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="4.5" refY="5" markerWidth="8" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,5L10,10L10,0Z" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-pointEnd-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="11.5" refY="7" markerWidth="10.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M0,0L11.5,7L0,14Z" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-pointStart-margin" class="marker flowchart-v2" viewBox="0 0 11.5 14" refX="1" refY="7" markerWidth="11.5" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <polygon class="arrowMarkerPath" points="0,7 11.5,14 11.5,0" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-circleEnd" class="marker flowchart-v2" viewBox="0 0 10 10" refX="11" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-circleStart" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-1" refY="5" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="1" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-circleEnd-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="12.25" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-circleStart-margin" class="marker flowchart-v2" viewBox="0 0 10 10" refX="-2" refY="5" markerWidth="14" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <circle class="arrowMarkerPath" cx="5" cy="5" r="5" fill="#333333" stroke="#333333" stroke-width="0" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-crossEnd" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="12" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-crossStart" class="marker cross flowchart-v2" viewBox="0 0 11 11" refX="-1" refY="5.2" markerWidth="11" markerHeight="11" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L10,10M10,1L1,10" fill="#333333" stroke="#333333" stroke-width="2" stroke-dasharray="1,0"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-crossEnd-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="17.7" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5"/>
+    </marker>
+    <marker id="my-svg_flowchart-v2-crossStart-margin" class="marker cross flowchart-v2" viewBox="0 0 15 15" refX="-3.5" refY="7.5" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path class="arrowMarkerPath" d="M1,1L14,14M1,14L14,1" fill="#333333" stroke="#333333" stroke-width="2.5" stroke-dasharray="1,0"/>
+    </marker>
+  </defs>
+  <g class="flowchart" fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="my-svg-L_A_B_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,58.75L101.743,66.125C101.743,73.5,101.743,88.25,101.743,99.125C101.743,110,101.743,117,101.743,120.5L101.743,124" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_B_C_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,192.718L101.743,197.347C101.743,201.977,101.743,211.236,101.743,219.366C101.743,227.495,101.743,234.495,101.743,237.995L101.743,241.495" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_C_D_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,299.495L101.743,303.662C101.743,307.829,101.743,316.162,101.743,323.829C101.743,331.495,101.743,338.495,101.743,341.995L101.743,345.495" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_D_E_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,380.995L101.743,385.162C101.743,389.329,101.743,397.662,101.743,405.329C101.743,412.995,101.743,419.995,101.743,423.495L101.743,426.995" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_E_F_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,525.904L101.743,530.071C101.743,534.238,101.743,542.571,101.743,550.238C101.743,557.904,101.743,564.904,101.743,568.404L101.743,571.904" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_F_G_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,629.904L101.743,634.071C101.743,638.238,101.743,646.571,101.743,654.238C101.743,661.904,101.743,668.904,101.743,672.404L101.743,675.904" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_G_H_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,726.704L101.743,730.871C101.743,735.038,101.743,743.371,101.743,751.038C101.743,758.704,101.743,765.704,101.743,769.204L101.743,772.704" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_H_I_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,935.704L101.743,939.871C101.743,944.038,101.743,952.371,101.743,960.038C101.743,967.704,101.743,974.704,101.743,978.204L101.743,981.704" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_I_J_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,1049.704L101.743,1053.871C101.743,1058.038,101.743,1066.371,101.743,1074.038C101.743,1081.704,101.743,1088.704,101.743,1092.204L101.743,1095.704" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_J_K_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,1113.704L101.743,1117.871C101.743,1122.038,101.743,1130.371,101.743,1138.038C101.743,1145.704,101.743,1152.704,101.743,1156.204L101.743,1159.704" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+        <path id="my-svg-L_K_L_0" class=" edge-thickness-normal edge-pattern-solid edge-thickness-normal edge-pattern-solid flowchart-link" d="M101.743,1228.422L101.743,1233.051C101.743,1237.681,101.743,1246.94,101.743,1255.07C101.743,1263.199,101.743,1270.199,101.743,1273.699L101.743,1277.199" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_flowchart-v2-pointEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="flowchart-A-0" class="node default  " transform="translate(101.743, 43)">
+          <g class="outer-path" transform="translate(-17.5, -35)">
+            <path d="M35,0L0,38.5L21,38.5L0,70L35,31.5L14,31.5Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M35,0L0,38.5M35,0L0,38.5M0,38.5L21,38.5M0,38.5L21,38.5M21,38.5L0,70M21,38.5L0,70M0,70L35,31.5M0,70L35,31.5M35,31.5L14,31.5M35,31.5L14,31.5M14,31.5L35,0M14,31.5L35,0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+        </g>
+        <g id="flowchart-B-2" class="node default  " transform="translate(101.743, 161.748)">
+          <g class="basic label-container outer-path" transform="translate(0, -3.375)">
+            <path d="M-75,30.375L-75,30.375L-72,31.052L-69,31.723L-66,32.38L-63,33.017L-60,33.627L-57,34.204L-54,34.743L-51,35.237L-48,35.682L-45,36.074L-42,36.408L-39,36.682L-36,36.891L-33,37.035L-30,37.112L-27,37.12L-24,37.061L-21,36.934L-18,36.74L-15,36.483L-12,36.163L-9,35.786L-6,35.353L-3,34.871L0,34.343L3,33.774L6,33.172L9,32.541L12,31.889L15,31.221L18,30.545L21,29.867L24,29.194L27,28.533L30,27.89L33,27.273L36,26.687L39,26.138L42,25.632L45,25.174L48,24.768L51,24.42L54,24.131L57,23.905L60,23.745L63,23.651L66,23.626L69,23.668L72,23.778L75,23.955L75,-30.375L-75,-30.375Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M-75,30.375L-75,30.375M-75,30.375L-75,30.375M-75,30.375L-72,31.052M-75,30.375L-72,31.052M-72,31.052L-69,31.723M-72,31.052L-69,31.723M-69,31.723L-66,32.38M-69,31.723L-66,32.38M-66,32.38L-63,33.017M-66,32.38L-63,33.017M-63,33.017L-60,33.627M-63,33.017L-60,33.627M-60,33.627L-57,34.204M-60,33.627L-57,34.204M-57,34.204L-54,34.743M-57,34.204L-54,34.743M-54,34.743L-51,35.237M-54,34.743L-51,35.237M-51,35.237L-48,35.682M-51,35.237L-48,35.682M-48,35.682L-45,36.074M-48,35.682L-45,36.074M-45,36.074L-42,36.408M-45,36.074L-42,36.408M-42,36.408L-39,36.682M-42,36.408L-39,36.682M-39,36.682L-36,36.891M-39,36.682L-36,36.891M-36,36.891L-33,37.035M-36,36.891L-33,37.035M-33,37.035L-30,37.112M-33,37.035L-30,37.112M-30,37.112L-27,37.12M-30,37.112L-27,37.12M-27,37.12L-24,37.061M-27,37.12L-24,37.061M-24,37.061L-21,36.934M-24,37.061L-21,36.934M-21,36.934L-18,36.74M-21,36.934L-18,36.74M-18,36.74L-15,36.483M-18,36.74L-15,36.483M-15,36.483L-12,36.163M-15,36.483L-12,36.163M-12,36.163L-9,35.786M-12,36.163L-9,35.786M-9,35.786L-6,35.353M-9,35.786L-6,35.353M-6,35.353L-3,34.871M-6,35.353L-3,34.871M-3,34.871L0,34.343M-3,34.871L0,34.343M0,34.343L3,33.774M0,34.343L3,33.774M3,33.774L6,33.172M3,33.774L6,33.172M6,33.172L9,32.541M6,33.172L9,32.541M9,32.541L12,31.889M9,32.541L12,31.889M12,31.889L15,31.221M12,31.889L15,31.221M15,31.221L18,30.545M15,31.221L18,30.545M18,30.545L21,29.867M18,30.545L21,29.867M21,29.867L24,29.194M21,29.867L24,29.194M24,29.194L27,28.533M24,29.194L27,28.533M27,28.533L30,27.89M27,28.533L30,27.89M30,27.89L33,27.273M30,27.89L33,27.273M33,27.273L36,26.687M33,27.273L36,26.687M36,26.687L39,26.138M36,26.687L39,26.138M39,26.138L42,25.632M39,26.138L42,25.632M42,25.632L45,25.174M42,25.632L45,25.174M45,25.174L48,24.768M45,25.174L48,24.768M48,24.768L51,24.42M48,24.768L51,24.42M51,24.42L54,24.131M51,24.42L54,24.131M54,24.131L57,23.905M54,24.131L57,23.905M57,23.905L60,23.745M57,23.905L60,23.745M60,23.745L63,23.651M60,23.745L63,23.651M63,23.651L66,23.626M63,23.651L66,23.626M66,23.626L69,23.668M66,23.626L69,23.668M69,23.668L72,23.778M69,23.668L72,23.778M72,23.778L75,23.955M72,23.778L75,23.955M75,23.955L75,-30.375M75,23.955L75,-30.375M75,-30.375L-75,-30.375M75,-30.375L-75,-30.375M-75,-30.375L-75,30.375M-75,-30.375L-75,30.375" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-60, -18.75)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Document</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-C-5" class="node default  " transform="translate(101.743, 272.495)">
+          <g class="basic label-container outer-path">
+            <path d="M-77.813,-27L50.813,-27L50.813,-27L52.543,-26.945L54.266,-26.778L55.975,-26.502L57.662,-26.117L59.321,-25.625L60.945,-25.027L62.528,-24.326L64.063,-23.526L65.543,-22.628L66.962,-21.638L68.315,-20.559L69.597,-19.395L70.801,-18.152L71.923,-16.834L72.958,-15.447L73.902,-13.997L74.751,-12.489L75.502,-10.929L76.152,-9.325L76.697,-7.682L77.136,-6.008L77.467,-4.309L77.688,-2.593L77.799,-0.865L77.799,0.865L77.688,2.593L77.467,4.309L77.136,6.008L76.697,7.682L76.152,9.325L75.502,10.929L74.751,12.489L73.902,13.997L72.958,15.447L71.923,16.834L70.801,18.152L69.597,19.395L68.315,20.559L66.962,21.638L65.543,22.628L64.063,23.526L62.528,24.326L60.945,25.027L59.321,25.625L57.662,26.117L55.975,26.502L54.266,26.778L52.543,26.945L50.813,27L50.813,27L-77.813,27Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M-77.813,-27L50.813,-27M-77.813,-27L50.813,-27M50.813,-27L50.813,-27M50.813,-27L50.813,-27M50.813,-27L52.543,-26.945M50.813,-27L52.543,-26.945M52.543,-26.945L54.266,-26.778M52.543,-26.945L54.266,-26.778M54.266,-26.778L55.975,-26.502M54.266,-26.778L55.975,-26.502M55.975,-26.502L57.662,-26.117M55.975,-26.502L57.662,-26.117M57.662,-26.117L59.321,-25.625M57.662,-26.117L59.321,-25.625M59.321,-25.625L60.945,-25.027M59.321,-25.625L60.945,-25.027M60.945,-25.027L62.528,-24.326M60.945,-25.027L62.528,-24.326M62.528,-24.326L64.063,-23.526M62.528,-24.326L64.063,-23.526M64.063,-23.526L65.543,-22.628M64.063,-23.526L65.543,-22.628M65.543,-22.628L66.962,-21.638M65.543,-22.628L66.962,-21.638M66.962,-21.638L68.315,-20.559M66.962,-21.638L68.315,-20.559M68.315,-20.559L69.597,-19.395M68.315,-20.559L69.597,-19.395M69.597,-19.395L70.801,-18.152M69.597,-19.395L70.801,-18.152M70.801,-18.152L71.923,-16.834M70.801,-18.152L71.923,-16.834M71.923,-16.834L72.958,-15.447M71.923,-16.834L72.958,-15.447M72.958,-15.447L73.902,-13.997M72.958,-15.447L73.902,-13.997M73.902,-13.997L74.751,-12.489M73.902,-13.997L74.751,-12.489M74.751,-12.489L75.502,-10.929M74.751,-12.489L75.502,-10.929M75.502,-10.929L76.152,-9.325M75.502,-10.929L76.152,-9.325M76.152,-9.325L76.697,-7.682M76.152,-9.325L76.697,-7.682M76.697,-7.682L77.136,-6.008M76.697,-7.682L77.136,-6.008M77.136,-6.008L77.467,-4.309M77.136,-6.008L77.467,-4.309M77.467,-4.309L77.688,-2.593M77.467,-4.309L77.688,-2.593M77.688,-2.593L77.799,-0.865M77.688,-2.593L77.799,-0.865M77.799,-0.865L77.799,0.865M77.799,-0.865L77.799,0.865M77.799,0.865L77.688,2.593M77.799,0.865L77.688,2.593M77.688,2.593L77.467,4.309M77.688,2.593L77.467,4.309M77.467,4.309L77.136,6.008M77.467,4.309L77.136,6.008M77.136,6.008L76.697,7.682M77.136,6.008L76.697,7.682M76.697,7.682L76.152,9.325M76.697,7.682L76.152,9.325M76.152,9.325L75.502,10.929M76.152,9.325L75.502,10.929M75.502,10.929L74.751,12.489M75.502,10.929L74.751,12.489M74.751,12.489L73.902,13.997M74.751,12.489L73.902,13.997M73.902,13.997L72.958,15.447M73.902,13.997L72.958,15.447M72.958,15.447L71.923,16.834M72.958,15.447L71.923,16.834M71.923,16.834L70.801,18.152M71.923,16.834L70.801,18.152M70.801,18.152L69.597,19.395M70.801,18.152L69.597,19.395M69.597,19.395L68.315,20.559M69.597,19.395L68.315,20.559M68.315,20.559L66.962,21.638M68.315,20.559L66.962,21.638M66.962,21.638L65.543,22.628M66.962,21.638L65.543,22.628M65.543,22.628L64.063,23.526M65.543,22.628L64.063,23.526M64.063,23.526L62.528,24.326M64.063,23.526L62.528,24.326M62.528,24.326L60.945,25.027M62.528,24.326L60.945,25.027M60.945,25.027L59.321,25.625M60.945,25.027L59.321,25.625M59.321,25.625L57.662,26.117M59.321,25.625L57.662,26.117M57.662,26.117L55.975,26.502M57.662,26.117L55.975,26.502M55.975,26.502L54.266,26.778M55.975,26.502L54.266,26.778M54.266,26.778L52.543,26.945M54.266,26.778L52.543,26.945M52.543,26.945L50.813,27M52.543,26.945L50.813,27M50.813,27L50.813,27M50.813,27L50.813,27M50.813,27L-77.813,27M50.813,27L-77.813,27M-77.813,27L-77.813,-27M-77.813,27L-77.813,-27" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Delay</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-D-8" class="node default  " transform="translate(101.743, 365.245)">
+          <path class="basic label-container outer-path" transform="translate(-66.266, 15.75)" d="M0,0A5.032,15.75,0,0,1,0,-31.5L132.532,-31.5A5.032,15.75,0,0,1,132.532,0M132.532,-31.5A5.032,15.75,0,0,0,132.532,0L0,0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-65.032, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Direct storage</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-E-11" class="node default  " transform="translate(101.743, 478.45)">
+          <path class="basic label-container outer-path" transform="translate(-75, -47.455)" d="M0,13.636A75,13.636,0,0,0,150,13.636A75,13.636,0,0,0,0,13.636L0,81.273A75,13.636,0,0,0,150,81.273L150,13.636M0,20.4A75,13.636,0,0,0,150,20.4" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, 1.636)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Disk</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-F-14" class="node default  " transform="translate(101.743, 602.904)">
+          <g class="basic label-container outer-path" transform="translate(-93.75, -27)">
+            <path d="M160.5,0L13.5,0L0,27L13.5,54L160.5,54L160.5,54L162.23,53.945L163.953,53.778L165.661,53.502L167.349,53.117L169.008,52.625L170.632,52.027L172.215,51.326L173.749,50.526L175.229,49.628L176.649,48.638L178.002,47.559L179.283,46.395L180.488,45.152L181.609,43.834L182.645,42.447L183.589,40.997L184.438,39.489L185.189,37.929L185.839,36.325L186.384,34.682L186.823,33.008L187.154,31.309L187.375,29.593L187.486,27.865L187.486,26.135L187.375,24.407L187.154,22.691L186.823,20.992L186.384,19.318L185.839,17.675L185.189,16.071L184.438,14.511L183.589,13.003L182.645,11.553L181.609,10.166L180.488,8.848L179.283,7.605L178.002,6.441L176.649,5.362L175.229,4.372L173.749,3.474L172.215,2.674L170.632,1.973L169.008,1.375L167.349,0.883L165.661,0.498L163.953,0.222L162.23,0.055L160.5,0Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M160.5,0L13.5,0M160.5,0L13.5,0M13.5,0L0,27M13.5,0L0,27M0,27L13.5,54M0,27L13.5,54M13.5,54L160.5,54M13.5,54L160.5,54M160.5,54L160.5,54M160.5,54L160.5,54M160.5,54L162.23,53.945M160.5,54L162.23,53.945M162.23,53.945L163.953,53.778M162.23,53.945L163.953,53.778M163.953,53.778L165.661,53.502M163.953,53.778L165.661,53.502M165.661,53.502L167.349,53.117M165.661,53.502L167.349,53.117M167.349,53.117L169.008,52.625M167.349,53.117L169.008,52.625M169.008,52.625L170.632,52.027M169.008,52.625L170.632,52.027M170.632,52.027L172.215,51.326M170.632,52.027L172.215,51.326M172.215,51.326L173.749,50.526M172.215,51.326L173.749,50.526M173.749,50.526L175.229,49.628M173.749,50.526L175.229,49.628M175.229,49.628L176.649,48.638M175.229,49.628L176.649,48.638M176.649,48.638L178.002,47.559M176.649,48.638L178.002,47.559M178.002,47.559L179.283,46.395M178.002,47.559L179.283,46.395M179.283,46.395L180.488,45.152M179.283,46.395L180.488,45.152M180.488,45.152L181.609,43.834M180.488,45.152L181.609,43.834M181.609,43.834L182.645,42.447M181.609,43.834L182.645,42.447M182.645,42.447L183.589,40.997M182.645,42.447L183.589,40.997M183.589,40.997L184.438,39.489M183.589,40.997L184.438,39.489M184.438,39.489L185.189,37.929M184.438,39.489L185.189,37.929M185.189,37.929L185.839,36.325M185.189,37.929L185.839,36.325M185.839,36.325L186.384,34.682M185.839,36.325L186.384,34.682M186.384,34.682L186.823,33.008M186.384,34.682L186.823,33.008M186.823,33.008L187.154,31.309M186.823,33.008L187.154,31.309M187.154,31.309L187.375,29.593M187.154,31.309L187.375,29.593M187.375,29.593L187.486,27.865M187.375,29.593L187.486,27.865M187.486,27.865L187.486,26.135M187.486,27.865L187.486,26.135M187.486,26.135L187.375,24.407M187.486,26.135L187.375,24.407M187.375,24.407L187.154,22.691M187.375,24.407L187.154,22.691M187.154,22.691L186.823,20.992M187.154,22.691L186.823,20.992M186.823,20.992L186.384,19.318M186.823,20.992L186.384,19.318M186.384,19.318L185.839,17.675M186.384,19.318L185.839,17.675M185.839,17.675L185.189,16.071M185.839,17.675L185.189,16.071M185.189,16.071L184.438,14.511M185.189,16.071L184.438,14.511M184.438,14.511L183.589,13.003M184.438,14.511L183.589,13.003M183.589,13.003L182.645,11.553M183.589,13.003L182.645,11.553M182.645,11.553L181.609,10.166M182.645,11.553L181.609,10.166M181.609,10.166L180.488,8.848M181.609,10.166L180.488,8.848M180.488,8.848L179.283,7.605M180.488,8.848L179.283,7.605M179.283,7.605L178.002,6.441M179.283,7.605L178.002,6.441M178.002,6.441L176.649,5.362M178.002,6.441L176.649,5.362M176.649,5.362L175.229,4.372M176.649,5.362L175.229,4.372M175.229,4.372L173.749,3.474M175.229,4.372L173.749,3.474M173.749,3.474L172.215,2.674M173.749,3.474L172.215,2.674M172.215,2.674L170.632,1.973M172.215,2.674L170.632,1.973M170.632,1.973L169.008,1.375M170.632,1.973L169.008,1.375M169.008,1.375L167.349,0.883M169.008,1.375L167.349,0.883M167.349,0.883L165.661,0.498M167.349,0.883L165.661,0.498M165.661,0.498L163.953,0.222M165.661,0.498L163.953,0.222M163.953,0.222L162.23,0.055M163.953,0.222L162.23,0.055M162.23,0.055L160.5,0M162.23,0.055L160.5,0M160.5,0L160.5,0M160.5,0L160.5,0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Display</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-G-17" class="node default  " transform="translate(101.743, 703.304)">
+          <g class="basic label-container outer-path">
+            <path d="M-67.5,-15.6L67.5,-15.6L67.5,23.4L-67.5,23.4L-67.5,-23.4L67.5,-23.4L67.5,-15.6Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M-67.5,-15.6L67.5,-15.6M-67.5,-15.6L67.5,-15.6M67.5,-15.6L67.5,23.4M67.5,-15.6L67.5,23.4M67.5,23.4L-67.5,23.4M67.5,23.4L-67.5,23.4M-67.5,23.4L-67.5,-23.4M-67.5,23.4L-67.5,-23.4M-67.5,-23.4L67.5,-23.4M-67.5,-23.4L67.5,-23.4M67.5,-23.4L67.5,-15.6M67.5,-23.4L67.5,-15.6M67.5,-15.6L-67.5,-15.6M67.5,-15.6L-67.5,-15.6" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-60, -8.1)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Divided</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-H-20" class="node default  " transform="translate(101.743, 856.204)">
+          <g class="outer-path" transform="translate(-79.5, 79.5)">
+            <path d="M0,0L159,0L79.5,-159Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M0,0L159,0M0,0L159,0M159,0L79.5,-159M159,0L79.5,-159M79.5,-159L0,0M79.5,-159L0,0" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-60, 40.5)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Extract</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-I-23" class="node default  " transform="translate(101.743, 1017.704)">
+          <g class="basic label-container outer-path" transform="translate(5, 5)">
+            <path d="M-85,-37L75,-37L75,27L-85,27L-85,-37M-85,-27L75,-27M-75,-37L-75,27" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M-85,-37L75,-37M-85,-37L75,-37M75,-37L75,27M75,-37L75,27M75,27L-85,27M75,27L-85,27M-85,27L-85,-37M-85,27L-85,-37M-85,-27L75,-27M-85,-27L75,-27M-75,-37L-75,27M-75,-37L-75,27" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-55, -7)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Internal storage</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-J-26" class="node default  " transform="translate(101.743, 1106.704)">
+          <g>
+            <path d="M7,0A7,7,0,1,1,-7,0A7,7,0,1,1,7,0Z" fill="#9370db" stroke="#9370db" stroke-width="1"/>
+            <path d="M7,0A7,7,0,1,1,-7,0M7,0A7,7,0,1,1,-7,0M-7,0A7,7,0,1,1,7,0M-7,0A7,7,0,1,1,7,0M7,0L7,0M7,0L7,0" fill="#9370db" stroke="#9370db" stroke-width="1"/>
+          </g>
+        </g>
+        <g id="flowchart-K-29" class="node default  " transform="translate(101.743, 1197.452)">
+          <g class="basic label-container outer-path" transform="translate(0, -3.375)">
+            <path d="M-82.5,-30.375L-82.5,30.375L-82.5,30.375L-79.2,31.052L-75.9,31.723L-72.6,32.38L-69.3,33.017L-66,33.627L-62.7,34.204L-59.4,34.743L-56.1,35.237L-52.8,35.682L-49.5,36.074L-46.2,36.408L-42.9,36.682L-39.6,36.891L-36.3,37.035L-33,37.112L-29.7,37.12L-26.4,37.061L-23.1,36.934L-19.8,36.74L-16.5,36.483L-13.2,36.163L-9.9,35.786L-6.6,35.353L-3.3,34.871L0,34.343L3.3,33.774L6.6,33.172L9.9,32.541L13.2,31.889L16.5,31.221L19.8,30.545L23.1,29.867L26.4,29.194L29.7,28.533L33,27.89L36.3,27.273L39.6,26.687L42.9,26.138L46.2,25.632L49.5,25.174L52.8,24.768L56.1,24.42L59.4,24.131L62.7,23.905L66,23.745L69.3,23.651L72.6,23.626L75.9,23.668L79.2,23.778L82.5,23.955L82.5,-30.375L-82.5,-30.375L-75,-30.375L-75,33.413L-75,-30.375Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M-82.5,-30.375L-82.5,30.375M-82.5,-30.375L-82.5,30.375M-82.5,30.375L-82.5,30.375M-82.5,30.375L-82.5,30.375M-82.5,30.375L-79.2,31.052M-82.5,30.375L-79.2,31.052M-79.2,31.052L-75.9,31.723M-79.2,31.052L-75.9,31.723M-75.9,31.723L-72.6,32.38M-75.9,31.723L-72.6,32.38M-72.6,32.38L-69.3,33.017M-72.6,32.38L-69.3,33.017M-69.3,33.017L-66,33.627M-69.3,33.017L-66,33.627M-66,33.627L-62.7,34.204M-66,33.627L-62.7,34.204M-62.7,34.204L-59.4,34.743M-62.7,34.204L-59.4,34.743M-59.4,34.743L-56.1,35.237M-59.4,34.743L-56.1,35.237M-56.1,35.237L-52.8,35.682M-56.1,35.237L-52.8,35.682M-52.8,35.682L-49.5,36.074M-52.8,35.682L-49.5,36.074M-49.5,36.074L-46.2,36.408M-49.5,36.074L-46.2,36.408M-46.2,36.408L-42.9,36.682M-46.2,36.408L-42.9,36.682M-42.9,36.682L-39.6,36.891M-42.9,36.682L-39.6,36.891M-39.6,36.891L-36.3,37.035M-39.6,36.891L-36.3,37.035M-36.3,37.035L-33,37.112M-36.3,37.035L-33,37.112M-33,37.112L-29.7,37.12M-33,37.112L-29.7,37.12M-29.7,37.12L-26.4,37.061M-29.7,37.12L-26.4,37.061M-26.4,37.061L-23.1,36.934M-26.4,37.061L-23.1,36.934M-23.1,36.934L-19.8,36.74M-23.1,36.934L-19.8,36.74M-19.8,36.74L-16.5,36.483M-19.8,36.74L-16.5,36.483M-16.5,36.483L-13.2,36.163M-16.5,36.483L-13.2,36.163M-13.2,36.163L-9.9,35.786M-13.2,36.163L-9.9,35.786M-9.9,35.786L-6.6,35.353M-9.9,35.786L-6.6,35.353M-6.6,35.353L-3.3,34.871M-6.6,35.353L-3.3,34.871M-3.3,34.871L0,34.343M-3.3,34.871L0,34.343M0,34.343L3.3,33.774M0,34.343L3.3,33.774M3.3,33.774L6.6,33.172M3.3,33.774L6.6,33.172M6.6,33.172L9.9,32.541M6.6,33.172L9.9,32.541M9.9,32.541L13.2,31.889M9.9,32.541L13.2,31.889M13.2,31.889L16.5,31.221M13.2,31.889L16.5,31.221M16.5,31.221L19.8,30.545M16.5,31.221L19.8,30.545M19.8,30.545L23.1,29.867M19.8,30.545L23.1,29.867M23.1,29.867L26.4,29.194M23.1,29.867L26.4,29.194M26.4,29.194L29.7,28.533M26.4,29.194L29.7,28.533M29.7,28.533L33,27.89M29.7,28.533L33,27.89M33,27.89L36.3,27.273M33,27.89L36.3,27.273M36.3,27.273L39.6,26.687M36.3,27.273L39.6,26.687M39.6,26.687L42.9,26.138M39.6,26.687L42.9,26.138M42.9,26.138L46.2,25.632M42.9,26.138L46.2,25.632M46.2,25.632L49.5,25.174M46.2,25.632L49.5,25.174M49.5,25.174L52.8,24.768M49.5,25.174L52.8,24.768M52.8,24.768L56.1,24.42M52.8,24.768L56.1,24.42M56.1,24.42L59.4,24.131M56.1,24.42L59.4,24.131M59.4,24.131L62.7,23.905M59.4,24.131L62.7,23.905M62.7,23.905L66,23.745M62.7,23.905L66,23.745M66,23.745L69.3,23.651M66,23.745L69.3,23.651M69.3,23.651L72.6,23.626M69.3,23.651L72.6,23.626M72.6,23.626L75.9,23.668M72.6,23.626L75.9,23.668M75.9,23.668L79.2,23.778M75.9,23.668L79.2,23.778M79.2,23.778L82.5,23.955M79.2,23.778L82.5,23.955M82.5,23.955L82.5,-30.375M82.5,23.955L82.5,-30.375M82.5,-30.375L-82.5,-30.375M82.5,-30.375L-82.5,-30.375M-82.5,-30.375L-75,-30.375M-82.5,-30.375L-75,-30.375M-75,-30.375L-75,33.413M-75,-30.375L-75,33.413M-75,33.413L-75,-30.375M-75,33.413L-75,-30.375M-75,-30.375L-82.5,-30.375M-75,-30.375L-82.5,-30.375" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-56.25, -18.75)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Lined document</tspan></text>
+          </g>
+        </g>
+        <g id="flowchart-L-32" class="node default  " transform="translate(101.743, 1308.199)">
+          <g class="basic label-container outer-path">
+            <path d="M-60,-27L60,-27L75,-16.2L75,27L-75,27L-75,-16.2Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+            <path d="M-60,-27L60,-27M-60,-27L60,-27M60,-27L75,-16.2M60,-27L75,-16.2M75,-16.2L75,27M75,-16.2L75,27M75,27L-75,27M75,27L-75,27M-75,27L-75,-16.2M-75,27L-75,-16.2M-75,-16.2L-60,-27M-75,-16.2L-60,-27" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          </g>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Loop limit</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,7 +1,9 @@
 //! `shapes/stateStart.ts`: the filled start dot. `.node circle.state-start
-//! { fill: specialStateColor; stroke: specialStateColor }` paints it.
+//! { fill: specialStateColor; stroke: specialStateColor }` paints it in a
+//! state diagram; a flowchart `sm-circ` has no such rule, so its `.node
+//! circle` rule gives it the node colors.
 
-use super::util::{circle_element, node_group, paint_style};
+use super::util::{base_node_style, circle_element, node_group, paint_style};
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
 use crate::mermaid::scene::Paint;
@@ -31,14 +33,15 @@ impl Shape for StateStart {
         fix_state_dot_size(node);
         let mut shape_svg = node_group(node, "node default");
         let r = node.width() / 2.0;
-        let color = Paint::Color(ctx.vars.special_state_color);
-        shape_svg.children.push(circle_element(
-            0.0,
-            0.0,
-            r,
-            "state-start",
-            paint_style(&ctx.vars, color.clone(), color),
-        ));
+        let style = if ctx.vars.node_rule {
+            base_node_style(&ctx.vars)
+        } else {
+            let color = Paint::Color(ctx.vars.special_state_color);
+            paint_style(&ctx.vars, color.clone(), color)
+        };
+        shape_svg
+            .children
+            .push(circle_element(0.0, 0.0, r, "state-start", style));
         node.width = Some(r * 2.0);
         node.height = Some(r * 2.0);
         node.intersector = Intersector::Circle(r);

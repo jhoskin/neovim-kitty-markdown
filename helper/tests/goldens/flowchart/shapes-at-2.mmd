@@ -1,0 +1,12 @@
+flowchart LR
+    A@{ shape: trap-t, label: "Manual" } --> B@{ shape: dbl-circ, label: "Stop" }
+    B --> C@{ shape: text, label: "Text block" }
+    C --> D@{ shape: notch-rect, label: "Card" }
+    D --> E@{ shape: lin-rect, label: "Lined" }
+    E --> F@{ shape: sm-circ, label: "Small start" }
+    F --> G@{ shape: fr-circ, label: "Stop" }
+    G --> H@{ shape: fork, label: "Fork" }
+    H --> I@{ shape: hourglass, label: "Collate" }
+    I --> J@{ shape: brace, label: "Comment" }
+    J --> K@{ shape: brace-r, label: "Comment right" }
+    K --> L@{ shape: braces, label: "Both braces" }

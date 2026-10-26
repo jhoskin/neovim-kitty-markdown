@@ -4,7 +4,10 @@ expression: text
 ---
 width=150 height=69
 <g id="n1" class="node default ">
-  <path class="basic label-container  outer-path" transform="translate(0, 11.5)" d="M-75,-23L-75,23L75,23L75,-46Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  <g class="basic label-container  outer-path" transform="translate(0, 11.5)">
+    <path d="M-75,-23L-75,23L75,23L75,-46Z" fill="#ececff" stroke="none" stroke-width="1"/>
+    <path d="M-75,-23L-75,23M-75,-23L-75,23M-75,23L75,23M-75,23L75,23M75,23L75,-46M75,23L75,-46M75,-46L-75,-23M75,-46L-75,-23" fill="none" stroke="#9370db" stroke-width="1"/>
+  </g>
   <g class="label" transform="translate(-60, 3.5)">
     <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">Label</tspan></text>
   </g>

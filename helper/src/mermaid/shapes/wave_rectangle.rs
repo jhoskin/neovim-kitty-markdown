@@ -2,7 +2,7 @@
 
 use super::util::{
     create_path_from_points, done, generate_full_sine_wave_points, get_node_classes, label_helper,
-    node_style, path_element, points_bbox, update_node_bounds,
+    node_style, points_bbox, rough_path_element, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -60,11 +60,12 @@ impl Shape for WaveRectangle {
             wave_amplitude,
             -1.0,
         ));
-        let path = path_element(
+        let path = rough_path_element(
             create_path_from_points(&points),
             "basic label-container",
             node_style(ctx, node),
             Vec::new(),
+            &ctx.vars,
         );
         update_node_bounds(node, points_bbox(&points));
         node.intersector = Intersector::Polygon(points);

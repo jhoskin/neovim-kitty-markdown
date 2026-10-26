@@ -102,8 +102,13 @@ fn stadium_matches_oracle() {
     let ctx = ShapeCtx::new(&ORACLE);
     let mut node = Node::flowchart("A", "Hello", "stadium");
     let out = insert_node(&mut node, &ctx).expect("draws");
-    let Element::Path(path) = &out.group.children[0] else {
-        panic!("first child is the path");
+    // `rc.path` returns a `g` with the fill path first and the doubled
+    // stroke path second.
+    let Element::Group(rough) = &out.group.children[0] else {
+        panic!("first child is the rough.js group");
+    };
+    let Element::Path(path) = &rough.children[0] else {
+        panic!("the group starts with the fill path");
     };
     let d = path.d.to_svg();
     assert!(d.starts_with("M-52.875,-19.5L52.875,-19.5"), "{d}");

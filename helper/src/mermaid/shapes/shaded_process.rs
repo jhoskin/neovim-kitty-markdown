@@ -1,8 +1,8 @@
 //! `shapes/shadedProcess.ts`: the lined rectangle.
 
 use super::util::{
-    create_path_from_points, done, get_node_classes, label_helper, node_style, path_element,
-    points_bbox, translate, update_node_bounds,
+    create_path_from_points, done, get_node_classes, label_helper, node_style, points_bbox,
+    rough_path_element, translate, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -33,11 +33,12 @@ impl Shape for ShadedProcess {
             Point::new(x, y),
             Point::new(x, y + h),
         ];
-        let path = path_element(
+        let path = rough_path_element(
             create_path_from_points(&points),
             "basic label-container outer-path",
             node_style(ctx, node),
             Vec::new(),
+            &ctx.vars,
         );
         out.label.common.transform = translate(
             FRAME_WIDTH / 2.0 - out.bbox.width / 2.0 - out.bbox.x,

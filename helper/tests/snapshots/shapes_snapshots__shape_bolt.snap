@@ -4,5 +4,8 @@ expression: text
 ---
 width=35 height=70
 <g id="n1" class="node default ">
-  <path class="outer-path" transform="translate(-17.5, -35)" d="M35,0L0,38.5L21,38.5L0,70L35,31.5L14,31.5Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  <g class="outer-path" transform="translate(-17.5, -35)">
+    <path d="M35,0L0,38.5L21,38.5L0,70L35,31.5L14,31.5Z" fill="#ececff" stroke="none" stroke-width="1"/>
+    <path d="M35,0L0,38.5M35,0L0,38.5M0,38.5L21,38.5M0,38.5L21,38.5M21,38.5L0,70M21,38.5L0,70M0,70L35,31.5M0,70L35,31.5M35,31.5L14,31.5M35,31.5L14,31.5M14,31.5L35,0M14,31.5L35,0" fill="none" stroke="#9370db" stroke-width="1"/>
+  </g>
 </g>

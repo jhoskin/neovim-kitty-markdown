@@ -1,9 +1,12 @@
 //! `shapes/forkJoin.ts`: the fork/join bar, perpendicular to the flow.
 
-use super::util::{apply_declarations, get_node_classes, node_group, rect_element, styles2string};
+use super::util::{
+    apply_declarations, create_path_from_points, get_node_classes, node_group, node_style,
+    rect_element, rough_path_element, styles2string,
+};
 use super::{Dir, Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
-use crate::mermaid::scene::{Paint, Style};
+use crate::mermaid::scene::{Paint, Point, Style};
 
 pub struct ForkJoin;
 
@@ -19,16 +22,34 @@ impl Shape for ForkJoin {
         }
         let x = -width / 2.0;
         let y = -height / 2.0;
-        let mut style = Style {
-            fill: Some(Paint::Color(ctx.vars.line_color)),
-            stroke: Some(Paint::Color(ctx.vars.line_color)),
-            stroke_width: Some(ctx.vars.stroke_width),
-            ..Style::default()
+        // `rc.rectangle` in `lineColor`; under the flowchart's `.node path`
+        // rule (the `fork` shape of a flowchart) the bar takes the node
+        // colors instead, as the oracle draws it.
+        let bar = if ctx.vars.node_rule {
+            let corners = [
+                Point::new(x, y),
+                Point::new(x + width, y),
+                Point::new(x + width, y + height),
+                Point::new(x, y + height),
+            ];
+            rough_path_element(
+                create_path_from_points(&corners),
+                "",
+                node_style(ctx, node),
+                Vec::new(),
+                &ctx.vars,
+            )
+        } else {
+            let mut style = Style {
+                fill: Some(Paint::Color(ctx.vars.line_color)),
+                stroke: Some(Paint::Color(ctx.vars.line_color)),
+                stroke_width: Some(ctx.vars.stroke_width),
+                ..Style::default()
+            };
+            apply_declarations(&mut style, &styles2string(node).node_styles);
+            rect_element(x, y, width, height, None, None, "", style)
         };
-        apply_declarations(&mut style, &styles2string(node).node_styles);
-        shape_svg
-            .children
-            .push(rect_element(x, y, width, height, None, None, "", style));
+        shape_svg.children.push(bar);
         node.width = Some(width);
         node.height = Some(height);
         let padding = ctx.state_padding;

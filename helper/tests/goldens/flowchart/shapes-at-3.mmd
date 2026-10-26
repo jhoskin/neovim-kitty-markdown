@@ -1,0 +1,12 @@
+flowchart TB
+    A@{ shape: bolt, label: "Link" } --> B@{ shape: doc, label: "Document" }
+    B --> C@{ shape: delay, label: "Delay" }
+    C --> D@{ shape: h-cyl, label: "Direct storage" }
+    D --> E@{ shape: lin-cyl, label: "Disk" }
+    E --> F@{ shape: curv-trap, label: "Display" }
+    F --> G@{ shape: div-rect, label: "Divided" }
+    G --> H@{ shape: tri, label: "Extract" }
+    H --> I@{ shape: win-pane, label: "Internal storage" }
+    I --> J@{ shape: f-circ, label: "Junction" }
+    J --> K@{ shape: lin-doc, label: "Lined document" }
+    K --> L@{ shape: notch-pent, label: "Loop limit" }

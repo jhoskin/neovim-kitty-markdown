@@ -2,7 +2,7 @@
 
 use super::util::{
     create_path_from_points, done, generate_circle_points, get_node_classes, label_helper,
-    node_style, path_element, points_bbox, update_node_bounds,
+    node_style, points_bbox, rough_path_element, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -51,11 +51,12 @@ impl Shape for HalfRoundedRectangle {
         ));
         points.push(Point::new(w / 2.0 - radius, h / 2.0));
         points.push(Point::new(-w / 2.0, h / 2.0));
-        let path = path_element(
+        let path = rough_path_element(
             create_path_from_points(&points),
             "basic label-container outer-path",
             node_style(ctx, node),
             Vec::new(),
+            &ctx.vars,
         );
         update_node_bounds(node, points_bbox(&points));
         node.intersector = Intersector::Polygon(points);

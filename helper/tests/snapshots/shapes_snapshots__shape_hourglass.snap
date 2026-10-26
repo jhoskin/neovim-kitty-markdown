@@ -4,6 +4,9 @@ expression: text
 ---
 width=30 height=30
 <g id="n1" class="node default ">
-  <path class="basic label-container outer-path" transform="translate(-15, -15)" d="M0,0L30,0L0,30L30,30Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+  <g class="basic label-container outer-path" transform="translate(-15, -15)">
+    <path d="M0,0L30,0L0,30L30,30Z" fill="#ececff" stroke="none" stroke-width="1"/>
+    <path d="M0,0L30,0M0,0L30,0M30,0L0,30M30,0L0,30M0,30L30,30M0,30L30,30M30,30L0,0M30,30L0,0" fill="none" stroke="#9370db" stroke-width="1"/>
+  </g>
   <g class="label" transform="translate(0, 0)"/>
 </g>

@@ -1,7 +1,7 @@
 //! `shapes/windowPane.ts`: internal storage.
 
 use super::util::{
-    done, get_node_classes, label_helper, node_style, path_element, points_bbox, translate,
+    done, get_node_classes, label_helper, node_style, points_bbox, rough_path_element, translate,
     update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
@@ -53,11 +53,12 @@ impl Shape for WindowPane {
             .line_to(x + w, y)
             .move_to(x, y - RECT_OFFSET)
             .line_to(x, y + h);
-        let path = path_element(
+        let path = rough_path_element(
             d,
             "basic label-container outer-path",
             node_style(ctx, node),
             translate(RECT_OFFSET / 2.0, RECT_OFFSET / 2.0),
+            &ctx.vars,
         );
         out.label.common.transform = translate(
             -(out.bbox.width / 2.0) + RECT_OFFSET / 2.0 - out.bbox.x,

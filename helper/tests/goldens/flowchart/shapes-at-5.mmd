@@ -1,0 +1,10 @@
+flowchart TD
+    A@{ shape: datastore, label: "Data store" } --> B@{ shape: folder, label: "Folder" }
+    B --> C@{ shape: bucket, label: "Bucket" }
+    C --> D@{ shape: console, label: "Console" }
+    D --> E@{ shape: browser, label: "Browser" }
+    E --> F@{ shape: person, label: "Person" }
+    F --> G@{ shape: process, label: "Alias process" }
+    G --> H@{ shape: decision, label: "Alias decision" }
+    H --> I@{ shape: start, label: "Start" }
+    I --> J@{ shape: stop }

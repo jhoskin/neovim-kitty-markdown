@@ -5,7 +5,13 @@ expression: text
 width=60 height=60
 <g id="n1" class="node default ">
   <g class="outer-path">
-    <circle cx="0" cy="0" r="30" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-    <path d="M-21.213,21.213L21.213,-21.213M21.213,21.213L-21.213,-21.213" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+    <g>
+      <path d="M30,0A30,30,0,1,1,-30,0A30,30,0,1,1,30,0Z" fill="#ececff" stroke="none" stroke-width="1"/>
+      <path d="M30,0A30,30,0,1,1,-30,0M30,0A30,30,0,1,1,-30,0M-30,0A30,30,0,1,1,30,0M-30,0A30,30,0,1,1,30,0M30,0L30,0M30,0L30,0" fill="none" stroke="#9370db" stroke-width="1"/>
+    </g>
+    <g>
+      <path d="M-21.213,21.213L21.213,-21.213M21.213,21.213L-21.213,-21.213" fill="#ececff" stroke="none" stroke-width="1"/>
+      <path d="M-21.213,21.213L21.213,-21.213M-21.213,21.213L21.213,-21.213M21.213,21.213L-21.213,-21.213M21.213,21.213L-21.213,-21.213" fill="none" stroke="#9370db" stroke-width="1"/>
+    </g>
   </g>
 </g>

@@ -433,6 +433,13 @@ pub struct NodeStyleVars {
     /// it in the page default font.
     pub config_font_family: String,
     pub config_font_size: f64,
+    /// The diagram stylesheet has the flowchart rule `.node rect, .node
+    /// circle, .node ellipse, .node polygon, .node path { fill: mainBkg;
+    /// stroke: nodeBorder; stroke-width: strokeWidth }`. A stylesheet rule
+    /// beats presentation attributes, so it repaints the shape elements
+    /// that set their own colors: the rough.js fill and stroke paths, the
+    /// fork bar, and the start and end dots.
+    pub node_rule: bool,
 }
 
 impl Default for NodeStyleVars {
@@ -469,6 +476,7 @@ impl Default for NodeStyleVars {
             // The `fontFamily` default of `config.schema.yaml`.
             config_font_family: format!("{};", crate::mermaid::scene::DEFAULT_FONT_FAMILY),
             config_font_size: 16.0,
+            node_rule: false,
         }
     }
 }

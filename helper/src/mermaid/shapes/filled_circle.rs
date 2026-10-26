@@ -1,7 +1,8 @@
 //! `shapes/filledCircle.ts`: the junction dot, filled with `nodeBorder`.
 
 use super::util::{
-    apply_declarations, circle_element, get_node_classes, node_group, styles2string,
+    apply_declarations, circle_path, get_node_classes, node_group, rough_path_element,
+    styles2string,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -21,9 +22,13 @@ impl Shape for FilledCircle {
             ..Style::default()
         };
         apply_declarations(&mut style, &styles2string(node).node_styles);
-        shape_svg
-            .children
-            .push(circle_element(0.0, 0.0, radius, "", style));
+        shape_svg.children.push(rough_path_element(
+            circle_path(0.0, 0.0, radius),
+            "",
+            style,
+            Vec::new(),
+            &ctx.vars,
+        ));
         node.width = Some(radius * 2.0);
         node.height = Some(radius * 2.0);
         node.intersector = Intersector::Circle(radius);

@@ -843,6 +843,129 @@ pub fn create_path_from_points(points: &[Point]) -> PathData {
     d
 }
 
+/// The stroke ops rough.js writes for `d` at `roughness: 0` (`svgPath` in
+/// `renderer.js`): every segment twice (`_doubleLine`, `_bezierTo` with
+/// two iterations), each pass its own subpath that starts with a move, and
+/// `Z` as a doubled line back to the subpath start. The geometry of both
+/// passes is the segment itself, as `roughness: 0` zeroes every offset.
+///
+/// The doubling shows: Chrome (and tiny-skia, which ports Skia's
+/// `treat_as_hairline`) draws a stroke of 1 device px or less as a
+/// modulated hairline, one segment at a time, so the two passes blend
+/// twice and the outline comes out darker than a single stroke.
+pub fn rough_stroke_path(d: &PathData) -> PathData {
+    let mut out = PathData::new();
+    let mut current = Point::new(0.0, 0.0);
+    let mut start = current;
+    for command in d.commands() {
+        let segment = match *command {
+            Command::MoveTo(p) => {
+                current = p;
+                start = p;
+                continue;
+            }
+            Command::Close => Command::LineTo(start),
+            other => other,
+        };
+        for _ in 0..2 {
+            out.move_to(current.x, current.y);
+            match segment {
+                Command::LineTo(to) => out.line_to(to.x, to.y),
+                Command::QuadTo { control, to } => out.quad_to(control.x, control.y, to.x, to.y),
+                Command::CubicTo { c1, c2, to } => out.cubic_to(c1.x, c1.y, c2.x, c2.y, to.x, to.y),
+                Command::ArcTo {
+                    rx,
+                    ry,
+                    x_axis_rotation,
+                    large_arc,
+                    sweep,
+                    to,
+                } => out.arc_to(rx, ry, x_axis_rotation, large_arc, sweep, to.x, to.y),
+                Command::MoveTo(_) | Command::Close => &mut out,
+            };
+        }
+        current = match segment {
+            Command::LineTo(to)
+            | Command::QuadTo { to, .. }
+            | Command::CubicTo { to, .. }
+            | Command::ArcTo { to, .. } => to,
+            Command::MoveTo(p) => p,
+            Command::Close => start,
+        };
+    }
+    out
+}
+
+/// A circle as two arcs, the outline `rc.circle` strokes.
+pub fn circle_path(cx: f64, cy: f64, r: f64) -> PathData {
+    let mut d = PathData::new();
+    d.move_to(cx + r, cy)
+        .arc_to(r, r, 0.0, true, true, cx - r, cy)
+        .arc_to(r, r, 0.0, true, true, cx + r, cy)
+        .close();
+    d
+}
+
+/// `rc.path(d, options)` of the classic look (`roughness: 0`, `fillStyle:
+/// 'solid'`): a `g` holding the fill path (`stroke="none"`) and the
+/// doubled stroke path of [`rough_stroke_path`] (`fill="none"`). Where the
+/// diagram stylesheet paints every `.node path` (the flowchart's rule, see
+/// [`NodeStyleVars::node_rule`]), that rule beats both presentation
+/// attributes, so the fill path is stroked once more and the stroke path
+/// takes the fill; `style` carries the rule and the inline node styles.
+pub fn rough_path_element(
+    d: PathData,
+    class: &str,
+    style: Style,
+    transform: Vec<TransformOp>,
+    vars: &NodeStyleVars,
+) -> Element {
+    let stroke = rough_stroke_path(&d);
+    let (fill_style, stroke_style) = if vars.node_rule {
+        (style.clone(), style)
+    } else {
+        (
+            Style {
+                stroke: Some(Paint::None),
+                ..style.clone()
+            },
+            Style {
+                fill: Some(Paint::None),
+                ..style
+            },
+        )
+    };
+    group_element(
+        class,
+        transform,
+        vec![
+            path_element(d, "", fill_style, Vec::new()),
+            path_element(stroke, "", stroke_style, Vec::new()),
+        ],
+    )
+}
+
+/// `rc.path(d, { fill: 'none' })` of the classic look: rough.js writes no
+/// fill path, only the doubled stroke path of [`rough_stroke_path`] in a
+/// `g`. Under the flowchart's `.node path` rule that path takes the fill as
+/// well, but every subpath is one straight segment and encloses nothing,
+/// so `fill="none"` draws the same.
+pub fn rough_stroke_element(d: &PathData, style: Style) -> Element {
+    group_element(
+        "",
+        Vec::new(),
+        vec![path_element(
+            rough_stroke_path(d),
+            "",
+            Style {
+                fill: Some(Paint::None),
+                ..style
+            },
+            Vec::new(),
+        )],
+    )
+}
+
 /// The same without the closing `Z` (`path.replace('Z', '')` in the curly
 /// brace shapes).
 pub fn create_open_path_from_points(points: &[Point]) -> PathData {
@@ -1394,5 +1517,72 @@ mod tests {
         // SVG text keeps the stylesheet's `text-anchor: middle`.
         let svg = label_text(&out.bbox, Color::BLACK, false).expect("text");
         assert_eq!(svg.anchor, Some(TextAnchor::Middle));
+    }
+
+    #[test]
+    fn rough_strokes_draw_every_segment_twice() {
+        let mut d = PathData::new();
+        d.move_to(0.0, 0.0)
+            .line_to(10.0, 0.0)
+            .cubic_to(12.0, 2.0, 12.0, 8.0, 10.0, 10.0)
+            .close();
+        assert_eq!(
+            rough_stroke_path(&d).to_svg(),
+            "M0,0L10,0M0,0L10,0M10,0C12,2,12,8,10,10M10,0C12,2,12,8,10,10\
+             M10,10L0,0M10,10L0,0"
+        );
+        // A second subpath starts its own segments.
+        let mut two = PathData::new();
+        two.move_to(0.0, 0.0)
+            .line_to(1.0, 1.0)
+            .move_to(5.0, 5.0)
+            .line_to(6.0, 5.0);
+        assert_eq!(
+            rough_stroke_path(&two).to_svg(),
+            "M0,0L1,1M0,0L1,1M5,5L6,5M5,5L6,5"
+        );
+    }
+
+    #[test]
+    fn rough_paths_split_fill_and_stroke_by_the_node_rule() {
+        let mut d = PathData::new();
+        d.move_to(0.0, 0.0)
+            .line_to(4.0, 0.0)
+            .line_to(0.0, 4.0)
+            .close();
+        let style = Style {
+            fill: Some(Paint::Color(Color::WHITE)),
+            stroke: Some(Paint::Color(Color::BLACK)),
+            ..Style::default()
+        };
+        let children = |vars: &NodeStyleVars| match rough_path_element(
+            d.clone(),
+            "outer-path",
+            style.clone(),
+            Vec::new(),
+            vars,
+        ) {
+            Element::Group(g) => g
+                .children
+                .into_iter()
+                .map(|el| match el {
+                    Element::Path(p) => p.common.style,
+                    other => panic!("{other:?}"),
+                })
+                .collect::<Vec<_>>(),
+            other => panic!("{other:?}"),
+        };
+        // State and the other types: attributes only.
+        let plain = children(&NodeStyleVars::default());
+        assert_eq!(plain[0].stroke, Some(Paint::None));
+        assert_eq!(plain[0].fill, style.fill);
+        assert_eq!(plain[1].fill, Some(Paint::None));
+        assert_eq!(plain[1].stroke, style.stroke);
+        // The flowchart's `.node path` rule paints both paths.
+        let ruled = children(&NodeStyleVars {
+            node_rule: true,
+            ..NodeStyleVars::default()
+        });
+        assert_eq!(ruled, vec![style.clone(), style]);
     }
 }

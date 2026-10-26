@@ -1,8 +1,8 @@
 //! `shapes/triangle.ts`: the extract shape.
 
 use super::util::{
-    create_path_from_points, done, get_node_classes, label_helper, node_style, path_element,
-    points_bbox, translate, update_node_bounds,
+    create_path_from_points, done, get_node_classes, label_helper, node_style, points_bbox,
+    rough_path_element, translate, update_node_bounds,
 };
 use super::{Intersector, Node, Shape, ShapeCtx, ShapeOut};
 use crate::error::HelperError;
@@ -41,11 +41,12 @@ impl Shape for Triangle {
             Point::new(tw, 0.0),
             Point::new(tw / 2.0, -h),
         ];
-        let path = path_element(
+        let path = rough_path_element(
             create_path_from_points(&points),
             "outer-path",
             node_style(ctx, node),
             translate(-h / 2.0, h / 2.0),
+            &ctx.vars,
         );
         update_node_bounds(node, points_bbox(&points));
         let divisor = if use_html_labels { 2.0 } else { 1.0 };

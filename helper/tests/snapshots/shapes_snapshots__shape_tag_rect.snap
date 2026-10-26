@@ -5,8 +5,14 @@ expression: text
 width=159.2 height=46
 <g id="n1" class="node default ">
   <g class="basic label-container outer-path">
-    <path d="M-79.6,-23L79.6,-23L79.6,23L-79.6,23Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
-    <path d="M70.4,23L79.6,23L79.6,13.8Z" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+    <g>
+      <path d="M-79.6,-23L79.6,-23L79.6,23L-79.6,23Z" fill="#ececff" stroke="none" stroke-width="1"/>
+      <path d="M-79.6,-23L79.6,-23M-79.6,-23L79.6,-23M79.6,-23L79.6,23M79.6,-23L79.6,23M79.6,23L-79.6,23M79.6,23L-79.6,23M-79.6,23L-79.6,-23M-79.6,23L-79.6,-23" fill="none" stroke="#9370db" stroke-width="1"/>
+    </g>
+    <g>
+      <path d="M70.4,23L79.6,23L79.6,13.8Z" fill="#ececff" stroke="none" stroke-width="1"/>
+      <path d="M70.4,23L79.6,23M70.4,23L79.6,23M79.6,23L79.6,13.8M79.6,23L79.6,13.8M79.6,13.8L70.4,23M79.6,13.8L70.4,23" fill="none" stroke="#9370db" stroke-width="1"/>
+    </g>
   </g>
   <g class="label" transform="translate(-60, -8)">
     <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="11.2">Label</tspan></text>
