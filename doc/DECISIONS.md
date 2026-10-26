@@ -64,9 +64,8 @@ as a spec proposal instead.
   fonts.
 - The raster font resolver asks `FontSystem` for each family, so the drawn
   face is the measured face (`monospace` draws in Menlo on macOS and in
-  DejaVu Sans Mono on Linux). Glyph fallback stays with resvg: routing it
-  through `FontSystem::fallback_for` drew arrows in Hiragino Sans and
-  lowered cynefin parity by up to 0.006.
+  DejaVu Sans Mono on Linux). Glyph fallback follows the measurer too; see
+  the raster fallback entries under Fallback text measurement.
 
 - Stylesheet label fonts travel as `Node::label_font` and the `ShapeCtx`
   fields `edge_label_font`, `edge_terminal_font`, and
@@ -93,11 +92,6 @@ as a spec proposal instead.
   Zapf Dingbats before Arial Unicode MS. With that order, `✓`, `★`, and a
   lone `❤` resolve to Lucida Grande, Hiragino Sans, and Zapf Dingbats, the
   faces Chrome 156 draws them in.
-- Raster glyph fallback stays with resvg. usvg 0.48 redraws a whole text
-  run in a fallback face when that face covers every character of the run,
-  so a fallback by CSS list drew the cynefin subtitles in Arial Italic and
-  lowered cynefin by 0.0013. A fix needs one `<text>` per font run or a
-  patched usvg.
 - An inherited `text-decoration: underline` on an HTML label is a rect per
   line, drawn before the text, in the page default black. Its thickness is
   the face's `post` underline thickness rounded (at least 1 px), and it
@@ -252,9 +246,36 @@ These entries replace the macOS platform fallback list in Fonts and text.
 - `measure.mjs` replaces `<br>` with a space in SVG mode, as
   `drawSimpleText` does, and records the face of each fallback grapheme
   with `CSS.getPlatformFontsForNode`.
-- The raster step keeps resvg's glyph fallback, so drawn fallback glyphs
-  can still differ from the measured face. resvg cannot draw PingFang
-  outlines at all, because its outline table is not one usvg reads.
+- The raster step draws each fallback grapheme in the face the measurer
+  chose (`TextMetrics::grapheme_faces`), which reverses the earlier choice
+  to keep resvg's own fallback. The raster SVG gives each fallback stretch
+  a `tspan` whose `font-family` is a token that names one face, so usvg
+  never falls back and never redraws a whole run in a face that covers it
+  (that redraw is what cost cynefin 0.0013 under a CSS-list fallback).
+  `Scene::to_svg` asks for no pieces, so the snapshots do not change.
+- A piece's `letter-spacing` makes usvg's advance equal the measured one:
+  usvg shapes with HarfBuzz rules only, while Chrome adds PingFang's
+  `trak` and draws Apple Color Emoji 1.25 em wide. usvg adds no spacing
+  after the last cluster of a chunk, so a centered or end-anchored chunk
+  that ends in a spaced piece gets a `dx` of minus half or all of that
+  spacing on its first character.
+- On macOS the raster step draws two kinds of face itself, through
+  CoreText as Skia does: faces whose outlines usvg cannot read (PingFang)
+  as `CTFontCreatePathForGlyph` paths in the span's paint, and `sbix`
+  color glyphs (Apple Color Emoji) as `CTFontDrawGlyphs` bitmaps at the
+  device size, on whole device pixels with the origin rounded to a quarter
+  pixel across and a whole pixel down. Each such grapheme is a no-break
+  space in the primary face in the SVG, spaced to the measured advance:
+  usvg's span merging panics when two faces shape a ZWJ sequence or a
+  flag into clusters of different lengths, and resvg drew these faces in
+  another face, smaller, or not at all. A first parse lays the text out;
+  a second hides the placeholders and draws the glyphs after their text.
+  Linux keeps resvg's drawing of every face, through the same tokens.
+- Not ported to the drawn glyphs: Chrome's synthetic oblique of a
+  fallback face under italic text (the glyphs stay upright), and
+  `text-spacing-trim` (`halt`), which the measurer applies to pairs such
+  as `」、`; a line with such a pair is drawn up to half an em per pair
+  wider than it was measured.
 
 - Ishikawa labels follow DOMPurify's fast path: a label with no `<` is
   kept as written, so `R&D` shows as `R&D`. A label with a tag keeps the

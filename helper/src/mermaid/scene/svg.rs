@@ -28,6 +28,54 @@ const XLINK: &str = "http://www.w3.org/1999/xlink";
 /// style with a synthetic bold.
 pub type SyntheticBold<'a> = &'a dyn Fn(&str, u16, FontStyle) -> bool;
 
+/// The font a text run is drawn in after the cascade: the `font-family`
+/// chain, the size in pixels, the numeric weight, and the style.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct RunFont<'f> {
+    pub family: &'f str,
+    pub size: f64,
+    pub weight: u16,
+    pub style: FontStyle,
+}
+
+/// A stretch of a text run that Chrome draws in a face other than the
+/// run's primary face (a fallback face for CJK, Hangul, or emoji).
+#[derive(Debug, Clone, PartialEq)]
+pub struct FacePiece {
+    /// Byte range in the run's text, on grapheme boundaries.
+    pub range: std::ops::Range<usize>,
+    /// The `font-family` that names exactly that face for the raster
+    /// step's font resolver. An own piece keeps the run's family.
+    pub family: Option<String>,
+    /// True when Chrome emboldens this face (a weight of 600 or more on a
+    /// face lighter than 600).
+    pub synthetic_bold: bool,
+    /// Added after each cluster, so resvg advances the piece by the width
+    /// the measurer gave it.
+    pub letter_spacing: Option<f64>,
+    /// Set when the raster step draws this grapheme itself, because resvg
+    /// cannot draw its face as Chrome does: the piece is written as
+    /// [`OWN_PLACEHOLDER`], tagged with this index on the [`OWN_AXIS`]
+    /// variation axis and underlined until the glyphs exist, and hidden
+    /// after.
+    pub own: Option<usize>,
+}
+
+/// The text an own piece is written as: one character the primary face
+/// has and that no whitespace rule removes.
+pub const OWN_PLACEHOLDER: &str = "\u{A0}";
+
+/// The `font-variation-settings` axis that carries an own piece's index
+/// through usvg's layout. No font has it, so shaping ignores it.
+pub const OWN_AXIS: &str = "kmpi";
+
+/// The face pieces of one run of text in one font.
+pub type FacePieces<'a> = &'a dyn Fn(&str, &RunFont<'_>) -> Vec<FacePiece>;
+
+/// The glyphs the raster step draws for one text, as SVG elements in the
+/// text's own user space, looked up by the text's id.
+pub type OwnGlyphs<'a> = &'a dyn Fn(&str) -> Option<String>;
+
 /// What [`to_svg_with`] may ask about fonts.
 #[derive(Clone, Copy, Default)]
 pub struct SvgOptions<'a> {
@@ -37,6 +85,15 @@ pub struct SvgOptions<'a> {
     /// regular face as it is, so the stroke stands in for the emboldening.
     /// Text with a visible stroke of its own keeps it instead.
     pub synthetic_bold: Option<SyntheticBold<'a>>,
+    /// When set, each stretch of text that Chrome draws in a fallback face
+    /// becomes a `tspan` naming that face, so resvg draws the glyphs the
+    /// measurer measured. A text with an own-drawing piece gets the id
+    /// `kmt-<n>`, numbered in document order.
+    pub face_pieces: Option<FacePieces<'a>>,
+    /// When set, own-drawing pieces are hidden, and the elements this
+    /// returns for a text's id follow the text in a group with the text's
+    /// transform, opacity, and clip.
+    pub own_glyphs: Option<OwnGlyphs<'a>>,
 }
 
 /// Serializes the scene. The root carries the natural size, the viewBox, and
@@ -95,8 +152,8 @@ pub fn element_to_svg(element: &Element) -> String {
     w.finish()
 }
 
-/// The inherited values synthetic bold depends on, as the cascade hands
-/// them to the children of a group.
+/// The inherited values synthetic bold and face pieces depend on, as the
+/// cascade hands them to the children of a group.
 #[derive(Debug, Clone, Default)]
 struct Inherited {
     font: FontSpec,
@@ -104,6 +161,7 @@ struct Inherited {
     fill_opacity: Option<f64>,
     stroke: Option<Paint>,
     dashed: bool,
+    anchor: Option<TextAnchor>,
 }
 
 impl Inherited {
@@ -117,6 +175,7 @@ impl Inherited {
                 .stroke_dasharray
                 .as_ref()
                 .map_or(self.dashed, |d| !d.is_empty()),
+            anchor: style.text_anchor.or(self.anchor),
         }
     }
 }
@@ -130,6 +189,10 @@ struct Writer<'a> {
     /// elements share is defined once.
     clips: BTreeSet<String>,
     synthetic_bold: Option<SyntheticBold<'a>>,
+    face_pieces: Option<FacePieces<'a>>,
+    own_glyphs: Option<OwnGlyphs<'a>>,
+    /// The texts with own-drawing pieces written so far.
+    own_texts: usize,
     /// One entry per open group, the root's values first.
     inherited: Vec<Inherited>,
 }
@@ -149,6 +212,9 @@ impl<'a> Writer<'a> {
             tag_open: false,
             clips: BTreeSet::new(),
             synthetic_bold: opts.synthetic_bold,
+            face_pieces: opts.face_pieces,
+            own_glyphs: opts.own_glyphs,
+            own_texts: 0,
             inherited: vec![root],
         }
     }
@@ -170,33 +236,11 @@ impl<'a> Writer<'a> {
         dashed: bool,
     ) -> Option<Style> {
         let probe = self.synthetic_bold?;
-        if stroke.is_some_and(|s| *s != Paint::None) {
+        let run = run_font(font);
+        if !probe(run.family, run.weight, run.style) {
             return None;
         }
-        // SVG's initial fill is black.
-        let fill = fill.cloned().unwrap_or(Paint::Color(Color::BLACK));
-        if fill == Paint::None {
-            return None;
-        }
-        let weight = match font.weight {
-            None | Some(FontWeight::Normal) => 400,
-            Some(FontWeight::Bold) => 700,
-            Some(FontWeight::Number(n)) => n,
-        };
-        let family = font.family.as_deref().unwrap_or(super::DEFAULT_FONT_FAMILY);
-        if !probe(family, weight, font.style.unwrap_or(FontStyle::Normal)) {
-            return None;
-        }
-        // CSS `medium`, the size a text without `font-size` gets.
-        let size = font.size.unwrap_or(16.0);
-        Some(Style {
-            stroke: Some(fill),
-            stroke_width: Some(2.0 * SYNTHETIC_BOLD_GROWTH * size),
-            stroke_opacity: fill_opacity,
-            // An inherited dash pattern would break the outline up.
-            stroke_dasharray: dashed.then(Vec::new),
-            ..Style::default()
-        })
+        emboldening_stroke(font, fill, fill_opacity, stroke, dashed)
     }
 
     fn indent(&mut self) {
@@ -284,9 +328,60 @@ impl<'a> Writer<'a> {
         let _ = writeln!(self.out, "</{name}>");
     }
 
+    /// Writes preformatted elements, one per line, at the current depth.
+    fn raw_lines(&mut self, lines: &str) {
+        for line in lines.lines() {
+            self.indent();
+            self.out.push_str(line);
+            self.out.push('\n');
+        }
+    }
+
     fn finish(self) -> String {
         self.out
     }
+}
+
+/// The font of a run with the defaults a browser applies: the scene's
+/// default chain, CSS `medium` (16 px), weight 400, and normal style.
+fn run_font(font: &FontSpec) -> RunFont<'_> {
+    RunFont {
+        family: font.family.as_deref().unwrap_or(super::DEFAULT_FONT_FAMILY),
+        size: font.size.unwrap_or(16.0),
+        weight: match font.weight {
+            None | Some(FontWeight::Normal) => 400,
+            Some(FontWeight::Bold) => 700,
+            Some(FontWeight::Number(n)) => n,
+        },
+        style: font.style.unwrap_or(FontStyle::Normal),
+    }
+}
+
+/// The stroke that stands in for an emboldening of `font` in `fill`, or
+/// `None` for an invisible fill or a visible stroke of the text's own.
+fn emboldening_stroke(
+    font: &FontSpec,
+    fill: Option<&Paint>,
+    fill_opacity: Option<f64>,
+    stroke: Option<&Paint>,
+    dashed: bool,
+) -> Option<Style> {
+    if stroke.is_some_and(|s| *s != Paint::None) {
+        return None;
+    }
+    // SVG's initial fill is black.
+    let fill = fill.cloned().unwrap_or(Paint::Color(Color::BLACK));
+    if fill == Paint::None {
+        return None;
+    }
+    Some(Style {
+        stroke: Some(fill),
+        stroke_width: Some(2.0 * SYNTHETIC_BOLD_GROWTH * run_font(font).size),
+        stroke_opacity: fill_opacity,
+        // An inherited dash pattern would break the outline up.
+        stroke_dasharray: dashed.then(Vec::new),
+        ..Style::default()
+    })
 }
 
 fn escape_attr(out: &mut String, value: &str) {
@@ -650,8 +745,40 @@ fn write_group(w: &mut Writer, common: &Common, children: &[Element]) {
 }
 
 fn write_text(w: &mut Writer, text: &Text) {
+    // The text's own anchor attribute is written below; the style's copy
+    // would duplicate it, so the style is written with it cleared.
+    let mut style = text.common.style.clone();
+    if text.anchor.is_some() {
+        style.text_anchor = None;
+    }
+    let cascade = w.inherited().under(&style);
+    let font = text.font.merged_over(&cascade.font);
+    // The pieces come first: an own-drawing piece decides the text's id.
+    let pieces: Vec<Vec<FacePiece>> = text
+        .runs
+        .iter()
+        .map(|run| match w.face_pieces {
+            Some(find) => find(&run.text, &run_font(&run.font.merged_over(&font))),
+            None => Vec::new(),
+        })
+        .collect();
+    let own_id = pieces.iter().flatten().any(|p| p.own.is_some()).then(|| {
+        w.own_texts += 1;
+        format!("kmt-{}", w.own_texts)
+    });
+    let shifts = chunk_shifts(text, &pieces, text.anchor.or(cascade.anchor));
+
     w.open("text");
-    write_common_head(w, &text.common);
+    match &own_id {
+        Some(id) => write_common_head(
+            w,
+            &Common {
+                id: Some(id.clone()),
+                ..text.common.clone()
+            },
+        ),
+        None => write_common_head(w, &text.common),
+    }
     w.attr("x", &fmt_num(text.x));
     w.attr("y", &fmt_num(text.y));
     if let Some(anchor) = text.anchor {
@@ -660,14 +787,6 @@ fn write_text(w: &mut Writer, text: &Text) {
     if let Some(b) = text.baseline {
         w.attr("dominant-baseline", baseline(b));
     }
-    // The text's own anchor attribute was written above; the style's copy
-    // would duplicate it, so the style is written with it cleared.
-    let mut style = text.common.style.clone();
-    if text.anchor.is_some() {
-        style.text_anchor = None;
-    }
-    let cascade = w.inherited().under(&style);
-    let font = text.font.merged_over(&cascade.font);
     let bold = w.bold_stroke(
         &font,
         cascade.fill.as_ref(),
@@ -683,50 +802,203 @@ fn write_text(w: &mut Writer, text: &Text) {
     }
     write_style(w, &style, Some(&text.font));
 
-    let plain = text.runs.len() == 1 && {
+    let plain = text.runs.len() == 1 && pieces[0].is_empty() && {
         let run = &text.runs[0];
         run.x.is_none() && run.dy.is_none() && run.font == FontSpec::default() && run.fill.is_none()
     };
     if plain {
         w.text_close("text", &text.runs[0].text);
-        return;
+    } else {
+        w.inline_children();
+        let single = text.runs.len() == 1 && {
+            let run = &text.runs[0];
+            run.x.is_none()
+                && run.dy.is_none()
+                && run.font == FontSpec::default()
+                && run.fill.is_none()
+        };
+        for ((run, pieces), shift) in text.runs.iter().zip(&pieces).zip(&shifts) {
+            if single {
+                if let Some(dx) = shift {
+                    w.open_inline("tspan");
+                    w.attr("dx", &fmt_num(*dx));
+                    w.inline_children();
+                }
+                write_pieces(w, &run.text, pieces, &font, None, &cascade, bold.is_some());
+                if shift.is_some() {
+                    w.out.push_str("</tspan>");
+                }
+                continue;
+            }
+            w.open_inline("tspan");
+            if let Some(x) = run.x {
+                w.attr("x", &fmt_num(x));
+            }
+            if let Some(dx) = shift {
+                w.attr("dx", &fmt_num(*dx));
+            }
+            if let Some(dy) = run.dy {
+                w.attr("dy", &length(dy));
+            }
+            if let Some(fill) = &run.fill {
+                w.attr("fill", &paint(fill));
+                if let Some(a) = paint_alpha(fill) {
+                    w.attr("fill-opacity", &fmt_num(a));
+                }
+            }
+            write_font(w, &run.font);
+            // A run that differs from its text in weight, size, or fill
+            // needs its own stroke, or none where the text's does not
+            // apply.
+            let run_font = run.font.merged_over(&font);
+            let run_fill = run.fill.as_ref().or(cascade.fill.as_ref());
+            let run_bold = w.bold_stroke(
+                &run_font,
+                run_fill,
+                cascade.fill_opacity,
+                cascade.stroke.as_ref(),
+                cascade.dashed,
+            );
+            match (&bold, &run_bold) {
+                (Some(_), Some(own)) if run.font.size.is_some() || run.fill.is_some() => {
+                    write_bold_stroke(w, own);
+                }
+                (None, Some(own)) => write_bold_stroke(w, own),
+                (Some(_), None) => w.attr("stroke", "none"),
+                _ => {}
+            }
+            if pieces.is_empty() {
+                w.text_close_inline("tspan", &run.text);
+                continue;
+            }
+            w.inline_children();
+            write_pieces(
+                w,
+                &run.text,
+                pieces,
+                &run_font,
+                run_fill,
+                &cascade,
+                run_bold.is_some(),
+            );
+            w.out.push_str("</tspan>");
+        }
+        w.close_inline("text");
     }
-    w.inline_children();
-    for run in &text.runs {
+
+    let fragment = own_id
+        .as_deref()
+        .zip(w.own_glyphs)
+        .and_then(|(id, own)| own(id));
+    if let Some(fragment) = fragment {
+        w.open("g");
+        if !text.common.transform.is_empty() {
+            w.attr("transform", &transform(&text.common.transform));
+        }
+        if let Some(v) = text.common.style.opacity {
+            w.attr("opacity", &fmt_num(v));
+        }
+        if let Some(clip) = &text.common.style.clip_path {
+            w.attr("clip-path", &format!("url(#{})", clip.id));
+        }
+        w.children_follow();
+        w.raw_lines(&fragment);
+        w.close("g");
+    }
+}
+
+/// The `dx` that each run starting a text chunk needs, so the chunk keeps
+/// the place Chrome gives it. usvg adds no letter-spacing after the last
+/// cluster of a chunk, while Chrome's advance of a fallback piece includes
+/// its correction; a chunk that ends in such a piece is that much too
+/// narrow, which moves a centered chunk right by half of it and an
+/// end-anchored one by all of it. A chunk starts at the first run and at
+/// every run with its own `x`.
+fn chunk_shifts(
+    text: &Text,
+    pieces: &[Vec<FacePiece>],
+    anchor: Option<TextAnchor>,
+) -> Vec<Option<f64>> {
+    let mut shifts = vec![None; text.runs.len()];
+    let share = match anchor {
+        None | Some(TextAnchor::Start) => return shifts,
+        Some(TextAnchor::Middle) => 0.5,
+        Some(TextAnchor::End) => 1.0,
+    };
+    let mut start = 0;
+    for (i, (run, run_pieces)) in text.runs.iter().zip(pieces).enumerate() {
+        let ends_chunk = text.runs.get(i + 1).is_none_or(|next| next.x.is_some());
+        if !ends_chunk {
+            continue;
+        }
+        let last = run_pieces
+            .last()
+            .filter(|p| p.range.end == run.text.trim_end().len());
+        if let Some(spacing) = last.and_then(|p| p.letter_spacing) {
+            shifts[start] = Some(-share * spacing);
+        }
+        start = i + 1;
+    }
+    shifts
+}
+
+/// The character data of one run, with a `tspan` per face piece. `fill`
+/// is the run's own fill when it has one; `emboldened` says whether the
+/// enclosing element already carries a synthetic bold stroke.
+fn write_pieces(
+    w: &mut Writer,
+    text: &str,
+    pieces: &[FacePiece],
+    font: &FontSpec,
+    fill: Option<&Paint>,
+    cascade: &Inherited,
+    emboldened: bool,
+) {
+    let mut at = 0;
+    for piece in pieces {
+        escape_text(&mut w.out, &text[at..piece.range.start]);
         w.open_inline("tspan");
-        if let Some(x) = run.x {
-            w.attr("x", &fmt_num(x));
+        if let Some(family) = &piece.family {
+            w.attr("font-family", family);
         }
-        if let Some(dy) = run.dy {
-            w.attr("dy", &length(dy));
+        if let Some(spacing) = piece.letter_spacing {
+            w.attr("letter-spacing", &fmt_num(spacing));
         }
-        if let Some(fill) = &run.fill {
-            w.attr("fill", &paint(fill));
-            if let Some(a) = paint_alpha(fill) {
-                w.attr("fill-opacity", &fmt_num(a));
+        match piece.own {
+            Some(_) if w.own_glyphs.is_some() => w.attr("visibility", "hidden"),
+            Some(index) => {
+                w.attr("font-variation-settings", &format!("'{OWN_AXIS}' {index}"));
+                // usvg drops a text that draws nothing, and the
+                // placeholder has no ink; an underline gives the layout
+                // pass something to draw without moving a glyph.
+                w.attr("text-decoration", "underline");
             }
+            None => {}
         }
-        write_font(w, &run.font);
-        // A run that differs from its text in weight, size, or fill needs
-        // its own stroke, or none where the text's does not apply.
-        let run_bold = w.bold_stroke(
-            &run.font.merged_over(&font),
-            run.fill.as_ref().or(cascade.fill.as_ref()),
-            cascade.fill_opacity,
-            cascade.stroke.as_ref(),
-            cascade.dashed,
-        );
-        match (&bold, &run_bold) {
-            (Some(_), Some(own)) if run.font.size.is_some() || run.fill.is_some() => {
-                write_bold_stroke(w, own);
-            }
-            (None, Some(own)) => write_bold_stroke(w, own),
-            (Some(_), None) => w.attr("stroke", "none"),
+        let stroke = if piece.synthetic_bold {
+            emboldening_stroke(
+                font,
+                fill.or(cascade.fill.as_ref()),
+                cascade.fill_opacity,
+                cascade.stroke.as_ref(),
+                cascade.dashed,
+            )
+        } else {
+            None
+        };
+        match (&stroke, emboldened) {
+            (Some(own), false) => write_bold_stroke(w, own),
+            (None, true) => w.attr("stroke", "none"),
             _ => {}
         }
-        w.text_close_inline("tspan", &run.text);
+        let content = match piece.own {
+            Some(_) => OWN_PLACEHOLDER,
+            None => &text[piece.range.clone()],
+        };
+        w.text_close_inline("tspan", content);
+        at = piece.range.end;
     }
-    w.close_inline("text");
+    escape_text(&mut w.out, &text[at..]);
 }
 
 fn write_marker(w: &mut Writer, m: &Marker) {
@@ -905,10 +1177,149 @@ mod tests {
         let probe = |_: &str, weight: u16, _: FontStyle| weight >= 600;
         let opts = SvgOptions {
             synthetic_bold: Some(&probe),
+            ..SvgOptions::default()
         };
         let mut scene = Scene::new(1.0, 1.0);
         scene.root.children.push(element);
         to_svg_with(&scene, &opts)
+    }
+
+    /// A piece for every `X` (a fallback face) and an own piece for every
+    /// `E` (an emoji), with a spacing of 2 each.
+    fn fake_pieces(text: &str, _: &RunFont<'_>) -> Vec<FacePiece> {
+        let mut own = 0;
+        text.char_indices()
+            .filter(|(_, c)| *c == 'X' || *c == 'E')
+            .map(|(i, c)| FacePiece {
+                range: i..i + 1,
+                family: (c == 'X').then(|| "face-x".to_string()),
+                synthetic_bold: false,
+                letter_spacing: Some(2.0),
+                own: (c == 'E').then(|| {
+                    own += 1;
+                    own - 1
+                }),
+            })
+            .collect()
+    }
+
+    fn with_pieces(element: Element, own_glyphs: Option<OwnGlyphs<'_>>) -> String {
+        let opts = SvgOptions {
+            face_pieces: Some(&fake_pieces),
+            own_glyphs,
+            ..SvgOptions::default()
+        };
+        let mut scene = Scene::new(1.0, 1.0);
+        scene.root.children.push(element);
+        to_svg_with(&scene, &opts)
+    }
+
+    fn label(runs: Vec<TextRun>, anchor: Option<TextAnchor>) -> Element {
+        Element::Text(Text {
+            common: Common {
+                transform: vec![TransformOp::Translate(5.0, 6.0)],
+                ..Common::default()
+            },
+            x: 0.0,
+            y: 0.0,
+            anchor,
+            baseline: None,
+            font: FontSpec::default(),
+            runs,
+        })
+    }
+
+    #[test]
+    fn fallback_pieces_become_tspans_naming_their_face() {
+        let svg = with_pieces(label(vec![TextRun::new("aXb")], None), None);
+        assert!(
+            svg.contains(">a<tspan font-family=\"face-x\" letter-spacing=\"2\">X</tspan>b</text>"),
+            "{svg}"
+        );
+        // A run of its own keeps its attributes and nests the pieces.
+        let svg = with_pieces(
+            label(vec![TextRun::line("aX", 0.0, Length::Em(1.1))], None),
+            None,
+        );
+        assert!(
+            svg.contains("<tspan x=\"0\" dy=\"1.1em\">a<tspan font-family=\"face-x\""),
+            "{svg}"
+        );
+        // Without the hook, or with no piece, the text is unchanged.
+        let mut scene = Scene::new(1.0, 1.0);
+        scene
+            .root
+            .children
+            .push(label(vec![TextRun::new("aXb")], None));
+        assert!(scene.to_svg().contains(">aXb</text>"));
+        assert!(with_pieces(label(vec![TextRun::new("ab")], None), None).contains(">ab</text>"));
+    }
+
+    #[test]
+    fn own_pieces_are_placeholders_tagged_then_hidden() {
+        let svg = with_pieces(label(vec![TextRun::new("aEbE")], None), None);
+        assert!(svg.contains("<text id=\"kmt-1\""), "{svg}");
+        assert!(
+            svg.contains(
+                "<tspan letter-spacing=\"2\" font-variation-settings=\"'kmpi' 0\" text-decoration=\"underline\">\u{A0}</tspan>b"
+            ),
+            "{svg}"
+        );
+        assert!(svg.contains("'kmpi' 1"), "{svg}");
+        assert!(!svg.contains('E'), "{svg}");
+        let drawn = |id: &str| (id == "kmt-1").then(|| "<path d=\"M0 0\"/>".to_string());
+        let svg = with_pieces(label(vec![TextRun::new("aEbE")], None), Some(&drawn));
+        assert!(
+            svg.contains("<tspan letter-spacing=\"2\" visibility=\"hidden\">\u{A0}</tspan>"),
+            "{svg}"
+        );
+        assert!(!svg.contains("kmpi"), "{svg}");
+        // The drawn glyphs follow the text in its user space.
+        assert!(
+            svg.contains(
+                "</text>\n    <g transform=\"translate(5, 6)\">\n      <path d=\"M0 0\"/>\n    </g>"
+            ),
+            "{svg}"
+        );
+    }
+
+    #[test]
+    fn a_chunk_ending_in_a_spaced_piece_moves_by_its_anchor_share() {
+        // usvg drops the spacing after a chunk's last cluster.
+        let middle = with_pieces(
+            label(vec![TextRun::new("aX")], Some(TextAnchor::Middle)),
+            None,
+        );
+        assert!(middle.contains("<tspan dx=\"-1\">a<tspan"), "{middle}");
+        let end = with_pieces(label(vec![TextRun::new("aX")], Some(TextAnchor::End)), None);
+        assert!(end.contains("<tspan dx=\"-2\">a<tspan"), "{end}");
+        let start = with_pieces(label(vec![TextRun::new("aX")], None), None);
+        assert!(!start.contains("dx="), "{start}");
+        // A piece inside the chunk keeps its spacing; only the last counts.
+        let inside = with_pieces(
+            label(vec![TextRun::new("Xa")], Some(TextAnchor::Middle)),
+            None,
+        );
+        assert!(!inside.contains("dx="), "{inside}");
+        // Each line is a chunk of its own.
+        let lines = with_pieces(
+            label(
+                vec![
+                    TextRun::line("aX", 0.0, Length::Em(0.0)),
+                    TextRun::line("b", 0.0, Length::Em(1.1)),
+                ],
+                Some(TextAnchor::End),
+            ),
+            None,
+        );
+        assert!(
+            lines.contains("<tspan x=\"0\" dx=\"-2\" dy=\"0em\">"),
+            "{lines}"
+        );
+        assert!(
+            lines.contains("<tspan x=\"0\" dy=\"1.1em\">b</tspan>"),
+            "{lines}"
+        );
     }
 
     #[test]

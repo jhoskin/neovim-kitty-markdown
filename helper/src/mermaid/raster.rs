@@ -33,10 +33,18 @@ use std::sync::Arc;
 use resvg::tiny_skia;
 use usvg::fontdb;
 
-use crate::mermaid::scene::svg::{SvgOptions, to_svg_with};
+use crate::mermaid::scene::svg::{OwnGlyphs, RunFont, SvgOptions, to_svg_with};
 use crate::mermaid::scene::{Color, FontStyle, Scene};
 use crate::text::FontSystem;
 use crate::text::fonts::{FontId, Style as FaceStyle, Weight};
+
+#[cfg(target_os = "macos")]
+mod coregraphics;
+mod faces;
+#[cfg(target_os = "macos")]
+mod own;
+
+use faces::FaceTable;
 
 /// The pixel size of a render and the scale from CSS pixels to pixels.
 #[derive(Debug, Clone, Copy, PartialEq)]
@@ -166,14 +174,12 @@ fn same_face(fonts: &FontSystem, db: &fontdb::Database, id: FontId) -> bool {
 }
 
 /// The font choice resvg draws with, taken from the font system so the
-/// drawn face is the measured face: a generic family maps to Chrome's
-/// platform default (resvg's own `monospace` is Courier New, Chrome's on
-/// macOS is Menlo), names match in any case, and Open Sans is the bundled
-/// pair. Whatever the font system cannot place goes to resvg's default
-/// query. A character the face lacks keeps resvg's own fallback: drawing
-/// it in the face `FontSystem::fallback_for` picks (Hiragino Sans for `→`
-/// under Trebuchet MS) scored up to 0.006 lower on the cynefin goldens.
-fn font_resolver(fonts: &'static FontSystem) -> usvg::FontResolver<'static> {
+/// drawn face is the measured face: a face token names the fallback face
+/// of a piece ([`faces`]), a generic family maps to Chrome's platform
+/// default (resvg's own `monospace` is Courier New, Chrome's on macOS is
+/// Menlo), names match in any case, and Open Sans is the bundled pair.
+/// Whatever the font system cannot place goes to resvg's default query.
+fn font_resolver(fonts: &'static FontSystem, faces: Vec<FontId>) -> usvg::FontResolver<'static> {
     let default_font = usvg::FontResolver::default_font_selector();
     usvg::FontResolver {
         select_font: Box::new(move |font, db| {
@@ -190,8 +196,8 @@ fn font_resolver(fonts: &'static FontSystem) -> usvg::FontResolver<'static> {
                         usvg::FontFamily::Monospace => "monospace",
                         usvg::FontFamily::Named(name) => name.as_str(),
                     };
-                    fonts
-                        .resolve_family(name, weight, style)
+                    faces::face_for_family(&faces, name)
+                        .or_else(|| fonts.resolve_family(name, weight, style))
                         .filter(|&id| same_face(fonts, db, id))
                 })
                 .or_else(|| default_font(font, db))
@@ -200,10 +206,12 @@ fn font_resolver(fonts: &'static FontSystem) -> usvg::FontResolver<'static> {
     }
 }
 
-/// The SVG resvg reads: the scene with Chrome's synthetic bold, which the
-/// font system decides because it resolves families the way the measurer
-/// does.
-fn raster_svg(scene: &Scene) -> String {
+/// The SVG resvg reads: the scene with Chrome's synthetic bold and a
+/// `tspan` per fallback face, which the font system decides because it
+/// resolves families and fallbacks the way the measurer does. With
+/// `own_glyphs`, the pieces the raster step draws itself are hidden and
+/// its elements follow their texts.
+fn raster_svg(scene: &Scene, table: &FaceTable<'_>, own_glyphs: Option<OwnGlyphs<'_>>) -> String {
     let fonts = crate::text::font_system();
     let probe = |chain: &str, weight: u16, style: FontStyle| {
         let style = match style {
@@ -213,10 +221,48 @@ fn raster_svg(scene: &Scene) -> String {
         };
         fonts.synthesizes_bold(chain, Weight(weight), style)
     };
+    let pieces = |text: &str, font: &RunFont<'_>| table.pieces(text, font);
     let opts = SvgOptions {
         synthetic_bold: Some(&probe),
+        face_pieces: Some(&pieces),
+        own_glyphs,
     };
     to_svg_with(scene, &opts)
+}
+
+/// Parses the raster SVG. Where a fallback face is one resvg cannot draw
+/// as Chrome does, the first parse lays the text out and a second one
+/// draws the glyphs the raster step made for it (macOS only).
+fn raster_tree(
+    scene: &Scene,
+    fontdb: Arc<fontdb::Database>,
+    scale: f32,
+) -> Result<usvg::Tree, RasterError> {
+    let fonts = crate::text::font_system();
+    let table = FaceTable::new(fonts);
+    // The first serialization names every face; the second names the
+    // same ones, so the resolver's copy of the table stays complete.
+    let svg = raster_svg(scene, &table, None);
+    let usvg_opts = usvg::Options {
+        dpi: 96.0,
+        font_family: scene.font_family.clone(),
+        font_resolver: font_resolver(fonts, table.faces()),
+        fontdb,
+        ..usvg::Options::default()
+    };
+    let tree = usvg::Tree::from_str(&svg, &usvg_opts).map_err(RasterError::Svg)?;
+    #[cfg(target_os = "macos")]
+    {
+        let drawn = own::own_glyphs(&tree, scale, &table, fonts);
+        if !drawn.is_empty() {
+            let lookup = |id: &str| drawn.get(id).cloned();
+            let svg = raster_svg(scene, &table, Some(&lookup));
+            return usvg::Tree::from_str(&svg, &usvg_opts).map_err(RasterError::Svg);
+        }
+    }
+    #[cfg(not(target_os = "macos"))]
+    let _ = scale;
+    Ok(tree)
 }
 
 /// Rasterizes the scene into a premultiplied RGBA pixmap at the size the
@@ -231,14 +277,8 @@ pub fn render_pixmap(
         Some(target) => OutputSize::for_target(scene.width, scene.height, target),
         None => OutputSize::natural(scene.width, scene.height),
     };
-    let usvg_opts = usvg::Options {
-        dpi: 96.0,
-        font_family: scene.font_family.clone(),
-        font_resolver: font_resolver(crate::text::font_system()),
-        fontdb,
-        ..usvg::Options::default()
-    };
-    let tree = usvg::Tree::from_str(&raster_svg(scene), &usvg_opts).map_err(RasterError::Svg)?;
+    let scale = size.scale as f32;
+    let tree = raster_tree(scene, fontdb, scale)?;
 
     let mut pixmap =
         tiny_skia::Pixmap::new(size.width, size.height).ok_or(RasterError::Canvas {
@@ -257,7 +297,6 @@ pub fn render_pixmap(
             (c.a.clamp(0.0, 1.0) * 255.0).round() as u8,
         ));
     }
-    let scale = size.scale as f32;
     resvg::render(
         &tree,
         tiny_skia::Transform::from_scale(scale, scale),
