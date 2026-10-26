@@ -6,16 +6,21 @@ Draft 2, written 2026-10-22. Draft 1 was written 2026-10-21. No code
 exists yet. The requirements below cover the full product. Draft 2 raises
 the Neovim minimum to 0.12, pins the oracle config, moves zenuml to the
 non-goals, and adds R-165 to R-211 for the gaps that the implementation
-design found. Changes to this file are Joh's; the dev agent proposes
-wording and does not edit it. Delivery follows the mermaid phases in the
-Constraints section; a requirement for a later phase is not a defect until
-that phase starts.
+design found. R-212 to R-248 were added, and R-042 and R-175 were
+revised, on 2026-10-22 from the Wave 1 and Wave 2 package reports.
+Changes to this file are Joh's; the architect agent edits it when Joh
+asks, and the dev agent proposes wording. Delivery follows the mermaid
+phases in the Constraints section; a requirement for a later phase is not
+a defect until that phase starts. R-249 to R-345 were added, and R-017,
+R-043, R-055, R-088, R-098, R-112, R-123, R-130, R-175, R-179, R-181,
+R-234, and R-237 were revised, on 2026-10-25 to answer the open questions
+of the QA review.
 
 Defaults that the plan did not fix and that this draft sets:
 
 - Front matter is hidden, not shown raw.
-- Remote image size cap: 20 MB.
-- Cache size limit: 500 MB.
+- Remote image size cap: 20 MiB (20971520 bytes).
+- Cache size limit: 500 MiB (524288000 bytes).
 - Helper request timeout: 30 s. Probe timeout: 500 ms.
 - Scroll sync debounce: 100 ms.
 - Maximum text width: 100 cells.
@@ -49,7 +54,9 @@ Defaults that the plan did not fix and that this draft sets:
   render as a failure box.
 - The zenuml, info, agentflow, and railroad diagram types. zenuml lays
   out with CSS inside a `foreignObject`, so no SVG geometry exists to
-  port. These render as a failure box.
+  port. These render as a failure box. mermaid-cli 12.0.0 loads
+  `@mermaid-js/mermaid-zenuml` and renders zenuml; the helper differs
+  from the oracle here on purpose.
 - A GitHub Actions lint or test workflow. Only a release workflow exists.
 - Terminals other than kitty. tmux and zmx are best effort.
 - A license file. Copyright Joh Hoskin, personal use.
@@ -91,17 +98,40 @@ Defaults that the plan did not fix and that this draft sets:
   diagram source.
 - Oracle: mermaid 12.2.0 run through `@mermaid-js/mermaid-cli` 12.0.0,
   which produces the golden images for parity checks.
+- Measurement oracle: `helper/oracle/measure.mjs`, which runs Chrome
+  through puppeteer and reports `getBBox` for an SVG label and
+  `getBoundingClientRect` for an HTML label.
+- Text measurer: the helper code that computes the size of a label for
+  mermaid layout.
+- Math token: one glyph, one number, or one identifier in a math span,
+  together with its attached superscripts and subscripts.
 - SSIM: the structural similarity index between two images of the same
-  pixel size, in the range 0 to 1. Both images are composited over white
+  pixel size, in the range -1 to 1. Both images are composited over white
   and converted to BT.601 grayscale. The index uses a Gaussian window of
-  11 by 11 pixels with sigma 1.5, K1 0.01, and K2 0.03, and reports the
-  mean over the image.
+  11 by 11 pixels with sigma 1.5, K1 0.01, K2 0.03, and L 255. It uses
+  only the window positions that fit inside the image, with no padding,
+  and reports the mean over those positions. When a side of an image is
+  shorter than 11 pixels, the index uses the mean, variance, and
+  covariance of the whole images in place of the window.
 - Natural size: the pixel size of a diagram as mermaid computes it from
   its SVG `viewBox`, before any scaling to the target width.
 - Anchor line: the one empty line in the layout model that stands for a
   pixel block. Boxes and placeholder rows hang below it as virtual lines.
-- Block key: the SHA-256 of the kind, the source, the width in cells, and
-  the theme of a pixel block. It identifies the block across re-renders.
+- Block key: the SHA-256 of the kind, the source, the width in cells, the
+  theme, and the `<img>` attributes of a pixel block. For an image, the
+  source is the resolved path. It identifies the block across re-renders.
+  A caller reads it from the `key` field of the block descriptor.
+- Fallback text: text with at least one character outside ASCII, emoji
+  included. The text measurer may use a fallback font for it.
+- Icons: the glyphs the preview shows. Headings 1 to 6: U+F0CA1, U+F0CA3,
+  U+F0CA5, U+F0CA7, U+F0CA9, U+F0CAB. Bullets by depth, repeating: U+25CF,
+  U+25CB, U+25C6, U+25C7. Task items: checked U+F0C52, unchecked U+F0131.
+  Alerts: `NOTE` U+F02FD, `TIP` U+F0336, `IMPORTANT` U+F017E, `WARNING`
+  U+F002A, `CAUTION` U+F0CE6. Loading box U+F051F, failure box U+F0156,
+  quote bar U+258E, thematic break U+2500.
+- Key string: the fields of a cache key joined by `|` with no spaces. A
+  hash field is the lowercase hex SHA-256 of the image bytes or of the
+  diagram source. A number is decimal. An absent limit is `0`.
 - Base config: the mermaid config the helper applies before the diagram
   directives: `layout` `dagre`, `look` `classic`, and the selected theme.
 - Cache: the directory tree under the configured cache root, with the
@@ -130,6 +160,9 @@ Defaults that the plan did not fix and that this draft sets:
   and the helper applies the same base config. The oracle package pins
   `@mermaid-js/mermaid-cli` 12.0.0 with an npm override of `mermaid` to
   12.2.0 and a committed lockfile.
+- The parity check and the text metrics calibration run on macOS. The
+  generic families `sans-serif`, `serif`, and `monospace` resolve to
+  Chrome's macOS defaults. Linux parity is out of scope for this release.
 - Mermaid diagram types arrive in these phases:
 
 | Phase | Diagram types                                                                                   |
@@ -182,14 +215,37 @@ Defaults that the plan did not fix and that this draft sets:
   preview.
 - R-167: The preview buffer shall have the name
   `kitty-markdown://<source buffer name>`.
+- R-215: When the user runs `:KittyMarkdown close`, `toggle`, or `refresh`
+  in a preview window, the plugin shall act on the source buffer of that
+  preview.
+- R-249: If the user runs `:KittyMarkdown` with a subcommand other than
+  `open`, `close`, `toggle`, or `refresh`, then the plugin shall show the
+  error `kitty-markdown: unknown subcommand "<subcommand>"` and do
+  nothing.
+- R-250: If the user gives `:KittyMarkdown` an argument that its
+  subcommand does not accept, then the plugin shall show the error
+  `kitty-markdown: unexpected argument "<argument>"` and do nothing. This
+  includes a placement other than `split`, `tab`, or `float`, a placement
+  after `close` or `refresh`, and a third argument.
+- R-251: The plugin shall define `:KittyMarkdown` so that Neovim rejects
+  the command without a subcommand with its error E471.
+- R-252: If the preview window is the last window of its tab page when
+  the plugin closes the preview, then the plugin shall delete the
+  preview buffer and leave the window open on another buffer.
+- R-253: The preview window shall hide the absolute line numbers and the
+  relative line numbers.
+- R-254: The `<source buffer name>` of R-167 shall be the full path of the
+  source buffer.
+- R-255: If the source buffer has no name, then the preview buffer name
+  shall be `kitty-markdown://`.
 
 ### Refresh and performance
 
 - R-016: When the source buffer is written to disk, the plugin shall
   re-render its preview.
 - R-017: When the user runs `:KittyMarkdown refresh`, the plugin shall
-  re-render the preview, re-probe the terminal, and re-transmit all
-  images.
+  re-render the preview of the source buffer, re-probe the terminal, and
+  re-transmit the images of every open preview.
 - R-018: The plugin shall not re-render the preview on a text change that
   is not a write.
 - R-019: When the plugin renders a preview, the preview shall show the
@@ -214,6 +270,22 @@ Defaults that the plan did not fix and that this draft sets:
   boxes, and placeholder rows as virtual lines below the anchor line.
 - R-170: The plugin shall treat a pixel block as unchanged when its block
   key is unchanged.
+- R-216: When a re-render keeps a pixel block whose last render failed,
+  the plugin shall request that block again.
+- R-217: The anchor line of a pixel block shall stand in for the blank
+  line before that block.
+- R-256: The 1000-line document of R-023 shall be a repeated mix of
+  headings, wrapped paragraphs with inline markup and links, nested
+  lists, tables, code fences, blockquotes, and images. The time runs from
+  the command to the first text in the preview.
+- R-257: The render of R-024 shall be a flowchart with at most 20 nodes
+  that is not in the cache. The time runs from the request to the
+  result. R-023 and R-024 apply on the machine that runs the parity
+  check.
+- R-258: When a pixel block is the first block of the document, the
+  anchor line of that block shall be line 1 of the preview.
+- R-259: The preview shall keep one blank line after a pixel block, also
+  when the pixel block is the last block of the document.
 
 ### Text rendering
 
@@ -247,9 +319,11 @@ Defaults that the plan did not fix and that this draft sets:
   followed by a period.
 - R-041: The preview shall indent each nested list level by 2 cells.
 - R-042: The preview shall show a task list item with a checked or an
-  unchecked checkbox icon in place of `[x]` or `[ ]`.
-- R-043: The preview shall show a table with Unicode box drawing borders
-  around every cell.
+  unchecked checkbox icon in place of the bullet and the `[x]` or `[ ]`
+  marker.
+- R-043: The preview shall show a table with Unicode box drawing lines
+  around the table, below the header row, and between the columns. The
+  preview shall not draw a line between two body rows.
 - R-044: The preview shall align each table column as its delimiter row
   states: left, center, or right.
 - R-045: The preview shall size each table column by the display width of
@@ -272,7 +346,7 @@ Defaults that the plan did not fix and that this draft sets:
 - R-054: The preview shall show footnote definitions at the end of the
   document, numbered in order of first reference.
 - R-055: The preview shall show a thematic break as a horizontal rule
-  across the text width in the muted color.
+  across the text width in the border color of the palette.
 - R-056: The preview shall replace an emoji shortcode such as `:tada:`
   with its emoji.
 - R-057: If an emoji shortcode is unknown, then the preview shall show the
@@ -287,6 +361,41 @@ Defaults that the plan did not fix and that this draft sets:
   line at the top of the buffer.
 - R-171: The preview text shall hold the rendered text without the
   markdown markers.
+- R-218: If a footnote definition has no reference, then the preview shall
+  not show it.
+- R-219: If a footnote reference has no definition, then the preview shall
+  show the reference as written.
+- R-260: If a table is wider than the text width, then the preview shall
+  show the table at its full width and shall not wrap or truncate a cell.
+- R-261: If a code line is wider than the text width, then the preview
+  shall show the full line and shall not wrap or truncate it.
+- R-262: If a word is wider than the text width, then the preview shall
+  show the word on its own line and shall not split it.
+- R-263: The preview shall hide the angle brackets of an autolink.
+- R-264: The preview shall start the marker of a nested list item 2 cells
+  to the right of the start of the marker of its parent item.
+- R-265: The preview shall show one vertical bar for each blockquote
+  nesting level.
+- R-266: The preview shall show the alert title as `Note`, `Tip`,
+  `Important`, `Warning`, or `Caution`.
+- R-267: The preview shall recognize the alert kind in any letter case,
+  as GitHub does.
+- R-268: The preview shall hide front matter that opens and closes with
+  `---` or with `+++`.
+- R-269: The preview shall not treat a block that closes with `...` as
+  front matter.
+- R-270: The preview shall hide HTML comments, in HTML blocks and inline.
+- R-271: The preview shall show the text between inline HTML tags in the
+  text color and only the tags in the muted color.
+- R-272: The preview shall treat `[X]` as a checked task marker, the same
+  as `[x]`.
+- R-273: The preview shall show every paragraph and block of a footnote
+  definition at the end of the document, indented under its number.
+- R-274: The preview shall use the glyphs that the Icons definition
+  lists.
+- R-275: When a heading slug is already in use, the layout shall append
+  `-1`, `-2`, and so on, and take the first result that no earlier
+  heading uses, as `github-slugger` does.
 
 ### Math
 
@@ -310,6 +419,26 @@ Defaults that the plan did not fix and that this draft sets:
   then the preview shall show the source in the math highlight group.
 - R-070: The preview shall show display math on its own line, centered in
   the text width.
+- R-220: When the preview shows math source, the preview shall show the
+  TeX between the delimiters without the `$` markers.
+- R-221: The preview shall show the whitespace between two math tokens as
+  one space and shall omit whitespace at the ends of a math span.
+- R-222: The preview shall show `\sqrt{x}` as `√x`, with parentheses
+  around a radicand that has more than one math token.
+- R-223: The preview shall map `\epsilon` and `\phi` to U+03B5 and
+  U+03C6, and `\varepsilon` and `\varphi` to U+03F5 and U+03D5.
+- R-276: The preview shall approximate a nested fraction with the rule of
+  R-068 at each level.
+- R-277: If one character of a superscript or a subscript has no Unicode
+  script form, then the preview shall show the whole math span as source
+  (R-069).
+- R-278: When an inline math span falls back to the source, the preview
+  shall apply the whitespace rules of R-221 to the source.
+- R-279: When a display math span falls back to the source, the preview
+  shall show each source line on its own preview line.
+- R-280: The preview shall open inline math only at a `$` that a
+  character other than a space follows, and close it only at a `$` that
+  a character other than a space comes before, as GitHub does.
 
 ### Theme
 
@@ -325,6 +454,13 @@ Defaults that the plan did not fix and that this draft sets:
   preview.
 - R-076: Where the user defines a `KittyMarkdown*` highlight group before
   the preview opens, the plugin shall keep the user definition.
+- R-281: The plugin shall not overwrite a `KittyMarkdown*` group that the
+  user defined, whenever the user defined it.
+- R-282: When a colorscheme loads, the plugin shall define again each
+  `KittyMarkdown*` group that has no definition.
+- R-283: The text color and the link color of each palette shall have a
+  contrast ratio of at least 4.5 to 1 against the background color of
+  that palette.
 
 ### Images
 
@@ -351,7 +487,7 @@ Defaults that the plan did not fix and that this draft sets:
 - R-087: When an image is a GIF with more than one frame, the helper shall
   use the first frame.
 - R-088: When an image is SVG, the helper shall rasterize it at the target
-  width.
+  width or at its declared width, whichever is smaller.
 - R-089: If an image has a format the helper does not decode, then the
   preview shall show a failure box with the reason "unsupported format".
 - R-090: The plugin shall scale an image wider than the target width down
@@ -373,13 +509,45 @@ Defaults that the plan did not fix and that this draft sets:
 - R-173: If a remote fetch fails for a reason other than timeout or size,
   then the preview shall show a failure box with the reason "fetch
   failed".
+- R-224: If an image file in a supported format is corrupt, then the
+  preview shall show a failure box with the reason "unsupported format".
+- R-225: If an image URL has a scheme other than `http` or `https`, then
+  the preview shall show a failure box with the reason "fetch failed".
+- R-226: When an image is SVG, the helper shall rasterize it onto a
+  transparent background.
+- R-227: The plugin shall place an image over the number of columns equal
+  to its width in pixels divided by the cell width, rounded up, capped at
+  the text width.
+- R-228: Where remote images are disabled or no helper is available, the
+  plugin shall not write a message per pixel block to `:messages`.
+- R-284: The plugin shall resolve a relative image path or a relative file
+  link against the directory of the source file.
+- R-285: If the source buffer has no file name, then the plugin shall
+  resolve a relative path against the current directory of Neovim.
+- R-286: When an `<img>` tag gives only a width or only a height, the
+  plugin shall compute the other dimension from the aspect ratio.
+- R-287: The plugin shall treat a `file://` URL as a URL with a scheme
+  other than `http` or `https` (R-225).
+- R-288: When a pixel block fails, the plugin shall write
+  `kitty-markdown: <kind> <title>: <code>: <message>` to `:messages`.
+  `<title>` is the alt text or the kind. `<message>` names the path or
+  URL and the cause, such as the HTTP status.
+- R-289: The timeout of R-082 shall be the option
+  `remote_images.timeout_ms`, with the default 10000.
+- R-290: The size cap of R-083 shall be the option
+  `remote_images.max_bytes`, with the default 20971520.
+- R-291: When a render meets a pixel block whose fetch failed, the
+  plugin shall request the fetch again.
+- R-292: If a fetch fails, then the helper shall store nothing in the
+  `remote` cache for that URL.
 
 ### Mermaid diagrams
 
 - R-097: The plugin shall treat a fenced code block with the info string
   `mermaid` as a mermaid block.
 - R-098: When the plugin renders a mermaid block, the helper shall render
-  the diagram to PNG at the target width.
+  the diagram to PNG at its natural width when that width is at most the
+  target width, and at the target width otherwise.
 - R-099: While the preview uses the dark palette, the helper shall render
   mermaid with the `dark` theme unless the diagram sets a theme.
 - R-100: While the preview uses the light palette, the helper shall render
@@ -412,7 +580,7 @@ Defaults that the plan did not fix and that this draft sets:
   form the oracle uses.
 - R-112: If a diagram uses the handDrawn look, ELK layout, an icon pack,
   or an image node, then the preview shall show a failure box with the
-  reason "unsupported: `<feature>`".
+  reason `unsupported: <feature>`.
 - R-113: If a diagram type is not in a delivered phase, then the preview
   shall show a failure box with the reason "unsupported diagram type".
 - R-114: When a diagram sets its own width smaller than the target width,
@@ -424,9 +592,9 @@ Defaults that the plan did not fix and that this draft sets:
   diagram source, the width, the theme, and the mermaid version.
 - R-174: The helper shall apply the base config before the directives and
   the front matter of the diagram.
-- R-175: If a diagram sets `look` to `neo` or `handDrawn`, `layout` to
-  `elk`, or a theme outside the five built-in themes, then the preview
-  shall show a failure box with the reason "unsupported: `<feature>`".
+- R-175: If a diagram sets `look` to `neo` or `handDrawn` or `layout` to
+  `elk`, then the preview shall show a failure box with the reason
+  `unsupported: <feature>`.
 - R-176: The helper shall treat the zenuml, info, agentflow, and railroad
   diagram types as types outside the delivered phases.
 - R-177: If a mermaid diagram does not parse, then the failure box reason
@@ -435,16 +603,76 @@ Defaults that the plan did not fix and that this draft sets:
 - R-178: When a mermaid diagram does not parse, the plugin shall write the
   full error to `:messages` in the form the oracle uses, with the caret
   line and the expected tokens.
-- R-179: The helper shall load the bundled Open Sans fonts before the
-  system fonts.
+- R-179: The helper shall use the bundled Open Sans faces for every
+  request of the Open Sans family, also when the system has an Open Sans
+  font.
 - R-180: The helper shall render a diagram at its natural size when that
   size is narrower than the target width.
-- R-181: The parity check shall run the oracle with `--size` equal to the
-  longer side of the helper output and compare at equal pixel size, with
-  a tolerance of 1 pixel.
+- R-181: The parity check shall run the oracle with the `--size` of
+  R-237, crop the golden to the helper output size from the top left
+  corner, and compare at equal pixel size, with a tolerance of 1 pixel.
 - R-182: The parity check for mindmap and cynefin diagrams shall render
   each case five times with the oracle and pass when the SSIM against any
   one golden reaches 0.95.
+- R-214: The text measurer shall match the measurement oracle within
+  0.5 px for Latin text and within 3 px for text that needs a fallback
+  font.
+- R-229: When the plugin renders a mermaid block, the helper shall render
+  the diagram onto a transparent background.
+- R-230: If no diagram type matches the diagram text, then the preview
+  shall show a failure box with the reason "Parse error on line 1".
+- R-231: When no diagram type matches the diagram text, the plugin shall
+  write `No diagram type detected matching given configuration for text:
+  <text>` to `:messages`.
+- R-232: If a diagram starts with `---` and the front matter does not
+  close, then the preview shall show a failure box with the reason "Parse
+  error on line 1".
+- R-233: If the front matter of a diagram is not valid YAML, then the
+  preview shall show a failure box with the reason "Parse error on line
+  1".
+- R-234: If a diagram sets a theme name that mermaid 12.2.0 does not
+  register, then the helper shall ignore that name and keep the theme
+  that applies without it.
+- R-235: When a diagram sets `themeVariables` without `theme`, the helper
+  shall merge the variables over the current theme variables and shall
+  not derive a new theme.
+- R-236: The parity check shall render each case at a target width of 960
+  pixels.
+- R-237: The parity check shall choose the oracle `--size` so that
+  mermaid-cli 12.0.0 draws the diagram at the helper output width. The
+  check shall not resample either image. mermaid-cli reflows the SVG
+  8 pixels narrower than `--size` before the screenshot, so the sizes are:
+  - a gantt diagram: the helper output width.
+  - a diagram with a fixed SVG size: the longer side of the helper output.
+  - a diagram at least as wide as it is tall: the helper output width
+    plus 8.
+  - a taller diagram: the smallest `n` for which `round(n * aspect)`
+    equals the helper output width plus 8, where `aspect` is the width
+    divided by the height.
+- R-293: The natural width of a gantt diagram shall be the target width,
+  or `gantt.useWidth` when the diagram sets it.
+- R-294: If a diagram sets the theme `neo`, `neo-dark`, `redux`,
+  `redux-dark`, `redux-color`, or `redux-dark-color`, then the preview
+  shall show a failure box with the reason `unsupported: theme: <name>`.
+- R-295: When an init directive and the front matter set the same key,
+  the helper shall apply the value of the init directive.
+- R-296: The `<feature>` of an unsupported reason shall be one of
+  `look: <name>`, `layout: <name>`, `theme: <name>`, `icon pack`,
+  `image node`, `randomize`, `participant type <kind>`, or
+  `timeline direction TD`.
+- R-297: The `<text>` of R-231 shall be the whole diagram text without
+  front matter, directives, and `%%` comments, with its line breaks and
+  without shortening.
+- R-298: The helper shall treat the railroad, railroad EBNF, railroad
+  ABNF, and railroad PEG diagram types as types outside the delivered
+  phases.
+- R-299: When R-235 merges a theme variable, the colors that the theme
+  derived from other variables shall keep their values.
+- R-300: The diagram type in the failure box of R-111 shall be the first
+  keyword of the diagram, such as `sequenceDiagram`.
+- R-301: The tolerance of R-214 shall apply to the width and to the
+  height of each whole label.
+- R-302: The 3 px tolerance of R-214 shall apply to fallback text.
 
 ### Terminal transport
 
@@ -462,7 +690,8 @@ Defaults that the plan did not fix and that this draft sets:
 - R-122: While `$TMUX` is set, the plugin shall wrap each graphics
   sequence in a tmux DCS passthrough with the inner escape bytes doubled.
 - R-123: The plugin shall transmit each image once, as base64 in chunks of
-  at most 4096 bytes, with `m=1` on every chunk but the last and `q=2`.
+  at most 4096 bytes, with `m=1` on every chunk but the last and `q=2` on
+  every chunk.
 - R-124: The plugin shall place each image as a virtual placement with
   `U=1` and the block's column and row counts.
 - R-125: The plugin shall fill the block rows with placeholder cells that
@@ -477,7 +706,8 @@ Defaults that the plan did not fix and that this draft sets:
 - R-129: The plugin shall allocate image ids from a range it owns and shall
   not reuse an id while its image is placed.
 - R-130: When the user runs `:KittyMarkdown refresh`, the plugin shall
-  re-probe the terminal and re-transmit every placed image.
+  re-probe the terminal and re-transmit every placed image of every open
+  preview.
 - R-131: When the probe result changes between text-only mode and image
   mode, the plugin shall re-render every open preview.
 - R-183: The plugin shall read the cell size from the pixel size of its
@@ -496,6 +726,30 @@ Defaults that the plan did not fix and that this draft sets:
   shall not use a file path transmission.
 - R-190: The plugin shall receive the probe answers through the
   `TermResponse` event and shall not block Neovim while it waits.
+- R-238: If a pixel block needs more than 297 rows, then the preview shall
+  show a failure box with the reason "too tall".
+- R-239: When the probe result changes, the plugin shall write the new
+  mode and its reason to `:messages` once.
+- R-240: When the probe turns images off, the plugin shall give one of
+  the reasons `no graphics reply`, `probe timeout`, `termguicolors off`,
+  or `cell size unknown`.
+- R-241: When the colorscheme changes, the plugin shall keep the
+  foreground color that carries the image id on every placeholder cell.
+- R-303: The plugin shall send the Primary Device Attributes request
+  without the tmux passthrough.
+- R-304: The plugin shall pick the start id of R-186 at random.
+- R-305: When the probe turns images on, the plugin shall write
+  `kitty-markdown: kitty graphics on, images render inline` to
+  `:messages` at the `INFO` level.
+- R-306: When the probe turns images off, the plugin shall write
+  `kitty-markdown: text-only mode: <reason>` to `:messages` at the `INFO`
+  level.
+- R-307: If the graphics reply arrives after the probe timeout, then the
+  plugin shall ignore it until the next probe.
+- R-308: When the plugin deletes an image, it shall use `d=I`, which also
+  frees the image data in the terminal.
+- R-309: The plugin shall treat any graphics reply to the probe, an error
+  reply included, as an answer that turns images on.
 
 ### Helper lifecycle
 
@@ -560,6 +814,65 @@ Defaults that the plan did not fix and that this draft sets:
   of the two images.
 - R-200: When the CLI runs `render`, the helper shall write the result to
   the `-o` path and shall not require a cache directory.
+- R-242: If the helper version differs from the plugin version and the
+  helper is a user path or a local build, then the plugin shall show one
+  `WARN` message and continue.
+- R-243: If the helper path option names a file that is not executable,
+  then the plugin shall show one `WARN` message and shall not download a
+  binary.
+- R-244: If the helper exits three times within 60 seconds, then the
+  plugin shall show one `ERROR` message that names `:KittyMarkdown
+  refresh`.
+- R-245: While the plugin has stopped restarting the helper, the preview
+  shall show each pixel block as a text-only box.
+- R-246: If the helper reaches the end of its input without a `shutdown`
+  request, then the helper shall answer every accepted request and exit
+  with status 0.
+- R-247: If a request line is not valid JSON or has no `method`, then the
+  helper shall answer with the error code `invalid_params` and the
+  request `id`, or `id` 0 when the line has no readable id.
+- R-310: When the user runs `:KittyMarkdown refresh`, the plugin shall
+  clear the restart stop of R-196, also when no preview is open.
+- R-311: If the helper path option names a file that does not exist,
+  then the plugin shall treat the file as not executable (R-243).
+- R-312: After the `WARN` of R-243, the plugin shall try the installed
+  binary and then the local build.
+- R-313: When the helper exits, the plugin shall write only the one
+  `WARN` of R-195 and shall not write a message for each failed pixel
+  block.
+- R-314: The helper shall treat a request whose `method` is not a string
+  as a request without a `method` (R-247).
+- R-315: The helper shall not answer an empty line or a line of only
+  whitespace.
+- R-316: If a request line is not valid JSON, then the helper shall
+  answer with `id` 0.
+- R-317: The helper shall accept a request `id` that is a non-negative
+  integer.
+- R-318: If a request `id` is not a non-negative integer, then the
+  helper shall answer with the error code `invalid_params` and `id` 0.
+- R-319: The `probe` result shall hold `helper_version`,
+  `mermaid_version`, `cache_bytes`, `fonts`, and `diagram_types`.
+- R-320: A result that carries pixels shall hold `path`, `width_px`,
+  `height_px`, `bytes`, and `cached`.
+- R-321: The command `compare` shall print the SSIM with four decimals
+  and a line break, print nothing else, and exit with status 0.
+- R-322: If the two images given to `compare` differ by at most 1 pixel
+  on each axis, then the helper shall crop both images to the common
+  size around their centers before it computes the SSIM.
+- R-323: If the two images given to `compare` differ by more than 1 pixel
+  on an axis, then the helper shall write
+  `kitty-markdown-helper: image sizes differ: <aw>x<ah> vs <bw>x<bh>` to
+  stderr and exit with status 1.
+- R-324: When a CLI command fails, the helper shall write one line
+  `kitty-markdown-helper: <reason>` to stderr and exit with status 1.
+- R-325: If the CLI arguments are not valid, then the helper shall exit
+  with status 2.
+- R-326: The request timeout of R-141 shall be the option
+  `helper.request_timeout_ms`, a positive integer with the default 30000.
+- R-327: If no release binary exists for the platform, then the plugin
+  shall show the `WARN`
+  `kitty-markdown: helper download failed: no release binary for this
+  platform` once and use the local build.
 
 ### Cache
 
@@ -579,6 +892,20 @@ Defaults that the plan did not fix and that this draft sets:
   the current time on each use.
 - R-202: When the cache size estimate of the plugin exceeds the limit
   after a render, the plugin shall request garbage collection once.
+- R-212: The plugin and the helper shall compute the key of an image entry
+  as the SHA-256 of the key string
+  `<content hash>|<width in pixels>|<height limit>|<width limit>`.
+- R-213: The plugin and the helper shall compute the key of a mermaid
+  entry as the SHA-256 of the key string
+  `<source hash>|<width in pixels>|<theme>|<mermaid version>`.
+- R-328: The paths of R-152 shall be the prepared PNG of each block and,
+  for a remote image, also the fetched file in `remote`.
+- R-329: While the cache size estimate exceeds the limit, the plugin
+  shall request garbage collection once after each render batch.
+- R-330: The source hash of R-213 shall cover the lines of the fence body
+  joined by line feeds, without a final line feed.
+- R-331: The test of the mermaid version in the key of R-116 shall be
+  the key string of R-213.
 
 ### Test hooks
 
@@ -610,6 +937,20 @@ Defaults that the plan did not fix and that this draft sets:
   which tree-sitter parsers are installed.
 - R-210: The command `nvim -l tests/run.lua [filter]` shall run the unit
   tests and exit with a non-zero status when a test fails.
+- R-332: The `width` in `opts` shall be the preview window width.
+- R-333: The `cell` in `opts` shall hold `width_px` and `height_px`.
+- R-334: Each entry of `sizes` in `opts` shall hold `width_px`,
+  `height_px`, and `image_id`.
+- R-335: Each block descriptor shall hold `key`, the block key.
+- R-336: The layout shall compute the reserved rows from the `height_px`
+  of `opts.sizes`, which is the height after scaling.
+- R-337: Lines in the layout model shall be 1-based. Columns shall be
+  0-based byte offsets with an exclusive end.
+- R-338: The layout shall give a code region to each fenced code block
+  with at least one line and to each indented code block. A mermaid
+  fence shall get no code region.
+- R-339: An indented code block shall have no language in its code
+  region.
 
 ### Interaction
 
@@ -629,6 +970,21 @@ Defaults that the plan did not fix and that this draft sets:
   scrolling.
 - R-211: When scroll sync moves the preview, the preview shall place the
   target line in the top third of the window.
+- R-248: When scroll sync moves the preview, the target line shall be the
+  first line of the block under the source cursor.
+- R-340: If the source cursor is on a blank line between two blocks, then
+  scroll sync shall target the block above that line.
+- R-341: If the source cursor is in front matter that the preview hides,
+  then scroll sync shall target preview line 1.
+- R-342: The plugin shall scroll after the cursor movement pauses for
+  100 ms, and not at the start of the movement.
+- R-343: When scroll sync moves the preview, the number of window lines
+  above the target line shall be the window height divided by 3, rounded
+  down, or fewer at the top of the buffer.
+- R-344: The plugin shall resolve a file link that `gx` opens with the
+  rules of R-284 and R-285.
+- R-345: The test of R-179 shall run on a machine with a system Open Sans
+  font, so that the bundled faces and the system faces differ.
 
 ## Open questions
 
@@ -636,10 +992,11 @@ Defaults that the plan did not fix and that this draft sets:
   measurements on phase 1 diagrams.
 - zmx 0.6.0 does not pass the graphics protocol through. If a later
   release does, test the probe and passthrough path there.
-- Font availability on Linux: the mermaid family chain resolves to
-  different fonts than on macOS. The helper bundles Open Sans; goldens
-  are generated on the machine that runs the check. Decide later whether
-  to bundle a Trebuchet MS substitute for Linux.
+- Font availability on Linux: the mermaid family chain and the generic
+  families resolve to different fonts than on macOS. Decided 2026-10-22:
+  the parity check and the calibration run on macOS for this release
+  (Constraints). Open: a Linux font set, and whether to bundle a
+  Trebuchet MS substitute.
 - Mindmap layout in mermaid 12.2.0 is unseeded (cytoscape cose-bilkent),
   so R-182 uses the best of five goldens. Revisit if a later mermaid
   release seeds it.
