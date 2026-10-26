@@ -63,7 +63,11 @@ impl Diagram for Kanban {
     }
 
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let db = parse(resolved.parse_text(), node_defaults(resolved)).map_err(parse_error)?;
+        // `Diagram.fromText` encodes the entity codes (`#quot;`, `#35;`)
+        // before it parses; the card labels decode them again through
+        // `labelHelper` and `insertLabel`.
+        let db =
+            parse(&resolved.encoded_parse_text(), node_defaults(resolved)).map_err(parse_error)?;
         render::draw(&db, resolved, ctx)
     }
 }

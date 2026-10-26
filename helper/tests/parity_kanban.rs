@@ -174,3 +174,30 @@ fn a_fixed_size_board_keeps_scale_one_in_whole_pixels() {
     assert_eq!(fixed.view_box.x, fluid.view_box.x);
     assert_eq!(fixed.view_box.width, fixed.width);
 }
+
+/// `Diagram.fromText` encodes `#name;` and `#123;` before kanban parses,
+/// and `labelHelper` and `insertLabel` decode them, so cards, tickets, and
+/// assignees show the characters.
+#[test]
+fn entity_codes_show_as_characters() {
+    for (code, shown) in [
+        ("#quot;", "\""),
+        ("#35;", "#"),
+        ("#lt;", "<"),
+        ("#9829;", "♥"),
+    ] {
+        let source = format!(
+            "kanban\n  s[S]\n    c[a {code} b]@{{ ticket: 'T{code}', assigned: 'x{code}' }}\n"
+        );
+        let svg = render_scene(&source).to_svg();
+        let escaped = shown.replace('<', "&lt;");
+        for text in [
+            format!("a {escaped} b"),
+            format!("T{escaped}"),
+            format!("x{escaped}"),
+        ] {
+            assert!(svg.contains(&text), "{code}: no {text} in\n{svg}");
+        }
+        assert!(!svg.contains(code), "{code} left as typed:\n{svg}");
+    }
+}

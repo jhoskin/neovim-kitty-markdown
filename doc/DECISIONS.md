@@ -148,6 +148,11 @@ as a spec proposal instead.
 - The theme registers its `ColorScheme` autocmd (augroup
   `kitty-markdown-theme`) on the first `apply`, which `setup` runs, so a
   colorscheme load defines the groups again before any preview opens.
+- Kanban parses `encodeEntities` of the text, as flowchart and state do,
+  so `#quot;` and `#35;` in a card, ticket, or assignee show as the
+  character. A section title is measured decoded; the oracle measures the
+  encoded markers and decodes them only in the finished SVG, so a section
+  title with an entity code can be centred a few pixels apart.
 
 ## Preview and helper client
 
