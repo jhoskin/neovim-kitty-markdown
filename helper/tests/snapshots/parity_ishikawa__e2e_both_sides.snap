@@ -1,0 +1,68 @@
+---
+source: tests/parity_ishikawa.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="496.96" height="580.134" viewBox="-357.566 -40.572 496.96 580.134" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="ishikawa-arrow-my-svg" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto" markerUnits="strokeWidth">
+      <path class="ishikawa-arrow" d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="ishikawa">
+      <line class="ishikawa-spine" x1="-337.566" y1="333.333" x2="0" y2="333.333" fill="none" stroke="#333333" stroke-width="2"/>
+      <g class="ishikawa-head-group" transform="translate(0, 333.333)">
+        <path class="ishikawa-head" d="M0,-52.8L0,52.8Q238.788,0,0,-52.8Z" fill="#ececff" stroke="#333333" stroke-width="2"/>
+        <text class="ishikawa-head-label" transform="translate(52.748, 1.339)" x="0" y="-4.739" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14" font-weight="600"><tspan x="0" dy="0">Manufacturing</tspan><tspan x="0" dy="16.8">Defect</tspan></text>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-20" y1="333.333" x2="-66.391" y2="3.244" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-115.618" y="-20.572" width="98.453" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-66.391" y="-3.572" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-66.391" dy="0">Machine</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-35.464" y1="223.304" x2="-65.464" y2="223.304" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-65.464" y="227.487" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-65.464" dy="0">Calibration</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-50.927" y1="113.274" x2="-80.927" y2="113.274" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-80.927" y="117.457" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-80.927" dy="0">Worn tooling</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-20" y1="333.333" x2="-43.196" y2="498.378" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-89.528" y="496.562" width="92.664" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-43.196" y="513.562" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-43.196" dy="0">Method</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-31.598" y1="415.856" x2="-61.598" y2="415.856" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-61.598" y="420.039" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-61.598" dy="0">Missing step</tspan></text>
+        </g>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-171.763" y1="333.333" x2="-218.154" y2="3.244" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-267.522" y="-20.572" width="98.734" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-218.154" y="-3.572" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-218.154" dy="0">Material</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-187.227" y1="223.304" x2="-217.227" y2="223.304" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-217.227" y="227.487" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-217.227" dy="0">Wrong grade</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-202.691" y1="113.274" x2="-232.691" y2="113.274" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-232.691" y="117.457" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-232.691" dy="0">Contamination</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-171.763" y1="333.333" x2="-194.959" y2="498.378" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-251.385" y="496.562" width="112.852" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-194.959" y="513.562" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-194.959" dy="0">Manpower</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-183.361" y1="415.856" x2="-213.361" y2="415.856" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-213.361" y="411.639" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-213.361" dy="0">Insufficient</tspan><tspan x="-213.361" dy="16.8">training</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

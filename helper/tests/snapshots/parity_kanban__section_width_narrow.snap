@@ -1,0 +1,53 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="265" height="255" viewBox="50 -190 265 255" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-n" class="cluster section-1">
+        <rect x="60" y="-180" width="120" height="235" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(60, -180)">
+          <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Narrow</tspan><tspan> </tspan><tspan>column</tspan><tspan> </tspan><tspan x="60" dy="24">with</tspan><tspan> </tspan><tspan>a</tspan><tspan> </tspan><tspan>long</tspan><tspan> </tspan><tspan>title</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-m" class="cluster section-2">
+        <rect x="185" y="-180" width="120" height="174" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(231.211, -180)">
+          <text class="nodeLabel" x="13.789" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="13.789" dy="17">Two</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-n1" class="node  " transform="translate(120, -68)">
+        <rect class="basic label-container __APA__" x="-52.5" y="-64" width="105" height="128" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-42.5, -60)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">A</tspan><tspan> </tspan><tspan>card</tspan><tspan> </tspan><tspan>that</tspan><tspan> </tspan><tspan x="0" dy="24">wraps</tspan><tspan> </tspan><tspan>inside</tspan><tspan> </tspan><tspan x="0" dy="24">the</tspan><tspan> </tspan><tspan>narrow</tspan><tspan> </tspan><tspan x="0" dy="24">column</tspan></text>
+        </g>
+        <g class="label" transform="translate(-42.5, 36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">N-1</tspan></text>
+        </g>
+        <g class="label" transform="translate(33.219, 36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">li</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-n2" class="node  " transform="translate(120, 23)">
+        <rect class="basic label-container __APA__" x="-52.5" y="-22" width="105" height="44" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-42.5, -12)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Short</tspan></text>
+        </g>
+        <g class="label" transform="translate(-42.5, 12)"/>
+        <g class="label" transform="translate(42.5, 12)"/>
+      </g>
+      <g id="my-svg-m1" class="node  " transform="translate(245, -74)">
+        <rect class="basic label-container __APA__" x="-52.5" y="-58" width="105" height="116" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-42.5, -48)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Another</tspan><tspan> </tspan><tspan x="0" dy="24">wrapping</tspan><tspan> </tspan><tspan x="0" dy="24">card</tspan><tspan> </tspan><tspan>text</tspan><tspan> </tspan><tspan x="0" dy="24">here</tspan></text>
+        </g>
+        <g class="label" transform="translate(-42.5, 48)"/>
+        <g class="label" transform="translate(42.5, 48)"/>
+        <line x1="-50.5" y1="-56" x2="-50.5" y2="56" stroke="#ffa500" stroke-width="4"/>
+      </g>
+    </g>
+  </g>
+</svg>

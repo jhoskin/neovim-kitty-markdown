@@ -1,0 +1,47 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1245" height="70" viewBox="90 -310 1245 70" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-id2" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="50" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(161.164, -300)">
+          <text class="nodeLabel" x="38.836" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.836" dy="17">In progress</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-vh" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="50" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(371.086, -300)">
+          <text class="nodeLabel" x="33.914" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="33.914" dy="17">Very High</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-h" class="cluster section-3">
+        <rect x="510" y="-300" width="200" height="50" rx="5" ry="5" fill="#ffb9ff" stroke="#ffb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(594.094, -300)">
+          <text class="nodeLabel" x="15.906" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="15.906" dy="17">High</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-m" class="cluster section-4">
+        <rect x="715" y="-300" width="200" height="50" rx="5" ry="5" fill="#ffb9dc" stroke="#ffb9dc" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(759.609, -300)">
+          <text class="nodeLabel" x="55.391" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="55.391" dy="17">Default priority</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-l" class="cluster section-5">
+        <rect x="920" y="-300" width="200" height="50" rx="5" ry="5" fill="#ffb9b9" stroke="#ffb9b9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1005.703, -300)">
+          <text class="nodeLabel" x="14.297" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="14.297" dy="17">Low</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-vl" class="cluster section-6">
+        <rect x="1125" y="-300" width="200" height="50" rx="5" ry="5" fill="#ffdcb9" stroke="#ffdcb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1192.688, -300)">
+          <text class="nodeLabel" x="32.313" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="32.313" dy="17">Very Low</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items"/>
+  </g>
+</svg>

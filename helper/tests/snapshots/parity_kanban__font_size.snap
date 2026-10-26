@@ -1,0 +1,45 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="425" height="155" viewBox="90 -310 425 155" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-a" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="135" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(150.023, -300)">
+          <text class="nodeLabel" x="49.977" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="20"><tspan x="49.977" dy="22">Larger text</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-b" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="90" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(382.578, -300)">
+          <text class="nodeLabel" x="22.422" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="20"><tspan x="22.422" dy="22">Done</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-a1" class="node  " transform="translate(200, -222.5)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-47.5" width="185" height="95" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -45)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="20"><tspan x="0" dy="22">Card</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan>larger</tspan><tspan> </tspan><tspan x="0" dy="30">text</tspan><tspan> </tspan><tspan>that</tspan><tspan> </tspan><tspan>wraps</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 15)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="20"><tspan x="0" dy="22">F-1</tspan></text>
+        </g>
+        <g class="label" transform="translate(50.094, 15)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="20"><tspan x="0" dy="22">kim</tspan></text>
+        </g>
+        <line x1="-90.5" y1="-45.5" x2="-90.5" y2="45.5" stroke="#0000ff" stroke-width="4"/>
+      </g>
+      <g id="my-svg-b1" class="node  " transform="translate(405, -245)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-25" width="185" height="50" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -15)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="20"><tspan x="0" dy="22">Card</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 15)"/>
+        <g class="label" transform="translate(82.5, 15)"/>
+      </g>
+    </g>
+  </g>
+</svg>

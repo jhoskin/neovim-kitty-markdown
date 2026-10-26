@@ -1,0 +1,101 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="3090" height="189" viewBox="90 -310 3090 189" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-id1" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="169" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(183.305, -300)">
+          <text class="nodeLabel" x="16.695" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.695" dy="17">Todo</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-docs" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="169" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(324.195, -300)">
+          <text class="nodeLabel" x="80.805" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="80.805" dy="17">Create Documentation</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-docs" class="cluster section-3">
+        <rect x="510" y="-300" width="200" height="169" rx="5" ry="5" fill="#ffb9ff" stroke="#ffb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(510, -300)">
+          <text class="nodeLabel" x="100" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="100" dy="17">Create</tspan><tspan> </tspan><tspan>Blog</tspan><tspan> </tspan><tspan>about</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan>new</tspan><tspan> </tspan><tspan x="100" dy="24">diagram</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id7" class="cluster section-4">
+        <rect x="715" y="-300" width="200" height="169" rx="5" ry="5" fill="#ffb9dc" stroke="#ffb9dc" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(776.164, -300)">
+          <text class="nodeLabel" x="38.836" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.836" dy="17">In progress</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id6" class="cluster section-5">
+        <rect x="920" y="-300" width="200" height="169" rx="5" ry="5" fill="#ffb9b9" stroke="#ffb9b9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(920, -300)">
+          <text class="nodeLabel" x="100" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="100" dy="17">Create</tspan><tspan> </tspan><tspan>renderer</tspan><tspan> </tspan><tspan>so</tspan><tspan> </tspan><tspan>that</tspan><tspan> </tspan><tspan>it</tspan><tspan> </tspan><tspan x="100" dy="24">works</tspan><tspan> </tspan><tspan>in</tspan><tspan> </tspan><tspan>all</tspan><tspan> </tspan><tspan>cases.</tspan><tspan> </tspan><tspan>We</tspan><tspan> </tspan><tspan>also</tspan><tspan> </tspan><tspan x="100" dy="24">add</tspan><tspan> </tspan><tspan>some</tspan><tspan> </tspan><tspan>extra</tspan><tspan> </tspan><tspan>text</tspan><tspan> </tspan><tspan>here</tspan><tspan> </tspan><tspan x="100" dy="24">for</tspan><tspan> </tspan><tspan>testing</tspan><tspan> </tspan><tspan>purposes.</tspan><tspan> </tspan><tspan>And</tspan><tspan> </tspan><tspan x="100" dy="24">some</tspan><tspan> </tspan><tspan>more</tspan><tspan> </tspan><tspan>just</tspan><tspan> </tspan><tspan>for</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan x="100" dy="24">extra</tspan><tspan> </tspan><tspan>flare.</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id8" class="cluster section-6">
+        <rect x="1125" y="-300" width="200" height="169" rx="5" ry="5" fill="#ffdcb9" stroke="#ffdcb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1167.492, -300)">
+          <text class="nodeLabel" x="57.508" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="57.508" dy="17">Design grammar</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id9" class="cluster section-7">
+        <rect x="1330" y="-300" width="200" height="169" rx="5" ry="5" fill="#dcffb9" stroke="#dcffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1369.641, -300)">
+          <text class="nodeLabel" x="60.359" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60.359" dy="17">Ready for deploy</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id10" class="cluster section-8">
+        <rect x="1535" y="-300" width="200" height="169" rx="5" ry="5" fill="#b9ffdc" stroke="#b9ffdc" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1584.57, -300)">
+          <text class="nodeLabel" x="50.43" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="50.43" dy="17">Ready for test</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id11" class="cluster section-9">
+        <rect x="1740" y="-300" width="200" height="169" rx="5" ry="5" fill="#b9ffff" stroke="#b9ffff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1822.063, -300)">
+          <text class="nodeLabel" x="17.938" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="17.938" dy="17">Done</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id5" class="cluster section-10">
+        <rect x="1945" y="-300" width="200" height="169" rx="5" ry="5" fill="#b9dcff" stroke="#b9dcff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(1991.758, -300)">
+          <text class="nodeLabel" x="53.242" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="53.242" dy="17">define getData</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id2" class="cluster section-11">
+        <rect x="2150" y="-300" width="200" height="169" rx="5" ry="5" fill="#333333" stroke="none"/>
+        <g class="cluster-label" transform="translate(2150, -300)">
+          <text class="nodeLabel" x="100" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="100" dy="17">Title</tspan><tspan> </tspan><tspan>of</tspan><tspan> </tspan><tspan>diagram</tspan><tspan> </tspan><tspan>is</tspan><tspan> </tspan><tspan>more</tspan><tspan> </tspan><tspan x="100" dy="24">than</tspan><tspan> </tspan><tspan>100</tspan><tspan> </tspan><tspan>chars</tspan><tspan> </tspan><tspan>when</tspan><tspan> </tspan><tspan>user</tspan><tspan> </tspan><tspan x="100" dy="24">duplicates</tspan><tspan> </tspan><tspan>diagram</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan x="100" dy="24">100</tspan><tspan> </tspan><tspan>char</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id3" class="cluster section-12">
+        <rect x="2355" y="-300" width="200" height="169" rx="5" ry="5" fill="#333333" stroke="none"/>
+        <g class="cluster-label" transform="translate(2385.125, -300)">
+          <text class="nodeLabel" x="69.875" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="69.875" dy="17">Update DB function</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id4" class="cluster section-13">
+        <rect x="2560" y="-300" width="200" height="169" rx="5" ry="5" fill="#333333" stroke="none"/>
+        <g class="cluster-label" transform="translate(2588.32, -300)">
+          <text class="nodeLabel" x="71.68" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="71.68" dy="17">Create parsing tests</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id66" class="cluster section-14">
+        <rect x="2765" y="-300" width="200" height="169" rx="5" ry="5" fill="#333333" stroke="none"/>
+        <g class="cluster-label" transform="translate(2833.156, -300)">
+          <text class="nodeLabel" x="31.844" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="31.844" dy="17">last item</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-id12" class="cluster section-15">
+        <rect x="2970" y="-300" width="200" height="169" rx="5" ry="5" fill="#333333" stroke="none"/>
+        <g class="cluster-label" transform="translate(3013.297, -300)">
+          <text class="nodeLabel" x="56.703" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="56.703" dy="17">Can't reproduce</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items"/>
+  </g>
+</svg>

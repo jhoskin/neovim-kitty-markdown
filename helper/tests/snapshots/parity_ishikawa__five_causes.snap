@@ -1,0 +1,79 @@
+---
+source: tests/parity_ishikawa.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="507.504" height="580.134" viewBox="-415.504 -41.036 507.504 580.134" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="ishikawa-arrow-my-svg" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto" markerUnits="strokeWidth">
+      <path class="ishikawa-arrow" d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="ishikawa">
+      <line class="ishikawa-spine" x1="-395.504" y1="285.714" x2="0" y2="285.714" fill="none" stroke="#333333" stroke-width="2"/>
+      <g class="ishikawa-head-group" transform="translate(0, 285.714)">
+        <path class="ishikawa-head" d="M0,-36L0,36Q144,0,0,-36Z" fill="#ececff" stroke="#333333" stroke-width="2"/>
+        <text class="ishikawa-head-label" transform="translate(33, 1.339)" x="0" y="3.661" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14" font-weight="600"><tspan x="0" dy="0">Churn</tspan></text>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-20" y1="285.714" x2="-59.764" y2="2.781" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-97.565" y="-21.036" width="75.602" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-59.764" y="-4.036" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-59.764" dy="0">Price</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-39.882" y1="144.247" x2="-69.882" y2="144.247" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-69.882" y="148.431" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-69.882" dy="0">Too high</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-20" y1="285.714" x2="-49.823" y2="497.915" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-110.772" y="496.098" width="121.898" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-49.823" y="513.098" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-49.823" dy="0">Onboarding</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-29.941" y1="356.448" x2="-59.941" y2="356.448" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-59.941" y="360.631" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-59.941" dy="0">Confusing</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-39.882" y1="427.181" x2="-69.882" y2="427.181" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-69.882" y="431.365" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-69.882" dy="0">Too long</tspan></text>
+        </g>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-129.308" y1="285.714" x2="-137.261" y2="229.128" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-184.968" y="205.311" width="95.414" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-137.261" y="222.311" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-137.261" dy="0">Support</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-129.308" y1="285.714" x2="-159.131" y2="497.915" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-210.15" y="496.098" width="102.039" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-159.131" y="513.098" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-159.131" dy="0">Features</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-144.22" y1="391.814" x2="-174.22" y2="391.814" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-174.22" y="395.998" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-174.22" dy="0">Missing export</tspan></text>
+        </g>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-276.048" y1="285.714" x2="-315.811" y2="2.781" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-351.964" y="-21.036" width="72.305" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-315.811" y="-4.036" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-315.811" dy="0">Bugs</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-285.989" y1="214.981" x2="-315.989" y2="214.981" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-315.989" y="219.164" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-315.989" dy="0">Sync errors</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-295.93" y1="144.247" x2="-325.93" y2="144.247" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-325.93" y="148.431" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-325.93" dy="0">Data loss</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-305.87" y1="73.514" x2="-335.87" y2="73.514" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-335.87" y="77.698" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-335.87" dy="0">Crashes</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,40 @@
+---
+source: tests/parity_ishikawa.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375.773" height="580.134" viewBox="-242.68 -41.383 375.773 580.134" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="ishikawa-arrow-my-svg" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto" markerUnits="strokeWidth">
+      <path class="ishikawa-arrow" d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="ishikawa">
+      <line class="ishikawa-spine" x1="-202.68" y1="250" x2="0" y2="250" fill="none" stroke="#333333" stroke-width="2"/>
+      <g class="ishikawa-head-group" transform="translate(0, 250)">
+        <path class="ishikawa-head" d="M0,-153.6L0,153.6Q204.942,0,0,-153.6Z" fill="#ececff" stroke="#333333" stroke-width="2"/>
+        <text class="ishikawa-head-label" transform="translate(45.696, 1.339)" x="0" y="-55.139" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14" font-weight="600"><tspan x="0" dy="0">The effect</tspan><tspan x="0" dy="16.8">label is</tspan><tspan x="0" dy="16.8">long enough</tspan><tspan x="0" dy="16.8">to wrap</tspan><tspan x="0" dy="16.8">onto</tspan><tspan x="0" dy="16.8">several</tspan><tspan x="0" dy="16.8">lines in</tspan><tspan x="0" dy="16.8">the head</tspan></text>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-20" y1="250" x2="-54.793" y2="2.433" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-116.133" y="-21.383" width="122.68" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-54.793" y="-4.383" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-54.793" dy="0">Short cause</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-37.397" y1="126.216" x2="-67.397" y2="126.216" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-67.397" y="130.4" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-67.397" dy="0">Short sub</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-20" y1="250" x2="-54.793" y2="497.567" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-222.68" y="495.751" width="335.773" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-54.793" y="512.751" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-54.793" dy="0">A cause label that is long enough to wrap</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-37.397" y1="373.784" x2="-67.397" y2="373.784" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-67.397" y="352.767" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-67.397" dy="0">A sub cause</tspan><tspan x="-67.397" dy="16.8">label that is</tspan><tspan x="-67.397" dy="16.8">long enough to</tspan><tspan x="-67.397" dy="16.8">wrap twice over</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

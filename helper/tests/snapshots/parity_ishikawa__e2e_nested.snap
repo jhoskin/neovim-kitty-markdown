@@ -1,0 +1,60 @@
+---
+source: tests/parity_ishikawa.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="303.569" height="580.134" viewBox="-211.569 -40.341 303.569 580.134" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="ishikawa-arrow-my-svg" viewBox="0 0 10 10" refX="0" refY="5" markerWidth="6" markerHeight="6" orient="auto" markerUnits="strokeWidth">
+      <path class="ishikawa-arrow" d="M10,0L0,5L10,10Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g>
+    <g class="ishikawa">
+      <line class="ishikawa-spine" x1="-191.569" y1="357.143" x2="0" y2="357.143" fill="none" stroke="#333333" stroke-width="2"/>
+      <g class="ishikawa-head-group" transform="translate(0, 357.143)">
+        <path class="ishikawa-head" d="M0,-52.8L0,52.8Q144,0,0,-52.8Z" fill="#ececff" stroke="#333333" stroke-width="2"/>
+        <text class="ishikawa-head-label" transform="translate(33, 1.339)" x="0" y="-4.739" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="14" font-weight="600"><tspan x="0" dy="0">Server</tspan><tspan x="0" dy="16.8">Outage</tspan></text>
+      </g>
+      <g class="ishikawa-pair">
+        <line class="ishikawa-branch" x1="-20" y1="357.143" x2="-69.705" y2="3.476" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-124.337" y="-20.341" width="109.266" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-69.705" y="-3.341" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-69.705" dy="0">Hardware</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-28.284" y1="298.198" x2="-93.284" y2="298.198" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-93.284" y="302.382" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-93.284" dy="0">Memory</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-60.784" y1="298.198" x2="-69.068" y2="239.254" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label up" x="-69.068" y="239.254" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-69.068" dy="0">Leak detected</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-44.852" y1="180.309" x2="-114.852" y2="180.309" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-114.852" y="184.493" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-114.852" dy="0">Disk</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-91.519" y1="180.309" x2="-99.803" y2="121.365" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label up" x="-99.803" y="121.365" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-99.803" dy="0">Full capacity</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-68.186" y1="180.309" x2="-84.754" y2="62.42" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label up" x="-84.754" y="62.42" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-84.754" dy="0">Bad sectors</tspan></text>
+        </g>
+        <line class="ishikawa-branch" x1="-20" y1="357.143" x2="-39.882" y2="498.61" fill="none" stroke="#333333" stroke-width="2" marker-start="url(#ishikawa-arrow-my-svg)"/>
+        <g class="ishikawa-label-group">
+          <rect class="ishikawa-label-box" x="-91.78" y="496.793" width="103.797" height="23" fill="#ececff" stroke="#333333" stroke-width="2"/>
+          <text class="ishikawa-label cause" x="-39.882" y="513.793" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-39.882" dy="0">Software</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-26.627" y1="404.298" x2="-91.627" y2="404.298" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label align" x="-91.627" y="408.482" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-91.627" dy="0">Bug</tspan></text>
+        </g>
+        <g class="ishikawa-sub-group">
+          <line class="ishikawa-sub-branch" x1="-59.127" y1="404.298" x2="-65.755" y2="451.454" fill="none" stroke="#333333" stroke-width="1" marker-start="url(#ishikawa-arrow-my-svg)"/>
+          <text class="ishikawa-label down" x="-65.755" y="463.473" text-anchor="end" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="-65.755" dy="0">Race condition</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

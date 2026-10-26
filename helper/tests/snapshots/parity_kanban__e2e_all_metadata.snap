@@ -1,0 +1,23 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="425" height="93" viewBox="90 -310 425 93" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-id2" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="73" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(161.164, -300)">
+          <text class="nodeLabel" x="38.836" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="38.836" dy="17">In progress</tspan></text>
+        </g>
+      </g>
+      <g id="my-svg-docs" class="cluster section-2">
+        <rect x="305" y="-300" width="200" height="73" rx="5" ry="5" fill="#dcb9ff" stroke="#dcb9ff" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(305, -300)">
+          <text class="nodeLabel" x="100" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="100" dy="17">Create</tspan><tspan> </tspan><tspan>Blog</tspan><tspan> </tspan><tspan>about</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan>new</tspan><tspan> </tspan><tspan x="100" dy="24">diagram</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items"/>
+  </g>
+</svg>
