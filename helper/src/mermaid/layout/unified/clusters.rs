@@ -2,7 +2,7 @@
 //! `noteGroup`, `divider`, and `usecaseSystemBoundary` cluster shapes. The
 //! agentflow, kanban, and swimlane shapes draw as `rect` for now.
 
-use crate::mermaid::scene::{Color, Common, Element, Group, Paint, Style};
+use crate::mermaid::scene::{Color, Common, Element, Group, Paint, Style, TextAnchor};
 use crate::mermaid::shapes::measure::{LabelBox, LabelOpts};
 use crate::mermaid::shapes::util::{
     apply_declarations, build_label_group, rect_element, styles2string, translate,
@@ -34,10 +34,15 @@ fn measure_cluster_label(node: &Node, ctx: &ShapeCtx) -> LabelBox {
 
 fn cluster_label_group(bbox: &LabelBox, ctx: &ShapeCtx, fill: Color, x: f64, y: f64) -> Group {
     let mut g = build_label_group(bbox, ctx, fill, "cluster-label", translate(x, y));
-    if !bbox.is_empty() && !ctx.html_labels {
-        // SVG text is centred on x = 0 by `text-anchor: middle`; the HTML
-        // box starts at its left edge.
-        g.common.transform = translate(x, y);
+    // An SVG cluster label is not under `.node .label text { text-anchor:
+    // middle }` and `createText` sets no anchor for it, so its text starts
+    // at x = 0, the left edge `x` places, as the HTML box does.
+    if !bbox.html {
+        for el in &mut g.children {
+            if let Element::Text(text) = el {
+                text.anchor = Some(TextAnchor::Start);
+            }
+        }
     }
     g
 }

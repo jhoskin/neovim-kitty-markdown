@@ -1,0 +1,11 @@
+---
+config:
+  htmlLabels: false
+---
+stateDiagram-v2
+    [*] --> First
+    First --> Second : a transition
+    state Second {
+        [*] --> inner
+    }
+    Second --> [*]

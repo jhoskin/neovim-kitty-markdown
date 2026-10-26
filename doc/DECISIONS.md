@@ -294,3 +294,7 @@ These entries replace the macOS platform fallback list in Fonts and text.
   before they parse, as `Diagram.fromText` does, and the label measurer
   decodes them. HTML labels then decode character references with a table
   of common names; a name missing from the table shows as typed.
+- A node label is an HTML label unless the root `htmlLabels` is false
+  (`labelHelper`); `flowchart.htmlLabels: false` turns only edge and
+  cluster labels to SVG text. A label is drawn in the mode it was
+  measured in.

@@ -13,7 +13,7 @@ use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
     Common, Element, FontSpec, Group, Paint, Scene, Style, Text, TextAnchor, TextRun, ViewBox,
 };
-use crate::mermaid::shapes::util::BBox;
+use crate::mermaid::shapes::util::{BBox, set_node_html_labels};
 use crate::mermaid::shapes::{Dir, ShapeCtx};
 use crate::mermaid::styles::flowchart::{FlowchartStyles, TITLE_FONT_SIZE};
 use crate::text;
@@ -105,6 +105,7 @@ pub fn draw(db: &FlowDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Sce
     shapes.wrapping_width = *fc.wrapping_width;
 
     let mut data = db.get_data();
+    set_node_html_labels(&mut data.nodes, config.html_labels);
     // `data4Layout.type = diag.type`: `flowchart-v2` here, `swimlane` for
     // the swimlane diagram, which reuses this renderer.
     data.diagram_type = resolved.diagram_type.to_string();

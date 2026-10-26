@@ -101,6 +101,11 @@ pub struct LabelBox {
     /// The `text-align` of the label styles. The measurer leaves it
     /// centred; the label helpers read it off the node.
     pub align: LabelAlign,
+    /// Measured as an HTML label (`LabelOpts::html`), so it is drawn as
+    /// one too: a flowchart with `flowchart.htmlLabels: false` keeps HTML
+    /// node labels (`labelHelper` reads only the root `htmlLabels`) while
+    /// its edge and cluster labels turn to SVG text.
+    pub html: bool,
 }
 
 impl LabelBox {
@@ -219,6 +224,7 @@ impl LabelMeasurer for FixedMeasurer {
             return LabelBox {
                 line_height: self.line_height,
                 font: opts.font.clone(),
+                html: opts.html,
                 ..LabelBox::default()
             };
         }
@@ -264,6 +270,7 @@ impl LabelMeasurer for FixedMeasurer {
             font: opts.font.clone(),
             underline: None,
             align: LabelAlign::Center,
+            html: opts.html,
         }
     }
 
@@ -587,6 +594,7 @@ pub fn measure_with_metrics(
         return LabelBox {
             line_height,
             font: opts.font.clone(),
+            html: opts.html,
             ..LabelBox::default()
         };
     }
@@ -664,6 +672,7 @@ pub fn measure_with_metrics(
         font: opts.font.clone(),
         underline: None,
         align: LabelAlign::Center,
+        html: opts.html,
     }
 }
 

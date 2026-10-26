@@ -16,7 +16,7 @@ use crate::mermaid::scene::markers::MarkerType;
 use crate::mermaid::scene::{
     Common, Element, FontSpec, Group, Paint, Scene, Style, Text, TextAnchor, TextRun, ViewBox,
 };
-use crate::mermaid::shapes::util::BBox;
+use crate::mermaid::shapes::util::{BBox, set_node_html_labels};
 use crate::mermaid::shapes::{Node, ShapeCtx};
 use crate::mermaid::styles::state::{NodeInfo, StateStyles, TITLE_FONT_SIZE};
 use crate::text::measure::FontSpec as MeasureSpec;
@@ -114,6 +114,8 @@ pub fn render(
     shapes.state_padding = *cfg.state.padding;
     shapes.wrapping_width = *cfg.flowchart.wrapping_width;
 
+    let mut fetched = fetched;
+    set_node_html_labels(&mut fetched.nodes, cfg.html_labels);
     let infos = node_infos(&fetched.nodes);
     let data = LayoutData {
         nodes: fetched.nodes,

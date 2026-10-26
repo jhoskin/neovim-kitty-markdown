@@ -1,0 +1,10 @@
+---
+config:
+  htmlLabels: false
+---
+flowchart LR
+    A[Square node] -->|edge text| B(Round node)
+    B --> C{Decision}
+    subgraph S [A subgraph]
+    C --> D[Line one<br>line two]
+    end

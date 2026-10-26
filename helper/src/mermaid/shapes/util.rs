@@ -399,6 +399,20 @@ fn line_left(align: LabelAlign, box_width: f64, width: f64) -> f64 {
     }
 }
 
+/// `labelHelper` decides HTML labels with `node.useHtmlLabels ||
+/// evaluate(getConfig()?.htmlLabels)`: the root `htmlLabels` only, and
+/// `evaluate(undefined)` is `true`. Edges and clusters use
+/// `getEffectiveHtmlLabels`, which also reads the deprecated
+/// `flowchart.htmlLabels`, so `flowchart.htmlLabels: false` turns only
+/// those to SVG text. This bakes the node rule into each node, so
+/// [`ShapeCtx::html_labels`] can carry the effective value.
+pub fn set_node_html_labels(nodes: &mut [Node], root_html_labels: Option<bool>) {
+    let root = root_html_labels.unwrap_or(true);
+    for node in nodes {
+        node.use_html_labels = Some(node.use_html_labels.unwrap_or(false) || root);
+    }
+}
+
 /// `labelHelper(parent, node, classes, { ignoreMinWidth })`.
 pub fn label_helper(
     node: &Node,
@@ -640,12 +654,12 @@ pub fn build_label_group(
         },
         children: Vec::new(),
     };
-    if ctx.html_labels
+    if bbox.html
         && let Some(color) = bbox.underline
     {
         group.children.extend(underlines(bbox, ctx, color));
     }
-    if let Some(text) = label_text(bbox, fill, ctx.html_labels) {
+    if let Some(text) = label_text(bbox, fill, bbox.html) {
         group.children.push(Element::Text(text));
     }
     group
@@ -1584,5 +1598,21 @@ mod tests {
             ..NodeStyleVars::default()
         });
         assert_eq!(ruled, vec![style.clone(), style]);
+    }
+
+    #[test]
+    fn root_html_labels_decide_node_labels() {
+        let mut nodes = vec![
+            Node::flowchart("A", "A", "rect"),
+            Node::flowchart("B", "B", "rect"),
+        ];
+        nodes[1].use_html_labels = Some(true);
+        set_node_html_labels(&mut nodes, None);
+        assert_eq!(nodes[0].use_html_labels, Some(true));
+        set_node_html_labels(&mut nodes, Some(false));
+        assert_eq!(nodes[1].use_html_labels, Some(true));
+        let mut plain = vec![Node::flowchart("C", "C", "rect")];
+        set_node_html_labels(&mut plain, Some(false));
+        assert_eq!(plain[0].use_html_labels, Some(false));
     }
 }
