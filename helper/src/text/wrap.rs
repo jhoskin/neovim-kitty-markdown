@@ -125,6 +125,11 @@ fn no_break_before(ch: char) -> bool {
             | 'ヽ'
             | 'ヾ'
             | '〜'
+            | ')'
+            | ']'
+            | '}'
+            | '\u{201D}'
+            | '\u{2019}'
     )
 }
 
@@ -133,7 +138,22 @@ fn no_break_before(ch: char) -> bool {
 fn no_break_after(ch: char) -> bool {
     matches!(
         ch,
-        '「' | '『' | '（' | '〔' | '【' | '〈' | '《' | '〘' | '〖' | '｛' | '［' | '〝'
+        '「' | '『'
+            | '（'
+            | '〔'
+            | '【'
+            | '〈'
+            | '《'
+            | '〘'
+            | '〖'
+            | '｛'
+            | '［'
+            | '〝'
+            | '('
+            | '['
+            | '{'
+            | '\u{201C}'
+            | '\u{2018}'
     )
 }
 
@@ -610,22 +630,51 @@ pub fn html_segments(line: &[Word]) -> Vec<Segment> {
                 }
                 continue;
             }
-            current.push(ch);
+            let previous = i.checked_sub(1).map(|j| chars[j]);
             let next = chars.get(i + 1).copied();
+            // A closing bracket or quote stays with what it closes, also
+            // after an ideograph or a break: `“中”文` breaks after the `”`.
+            if no_break_before(ch)
+                && current.is_empty()
+                && out.len() > word_start
+                && out.last().is_some_and(|s| s.kind == SegmentKind::Text)
+                && let Some(last) = out.pop()
+            {
+                current = last.word.content;
+            }
+            // An em dash (UAX #14 B2) breaks on both sides, but not inside
+            // a run of dashes: the oracle wraps `foo—bar` as `foo`, `—`,
+            // `bar` and keeps `——` whole.
+            if ch == '\u{2014}' && previous.is_some_and(|p| p != '\u{2014}') {
+                flush(&mut current, &mut out);
+            }
+            current.push(ch);
             // Blink's ASCII line-break table allows a break after `-` and
             // `?` ("compatible with Internet Explorer") before letters,
             // digits, and most punctuation, not only between two letters;
-            // ICU breaks after U+2010 and U+2013 (class BA) the same way.
-            // No break comes before closing punctuation, `.`, or `$`.
-            let hyphen_break = matches!(ch, '-' | '?' | '\u{2010}' | '\u{2013}')
-                && i > 0
+            // ICU breaks after U+2010, U+2012, and U+2013 (class BA) the
+            // same way. No break comes before closing punctuation, `.`, or
+            // `$`, nor inside a negative number: the oracle breaks `-abc`
+            // after the `-` but keeps `-1` whole.
+            let hyphen_break = matches!(ch, '-' | '?' | '\u{2010}' | '\u{2012}' | '\u{2013}')
                 && next.is_some_and(|n| {
                     !matches!(
                         n,
                         '!' | '$' | ')' | ',' | '.' | '/' | ':' | ';' | '?' | ']' | '}'
                     )
-                });
-            if hyphen_break {
+                })
+                && (previous.is_some_and(|p| !p.is_whitespace())
+                    || (ch == '-' && !next.is_some_and(|n| n.is_ascii_digit())));
+            // The same table breaks between a closing and an opening
+            // bracket (UAX #14 CL/CP before OP): `[the docs](url)` wraps
+            // after the `]`. A letter on either side keeps them together.
+            let bracket_break =
+                matches!(ch, ')' | ']' | '}') && next.is_some_and(|n| matches!(n, '(' | '[' | '{'));
+            // After an em dash, an ellipsis (IN), or a zero-width space,
+            // unless another of the same follows: `a…|b`, `a……|b`, `a​|b`.
+            let after_break =
+                matches!(ch, '\u{2014}' | '\u{2026}' | '\u{200B}') && next.is_some_and(|n| n != ch);
+            if hyphen_break || bracket_break || after_break {
                 flush(&mut current, &mut out);
             }
         }
@@ -896,8 +945,59 @@ mod tests {
         assert_eq!(pieces("a\u{2013}b"), vec!["a\u{2013}", "b"]);
         assert_eq!(pieces("a-.b"), vec!["a-.b"]);
         assert_eq!(pieces("a-$b"), vec!["a-$b"]);
-        assert_eq!(pieces("-a"), vec!["-a"]);
+        // At the start or after a space only a negative number keeps its
+        // hyphen.
+        assert_eq!(pieces("-a"), vec!["-", "a"]);
+        assert_eq!(pieces("-1"), vec!["-1"]);
         assert_eq!(pieces("a-"), vec!["a-"]);
+        assert_eq!(pieces("a\u{2012}b"), vec!["a\u{2012}", "b"]);
+    }
+
+    /// The break opportunities the oracle takes around punctuation, read
+    /// off a 1 px wide `break-spaces` block in the oracle's Chrome.
+    #[test]
+    fn punctuation_breaks_follow_chrome() {
+        let pieces = |s: &str| -> Vec<String> {
+            html_segments(&line(&[s]))
+                .into_iter()
+                .map(|segment| segment.word.content)
+                .collect()
+        };
+        assert_eq!(
+            pieces("docs](https://x.y/a?b)"),
+            vec!["docs]", "(https://x.y/a?", "b)"]
+        );
+        for pair in ["aa)(bb", "aa](bb", "aa)[bb", "aa][bb", "aa}{bb"] {
+            assert_eq!(pieces(pair).len(), 2, "{pair}");
+        }
+        for whole in [
+            "aa)bb", "aa(bb", "x)y(z", "f(x)", "arr[0]", "a/b", "a.b", "a,b",
+        ] {
+            assert_eq!(pieces(whole), vec![whole], "{whole}");
+        }
+        assert_eq!(pieces(")("), vec![")", "("]);
+        assert_eq!(pieces("a]]((b"), vec!["a]]", "((b"]);
+        assert_eq!(pieces("foo\u{2014}bar"), vec!["foo", "\u{2014}", "bar"]);
+        assert_eq!(
+            pieces("a\u{2014}\u{2014}b"),
+            vec!["a", "\u{2014}\u{2014}", "b"]
+        );
+        assert_eq!(pieces("\u{2014}a"), vec!["\u{2014}", "a"]);
+        assert_eq!(pieces("a\u{2026}b"), vec!["a\u{2026}", "b"]);
+        assert_eq!(pieces("a\u{2026}\u{2026}b"), vec!["a\u{2026}\u{2026}", "b"]);
+        assert_eq!(pieces("a\u{2026}"), vec!["a\u{2026}"]);
+        assert_eq!(pieces("a\u{200B}b"), vec!["a\u{200B}", "b"]);
+        // Quotes and ASCII brackets around ideographs stay with them.
+        assert_eq!(
+            pieces("\u{201C}中\u{201D}文"),
+            vec!["\u{201C}中\u{201D}", "文"]
+        );
+        assert_eq!(
+            pieces("文\u{201C}中\u{201D}"),
+            vec!["文", "\u{201C}中\u{201D}"]
+        );
+        assert_eq!(pieces("(中)文"), vec!["(中)", "文"]);
+        assert_eq!(pieces("中(文)"), vec!["中", "(文)"]);
     }
 
     #[test]
