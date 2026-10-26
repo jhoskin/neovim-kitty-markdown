@@ -101,22 +101,10 @@ impl Appearance {
 
 /// R-175: a `look` other than `classic`, a `layout` other than `dagre`, or
 /// a theme outside the five built-in ones is `unsupported_feature`, spelled
-/// `look: neo`, `layout: elk`, `theme: redux-color`. `requested` is the
-/// theme the diagram asked for at the top level, which mermaid would
-/// silently drop when it names no registered theme; the spec wants a
-/// failure box for it too.
-pub fn check_supported(
-    resolved: &Appearance,
-    requested_theme: Option<&Value>,
-) -> Result<(), HelperError> {
-    if let Some(v) = requested_theme {
-        let name = string_of(v);
-        if !theme::is_builtin(&name) {
-            return Err(HelperError::UnsupportedFeature {
-                feature: format!("theme: {name}"),
-            });
-        }
-    }
+/// `look: neo`, `layout: elk`, `theme: redux-color`. A theme name mermaid
+/// does not register never gets here: `resolve_appearance` passes over it,
+/// as `readAppearance` does, so the theme below it applies (R-234).
+pub fn check_supported(resolved: &Appearance) -> Result<(), HelperError> {
     if !theme::is_builtin(&resolved.theme) {
         return Err(HelperError::UnsupportedFeature {
             feature: format!("theme: {}", resolved.theme),
@@ -182,13 +170,13 @@ mod tests {
             look: "classic".into(),
             layout: "dagre".into(),
         };
-        assert!(check_supported(&ok, None).is_ok());
+        assert!(check_supported(&ok).is_ok());
         let neo = Appearance {
             look: "neo".into(),
             ..ok.clone()
         };
         assert_eq!(
-            check_supported(&neo, None).unwrap_err().to_string(),
+            check_supported(&neo).unwrap_err().to_string(),
             "unsupported feature: look: neo"
         );
         let elk = Appearance {
@@ -196,7 +184,7 @@ mod tests {
             ..ok.clone()
         };
         assert_eq!(
-            check_supported(&elk, None).unwrap_err().to_string(),
+            check_supported(&elk).unwrap_err().to_string(),
             "unsupported feature: layout: elk"
         );
         let redux = Appearance {
@@ -204,14 +192,8 @@ mod tests {
             ..ok.clone()
         };
         assert_eq!(
-            check_supported(&redux, None).unwrap_err().to_string(),
+            check_supported(&redux).unwrap_err().to_string(),
             "unsupported feature: theme: redux-color"
-        );
-        assert_eq!(
-            check_supported(&ok, Some(&json!("foo")))
-                .unwrap_err()
-                .to_string(),
-            "unsupported feature: theme: foo"
         );
     }
 }

@@ -270,3 +270,10 @@ These entries replace the macOS platform fallback list in Fonts and text.
 - The zenuml detector (`/^\s*zenuml/`, case-sensitive) is the last one,
   because mermaid-cli registers `@mermaid-js/mermaid-zenuml` after the
   built-in diagrams.
+- A theme name that mermaid does not register is passed over in
+  `resolveAppearance`, so the theme of the next layer applies. An init
+  directive with an unknown name replaces the front matter `theme` before
+  that lookup, so a front matter `forest` is lost too; the oracle does the
+  same. The unknown name still counts as a theme change, so
+  `themeVariables` next to it derive a new theme from the base config
+  theme.

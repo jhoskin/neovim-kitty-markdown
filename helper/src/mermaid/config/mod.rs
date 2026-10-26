@@ -345,7 +345,6 @@ pub fn resolve(source: &str, base: &BaseConfig) -> Result<Resolved, HelperError>
         });
     }
     let config_key = detect::config_key(diagram_type).to_string();
-    let requested_theme = preprocessed.config.get("theme").cloned();
     let cfg = apply_directive(&site, preprocessed.config.clone(), Some(&config_key))?;
 
     let mut appearance = Appearance::of(&cfg);
@@ -354,7 +353,7 @@ pub fn resolve(source: &str, base: &BaseConfig) -> Result<Resolved, HelperError>
         // detector sets `layout: 'elk'` for it.
         appearance.layout = "elk".to_string();
     }
-    appearance::check_supported(&appearance, requested_theme.as_ref())?;
+    appearance::check_supported(&appearance)?;
 
     let theme_variables = match cfg.get("themeVariables") {
         Some(Value::Object(map)) => ThemeVariables::from_json(map),
@@ -449,8 +448,24 @@ mod tests {
                 "look: neo",
             ),
             (
-                "%%{init: {'theme': 'nope'}}%%\ngraph TD\n  A-->B",
-                "theme: nope",
+                "%%{init: {'theme': 'neo'}}%%\ngraph TD\n  A-->B",
+                "theme: neo",
+            ),
+            (
+                "%%{init: {'theme': 'neo-dark'}}%%\ngraph TD\n  A-->B",
+                "theme: neo-dark",
+            ),
+            (
+                "---\nconfig:\n  theme: redux\n---\ngraph TD\n  A-->B",
+                "theme: redux",
+            ),
+            (
+                "%%{init: {'theme': 'redux-dark'}}%%\ngraph TD\n  A-->B",
+                "theme: redux-dark",
+            ),
+            (
+                "%%{init: {'flowchart': {'theme': 'redux-dark-color'}}}%%\ngraph TD\n  A-->B",
+                "theme: redux-dark-color",
             ),
             ("flowchart-elk TD\n  A-->B", "layout: elk"),
         ];
@@ -525,4 +540,79 @@ mod tests {
         assert_eq!(r.config.flowchart.curve, "linear");
     }
 
+    /// R-234: `readAppearance` passes over a theme name mermaid 12.2.0 does
+    /// not register (`Object.hasOwn(theme, value)`), so the next layer's
+    /// theme applies, here the base config's `dark`. Checked against the
+    /// oracle's SVG.
+    #[test]
+    fn unregistered_theme_names_are_ignored() {
+        let dark = BaseConfig::new("dark");
+        let plain = resolve("flowchart TD\n  A-->B", &dark).unwrap();
+        let sources = [
+            "%%{init: {'theme': 'bogus'}}%%\nflowchart TD\n  A-->B",
+            "%%{init: {\"theme\": \"Dark\"}}%%\nflowchart TD\n  A-->B",
+            "---\nconfig:\n  theme: bogus\n---\nflowchart TD\n  A-->B",
+            "---\nconfig:\n  theme: 42\n---\nflowchart TD\n  A-->B",
+            "---\nconfig:\n  theme: bogus\n---\n%%{init: {'theme': 'nope'}}%%\nflowchart TD\n  A-->B",
+            "%%{init: {'flowchart': {'theme': 'bogus'}}}%%\nflowchart TD\n  A-->B",
+            "%%{init: {'theme': 'constructor'}}%%\nflowchart TD\n  A-->B",
+            // The directive's name replaces the front matter's `forest` in
+            // the merged config before the lookup, so `forest` is gone too.
+            "---\nconfig:\n  theme: forest\n---\n%%{init: {'theme': 'bogus'}}%%\nflowchart TD\n  A-->B",
+        ];
+        for source in sources {
+            let r = resolve(source, &dark).unwrap_or_else(|e| panic!("{source}: {e:?}"));
+            assert_eq!(r.appearance.theme, "dark", "{source}");
+            assert_eq!(r.theme_variables, plain.theme_variables, "{source}");
+        }
+        // A registered theme next to an unregistered one still applies.
+        let r = resolve(
+            "---\nconfig:\n  theme: bogus\n---\n%%{init: {'theme': 'forest'}}%%\nflowchart TD\n  A-->B",
+            &dark,
+        )
+        .unwrap();
+        assert_eq!(r.appearance.theme, "forest");
+    }
+
+    /// R-234: the other settings of a directive with an unknown theme apply.
+    #[test]
+    fn settings_next_to_an_unregistered_theme_still_apply() {
+        let r = resolve(
+            "---\nconfig:\n  theme: bogus\n  fontFamily: monospace\n  flowchart:\n    nodeSpacing: 200\n---\nflowchart TD\n  A-->B",
+            &BaseConfig::new("dark"),
+        )
+        .unwrap();
+        assert_eq!(r.appearance.theme, "dark");
+        assert_eq!(*r.config.flowchart.node_spacing, 200.0);
+        assert_eq!(r.config.font_family, "monospace");
+        assert_eq!(r.theme_variables.str("fontFamily"), Some("monospace"));
+    }
+
+    /// An unknown theme name still counts as a theme change in
+    /// `updateCurrentConfig` (`Boolean(sumOfDirectives.theme)`), so its
+    /// `themeVariables` derive a fresh base theme; without the name they are
+    /// only merged (R-235). The oracle fills a `base` node with `#ff0000`
+    /// and strokes it `hsl(0, 60%, 40%)` in the first case, and fills it
+    /// with `#fff4dd` in the second.
+    #[test]
+    fn theme_variables_next_to_an_unregistered_theme_are_derived() {
+        let base = BaseConfig::new("base");
+        let r = resolve(
+            "%%{init: {'theme': 'bogus', 'themeVariables': {'primaryColor': '#ff0000'}}}%%\nflowchart TD\n  A-->B",
+            &base,
+        )
+        .unwrap();
+        assert_eq!(r.appearance.theme, "base");
+        assert_eq!(r.theme_variables.str("mainBkg"), Some("#ff0000"));
+        assert_eq!(
+            r.theme_variables.str("nodeBorder"),
+            Some("hsl(0, 60%, 40%)")
+        );
+        let r = resolve(
+            "%%{init: {'themeVariables': {'primaryColor': '#ff0000'}}}%%\nflowchart TD\n  A-->B",
+            &base,
+        )
+        .unwrap();
+        assert_eq!(r.theme_variables.str("mainBkg"), Some("#fff4dd"));
+    }
 }
