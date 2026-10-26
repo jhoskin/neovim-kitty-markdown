@@ -511,8 +511,8 @@ pub struct Segment {
 }
 
 /// Splits a line into break-spaces segments: a break opportunity exists
-/// after every space, between ideographs, and after a hyphen between
-/// letters.
+/// after every space, between ideographs, and after a hyphen or question
+/// mark that no closing punctuation follows.
 pub fn html_segments(line: &[Word]) -> Vec<Segment> {
     let mut out: Vec<Segment> = Vec::new();
     for word in line {
@@ -543,10 +543,19 @@ pub fn html_segments(line: &[Word]) -> Vec<Segment> {
             }
             current.push(ch);
             let next = chars.get(i + 1).copied();
-            let hyphen_break = (ch == '-' || ch == '\u{2010}')
+            // Blink's ASCII line-break table allows a break after `-` and
+            // `?` ("compatible with Internet Explorer") before letters,
+            // digits, and most punctuation, not only between two letters;
+            // ICU breaks after U+2010 and U+2013 (class BA) the same way.
+            // No break comes before closing punctuation, `.`, or `$`.
+            let hyphen_break = matches!(ch, '-' | '?' | '\u{2010}' | '\u{2013}')
                 && i > 0
-                && chars[i - 1].is_alphabetic()
-                && next.is_some_and(|n| n.is_alphabetic());
+                && next.is_some_and(|n| {
+                    !matches!(
+                        n,
+                        '!' | '$' | ')' | ',' | '.' | '/' | ':' | ';' | '?' | ']' | '}'
+                    )
+                });
             if hyphen_break {
                 flush(&mut current, &mut out);
             }
@@ -800,5 +809,25 @@ mod tests {
         assert_eq!(texts, vec!["中文", "中"]);
         assert_eq!(min_content_width(&text, &width), 40.0);
         assert_eq!(min_content_width(&line(&["a bbbbb"]), &width), 50.0);
+    }
+
+    #[test]
+    fn hyphen_breaks_follow_blink() {
+        let pieces = |s: &str| -> Vec<String> {
+            html_segments(&line(&[s]))
+                .into_iter()
+                .map(|segment| segment.word.content)
+                .collect()
+        };
+        assert_eq!(pieces("TICKET-123"), vec!["TICKET-", "123"]);
+        assert_eq!(pieces("a-b"), vec!["a-", "b"]);
+        assert_eq!(pieces("1-2"), vec!["1-", "2"]);
+        assert_eq!(pieces("a-(b"), vec!["a-", "(b"]);
+        assert_eq!(pieces("why?no"), vec!["why?", "no"]);
+        assert_eq!(pieces("a\u{2013}b"), vec!["a\u{2013}", "b"]);
+        assert_eq!(pieces("a-.b"), vec!["a-.b"]);
+        assert_eq!(pieces("a-$b"), vec!["a-$b"]);
+        assert_eq!(pieces("-a"), vec!["-a"]);
+        assert_eq!(pieces("a-"), vec!["a-"]);
     }
 }

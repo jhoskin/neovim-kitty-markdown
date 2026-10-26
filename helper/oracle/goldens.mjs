@@ -149,7 +149,9 @@ function oracleSize(helperSize, shape, type) {
     return { size: width, expectWidth: width };
   }
   if (!shape.useMaxWidth) {
-    return { size: Math.max(width, height), expectWidth: width };
+    // mermaid-cli still sets max-width: round(size * aspect), which can be
+    // 1 px under the natural width; R-181 allows 1 px.
+    return { size: Math.max(width, height), expectWidth: width, widthSlack: 1 };
   }
   const target = width + 8;
   if (shape.aspect >= 1) {
@@ -224,7 +226,7 @@ for (const type of types) {
         unlinkSync(svgPath);
       }
     }
-    const { size, expectWidth } = oracleSize(helperSize, shape, type);
+    const { size, expectWidth, widthSlack = 0 } = oracleSize(helperSize, shape, type);
 
     const runs = UNSEEDED.has(type) ? UNSEEDED_RUNS : 1;
     const outputs = [];
@@ -237,7 +239,7 @@ for (const type of types) {
         break;
       }
       const got = pngSize(outPng);
-      if (got.width !== expectWidth || got.height < helperSize.height) {
+      if (Math.abs(got.width - expectWidth) > widthSlack || got.height < helperSize.height) {
         failed = `oracle PNG is ${got.width}x${got.height}, expected ${expectWidth} wide and at least ${helperSize.height} tall for a ${helperSize.width}x${helperSize.height} helper output`;
         unlinkSync(outPng);
         break;
