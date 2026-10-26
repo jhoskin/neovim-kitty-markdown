@@ -1,0 +1,14 @@
+gitGraph
+  commit id: "init"
+  commit id: "add README"
+  branch feature/login
+  checkout feature/login
+  commit id: "login form"
+  commit id: "validate input"
+  checkout main
+  branch hotfix
+  commit id: "fix typo" type: HIGHLIGHT
+  checkout main
+  merge hotfix tag: "v1.0.1"
+  merge feature/login
+  commit id: "release" tag: "v1.1.0"

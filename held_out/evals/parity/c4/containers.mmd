@@ -1,0 +1,16 @@
+C4Container
+  title Containers: ticket shop
+  Person(buyer, "Buyer")
+  System_Boundary(shop, "Ticket shop") {
+    Container(spa, "Single-page app", "TypeScript, React", "Seat selection and checkout")
+    Container(api, "API", "Go", "Business logic")
+    ContainerDb(db, "Database", "PostgreSQL", "Orders, seats")
+    ContainerQueue(q, "Event bus", "Kafka")
+  }
+  System_Ext(psp, "Payment provider")
+  Rel(buyer, spa, "Uses")
+  Rel(spa, api, "Calls", "JSON/HTTPS")
+  Rel(api, db, "Reads/writes", "SQL")
+  Rel(api, q, "Publishes")
+  Rel(api, psp, "Charges card")
+  UpdateRelStyle(api, psp, $textColor="red", $lineColor="red")

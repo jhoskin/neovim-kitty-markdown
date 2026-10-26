@@ -1,0 +1,13 @@
+eventmodeling
+
+tf 01 ui SignupForm
+tf 02 cmd CreateAccount [[NewAccount]]
+tf 03 evt AccountCreated
+rf 04 evt Billing.TrialStarted
+tf 05 rmo AccountList ->> 03 ->> 04
+tf 06 ui AdminView
+
+data NewAccount {
+  email: 'ana@example.org'
+  plan: 'trial'
+}

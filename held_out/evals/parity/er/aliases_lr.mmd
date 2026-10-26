@@ -1,0 +1,10 @@
+erDiagram
+  direction LR
+  "Kunde (Customer)" ||--o{ Bestellung : "gibt auf"
+  Bestellung }|..|{ Artikel : enthält
+  Artikel }o--|| Lager : "liegt in"
+  Bestellung {
+    uuid id PK
+    decimal summe "inkl. MwSt."
+  }
+  style Lager fill:#e8f5e9,stroke:#1b5e20

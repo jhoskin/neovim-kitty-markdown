@@ -1,0 +1,14 @@
+architecture-beta
+  group cloud(cloud)[Public cloud]
+  group private(server)[Private subnet] in cloud
+
+  service lb(internet)[Load balancer] in cloud
+  service api(server)[API] in private
+  service db(database)[Primary DB] in private
+  service replica(database)[Read replica] in private
+  service blob(disk)[Object storage] in cloud
+
+  lb:R --> L:api
+  api:R -- L:db
+  db:B -- T:replica
+  api:B -- T:blob

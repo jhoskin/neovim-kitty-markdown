@@ -1,0 +1,15 @@
+cynefin-beta
+  title Incident response
+  complex
+    "Unknown latency spike"
+    "Probe & sense"
+  complicated
+    "Database tuning"
+  clear
+    "Restart crashed pod"
+  chaotic
+    "Region outage"
+  confusion
+    "Alert storm"
+  chaotic --> complex : "Stabilised"
+  complex --> complicated : "Root cause known"

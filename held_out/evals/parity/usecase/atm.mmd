@@ -1,0 +1,10 @@
+usecase-beta
+direction LR
+actor Customer("Bank customer")
+actor Tech("Technician")@{ type: hollow }
+Withdraw("Withdraw cash")
+Balance("Check balance")
+Refill("Refill machine")
+Customer --> Withdraw
+Customer --> Balance
+Tech --> Refill

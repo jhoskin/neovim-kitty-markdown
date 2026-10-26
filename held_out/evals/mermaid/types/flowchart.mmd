@@ -1,0 +1,5 @@
+flowchart TD
+  Kettle[Fill the kettle] --> Boil{Boiling?}
+  Boil -->|no| Wait[Wait a minute]
+  Wait --> Boil
+  Boil -->|yes| Pour[Pour the water]

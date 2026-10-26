@@ -1,0 +1,1445 @@
+{
+ "generated_by": "measure_corpus.mjs",
+ "cases": [
+  {
+   "class": "latin",
+   "text": "Order received",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 93.90625,
+    "height": 16
+   },
+   "html": {
+    "width": 93.90625,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Is the cart valid?",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 103.609375,
+    "height": 16
+   },
+   "html": {
+    "width": 103.609375,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Charge card & reserve stock",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 176.8125,
+    "height": 16
+   },
+   "html": {
+    "width": 176.8125,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "POST /login (HTTP 401)",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 147.4375,
+    "height": 16
+   },
+   "html": {
+    "width": 147.4375,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "WAVE Tympany, fjord; quiz",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 166.328125,
+    "height": 16
+   },
+   "html": {
+    "width": 166.328125,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "3,141.59 % ~ [x] {y} (z)",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 142.578125,
+    "height": 16
+   },
+   "html": {
+    "width": 142.578125,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Résumé généré à Zürich",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 150.765625,
+    "height": 16
+   },
+   "html": {
+    "width": 150.765625,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Straße, Ærø, naïve façade",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 164.265625,
+    "height": 16.1103515625
+   },
+   "html": {
+    "width": 164.265625,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "ll iii mmm WWW",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 103.546875,
+    "height": 16
+   },
+   "html": {
+    "width": 103.546875,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "学习计划",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 57.125,
+    "height": 16
+   },
+   "html": {
+    "width": 57.125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "撰写用户手册的第一章",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 142.8125,
+    "height": 16
+   },
+   "html": {
+    "width": 142.8125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "開始する データ",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 102.78125,
+    "height": 16
+   },
+   "html": {
+    "width": 102.78125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "완료 상태",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 52.671875,
+    "height": 16
+   },
+   "html": {
+    "width": 52.671875,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Done ✅ 🚀",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 76.8193359375,
+    "height": 20
+   },
+   "html": {
+    "width": 75.828125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Build 🔧 and ship 📦 today",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 171.625,
+    "height": 20
+   },
+   "html": {
+    "width": 171.625,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Mixed 中文 and Latin",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 132.03125,
+    "height": 16
+   },
+   "html": {
+    "width": 132.03125,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Order received",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 107.3125,
+    "height": 19
+   },
+   "html": {
+    "width": 107.3125,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Is the cart valid?",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 118.40625,
+    "height": 19
+   },
+   "html": {
+    "width": 118.40625,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Charge card & reserve stock",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 202.0625,
+    "height": 19
+   },
+   "html": {
+    "width": 202.0625,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "POST /login (HTTP 401)",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 168.5,
+    "height": 19
+   },
+   "html": {
+    "width": 168.5,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "WAVE Tympany, fjord; quiz",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 190.078125,
+    "height": 19
+   },
+   "html": {
+    "width": 190.078125,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "3,141.59 % ~ [x] {y} (z)",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 162.9375,
+    "height": 19
+   },
+   "html": {
+    "width": 162.9375,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Résumé généré à Zürich",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 172.296875,
+    "height": 19
+   },
+   "html": {
+    "width": 172.296875,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Straße, Ærø, naïve façade",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 187.71875,
+    "height": 19
+   },
+   "html": {
+    "width": 187.71875,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "ll iii mmm WWW",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 118.328125,
+    "height": 19
+   },
+   "html": {
+    "width": 118.328125,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "学习计划",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 65.28125,
+    "height": 19
+   },
+   "html": {
+    "width": 65.28125,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "撰写用户手册的第一章",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 163.203125,
+    "height": 19
+   },
+   "html": {
+    "width": 163.203125,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "開始する データ",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 117.46875,
+    "height": 19
+   },
+   "html": {
+    "width": 117.46875,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "완료 상태",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 60.1875,
+    "height": 19
+   },
+   "html": {
+    "width": 60.1875,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Done ✅ 🚀",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 86.5078125,
+    "height": 22
+   },
+   "html": {
+    "width": 85.515625,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Build 🔧 and ship 📦 today",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 195,
+    "height": 22
+   },
+   "html": {
+    "width": 195,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Mixed 中文 and Latin",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 150.890625,
+    "height": 19
+   },
+   "html": {
+    "width": 150.890625,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Order received",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 134.140625,
+    "height": 23
+   },
+   "html": {
+    "width": 134.140625,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Is the cart valid?",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 148.015625,
+    "height": 23
+   },
+   "html": {
+    "width": 148.015625,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Charge card & reserve stock",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 252.578125,
+    "height": 23.1015625
+   },
+   "html": {
+    "width": 252.578125,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "POST /login (HTTP 401)",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 210.625,
+    "height": 23.1796875
+   },
+   "html": {
+    "width": 210.625,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "WAVE Tympany, fjord; quiz",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 237.609375,
+    "height": 23.1015625
+   },
+   "html": {
+    "width": 237.609375,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "3,141.59 % ~ [x] {y} (z)",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 203.671875,
+    "height": 23.1796875
+   },
+   "html": {
+    "width": 203.671875,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Résumé généré à Zürich",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 215.375,
+    "height": 23.1015625
+   },
+   "html": {
+    "width": 215.375,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Straße, Ærø, naïve façade",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 234.65625,
+    "height": 23.443359375
+   },
+   "html": {
+    "width": 234.65625,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "ll iii mmm WWW",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 147.921875,
+    "height": 23
+   },
+   "html": {
+    "width": 147.921875,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "学习计划",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 81.53125,
+    "height": 23
+   },
+   "html": {
+    "width": 81.53125,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "撰写用户手册的第一章",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 203.8125,
+    "height": 23
+   },
+   "html": {
+    "width": 203.8125,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "開始する データ",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 146.796875,
+    "height": 23
+   },
+   "html": {
+    "width": 146.796875,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "완료 상태",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 75.234375,
+    "height": 23
+   },
+   "html": {
+    "width": 75.234375,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Done ✅ 🚀",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 101.884765625,
+    "height": 25
+   },
+   "html": {
+    "width": 100.890625,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Build 🔧 and ship 📦 today",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 237.75,
+    "height": 25
+   },
+   "html": {
+    "width": 237.75,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Mixed 中文 and Latin",
+   "family_id": "mermaid",
+   "family": "\"trebuchet ms\", verdana, arial, sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 188.578125,
+    "height": 23
+   },
+   "html": {
+    "width": 188.578125,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Order received",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 97.515625,
+    "height": 19
+   },
+   "html": {
+    "width": 97.515625,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Is the cart valid?",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 104.578125,
+    "height": 19
+   },
+   "html": {
+    "width": 104.578125,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Charge card & reserve stock",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 182.734375,
+    "height": 19
+   },
+   "html": {
+    "width": 182.734375,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "POST /login (HTTP 401)",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 148.859375,
+    "height": 19
+   },
+   "html": {
+    "width": 148.859375,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "WAVE Tympany, fjord; quiz",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 173.953125,
+    "height": 19
+   },
+   "html": {
+    "width": 173.953125,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "3,141.59 % ~ [x] {y} (z)",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 141.921875,
+    "height": 19
+   },
+   "html": {
+    "width": 141.921875,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Résumé généré à Zürich",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 157.921875,
+    "height": 19
+   },
+   "html": {
+    "width": 157.921875,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Straße, Ærø, naïve façade",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 165.359375,
+    "height": 19
+   },
+   "html": {
+    "width": 165.359375,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "ll iii mmm WWW",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 106.25,
+    "height": 19
+   },
+   "html": {
+    "width": 106.25,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "学习计划",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 57.125,
+    "height": 19
+   },
+   "html": {
+    "width": 57.125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "撰写用户手册的第一章",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 142.8125,
+    "height": 19
+   },
+   "html": {
+    "width": 142.8125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "開始する データ",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 102.203125,
+    "height": 19
+   },
+   "html": {
+    "width": 102.203125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "완료 상태",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 52.078125,
+    "height": 19
+   },
+   "html": {
+    "width": 52.078125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Done ✅ 🚀",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 79.30078125,
+    "height": 20
+   },
+   "html": {
+    "width": 78.3125,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Build 🔧 and ship 📦 today",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 176.515625,
+    "height": 20
+   },
+   "html": {
+    "width": 176.515625,
+    "height": 21
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Mixed 中文 and Latin",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 14,
+   "svg": {
+    "width": 136.484375,
+    "height": 19
+   },
+   "html": {
+    "width": 136.484375,
+    "height": 21
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Order received",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 111.4375,
+    "height": 22
+   },
+   "html": {
+    "width": 111.4375,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Is the cart valid?",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 119.515625,
+    "height": 22
+   },
+   "html": {
+    "width": 119.515625,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Charge card & reserve stock",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 208.828125,
+    "height": 22
+   },
+   "html": {
+    "width": 208.828125,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "POST /login (HTTP 401)",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 170.125,
+    "height": 22
+   },
+   "html": {
+    "width": 170.125,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "WAVE Tympany, fjord; quiz",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 198.796875,
+    "height": 22
+   },
+   "html": {
+    "width": 198.796875,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "3,141.59 % ~ [x] {y} (z)",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 162.1875,
+    "height": 22
+   },
+   "html": {
+    "width": 162.1875,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Résumé généré à Zürich",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 180.46875,
+    "height": 22
+   },
+   "html": {
+    "width": 180.46875,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Straße, Ærø, naïve façade",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 188.984375,
+    "height": 22
+   },
+   "html": {
+    "width": 188.984375,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "ll iii mmm WWW",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 121.421875,
+    "height": 22
+   },
+   "html": {
+    "width": 121.421875,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "学习计划",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 65.28125,
+    "height": 22
+   },
+   "html": {
+    "width": 65.28125,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "撰写用户手册的第一章",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 163.203125,
+    "height": 22
+   },
+   "html": {
+    "width": 163.203125,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "開始する データ",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 116.796875,
+    "height": 22
+   },
+   "html": {
+    "width": 116.796875,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "완료 상태",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 59.53125,
+    "height": 22
+   },
+   "html": {
+    "width": 59.53125,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Done ✅ 🚀",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 89.34375,
+    "height": 22
+   },
+   "html": {
+    "width": 88.34375,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Build 🔧 and ship 📦 today",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 200.578125,
+    "height": 22
+   },
+   "html": {
+    "width": 200.578125,
+    "height": 24
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Mixed 中文 and Latin",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 16,
+   "svg": {
+    "width": 155.984375,
+    "height": 22
+   },
+   "html": {
+    "width": 155.984375,
+    "height": 24
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Order received",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 139.296875,
+    "height": 27
+   },
+   "html": {
+    "width": 139.296875,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Is the cart valid?",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 149.40625,
+    "height": 27
+   },
+   "html": {
+    "width": 149.40625,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Charge card & reserve stock",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 261.046875,
+    "height": 27
+   },
+   "html": {
+    "width": 261.046875,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "POST /login (HTTP 401)",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 212.65625,
+    "height": 27
+   },
+   "html": {
+    "width": 212.65625,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "WAVE Tympany, fjord; quiz",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 248.5,
+    "height": 27
+   },
+   "html": {
+    "width": 248.5,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "3,141.59 % ~ [x] {y} (z)",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 202.734375,
+    "height": 27
+   },
+   "html": {
+    "width": 202.734375,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Résumé généré à Zürich",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 225.59375,
+    "height": 27
+   },
+   "html": {
+    "width": 225.59375,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "Straße, Ærø, naïve façade",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 236.234375,
+    "height": 27
+   },
+   "html": {
+    "width": 236.234375,
+    "height": 30
+   }
+  },
+  {
+   "class": "latin",
+   "text": "ll iii mmm WWW",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 151.78125,
+    "height": 27
+   },
+   "html": {
+    "width": 151.78125,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "学习计划",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 81.53125,
+    "height": 27
+   },
+   "html": {
+    "width": 81.53125,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "撰写用户手册的第一章",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 203.8125,
+    "height": 27
+   },
+   "html": {
+    "width": 203.8125,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "開始する データ",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 145.96875,
+    "height": 27
+   },
+   "html": {
+    "width": 145.96875,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "완료 상태",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 74.40625,
+    "height": 27
+   },
+   "html": {
+    "width": 74.40625,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Done ✅ 🚀",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 105.4296875,
+    "height": 27
+   },
+   "html": {
+    "width": 104.4375,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Build 🔧 and ship 📦 today",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 244.734375,
+    "height": 27
+   },
+   "html": {
+    "width": 244.734375,
+    "height": 30
+   }
+  },
+  {
+   "class": "fallback",
+   "text": "Mixed 中文 and Latin",
+   "family_id": "open_sans",
+   "family": "\"Open Sans\", sans-serif",
+   "size": 20,
+   "svg": {
+    "width": 194.9375,
+    "height": 27
+   },
+   "html": {
+    "width": 194.9375,
+    "height": 30
+   }
+  }
+ ]
+}

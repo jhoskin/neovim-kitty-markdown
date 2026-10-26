@@ -1,0 +1,27 @@
+classDiagram
+  direction LR
+  class Customer {
+    +String name
+    +String email
+    -List~Order~ orders
+    +placeOrder(cart: Cart) Order
+  }
+  class Order {
+    +UUID id
+    +Date createdAt
+    +OrderStatus status
+    +total() Money
+  }
+  class OrderStatus {
+    <<enumeration>>
+    PENDING
+    PAID
+    SHIPPED
+  }
+  class LineItem {
+    +int quantity
+    +Money unitPrice
+  }
+  Customer "1" --> "*" Order : places
+  Order "1" *-- "1..*" LineItem : contains
+  Order ..> OrderStatus

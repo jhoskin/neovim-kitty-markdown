@@ -1,0 +1,18 @@
+sequenceDiagram
+  autonumber
+  actor U as User
+  participant B as Browser
+  participant A as Auth server
+  participant DB as Database
+  U->>B: Enter e-mail & password
+  B->>+A: POST /login
+  A->>+DB: SELECT * FROM users WHERE email = ?
+  DB-->>-A: row (hash, salt)
+  alt password matches
+    A-->>B: 200 OK + session cookie
+  else wrong password
+    A-->>B: 401 Unauthorized
+    Note over B,A: The UI shows "try again" after 3 failures
+  end
+  deactivate A
+  B-)U: Show dashboard

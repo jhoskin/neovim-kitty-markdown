@@ -1,0 +1,23 @@
+classDiagram
+  namespace Geometry {
+    class Shape {
+      <<abstract>>
+      +area() double
+    }
+    class Circle {
+      +double radius
+    }
+    class Rectangle {
+      +double width
+      +double height
+    }
+  }
+  Shape <|-- Circle
+  Shape <|-- Rectangle
+  class Canvas {
+    +draw(s: Shape)
+  }
+  Canvas --> Shape : renders
+  style Circle fill:#ffe0b2,stroke:#e65100
+  classDef important stroke:#b71c1c,stroke-width:3px
+  class Canvas:::important

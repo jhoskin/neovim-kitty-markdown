@@ -1,0 +1,4 @@
+Parse error on line 5:
+...>>Ben: one  Ann->>: two
+---------------------^
+Expecting 'link', '+', '-', '()', 'ACTOR', got 'TXT'

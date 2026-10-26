@@ -1,0 +1,15 @@
+gantt
+  title Release 4.2 plan
+  dateFormat YYYY-MM-DD
+  axisFormat %d %b
+  excludes weekends
+  section Design
+    Requirements review      :done,    des1, 2026-03-02, 4d
+    UI mock-ups              :active,  des2, after des1, 5d
+  section Build
+    Backend API              :         dev1, after des1, 10d
+    Front end                :         dev2, after des2, 8d
+    Integration              :crit,    dev3, after dev1 dev2, 3d
+  section Release
+    Beta to 5 % of users     :milestone, m1, after dev3, 0d
+    General availability     :crit, ga, after m1, 2d

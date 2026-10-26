@@ -1,0 +1,11 @@
+stateDiagram-v2
+  [*] --> Closed
+  Closed --> Open : open()
+  Open --> Closed : close()
+  Closed --> Locked : lock(key)
+  Locked --> Closed : unlock(key)
+  Locked --> [*] : remove door
+  note right of Locked
+    Only the owner's key
+    unlocks this state.
+  end note

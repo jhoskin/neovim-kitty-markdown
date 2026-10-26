@@ -1,0 +1,18 @@
+flowchart LR
+  subgraph client [Client side]
+    direction TB
+    ui[Browser UI] --> sw[Service worker]
+  end
+  subgraph edge [Edge: CDN / WAF]
+    cache[(Cache)]
+    waf{Rule match?}
+  end
+  subgraph core [Core services]
+    api[API gateway] --> auth[Auth service]
+    api --> search[Search: Elasticsearch 8.x]
+    auth --> users[(Users)]
+  end
+  sw --> waf
+  waf -->|allow| cache
+  cache -->|miss| api
+  waf -->|block| deny[403 Forbidden]

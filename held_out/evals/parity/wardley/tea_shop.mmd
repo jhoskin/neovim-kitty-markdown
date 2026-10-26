@@ -1,0 +1,17 @@
+wardley-beta
+title Tea shop
+anchor Business [0.95, 0.63]
+anchor Public [0.95, 0.78]
+component Cup of tea [0.79, 0.61] label [19, -4]
+component Cup [0.73, 0.78]
+component Tea [0.63, 0.81]
+component Hot water [0.52, 0.80]
+component Kettle [0.43, 0.35]
+component Power [0.10, 0.70]
+Business -> Cup of tea
+Public -> Cup of tea
+Cup of tea -> Cup
+Cup of tea -> Tea
+Cup of tea -> Hot water
+Hot water -> Kettle
+Kettle -> Power

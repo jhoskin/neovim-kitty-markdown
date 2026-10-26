@@ -1,0 +1,18 @@
+classDiagram
+  class Repository~T~ {
+    <<interface>>
+    +find(id: ID) T
+    +save(entity: T) void
+    +delete(id: ID)$ bool
+  }
+  class Cache~K, V~ {
+    <<abstract>>
+    #int capacity
+    +get(key: K) V*
+  }
+  class UserRepository
+  class LruCache
+  Repository~T~ <|.. UserRepository
+  Cache~K, V~ <|-- LruCache
+  UserRepository o-- LruCache : uses
+  note for LruCache "Evicts the least recently used entry"

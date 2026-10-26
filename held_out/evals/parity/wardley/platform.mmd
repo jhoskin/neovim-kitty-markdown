@@ -1,0 +1,11 @@
+wardley-beta
+title Developer platform
+anchor Developer [0.96, 0.55]
+component Self-service portal [0.82, 0.40]
+component CI pipeline [0.68, 0.62] (inertia)
+component Kubernetes [0.45, 0.70]
+component Compute [0.20, 0.88]
+Developer -> Self-service portal
+Self-service portal -> CI pipeline
+CI pipeline -> Kubernetes
+Kubernetes -> Compute; rented

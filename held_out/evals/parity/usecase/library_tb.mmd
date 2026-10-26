@@ -1,0 +1,10 @@
+usecase-beta
+actor Member("Library member")
+actor Clerk("Clerk")@{ business: true } <<Staff>>
+Borrow("Borrow a book")
+Renew("Renew a loan")
+Fine[Pay a fine] <<Record>>
+Member --> Borrow
+Member --> Renew
+Clerk --> Fine
+Renew --> Fine

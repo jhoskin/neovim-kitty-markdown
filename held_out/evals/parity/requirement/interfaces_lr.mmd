@@ -1,0 +1,24 @@
+requirementDiagram
+direction LR
+
+interfaceRequirement api_req {
+id: 7
+text: "REST API returns JSON"
+risk: low
+verifymethod: inspection
+}
+
+designConstraint tls_req {
+id: 2.1
+text: "TLS 1.3 only"
+risk: medium
+verifymethod: demonstration
+}
+
+element gateway {
+type: service
+}
+
+gateway - satisfies -> api_req
+gateway - satisfies -> tls_req
+tls_req - refines -> api_req

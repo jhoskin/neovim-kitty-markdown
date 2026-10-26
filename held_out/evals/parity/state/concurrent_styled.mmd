@@ -1,0 +1,16 @@
+stateDiagram-v2
+  classDef alert fill:#f8d7da,color:#721c24,font-weight:bold
+  state "Media player" as Player {
+    [*] --> Stopped
+    Stopped --> Playing : ▶ play
+    Playing --> Paused : ⏸ pause
+    Paused --> Playing : ▶ resume
+    --
+    [*] --> Muted
+    Muted --> Audible : unmute
+    Audible --> Muted : mute
+  }
+  [*] --> Player
+  Player --> Error : decode failure
+  class Error alert
+  Error --> [*]

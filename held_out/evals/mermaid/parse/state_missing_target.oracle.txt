@@ -1,0 +1,4 @@
+Parse error on line 3:
+...--> Cold  Cold --> : heat
+----------------------^
+Expecting 'ID', 'EDGE_STATE', got 'DESCR'

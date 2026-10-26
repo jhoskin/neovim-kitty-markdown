@@ -1,0 +1,28 @@
+requirementDiagram
+
+requirement brake_req {
+id: 1
+text: "The vehicle shall stop within 40 m at 100 km/h."
+risk: high
+verifymethod: test
+}
+
+performanceRequirement response_req {
+id: 1.2
+text: "Brake response < 150 ms"
+risk: medium
+verifymethod: analysis
+}
+
+element brake_ecu {
+type: "ECU firmware"
+docref: fw/brake/v3
+}
+
+element test_rig {
+type: "HIL rig"
+}
+
+brake_ecu - satisfies -> brake_req
+response_req - derives -> brake_req
+test_rig - verifies -> response_req

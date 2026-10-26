@@ -1,0 +1,5 @@
+architecture-beta
+  group home(cloud)[Home]
+  service web(server)[Web] in home
+  service store(disk)[Store] in home
+  web:R --> L:store

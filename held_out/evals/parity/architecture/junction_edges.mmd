@@ -1,0 +1,11 @@
+architecture-beta
+  service users(internet)[Users]
+  service web(server)[Web front end]
+  junction hub
+  service logs(disk)[Log archive]
+  service metrics(database)[Metrics store]
+
+  users:R --> L:web
+  web:R -- L:hub
+  hub:T --> B:logs
+  hub:B --> T:metrics

@@ -1,0 +1,11 @@
+requirementDiagram
+  requirement quiet {
+    id: 1
+    text: the fan is quiet
+    risk: low
+    verifymethod: test
+  }
+  element fan {
+    type: hardware
+  }
+  fan - satisfies -> quiet

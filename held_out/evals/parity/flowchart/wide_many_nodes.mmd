@@ -1,0 +1,10 @@
+flowchart LR
+  n1[Collect raw sensor readings] --> n2[Remove outliers beyond three sigma]
+  n2 --> n3[Resample to one minute buckets]
+  n3 --> n4[Join with the weather station table]
+  n4 --> n5[Compute rolling averages]
+  n5 --> n6[Write parquet partitions]
+  n6 --> n7[Publish the daily report]
+  n3 --> n8[Flag gaps longer than ten minutes]
+  n8 --> n7
+  n4 --> n9[Alert on-call if the join drops rows]

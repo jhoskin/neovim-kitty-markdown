@@ -1,0 +1,13 @@
+---
+config:
+  treeView:
+    showIcons: true
+---
+treeView-beta
+    infra/
+        terraform/ :::highlight
+            main.tf ## root module
+            variables.tf
+        ansible/
+            site.yml ## entry playbook
+        .gitignore icon(none)

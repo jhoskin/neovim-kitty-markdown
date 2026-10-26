@@ -1,0 +1,14 @@
+gitGraph TB:
+  commit id: "A"
+  branch develop
+  checkout develop
+  commit id: "B"
+  commit id: "C" type: REVERSE
+  checkout main
+  commit id: "D"
+  cherry-pick id: "B"
+  branch release
+  checkout release
+  commit id: "E" type: HIGHLIGHT
+  checkout main
+  merge release

@@ -1,0 +1,13 @@
+gantt
+  title Incident timeline (UTC)
+  dateFormat HH:mm
+  axisFormat %H:%M
+  todayMarker off
+  section Detection
+    Alert fires           :a1, 02:10, 5m
+    On-call acknowledges  :a2, after a1, 10m
+  section Mitigation
+    Roll back deploy      :crit, b1, after a2, 25m
+    Verify error rate < 1 % :b2, after b1, 15m
+  section Follow-up
+    Write post-mortem     :c1, 03:30, 45m

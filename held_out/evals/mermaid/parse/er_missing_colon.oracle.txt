@@ -1,0 +1,4 @@
+Parse error on line 2:
+... AUTHOR ||--o{ BOOK writes
+-----------------------^
+Expecting 'COLON', 'STYLE_SEPARATOR', got 'UNICODE_TEXT'

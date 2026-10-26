@@ -1,0 +1,17 @@
+swimlane-beta LR
+  subgraph Employee
+    submit([Submit claim])
+    fix[Correct receipt]
+  end
+  subgraph Manager
+    approve{Approve?}
+  end
+  subgraph Finance
+    pay[[Pay out]]
+    done((Closed))
+  end
+  submit --> approve
+  approve -->|no| fix
+  fix -.-> submit
+  approve ==>|yes| pay
+  pay --> done

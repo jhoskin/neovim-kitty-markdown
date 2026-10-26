@@ -1,0 +1,14 @@
+---
+config:
+  radar:
+    axisScaleFactor: 1
+---
+radar-beta
+  axis q1["Speed"], q2["Price"], q3["Comfort"], q4["Range"], q5["Safety"]
+  curve car_a["Car A"]{80, 60, 70, 50, 90}
+  curve car_b["Car B"]{60, 85, 55, 75, 70}
+  curve car_c["Car C"]{70, 40, 90, 65, 80}
+  graticule polygon
+  ticks 4
+  max 100
+  showLegend true

@@ -1,0 +1,14 @@
+swimlane-beta TB
+  subgraph Customer
+    order[Place order]
+    receive((Receive goods))
+  end
+  subgraph Warehouse
+    pick[Pick items]
+    pack[Pack & label]
+    ship>Ship]
+  end
+  order --> pick
+  pick --> pack
+  pack --> ship
+  ship --> receive

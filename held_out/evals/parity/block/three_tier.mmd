@@ -1,0 +1,10 @@
+block-beta
+  columns 3
+  web["Web tier (nginx)"]:3
+  space
+  app1("App server 1") app2("App server 2")
+  db[("PostgreSQL 16")]:2 cache[("Redis")]
+  web --> app1
+  web --> app2
+  app1 --> db
+  app2 --> cache

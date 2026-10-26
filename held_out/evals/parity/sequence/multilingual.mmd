@@ -1,0 +1,16 @@
+sequenceDiagram
+  participant 客户 as 客户端
+  participant Сервер
+  participant Ölçüm as Ölçüm servisi
+  客户->>Сервер: 请求数据
+  Сервер->>Ölçüm: запрос метрик
+  Ölçüm-->>Сервер: 42 ms, 99.9 %
+  Сервер-->>客户: 返回结果 (JSON)
+  rect rgb(230, 240, 255)
+    客户->>客户: 渲染图表
+  end
+  critical 支付
+    客户->>Сервер: оплата
+  option timeout
+    Сервер-->>客户: エラー
+  end

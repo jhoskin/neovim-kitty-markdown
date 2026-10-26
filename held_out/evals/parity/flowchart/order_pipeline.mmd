@@ -1,0 +1,9 @@
+flowchart TD
+  start([Order received]) --> validate{Is the cart valid?}
+  validate -- "no: missing address" --> reject["Send #quot;please fix#quot; e-mail"]
+  validate -- yes --> pay[(Payment DB)]
+  pay --> charge[/Charge card & reserve stock/]
+  charge --> ship[[Ship parcel]]
+  ship --> done((Done))
+  reject -.-> start
+  charge ==> audit>Audit log entry]
