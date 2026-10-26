@@ -1,0 +1,7 @@
+stateDiagram-v2
+    Idle : Waiting for input
+    Idle : No job running
+    Busy : Working
+    [*] --> Idle
+    Idle --> Busy : job
+    Busy --> Idle : done

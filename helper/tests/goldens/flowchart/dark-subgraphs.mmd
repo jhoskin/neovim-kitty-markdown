@@ -1,0 +1,10 @@
+%%{init: {"theme": "dark"}}%%
+flowchart LR
+    subgraph A [Alpha]
+      a1[Start] --> a2{Check}
+    end
+    subgraph B [Beta]
+      b1([Stadium]) --> b2[(Store)]
+    end
+    a2 -->|yes| b1
+    a2 -.->|no| a1

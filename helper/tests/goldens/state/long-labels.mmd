@@ -1,0 +1,6 @@
+stateDiagram-v2
+    [*] --> Waiting
+    Waiting --> Processing : a request arrives from the client side of the system
+    Processing --> Waiting : the response has been sent back to the client
+    state "A state with a rather long description text" as Processing
+    Processing --> [*]

@@ -1,0 +1,8 @@
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#ffcccc", "primaryBorderColor": "#cc0000", "lineColor": "#0000cc"}}}%%
+stateDiagram-v2
+    [*] --> A
+    A --> B : step
+    state B {
+        [*] --> b1
+    }
+    B --> [*]

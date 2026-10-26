@@ -1,0 +1,55 @@
+---
+source: tests/parity_state.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="239.906" height="370" viewBox="0 0 239.906 370" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_stateDiagram-barbEnd" refX="19" refY="7" markerWidth="20" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path d="M19,7L9,13L14,7L9,1Z" fill="#333333" stroke="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="my-svg-edge0" class=" edge-thickness-normal edge-pattern-solid transition" d="M119.953,22L119.953,26.167C119.953,30.333,119.953,38.667,119.953,47C119.953,55.333,119.953,63.667,119.953,67.833L119.953,72" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+        <path id="my-svg-edge1" class=" edge-thickness-normal edge-pattern-solid transition" d="M119.953,112L119.953,116.167C119.953,120.333,119.953,128.667,119.953,137C119.953,145.333,119.953,153.667,119.953,157.833L119.953,162" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+        <path id="my-svg-edge2" class=" edge-thickness-normal edge-pattern-solid transition" d="M119.953,298L119.953,302.167C119.953,306.333,119.953,314.667,119.953,323C119.953,331.333,119.953,339.667,119.953,343.833L119.953,348" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="my-svg-state-root_start-0" class="node default" transform="translate(119.953, 15)">
+          <circle class="state-start" cx="0" cy="0" r="7" fill="#333333" stroke="#333333" stroke-width="1"/>
+        </g>
+        <g id="my-svg-state-WaitingForTheUserToConfirm-1" class="node  statediagram-state " transform="translate(119.953, 92)">
+          <rect class="basic label-container" x="-111.953" y="-20" width="223.906" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-103.953, -12)">
+            <text class="nodeLabel" x="103.953" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="103.953" dy="17">WaitingForTheUserToConfirm</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-state-ProcessingTheConfirmedRequest-3" class="node  statediagram-state " transform="translate(119.953, 230)">
+          <rect class="basic label-container" x="-68" y="-68" width="136" height="136" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -60)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">A</tspan><tspan> </tspan><tspan>description</tspan><tspan> </tspan><tspan x="60" dy="24">that</tspan><tspan> </tspan><tspan>is</tspan><tspan> </tspan><tspan>long</tspan><tspan> </tspan><tspan x="60" dy="24">enough</tspan><tspan> </tspan><tspan>to</tspan><tspan> </tspan><tspan>wrap</tspan><tspan> </tspan><tspan x="60" dy="24">maybe</tspan><tspan> </tspan><tspan>in</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan x="60" dy="24">box</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-state-root_end-2" class="node default" transform="translate(119.953, 355)">
+          <g class="outer-path">
+            <circle cx="0" cy="0" r="7" fill="#ececff" stroke="#333333" stroke-width="2"/>
+            <circle cx="0" cy="0" r="2.5" fill="#9370db" stroke="#9370db" stroke-width="2"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

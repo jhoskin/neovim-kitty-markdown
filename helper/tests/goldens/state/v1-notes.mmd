@@ -1,0 +1,9 @@
+stateDiagram
+    [*] --> Still
+    Still --> Moving
+    note right of Moving : moving now
+    Moving --> Still
+    note left of Still
+      still note
+    end note
+    Moving --> [*]

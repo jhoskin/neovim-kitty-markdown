@@ -1,0 +1,10 @@
+%%{init: {"theme": "neutral"}}%%
+stateDiagram-v2
+    [*] --> Off
+    Off --> On : power
+    state On {
+        [*] --> Low
+        Low --> High : up
+        High --> Low : down
+    }
+    On --> Off : power

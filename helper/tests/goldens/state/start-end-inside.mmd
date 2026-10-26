@@ -1,0 +1,13 @@
+stateDiagram-v2
+    state Working {
+        [*] --> Load
+        Load --> Run
+        Run --> [*]
+    }
+    state Other {
+        [*] --> Wait
+        Wait --> [*]
+    }
+    [*] --> Working
+    Working --> Other
+    Other --> [*]

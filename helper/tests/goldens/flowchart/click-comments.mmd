@@ -1,0 +1,8 @@
+flowchart LR
+    %% this is a comment A -- text --> B{node}
+    A[Link] --> B[Callback]
+    B --> C[Plain]
+    click A "https://www.github.com" "Open this in a new tab" _blank
+    click B callback "Tooltip for a callback"
+    %% another comment
+    C --> D[End]

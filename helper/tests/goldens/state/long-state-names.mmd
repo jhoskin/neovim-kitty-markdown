@@ -1,0 +1,5 @@
+stateDiagram-v2
+    [*] --> WaitingForTheUserToConfirm
+    WaitingForTheUserToConfirm --> ProcessingTheConfirmedRequest
+    ProcessingTheConfirmedRequest --> [*]
+    state "A description that is long enough to wrap maybe in the box" as ProcessingTheConfirmedRequest

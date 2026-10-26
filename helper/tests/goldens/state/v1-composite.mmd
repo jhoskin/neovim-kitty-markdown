@@ -1,0 +1,7 @@
+stateDiagram
+    [*] --> First
+    state First {
+        [*] --> second
+        second --> [*]
+    }
+    First --> Last

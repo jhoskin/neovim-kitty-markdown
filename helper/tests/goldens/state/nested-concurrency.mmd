@@ -1,0 +1,13 @@
+stateDiagram-v2
+    [*] --> Outer
+    state Outer {
+        [*] --> Mid
+        state Mid {
+            [*] --> a
+            a --> b
+            --
+            [*] --> c
+        }
+        Mid --> Last
+    }
+    Outer --> [*]

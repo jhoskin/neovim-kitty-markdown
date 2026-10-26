@@ -1,0 +1,13 @@
+%%{init: {"theme": "dark"}}%%
+stateDiagram-v2
+    [*] --> Off
+    state On {
+        [*] --> Low
+        Low --> High
+        High --> Low
+        --
+        [*] --> Quiet
+        Quiet --> Loud
+    }
+    Off --> On
+    On --> Off

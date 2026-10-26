@@ -1,0 +1,11 @@
+stateDiagram-v2
+    direction LR
+    [*] --> Active
+    state Active {
+        [*] --> A1
+        A1 --> A2
+        --
+        [*] --> B1
+        B1 --> B2
+    }
+    Active --> [*]

@@ -1,0 +1,16 @@
+%%{init: {"theme": "forest"}}%%
+stateDiagram-v2
+    state check <<choice>>
+    [*] --> Input
+    Input --> check
+    check --> Valid : ok
+    check --> Invalid : bad
+    state fork1 <<fork>>
+    Valid --> fork1
+    fork1 --> Save
+    fork1 --> Log
+    state join1 <<join>>
+    Save --> join1
+    Log --> join1
+    join1 --> [*]
+    Invalid --> [*]

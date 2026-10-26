@@ -1,0 +1,6 @@
+stateDiagram-v2
+    [*] --> Bereit
+    state "Café geöffnet" as Bereit
+    Bereit --> Geschlossen : Schließung
+    state "Ελληνικά" as Geschlossen
+    Geschlossen --> [*]

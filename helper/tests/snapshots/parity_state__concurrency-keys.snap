@@ -1,0 +1,190 @@
+---
+source: tests/parity_state.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1235.789" height="573" viewBox="0 0 1235.789 573" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_stateDiagram-barbEnd" refX="19" refY="7" markerWidth="20" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path d="M19,7L9,13L14,7L9,1Z" fill="#333333" stroke="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="my-svg-edge0" class=" edge-thickness-normal edge-pattern-solid transition" d="M617.895,22L617.895,26.167C617.895,30.333,617.895,38.667,617.895,47C617.895,55.333,617.895,63.667,617.895,67.833L617.895,72" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="my-svg-state-root_start-0" class="node default" transform="translate(617.895, 15)">
+          <circle class="state-start" cx="0" cy="0" r="7" fill="#333333" stroke="#333333" stroke-width="1"/>
+        </g>
+        <g class="root" transform="translate(0, 64)">
+          <g class="clusters">
+            <g id="my-svg-state-Active-1" class=" statediagram-state statediagram-cluster ">
+              <g>
+                <rect class="outer" x="8" y="8" width="1219.789" height="493" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+              </g>
+              <g class="cluster-label" transform="translate(595.48, 9)">
+                <text class="nodeLabel" x="22.414" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="22.414" dy="17">Active</tspan></text>
+              </g>
+              <rect class="inner" x="8" y="34" width="1219.789" height="463" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+            </g>
+          </g>
+          <g class="edgePaths"/>
+          <g class="edgeLabels"/>
+          <g class="nodes">
+            <g class="root" transform="translate(35, 37.5)">
+              <g class="clusters">
+                <g id="my-svg-state-divider-id-1-1" class=" statediagram-state statediagram-cluster statediagram-cluster-alt">
+                  <g>
+                    <rect class="divider" x="8" y="8" width="345.547" height="418" fill="#f0f0f0" stroke="#9370db" stroke-width="1" stroke-dasharray="10,10"/>
+                  </g>
+                </g>
+              </g>
+              <g class="edgePaths">
+                <path id="my-svg-edge1" class=" edge-thickness-normal edge-pattern-solid transition" d="M180.773,72L180.773,80.333C180.773,88.667,180.773,105.333,180.773,122C180.773,138.667,180.773,155.333,180.773,163.667L180.773,172" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+                <path id="my-svg-edge2" class=" edge-thickness-normal edge-pattern-solid transition" d="M161.867,212L152.099,222.333C142.331,232.667,122.794,253.333,122.794,274C122.794,294.667,142.331,315.333,152.099,325.667L161.867,336" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+                <path id="my-svg-edge3" class=" edge-thickness-normal edge-pattern-solid transition" d="M199.68,336L209.448,325.667C219.216,315.333,238.753,294.667,238.753,274C238.753,253.333,219.216,232.667,209.448,222.333L199.68,212" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+              </g>
+              <g class="edgeLabels">
+                <g class="edgeLabel">
+                  <g class="label" transform="translate(0, 0)"/>
+                </g>
+                <g class="edgeLabel" transform="translate(103.258, 274)">
+                  <g class="label" transform="translate(-67.516, -12)">
+                    <rect class="background" x="0" y="0" width="135.031" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+                    <text class="edgeLabel" x="67.516" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="67.516" dy="17">EvNumLockPressed</tspan></text>
+                  </g>
+                </g>
+                <g class="edgeLabel" transform="translate(258.289, 274)">
+                  <g class="label" transform="translate(-67.516, -12)">
+                    <rect class="background" x="0" y="0" width="135.031" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+                    <text class="edgeLabel" x="67.516" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="67.516" dy="17">EvNumLockPressed</tspan></text>
+                  </g>
+                </g>
+              </g>
+              <g class="nodes">
+                <g id="my-svg-state-divider-id-1_start-1" class="node default" transform="translate(180.773, 65)">
+                  <circle class="state-start" cx="0" cy="0" r="7" fill="#333333" stroke="#333333" stroke-width="1"/>
+                </g>
+                <g id="my-svg-state-NumLockOff-3" class="node  statediagram-state " transform="translate(180.773, 192)">
+                  <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+                  <g class="label" transform="translate(-60, -12)">
+                    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">NumLockOff</tspan></text>
+                  </g>
+                </g>
+                <g id="my-svg-state-NumLockOn-3" class="node  statediagram-state " transform="translate(180.773, 356)">
+                  <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+                  <g class="label" transform="translate(-60, -12)">
+                    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">NumLockOn</tspan></text>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g class="root" transform="translate(430.547, 37.5)">
+              <g class="clusters">
+                <g id="my-svg-state-divider-id-2-4" class=" statediagram-state statediagram-cluster statediagram-cluster-alt">
+                  <g>
+                    <rect class="divider" x="8" y="8" width="347.258" height="418" fill="#f0f0f0" stroke="#9370db" stroke-width="1" stroke-dasharray="10,10"/>
+                  </g>
+                </g>
+              </g>
+              <g class="edgePaths">
+                <path id="my-svg-edge4" class=" edge-thickness-normal edge-pattern-solid transition" d="M181.629,72L181.629,80.333C181.629,88.667,181.629,105.333,181.629,122C181.629,138.667,181.629,155.333,181.629,163.667L181.629,172" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+                <path id="my-svg-edge5" class=" edge-thickness-normal edge-pattern-solid transition" d="M162.584,212L152.743,222.333C142.903,232.667,123.223,253.333,123.223,274C123.223,294.667,142.903,315.333,152.743,325.667L162.584,336" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+                <path id="my-svg-edge6" class=" edge-thickness-normal edge-pattern-solid transition" d="M200.674,336L210.514,325.667C220.354,315.333,240.035,294.667,240.035,274C240.035,253.333,220.354,232.667,210.514,222.333L200.674,212" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+              </g>
+              <g class="edgeLabels">
+                <g class="edgeLabel">
+                  <g class="label" transform="translate(0, 0)"/>
+                </g>
+                <g class="edgeLabel" transform="translate(103.543, 274)">
+                  <g class="label" transform="translate(-68.086, -12)">
+                    <rect class="background" x="0" y="0" width="136.172" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+                    <text class="edgeLabel" x="68.086" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="68.086" dy="17">EvCapsLockPressed</tspan></text>
+                  </g>
+                </g>
+                <g class="edgeLabel" transform="translate(259.715, 274)">
+                  <g class="label" transform="translate(-68.086, -12)">
+                    <rect class="background" x="0" y="0" width="136.172" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+                    <text class="edgeLabel" x="68.086" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="68.086" dy="17">EvCapsLockPressed</tspan></text>
+                  </g>
+                </g>
+              </g>
+              <g class="nodes">
+                <g id="my-svg-state-divider-id-2_start-4" class="node default" transform="translate(181.629, 65)">
+                  <circle class="state-start" cx="0" cy="0" r="7" fill="#333333" stroke="#333333" stroke-width="1"/>
+                </g>
+                <g id="my-svg-state-CapsLockOff-6" class="node  statediagram-state " transform="translate(181.629, 192)">
+                  <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+                  <g class="label" transform="translate(-60, -12)">
+                    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">CapsLockOff</tspan></text>
+                  </g>
+                </g>
+                <g id="my-svg-state-CapsLockOn-6" class="node  statediagram-state " transform="translate(181.629, 356)">
+                  <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+                  <g class="label" transform="translate(-60, -12)">
+                    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">CapsLockOn</tspan></text>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <g class="root" transform="translate(827.805, 37.5)">
+              <g class="clusters">
+                <g id="my-svg-state-id-1-7" class=" statediagram-state statediagram-cluster statediagram-cluster-alt">
+                  <g>
+                    <rect class="divider" x="8" y="8" width="356.984" height="418" fill="#f0f0f0" stroke="#9370db" stroke-width="1" stroke-dasharray="10,10"/>
+                  </g>
+                </g>
+              </g>
+              <g class="edgePaths">
+                <path id="my-svg-edge7" class=" edge-thickness-normal edge-pattern-solid transition" d="M186.492,72L186.492,80.333C186.492,88.667,186.492,105.333,186.492,122C186.492,138.667,186.492,155.333,186.492,163.667L186.492,172" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+                <path id="my-svg-edge8" class=" edge-thickness-normal edge-pattern-solid transition" d="M166.656,212L156.407,222.333C146.159,232.667,125.661,253.333,125.661,274C125.661,294.667,146.159,315.333,156.407,325.667L166.656,336" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+                <path id="my-svg-edge9" class=" edge-thickness-normal edge-pattern-solid transition" d="M206.328,336L216.577,325.667C226.826,315.333,247.323,294.667,247.323,274C247.323,253.333,226.826,232.667,216.577,222.333L206.328,212" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+              </g>
+              <g class="edgeLabels">
+                <g class="edgeLabel">
+                  <g class="label" transform="translate(0, 0)"/>
+                </g>
+                <g class="edgeLabel" transform="translate(105.164, 274)">
+                  <g class="label" transform="translate(-71.328, -12)">
+                    <rect class="background" x="0" y="0" width="142.656" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+                    <text class="edgeLabel" x="71.328" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="71.328" dy="17">EvScrollLockPressed</tspan></text>
+                  </g>
+                </g>
+                <g class="edgeLabel" transform="translate(267.82, 274)">
+                  <g class="label" transform="translate(-71.328, -12)">
+                    <rect class="background" x="0" y="0" width="142.656" height="24" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+                    <text class="edgeLabel" x="71.328" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="71.328" dy="17">EvScrollLockPressed</tspan></text>
+                  </g>
+                </g>
+              </g>
+              <g class="nodes">
+                <g id="my-svg-state-id-1_start-7" class="node default" transform="translate(186.492, 65)">
+                  <circle class="state-start" cx="0" cy="0" r="7" fill="#333333" stroke="#333333" stroke-width="1"/>
+                </g>
+                <g id="my-svg-state-ScrollLockOff-9" class="node  statediagram-state " transform="translate(186.492, 192)">
+                  <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+                  <g class="label" transform="translate(-60, -12)">
+                    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">ScrollLockOff</tspan></text>
+                  </g>
+                </g>
+                <g id="my-svg-state-ScrollLockOn-9" class="node  statediagram-state " transform="translate(186.492, 356)">
+                  <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+                  <g class="label" transform="translate(-60, -12)">
+                    <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">ScrollLockOn</tspan></text>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

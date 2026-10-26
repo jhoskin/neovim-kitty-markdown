@@ -1,0 +1,10 @@
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#BB2528", "primaryTextColor": "#fff", "primaryBorderColor": "#7C0000", "lineColor": "#F8B229", "secondaryColor": "#006100", "tertiaryColor": "#fff"}}}%%
+flowchart TD
+    A[Christmas] -->|Get money| B(Go shopping)
+    B --> C{Let me think}
+    subgraph S [Choices]
+    D[Laptop]
+    E[iPhone]
+    end
+    C -->|One| D
+    C -->|Two| E

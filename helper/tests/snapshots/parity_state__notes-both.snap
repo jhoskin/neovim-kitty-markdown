@@ -1,0 +1,65 @@
+---
+source: tests/parity_state.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="579" height="370" viewBox="0 0 579 370" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_stateDiagram-barbEnd" refX="19" refY="7" markerWidth="20" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path d="M19,7L9,13L14,7L9,1Z" fill="#333333" stroke="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters">
+        <g id="my-svg-state-State1----parent-0" class="note-cluster">
+          <rect x="8" y="186" width="220" height="176" fill="none"/>
+        </g>
+        <g id="my-svg-state-State2----parent-2" class="note-cluster">
+          <rect x="351" y="8" width="220" height="128" fill="none"/>
+        </g>
+      </g>
+      <g class="edgePaths">
+        <path id="my-svg-State1-State1----note-0" class=" edge-thickness-normal edge-pattern-dashed transition note-edge" d="M150.5,104L145.083,109.333C139.667,114.667,128.833,125.333,123.417,134.833C118,144.333,118,152.667,118,161C118,169.333,118,177.667,118,186C118,194.333,118,202.667,118,206.833L118,211" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="5"/>
+        <path id="my-svg-edge1" class=" edge-thickness-normal edge-pattern-solid transition" d="M236.25,104L245.125,109.333C254,114.667,271.75,125.333,280.625,134.833C289.5,144.333,289.5,152.667,289.5,161C289.5,169.333,289.5,177.667,303.216,193.167C316.932,208.667,344.364,231.333,358.08,242.667L371.795,254" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+        <path id="my-svg-State2----note-2-State2" class=" edge-thickness-normal edge-pattern-dashed transition note-edge" d="M461,111L461,115.167C461,119.333,461,127.667,461,136C461,144.333,461,152.667,461,161C461,169.333,461,177.667,452.629,193.167C444.258,208.667,427.515,231.333,419.144,242.667L410.773,254" fill="none" stroke="#333333" stroke-width="1" stroke-dasharray="5"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="my-svg-state-State1-1" class="node  statediagram-state " transform="translate(183, 72)">
+          <rect class="basic label-container" x="-68" y="-32" width="136" height="64" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -24)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">The</tspan><tspan> </tspan><tspan>state</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan x="60" dy="24">a</tspan><tspan> </tspan><tspan>note</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-state-State1----note-0" class="node statediagram-note " transform="translate(118, 274)">
+          <rect class="basic label-container outer-path" x="-75" y="-63" width="150" height="126" fill="#fff5ad" stroke="#aaaa33" stroke-width="1.3"/>
+          <g class="label noteLabel" transform="translate(-60, -48)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Important</tspan><tspan> </tspan><tspan x="60" dy="24">information!</tspan><tspan> </tspan><tspan x="60" dy="24">You</tspan><tspan> </tspan><tspan>can</tspan><tspan> </tspan><tspan>write</tspan><tspan x="60" dy="24">notes.</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-state-State2-2" class="node  statediagram-state " transform="translate(396, 274)">
+          <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">State2</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-state-State2----note-2" class="node statediagram-note " transform="translate(461, 72)">
+          <rect class="basic label-container outer-path" x="-75" y="-39" width="150" height="78" fill="#fff5ad" stroke="#aaaa33" stroke-width="1.3"/>
+          <g class="label noteLabel" transform="translate(-60, -24)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#000000" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">This</tspan><tspan> </tspan><tspan>is</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan>note</tspan><tspan> </tspan><tspan x="60" dy="24">to</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan>left.</tspan></text>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

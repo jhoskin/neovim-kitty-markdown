@@ -1,0 +1,9 @@
+---
+title: Door states
+---
+stateDiagram-v2
+    [*] --> Closed
+    Closed --> Open : open
+    Open --> Closed : close
+    Closed --> Locked : lock
+    Locked --> Closed : unlock

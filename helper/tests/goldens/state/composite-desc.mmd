@@ -1,0 +1,7 @@
+stateDiagram-v2
+    state "Big composite state" as Big {
+        [*] --> inner
+        inner --> other : go
+    }
+    [*] --> Big
+    Big --> [*]

@@ -1,0 +1,12 @@
+stateDiagram-v2
+    [*] --> Check
+    state Check {
+        [*] --> Eval
+        state decide <<choice>>
+        Eval --> decide
+        decide --> Good : ok
+        decide --> Bad : fail
+        Good --> [*]
+        Bad --> [*]
+    }
+    Check --> [*]

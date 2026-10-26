@@ -1,0 +1,65 @@
+---
+source: tests/parity_state.rs
+expression: scene_svg(&mmd)
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="436" height="370" viewBox="0 0 436 370" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <defs>
+    <marker id="my-svg_stateDiagram-barbEnd" refX="19" refY="7" markerWidth="20" markerHeight="14" orient="auto" markerUnits="userSpaceOnUse" fill="#333333" stroke="#333333">
+      <path d="M19,7L9,13L14,7L9,1Z" fill="#333333" stroke="#333333"/>
+    </marker>
+  </defs>
+  <g fill="#333333" font-size="16">
+    <g class="root">
+      <g class="clusters"/>
+      <g class="edgePaths">
+        <path id="my-svg-edge0" class=" edge-thickness-normal edge-pattern-solid transition" d="M218,22L218,26.167C218,30.333,218,38.667,218,47C218,55.333,218,63.667,218,67.833L218,72" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+        <path id="my-svg-edge1" class=" edge-thickness-normal edge-pattern-solid transition" d="M186.116,112L173.097,120.167C160.077,128.333,134.039,144.667,130.679,161C127.319,177.333,146.638,193.667,156.297,201.833L165.957,210" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+        <path id="my-svg-edge2" class=" edge-thickness-normal edge-pattern-solid transition" d="M270.043,210L279.703,201.833C289.362,193.667,308.681,177.333,305.321,161C301.961,144.667,275.923,128.333,262.903,120.167L249.884,112" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+        <path id="my-svg-edge3" class=" edge-thickness-normal edge-pattern-solid transition" d="M218,298L218,302.167C218,306.333,218,314.667,218,323C218,331.333,218,339.667,218,343.833L218,348" fill="none" stroke="#333333" stroke-width="1" marker-end="url(#my-svg_stateDiagram-barbEnd)"/>
+      </g>
+      <g class="edgeLabels">
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+        <g class="edgeLabel" transform="translate(108, 161)">
+          <g class="label" transform="translate(-100, -24)">
+            <rect class="background" x="0" y="0" width="200" height="48" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="100" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="100" dy="17">a</tspan><tspan> </tspan><tspan>request</tspan><tspan> </tspan><tspan>arrives</tspan><tspan> </tspan><tspan>from</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan x="100" dy="24">client</tspan><tspan> </tspan><tspan>side</tspan><tspan> </tspan><tspan>of</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan>system</tspan></text>
+          </g>
+        </g>
+        <g class="edgeLabel" transform="translate(328, 161)">
+          <g class="label" transform="translate(-100, -24)">
+            <rect class="background" x="0" y="0" width="200" height="48" fill="#e8e8e8" fill-opacity="0.8" stroke="none"/>
+            <text class="edgeLabel" x="100" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="100" dy="17">the</tspan><tspan> </tspan><tspan>response</tspan><tspan> </tspan><tspan>has</tspan><tspan> </tspan><tspan>been</tspan><tspan> </tspan><tspan>sent</tspan><tspan> </tspan><tspan x="100" dy="24">back</tspan><tspan> </tspan><tspan>to</tspan><tspan> </tspan><tspan>the</tspan><tspan> </tspan><tspan>client</tspan></text>
+          </g>
+        </g>
+        <g class="edgeLabel">
+          <g class="label" transform="translate(0, 0)"/>
+        </g>
+      </g>
+      <g class="nodes">
+        <g id="my-svg-state-root_start-0" class="node default" transform="translate(218, 15)">
+          <circle class="state-start" cx="0" cy="0" r="7" fill="#333333" stroke="#333333" stroke-width="1"/>
+        </g>
+        <g id="my-svg-state-Waiting-2" class="node  statediagram-state " transform="translate(218, 92)">
+          <rect class="basic label-container" x="-68" y="-20" width="136" height="40" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -12)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">Waiting</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-state-Processing-3" class="node  statediagram-state " transform="translate(218, 254)">
+          <rect class="basic label-container" x="-68" y="-44" width="136" height="88" rx="5" ry="5" fill="#ececff" stroke="#9370db" stroke-width="1"/>
+          <g class="label" transform="translate(-60, -36)">
+            <text class="nodeLabel" x="60" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#131300" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="60" dy="17">A</tspan><tspan> </tspan><tspan>state</tspan><tspan> </tspan><tspan>with</tspan><tspan> </tspan><tspan>a</tspan><tspan> </tspan><tspan x="60" dy="24">rather</tspan><tspan> </tspan><tspan>long</tspan><tspan> </tspan><tspan x="60" dy="24">description</tspan><tspan> </tspan><tspan>text</tspan></text>
+          </g>
+        </g>
+        <g id="my-svg-state-root_end-3" class="node default" transform="translate(218, 355)">
+          <g class="outer-path">
+            <circle cx="0" cy="0" r="7" fill="#ececff" stroke="#333333" stroke-width="2"/>
+            <circle cx="0" cy="0" r="2.5" fill="#9370db" stroke="#9370db" stroke-width="2"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

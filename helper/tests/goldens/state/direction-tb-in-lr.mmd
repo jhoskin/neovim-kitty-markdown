@@ -1,0 +1,10 @@
+stateDiagram-v2
+    direction LR
+    [*] --> Outer
+    state Outer {
+        direction TB
+        x --> y
+        y --> z
+    }
+    Outer --> Done
+    Done --> [*]

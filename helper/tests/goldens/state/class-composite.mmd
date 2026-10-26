@@ -1,0 +1,9 @@
+stateDiagram-v2
+    classDef box fill:#ffc,stroke:#c90
+    [*] --> Outer
+    state Outer {
+        [*] --> inner
+        inner --> [*]
+    }
+    class Outer box
+    Outer --> [*]

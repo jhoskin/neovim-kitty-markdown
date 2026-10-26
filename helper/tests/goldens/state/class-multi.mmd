@@ -1,0 +1,9 @@
+stateDiagram-v2
+    classDef hot fill:#f66,color:white
+    classDef cold fill:#66f,color:white,stroke:#003,stroke-width:3px
+    [*] --> A
+    A --> B
+    B --> C
+    C --> [*]
+    class A,C hot
+    class B cold
