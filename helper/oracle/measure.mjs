@@ -31,6 +31,41 @@ const STRINGS = {
   cjk: '中文中 日本語',
   emoji: '🏳️‍⚧️ 🏳️‍🌈',
   empty: '',
+  // Fallback text (R-214, R-302): one string per script or symbol class
+  // that sends Chrome to another face, or keeps it in the primary face
+  // with glyphs outside ASCII.
+  latin1: 'Café naïve résumé',
+  latin_ext: 'Łódź straße Øresund Ñandú',
+  precomposed: 'Café ñ ü',
+  combining: 'Café ñ ü',
+  quotes: '“quoted” ‘single’ – — …',
+  currency: '€ £ ¥ ₹ ₩',
+  greek: 'Αλφα βήτα γάμμα Ω',
+  cyrillic: 'Привет мир Ёж',
+  han: '中文標籤測試',
+  kana: 'ひらがな カタカナ',
+  hangul: '한국어 라벨',
+  arabic: 'مرحبا بالعالم',
+  hebrew: 'שלום עולם',
+  devanagari: 'नमस्ते दुनिया',
+  thai: 'สวัสดีชาวโลก',
+  emoji_single: '😀',
+  emoji_in_text: 'Done 🎉 now',
+  emoji_zwj: '👨‍👩‍👧‍👦',
+  emoji_skin: '👍🏽 👋🏿',
+  emoji_flag: '🇳🇿 🇯🇵',
+  emoji_vs: '❤️ ☺️ ✔️',
+  text_vs: '❤︎ ☺',
+  symbols: '→ ✓ ★ € ©',
+  arrows: '← ↑ ↓ ⇒ ↔',
+  math_symbols: '∑ ∞ ≤ ≥ ±',
+  box_drawing: '─ ├ └ │',
+  mixed: 'Step 1 → résultat ✓ 完成',
+  mixed_rtl: 'Order שלום 42',
+  mixed_emoji_cjk: 'Ship 🚀 発売',
+  multi_latin: 'Café<br>naïve',
+  multi_cjk: '中文<br>Line two',
+  multi_emoji: 'Line 😀<br>second ✓',
 };
 
 const FAMILIES = {
@@ -119,7 +154,8 @@ try {
         font(textEl, family, size, weight, style);
         const span = document.createElementNS(SVG_NS, 'tspan');
         span.setAttribute('x', '0');
-        span.textContent = text || ZERO_WIDTH_SPACE;
+        // drawSimpleText replaces every `<br>` with a space.
+        span.textContent = text.replace(/<br\s*\/?>/gi, ' ') || ZERO_WIDTH_SPACE;
         textEl.appendChild(span);
         svg.appendChild(textEl);
         const bbox = textEl.getBBox();
@@ -331,6 +367,65 @@ try {
     },
     { STRINGS, FAMILIES, SIZES, VARIANTS, WRAPPED, WRAP_MAX_WIDTH }
   );
+
+  // The face Chrome draws each grapheme of a fallback string in, read off
+  // CSS.getPlatformFontsForNode with one span per grapheme. The measurer's
+  // fallback choice is checked against these names before any width.
+  const cdp = await page.createCDPSession();
+  await cdp.send('DOM.enable');
+  await cdp.send('CSS.enable');
+  const faces = [];
+  for (const [textId, raw] of Object.entries(STRINGS)) {
+    const text = raw.replace(/<br\s*\/?>/gi, ' ');
+    if (/^[\x00-\x7f]*$/.test(text)) {
+      continue;
+    }
+    for (const [familyId, family] of Object.entries(FAMILIES)) {
+      for (const { weight, style } of VARIANTS) {
+        const graphemes = await page.evaluate(
+          ({ text, family, weight, style }) => {
+            const holder = document.createElement('div');
+            holder.id = 'faces';
+            const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+            const out = [];
+            for (const { segment } of segmenter.segment(text)) {
+              const span = document.createElement('span');
+              span.style.fontFamily = family;
+              span.style.fontSize = '16px';
+              span.style.fontWeight = String(weight);
+              span.style.fontStyle = style;
+              span.textContent = segment;
+              holder.appendChild(span);
+              out.push(segment);
+            }
+            document.body.appendChild(holder);
+            void holder.offsetHeight;
+            return out;
+          },
+          { text, family, weight, style }
+        );
+        const { root } = await cdp.send('DOM.getDocument', { depth: -1 });
+        const { nodeIds } = await cdp.send('DOM.querySelectorAll', {
+          nodeId: root.nodeId,
+          selector: '#faces > span',
+        });
+        const perGrapheme = [];
+        for (let i = 0; i < graphemes.length; i++) {
+          if (/^\s$/.test(graphemes[i])) {
+            continue;
+          }
+          const { fonts } = await cdp.send('CSS.getPlatformFontsForNode', { nodeId: nodeIds[i] });
+          perGrapheme.push({
+            grapheme: graphemes[i],
+            fonts: fonts.map((f) => f.familyName),
+          });
+        }
+        await page.evaluate(() => document.getElementById('faces').remove());
+        faces.push({ id: `${textId}/${familyId}/${weight}/${style}`, family, weight, style, graphemes: perGrapheme });
+      }
+    }
+  }
+  result.faces = faces;
 
   // Read package.json directly: some exports maps hide it from require.
   const version = (name) =>

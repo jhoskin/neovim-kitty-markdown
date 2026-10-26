@@ -19,7 +19,7 @@
 use std::cell::RefCell;
 use std::collections::HashMap;
 
-use super::fonts::{FontId, FontSystem, Style, Weight};
+use super::fonts::{self, FontId, FontSystem, Style, Weight};
 use super::markdown::{self, Line, Word, WordType};
 use super::wrap;
 
@@ -204,6 +204,191 @@ impl Shaped {
     }
 }
 
+/// The horizontal `trak` value at `size` pixels, in font units: the
+/// normal track (value 0) when the table has one, else its only track,
+/// interpolated linearly between the listed sizes and held at the ends,
+/// as HarfBuzz's `TrackData::get_tracking` does. Chrome 156 on macOS
+/// shapes PingFang SC with its single track (value 1): the oracle's Han
+/// strings advance 21, 20, and 20 units per glyph more than `hmtx` at 12,
+/// 14, and 16 px, the table's entries at those sizes. rustybuzz applies
+/// only a track of value 0, so the measurer adds this itself.
+fn trak_tracking(face: &rustybuzz::Face<'_>, size: f32) -> f32 {
+    let Some(trak) = face.tables().trak else {
+        return 0.0;
+    };
+    let data = trak.horizontal;
+    let tracks: Vec<_> = (0..data.tracks.len())
+        .filter_map(|i| data.tracks.get(i))
+        .collect();
+    let track = tracks
+        .iter()
+        .find(|t| t.value == 0.0)
+        .or_else(|| (tracks.len() == 1).then(|| &tracks[0]));
+    let Some(track) = track else {
+        return 0.0;
+    };
+    let points: Vec<(f32, f32)> = (0..data.sizes.len())
+        .filter_map(|i| Some((data.sizes.get(i)?.0, f32::from(track.values.get(i)?))))
+        .collect();
+    let (Some(&first), Some(&last)) = (points.first(), points.last()) else {
+        return 0.0;
+    };
+    if size <= first.0 {
+        return first.1;
+    }
+    if size >= last.0 {
+        return last.1;
+    }
+    points
+        .windows(2)
+        .find(|pair| size <= pair[1].0)
+        .map_or(last.1, |pair| {
+            let (a, b) = (pair[0], pair[1]);
+            a.1 + (b.1 - a.1) * (size - a.0) / (b.0 - a.0)
+        })
+}
+
+/// The ink box of one glyph in font units, `[x_min, y_min, x_max, y_max]`
+/// with y up. Under a synthetic oblique (`skew` > 0) the outline is
+/// skewed first (x' = x + skew * y) and the box is the tight box of the
+/// skewed curves, as CoreText reports for the skewed font Chrome draws.
+/// Skewing the corners of the upright box instead overshoots wherever a
+/// glyph's top right or bottom left corner is empty, which the oracle
+/// shows as up to 1.4 px too wide on a Han string at 16 px.
+fn glyph_box(
+    face: &rustybuzz::Face<'_>,
+    glyph: rustybuzz::ttf_parser::GlyphId,
+    skew: f32,
+) -> Option<[f32; 4]> {
+    if skew == 0.0 {
+        let r = face.glyph_bounding_box(glyph)?;
+        return Some([r.x_min, r.y_min, r.x_max, r.y_max].map(f32::from));
+    }
+    let mut bounds = SkewedBounds::new(skew);
+    face.outline_glyph(glyph, &mut bounds)?;
+    bounds.finish()
+}
+
+/// Tight bounds of an outline under a horizontal skew. A quadratic or
+/// cubic segment stays a Bezier curve of the same degree after the skew,
+/// so its extremes are at the end points or where the derivative of each
+/// coordinate is zero.
+struct SkewedBounds {
+    skew: f32,
+    last: (f32, f32),
+    min: (f32, f32),
+    max: (f32, f32),
+}
+
+impl SkewedBounds {
+    fn new(skew: f32) -> Self {
+        SkewedBounds {
+            skew,
+            last: (0.0, 0.0),
+            min: (f32::INFINITY, f32::INFINITY),
+            max: (f32::NEG_INFINITY, f32::NEG_INFINITY),
+        }
+    }
+
+    fn skewed(&self, x: f32, y: f32) -> (f32, f32) {
+        (x + self.skew * y, y)
+    }
+
+    fn add(&mut self, p: (f32, f32)) {
+        self.min = (self.min.0.min(p.0), self.min.1.min(p.1));
+        self.max = (self.max.0.max(p.0), self.max.1.max(p.1));
+    }
+
+    fn finish(&self) -> Option<[f32; 4]> {
+        (self.min.0 <= self.max.0).then_some([self.min.0, self.min.1, self.max.0, self.max.1])
+    }
+
+    /// Adds the extremes of one coordinate of a Bezier curve between its
+    /// end points: `points` are that coordinate's control values.
+    fn extremes(points: &[f32]) -> Vec<f32> {
+        match *points {
+            [p0, p1, p2] => {
+                let d = p0 - 2.0 * p1 + p2;
+                if d == 0.0 {
+                    return Vec::new();
+                }
+                vec![(p0 - p1) / d]
+            }
+            [p0, p1, p2, p3] => {
+                // B'(t)/3 = a t^2 + b t + c
+                let a = -p0 + 3.0 * p1 - 3.0 * p2 + p3;
+                let b = 2.0 * (p0 - 2.0 * p1 + p2);
+                let c = p1 - p0;
+                if a.abs() < 1e-6 {
+                    return if b == 0.0 { Vec::new() } else { vec![-c / b] };
+                }
+                let disc = b * b - 4.0 * a * c;
+                if disc < 0.0 {
+                    return Vec::new();
+                }
+                let root = disc.sqrt();
+                vec![(-b + root) / (2.0 * a), (-b - root) / (2.0 * a)]
+            }
+            _ => Vec::new(),
+        }
+    }
+
+    fn curve(&mut self, points: &[(f32, f32)]) {
+        let xs: Vec<f32> = points.iter().map(|p| p.0).collect();
+        let ys: Vec<f32> = points.iter().map(|p| p.1).collect();
+        let mut ts = Self::extremes(&xs);
+        ts.extend(Self::extremes(&ys));
+        for t in ts.into_iter().filter(|t| *t > 0.0 && *t < 1.0) {
+            let at = |v: &[f32]| -> f32 {
+                let u = 1.0 - t;
+                match *v {
+                    [a, b, c] => u * u * a + 2.0 * u * t * b + t * t * c,
+                    [a, b, c, d] => {
+                        u * u * u * a + 3.0 * u * u * t * b + 3.0 * u * t * t * c + t * t * t * d
+                    }
+                    _ => 0.0,
+                }
+            };
+            self.add((at(&xs), at(&ys)));
+        }
+        if let Some(&end) = points.last() {
+            self.add(end);
+            self.last = end;
+        }
+    }
+}
+
+impl rustybuzz::ttf_parser::OutlineBuilder for SkewedBounds {
+    fn move_to(&mut self, x: f32, y: f32) {
+        let p = self.skewed(x, y);
+        self.add(p);
+        self.last = p;
+    }
+
+    fn line_to(&mut self, x: f32, y: f32) {
+        let p = self.skewed(x, y);
+        self.add(p);
+        self.last = p;
+    }
+
+    fn quad_to(&mut self, x1: f32, y1: f32, x: f32, y: f32) {
+        let points = [self.last, self.skewed(x1, y1), self.skewed(x, y)];
+        self.curve(&points);
+    }
+
+    fn curve_to(&mut self, x1: f32, y1: f32, x2: f32, y2: f32, x: f32, y: f32) {
+        let points = [
+            self.last,
+            self.skewed(x1, y1),
+            self.skewed(x2, y2),
+            self.skewed(x, y),
+        ];
+        self.curve(&points);
+    }
+
+    fn close(&mut self) {}
+}
+
 /// Skia's fake-italic skew, applied when an italic request lands on an
 /// upright face: x' = x + y / 4.
 const SYNTHETIC_OBLIQUE_SKEW: f32 = 0.25;
@@ -311,20 +496,50 @@ impl<'f> TextMetrics<'f> {
     ) -> Vec<(FontId, String)> {
         let mut runs: Vec<(FontId, String)> = Vec::new();
         for grapheme in wrap::split_text_to_chars(text) {
-            let base = grapheme.chars().next().unwrap_or(' ');
-            let face = if self.fonts.has_glyph(primary, base) || base.is_whitespace() {
-                primary
-            } else {
-                self.fonts
-                    .fallback_in_chain(chain, &grapheme, weight, style)
-                    .unwrap_or(primary)
-            };
+            let face = self.grapheme_face(&grapheme, chain, primary, weight, style);
             match runs.last_mut() {
                 Some((last, run)) if *last == face => run.push_str(&grapheme),
                 _ => runs.push((face, grapheme)),
             }
         }
         runs
+    }
+
+    fn grapheme_face(
+        &self,
+        grapheme: &str,
+        chain: &str,
+        primary: FontId,
+        weight: Weight,
+        style: Style,
+    ) -> FontId {
+        let base = grapheme.chars().next().unwrap_or(' ');
+        let in_primary =
+            self.fonts.has_glyph(primary, base) && !fonts::emoji_presentation(grapheme);
+        if in_primary || base.is_whitespace() {
+            return primary;
+        }
+        self.fonts
+            .fallback_in_chain(chain, grapheme, weight, style)
+            .unwrap_or(primary)
+    }
+
+    /// The face each grapheme of `text` is drawn in, as [`Self::shape`]
+    /// splits it. The calibration test compares these with the faces
+    /// Chrome reports through `CSS.getPlatformFontsForNode`.
+    pub fn grapheme_faces(&self, text: &str, spec: &FontSpec) -> Vec<(String, FontId)> {
+        let weight = Weight(spec.weight);
+        let style: Style = spec.style.into();
+        let Some(primary) = self.primary_face(spec) else {
+            return Vec::new();
+        };
+        wrap::split_text_to_chars(text)
+            .into_iter()
+            .map(|grapheme| {
+                let face = self.grapheme_face(&grapheme, &spec.family, primary, weight, style);
+                (grapheme, face)
+            })
+            .collect()
     }
 
     /// Advance width of `text` shaped in one face at `size`, in pixels.
@@ -368,33 +583,72 @@ impl<'f> TextMetrics<'f> {
                 let mut buffer = rustybuzz::UnicodeBuffer::new();
                 buffer.push_str(text);
                 let glyphs = rustybuzz::shape(f, &[], buffer);
+                let tables = f.tables();
+                let readable =
+                    tables.glyf.is_some() || tables.cff.is_some() || tables.cff2.is_some();
+                let platform_boxes = if sbix || readable {
+                    Vec::new()
+                } else {
+                    let ids: Vec<u16> = glyphs
+                        .glyph_infos()
+                        .iter()
+                        .map(|info| info.glyph_id as u16)
+                        .collect();
+                    self.fonts.platform_glyph_bounds(face, &ids, skew)
+                };
+                let tracking = if sbix {
+                    0.0
+                } else {
+                    trak_tracking(f, size) * scale
+                };
                 // The pen runs in pixels: bitmap advances round per glyph.
                 let mut pen = 0f32;
                 let mut ink: Option<Ink> = None;
                 let mut bitmap: Option<(f32, f32)> = None;
-                for (info, pos) in glyphs.glyph_infos().iter().zip(glyphs.glyph_positions()) {
+                let mut last_cluster = None;
+                for (index, (info, pos)) in glyphs
+                    .glyph_infos()
+                    .iter()
+                    .zip(glyphs.glyph_positions())
+                    .enumerate()
+                {
                     let glyph = rustybuzz::ttf_parser::GlyphId(info.glyph_id as u16);
+                    // The tracking widens the first glyph of each cluster.
+                    // HarfBuzz would also move that glyph right by half of
+                    // it; Chrome does not, as the italic Han ink shows.
+                    let track = if last_cluster == Some(info.cluster) {
+                        0.0
+                    } else {
+                        tracking
+                    };
+                    last_cluster = Some(info.cluster);
                     let x = pen + pos.x_offset as f32 * scale;
                     let advance = if sbix {
                         round_half_up(pos.x_advance as f32 * scale * SBIX_ADVANCE_SCALE)
                     } else {
-                        pos.x_advance as f32 * scale
+                        pos.x_advance as f32 * scale + track
                     };
                     // An sbix font carries placeholder outlines; only its
                     // bitmaps count.
                     let outline = if sbix {
                         None
+                    } else if readable {
+                        glyph_box(f, glyph, skew)
                     } else {
-                        f.glyph_bounding_box(glyph)
+                        platform_boxes
+                            .get(index)
+                            .copied()
+                            .flatten()
+                            .map(|b| b.map(|v| v as f32))
                     };
-                    if let Some(rect) = outline {
-                        let y_min = (rect.y_min as i32 + pos.y_offset) as f32 * scale;
-                        let y_max = (rect.y_max as i32 + pos.y_offset) as f32 * scale;
+                    if let Some([x_min, y_min, x_max, y_max]) = outline {
+                        let y_offset = pos.y_offset as f32;
+                        let dx = x + skew * y_offset * scale;
                         let glyph_ink = Ink {
-                            min_x: x + rect.x_min as f32 * scale + skew * y_min.min(0.0) - grow,
-                            max_x: x + rect.x_max as f32 * scale + skew * y_max.max(0.0) + grow,
-                            top: y_max + grow,
-                            bottom: -y_min + grow,
+                            min_x: dx + x_min * scale - grow,
+                            max_x: dx + x_max * scale + grow,
+                            top: (y_max + y_offset) * scale + grow,
+                            bottom: -(y_min + y_offset) * scale + grow,
                         };
                         ink = Ink::union(ink, Some(glyph_ink));
                     } else if sbix && advance > 0.0 {
@@ -444,16 +698,24 @@ impl<'f> TextMetrics<'f> {
             ink = Ink::union(ink, metrics.ink.map(|i| i.shifted(width)));
             if let Some((left, right)) = metrics.bitmap {
                 // A bitmap strike box is square: as tall as its advance,
-                // from one pixel above the line's ascent, padded like the
-                // width. A synthetic oblique skews it like an outline.
+                // from one pixel above the em box, padded like the width.
+                // Its place does not depend on the primary face: under
+                // Trebuchet MS and Open Sans alike the oracle's 12, 14, and
+                // 16 px emoji reach 13, 15, and 17 px above the baseline.
+                // A synthetic oblique moves the top right corner by the
+                // skew, and Skia rounds the glyph box out to whole pixels.
                 let side = right - left;
-                let top = ascent + BITMAP_INK_PADDING;
-                let skew = if oblique { SYNTHETIC_OBLIQUE_SKEW } else { 0.0 };
+                let top = spec.size + BITMAP_INK_PADDING;
+                let lean = if oblique {
+                    (SYNTHETIC_OBLIQUE_SKEW * top).ceil()
+                } else {
+                    0.0
+                };
                 ink = Ink::union(
                     ink,
                     Some(Ink {
                         min_x: width + left,
-                        max_x: width + right + skew * top,
+                        max_x: width + right + lean,
                         top,
                         bottom: side - top,
                     }),

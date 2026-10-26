@@ -64,33 +64,43 @@ fn generic_candidates(generic: &str) -> &'static [&'static str] {
     }
 }
 
-/// Fonts Chrome falls back to for characters the resolved face lacks. The
-/// order follows what CoreText and fontconfig pick on a stock install. On
-/// macOS, Chrome 156 draws text-presentation `✓` in Lucida Grande, `★` in
-/// Hiragino Sans (Lucida Grande lacks it), and `❤` in Zapf Dingbats, so
-/// Lucida Grande leads and Zapf Dingbats comes before Arial Unicode MS.
-fn fallback_candidates() -> &'static [&'static str] {
-    if cfg!(target_os = "macos") {
-        &[
-            "Lucida Grande",
-            "PingFang SC",
-            "Hiragino Sans",
-            "Hiragino Kaku Gothic ProN",
-            "Apple SD Gothic Neo",
-            "Apple Color Emoji",
-            "Apple Symbols",
-            "Zapf Dingbats",
-            "Arial Unicode MS",
-        ]
-    } else {
-        &[
-            "Noto Sans CJK SC",
-            "Noto Sans CJK JP",
-            "Noto Color Emoji",
-            "DejaVu Sans",
-            "Symbola",
-        ]
-    }
+/// Fonts Chrome falls back to on Linux for characters no family of the
+/// CSS list covers, in the order fontconfig picks them on a stock install.
+/// macOS asks CoreText instead ([`super::coretext`]).
+#[cfg(not(target_os = "macos"))]
+const FALLBACK_CANDIDATES: [&str; 5] = [
+    "Noto Sans CJK SC",
+    "Noto Sans CJK JP",
+    "Noto Color Emoji",
+    "DejaVu Sans",
+    "Symbola",
+];
+
+/// The color emoji face Blink's `FontFallbackPriority::kEmojiEmoji` tries
+/// first for a grapheme with emoji presentation.
+const EMOJI_FAMILY: &str = if cfg!(target_os = "macos") {
+    "Apple Color Emoji"
+} else {
+    "Noto Color Emoji"
+};
+
+/// Where macOS keeps PingFang, the CoreText substitute for Han text. The
+/// directory is outside the folders fontdb scans, so it is loaded apart.
+#[cfg(target_os = "macos")]
+const MACOS_RESERVED_FONTS: &str =
+    "/System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved";
+
+/// True when Chrome draws `grapheme` with emoji presentation: a following
+/// `U+FE0F`, or `Emoji_Presentation=Yes` with no `U+FE0E`, as Blink's
+/// `FontFallbackPriority` decides. Such a grapheme goes to the color emoji
+/// face even when the primary face has a text glyph for it (`☺️` under
+/// Arial).
+pub fn emoji_presentation(grapheme: &str) -> bool {
+    let Some(ch) = grapheme.chars().next() else {
+        return false;
+    };
+    grapheme.contains('\u{FE0F}')
+        || (super::wrap::is_emoji_presentation(ch) && !grapheme.contains('\u{FE0E}'))
 }
 
 /// Splits a CSS `font-family` list into family names, unquoted and trimmed.
@@ -121,6 +131,10 @@ pub fn parse_families(chain: &str) -> Vec<String> {
     out
 }
 
+/// A platform fallback question: the primary face and the grapheme.
+#[cfg(target_os = "macos")]
+type SubstituteKey = (Option<FontId>, String);
+
 /// Font bytes for one face, held so a `rustybuzz::Face` can borrow them.
 struct FaceData {
     bytes: Arc<dyn AsRef<[u8]> + Send + Sync>,
@@ -132,6 +146,9 @@ pub struct FontSystem {
     open_sans_regular: FontId,
     open_sans_italic: FontId,
     data: Mutex<HashMap<FontId, Arc<FaceData>>>,
+    /// Platform fallback families by primary face and grapheme.
+    #[cfg(target_os = "macos")]
+    substitutes: Mutex<HashMap<SubstituteKey, Option<String>>>,
 }
 
 impl Default for FontSystem {
@@ -147,11 +164,15 @@ impl FontSystem {
         let open_sans_regular = Self::load_bundled(&mut db, OPEN_SANS_REGULAR);
         let open_sans_italic = Self::load_bundled(&mut db, OPEN_SANS_ITALIC);
         db.load_system_fonts();
+        #[cfg(target_os = "macos")]
+        db.load_fonts_dir(MACOS_RESERVED_FONTS);
         FontSystem {
             db,
             open_sans_regular,
             open_sans_italic,
             data: Mutex::new(HashMap::new()),
+            #[cfg(target_os = "macos")]
+            substitutes: Mutex::new(HashMap::new()),
         }
     }
 
@@ -216,56 +237,90 @@ impl FontSystem {
         })
     }
 
-    /// A face that has a glyph for `ch`, from the platform fallback list,
-    /// then from any installed face. `None` when no face covers it. Chrome
-    /// gives a character with `Emoji_Presentation=Yes` to the color emoji
-    /// font before any other fallback; any other pictograph takes the text
-    /// order.
+    /// A face that has a glyph for `ch` when no primary face exists.
     pub fn fallback_for(&self, ch: char, weight: Weight, style: Style) -> Option<FontId> {
-        self.platform_fallback(ch, super::wrap::is_emoji_presentation(ch), weight, style)
+        let grapheme = ch.to_string();
+        self.platform_fallback(
+            None,
+            &grapheme,
+            emoji_presentation(&grapheme),
+            weight,
+            style,
+        )
     }
 
-    /// [`Self::fallback_for`] with the emoji priority given: `emoji_first`
-    /// tries the color emoji font before the rest of the platform list.
+    /// The face the platform gives `grapheme` once the CSS list is
+    /// exhausted. An emoji-presentation grapheme tries the color emoji face
+    /// first. On macOS the family comes from CoreText with the primary face
+    /// as the base, as Blink asks it; elsewhere from the fontconfig order.
+    /// Blink keeps only the substitute's family and matches the requested
+    /// weight and style inside it, so a bold or italic request lands on
+    /// the family's matching face, or on its regular face with a synthetic
+    /// bold or oblique.
     fn platform_fallback(
         &self,
-        ch: char,
+        primary: Option<FontId>,
+        grapheme: &str,
         emoji_first: bool,
         weight: Weight,
         style: Style,
     ) -> Option<FontId> {
-        let candidates = fallback_candidates()
-            .iter()
-            .filter(|name| emoji_first == name.contains("Emoji"))
-            .chain(
-                fallback_candidates()
-                    .iter()
-                    .filter(|name| emoji_first != name.contains("Emoji")),
-            );
-        for name in candidates {
-            match self.query_named(name, weight, style) {
-                Some(id) if self.has_glyph(id, ch) => return Some(id),
-                _ => {}
-            }
+        let ch = grapheme.chars().next()?;
+        let covered = |name: &str| {
+            self.query_named(name, weight, style)
+                .filter(|&id| self.has_glyph(id, ch))
+        };
+        if emoji_first && let Some(id) = covered(EMOJI_FAMILY) {
+            return Some(id);
         }
-        let ids: Vec<FontId> = self.db.faces().map(|face| face.id).collect();
-        ids.into_iter().find(|&id| self.has_glyph(id, ch))
+        let platform = self
+            .platform_family(primary, grapheme)
+            .and_then(|family| covered(&family));
+        platform.or_else(|| {
+            let ids: Vec<FontId> = self.db.faces().map(|face| face.id).collect();
+            ids.into_iter().find(|&id| self.has_glyph(id, ch))
+        })
     }
 
-    /// The face Chrome draws `grapheme` in when the primary face of `chain`
-    /// lacks its first character.
+    #[cfg(target_os = "macos")]
+    fn platform_family(&self, primary: Option<FontId>, grapheme: &str) -> Option<String> {
+        let key = (primary, grapheme.to_string());
+        if let Some(found) = self.substitutes.lock().ok()?.get(&key) {
+            return found.clone();
+        }
+        let base = primary
+            .and_then(|id| self.db.face(id))
+            .map_or("Helvetica", |face| face.post_script_name.as_str());
+        let family = super::coretext::substitute_family(base, grapheme);
+        self.substitutes.lock().ok()?.insert(key, family.clone());
+        family
+    }
+
+    #[cfg(not(target_os = "macos"))]
+    fn platform_family(&self, _primary: Option<FontId>, grapheme: &str) -> Option<String> {
+        let ch = grapheme.chars().next()?;
+        FALLBACK_CANDIDATES
+            .iter()
+            .find(|name| {
+                self.query_named(name, Weight::NORMAL, Style::Normal)
+                    .is_some_and(|id| self.has_glyph(id, ch))
+            })
+            .map(|name| name.to_string())
+    }
+
+    /// The face Chrome draws `grapheme` in when the primary face lacks it
+    /// or the grapheme has emoji presentation.
     ///
     /// Blink's `FontFallbackList` tries every family of the `font-family`
     /// list in order before it asks the platform, so under mermaid's
     /// `"trebuchet ms", verdana, arial, sans-serif` an `→` is drawn in
     /// Arial and a `├` in Arial while `─` stays in Verdana. A grapheme with
-    /// emoji presentation skips the list: Chrome draws `❤️` in Apple Color
-    /// Emoji even when a listed family has a text `❤`. Emoji presentation
-    /// is a following `U+FE0F`, or `Emoji_Presentation=Yes` with no
-    /// `U+FE0E`, as in Blink's `FontFallbackPriority`. A lone `❤` takes the
-    /// text order and Chrome draws it in Zapf Dingbats. All of these read
-    /// off `CSS.getPlatformFontsForNode` in the oracle's Chrome 156 on
-    /// macOS. What the list cannot cover goes to the platform list.
+    /// emoji presentation ([`emoji_presentation`]) skips the list: Chrome
+    /// draws `❤️` in Apple Color Emoji even when a listed family has a text
+    /// `❤`. A lone `❤` takes the text order and Chrome draws it in Zapf
+    /// Dingbats. All of these read off `CSS.getPlatformFontsForNode` in
+    /// the oracle's Chrome 156 on macOS. What the list cannot cover goes to
+    /// the platform ([`Self::platform_fallback`]).
     pub fn fallback_in_chain(
         &self,
         chain: &str,
@@ -274,17 +329,50 @@ impl FontSystem {
         style: Style,
     ) -> Option<FontId> {
         let ch = grapheme.chars().next()?;
-        let emoji = grapheme.contains('\u{FE0F}')
-            || (super::wrap::is_emoji_presentation(ch) && !grapheme.contains('\u{FE0E}'));
+        let emoji = emoji_presentation(grapheme);
+        let mut resolved = parse_families(chain)
+            .into_iter()
+            .filter_map(|family| self.resolve_family(&family, weight, style));
+        let primary = resolved.next();
         let listed = (!emoji)
             .then(|| {
-                parse_families(chain)
-                    .iter()
-                    .filter_map(|family| self.resolve_family(family, weight, style))
+                primary
+                    .into_iter()
+                    .chain(resolved)
                     .find(|&id| self.has_glyph(id, ch))
             })
             .flatten();
-        listed.or_else(|| self.platform_fallback(ch, emoji, weight, style))
+        listed.or_else(|| self.platform_fallback(primary, grapheme, emoji, weight, style))
+    }
+
+    /// Glyph boxes from the platform for a face whose outline tables
+    /// ttf-parser does not read (no `glyf`, `CFF `, or `CFF2`), in font
+    /// units; one entry per glyph, or an empty list where the platform
+    /// cannot tell. See [`super::coretext::glyph_bounds`].
+    /// `skew` is the synthetic oblique, applied to the outline before the
+    /// box is taken.
+    pub fn platform_glyph_bounds(
+        &self,
+        id: FontId,
+        glyphs: &[u16],
+        skew: f32,
+    ) -> Vec<Option<[f64; 4]>> {
+        #[cfg(target_os = "macos")]
+        {
+            let units = self.with_face(id, |face| face.units_per_em());
+            if let (Some(face), Some(units)) = (self.db.face(id), units)
+                && let Some(bounds) = super::coretext::glyph_bounds(
+                    &face.post_script_name,
+                    units.into(),
+                    glyphs,
+                    skew.into(),
+                )
+            {
+                return bounds;
+            }
+        }
+        let _ = (id, glyphs, skew);
+        Vec::new()
     }
 
     /// True when the face maps `ch` to a glyph other than `.notdef`.
@@ -353,6 +441,15 @@ impl FontSystem {
                 .resolve(chain, weight, style)
                 .and_then(|id| self.face_weight(id))
                 .is_some_and(|w| w.0 < 600)
+    }
+
+    /// Every family name the face carries, localized ones included
+    /// (PingFang SC also names itself `蘋方-簡`, the name Chrome reports).
+    pub fn family_names(&self, id: FontId) -> Vec<String> {
+        self.db
+            .face(id)
+            .map(|face| face.families.iter().map(|(name, _)| name.clone()).collect())
+            .unwrap_or_default()
     }
 
     /// Family name of a face as the database lists it, for diagnostics.

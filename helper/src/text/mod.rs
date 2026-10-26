@@ -1,6 +1,8 @@
 //! Fonts and text measurement. Mermaid measures labels in a browser; these
 //! modules reproduce `getBBox` and `getBoundingClientRect` with rustybuzz.
 
+#[cfg(target_os = "macos")]
+mod coretext;
 pub mod fonts;
 pub mod markdown;
 pub mod measure;

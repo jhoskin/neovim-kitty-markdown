@@ -1,16 +1,19 @@
-//! Calibration of the text measurer against Chrome (R-115, R-179).
+//! Calibration of the text measurer against Chrome (R-115, R-179, R-214,
+//! R-301, R-302).
 //!
 //! `helper/oracle/measure.mjs` records `getBBox` and `getBoundingClientRect`
 //! for a fixed corpus in the page mermaid-cli renders into, and writes
 //! `helper/tests/goldens/metrics.json`. This test replays the corpus
-//! through `TextMetrics` and checks every width and height within 0.5 px.
-//!
-//! Two groups get a wider bound, each for a reason written next to it:
-//! strings that need a fallback font (CJK, emoji), because Chrome picks the
-//! fallback per character through CoreText and the helper through a fixed
-//! list, and italic measurements of those same strings, because Chrome
-//! synthesizes an oblique for a fallback face without an italic and widens
-//! the box by the skew.
+//! through `TextMetrics` and checks every width and height within 0.5 px
+//! for ASCII text and within 3 px for fallback text (any character outside
+//! ASCII). The corpus covers Latin accents, precomposed and combining
+//! marks, Greek, Cyrillic, Han, kana, Hangul, Arabic, Hebrew, Devanagari,
+//! Thai, emoji (ZWJ sequences, skin tones, flags, variation selectors),
+//! symbols, mixed runs, and `<br>` lines in three families, three sizes,
+//! bold, and italic. The oracle also records the face Chrome draws each
+//! fallback grapheme in, and `fallback_faces_match_chrome` checks the
+//! helper picks the same one. The log lists the largest deviation per
+//! string; on the oracle machine every fallback string is within 0.5 px.
 
 use std::path::PathBuf;
 
@@ -30,6 +33,23 @@ struct Metrics {
     generics: std::collections::BTreeMap<String, Option<String>>,
     cases: Vec<Case>,
     wrapped: Vec<Wrapped>,
+    faces: Vec<Faces>,
+}
+
+/// The faces Chrome drew each grapheme of one fallback string in.
+#[derive(Deserialize)]
+struct Faces {
+    id: String,
+    family: String,
+    weight: u16,
+    style: String,
+    graphemes: Vec<GraphemeFaces>,
+}
+
+#[derive(Deserialize)]
+struct GraphemeFaces {
+    grapheme: String,
+    fonts: Vec<String>,
 }
 
 #[derive(Deserialize)]
@@ -141,6 +161,32 @@ fn max_abs(deviations: &[Deviation], bound: f32) -> f32 {
         .fold(0.0, f32::max)
 }
 
+/// The largest deviation of each corpus string (the first part of the
+/// case id) and the measurement it was in, for the test log.
+fn per_string(deviations: &[Deviation]) -> String {
+    let mut worst: std::collections::BTreeMap<&str, &Deviation> = std::collections::BTreeMap::new();
+    for d in deviations {
+        let key = d.id.split('/').next().unwrap_or(&d.id);
+        let diff = (d.expected - d.got).abs();
+        let entry = worst.entry(key).or_insert(d);
+        if diff > (entry.expected - entry.got).abs() {
+            *entry = d;
+        }
+    }
+    worst
+        .iter()
+        .map(|(key, d)| {
+            format!(
+                "    {key:<16} {:>+8.4} {:<12} {}",
+                d.got - d.expected,
+                d.what,
+                d.id
+            )
+        })
+        .collect::<Vec<_>>()
+        .join("\n")
+}
+
 /// The five largest deviations at a bound, for the test log.
 fn worst(deviations: &[Deviation], bound: f32) -> String {
     let mut at_bound: Vec<&Deviation> = deviations.iter().filter(|d| d.bound == bound).collect();
@@ -215,7 +261,9 @@ fn widths_and_heights_match_chrome() {
             id: case.id.clone(),
             what: "text_length",
             expected: case.svg.text_length,
-            got: text.shape(&case.text, &spec).width,
+            got: text
+                .shape(&markdown::split_breaks(&case.text).join(" "), &spec)
+                .width,
             bound,
         });
         let html_lines = if case.text.is_empty() {
@@ -239,6 +287,10 @@ fn widths_and_heights_match_chrome() {
             bound,
         });
     }
+    eprintln!(
+        "text metrics: largest deviation per string\n{}",
+        per_string(&deviations)
+    );
     let over: Vec<&Deviation> = deviations.iter().filter(|d| d.over()).collect();
     eprintln!(
         "text metrics: {} measurements, max deviation {:.4} px at bound {}, {:.4} px at bound {} (fallback strings)\n  worst at bound {}:\n{}\n  worst at bound {}:\n{}",
@@ -257,6 +309,51 @@ fn widths_and_heights_match_chrome() {
         "{} measurements outside tolerance:\n{}",
         over.len(),
         report(&deviations)
+    );
+}
+
+/// Every grapheme of a fallback string goes to the face Chrome used. A
+/// wrong face is the main way a fallback width or height misses, so this
+/// names the cause before the width test reports the effect.
+#[test]
+fn fallback_faces_match_chrome() {
+    let Some(metrics) = load() else {
+        return;
+    };
+    let fonts = font_system();
+    let text = TextMetrics::new(fonts);
+    let mut mismatches = Vec::new();
+    for case in &metrics.faces {
+        let spec = spec_for(&case.family, 16.0, case.weight, &case.style);
+        for g in &case.graphemes {
+            // Chrome lists one face for a grapheme it draws in one face.
+            let [chrome] = g.fonts.as_slice() else {
+                mismatches.push(format!(
+                    "  {} {:?}: Chrome used {:?}",
+                    case.id, g.grapheme, g.fonts
+                ));
+                continue;
+            };
+            // The oracle puts each grapheme in its own span, so the helper
+            // looks each one up alone too.
+            let names = text
+                .grapheme_faces(&g.grapheme, &spec)
+                .first()
+                .map(|&(_, face)| fonts.family_names(face))
+                .unwrap_or_default();
+            if !names.iter().any(|name| name.eq_ignore_ascii_case(chrome)) {
+                mismatches.push(format!(
+                    "  {} {:?}: Chrome {chrome}, helper {:?}",
+                    case.id, g.grapheme, names
+                ));
+            }
+        }
+    }
+    assert!(
+        mismatches.is_empty(),
+        "{} graphemes in another face than Chrome's:\n{}",
+        mismatches.len(),
+        mismatches.join("\n")
     );
 }
 
