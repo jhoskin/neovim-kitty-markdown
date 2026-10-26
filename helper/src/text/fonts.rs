@@ -131,9 +131,10 @@ pub fn parse_families(chain: &str) -> Vec<String> {
     out
 }
 
-/// A platform fallback question: the primary face and the grapheme.
+/// A platform fallback question: the primary face, the grapheme, and the
+/// requested weight and style.
 #[cfg(target_os = "macos")]
-type SubstituteKey = (Option<FontId>, String);
+type SubstituteKey = (Option<FontId>, String, u16, Style);
 
 /// Font bytes for one face, held so a `rustybuzz::Face` can borrow them.
 struct FaceData {
@@ -146,9 +147,14 @@ pub struct FontSystem {
     open_sans_regular: FontId,
     open_sans_italic: FontId,
     data: Mutex<HashMap<FontId, Arc<FaceData>>>,
-    /// Platform fallback families by primary face and grapheme.
+    /// Family matches by lower-case family name, weight, and style.
+    matches: Mutex<HashMap<(String, u16, Style), Option<FontId>>>,
+    /// CoreText fallback faces by primary face, grapheme, weight, and style.
     #[cfg(target_os = "macos")]
-    substitutes: Mutex<HashMap<SubstituteKey, Option<String>>>,
+    substitutes: Mutex<HashMap<SubstituteKey, Option<super::coretext::Substitute>>>,
+    /// CoreText traits by face, read on first use.
+    #[cfg(target_os = "macos")]
+    traits: Mutex<HashMap<FontId, Option<super::coretext::FaceTraits>>>,
 }
 
 impl Default for FontSystem {
@@ -171,8 +177,11 @@ impl FontSystem {
             open_sans_regular,
             open_sans_italic,
             data: Mutex::new(HashMap::new()),
+            matches: Mutex::new(HashMap::new()),
             #[cfg(target_os = "macos")]
             substitutes: Mutex::new(HashMap::new()),
+            #[cfg(target_os = "macos")]
+            traits: Mutex::new(HashMap::new()),
         }
     }
 
@@ -222,19 +231,149 @@ impl FontSystem {
 
     /// CSS matching is case-insensitive while fontdb compares names
     /// exactly, so find the spelling the database knows first.
+    /// Every grapheme of a fallback string asks this, and each answer
+    /// scans the whole database, so answers are cached.
     fn query_named(&self, family: &str, weight: Weight, style: Style) -> Option<FontId> {
+        let key = (family.to_ascii_lowercase(), weight.0, style);
+        if let Some(found) = self.matches.lock().ok().and_then(|m| m.get(&key).copied()) {
+            return found;
+        }
+        let found = self.match_named(family, weight, style);
+        if let Ok(mut matches) = self.matches.lock() {
+            matches.insert(key, found);
+        }
+        found
+    }
+
+    fn match_named(&self, family: &str, weight: Weight, style: Style) -> Option<FontId> {
         let known = self
             .db
             .faces()
             .flat_map(|face| face.families.iter())
             .map(|(name, _)| name.as_str())
             .find(|name| name.eq_ignore_ascii_case(family))?;
+        #[cfg(target_os = "macos")]
+        if let Some(id) = self.best_style_match(known, weight, style) {
+            return Some(id);
+        }
         self.db.query(&fontdb::Query {
             families: &[fontdb::Family::Name(known)],
             weight,
             stretch: fontdb::Stretch::Normal,
             style,
         })
+    }
+
+    /// The CoreText traits of a face, cached.
+    #[cfg(target_os = "macos")]
+    fn face_traits(&self, id: FontId) -> Option<super::coretext::FaceTraits> {
+        if let Some(found) = self.traits.lock().ok()?.get(&id) {
+            return *found;
+        }
+        let traits = self
+            .db
+            .face(id)
+            .and_then(|face| super::coretext::face_traits(&face.post_script_name));
+        self.traits.lock().ok()?.insert(id, traits);
+        traits
+    }
+
+    /// The CSS weight Chrome on macOS gives a face: Blink's
+    /// `ToCssFontWeight` (font_matcher_mac.mm) buckets the CoreText weight
+    /// trait, not the OS/2 `usWeightClass`. The two disagree for Hiragino
+    /// Sans, whose W3 is class 300 but a CoreText regular (0.0), so Chrome
+    /// draws 400 kana in W3 and 500 in W4, as `getPlatformFontsForNode`
+    /// reports in Chrome 156.
+    #[cfg(target_os = "macos")]
+    fn css_weight(&self, id: FontId) -> Option<u16> {
+        const BUCKETS: [(f64, f64, u16); 9] = [
+            (-1.0, -0.70, 100),
+            (-0.70, -0.45, 200),
+            (-0.45, -0.10, 300),
+            (-0.10, 0.10, 400),
+            (0.10, 0.27, 500),
+            (0.27, 0.35, 600),
+            (0.35, 0.50, 700),
+            (0.50, 0.60, 800),
+            (0.60, 1.0, 900),
+        ];
+        let weight = self.face_traits(id)?.weight;
+        Some(
+            BUCKETS
+                .iter()
+                .find(|(low, high, _)| (*low..=*high).contains(&weight))
+                .map_or(400, |b| b.2),
+        )
+    }
+
+    /// Blink's `BestStyleMatchForFamily` with `BetterChoiceCT`
+    /// (font_matcher_mac.mm, the path Chrome 156 takes: the oracle's
+    /// choice of Hiragino Sans W3 for 400 rules out the OS/2 weight path).
+    /// Faces are compared on the condensed, expanded, italic, and bold
+    /// symbolic traits in that order, an exact weight winning at the bold
+    /// step, then on the weight distance, a tie going to the weight farther
+    /// from 500. `None` when CoreText knows none of the family's faces.
+    #[cfg(target_os = "macos")]
+    fn best_style_match(&self, family: &str, weight: Weight, style: Style) -> Option<FontId> {
+        use super::coretext::{TRAIT_BOLD, TRAIT_CONDENSED, TRAIT_EXPANDED, TRAIT_ITALIC};
+        const MASKS: [u32; 4] = [TRAIT_CONDENSED, TRAIT_EXPANDED, TRAIT_ITALIC, TRAIT_BOLD];
+        const IMPORTANT: u32 = TRAIT_CONDENSED | TRAIT_EXPANDED | TRAIT_ITALIC | TRAIT_BOLD;
+        // Blink's `ComputeDesiredTraits`: italic for any slant, bold from
+        // the 600 threshold.
+        let mut desired_traits = 0;
+        if style != Style::Normal {
+            desired_traits |= TRAIT_ITALIC;
+        }
+        if weight.0 >= 600 {
+            desired_traits |= TRAIT_BOLD;
+        }
+        let desired_weight = i32::from(weight.0);
+        let better = |chosen: (u32, i32), candidate: (u32, i32)| -> bool {
+            for mask in MASKS {
+                if mask == TRAIT_BOLD && candidate.1 == desired_weight && chosen.1 != desired_weight
+                {
+                    return true;
+                }
+                let desired = desired_traits & mask != 0;
+                let chosen_unwanted = desired != (chosen.0 & mask != 0);
+                let candidate_unwanted = desired != (candidate.0 & mask != 0);
+                if !candidate_unwanted && chosen_unwanted {
+                    return true;
+                }
+                if !chosen_unwanted && candidate_unwanted {
+                    return false;
+                }
+            }
+            let chosen_delta = (chosen.1 - desired_weight).abs();
+            let candidate_delta = (candidate.1 - desired_weight).abs();
+            if chosen_delta == candidate_delta {
+                return (candidate.1 - 500).abs() > (chosen.1 - 500).abs();
+            }
+            candidate_delta < chosen_delta
+        };
+        let candidates: Vec<FontId> = self
+            .db
+            .faces()
+            .filter(|face| face.families.iter().any(|(name, _)| name == family))
+            .map(|face| face.id)
+            .collect();
+        let mut chosen: Option<(FontId, (u32, i32))> = None;
+        for id in candidates {
+            let (Some(traits), Some(css)) = (self.face_traits(id), self.css_weight(id)) else {
+                continue;
+            };
+            let candidate = (traits.symbolic, i32::from(css));
+            if chosen.is_none_or(|(_, c)| better(c, candidate)) {
+                chosen = Some((id, candidate));
+            }
+            if let Some((id, (traits, css))) = chosen
+                && css == desired_weight
+                && traits & IMPORTANT == desired_traits & IMPORTANT
+            {
+                return Some(id);
+            }
+        }
+        chosen.map(|(id, _)| id)
     }
 
     /// A face that has a glyph for `ch` when no primary face exists.
@@ -251,12 +390,11 @@ impl FontSystem {
 
     /// The face the platform gives `grapheme` once the CSS list is
     /// exhausted. An emoji-presentation grapheme tries the color emoji face
-    /// first. On macOS the family comes from CoreText with the primary face
-    /// as the base, as Blink asks it; elsewhere from the fontconfig order.
-    /// Blink keeps only the substitute's family and matches the requested
-    /// weight and style inside it, so a bold or italic request lands on
-    /// the family's matching face, or on its regular face with a synthetic
-    /// bold or oblique.
+    /// first. On macOS CoreText picks the face with the primary face as the
+    /// base, as Blink asks it ([`super::coretext::substitute_face`]);
+    /// elsewhere the family comes from the fontconfig order and the
+    /// requested weight and style are matched inside it. A bold or italic
+    /// request the face lacks gets a synthetic bold or oblique.
     fn platform_fallback(
         &self,
         primary: Option<FontId>,
@@ -273,31 +411,82 @@ impl FontSystem {
         if emoji_first && let Some(id) = covered(EMOJI_FAMILY) {
             return Some(id);
         }
-        let platform = self
-            .platform_family(primary, grapheme)
-            .and_then(|family| covered(&family));
-        platform.or_else(|| {
-            let ids: Vec<FontId> = self.db.faces().map(|face| face.id).collect();
-            ids.into_iter().find(|&id| self.has_glyph(id, ch))
-        })
+        self.platform_face(primary, grapheme, weight, style)
+            .or_else(|| {
+                let ids: Vec<FontId> = self.db.faces().map(|face| face.id).collect();
+                ids.into_iter().find(|&id| self.has_glyph(id, ch))
+            })
     }
 
+    /// The CoreText substitute for `grapheme` as a face of this database:
+    /// the face with the substitute's PostScript name, or, for a named
+    /// instance of a variable font that fontdb does not list (PingFang SC
+    /// Regular), the family's face matched to the weight and style.
     #[cfg(target_os = "macos")]
-    fn platform_family(&self, primary: Option<FontId>, grapheme: &str) -> Option<String> {
-        let key = (primary, grapheme.to_string());
-        if let Some(found) = self.substitutes.lock().ok()?.get(&key) {
-            return found.clone();
-        }
-        let base = primary
-            .and_then(|id| self.db.face(id))
-            .map_or("Helvetica", |face| face.post_script_name.as_str());
-        let family = super::coretext::substitute_family(base, grapheme);
-        self.substitutes.lock().ok()?.insert(key, family.clone());
-        family
+    fn platform_face(
+        &self,
+        primary: Option<FontId>,
+        grapheme: &str,
+        weight: Weight,
+        style: Style,
+    ) -> Option<FontId> {
+        use super::coretext::{TRAIT_BOLD, TRAIT_ITALIC};
+        let ch = grapheme.chars().next()?;
+        let key = (primary, grapheme.to_string(), weight.0, style);
+        let cached = self.substitutes.lock().ok()?.get(&key).cloned();
+        let substitute = match cached {
+            Some(found) => found,
+            None => {
+                let face = primary.and_then(|id| self.db.face(id));
+                let base = face.map_or("Helvetica", |face| face.post_script_name.as_str());
+                // Blink's desired traits: the primary font's own, plus the
+                // bold and italic it synthesizes. CoreText does not know
+                // the bundled Open Sans, so its traits come from fontdb,
+                // as a web font's come from its own tables in Blink.
+                let own = match primary.and_then(|id| self.face_traits(id)) {
+                    Some(traits) => traits.symbolic,
+                    None => {
+                        let italic = face.is_some_and(|f| f.style != Style::Normal);
+                        let bold = face.is_some_and(|f| f.weight.0 >= 600);
+                        let base_traits = super::coretext::base_symbolic_traits(base).unwrap_or(0)
+                            & !(TRAIT_BOLD | TRAIT_ITALIC);
+                        base_traits
+                            | if italic { TRAIT_ITALIC } else { 0 }
+                            | if bold { TRAIT_BOLD } else { 0 }
+                    }
+                };
+                let mut symbolic = own;
+                if weight.0 >= 600 {
+                    symbolic |= TRAIT_BOLD;
+                }
+                if style != Style::Normal {
+                    symbolic |= TRAIT_ITALIC;
+                }
+                let found =
+                    super::coretext::substitute_face(base, grapheme, ch, symbolic, weight.0);
+                self.substitutes.lock().ok()?.insert(key, found.clone());
+                found
+            }
+        }?;
+        self.db
+            .faces()
+            .find(|face| face.post_script_name == substitute.postscript)
+            .map(|face| face.id)
+            .filter(|&id| self.has_glyph(id, ch))
+            .or_else(|| {
+                self.query_named(&substitute.family, weight, style)
+                    .filter(|&id| self.has_glyph(id, ch))
+            })
     }
 
     #[cfg(not(target_os = "macos"))]
-    fn platform_family(&self, _primary: Option<FontId>, grapheme: &str) -> Option<String> {
+    fn platform_face(
+        &self,
+        _primary: Option<FontId>,
+        grapheme: &str,
+        weight: Weight,
+        style: Style,
+    ) -> Option<FontId> {
         let ch = grapheme.chars().next()?;
         FALLBACK_CANDIDATES
             .iter()
@@ -305,11 +494,26 @@ impl FontSystem {
                 self.query_named(name, Weight::NORMAL, Style::Normal)
                     .is_some_and(|id| self.has_glyph(id, ch))
             })
-            .map(|name| name.to_string())
+            .and_then(|name| self.query_named(name, weight, style))
+            .filter(|&id| self.has_glyph(id, ch))
     }
 
     /// The face Chrome draws `grapheme` in when the primary face lacks it
-    /// or the grapheme has emoji presentation.
+    /// or the grapheme has emoji presentation, with the grapheme as its
+    /// own fallback hint: [`Self::listed_face`], else
+    /// [`Self::platform_face_in_chain`].
+    pub fn fallback_in_chain(
+        &self,
+        chain: &str,
+        grapheme: &str,
+        weight: Weight,
+        style: Style,
+    ) -> Option<FontId> {
+        self.listed_face(chain, grapheme, weight, style)
+            .or_else(|| self.platform_face_in_chain(chain, grapheme, weight, style))
+    }
+
+    /// The first family of `chain` that covers `grapheme`.
     ///
     /// Blink's `FontFallbackList` tries every family of the `font-family`
     /// list in order before it asks the platform, so under mermaid's
@@ -319,9 +523,8 @@ impl FontSystem {
     /// draws `❤️` in Apple Color Emoji even when a listed family has a text
     /// `❤`. A lone `❤` takes the text order and Chrome draws it in Zapf
     /// Dingbats. All of these read off `CSS.getPlatformFontsForNode` in
-    /// the oracle's Chrome 156 on macOS. What the list cannot cover goes to
-    /// the platform ([`Self::platform_fallback`]).
-    pub fn fallback_in_chain(
+    /// the oracle's Chrome 156 on macOS.
+    pub fn listed_face(
         &self,
         chain: &str,
         grapheme: &str,
@@ -329,20 +532,29 @@ impl FontSystem {
         style: Style,
     ) -> Option<FontId> {
         let ch = grapheme.chars().next()?;
-        let emoji = emoji_presentation(grapheme);
-        let mut resolved = parse_families(chain)
+        if emoji_presentation(grapheme) {
+            return None;
+        }
+        parse_families(chain)
             .into_iter()
-            .filter_map(|family| self.resolve_family(&family, weight, style));
-        let primary = resolved.next();
-        let listed = (!emoji)
-            .then(|| {
-                primary
-                    .into_iter()
-                    .chain(resolved)
-                    .find(|&id| self.has_glyph(id, ch))
-            })
-            .flatten();
-        listed.or_else(|| self.platform_fallback(primary, grapheme, emoji, weight, style))
+            .filter_map(|family| self.resolve_family(&family, weight, style))
+            .find(|&id| self.has_glyph(id, ch))
+    }
+
+    /// The face the platform gives `hint` under the primary face of
+    /// `chain` ([`Self::platform_fallback`]). Blink asks this once per
+    /// stretch of text the list cannot cover, with one character of the
+    /// stretch as the hint, and draws every character of the stretch that
+    /// the answer covers in it.
+    pub fn platform_face_in_chain(
+        &self,
+        chain: &str,
+        hint: &str,
+        weight: Weight,
+        style: Style,
+    ) -> Option<FontId> {
+        let primary = self.resolve(chain, weight, style);
+        self.platform_fallback(primary, hint, emoji_presentation(hint), weight, style)
     }
 
     /// Glyph boxes from the platform for a face whose outline tables
@@ -425,9 +637,15 @@ impl FontSystem {
         self.db.face(id).map(|face| face.style)
     }
 
-    /// The weight the face itself carries. A request for 700 answered by a
-    /// 400 face means Chrome emboldens it.
+    /// The weight the face itself carries, as CSS weight: on macOS the
+    /// bucketed CoreText weight ([`Self::css_weight`]), elsewhere the OS/2
+    /// class. A request for 700 answered by a 400 face means Chrome
+    /// emboldens it.
     pub fn face_weight(&self, id: FontId) -> Option<Weight> {
+        #[cfg(target_os = "macos")]
+        if let Some(css) = self.css_weight(id) {
+            return Some(Weight(css));
+        }
         self.db.face(id).map(|face| face.weight)
     }
 

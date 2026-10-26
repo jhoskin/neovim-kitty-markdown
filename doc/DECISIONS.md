@@ -298,3 +298,35 @@ These entries replace the macOS platform fallback list in Fonts and text.
   (`labelHelper`); `flowchart.htmlLabels: false` turns only edge and
   cluster labels to SVG text. A label is drawn in the mode it was
   measured in.
+
+- On macOS the text measurer picks a face inside a family on the CoreText
+  weight trait, bucketed as Blink's `ToCssFontWeight` buckets it, and
+  compares faces as Blink's `BetterChoiceCT` does. The OS/2 weight class
+  gives Hiragino Sans W3 the weight 300, so the OS/2 rule drew 400 kana in
+  W4. W4 has smaller kerning values, and a 175 px kanban card then wrapped
+  one character early. Other platforms keep the fontdb CSS match.
+- A platform fallback face is the face CoreText gives for the character
+  plus the variation of that family that has the requested traits and
+  weight. The variation is used only when it has the character
+  (`PlatformFallbackFontForCharacter`). A face that fontdb does not list
+  (the named instances of the variable PingFang SC) falls back to the
+  family match, so PingFang SC text is measured with the Medium instance.
+  Its advances are the same as the advances of the Regular instance.
+- Fallback faces are picked per script segment. Common characters join the
+  segment before them. In each segment the fallback is asked once for one
+  hint character, chosen as `ChooseHintIndex` chooses it, and the answer
+  draws every leftover character it covers. Shaping runs break at segment
+  changes. Script extensions and paired brackets of ICU's script runs are
+  not ported.
+- `words_width` shapes each run of words of one style as one string.
+  Shaping each word alone lost kerning across spaces and between CJK
+  characters, which are a word each in a wrapped line.
+- `text-spacing-trim: normal` is ported for adjacent pairs only: `halt`
+  on a closing mark before a closing or middle mark, and on an opening
+  mark after an opening, middle, or closing mark. The trim at the start
+  of a wrapped line after the first and the trim at the end of a line
+  that overflows are not ported.
+- CJK line breaks: a break is allowed between Hangul syllables. A break is
+  not allowed before closing marks, the ideographic comma and full stop,
+  or `・`, and not after opening marks. A break is allowed before small
+  kana and `ー`.

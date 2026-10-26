@@ -83,6 +83,60 @@ pub fn is_ideographic(ch: char) -> bool {
         | 0x1B000..=0x1B16F | 0x20000..=0x2FA1F | 0x30000..=0x3134F)
 }
 
+/// Hangul syllables and jamo. Chrome (ICU line breaking, `word-break:
+/// normal`) breaks between two syllables, not only at spaces: the oracle's
+/// 175 px Korean label wraps as `테스` and `트입니다`.
+fn is_hangul(ch: char) -> bool {
+    matches!(ch as u32, 0x1100..=0x11FF | 0x3130..=0x318F | 0xA960..=0xA97F
+        | 0xAC00..=0xD7A3 | 0xD7B0..=0xD7FF)
+}
+
+/// CJK closing punctuation and the marks UAX #14 keeps off a line start
+/// (classes CL, CP, EX, IS, and the NS marks below): Chrome never breaks
+/// before them. The oracle wraps `「テス` / `ト」、` and `ジャンプ・` /
+/// `ラーメン`. Small kana and `ー` (class CJ) are left out: Chrome breaks
+/// before them (`ショ` / `ッピング`) as ICU's normal line breaking does.
+fn no_break_before(ch: char) -> bool {
+    matches!(
+        ch,
+        '、' | '。'
+            | '，'
+            | '．'
+            | '」'
+            | '』'
+            | '）'
+            | '〕'
+            | '】'
+            | '〉'
+            | '》'
+            | '〙'
+            | '〗'
+            | '｝'
+            | '］'
+            | '〟'
+            | '・'
+            | '：'
+            | '；'
+            | '！'
+            | '？'
+            | '々'
+            | 'ゝ'
+            | 'ゞ'
+            | 'ヽ'
+            | 'ヾ'
+            | '〜'
+    )
+}
+
+/// CJK opening punctuation (UAX #14 class OP): Chrome never breaks after
+/// it, so `「` stays with the text it opens.
+fn no_break_after(ch: char) -> bool {
+    matches!(
+        ch,
+        '「' | '『' | '（' | '〔' | '【' | '〈' | '《' | '〘' | '〖' | '｛' | '［' | '〝'
+    )
+}
+
 fn is_katakana(ch: char) -> bool {
     matches!(ch as u32, 0x30A0..=0x30FF | 0x31F0..=0x31FF | 0x32D0..=0x32FE | 0x3300..=0x3357
         | 0xFF66..=0xFF9F | 0x1B000)
@@ -516,6 +570,7 @@ pub struct Segment {
 pub fn html_segments(line: &[Word]) -> Vec<Segment> {
     let mut out: Vec<Segment> = Vec::new();
     for word in line {
+        let word_start = out.len();
         let chars: Vec<char> = word.content.chars().collect();
         let mut current = String::new();
         let flush = |current: &mut String, out: &mut Vec<Segment>| {
@@ -535,10 +590,24 @@ pub fn html_segments(line: &[Word]) -> Vec<Segment> {
                 });
                 continue;
             }
-            if is_ideographic(ch) {
-                flush(&mut current, &mut out);
+            if is_ideographic(ch) || is_hangul(ch) {
+                if no_break_before(ch) {
+                    // Keep the closing mark on the previous character's
+                    // segment, even when that one was ideographic too.
+                    if current.is_empty()
+                        && out.len() > word_start
+                        && out.last().is_some_and(|s| s.kind == SegmentKind::Text)
+                        && let Some(last) = out.pop()
+                    {
+                        current = last.word.content;
+                    }
+                } else if !current.chars().last().is_some_and(no_break_after) {
+                    flush(&mut current, &mut out);
+                }
                 current.push(ch);
-                flush(&mut current, &mut out);
+                if !no_break_after(ch) {
+                    flush(&mut current, &mut out);
+                }
                 continue;
             }
             current.push(ch);
@@ -829,5 +898,27 @@ mod tests {
         assert_eq!(pieces("a-$b"), vec!["a-$b"]);
         assert_eq!(pieces("-a"), vec!["-a"]);
         assert_eq!(pieces("a-"), vec!["a-"]);
+    }
+
+    #[test]
+    fn cjk_breaks_follow_chrome() {
+        let pieces = |s: &str| -> Vec<String> {
+            html_segments(&line(&[s]))
+                .into_iter()
+                .map(|segment| segment.word.content)
+                .collect()
+        };
+        // Every Hangul syllable is a break opportunity, as every kana is.
+        assert_eq!(pieces("테스트"), vec!["테", "스", "트"]);
+        assert_eq!(pieces("ログ"), vec!["ロ", "グ"]);
+        // Closing marks stay with what they close, opening marks with what
+        // they open, and small kana may start a line.
+        assert_eq!(pieces("「テ」、"), vec!["「テ」、"]);
+        assert_eq!(pieces("ス」"), vec!["ス」"]);
+        assert_eq!(pieces("プ・ラ"), vec!["プ・", "ラ"]);
+        assert_eq!(pieces("ショッ"), vec!["シ", "ョ", "ッ"]);
+        assert_eq!(pieces("（括弧）を"), vec!["（括", "弧）", "を"]);
+        assert_eq!(pieces("a」"), vec!["a」"]);
+        assert_eq!(pieces("。"), vec!["。"]);
     }
 }

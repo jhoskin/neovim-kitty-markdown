@@ -63,6 +63,19 @@ const STRINGS = {
   mixed: 'Step 1 → résultat ✓ 完成',
   mixed_rtl: 'Order שלום 42',
   mixed_emoji_cjk: 'Ship 🚀 発売',
+  // Kerned fallback runs (R-214, R-302): Hiragino Sans kerns kana pairs
+  // (グイ, バグ) in its GPOS table, so the kana face and its weight decide
+  // the width; Han in the same run goes to PingFang, Hangul to Apple SD
+  // Gothic Neo.
+  kana_kern: 'ログイン画面のバグを直す',
+  kana_pairs: 'グイ バグ ワイヤ タイプ',
+  kana_long: 'ダークモードとハイコントラストのテーマを追加する',
+  kana_kanji: '作業中のドキュメントの翻訳',
+  kana_latin: 'Mixed かな and English',
+  kana_punct: '「テスト」、バグ。',
+  hangul_text: '안녕하세요 세계 테스트',
+  hangul_latin: 'Build 빌드 OK',
+  cjk_latin: 'ID番号42のバグ',
   multi_latin: 'Café<br>naïve',
   multi_cjk: '中文<br>Line two',
   multi_emoji: 'Line 😀<br>second ✓',
@@ -86,6 +99,21 @@ const WRAPPED = [
   'Supercalifragilisticexpialidocious words and short ones mixed in one label',
 ];
 const WRAP_MAX_WIDTH = 200;
+// CJK labels break between any two characters, so a kerned pair decides
+// where the line ends. 175 px is the kanban card's label width.
+const WRAPPED_CJK = [
+  'ログイン画面のバグを直す',
+  'ダークモードとハイコントラストのテーマを追加する',
+  'やまだはなこさんとさとういちろうさん',
+  '한국어 라벨을 여러 줄로 나누는 테스트입니다',
+  'チェックリスト「テスト」、ショッピング。ジャンプ・ラーメン',
+  'テストケース（括弧）を追加しました。次の行へ続きます',
+  'Mixed かな and English テキストの折り返し',
+];
+const WRAP_CJK_MAX_WIDTH = 175;
+// The weights the face check asks for: Hiragino Sans and PingFang have a
+// face per CSS weight, matched on CoreText's weight, not OS/2's.
+const FACE_WEIGHTS = [100, 300, 400, 500, 600, 700, 900];
 
 // mermaid-cli injects these from its own node_modules; the fonts are loaded
 // through file:// here, so Chrome needs --allow-file-access-from-files.
@@ -128,7 +156,7 @@ try {
   await page.evaluate(() => Promise.all(Array.from(document.fonts, (font) => font.load())));
 
   const result = await page.evaluate(
-    ({ STRINGS, FAMILIES, SIZES, VARIANTS, WRAPPED, WRAP_MAX_WIDTH }) => {
+    ({ STRINGS, FAMILIES, SIZES, VARIANTS, WRAPPED, WRAP_MAX_WIDTH, WRAPPED_CJK, WRAP_CJK_MAX_WIDTH }) => {
       const SVG_NS = 'http://www.w3.org/2000/svg';
       const ZERO_WIDTH_SPACE = '​';
       const body = document.body;
@@ -303,6 +331,20 @@ try {
               ...measureWrapped(text, family, size, 400, 'normal', WRAP_MAX_WIDTH),
             });
           }
+          for (const { weight, style } of VARIANTS) {
+            for (const text of WRAPPED_CJK) {
+              wrapped.push({
+                id: `cjk/${familyId}/${size}/${weight}/${style}`,
+                text,
+                family,
+                size,
+                weight,
+                style,
+                max_width: WRAP_CJK_MAX_WIDTH,
+                ...measureWrapped(text, family, size, weight, style, WRAP_CJK_MAX_WIDTH),
+              });
+            }
+          }
         }
       }
 
@@ -365,7 +407,7 @@ try {
       body.removeChild(svg);
       return { fonts, generics, cases, wrapped, probe };
     },
-    { STRINGS, FAMILIES, SIZES, VARIANTS, WRAPPED, WRAP_MAX_WIDTH }
+    { STRINGS, FAMILIES, SIZES, VARIANTS, WRAPPED, WRAP_MAX_WIDTH, WRAPPED_CJK, WRAP_CJK_MAX_WIDTH }
   );
 
   // The face Chrome draws each grapheme of a fallback string in, read off
@@ -380,8 +422,13 @@ try {
     if (/^[\x00-\x7f]*$/.test(text)) {
       continue;
     }
+    const faceVariants = [
+      ...FACE_WEIGHTS.map((weight) => ({ weight, style: 'normal' })),
+      { weight: 400, style: 'italic' },
+      { weight: 700, style: 'italic' },
+    ];
     for (const [familyId, family] of Object.entries(FAMILIES)) {
-      for (const { weight, style } of VARIANTS) {
+      for (const { weight, style } of faceVariants) {
         const graphemes = await page.evaluate(
           ({ text, family, weight, style }) => {
             const holder = document.createElement('div');
@@ -418,6 +465,7 @@ try {
           perGrapheme.push({
             grapheme: graphemes[i],
             fonts: fonts.map((f) => f.familyName),
+            postscript: fonts.map((f) => f.postScriptName),
           });
         }
         await page.evaluate(() => document.getElementById('faces').remove());

@@ -50,6 +50,10 @@ struct Faces {
 struct GraphemeFaces {
     grapheme: String,
     fonts: Vec<String>,
+    /// The PostScript name of each face, which tells the weights of one
+    /// family apart (Hiragino Sans W3 from W4).
+    #[serde(default)]
+    postscript: Vec<String>,
 }
 
 #[derive(Deserialize)]
@@ -325,7 +329,36 @@ fn fallback_faces_match_chrome() {
     let mut mismatches = Vec::new();
     for case in &metrics.faces {
         let spec = spec_for(&case.family, 16.0, case.weight, &case.style);
-        for g in &case.graphemes {
+        // The oracle puts each grapheme in its own span, but the spans sit
+        // side by side in one line, and Chrome picks fallback faces per
+        // script segment of that line. So the helper assigns faces over
+        // the whole string and drops the whitespace the oracle skips.
+        let text_id = case.id.split('/').next().unwrap_or_default();
+        let Some(source) = metrics
+            .cases
+            .iter()
+            .find(|c| c.id.split('/').next() == Some(text_id))
+        else {
+            mismatches.push(format!("  {}: no corpus string", case.id));
+            continue;
+        };
+        let joined = markdown::split_breaks(&source.text).join(" ");
+        let mut helper_faces: Vec<_> = text
+            .grapheme_faces(&joined, &spec)
+            .into_iter()
+            .filter(|(g, _)| !g.chars().all(char::is_whitespace))
+            .collect();
+        // `Intl.Segmenter` keeps a Devanagari conjunct in one grapheme
+        // where the helper's segmenter splits it; such a string is one
+        // script segment, so each grapheme alone gets the same face.
+        if helper_faces.len() != case.graphemes.len() {
+            helper_faces = case
+                .graphemes
+                .iter()
+                .filter_map(|g| text.grapheme_faces(&g.grapheme, &spec).into_iter().next())
+                .collect();
+        }
+        for (g, (_, helper_face)) in case.graphemes.iter().zip(helper_faces) {
             // Chrome lists one face for a grapheme it draws in one face.
             let [chrome] = g.fonts.as_slice() else {
                 mismatches.push(format!(
@@ -334,17 +367,30 @@ fn fallback_faces_match_chrome() {
                 ));
                 continue;
             };
-            // The oracle puts each grapheme in its own span, so the helper
-            // looks each one up alone too.
-            let names = text
-                .grapheme_faces(&g.grapheme, &spec)
-                .first()
-                .map(|&(_, face)| fonts.family_names(face))
-                .unwrap_or_default();
+            let face = Some(helper_face);
+            let names = face.map(|f| fonts.family_names(f)).unwrap_or_default();
             if !names.iter().any(|name| name.eq_ignore_ascii_case(chrome)) {
                 mismatches.push(format!(
                     "  {} {:?}: Chrome {chrome}, helper {:?}",
                     case.id, g.grapheme, names
+                ));
+                continue;
+            }
+            // Within the family the face must be Chrome's too, where the
+            // font database lists that face. fontdb lists only the default
+            // instance of a variable font (PingFang SC Medium), so Chrome's
+            // named instances of it cannot be checked by name.
+            let helper_ps = face
+                .and_then(|f| fonts.db().face(f))
+                .map(|f| f.post_script_name.clone())
+                .unwrap_or_default();
+            if let [chrome_ps] = g.postscript.as_slice()
+                && *chrome_ps != helper_ps
+                && fonts.db().faces().any(|f| f.post_script_name == *chrome_ps)
+            {
+                mismatches.push(format!(
+                    "  {} {:?}: Chrome {chrome_ps}, helper {helper_ps}",
+                    case.id, g.grapheme
                 ));
             }
         }
@@ -395,19 +441,24 @@ fn wrapped_labels_match_chrome() {
         let spec = spec_for(&case.family, case.size, case.weight, &case.style);
         let lines = markdown::html_to_lines(&markdown::markdown_to_html(&case.text));
         let label = text.html_label(&lines, &spec, Some(case.max_width));
+        let bound = if needs_fallback(&case.text) {
+            FALLBACK_TOLERANCE
+        } else {
+            TOLERANCE
+        };
         deviations.push(Deviation {
             id: case.id.clone(),
             what: "wrapped.width",
             expected: case.width,
             got: label.width,
-            bound: TOLERANCE,
+            bound,
         });
         deviations.push(Deviation {
             id: case.id.clone(),
             what: "wrapped.height",
             expected: case.height,
             got: label.height,
-            bound: TOLERANCE,
+            bound,
         });
         let got_lines: Vec<String> = label
             .lines

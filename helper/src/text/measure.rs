@@ -404,6 +404,135 @@ struct Synthetic {
     bold: bool,
 }
 
+/// The Unicode script of `ch`, or `None` for the Common and Inherited
+/// scripts (spaces, digits, punctuation, marks), which take the script of
+/// the text around them. ASCII is answered without a lookup.
+fn script_of(ch: char) -> Option<rustybuzz::Script> {
+    if ch.is_ascii() {
+        return ch.is_ascii_alphabetic().then_some(rustybuzz::script::LATIN);
+    }
+    // HarfBuzz's segment guess skips Common and Inherited characters, so a
+    // one-character buffer keeps no script for them.
+    let mut buffer = rustybuzz::UnicodeBuffer::new();
+    buffer.add(ch, 0);
+    buffer.guess_segment_properties();
+    let script = buffer.script();
+    (script != rustybuzz::script::UNKNOWN).then_some(script)
+}
+
+/// The script segment of each grapheme: a new segment starts where a
+/// grapheme with a script of its own differs from the segment's script.
+/// Common and Inherited graphemes stay in the current segment, so leading
+/// ones join the first script that follows, as in ICU's script runs.
+fn script_segments(graphemes: &[String]) -> Vec<usize> {
+    let mut current: Option<rustybuzz::Script> = None;
+    let mut segment = 0;
+    graphemes
+        .iter()
+        .map(|g| {
+            if let Some(script) = g.chars().next().and_then(script_of) {
+                match current {
+                    Some(c) if c != script => {
+                        segment += 1;
+                        current = Some(script);
+                    }
+                    None => current = Some(script),
+                    Some(_) => {}
+                }
+            }
+            segment
+        })
+        .collect()
+}
+
+/// Blink's `HanKerningCharType` after the font checks: the classes
+/// `text-spacing-trim: normal` (Chrome's default) pairs up.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum HanType {
+    Open,
+    Close,
+    OpenNarrow,
+    CloseNarrow,
+    Middle,
+    Other,
+}
+
+/// The class of `ch` as Blink's `SetHanKerning`
+/// (character_property_data_generator.cc) assigns it, with the
+/// font-dependent classes left open.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum HanClass {
+    Fixed(HanType),
+    Dot,
+    Colon,
+    Semicolon,
+    OpenQuote,
+    CloseQuote,
+}
+
+fn han_class(ch: char) -> HanClass {
+    match ch {
+        '\u{2018}' | '\u{201C}' => HanClass::OpenQuote,
+        '\u{2019}' | '\u{201D}' => HanClass::CloseQuote,
+        '\u{3000}' | '\u{00B7}' | '\u{2027}' | '\u{30FB}' => HanClass::Fixed(HanType::Middle),
+        '、' | '。' | '，' | '．' => HanClass::Dot,
+        '：' => HanClass::Colon,
+        '；' => HanClass::Semicolon,
+        // `[[:blk=CJK_Symbols:][:ea=F:] & [:gc=Ps:]]` and its `Pe` twin.
+        '〈' | '《' | '「' | '『' | '【' | '〔' | '〖' | '〘' | '〚' | '〝' | '（' | '［'
+        | '｛' | '｟' => HanClass::Fixed(HanType::Open),
+        '〉' | '》' | '」' | '』' | '】' | '〕' | '〗' | '〙' | '〛' | '〞' | '〟' | '）'
+        | '］' | '｝' | '｠' => HanClass::Fixed(HanType::Close),
+        // The other `Ps` and `Pe` characters; the ASCII ones are the ones
+        // labels use.
+        '(' | '[' | '{' => HanClass::Fixed(HanType::OpenNarrow),
+        ')' | ']' | '}' => HanClass::Fixed(HanType::CloseNarrow),
+        _ => HanClass::Fixed(HanType::Other),
+    }
+}
+
+/// How a face draws the font-dependent classes (Blink's
+/// `HanKerning::FontData`).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct HanFontData {
+    dot: HanType,
+    colon: HanType,
+    semicolon: HanType,
+    quotes_fullwidth: bool,
+}
+
+/// `halt` (OpenType alternate half widths), the feature Blink applies to
+/// the punctuation it trims in horizontal text.
+const HALT: rustybuzz::ttf_parser::Tag = rustybuzz::ttf_parser::Tag::from_bytes(b"halt");
+
+/// Blink's `HanKerning::ShouldKern`: an opening mark after another
+/// opening, middle, or closing mark loses its leading half.
+fn should_kern(kind: HanType, last: HanType) -> bool {
+    kind == HanType::Open
+        && matches!(
+            last,
+            HanType::Open | HanType::Middle | HanType::Close | HanType::OpenNarrow
+        )
+}
+
+/// Blink's `HanKerning::ShouldKernLast`: a closing mark before another
+/// closing or middle mark loses its trailing half.
+fn should_kern_last(kind: HanType, last: HanType) -> bool {
+    last == HanType::Close
+        && matches!(
+            kind,
+            HanType::Close | HanType::Middle | HanType::CloseNarrow
+        )
+}
+
+/// One shaping run: text in one face, with the byte ranges of `text`
+/// that get `halt`.
+struct Run {
+    face: FontId,
+    text: String,
+    halt: Vec<(usize, usize)>,
+}
+
 /// The SVG label `createFormattedText` builds, as `getBBox` sees it.
 #[derive(Clone, Debug, PartialEq)]
 pub struct SvgLabel {
@@ -428,11 +557,13 @@ struct ShapeKey {
     face: FontId,
     size_bits: u32,
     synthetic: Synthetic,
+    halt: Vec<(usize, usize)>,
 }
 
 pub struct TextMetrics<'f> {
     fonts: &'f FontSystem,
     runs: RefCell<HashMap<ShapeKey, RunMetrics>>,
+    han_fonts: RefCell<HashMap<FontId, HanFontData>>,
 }
 
 impl<'f> TextMetrics<'f> {
@@ -440,6 +571,7 @@ impl<'f> TextMetrics<'f> {
         TextMetrics {
             fonts,
             runs: RefCell::new(HashMap::new()),
+            han_fonts: RefCell::new(HashMap::new()),
         }
     }
 
@@ -481,11 +613,12 @@ impl<'f> TextMetrics<'f> {
         (round_half_up(ascent), round_half_up(descent))
     }
 
-    /// Splits `text` into runs by the face that has each character:
-    /// the primary face when it covers the character, else the next family
-    /// of `chain` that does, else the platform fallback
-    /// ([`FontSystem::fallback_in_chain`]). Marks, joiners, and variation
-    /// selectors stay with their base.
+    /// Splits `text` into shaping runs: one face and one script segment
+    /// each ([`Self::assign_faces`]), with the byte ranges that get `halt`
+    /// ([`Self::han_kerning`]). HarfBuzz in Chrome shapes each script
+    /// segment on its own, so no kerning pair crosses from katakana to
+    /// hiragana. Marks, joiners, and variation selectors stay with their
+    /// base.
     fn runs(
         &self,
         text: &str,
@@ -493,35 +626,245 @@ impl<'f> TextMetrics<'f> {
         primary: FontId,
         weight: Weight,
         style: Style,
-    ) -> Vec<(FontId, String)> {
-        let mut runs: Vec<(FontId, String)> = Vec::new();
-        for grapheme in wrap::split_text_to_chars(text) {
-            let face = self.grapheme_face(&grapheme, chain, primary, weight, style);
-            match runs.last_mut() {
-                Some((last, run)) if *last == face => run.push_str(&grapheme),
-                _ => runs.push((face, grapheme)),
+    ) -> Vec<Run> {
+        let assigned = self.assign_faces(text, chain, primary, weight, style);
+        let kerned = self.han_kerning(&assigned);
+        let mut runs: Vec<(usize, Run)> = Vec::new();
+        for ((grapheme, face, segment), kern) in assigned.into_iter().zip(kerned) {
+            let run = match runs.last_mut() {
+                Some((seg, run)) if run.face == face && *seg == segment => run,
+                _ => {
+                    runs.push((
+                        segment,
+                        Run {
+                            face,
+                            text: String::new(),
+                            halt: Vec::new(),
+                        },
+                    ));
+                    &mut runs.last_mut().expect("just pushed").1
+                }
+            };
+            if kern {
+                run.halt
+                    .push((run.text.len(), run.text.len() + grapheme.len()));
             }
+            run.text.push_str(&grapheme);
         }
-        runs
+        runs.into_iter().map(|(_, run)| run).collect()
     }
 
-    fn grapheme_face(
+    /// The graphemes `text-spacing-trim: normal` sets in half width, as
+    /// Blink's `HanKerning` picks them: in each adjacent pair, a closing
+    /// mark before a closing or middle mark (`」、`), and an opening mark
+    /// after an opening, middle, or closing mark (`」「`). The oracle
+    /// measures `「テスト」、バグ。` 8 px (half an em at 16 px) narrower than
+    /// the sum of its glyphs. The pairs are found across face boundaries,
+    /// and each grapheme is classed in its own face. The line-start and
+    /// line-end trims of that value apply only to wrapped lines after the
+    /// first and to lines that overflow, which the helper leaves out.
+    fn han_kerning(&self, assigned: &[(String, FontId, usize)]) -> Vec<bool> {
+        let types: Vec<HanType> = assigned
+            .iter()
+            .map(|(grapheme, face, _)| {
+                let ch = grapheme.chars().next().unwrap_or(' ');
+                let class = han_class(ch);
+                if class == HanClass::Fixed(HanType::Other) {
+                    return HanType::Other;
+                }
+                let data = self.han_font_data(*face);
+                match class {
+                    HanClass::Fixed(kind) => kind,
+                    HanClass::Dot => data.dot,
+                    HanClass::Colon => data.colon,
+                    HanClass::Semicolon => data.semicolon,
+                    HanClass::OpenQuote if data.quotes_fullwidth => HanType::Open,
+                    HanClass::OpenQuote => HanType::OpenNarrow,
+                    HanClass::CloseQuote if data.quotes_fullwidth => HanType::Close,
+                    HanClass::CloseQuote => HanType::CloseNarrow,
+                }
+            })
+            .collect();
+        let mut kerned = vec![false; types.len()];
+        for i in 1..types.len() {
+            if should_kern_last(types[i], types[i - 1]) {
+                kerned[i - 1] = true;
+            }
+            if should_kern(types[i], types[i - 1]) {
+                kerned[i] = true;
+            }
+        }
+        kerned
+    }
+
+    /// Blink's `HanKerning::FontData`: a dot (`、。，．`) whose ink ends
+    /// left of the em's middle is set like a closing mark, one whose ink
+    /// starts right of it like an opening mark, and anything else is left
+    /// alone; the four dots must share one advance and one class. The
+    /// colon and semicolon are classed one by one, and only when the dots
+    /// pass. Quotes count as fullwidth when their advance is a full em.
+    fn han_font_data(&self, face: FontId) -> HanFontData {
+        if let Some(found) = self.han_fonts.borrow().get(&face) {
+            return *found;
+        }
+        let other = HanFontData {
+            dot: HanType::Other,
+            colon: HanType::Other,
+            semicolon: HanType::Other,
+            quotes_fullwidth: false,
+        };
+        let data = self
+            .fonts
+            .with_face(face, |f| {
+                let upem = f.units_per_em() as f32;
+                let half = upem / 2.0;
+                let tables = f.tables();
+                let readable =
+                    tables.glyf.is_some() || tables.cff.is_some() || tables.cff2.is_some();
+                let glyph = |ch: char| f.glyph_index(ch);
+                let boxes = |glyphs: &[rustybuzz::ttf_parser::GlyphId]| -> Vec<Option<[f32; 4]>> {
+                    if readable {
+                        glyphs.iter().map(|&g| glyph_box(f, g, 0.0)).collect()
+                    } else {
+                        let ids: Vec<u16> = glyphs.iter().map(|g| g.0).collect();
+                        let found = self.fonts.platform_glyph_bounds(face, &ids, 0.0);
+                        (0..glyphs.len())
+                            .map(|i| found.get(i).copied().flatten().map(|b| b.map(|v| v as f32)))
+                            .collect()
+                    }
+                };
+                let classify = |b: Option<[f32; 4]>| match b {
+                    Some([_, _, x_max, _]) if x_max <= half => HanType::Close,
+                    Some([x_min, _, _, _]) if x_min >= half => HanType::Open,
+                    _ => HanType::Other,
+                };
+                let dots: Option<Vec<_>> =
+                    ['、', '。', '，', '．'].into_iter().map(glyph).collect();
+                let Some(dots) = dots else {
+                    return other;
+                };
+                let advance0 = f.glyph_hor_advance(dots[0]);
+                let dot_boxes = boxes(&dots);
+                let dot = classify(dot_boxes[0]);
+                let consistent = dots
+                    .iter()
+                    .zip(&dot_boxes)
+                    .all(|(&g, &b)| f.glyph_hor_advance(g) == advance0 && classify(b) == dot);
+                let quotes_fullwidth = ['\u{2018}', '\u{2019}', '\u{201C}', '\u{201D}']
+                    .into_iter()
+                    .all(|ch| {
+                        glyph(ch)
+                            .and_then(|g| f.glyph_hor_advance(g))
+                            .is_some_and(|a| f32::from(a) >= upem)
+                    });
+                if !consistent || dot == HanType::Other {
+                    return HanFontData {
+                        quotes_fullwidth,
+                        ..other
+                    };
+                }
+                let single =
+                    |ch: char| glyph(ch).map_or(HanType::Other, |g| classify(boxes(&[g])[0]));
+                HanFontData {
+                    dot,
+                    colon: single('：'),
+                    semicolon: single('；'),
+                    quotes_fullwidth,
+                }
+            })
+            .unwrap_or(other);
+        self.han_fonts.borrow_mut().insert(face, data);
+        data
+    }
+
+    /// The face and script segment of each grapheme of `text`, as Blink's
+    /// `HarfBuzzShaper` assigns them.
+    ///
+    /// The text is cut into script segments (`RunSegmenter`): a grapheme of
+    /// the Common or Inherited script (a space, a digit, `「`) joins the
+    /// segment before it, or the one after it at the start. In each
+    /// segment the primary face takes what it covers, then each listed
+    /// family in turn. What is left goes to the platform with one hint
+    /// character (`FontFallbackIterator::ChooseHintIndex`: the first
+    /// character after the first one that has a script of its own, else
+    /// the first), and every leftover grapheme the answer covers is drawn
+    /// in it; the rest go round again with a new hint. So in
+    /// `「テスト」` the `「` is drawn in Hiragino Sans, the face Chrome finds
+    /// for `テ`, while a lone `「` gets PingFang SC, and the Han segment of
+    /// `ログイン画面` asks with `面` and gets PingFang SC though Hiragino
+    /// Sans has the glyphs too. Emoji-presentation graphemes take the
+    /// color emoji face on their own.
+    fn assign_faces(
         &self,
-        grapheme: &str,
+        text: &str,
         chain: &str,
         primary: FontId,
         weight: Weight,
         style: Style,
-    ) -> FontId {
-        let base = grapheme.chars().next().unwrap_or(' ');
-        let in_primary =
-            self.fonts.has_glyph(primary, base) && !fonts::emoji_presentation(grapheme);
-        if in_primary || base.is_whitespace() {
-            return primary;
+    ) -> Vec<(String, FontId, usize)> {
+        let graphemes = wrap::split_text_to_chars(text);
+        let base = |g: &str| g.chars().next().unwrap_or(' ');
+        let segments = script_segments(&graphemes);
+        let mut faces: Vec<Option<FontId>> = graphemes
+            .iter()
+            .map(|g| {
+                let ch = base(g);
+                if ch.is_whitespace()
+                    || (self.fonts.has_glyph(primary, ch) && !fonts::emoji_presentation(g))
+                {
+                    Some(primary)
+                } else if fonts::emoji_presentation(g) {
+                    Some(
+                        self.fonts
+                            .fallback_in_chain(chain, g, weight, style)
+                            .unwrap_or(primary),
+                    )
+                } else {
+                    self.fonts.listed_face(chain, g, weight, style)
+                }
+            })
+            .collect();
+        let segment_count = segments.last().map_or(0, |s| s + 1);
+        for segment in 0..segment_count {
+            let mut asked: Vec<char> = Vec::new();
+            loop {
+                let holes: Vec<usize> = (0..graphemes.len())
+                    .filter(|&i| segments[i] == segment && faces[i].is_none())
+                    .collect();
+                let Some(&first) = holes.first() else {
+                    break;
+                };
+                let hint = holes
+                    .iter()
+                    .skip(1)
+                    .find(|&&i| script_of(base(&graphemes[i])).is_some())
+                    .copied()
+                    .unwrap_or(first);
+                let hint_char = base(&graphemes[hint]);
+                let face = (!asked.contains(&hint_char))
+                    .then(|| {
+                        asked.push(hint_char);
+                        self.fonts
+                            .platform_face_in_chain(chain, &graphemes[hint], weight, style)
+                    })
+                    .flatten();
+                // Blink gives up on a hint it asked for before; the helper
+                // then draws the hole in the primary face, as Chrome draws
+                // its `.notdef` box.
+                let face = face.unwrap_or(primary);
+                for &i in &holes {
+                    if i == hint || self.fonts.has_glyph(face, base(&graphemes[i])) {
+                        faces[i] = Some(face);
+                    }
+                }
+            }
         }
-        self.fonts
-            .fallback_in_chain(chain, grapheme, weight, style)
-            .unwrap_or(primary)
+        graphemes
+            .into_iter()
+            .zip(faces)
+            .zip(segments)
+            .map(|((g, face), segment)| (g, face.unwrap_or(primary), segment))
+            .collect()
     }
 
     /// The face each grapheme of `text` is drawn in, as [`Self::shape`]
@@ -533,31 +876,37 @@ impl<'f> TextMetrics<'f> {
         let Some(primary) = self.primary_face(spec) else {
             return Vec::new();
         };
-        wrap::split_text_to_chars(text)
+        self.assign_faces(text, &spec.family, primary, weight, style)
             .into_iter()
-            .map(|grapheme| {
-                let face = self.grapheme_face(&grapheme, &spec.family, primary, weight, style);
-                (grapheme, face)
-            })
+            .map(|(grapheme, face, _)| (grapheme, face))
             .collect()
     }
 
     /// Advance width of `text` shaped in one face at `size`, in pixels.
     pub fn run_advance(&self, text: &str, face: FontId, size: f32) -> f32 {
-        self.run_metrics(text, face, size, Synthetic::default())
+        self.run_metrics(text, face, size, Synthetic::default(), &[])
             .advance
     }
 
     /// Shapes `text` in one face: summed advances and the union of the
     /// glyph outlines' bounding boxes, skewed or grown when Chrome would
     /// synthesize an oblique or a bold. Bitmap-only glyphs (color emoji)
-    /// have no outline; their boxes are collected apart.
-    fn run_metrics(&self, text: &str, face: FontId, size: f32, synthetic: Synthetic) -> RunMetrics {
+    /// have no outline; their boxes are collected apart. `halt` is
+    /// applied to the byte ranges given.
+    fn run_metrics(
+        &self,
+        text: &str,
+        face: FontId,
+        size: f32,
+        synthetic: Synthetic,
+        halt: &[(usize, usize)],
+    ) -> RunMetrics {
         let key = ShapeKey {
             text: text.to_string(),
             face,
             size_bits: size.to_bits(),
             synthetic,
+            halt: halt.to_vec(),
         };
         if let Some(found) = self.runs.borrow().get(&key) {
             return *found;
@@ -582,7 +931,11 @@ impl<'f> TextMetrics<'f> {
                 };
                 let mut buffer = rustybuzz::UnicodeBuffer::new();
                 buffer.push_str(text);
-                let glyphs = rustybuzz::shape(f, &[], buffer);
+                let features: Vec<rustybuzz::Feature> = halt
+                    .iter()
+                    .map(|&(start, end)| rustybuzz::Feature::new(HALT, 1, start..end))
+                    .collect();
+                let glyphs = rustybuzz::shape(f, &features, buffer);
                 let tables = f.tables();
                 let readable =
                     tables.glyf.is_some() || tables.cff.is_some() || tables.cff2.is_some();
@@ -687,14 +1040,19 @@ impl<'f> TextMetrics<'f> {
         let (ascent, descent) = self.face_ascent_descent(primary, spec.size);
         let mut width = 0.0;
         let mut ink: Option<Ink> = None;
-        for (face, run) in self.runs(text, &spec.family, primary, weight, style) {
+        for Run {
+            face,
+            text: run,
+            halt,
+        } in self.runs(text, &spec.family, primary, weight, style)
+        {
             let synthetic = Synthetic {
                 oblique: spec.style == FontStyle::Italic
                     && self.fonts.face_style(face) == Some(Style::Normal),
                 bold: spec.weight >= 600 && self.fonts.face_weight(face).is_some_and(|w| w.0 < 600),
             };
             let oblique = synthetic.oblique;
-            let metrics = self.run_metrics(&run, face, spec.size, synthetic);
+            let metrics = self.run_metrics(&run, face, spec.size, synthetic, &halt);
             ink = Ink::union(ink, metrics.ink.map(|i| i.shifted(width)));
             if let Some((left, right)) = metrics.bitmap {
                 // A bitmap strike box is square: as tall as its advance,
@@ -731,12 +1089,23 @@ impl<'f> TextMetrics<'f> {
         }
     }
 
-    /// Width of a line of styled words laid end to end, each word shaped in
-    /// its own font (an inline style boundary ends a shaping run in Chrome).
+    /// Width of a line of styled words laid end to end. Adjacent words of
+    /// one style are shaped as one run, as Chrome shapes a text node whole
+    /// and measures a line as a range of it: a wrapped CJK line is a word
+    /// per character, and shaping them one by one would drop the kerning
+    /// between them (Hiragino Sans kerns `グイ` by 0.1 em). An inline style
+    /// boundary ends a shaping run in Chrome, so each style is shaped in
+    /// its own font.
     pub fn words_width(&self, words: &[Word], spec: &FontSpec) -> f32 {
-        words
-            .iter()
-            .map(|word| self.shape(&word.content, &spec.for_word(word.kind)).width)
+        let mut runs: Vec<(WordType, String)> = Vec::new();
+        for word in words {
+            match runs.last_mut() {
+                Some((kind, text)) if *kind == word.kind => text.push_str(&word.content),
+                _ => runs.push((word.kind, word.content.clone())),
+            }
+        }
+        runs.iter()
+            .map(|(kind, text)| self.shape(text, &spec.for_word(*kind)).width)
             .sum()
     }
 
@@ -1056,5 +1425,111 @@ mod css_family_tests {
             css_family_or_page_default("\"trebuchet ms\", verdana, arial, sans-serif"),
             "\"trebuchet ms\", verdana, arial, sans-serif"
         );
+    }
+}
+
+/// Fallback runs as Chrome on macOS shapes them (R-214, R-302).
+#[cfg(test)]
+mod cjk_tests {
+    use super::*;
+    use crate::text::font_system;
+
+    const MERMAID_CHAIN: &str = "\"trebuchet ms\", verdana, arial, sans-serif";
+
+    fn postscript(fonts: &FontSystem, face: FontId) -> String {
+        fonts
+            .db()
+            .face(face)
+            .map(|f| f.post_script_name.clone())
+            .unwrap_or_default()
+    }
+
+    /// Chrome 156 on macOS, `getBoundingClientRect` of each string at
+    /// 16 px under mermaid's chain: Hiragino Sans W3 kerns `グイ` by
+    /// 1.594 px and `バグ` by 0.641 px; W4 (the OS/2 400 face) kerns less.
+    #[cfg(target_os = "macos")]
+    #[test]
+    fn kana_pairs_kern_like_chrome() {
+        let fonts = font_system();
+        let metrics = TextMetrics::new(fonts);
+        let spec = FontSpec::new(MERMAID_CHAIN, 16.0);
+        for (text, chrome) in [
+            ("グイ", 30.406),
+            ("バグ", 31.359),
+            ("ドキュメント", 96.0),
+            ("ログイン画面のバグを直す", 190.734),
+            ("「テスト」、バグ。", 132.0),
+        ] {
+            let width = metrics.shape(text, &spec).width;
+            assert!((width - chrome).abs() < 0.05, "{text}: {width} vs {chrome}");
+        }
+    }
+
+    #[cfg(target_os = "macos")]
+    #[test]
+    fn fallback_faces_follow_the_script_segment_hint() {
+        let fonts = font_system();
+        let metrics = TextMetrics::new(fonts);
+        let faces = |text: &str, weight: u16| -> Vec<String> {
+            let spec = FontSpec::new(MERMAID_CHAIN, 16.0).weight(weight);
+            metrics
+                .grapheme_faces(text, &spec)
+                .into_iter()
+                .map(|(_, face)| postscript(fonts, face))
+                .collect()
+        };
+        // `「` takes the face the kana after it get; alone it gets PingFang.
+        assert_eq!(faces("「テ", 400), ["HiraginoSans-W3", "HiraginoSans-W3"]);
+        assert_eq!(faces("「", 400), ["PingFangSC-Medium"]);
+        // Han between kana is a segment of its own and asks for itself.
+        assert_eq!(
+            faces("ン画の", 400),
+            ["HiraginoSans-W3", "PingFangSC-Medium", "HiraginoSans-W3"]
+        );
+        assert_eq!(faces("カ", 500), ["HiraginoSans-W4"]);
+        assert_eq!(faces("カ", 700), ["HiraginoSans-W6"]);
+        assert_eq!(faces("한", 700), ["AppleSDGothicNeo-Bold"]);
+    }
+
+    /// A wrapped line is measured from the words of the line; shaped
+    /// together they keep the kerning a per-word sum would drop, in CJK
+    /// lines (a word per character) and across Latin spaces alike.
+    #[cfg(target_os = "macos")]
+    #[test]
+    fn a_line_of_words_is_shaped_as_one_run() {
+        let fonts = font_system();
+        let metrics = TextMetrics::new(fonts);
+        let spec = FontSpec::new(MERMAID_CHAIN, 16.0);
+        for text in ["ログイン画面のバグを直", "A database with ", "AVAWAY Type"] {
+            let words: Vec<Word> = wrap::html_segments(&[Word::normal(text)])
+                .into_iter()
+                .map(|segment| segment.word)
+                .collect();
+            assert!(words.len() > 1, "{text}");
+            let whole = metrics.shape(text, &spec).width;
+            assert!(
+                (metrics.words_width(&words, &spec) - whole).abs() < 1e-3,
+                "{text}"
+            );
+        }
+        // A style change still ends the run.
+        let styled = [
+            Word::normal("AV"),
+            Word::new("A".to_string(), WordType::Strong),
+        ];
+        let expected = metrics.shape("AV", &spec).width
+            + metrics.shape("A", &spec.for_word(WordType::Strong)).width;
+        assert!((metrics.words_width(&styled, &spec) - expected).abs() < 1e-3);
+    }
+
+    #[test]
+    fn script_segments_absorb_common_characters() {
+        let graphemes = |s: &str| wrap::split_text_to_chars(s);
+        assert_eq!(script_segments(&graphemes("「テ」")), [0, 0, 0]);
+        assert_eq!(
+            script_segments(&graphemes("ID番号42の")),
+            [0, 0, 1, 1, 1, 1, 2]
+        );
+        assert_eq!(script_segments(&graphemes("a b")), [0, 0, 0]);
     }
 }
