@@ -88,6 +88,60 @@ describe('layout rules', function()
     end)
   end)
 
+  describe('task items (R-042, R-272, R-274)', function()
+    it('shows the checkbox in place of the bullet and the marker', function()
+      local model = build({ '- [ ] open', '- [x] done', '- [X] upper' })
+      assert.are.same(
+        { icons.unchecked .. ' open', icons.checked .. ' done', icons.checked .. ' upper' },
+        texts(model)
+      )
+      for _, line in ipairs(model.lines) do
+        for _, bullet in ipairs(icons.bullet) do
+          assert.is_nil(line:find(bullet, 1, true))
+        end
+      end
+      assert.is_true(
+        vim.tbl_contains(groups_at(model, 1, icons.unchecked), 'KittyMarkdownUnchecked')
+      )
+      assert.is_true(vim.tbl_contains(groups_at(model, 2, icons.checked), 'KittyMarkdownChecked'))
+    end)
+
+    it('uses the glyphs of the Icons definition', function()
+      local model = build({ '- [ ] a', '- [x] b' })
+      assert.are.equal(0xF0131, vim.fn.char2nr(model.lines[1]:sub(3)))
+      assert.are.equal(0xF0C52, vim.fn.char2nr(model.lines[2]:sub(3)))
+    end)
+
+    it('shows a nested task item with the checkbox and no depth bullet', function()
+      local model = build({ '- parent', '  - [ ] child', '    - [x] grandchild', '  - plain' })
+      assert.are.same({
+        icons.bullet[1] .. ' parent',
+        '  ' .. icons.unchecked .. ' child',
+        '    ' .. icons.checked .. ' grandchild',
+        '  ' .. icons.bullet[2] .. ' plain',
+      }, texts(model))
+    end)
+
+    it('aligns wrapped task text under the text after the checkbox', function()
+      local words = string.rep('word ', 12)
+      local model = build({ '- [ ] ' .. words })
+      assert.is_true(#model.lines >= 2)
+      local cont = model.lines[2]:sub(3)
+      assert.are.equal(
+        string.rep(' ', vim.api.nvim_strwidth(icons.unchecked) + 1),
+        cont:match('^ *')
+      )
+    end)
+
+    it('shows the checkbox in place of the number in an ordered list', function()
+      local model = build({ '1. [ ] first', '2. second', '3. [x] third' })
+      assert.are.same(
+        { icons.unchecked .. ' first', '2. second', icons.checked .. ' third' },
+        texts(model)
+      )
+    end)
+  end)
+
   describe('footnotes (R-054, R-219, R-273)', function()
     local doc = {
       'Body ref[^a] and[^b].',

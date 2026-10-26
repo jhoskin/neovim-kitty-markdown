@@ -354,12 +354,9 @@ describe('layout', function()
       assert.are.equal('  8. eight', model.lines[seven + 1])
     end)
 
-    it('shows checkbox icons for task items', function()
+    it('shows checkbox icons in place of the bullet for task items', function()
       local done = find_line(model, 'done task')
-      assert.are.equal(
-        '  ' .. icons.bullet[1] .. ' ' .. icons.checked .. ' done task',
-        model.lines[done]
-      )
+      assert.are.equal('  ' .. icons.checked .. ' done task', model.lines[done])
       assert.is_true(has_group(model, done, icons.checked, 'KittyMarkdownChecked'))
       assert.is_true(has_group(model, done + 1, icons.unchecked, 'KittyMarkdownUnchecked'))
     end)

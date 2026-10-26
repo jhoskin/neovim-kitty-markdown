@@ -429,28 +429,24 @@ function Doc:render_list(block, ctx, depth)
   local number = block.start or 1
   for _, item in ipairs(block.items) do
     local marker, marker_group
-    if block.ordered then
+    if item.checked ~= nil then
+      -- The checkbox takes the place of the bullet or the number, as GitHub
+      -- hides the list marker of a task item (R-042). A task item still
+      -- counts in the numbering of an ordered list.
+      marker = item.checked and icons.checked or icons.unchecked
+      marker_group = item.checked and 'KittyMarkdownChecked' or 'KittyMarkdownUnchecked'
+    elseif block.ordered then
       marker = tostring(number) .. '.'
       marker_group = 'KittyMarkdownNumber'
-      number = number + 1
     else
       marker = icons.bullet[(depth % #icons.bullet) + 1]
       marker_group = 'KittyMarkdownBullet'
     end
+    number = number + 1
     local first = extend_prefix(ctx.prefix, indent)
     first = extend_prefix(first, marker, marker_group)
     first = extend_prefix(first, ' ')
     local head_width = strwidth(marker) + 1
-    if item.checked ~= nil then
-      local box = item.checked and icons.checked or icons.unchecked
-      first = extend_prefix(
-        first,
-        box,
-        item.checked and 'KittyMarkdownChecked' or 'KittyMarkdownUnchecked'
-      )
-      first = extend_prefix(first, ' ')
-      head_width = head_width + strwidth(box) + 1
-    end
     local cont = extend_prefix(ctx.prefix, indent .. spaces(head_width))
     local width = ctx.width - 2 * depth - head_width
     local tokens = {}
