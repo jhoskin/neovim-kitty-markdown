@@ -149,6 +149,10 @@ impl CardLabels {
         let title = measurer.measure(&item.label, &opts);
         let ticket = measurer.measure(item.ticket.as_deref().unwrap_or(""), &opts);
         let assigned = measurer.measure(item.assigned.as_deref().unwrap_or(""), &opts);
+        Self::place(title, ticket, assigned, node_width)
+    }
+
+    fn place(title: LabelBox, ticket: LabelBox, assigned: LabelBox, node_width: f64) -> Self {
         let total_width = node_width;
         let height_adj = ticket.height.max(assigned.height) / 2.0;
         let left = ITEM_PADDING - total_width / 2.0;
@@ -173,6 +177,22 @@ impl CardLabels {
                 y: below_title,
             },
         }
+    }
+
+    /// `nodeEl.getBBox().height`: the card rect united with its label
+    /// boxes. The rect is `title + 20 + heightAdj` tall around 0, but the
+    /// title starts at `-heightAdj - title / 2` and the metadata ends at
+    /// `title / 2 + heightAdj`, so a ticket or assignee label taller than
+    /// 40 px (two HTML lines) leaves the rect by `heightAdj / 2 - 10` at
+    /// the top and the bottom. `draw` stacks the cards by this height.
+    fn group_height(&self, rect_height: f64) -> f64 {
+        let mut y0 = -rect_height / 2.0;
+        let mut y1 = rect_height / 2.0;
+        for (_, ly, _, lh) in self.boxes() {
+            y0 = y0.min(ly);
+            y1 = y1.max(ly + lh);
+        }
+        y1 - y0
     }
 
     /// The `foreignObject` boxes for the diagram bounds. A label with no
@@ -256,20 +276,18 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
         for item in &column.section.items {
             let mut node = item_node(item, column.x, item_width);
             let out = shapes::insert_node(&mut node, &shape_ctx)?;
-            // `nodeEl.getBBox().height`: the card rect, which the labels
-            // never leave vertically.
-            let height = out.height;
+            let labels = CardLabels::measure(item, item_width, measurer, &shape_ctx);
+            let height = labels.group_height(out.height);
             node.y = y + height / 2.0;
             let mut group = out.group;
             group.common.transform = translate(node.x, node.y);
             Bounds::add(
                 &mut bounds,
                 node.x - out.width / 2.0,
-                node.y - height / 2.0,
+                node.y - out.height / 2.0,
                 out.width,
-                height,
+                out.height,
             );
-            let labels = CardLabels::measure(item, item_width, measurer, &shape_ctx);
             for (lx, ly, lw, lh) in labels.boxes() {
                 Bounds::add(&mut bounds, node.x + lx, node.y + ly, lw, lh);
             }
@@ -370,4 +388,73 @@ pub fn draw(db: &KanbanDb, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<S
         linear_gradients: Vec::new(),
         root,
     })
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::mermaid::shapes::{LabelLine, LabelRun};
+
+    /// A one-run label box of the given size, as the HTML measurer returns.
+    fn label(width: f64, height: f64) -> LabelBox {
+        LabelBox {
+            width,
+            height,
+            lines: vec![LabelLine {
+                runs: vec![LabelRun::plain("x")],
+                width,
+            }],
+            ..LabelBox::default()
+        }
+    }
+
+    /// `kanbanItem`'s rect height: `title + 20 + heightAdj`.
+    fn rect_height(title: f64, ticket: f64, assigned: f64) -> f64 {
+        title + 20.0 + ticket.max(assigned) / 2.0
+    }
+
+    #[test]
+    fn one_line_metadata_stays_inside_the_card() {
+        for (title, ticket, assigned) in [(24.0, 24.0, 24.0), (48.0, 0.0, 24.0), (72.0, 24.0, 0.0)]
+        {
+            let labels = CardLabels::place(
+                label(80.0, title),
+                label(60.0, ticket),
+                label(60.0, assigned),
+                185.0,
+            );
+            let rect = rect_height(title, ticket, assigned);
+            assert_eq!(
+                labels.group_height(rect),
+                rect,
+                "{title} {ticket} {assigned}"
+            );
+        }
+    }
+
+    /// The oracle's `overflow_long_assignee` second card: a two-line title
+    /// and a two-line ticket give a 92 px rect whose labels span -48 to 48.
+    /// The labels pass the rect by `heightAdj / 2 - 10` at each end.
+    #[test]
+    fn wrapped_metadata_grows_the_stacking_height() {
+        for (ticket, assigned, extra) in [
+            (48.0, 24.0, 4.0),
+            (24.0, 48.0, 4.0),
+            (72.0, 0.0, 16.0),
+            (48.0, 72.0, 16.0),
+        ] {
+            let labels = CardLabels::place(
+                label(175.0, 48.0),
+                label(175.0, ticket),
+                label(195.8, assigned),
+                185.0,
+            );
+            let rect = rect_height(48.0, ticket, assigned);
+            assert_eq!(
+                labels.group_height(rect),
+                rect + extra,
+                "{ticket} {assigned}"
+            );
+        }
+    }
 }
