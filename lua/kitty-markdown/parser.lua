@@ -973,6 +973,17 @@ function Walk:indented_code(node, out)
   while #lines > 0 and is_blank(lines[#lines]) do
     lines[#lines] = nil
   end
+  -- Footnote definitions have no tree-sitter node, so the later paragraphs
+  -- and blocks of a definition, indented by four columns after a blank
+  -- line, parse as an indented code block. GitHub reads them as markdown
+  -- inside the definition (R-273).
+  local prev = out[#out]
+  if prev and prev.kind == 'footnote_def' then
+    prev.children = prev.children or {}
+    vim.list_extend(prev.children, self:parse_nested(lines, src_start - 1))
+    prev.src_end = src_end
+    return
+  end
   out[#out + 1] = { kind = 'code', lines = lines, src_start = src_start, src_end = src_end }
 end
 

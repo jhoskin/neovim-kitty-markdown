@@ -106,6 +106,7 @@ function Doc.new(opts, text_width)
   self.footnotes = {}
   self.footnote_numbers = {}
   self.footnote_defs = {}
+  self.defined = {}
   return self
 end
 
@@ -220,6 +221,10 @@ function Doc:flatten(inlines, groups, link, out)
     elseif t == 'image' then
       -- a stray inline image (the parser lifts them) shows its alt text
       self:words(item.alt or '', groups, link, item.row, out)
+    elseif t == 'footnote_ref' and not self.defined[vim.fn.tolower(item.label)] then
+      -- no definition: GitHub shows the reference as written and gives it
+      -- no number (R-219)
+      self:words('[^' .. item.label .. ']', groups, link, item.row, out)
     elseif t == 'footnote_ref' then
       local n = self:footnote_number(item.label)
       self:words(superscript(n), with_group(groups, 'KittyMarkdownFootnote'), link, item.row, out)
@@ -741,8 +746,9 @@ end
 -- Render a block sequence with one separator line between blocks (R-061).
 -- The anchor line of a pixel block doubles as the separator before it, and
 -- one separator follows it.
-function Doc:render_blocks(blocks, ctx)
-  local need_sep = false
+-- `sep_first` asks for a separator before the first block too.
+function Doc:render_blocks(blocks, ctx, sep_first)
+  local need_sep = sep_first == true
   for _, block in ipairs(blocks) do
     if is_hidden(block) then
       self:render_block(block, ctx)
@@ -784,6 +790,10 @@ function Doc:render_footnotes(ctx)
       local tokens = {}
       self:flatten(def.inlines, ctx.groups, nil, tokens)
       self:wrap(tokens, first, cont, ctx.width - strwidth(mark) - 1)
+      if def.children then
+        local inner = { prefix = cont, width = ctx.width - strwidth(mark) - 1, groups = ctx.groups }
+        self:render_blocks(def.children, inner, true)
+      end
     end
   end
 end
@@ -810,6 +820,20 @@ function Doc:finish_source_lines()
   end
 end
 
+-- The labels of every footnote definition, in lower case, wherever the
+-- definition sits (a quote or a list item may hold one).
+local function collect_footnote_labels(blocks, set)
+  for _, block in ipairs(blocks) do
+    if block.kind == 'footnote_def' then
+      set[vim.fn.tolower(block.label)] = true
+    end
+    collect_footnote_labels(block.children or {}, set)
+    for _, item in ipairs(block.items or {}) do
+      collect_footnote_labels(item.children or {}, set)
+    end
+  end
+end
+
 --- Build the layout model from a block list. `opts` keys: width, cell,
 --- sizes, theme, images, dir (R-203).
 function M.build(blocks, opts)
@@ -826,6 +850,7 @@ function M.build(blocks, opts)
     dir = opts.dir or blocks.dir,
   }
   local doc = Doc.new(resolved, text_width)
+  collect_footnote_labels(blocks, doc.defined)
   local ctx = { prefix = { text = '', spans = {} }, width = text_width, groups = {} }
   doc:render_blocks(blocks, ctx)
   doc:render_footnotes(ctx)

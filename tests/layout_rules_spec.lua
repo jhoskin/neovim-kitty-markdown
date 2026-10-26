@@ -88,6 +88,75 @@ describe('layout rules', function()
     end)
   end)
 
+  describe('footnotes (R-054, R-219, R-273)', function()
+    local doc = {
+      'Body ref[^a] and[^b].',
+      '',
+      '[^a]: First paragraph.',
+      '',
+      '    Second paragraph.',
+      '',
+      '    ```lua',
+      '    print(1)',
+      '    ```',
+      '',
+      '    - one',
+      '    - two',
+      '',
+      '[^b]: Other note.',
+      '',
+      'Tail paragraph.',
+    }
+
+    it('shows every paragraph and block of a definition at the end', function()
+      local t = texts(build(doc))
+      assert.are.same({
+        'Body ref¹ and².',
+        '',
+        'Tail paragraph.',
+        '',
+        '¹ First paragraph.',
+        '',
+        '  Second paragraph.',
+        '',
+        '  ── lua ' .. string.rep('─', TEXT_WIDTH - 2 - 2 - 5),
+        '  print(1)' .. string.rep(' ', TEXT_WIDTH - 2 - 8),
+        '  ' .. string.rep('─', TEXT_WIDTH - 2),
+        '',
+        '  ● one',
+        '  ● two',
+        '',
+        '² Other note.',
+      }, t)
+    end)
+
+    it('keeps a later paragraph of the last definition at the end', function()
+      local t = texts(build({ 'See[^n].', '', '[^n]: One.', '', '    Two.', '', '    Three.' }))
+      assert.are.same({ 'See¹.', '', '¹ One.', '', '  Two.', '', '  Three.' }, t)
+    end)
+
+    it('maps the lines of a later paragraph to its source line', function()
+      -- the definition is last, so the mapping can stay non-decreasing
+      local model = build({ 'See[^n].', '', '[^n]: One.', '', '    Two.', '', '    Three.' })
+      assert.are.equal(5, model.source_lines[find_line(model, 'Two.')])
+      assert.are.equal(7, model.source_lines[find_line(model, 'Three.')])
+    end)
+
+    it('shows a reference with no definition as written', function()
+      local model = build({ 'a[^x] b[^nope] c[^y] d[^Nope2]', '', '[^x]: X.', '[^y]: Y.' })
+      local t = texts(model)
+      assert.are.equal('a¹ b[^nope] c² d[^Nope2]', t[1])
+      assert.are.same({ { label = 'x', number = 1 }, { label = 'y', number = 2 } }, model.footnotes)
+      assert.are.same({ '¹ X.', '', '² Y.' }, { t[#t - 2], t[#t - 1], t[#t] })
+    end)
+
+    it('numbers nothing when no reference has a definition', function()
+      local model = build({ 'Only[^missing] here.' })
+      assert.are.same({ 'Only[^missing] here.' }, texts(model))
+      assert.are.same({}, model.footnotes)
+    end)
+  end)
+
   describe('HTML comments (R-270)', function()
     it('hides a comment block and keeps one blank line between its neighbors', function()
       assert.are.same({ 'a', '', 'b' }, texts(build({ 'a', '', '<!-- hidden -->', '', 'b' })))
