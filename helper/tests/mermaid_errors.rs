@@ -10,6 +10,7 @@
 //! of the text and one in the middle for each parser family.
 
 use kitty_markdown_helper::error::HelperError;
+use kitty_markdown_helper::mermaid::detect::detect_type;
 use kitty_markdown_helper::mermaid::raster::Background;
 use kitty_markdown_helper::mermaid::{self, RenderRequest};
 
@@ -470,6 +471,39 @@ fn unfinished_looking_sources_the_oracle_renders_also_render() {
     for (case, source) in ORACLE_RENDERS {
         assert!(render(source).is_ok(), "{case}: {:?}", render(source));
     }
+}
+
+/// R-113, R-176: mermaid-cli registers `@mermaid-js/mermaid-zenuml`, whose
+/// detector is `/^\s*zenuml/` and runs after every built-in one; the text
+/// it sees has front matter, directives, and comments removed.
+#[test]
+fn zenuml_in_every_form_is_an_unsupported_diagram_type() {
+    let sources = [
+        "zenuml\n  A.method()",
+        "   zenuml\n  A.method()",
+        "\tzenuml\n  A.method()",
+        "---\ntitle: x\n---\nzenuml\n  A.method()",
+        "%%{init: {'theme':'dark'}}%%\nzenuml\n  A.method()",
+        "%% a comment\nzenuml\n  A.method()",
+        "---\nconfig:\n  theme: forest\n---\n%%{init: {'theme':'dark'}}%%\n%% c\n  zenuml\n",
+        "zenumlfoo\n  A.method()",
+        "zenuml",
+    ];
+    for source in sources {
+        assert_eq!(detect_type(source), Ok("zenuml"), "{source:?}");
+        match render(source) {
+            Err(HelperError::UnsupportedDiagramType { diagram_type }) => {
+                assert_eq!(diagram_type, "zenuml", "{source:?}")
+            }
+            other => panic!("{source:?}: {other:?}"),
+        }
+    }
+    // The detector is case-sensitive: the oracle finds no diagram type.
+    let err = render("ZenUML\n  A.method()").unwrap_err();
+    assert_eq!(
+        err.to_string(),
+        "No diagram type detected matching given configuration for text: ZenUML\n  A.method()"
+    );
 }
 
 /// R-176: the other types outside the delivered phases, with the same

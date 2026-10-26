@@ -267,3 +267,6 @@ These entries replace the macOS platform fallback list in Fonts and text.
   the excerpt shows `ﬂ°°35¶ß` for `#35;` and a `style` line loses its last
   `;`, as in the oracle. If the encoded text parses, the first error
   stays.
+- The zenuml detector (`/^\s*zenuml/`, case-sensitive) is the last one,
+  because mermaid-cli registers `@mermaid-js/mermaid-zenuml` after the
+  built-in diagrams.

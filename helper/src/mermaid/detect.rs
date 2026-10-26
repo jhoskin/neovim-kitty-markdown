@@ -8,6 +8,9 @@
 //! first detector that matches wins, so `graph` text with a `gitGraph`
 //! keyword later on is still a flowchart, and `stateDiagram-v2` is
 //! `stateDiagram` because that detector's regex is a prefix match.
+//! mermaid-cli then calls `registerExternalDiagrams([zenuml])`
+//! (`src/index.js`), which adds the zenuml detector of
+//! `@mermaid-js/mermaid-zenuml` after all of these.
 
 use std::fmt;
 use std::sync::LazyLock;
@@ -19,8 +22,7 @@ use super::preprocess::{match_front_matter, strip_any_comments};
 use super::theme::khroma::JS_WHITESPACE;
 
 /// The ids mermaid's detectors answer with, in detection order, minus the
-/// `error` and `---` pseudo diagrams. This is what the `probe` reply lists
-/// as `diagram_types`.
+/// `error` and `---` pseudo diagrams.
 pub fn all_types() -> &'static [&'static str] {
     &[
         "flowchart-elk",
@@ -60,6 +62,7 @@ pub fn all_types() -> &'static [&'static str] {
         "wardley",
         "cynefin",
         "usecase",
+        "zenuml",
     ]
 }
 
@@ -151,6 +154,9 @@ static DETECTORS: LazyLock<Vec<(&'static str, Regex)>> = LazyLock::new(|| {
         ("wardley", re(r"(?i)^\s*wardley-beta")),
         ("cynefin", re(r"^\s*cynefin-beta(?:[\s:]|$)")),
         ("usecase", re(r"^\s*usecase-beta(?:\s|$)")),
+        // `@mermaid-js/mermaid-zenuml` 1.0.1 `detector.ts`: a prefix match,
+        // so `zenumlfoo` is zenuml too.
+        ("zenuml", re(r"^\s*zenuml")),
     ]
 });
 
@@ -243,6 +249,9 @@ mod tests {
             ("agentflow-beta\n", "agentflow"),
             ("railroad-beta\n", "railroad"),
             ("railroad-ebnf-beta\n", "railroadEbnf"),
+            ("zenuml\n  A.method()", "zenuml"),
+            ("  zenuml\n", "zenuml"),
+            ("zenumlfoo\n", "zenuml"),
             ("error", "error"),
             ("  Error  ", "error"),
         ];
