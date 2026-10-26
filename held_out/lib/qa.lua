@@ -306,7 +306,11 @@ function M.tmpdir()
   tmp_n = tmp_n + 1
   local dir = ('%s/tmp/%d-%d'):format(M.out, vim.uv.os_getpid(), tmp_n)
   vim.fn.delete(dir, 'rf')
-  vim.fn.mkdir(dir, 'p')
+  -- Spec processes run in parallel, and mkdir -p raises E739 when another
+  -- process creates a shared parent at the same moment. Retry once.
+  if not pcall(vim.fn.mkdir, dir, 'p') then
+    vim.fn.mkdir(dir, 'p')
+  end
   return dir
 end
 
