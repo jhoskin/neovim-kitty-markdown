@@ -191,7 +191,7 @@ end
 
 -- Inline items to a flat token list. A token is a word fragment
 -- `{ text, width, groups, link, row }`, a space `{ space, groups }`, a hard
--- break `{ br }`, or a centered display line `{ display, text, groups }`.
+-- break `{ br }`, or centered display lines `{ display, rows, groups }`.
 function Doc:flatten(inlines, groups, link, out)
   for _, item in ipairs(inlines) do
     local t = item.type
@@ -235,7 +235,24 @@ function Doc:flatten(inlines, groups, link, out)
       local text = rendered or item.tex
       local g = with_group(groups, 'KittyMarkdownMath')
       if item.display then
-        out[#out + 1] = { display = true, text = text, groups = g, row = item.row }
+        -- Source shown in place of display math keeps its line breaks, one
+        -- preview line per source line, each with its whitespace collapsed
+        -- as R-221 asks (R-279). A rendered span is always one line.
+        local rows = {}
+        if rendered then
+          rows[1] = rendered
+        else
+          for _, source_line in ipairs(vim.split(text, '\n')) do
+            local collapsed = vim.trim((source_line:gsub('%s+', ' ')))
+            if collapsed ~= '' then
+              rows[#rows + 1] = collapsed
+            end
+          end
+        end
+        if #rows == 0 then
+          rows[1] = ''
+        end
+        out[#out + 1] = { display = true, rows = rows, groups = g, row = item.row }
       else
         self:words(text, g, link, item.row, out)
       end
@@ -344,13 +361,21 @@ function Doc:wrap(tokens, first, cont, width)
     elseif tok.display then
       place_word()
       emit_line()
-      local pad = math.max(0, math.floor((width - strwidth(tok.text)) / 2))
-      local prefix = emitted == 0 and first or cont
-      local n, base = self:line(prefix, string.rep(' ', pad) .. tok.text, tok.row)
-      for _, group in ipairs(tok.groups) do
-        self:hl(n, base + pad, base + pad + #tok.text, group)
+      -- the lines are centered as one block and keep a common left edge,
+      -- so source fallback keeps the alignment of its lines
+      local block_width = 0
+      for _, text in ipairs(tok.rows) do
+        block_width = math.max(block_width, strwidth(text))
       end
-      emitted = emitted + 1
+      local pad = math.max(0, math.floor((width - block_width) / 2))
+      for _, text in ipairs(tok.rows) do
+        local prefix = emitted == 0 and first or cont
+        local n, base = self:line(prefix, string.rep(' ', pad) .. text, tok.row)
+        for _, group in ipairs(tok.groups) do
+          self:hl(n, base + pad, base + pad + #text, group)
+        end
+        emitted = emitted + 1
+      end
       pending_space = nil
     else
       word[#word + 1] = tok
@@ -372,6 +397,10 @@ function Doc:cell_text(inlines)
   local width = 0
   local need_space = false
   for _, tok in ipairs(tokens) do
+    if tok.display then
+      -- a cell is one line, so display math lines join with a space
+      tok = { text = table.concat(tok.rows, ' '), groups = tok.groups }
+    end
     if tok.space or tok.br then
       need_space = #frags > 0
     elseif tok.text then

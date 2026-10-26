@@ -188,3 +188,18 @@ as a spec proposal instead.
   `markdown_inline` then give the same model (R-209), and no code fence
   language parser is loaded. With no bundled grammar anywhere, `parse`
   raises an error.
+- Single-dollar math nodes from the inline grammar are not used. The
+  parser scans the text between the other inline nodes for `$` pairs
+  itself, with GitHub's rules (R-280), so the pairing does not depend on
+  how the grammar paired them. The scan runs on the text joined over
+  soft breaks, and a `$$` node from the grammar stays display math.
+- A link or image node that overlaps `[[...]]` or `![[...]]` on its
+  source line stays text (R-036). A code span that holds such text stays
+  a code span.
+- The later paragraphs and blocks of a footnote definition parse as an
+  indented code block after the definition, because the grammar has no
+  footnote node. The parser parses the lines of that block again as
+  markdown, with the link definitions and slug counts of the document,
+  and adds the result to the definition.
+- A hidden inline HTML comment leaves the spaces on both sides of it;
+  the layout shows one space between the words there.

@@ -305,6 +305,29 @@ describe('layout rules', function()
     end)
   end)
 
+  describe('display math source fallback (R-070, R-279)', function()
+    it('shows each source line on its own centered preview line', function()
+      local model = build({ '$$', '\\unknowncmd{a}', 'x   +   y', '$$' })
+      local t = texts(model)
+      assert.are.equal(2, #t)
+      local width = math.max(#'\\unknowncmd{a}', #'x + y')
+      local pad = math.floor((TEXT_WIDTH - width) / 2)
+      assert.are.equal(string.rep(' ', pad) .. '\\unknowncmd{a}', t[1])
+      assert.are.equal(string.rep(' ', pad) .. 'x + y', t[2])
+      for line = 1, 2 do
+        assert.is_true(
+          vim.tbl_contains(groups_at(model, line, t[line]:match('%S.*')), 'KittyMarkdownMath')
+        )
+      end
+    end)
+
+    it('keeps one-line display math on one centered line', function()
+      local t = texts(build({ '$$\\unknowncmd{a}$$' }))
+      local pad = math.floor((TEXT_WIDTH - #'\\unknowncmd{a}') / 2)
+      assert.are.same({ string.rep(' ', pad) .. '\\unknowncmd{a}' }, t)
+    end)
+  end)
+
   describe('inline math delimiters (R-062, R-280)', function()
     local literal = {
       'Price $5 and $10 here.',
