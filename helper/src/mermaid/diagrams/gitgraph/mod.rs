@@ -80,8 +80,8 @@ impl Diagram for GitGraph {
     /// wins, and the text the parser sees ends with the newline `fromText`
     /// appends.
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let text = format!("{}\n", resolved.code());
-        let ast = parser::parse(&text).map_err(|f| HelperError::ParseError {
+        let text = resolved.parse_text();
+        let ast = parser::parse(text).map_err(|f| HelperError::ParseError {
             line: f.line,
             column: f.column,
             diagram_type: TYPE.to_string(),

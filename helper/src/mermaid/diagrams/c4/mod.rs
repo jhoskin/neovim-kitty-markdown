@@ -41,7 +41,7 @@ pub fn parse(resolved: &Resolved) -> Result<C4Db, HelperError> {
         .map_err(|e| HelperError::internal(format!("c4Diagram grammar: {e}")))?;
     let wrap = resolved.raw.get("wrap").and_then(Value::as_bool) == Some(true);
     let mut actions = C4Actions::new(C4Db::new(wrap));
-    jison::parse(grammar, resolved.code(), &mut actions).map_err(|e| match e.kind {
+    jison::parse(grammar, resolved.parse_text(), &mut actions).map_err(|e| match e.kind {
         // A lexer `throw` is the diagram's error, not a parse error.
         ErrorKind::Action => HelperError::internal(e.message),
         ErrorKind::Parse | ErrorKind::Lexical => HelperError::ParseError {

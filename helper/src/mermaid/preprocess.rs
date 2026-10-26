@@ -17,7 +17,7 @@ use serde_json::{Map, Value};
 use super::detect::{DetectError, detect_type};
 use super::directive::{Detected, js_trim_start};
 use super::directive::{detect_directive, detect_init, is_wrap_name, remove_directives};
-use super::theme::khroma::{js_is_whitespace, js_number};
+use super::theme::khroma::{JS_WHITESPACE, js_is_whitespace, js_number};
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum PreprocessError {
@@ -74,6 +74,48 @@ pub fn cleanup_text(code: &str) -> String {
         .replace_all(&normalized, |caps: &regex::Captures| {
             let attrs = DOUBLE_QUOTED_ATTR.replace_all(&caps[2], "='$1'");
             format!("<{}{}>", &caps[1], attrs)
+        })
+        .into_owned()
+}
+
+/// JS `.`: anything but a line terminator.
+const JS_DOT: &str = r"[^\n\r\u{2028}\u{2029}]";
+
+/// The `style` and `classDef` rules of `encodeEntities`: a line part that
+/// sets a color and ends in `;`.
+static STYLE_COLOR: LazyLock<[Regex; 2]> = LazyLock::new(|| {
+    let not_ws = format!("[^{}]", &JS_WHITESPACE[1..JS_WHITESPACE.len() - 1]);
+    ["style", "classDef"].map(|keyword| {
+        Regex::new(&format!("{keyword}{JS_DOT}*:{not_ws}*#{JS_DOT}*;")).expect("valid regex")
+    })
+});
+/// `/#\w+;/g` with JS's ASCII `\w`.
+static ENTITY: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"#[A-Za-z0-9_]+;").expect("valid regex"));
+
+/// `encodeEntities` (`utils.ts`), which `Diagram.fromText` runs on the text
+/// before the parser sees it: the last `;` of a `style` or `classDef` color
+/// goes, and an entity `#name;` becomes `ﬂ°name¶ß` (`ﬂ°°name¶ß` when the
+/// name is a number) so the lexers do not read `#` and `;` as syntax.
+pub fn encode_entities(text: &str) -> String {
+    let mut txt = text.to_string();
+    for re in STYLE_COLOR.iter() {
+        txt = re
+            .replace_all(&txt, |caps: &regex::Captures| {
+                let s = &caps[0];
+                s[..s.len() - 1].to_string()
+            })
+            .into_owned();
+    }
+    ENTITY
+        .replace_all(&txt, |caps: &regex::Captures| {
+            let inner = &caps[0][1..caps[0].len() - 1];
+            // `/^\+?\d+$/`; `\w` never matches the `+`.
+            if inner.bytes().all(|b| b.is_ascii_digit()) {
+                format!("\u{fb02}\u{b0}\u{b0}{inner}\u{b6}\u{df}")
+            } else {
+                format!("\u{fb02}\u{b0}{inner}\u{b6}\u{df}")
+            }
         })
         .into_owned()
 }
@@ -461,6 +503,34 @@ pub fn preprocess(code: &str) -> Result<Preprocessed, PreprocessError> {
 mod tests {
     use super::*;
     use serde_json::json;
+
+    /// Expected values from `encodeEntities` in mermaid 12.2.0's bundle.
+    #[test]
+    fn encode_entities_matches_mermaid() {
+        assert_eq!(
+            encode_entities("A[#35; x]"),
+            "A[\u{fb02}\u{b0}\u{b0}35\u{b6}\u{df} x]"
+        );
+        assert_eq!(
+            encode_entities("A[#quot;]"),
+            "A[\u{fb02}\u{b0}quot\u{b6}\u{df}]"
+        );
+        assert_eq!(encode_entities("A[#;]"), "A[#;]");
+        assert_eq!(
+            encode_entities("style A fill:#f9f;\nclassDef c fill:#fff;\nB;"),
+            "style A fill:#f9f\nclassDef c fill:#fff\nB;"
+        );
+        // Greedy to the last `;` of the line; the entity rule then takes
+        // the color that still ends in `;`.
+        assert_eq!(
+            encode_entities("style A fill:#f9f;stroke:#333;"),
+            "style A fill:\u{fb02}\u{b0}f9f\u{b6}\u{df}stroke:#333"
+        );
+        assert_eq!(
+            encode_entities("graph TD\n  A-->B\n"),
+            "graph TD\n  A-->B\n"
+        );
+    }
 
     #[test]
     fn cleanup_text_normalizes_line_endings_and_attribute_quotes() {

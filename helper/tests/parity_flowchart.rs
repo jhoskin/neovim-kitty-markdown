@@ -541,8 +541,9 @@ fn flowchart_errors_match_the_oracle() {
     assert_eq!(e.code(), "internal");
     let e = render_error("flowchart LR\n  A --> B -->\n");
     assert_eq!(e.code(), "parse_error");
-    // The dangling arrow fails at the end of input, after the last newline.
-    assert!(e.to_string().starts_with("Parse error on line 3:"), "{e}");
+    // The dangling arrow fails at the end of input, after the newline that
+    // `Diagram.fromText` appends to the text's own last newline.
+    assert!(e.to_string().starts_with("Parse error on line 4:"), "{e}");
     let e = render_error("flowchart-elk LR\n  A --> B\n");
     assert_eq!(e.code(), "unsupported_feature");
     let e = render_error("flowchart LR\n  A@{ icon: \"fa:user\" }\n");

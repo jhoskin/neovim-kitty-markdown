@@ -64,8 +64,11 @@ impl Diagram for Flowchart {
                 feature: "layout: elk".to_string(),
             });
         }
-        let flow = parse(resolved.code(), db::DbConfig::from_config(&resolved.config))
-            .map_err(parse_error)?;
+        let flow = parse(
+            resolved.parse_text(),
+            db::DbConfig::from_config(&resolved.config),
+        )
+        .map_err(parse_error)?;
         render::draw(&flow, resolved, ctx)
     }
 }

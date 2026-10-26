@@ -31,8 +31,8 @@ impl Diagram for EventModeling {
     /// newline `fromText` appends. The title and the accessibility values
     /// reach the common db only; the renderer draws none of them.
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let text = format!("{}\n", resolved.preprocessed.with_comments);
-        let ast = parser::parse(&text).map_err(|f| HelperError::ParseError {
+        let text = resolved.parse_text();
+        let ast = parser::parse(text).map_err(|f| HelperError::ParseError {
             line: f.line,
             column: f.column,
             diagram_type: TYPE.to_string(),

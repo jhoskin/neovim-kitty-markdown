@@ -78,6 +78,8 @@ pub struct Resolved {
     pub theme_variables: ThemeVariables,
     pub appearance: Appearance,
     pub preprocessed: Preprocessed,
+    /// The text the diagram parser receives; see [`Resolved::parse_text`].
+    pub parse_text: String,
 }
 
 impl Resolved {
@@ -86,9 +88,45 @@ impl Resolved {
         self.preprocessed.title.as_deref()
     }
 
-    /// The cleaned diagram text for the parser.
-    pub fn code(&self) -> &str {
-        &self.preprocessed.code
+    /// The text `Diagram.fromText` hands the diagram parser: the cleaned
+    /// code (the code with comments for a diagram that keeps them) plus one
+    /// newline. The newline is why an error at the end of the text is on the
+    /// line after the last one. `encodeEntities` is left out here; see
+    /// [`Resolved::with_encoded_entities`].
+    pub fn parse_text(&self) -> &str {
+        &self.parse_text
+    }
+
+    /// A copy whose parse text is `encodeEntities(source) + "\n"`, the
+    /// exact text mermaid parses, or `None` when encoding changes nothing.
+    /// Renderers take labels from the text without encoding, because the
+    /// oracle decodes the entities again in the finished SVG; the encoded
+    /// text only decides the parse error the oracle reports.
+    pub fn with_encoded_entities(&self) -> Option<Resolved> {
+        let source = &self.parse_text[..self.parse_text.len() - 1];
+        let encoded = preprocess::encode_entities(source);
+        (encoded != source).then(|| Resolved {
+            parse_text: format!("{encoded}\n"),
+            ..self.clone()
+        })
+    }
+}
+
+/// Diagram dbs with `preserveCommentsWhenParsing` in mermaid 12.2.0
+/// (`eventmodeling/db.ts`, `agentflow/agentflowDb.ts`): their parser gets
+/// the text before `cleanupComments`.
+const KEEPS_COMMENTS: [&str; 2] = ["eventmodeling", "agentflow"];
+
+/// `Diagram.fromText`'s source choice: the text with comments for a db
+/// that keeps them, unless that text exceeds `maxTextSize`.
+fn parse_source<'a>(pre: &'a Preprocessed, diagram_type: &str, config: &MermaidConfig) -> &'a str {
+    if KEEPS_COMMENTS.contains(&diagram_type)
+        && !pre.with_comments.is_empty()
+        && (pre.with_comments.encode_utf16().count() as f64) <= *config.max_text_size
+    {
+        &pre.with_comments
+    } else {
+        &pre.code
     }
 }
 
@@ -323,6 +361,7 @@ pub fn resolve(source: &str, base: &BaseConfig) -> Result<Resolved, HelperError>
         _ => ThemeVariables::default(),
     };
     let (config, raw) = typed_config(&cfg)?;
+    let parse_text = format!("{}\n", parse_source(&preprocessed, diagram_type, &config));
     Ok(Resolved {
         diagram_type,
         config_key,
@@ -331,6 +370,7 @@ pub fn resolve(source: &str, base: &BaseConfig) -> Result<Resolved, HelperError>
         theme_variables,
         appearance,
         preprocessed,
+        parse_text,
     })
 }
 
@@ -484,4 +524,5 @@ mod tests {
         assert_eq!(*r.config.flowchart.node_spacing, 50.0);
         assert_eq!(r.config.flowchart.curve, "linear");
     }
+
 }

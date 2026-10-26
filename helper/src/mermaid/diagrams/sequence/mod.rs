@@ -48,7 +48,7 @@ pub fn parse(resolved: &Resolved) -> Result<SequenceDb, HelperError> {
     let grammar = jison::grammar("sequenceDiagram")
         .map_err(|e| HelperError::internal(format!("sequence grammar: {e}")))?;
     let mut actions = SequenceActions;
-    let value = jison::parse(grammar, resolved.code(), &mut actions)
+    let value = jison::parse(grammar, resolved.parse_text(), &mut actions)
         .map_err(|e| parse_error(e.line, e.column, e.to_string()))?;
     let stmts = match value {
         Val::Stmts(s) => s,

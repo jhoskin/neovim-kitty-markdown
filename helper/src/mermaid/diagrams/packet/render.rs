@@ -193,11 +193,8 @@ mod tests {
         let resolved = config::resolve(source, &BaseConfig::new("default")).unwrap();
         let cfg = PacketConfig::from_resolved(&resolved);
         let mut db = PacketDb::new();
-        db.populate(
-            &parse(&format!("{}\n", resolved.code())).unwrap(),
-            cfg.bits_per_row,
-        )
-        .unwrap();
+        db.populate(&parse(resolved.parse_text()).unwrap(), cfg.bits_per_row)
+            .unwrap();
         let styles = PacketStyles::resolve(&resolved.theme_variables, "serif");
         draw(&db, &cfg, &styles, None)
     }

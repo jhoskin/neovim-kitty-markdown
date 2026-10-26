@@ -30,8 +30,8 @@ impl Diagram for Wardley {
     /// appends. An error `populateDb` throws is reported like a parse error
     /// at the line of its statement.
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let text = format!("{}\n", resolved.code());
-        let ast = parser::parse(&text).map_err(|f| HelperError::ParseError {
+        let text = resolved.parse_text();
+        let ast = parser::parse(text).map_err(|f| HelperError::ParseError {
             line: f.line,
             column: f.column,
             diagram_type: TYPE.to_string(),

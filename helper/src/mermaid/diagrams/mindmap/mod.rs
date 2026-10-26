@@ -69,7 +69,7 @@ impl Diagram for Mindmap {
     }
 
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let mut db = parse(resolved.code(), node_defaults(resolved)).map_err(parse_error)?;
+        let mut db = parse(resolved.parse_text(), node_defaults(resolved)).map_err(parse_error)?;
         render::draw(&mut db, resolved, ctx)
     }
 }

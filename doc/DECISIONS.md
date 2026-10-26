@@ -253,3 +253,17 @@ These entries replace the macOS platform fallback list in Fonts and text.
   SVG at scale 1 into a clip rounded up to whole pixels, so the helper
   output keeps scale 1 and the oracle height, not the height that
   scaling the width up to whole pixels gives.
+
+- Every diagram parser reads `Resolved::parse_text`: the cleaned code plus
+  one newline, as `Diagram.fromText` builds it. Event modeling gets the
+  code with comments instead (`preserveCommentsWhenParsing`), unless that
+  text is longer than `maxTextSize`. No diagram module appends its own
+  newline. The newline sets the line, the excerpt, and the caret of an
+  error at the end of the text.
+- `encodeEntities` runs only when a parse fails. The renderers parse the
+  text without it, because the oracle decodes the entities again in the
+  finished SVG. When the first parse fails and encoding changes the text,
+  the helper parses the encoded text once more and reports that error, so
+  the excerpt shows `ﬂ°°35¶ß` for `#35;` and a `style` line loses its last
+  `;`, as in the oracle. If the encoded text parses, the first error
+  stays.

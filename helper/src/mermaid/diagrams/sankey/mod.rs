@@ -76,7 +76,7 @@ impl Diagram for Sankey {
     }
 
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let db = parse(resolved.code()).map_err(parse_error)?;
+        let db = parse(resolved.parse_text()).map_err(parse_error)?;
         render::draw(&db, resolved, ctx)
     }
 }

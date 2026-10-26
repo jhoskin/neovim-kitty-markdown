@@ -100,5 +100,6 @@ fn front_matter_title_reaches_the_result() {
     )
     .expect("resolve");
     assert_eq!(r.title(), Some("Hello"));
-    assert_eq!(r.code(), "graph TD\n  A-->B\n");
+    // `Diagram.fromText` appends one newline to the cleaned code.
+    assert_eq!(r.parse_text(), "graph TD\n  A-->B\n\n");
 }

@@ -37,11 +37,13 @@ pub fn parse(resolved: &Resolved) -> Result<Db, HelperError> {
     }
     let grammar = jison::grammar("xychart").map_err(|e| HelperError::internal(e.to_string()))?;
     let mut actions = XyActions { db: &mut db };
-    jison::parse(grammar, resolved.code(), &mut actions).map_err(|e| HelperError::ParseError {
-        line: e.line as u32,
-        column: e.column as u32,
-        diagram_type: DIAGRAM_TYPE.to_string(),
-        message: e.message,
+    jison::parse(grammar, resolved.parse_text(), &mut actions).map_err(|e| {
+        HelperError::ParseError {
+            line: e.line as u32,
+            column: e.column as u32,
+            diagram_type: DIAGRAM_TYPE.to_string(),
+            message: e.message,
+        }
     })?;
     Ok(db)
 }

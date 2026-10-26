@@ -246,14 +246,13 @@ impl QuadrantActions<'_> {
     }
 }
 
-/// Parses `code` into `db` as `parser.parse(text)` does after
-/// `Diagram.fromText` appended its newline.
-pub fn parse_into(db: &mut Db, code: &str) -> Result<(), ParseError> {
+/// Parses `text`, the text `Diagram.fromText` hands the parser (its
+/// newline included), into `db` as `parser.parse(text)` does.
+pub fn parse_into(db: &mut Db, text: &str) -> Result<(), ParseError> {
     let mut actions =
         QuadrantActions::new(db).map_err(|e| ParseError::action(1, 0, e.to_string()))?;
     let grammar = actions.grammar();
-    let text = format!("{code}\n");
-    jison::parse(grammar, &text, &mut actions).map(|_| ())
+    jison::parse(grammar, text, &mut actions).map(|_| ())
 }
 
 #[cfg(test)]
@@ -264,7 +263,7 @@ mod tests {
 
     fn parse(code: &str) -> Result<Db, ParseError> {
         let mut db = Db::new();
-        parse_into(&mut db, code)?;
+        parse_into(&mut db, &format!("{code}\n"))?;
         Ok(db)
     }
 

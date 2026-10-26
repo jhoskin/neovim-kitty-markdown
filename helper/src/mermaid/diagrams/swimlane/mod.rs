@@ -61,8 +61,11 @@ impl Diagram for Swimlane {
 
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
         // `flow.jison` takes `swimlane-beta` as its `GRAPH` keyword.
-        let flow = flowchart::parse(resolved.code(), db::DbConfig::from_config(&resolved.config))
-            .map_err(parse_error)?;
+        let flow = flowchart::parse(
+            resolved.parse_text(),
+            db::DbConfig::from_config(&resolved.config),
+        )
+        .map_err(parse_error)?;
         render::draw(&flow, resolved, ctx)
     }
 }

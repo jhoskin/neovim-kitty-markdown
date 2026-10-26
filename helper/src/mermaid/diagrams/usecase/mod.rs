@@ -44,13 +44,12 @@ fn parse_error(line: usize, column: usize, message: String) -> HelperError {
     }
 }
 
-/// Parses the diagram text into the committed model, as `parser.parse`
-/// does after `Diagram.fromText` appends a newline. Public for tests that
-/// look at the model.
-pub fn parse_source(code: &str) -> Result<UsecaseDb, HelperError> {
-    let text = format!("{code}\n");
-    let statements = parser::parse(&text).map_err(|f| parse_error(f.line, f.column, f.message))?;
-    model::build(&text, &statements).map_err(|e| {
+/// Parses the text `Diagram.fromText` hands the parser (see
+/// [`Resolved::parse_text`]) into the committed model. Public for tests
+/// that look at the model.
+pub fn parse_source(text: &str) -> Result<UsecaseDb, HelperError> {
+    let statements = parser::parse(text).map_err(|f| parse_error(f.line, f.column, f.message))?;
+    model::build(text, &statements).map_err(|e| {
         // The builder names the offending location first.
         let line = AT_LINE
             .captures(&e.message)
@@ -66,7 +65,7 @@ impl Diagram for Usecase {
     }
 
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let db = parse_source(resolved.code())?;
+        let db = parse_source(resolved.parse_text())?;
         render::draw(&db, resolved, ctx)
     }
 }

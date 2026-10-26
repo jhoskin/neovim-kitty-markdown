@@ -32,11 +32,13 @@ impl Diagram for Quadrant {
         if let Some(title) = resolved.title().filter(|t| !t.is_empty()) {
             db.set_diagram_title(title);
         }
-        actions::parse_into(&mut db, resolved.code()).map_err(|e| HelperError::ParseError {
-            line: u32::try_from(e.line).unwrap_or(u32::MAX),
-            column: u32::try_from(e.column).unwrap_or(u32::MAX),
-            diagram_type: TYPE.to_string(),
-            message: e.message,
+        actions::parse_into(&mut db, resolved.parse_text()).map_err(|e| {
+            HelperError::ParseError {
+                line: u32::try_from(e.line).unwrap_or(u32::MAX),
+                column: u32::try_from(e.column).unwrap_or(u32::MAX),
+                diagram_type: TYPE.to_string(),
+                message: e.message,
+            }
         })?;
         let config = &resolved.config.quadrant_chart;
         let build = db.quadrant_data(config, &resolved.theme_variables);

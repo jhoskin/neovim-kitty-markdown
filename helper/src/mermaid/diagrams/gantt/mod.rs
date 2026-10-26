@@ -45,7 +45,7 @@ impl Diagram for Gantt {
     }
 
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let mut db = parse(resolved.code()).map_err(parse_error)?;
+        let mut db = parse(resolved.parse_text()).map_err(parse_error)?;
         render::draw(&mut db, resolved, ctx)
     }
 }

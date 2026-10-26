@@ -40,8 +40,8 @@ impl Diagram for TreeView {
     /// the box-drawing preprocessor first, and a Langium error on a
     /// rewritten text names the source lines again.
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let input = format!("{}\n", resolved.code());
-        let pre = box_drawing::preprocess(&input).map_err(|e| parse_error(e.line, 0, e.message))?;
+        let input = resolved.parse_text();
+        let pre = box_drawing::preprocess(input).map_err(|e| parse_error(e.line, 0, e.message))?;
         let ast = parser::parse(&pre.text).map_err(|f| {
             if pre.line_map.is_empty() {
                 return parse_error(f.line, f.column, f.message);

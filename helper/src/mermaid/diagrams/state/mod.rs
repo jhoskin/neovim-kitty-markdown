@@ -57,7 +57,7 @@ pub fn parse_source(code: &str) -> Result<StateDb, HelperError> {
 
 /// [`parse_source`] over the resolved diagram's cleaned text.
 pub fn parse(resolved: &Resolved) -> Result<StateDb, HelperError> {
-    parse_source(resolved.code())
+    parse_source(resolved.parse_text())
 }
 
 impl Diagram for State {

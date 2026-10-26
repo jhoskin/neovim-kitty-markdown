@@ -53,7 +53,7 @@ impl Diagram for Venn {
     }
 
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let db = parse(resolved.code(), resolved.title()).map_err(parse_error)?;
+        let db = parse(resolved.parse_text(), resolved.title()).map_err(parse_error)?;
         render::draw(&db, resolved, ctx)
     }
 }

@@ -30,11 +30,13 @@ pub fn parse(resolved: &Resolved) -> Result<RequirementDb, HelperError> {
     let grammar = jison::grammar("requirementDiagram")
         .map_err(|e| HelperError::internal(format!("requirement grammar: {e}")))?;
     let mut actions = RequirementActions::new();
-    jison::parse(grammar, resolved.code(), &mut actions).map_err(|e| HelperError::ParseError {
-        line: e.line as u32,
-        column: e.column as u32,
-        diagram_type: "requirement".to_string(),
-        message: e.to_string(),
+    jison::parse(grammar, resolved.parse_text(), &mut actions).map_err(|e| {
+        HelperError::ParseError {
+            line: e.line as u32,
+            column: e.column as u32,
+            diagram_type: "requirement".to_string(),
+            message: e.to_string(),
+        }
     })?;
     Ok(actions.db)
 }

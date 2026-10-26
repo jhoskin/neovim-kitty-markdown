@@ -49,7 +49,7 @@ impl Diagram for Timeline {
     }
 
     fn render(&self, resolved: &Resolved, ctx: &RenderCtx<'_>) -> Result<Scene, HelperError> {
-        let db = parse(resolved.code()).map_err(parse_error)?;
+        let db = parse(resolved.parse_text()).map_err(parse_error)?;
         if db.direction() == "TD" {
             return Err(HelperError::UnsupportedFeature {
                 feature: "timeline direction TD".to_string(),

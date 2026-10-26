@@ -143,12 +143,17 @@ fn every_builtin_theme_renders() {
     }
 }
 
-/// `document` needs one statement, so a bare `kanban` line is a parse
-/// error in the oracle too.
+/// `document` needs one statement. A line break counts as one, and
+/// `Diagram.fromText` appends one, so only `kanban` with nothing after it
+/// is a parse error; the oracle renders `kanban\n` as an empty board.
 #[test]
 fn an_empty_board_is_a_parse_error() {
-    let err = render_with_theme("kanban\n", "default").expect_err("no statement");
-    assert_eq!(err.code(), "parse_error");
+    let err = render_with_theme("kanban", "default").expect_err("no statement");
+    assert_eq!(
+        err.to_string(),
+        "Parse error on line 2:\nkanban\n------^\nExpecting 'SPACELINE', 'SPACELIST', 'ICON', 'CLASS', 'NODE_DSTART', 'NODE_ID', got 'EOF'"
+    );
+    render_with_theme("kanban\n", "default").expect("an empty board");
 }
 
 /// `mindmap.useMaxWidth: false` gives a fixed-size SVG: the frame grows to

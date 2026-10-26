@@ -59,6 +59,22 @@ pub fn parse_background(value: &str) -> Background {
         .unwrap_or_default()
 }
 
+/// The parse error of the text mermaid really parses, `encodeEntities`
+/// applied (see [`config::Resolved::with_encoded_entities`]): its excerpt
+/// shows `ﬂ°°35¶ß` for `#35;`, and a dropped `;` moves the caret. `None`
+/// when encoding changes nothing or the encoded text parses.
+fn encoded_parse_error(
+    diagram: &dyn diagrams::Diagram,
+    resolved: &config::Resolved,
+    ctx: &RenderCtx<'_>,
+) -> Option<HelperError> {
+    let encoded = resolved.with_encoded_entities()?;
+    match diagram.render(&encoded, ctx) {
+        Err(err @ HelperError::ParseError { .. }) => Some(err),
+        _ => None,
+    }
+}
+
 pub fn render(req: &RenderRequest<'_>) -> Result<RenderOutput, HelperError> {
     let resolved = config::resolve(req.source, &BaseConfig::new(req.theme))?;
     let unsupported = || HelperError::UnsupportedDiagramType {
@@ -74,7 +90,12 @@ pub fn render(req: &RenderRequest<'_>) -> Result<RenderOutput, HelperError> {
         metrics: TextMetrics::new(fonts),
         target_width: req.width_px,
     };
-    let scene = diagram.render(&resolved, &ctx)?;
+    let scene = match diagram.render(&resolved, &ctx) {
+        Err(err @ HelperError::ParseError { .. }) => {
+            return Err(encoded_parse_error(diagram, &resolved, &ctx).unwrap_or(err));
+        }
+        other => other?,
+    };
     let opts = RasterOpts {
         target_width: Some(req.width_px),
         background: Some(req.background),
