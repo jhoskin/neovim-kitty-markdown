@@ -88,6 +88,45 @@ describe('layout rules', function()
     end)
   end)
 
+  describe('HTML comments (R-270)', function()
+    it('hides a comment block and keeps one blank line between its neighbors', function()
+      assert.are.same({ 'a', '', 'b' }, texts(build({ 'a', '', '<!-- hidden -->', '', 'b' })))
+      assert.are.same(
+        { 'a', '', 'b' },
+        texts(build({ 'a', '', '<!-- one -->', '', '<!-- two -->', '', 'b' }))
+      )
+      assert.are.same({ 'b' }, texts(build({ '<!-- start -->', '', 'b' })))
+      assert.are.same({ 'a' }, texts(build({ 'a', '', '<!-- end -->' })))
+    end)
+
+    it('hides a multi-line comment block entirely', function()
+      local model = build({ 'a', '', '<!--', 'line one', '', 'line two', '-->', '', 'b' })
+      assert.are.same({ 'a', '', 'b' }, texts(model))
+      model = build({ 'a', '', '<!-- start', '  more', 'end -->', '', 'b' })
+      assert.are.same({ 'a', '', 'b' }, texts(model))
+    end)
+
+    it('hides a comment block inside a list item and a quote', function()
+      local t = texts(build({ '- item', '', '  <!-- hidden -->', '', '  more' }))
+      assert.is_nil(table.concat(t, '\n'):find('hidden', 1, true))
+      t = texts(build({ '> quoted', '>', '> <!-- hidden -->' }))
+      assert.is_nil(table.concat(t, '\n'):find('hidden', 1, true))
+    end)
+
+    it('keeps the HTML around a comment in the same block', function()
+      local t = texts(build({ '<div>', '<!-- note -->', 'kept', '</div>' }))
+      assert.are.same({ '<div>', 'kept', '</div>' }, t)
+    end)
+
+    it('hides an inline comment and keeps the text around it', function()
+      assert.are.same({ 'two words' }, texts(build({ 'two <!-- x --> words' })))
+      assert.are.same({ 'two words' }, texts(build({ 'two<!-- x --> words' })))
+      assert.are.same({ 'end' }, texts(build({ 'end <!-- x -->' })))
+      assert.are.same({ 'a b' }, texts(build({ 'a <!-- x', 'y --> b' })))
+      assert.are.same({ 'a b c' }, texts(build({ 'a <!--x--> *b* c' })))
+    end)
+  end)
+
   describe('inline math delimiters (R-062, R-280)', function()
     local literal = {
       'Price $5 and $10 here.',

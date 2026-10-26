@@ -560,7 +560,10 @@ function Walk:inline_node(node, out)
   elseif ntype == 'html_tag' then
     local text = self:node_text(node)
     local img = parse_img(text)
-    if img then
+    if text:match('^<!%-%-') then
+      -- an HTML comment shows nothing; the text around it stays (R-270)
+      return
+    elseif img then
       out[#out + 1] = { type = 'image', src = img.src, alt = img.alt, attrs = img.attrs, row = row }
     else
       out[#out + 1] = { type = 'html', text = text, row = row }
@@ -641,6 +644,45 @@ function Walk:content_lines(node, indent)
     out[#out + 1] = text
   end
   return out
+end
+
+-- Remove HTML comments from the lines of an HTML block (R-270). A line
+-- that a comment touched and that holds nothing else is dropped; `rows`
+-- keeps the source row of each line that stays. A comment open at the end
+-- runs to the end of the block, as an HTML block of type 2 does.
+local function strip_comments(lines, rows)
+  local out_lines, out_rows = {}, {}
+  local in_comment = false
+  for i, line in ipairs(lines) do
+    local kept = {}
+    local touched = in_comment
+    local pos = 1
+    while pos <= #line do
+      if in_comment then
+        local e = line:find('-->', pos, true)
+        in_comment = e == nil
+        pos = e and e + 3 or #line + 1
+      else
+        local s = line:find('<!--', pos, true)
+        kept[#kept + 1] = line:sub(pos, s and s - 1 or #line)
+        if s then
+          in_comment, touched = true, true
+          pos = s + 4
+        else
+          pos = #line + 1
+        end
+      end
+    end
+    local text = table.concat(kept)
+    if not touched then
+      out_lines[#out_lines + 1] = line
+      out_rows[#out_rows + 1] = rows[i]
+    elseif not is_blank(text) then
+      out_lines[#out_lines + 1] = (text:gsub('%s+$', ''))
+      out_rows[#out_rows + 1] = rows[i]
+    end
+  end
+  return out_lines, out_rows
 end
 
 local function mermaid_alt(source)
@@ -986,7 +1028,20 @@ function Walk:html_block(node, out)
     out[#out + 1] = self:image_block(img, src_start, src_end)
     return
   end
-  out[#out + 1] = { kind = 'html', lines = lines, src_start = src_start, src_end = src_end }
+  local rows = {}
+  for i = 1, #lines do
+    rows[i] = src_start + i - 1
+  end
+  if table.concat(lines, '\n'):find('<!--', 1, true) then
+    lines, rows = strip_comments(lines, rows)
+    if #lines == 0 then
+      -- a block of comments only shows nothing, so its neighbors keep the
+      -- one blank line between blocks (R-270)
+      return
+    end
+  end
+  out[#out + 1] =
+    { kind = 'html', lines = lines, line_rows = rows, src_start = src_start, src_end = src_end }
 end
 
 function Walk:reference_definition(node, out)
@@ -1148,7 +1203,11 @@ end
 -- body are relative to the body, not to the document.
 local function shift_rows(value, offset)
   for key, field in pairs(value) do
-    if type(field) == 'table' then
+    if key == 'line_rows' then
+      for i, row in ipairs(field) do
+        field[i] = row + offset
+      end
+    elseif type(field) == 'table' then
       shift_rows(field, offset)
     elseif type(field) == 'number' and (key == 'src_start' or key == 'src_end' or key == 'row') then
       value[key] = field + offset

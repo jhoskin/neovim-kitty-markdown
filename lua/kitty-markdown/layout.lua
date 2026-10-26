@@ -646,7 +646,8 @@ end
 
 function Doc:render_html(block, ctx)
   for i, text in ipairs(block.lines) do
-    local n, base = self:line(ctx.prefix, text, block.src_start + i - 1)
+    local src = block.line_rows and block.line_rows[i] or block.src_start + i - 1
+    local n, base = self:line(ctx.prefix, text, src)
     self:hl(n, base, base + #text, 'KittyMarkdownHtml')
   end
 end
