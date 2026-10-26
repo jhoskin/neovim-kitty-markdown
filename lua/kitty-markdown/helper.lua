@@ -258,13 +258,9 @@ local function handle_exit(code, signal, reason)
     return
   end
   fail_waiting({ code = 'helper_exit', message = what })
+  -- The one message of an exit (R-313). Every vim.notify level reaches
+  -- :messages, so the stderr tail stays behind M.stderr_tail().
   vim.notify('kitty-markdown: ' .. what .. '; it restarts on the next request', vim.log.levels.WARN)
-  if #stderr_ring > 0 then
-    vim.notify(
-      'kitty-markdown: helper stderr:\n' .. table.concat(stderr_ring, '\n'),
-      vim.log.levels.DEBUG
-    )
-  end
   state = 'absent'
   local now = vim.uv.now()
   local recent = { now }
@@ -495,7 +491,8 @@ function M.stderr_tail()
 end
 
 --- Forget the exit counter so the next request may start the helper
---- again (R-196). The preview calls this on `:KittyMarkdown refresh`.
+--- again, and the restart stop needs three new exits (R-196, R-244). The
+--- preview calls this on every `:KittyMarkdown refresh` (R-310).
 function M.reset_failures()
   exits = {}
   if state == 'failed' then
