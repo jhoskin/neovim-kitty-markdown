@@ -6,6 +6,7 @@ mod coretext;
 pub mod fonts;
 pub mod markdown;
 pub mod measure;
+pub mod open_sans;
 pub mod wrap;
 
 use std::sync::{Arc, OnceLock};

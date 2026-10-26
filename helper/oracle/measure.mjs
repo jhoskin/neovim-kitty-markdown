@@ -9,6 +9,15 @@
 //
 // Usage: node helper/oracle/measure.mjs [out.json]
 // The default output is helper/tests/goldens/metrics.json.
+//
+// Sweep: node helper/oracle/measure.mjs --sweep out.json measures the much
+// wider SWEEP corpus below (one or more strings per Unicode block macOS can
+// draw) in the same page, at the families, sizes, and weights mermaid
+// labels use. The `sweep_matches_chrome` test in
+// helper/tests/text_metrics.rs replays it (`KITTY_MARKDOWN_SWEEP=out.json
+// cargo test --test text_metrics sweep -- --ignored --nocapture`). The sweep
+// is a search tool for fallback classes the fixed corpus misses; a class it
+// finds gets a sample in STRINGS.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,7 +27,10 @@ import puppeteer from 'puppeteer';
 
 const require = createRequire(import.meta.url);
 const here = path.dirname(url.fileURLToPath(import.meta.url));
-const out = process.argv[2] ?? path.join(here, '..', 'tests', 'goldens', 'metrics.json');
+const sweep = process.argv[2] === '--sweep';
+const out =
+  (sweep ? process.argv[3] : process.argv[2]) ??
+  path.join(here, '..', 'tests', 'goldens', 'metrics.json');
 
 const STRINGS = {
   word: 'Hello',
@@ -79,7 +91,39 @@ const STRINGS = {
   multi_latin: 'Café<br>naïve',
   multi_cjk: '中文<br>Line two',
   multi_emoji: 'Line 😀<br>second ✓',
+  // Classes the sweep (`--sweep`) found missing: a sample of each.
+  ws_collapse: ' two  spaces\tand tab ',
+  unicode_spaces: 'em\u2003space\u3000end',
+  combining_stack: 'a\u0301\u0323 e\u0302\u0303',
+  general_punct: '\u2010 \u2023 \u203b \u2030 \u2015',
+  dingbats: '\u2702 \u270d \u270e \u2713',
+  emoji_run: '🎉🎊🎈🎁🚀',
+  emoji_modifier_alone: '🏻 🏿 ok',
+  keycap_bare: '1\u20e3 #\u20e3',
+  private_use: 'Icon \uf015 home',
+  cjk_ext_b: '𠀀𡈽 text',
+  kana_archaic: 'ア𛀁ゟ',
+  open_sans_ranges: 'na\u00efve \u02d8 \u2021 x\u00b2',
+  bidi_controls: 'a\u202aemb\u202c \u2066iso\u2069',
+  number_forms: '\u2160 \u2161 \u2153',
+  cyrillic_opsz: '\u0524 \u052f \u0500',
 };
+
+// Fallback text under `monospace` alone: Menlo's gaps go to the standard
+// font (Times New Roman) before CoreText's cascade.
+const MONOSPACE_STRINGS = {
+  mono_hebrew: 'שלום עולם',
+  mono_arabic: 'مرحبا',
+  mono_latin_ext: '\u01c5 \u2113 \u2160 \u1ebf',
+  mono_symbols: '┌─┐ ☕',
+};
+
+// Emoji at sizes outside SIZES: the bitmap advance and box do not scale
+// with the font size (mermaid draws titles at 20 px and more).
+const EMOJI_SIZE_STRINGS = {
+  emoji_sized: '月別 📈 🇰🇷',
+};
+const EMOJI_SIZES = [10, 20, 24, 32];
 
 const FAMILIES = {
   mermaid: '"trebuchet ms", verdana, arial, sans-serif',
@@ -95,6 +139,7 @@ const VARIANTS = [
 ];
 
 const WRAPPED = [
+  '[the docs](https://example.com/path) and more \u2014 words\u2026 here',
   'This is a fairly long node label that the browser has to wrap onto several lines',
   'Supercalifragilisticexpialidocious words and short ones mixed in one label',
 ];
@@ -114,6 +159,232 @@ const WRAP_CJK_MAX_WIDTH = 175;
 // The weights the face check asks for: Hiragino Sans and PingFang have a
 // face per CSS weight, matched on CoreText's weight, not OS/2's.
 const FACE_WEIGHTS = [100, 300, 400, 500, 600, 700, 900];
+
+// The sweep corpus (see the usage note at the top). Invisible and control
+// characters are written as escapes.
+const SWEEP_STRINGS = {
+  ascii_word: 'Node label',
+  ascii_long: 'A rather long label with many words to measure in one line of text',
+  latin1_sup: 'Ångström Æsir façade ¿Qué? ¡Sí! «guillemets» ß þ ð',
+  latin_ext_a: 'Ĳssel Œuvre ŧ ŀ Ŋ ĝĥĵŝ Čeština Ğğ İı Şş',
+  latin_ext_b: 'ƀ Ɓ Ƈ ǅ ǈ ǋ Ǳ ș ț Ȣ ȴ ɂ',
+  latin_ext_add: 'Tiếng Việt ạ ả ấ ầ ẩ ẫ ậ ḍ ṃ ṇ ṛ ṣ ṭ ẞ',
+  vietnamese: 'Xin chào thế giới, đây là nhãn',
+  ipa: 'ɪntərˈnæʃənəl fəˈnɛtɪk ʃ ʒ ŋ ɾ ʔ',
+  spacing_mod: 'ʰ ʲ ʷ ˈ ˌ ː ˑ ˘ ˙ ˚ ˛ ˜ ˝',
+  combining_stack: 'ạ́ ễ ȫ Z̵̶ q̣̱̇',
+  combining_zalgo: 'Z͑ͫ̓ͪ̂ͫ̽͏̴̙̤̞͉͚̯̞̠͍a',
+  combining_alone: '́̈ x',
+  greek: 'Ελληνικά κείμενο ΑΒΓΔ αβγδ',
+  greek_ext: 'ἀρχὴ ᾅδης ὦ ῥ ἐν ἀρχῇ ἦν ὁ λόγος',
+  greek_coptic: 'ϐ ϑ ϒ ϕ ϖ Ϛ Ϝ Ϟ Ϡ ϰ ϱ ϲ',
+  cyrillic: 'Съешь же ещё этих мягких булок',
+  cyrillic_sup: 'Ԁ ԁ Ԃ ԃ Ԑ ԑ Ԥ ԥ ԯ',
+  cyrillic_ext: 'Ꙁ ꙁ Ꙋ ꙋ ᲀ ᲁ ᲂ ⷠ',
+  ukrainian: 'Ґанок їжак є Ї',
+  armenian: 'Բարեւ աշխարհ Հայերեն',
+  georgian: 'გამარჯობა მსოფლიო ᲐᲑᲒ',
+  hebrew: 'עברית פשוטה',
+  hebrew_points: 'בְּרֵאשִׁית בָּרָא אֱלֹהִים',
+  arabic: 'السلام عليكم',
+  arabic_harakat: 'بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ',
+  arabic_pres: 'ﷺ ﷲ ﻻ ﻼ ﺍﺏ',
+  arabic_digits: 'رقم ١٢٣٤٥ و 678',
+  persian: 'سلام دنیا گچپژ',
+  urdu: 'اردو زبان ٹھیک',
+  syriac: 'ܫܠܡܐ ܥܠܡܐ',
+  thaana: 'ދިވެހި ބަސް',
+  nko: 'ߒߞߏ ߓߊ߲ߊ',
+  devanagari: 'हिन्दी भाषा क्षत्रिय',
+  bengali: 'বাংলা ভাষা ক্ষমা',
+  gurmukhi: 'ਪੰਜਾਬੀ ਭਾਸ਼ਾ',
+  gujarati: 'ગુજરાતી ભાષા',
+  oriya: 'ଓଡ଼ିଆ ଭାଷା',
+  tamil: 'தமிழ் மொழி ஸ்ரீ',
+  telugu: 'తెలుగు భాష',
+  kannada: 'ಕನ್ನಡ ಭಾಷೆ',
+  malayalam: 'മലയാളം ഭാഷ',
+  sinhala: 'සිංහල භාෂාව',
+  thai: 'ภาษาไทยง่ายนิดเดียว',
+  thai_marks: 'ที่นี่ น้ำ ปั้ ฎ ฏ',
+  lao: 'ພາສາລາວ',
+  tibetan: 'བོད་ཡིག་ ཀྲ་ཤིས་',
+  myanmar: 'မြန်မာဘာသာ',
+  khmer: 'ភាសាខ្មែរ',
+  mongolian: 'ᠮᠣᠩᠭᠣᠯ ᠬᠡᠯᠡ',
+  ethiopic: 'ሰላም ዓለም ኢትዮጵያ',
+  cherokee: 'ᏣᎳᎩ ᎦᏬᏂᎯᏍᏗ',
+  canadian: 'ᐃᓄᒃᑎᑐᑦ ᑕᑯᑦ',
+  runic: 'ᚠᚢᚦᚨᚱᚲ ᛗᛁᚾ',
+  ogham: '᚛ᚑᚌᚐᚋ᚜',
+  hangul: '안녕하세요 세계',
+  hangul_jamo: 'ᄀᄁᄂ ᅡᅢᅣ ᆨᆩᆪ',
+  hangul_compat: 'ㄱ ㄴ ㄷ ㅏ ㅑ ㅢ',
+  hangul_jamo_seq: '각 한',
+  han: '漢字測試標籤',
+  han_simplified: '简体中文标签测试',
+  cjk_punct: '「引用」『二重』、。・〜〈〉《》【】',
+  cjk_symbols: '〒 〓 〆 々 〇 〻 ㍿ ㈱ ㊗',
+  fullwidth: 'ＡＢＣ　ａｂｃ　１２３！？',
+  halfwidth: 'ｱｲｳｴｵ ﾊﾟﾋﾟ ｶﾞｷﾞ ￠￡',
+  cjk_ext_a: '㐀㐁㐂㑇㒀㓁',
+  cjk_ext_b: '𠀀𠀁𠀂𡈽𢌌𤭢',
+  cjk_compat: '豈 更 車 賈 滑',
+  bopomofo: 'ㄅㄆㄇㄈ ㄓㄔㄕ',
+  yi: 'ꆈꌠꁱꂷ ꀀꀁ',
+  kana_halfwidth_mix: 'ｶﾀｶﾅとカタカナ',
+  kana_small: 'ぁぃぅぇぉっゃゅょ ァィゥ',
+  kana_ext: 'ㇰㇱㇲ 𛀁 ゟ ヿ',
+  nbsp: 'non breaking space',
+  nbsp_run: 'a   b',
+  zwsp: 'zero​width​space',
+  zwj_zwnj: 'zw‍j zw‌nj',
+  soft_hyphen: 'soft­hyphen­ated',
+  word_joiner: 'word⁠joiner﻿bom',
+  bidi_marks: 'left‎right‏ mark',
+  bidi_embed: 'a‪emb‬ b‫emb‬ c‭over‬',
+  bidi_isolate: 'x ⁦iso⁩ ⁧עב⁩ ⁨fs⁩',
+  spaces_unicode: 'en em thin hair fig punct ideo　x',
+  narrow_nbsp: '10 km 5 000',
+  general_punct: '‐ ‑ ‒ – — ― ‖ † ‡ • ‣ ‰ ‱ ′ ″ ‴ ※ ‼ ⁂ ⁇',
+  quotes_all: '„low“ ‚single‘ ‹angle› «double» 〝cjk〟',
+  superscripts: 'x² y³ z¹ ⁰⁴⁵⁶⁷⁸⁹ ⁺⁻⁼⁽⁾ ⁿ',
+  subscripts: 'H₂O CO₂ ₀₁₂₃₄₅₆₇₈₉ ₊₋ ₐₑₒ',
+  currency: '₠ ₡ ₢ ₣ ₤ ₥ ₦ ₧ ₨ ₪ ₫ ₭ ₮ ₱ ₲ ₴ ₵ ₸ ₺ ₼ ₽ ₾ ₿',
+  letterlike: '℃ ℉ № ℗ ℞ ℠ ™ Ω ℮ ℵ ℏ ℓ ℝ ℕ ℤ',
+  number_forms: '⅓ ⅔ ⅕ ⅛ Ⅰ Ⅱ Ⅲ Ⅳ Ⅻ ⅰ ⅱ ↉',
+  fractions_slash: '1⁄2 3⁄4 ½ ¼ ¾',
+  arrows: '← ↑ → ↓ ↔ ↕ ↖ ↩ ↪ ⇄ ⇐ ⇑ ⇔ ⇨ ⟶ ⟹ ⤴ ⤵',
+  math_ops: '∀ ∂ ∃ ∅ ∇ ∈ ∉ ∏ ∑ − ∓ ∗ √ ∝ ∞ ∠ ∧ ∨ ∩ ∪ ∫ ≈ ≠ ≡ ⊂ ⊃ ⊕ ⊗',
+  math_misc: '⟨ ⟩ ⟦ ⟧ ⦃ ⦄ ⧺ ⨀ ⨁ ⩽ ⩾',
+  math_alnum: '𝐀𝐁𝐂 𝑥𝑦𝑧 𝔄𝔅 𝕒𝕓𝕔 𝓐𝓑 𝟘𝟙𝟚',
+  technical: '⌘ ⌥ ⇧ ⌃ ⌫ ⌦ ⏎ ⏏ ⌚ ⌛ ⏰ ⏳ ⌨',
+  control_pictures: '␀ ␉ ␊ ␍ ␛ ␠ ␡ ␤',
+  enclosed_alnum: '① ② ⑳ ⓐ ⓩ Ⓐ ⑴ ⒈ ⓪',
+  box_drawing: '┌─┬─┐ │ ├─┼─┤ └─┴─┘ ═ ║ ╔ ╗',
+  block_elements: '▀ ▄ █ ▌ ▐ ░ ▒ ▓ ▖ ▗ ▘ ▙',
+  geometric: '■ □ ▪ ▫ ▲ △ ▶ ▷ ▼ ▽ ◀ ◁ ◆ ◇ ○ ◎ ● ◐ ◑',
+  misc_symbols: '☀ ☁ ☂ ☃ ☄ ★ ☆ ☎ ☐ ☑ ☒ ☕ ☘ ☠ ☢ ☮ ☯ ♀ ♂ ♠ ♣ ♥ ♦ ♪ ♫ ⚑ ⚙',
+  misc_symbols_emoji: '☺ ☹ ♻ ⚠ ⚡ ⚽ ⛄ ⛔ ⛪',
+  dingbats: '✂ ✈ ✉ ✍ ✎ ✏ ✒ ✓ ✔ ✕ ✖ ✗ ✘ ✝ ✡ ✦ ✧ ✩ ❄ ❖ ❤ ➔ ➜ ➤',
+  dingbats_emoji: '✅ ✨ ❌ ❎ ❓ ❗ ➕ ➖ ➗ ➰ ➿',
+  braille: '⠁⠃⠉⠙⠑ ⠿ ⣿ ⡀',
+  musical: '𝄞 𝄢 𝅘𝅥𝅮 𝄪 ♭ ♮ ♯',
+  misc_tech_sym: '⏻ ⏼ ⏽ ⭘ ⭐ ⬛ ⬜ ⬆ ⮕',
+  emoji_faces: '😀 😂 🥲 🫠 🤖 👻',
+  emoji_animals: '🐶 🐱 🦊 🐙 🦄 🐝',
+  emoji_objects: '📦 🔧 🚀 💡 📊 🗂',
+  emoji_keycap: '1️⃣ 2️⃣ #️⃣ *️⃣ 🔟',
+  emoji_keycap_bare: '1⃣ #⃣',
+  emoji_tag_flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿 🏴󠁧󠁢󠁳󠁣󠁴󠁿 🏴󠁧󠁢󠁷󠁬󠁳󠁿',
+  emoji_flags: '🇺🇸 🇬🇧 🇩🇪 🇫🇷 🇪🇺 🇺🇳',
+  emoji_flag_bad: '🇦 🇿🇿',
+  emoji_zwj_family: '👨‍👩‍👧 👩‍👩‍👦‍👦 🧑‍🤝‍🧑',
+  emoji_zwj_prof: '👩‍💻 🧑‍🚀 👨‍🍳 🏃‍♀️ 🏳️‍🌈 🐻‍❄️',
+  emoji_zwj_new: '🐦‍🔥 🍋‍🟩 ❤️‍🔥 ❤️‍🩹 🙂‍↔️',
+  emoji_skin_tones: '👋🏻 👋🏼 👋🏽 👋🏾 👋🏿 🧑🏾‍💻',
+  emoji_components: '🏻 🏿 🦰 🦱 🦳 🦲',
+  emoji_vs15: '☀︎ ☁︎ ❤︎ ✔︎ ⚠︎',
+  emoji_vs16: '☀️ ☁️ ✔️ ⚠️ ↔️ ©️ ®️ ™️',
+  emoji_text_default: '© ® ™ ↔ ‼ ⁉ ℹ Ⓜ',
+  emoji_pairs: '🤝 💑 👯 🫶',
+  emoji_dense: '🎉🎊🎈🎁🎀🎂🍰🧁🥳🎆🎇✨',
+  emoji_latin: 'Release v2 🚀 shipped ✅ today',
+  pua: '',
+  pua_nerd: '  ',
+  pua_plane15: '\u{f0000}\u{f0001}',
+  unassigned: 'a͸b΀c',
+  unassigned_astral: 'x\u{2fffd}y',
+  noncharacters: 'a￾b￿c﷐',
+  replacement: 'bad � char',
+  tab: 'col1\tcol2',
+  ws_double: 'two  spaces',
+  ws_lead: '  leading',
+  ws_trail: 'trailing  ',
+  ws_newline: 'new\nline',
+  ws_mixed: ' a \t\n b ',
+  ws_nbsp_edges: ' edge ',
+  ws_ideographic_edges: '　edge　',
+  controls: 'a\u0001b\u0007c\u001bd',
+  c1_controls: 'a\u0085b\u009fc',
+  del: 'a\u007fb',
+  linefeed_cr: 'line\u000done',
+  long_cyrillic: 'Однажды весною в час небывало жаркого заката в Москве на Патриарших прудах появились два гражданина',
+  long_han: '天地玄黃宇宙洪荒日月盈昃辰宿列張寒來暑往秋收冬藏閏餘成歲律呂調陽雲騰致雨露結為霜',
+  long_arabic: 'هذا نص طويل باللغة العربية لاختبار القياس في سطر واحد بدون التفاف',
+  long_hangul: '다람쥐 헌 쳇바퀴에 타고파 키스의 고유조건은 입술끼리 만나야 하고',
+  long_devanagari: 'ऋषियों को सताने वाले दुष्ट राक्षसों के राजा रावण का सर्वनाश करने वाले',
+  long_thai: 'เป็นมนุษย์สุดประเสริฐเลิศคุณค่ากว่าบรรดาฝูงสัตว์เดรัจฉาน',
+  long_emoji: '😀😃😄😁😆😅🤣😂🙂🙃😉😊😇🥰😍🤩😘😗',
+  mixed_scripts: 'Ünïcødé Ελλάδα Россия 日本 한국 العربية',
+  mixed_rtl_ltr: 'Hello שלום world עולם 123',
+  mixed_rtl_digits: 'עמוד 12 מתוך 345',
+  mixed_arabic_latin: 'API مفتاح key 2024',
+  mixed_cjk_latin_digits: '第3章 Chapter 3 第三章',
+  mixed_emoji_rtl: 'שלום 👋 עולם',
+  mixed_symbols_text: 'Price: €10 → $12 (≈ 20%)',
+  mixed_indic_latin: 'Hindi हिन्दी and Tamil தமிழ்',
+  mixed_thai_latin: 'Thai ภาษาไทย text',
+  mixed_kana_emoji: 'テスト✅完了🎉',
+  multi_scripts: 'Ελληνικά<br>Русский<br>日本語',
+  multi_rtl: 'שלום<br>مرحبا',
+  multi_emoji: '🚀 launch<br>✅ done<br>🎉',
+  multi_indic: 'हिन्दी<br>বাংলা',
+  multi_long: 'First line with Ünicode<br>二行目のテキスト<br>third',
+  multi_combining: 'é́<br>ạ̣',
+  multi_empty_line: 'top<br><br>bottom',
+  br_variants: 'one<br/>two<br />three',
+};
+
+// The families of the label kinds: the trebuchet chain of most diagrams,
+// Open Sans of sequence, journey, timeline, and C4, and the generics.
+const SWEEP_FAMILIES = {
+  mermaid: '"trebuchet ms", verdana, arial, sans-serif',
+  open_sans: '"Open Sans", sans-serif',
+  arial: 'arial',
+  sans_serif: 'sans-serif',
+  monospace: 'monospace',
+};
+
+const RUN = sweep
+  ? {
+      STRINGS: SWEEP_STRINGS,
+      MONOSPACE_STRINGS: {},
+      EMOJI_SIZE_STRINGS: {},
+      EMOJI_SIZES,
+      FAMILIES: SWEEP_FAMILIES,
+      SIZES: [14, 16],
+      VARIANTS: [
+        { weight: 400, style: 'normal' },
+        { weight: 700, style: 'normal' },
+      ],
+      WRAPPED: [],
+      WRAP_MAX_WIDTH,
+      WRAPPED_CJK: [],
+      WRAP_CJK_MAX_WIDTH,
+      FACE_VARIANTS: [
+        { weight: 400, style: 'normal' },
+        { weight: 700, style: 'normal' },
+      ],
+    }
+  : {
+      STRINGS,
+      MONOSPACE_STRINGS,
+      EMOJI_SIZE_STRINGS,
+      EMOJI_SIZES,
+      FAMILIES,
+      SIZES,
+      VARIANTS,
+      WRAPPED,
+      WRAP_MAX_WIDTH,
+      WRAPPED_CJK,
+      WRAP_CJK_MAX_WIDTH,
+      FACE_VARIANTS: [
+        ...FACE_WEIGHTS.map((weight) => ({ weight, style: 'normal' })),
+        { weight: 400, style: 'italic' },
+        { weight: 700, style: 'italic' },
+      ],
+    };
 
 // mermaid-cli injects these from its own node_modules; the fonts are loaded
 // through file:// here, so Chrome needs --allow-file-access-from-files.
@@ -156,7 +427,19 @@ try {
   await page.evaluate(() => Promise.all(Array.from(document.fonts, (font) => font.load())));
 
   const result = await page.evaluate(
-    ({ STRINGS, FAMILIES, SIZES, VARIANTS, WRAPPED, WRAP_MAX_WIDTH, WRAPPED_CJK, WRAP_CJK_MAX_WIDTH }) => {
+    ({
+      STRINGS,
+      MONOSPACE_STRINGS,
+      EMOJI_SIZE_STRINGS,
+      EMOJI_SIZES,
+      FAMILIES,
+      SIZES,
+      VARIANTS,
+      WRAPPED,
+      WRAP_MAX_WIDTH,
+      WRAPPED_CJK,
+      WRAP_CJK_MAX_WIDTH,
+    }) => {
       const SVG_NS = 'http://www.w3.org/2000/svg';
       const ZERO_WIDTH_SPACE = '​';
       const body = document.body;
@@ -297,10 +580,15 @@ try {
       };
 
       const cases = [];
-      for (const [familyId, family] of Object.entries(FAMILIES)) {
-        for (const size of SIZES) {
+      const groups = [
+        ...Object.entries(FAMILIES).map(([familyId, family]) => [familyId, family, STRINGS, SIZES]),
+        ['monospace', 'monospace', MONOSPACE_STRINGS, SIZES],
+        ['mermaid', FAMILIES.mermaid, EMOJI_SIZE_STRINGS, EMOJI_SIZES],
+      ];
+      for (const [familyId, family, strings, sizes] of groups) {
+        for (const size of sizes) {
           for (const { weight, style } of VARIANTS) {
-            for (const [textId, text] of Object.entries(STRINGS)) {
+            for (const [textId, text] of Object.entries(strings)) {
               cases.push({
                 id: `${textId}/${familyId}/${size}/${weight}/${style}`,
                 text,
@@ -407,7 +695,7 @@ try {
       body.removeChild(svg);
       return { fonts, generics, cases, wrapped, probe };
     },
-    { STRINGS, FAMILIES, SIZES, VARIANTS, WRAPPED, WRAP_MAX_WIDTH, WRAPPED_CJK, WRAP_CJK_MAX_WIDTH }
+    RUN
   );
 
   // The face Chrome draws each grapheme of a fallback string in, read off
@@ -417,18 +705,13 @@ try {
   await cdp.send('DOM.enable');
   await cdp.send('CSS.enable');
   const faces = [];
-  for (const [textId, raw] of Object.entries(STRINGS)) {
+  for (const [textId, raw] of Object.entries(RUN.STRINGS)) {
     const text = raw.replace(/<br\s*\/?>/gi, ' ');
     if (/^[\x00-\x7f]*$/.test(text)) {
       continue;
     }
-    const faceVariants = [
-      ...FACE_WEIGHTS.map((weight) => ({ weight, style: 'normal' })),
-      { weight: 400, style: 'italic' },
-      { weight: 700, style: 'italic' },
-    ];
-    for (const [familyId, family] of Object.entries(FAMILIES)) {
-      for (const { weight, style } of faceVariants) {
+    for (const [familyId, family] of Object.entries(RUN.FAMILIES)) {
+      for (const { weight, style } of RUN.FACE_VARIANTS) {
         const graphemes = await page.evaluate(
           ({ text, family, weight, style }) => {
             const holder = document.createElement('div');

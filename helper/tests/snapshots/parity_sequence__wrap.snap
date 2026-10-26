@@ -66,8 +66,8 @@ expression: scene.to_svg()
       <polygon class="labelBox" points="-9,229 41,229 41,242 32.6,249 -9,249" fill="#ececff" stroke="#9370db"/>
       <text class="labelText" x="16" y="242" text-anchor="middle" dominant-baseline="middle" fill="#000000" stroke="none" font-size="16" font-weight="400">loop</text>
       <text class="loopText" x="176" y="247" text-anchor="middle" fill="#000000" stroke="none" font-size="16" font-weight="400"><tspan x="176">[Every time the long loop label</tspan></text>
-      <text class="loopText" x="176" y="266" text-anchor="middle" fill="#000000" stroke="none" font-size="16" font-weight="400"><tspan x="176">needs more than one line to show</tspan></text>
-      <text class="loopText" x="176" y="285" text-anchor="middle" fill="#000000" stroke="none" font-size="16" font-weight="400"><tspan x="176">its text]</tspan></text>
+      <text class="loopText" x="176" y="266" text-anchor="middle" fill="#000000" stroke="none" font-size="16" font-weight="400"><tspan x="176">needs more than one line to show its</tspan></text>
+      <text class="loopText" x="176" y="285" text-anchor="middle" fill="#000000" stroke="none" font-size="16" font-weight="400"><tspan x="176">text]</tspan></text>
     </g>
     <text class="messageText" x="411" y="80" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400"><tspan dy="1em">This is a rather long message that the renderer has to wrap onto several lines so that</tspan></text>
     <text class="messageText" x="411" y="99" text-anchor="middle" dominant-baseline="middle" fill="#333333" stroke="none" font-size="16" font-weight="400"><tspan dy="1em">it fits the configured width</tspan></text>

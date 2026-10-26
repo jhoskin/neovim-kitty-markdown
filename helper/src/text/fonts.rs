@@ -90,17 +90,96 @@ const EMOJI_FAMILY: &str = if cfg!(target_os = "macos") {
 const MACOS_RESERVED_FONTS: &str =
     "/System/Library/PrivateFrameworks/FontServices.framework/Resources/Reserved";
 
+/// The `Emoji_Modifier_Base` characters without `Emoji_Presentation`.
+/// Blink's emoji segmentation scanner counts a modifier base as emoji
+/// presentation on its own: the oracle draws a lone `✍` in Apple Color
+/// Emoji though Zapf Dingbats has a text glyph for it.
+const TEXT_MODIFIER_BASES: [char; 9] = [
+    '\u{261D}',
+    '\u{26F9}',
+    '\u{270C}',
+    '\u{270D}',
+    '\u{1F3CB}',
+    '\u{1F3CC}',
+    '\u{1F574}',
+    '\u{1F575}',
+    '\u{1F590}',
+];
+
 /// True when Chrome draws `grapheme` with emoji presentation: a following
-/// `U+FE0F`, or `Emoji_Presentation=Yes` with no `U+FE0E`, as Blink's
-/// `FontFallbackPriority` decides. Such a grapheme goes to the color emoji
-/// face even when the primary face has a text glyph for it (`☺️` under
-/// Arial).
+/// `U+FE0F`, or `Emoji_Presentation=Yes` (or an emoji modifier base) with
+/// no `U+FE0E`, as Blink's `SymbolsIterator` decides. Such a grapheme is a
+/// run of its own with the emoji fallback priority.
 pub fn emoji_presentation(grapheme: &str) -> bool {
     let Some(ch) = grapheme.chars().next() else {
         return false;
     };
+    // A skin tone modifier extends any grapheme (`GCB=Extend`), and
+    // HarfBuzz keeps it in the cluster of the character before it, so the
+    // oracle draws ` 🏿` (space and modifier) in Apple Color Emoji, space
+    // included.
     grapheme.contains('\u{FE0F}')
-        || (super::wrap::is_emoji_presentation(ch) && !grapheme.contains('\u{FE0E}'))
+        || grapheme
+            .chars()
+            .any(|c| ('\u{1F3FB}'..='\u{1F3FF}').contains(&c))
+        || ((super::wrap::is_emoji_presentation(ch) || TEXT_MODIFIER_BASES.contains(&ch))
+            && !grapheme.contains('\u{FE0E}'))
+}
+
+/// The characters CoreText maps to another character's glyph when the
+/// font's `cmap` lacks them, read off `CTFontGetGlyphsForCharacters` for
+/// Arial, Trebuchet MS, Menlo, and Times New Roman. Blink shapes with the
+/// glyphs CoreText reports, so the oracle draws `‐` (U+2010) in Arial as
+/// Arial's hyphen though Arial's `cmap` has no U+2010.
+#[cfg(target_os = "macos")]
+fn coretext_aliases(ch: char) -> &'static [char] {
+    match ch {
+        '\t' | '\n' | '\r' | '\u{2028}' | '\u{2029}' => &[' '],
+        '\u{2010}' | '\u{2011}' => &['-'],
+        '\u{202F}' => &['\u{2009}'],
+        '\u{2060}' => &['\u{200B}', '\u{FEFF}'],
+        '\u{FEFF}' => &['\u{200B}'],
+        '\u{A789}' => &[':'],
+        _ => &[],
+    }
+}
+
+#[cfg(not(target_os = "macos"))]
+fn coretext_aliases(_ch: char) -> &'static [char] {
+    &[]
+}
+
+/// The canonical combining class of the combining marks Latin text uses,
+/// enough to put a mark stack in canonical order: the marks below (220),
+/// the cedilla and ogonek (202), and the rest above (230). Anything that
+/// is not a combining diacritic counts as a starter (0).
+fn combining_class(ch: char) -> u8 {
+    match u32::from(ch) {
+        0x0327 | 0x0328 => 202,
+        0x0316..=0x0319
+        | 0x031C..=0x0320
+        | 0x0323..=0x0326
+        | 0x0329..=0x0333
+        | 0x0339..=0x033C
+        | 0x0347..=0x0349
+        | 0x034D..=0x034E
+        | 0x0353..=0x0356
+        | 0x0359..=0x035A => 220,
+        0x0300..=0x036F | 0x1AB0..=0x1AFF | 0x1DC0..=0x1DFF | 0x20D0..=0x20FF => 230,
+        _ => 0,
+    }
+}
+
+/// `Default_Ignorable_Code_Point`: HarfBuzz draws these as nothing when the
+/// font lacks them (`hb_ot_hide_default_ignorables`), so they never make a
+/// cluster `.notdef`. The bidi controls, joiners, variation selectors, the
+/// soft hyphen, and the tag characters of a flag are all in it.
+pub fn is_default_ignorable(ch: char) -> bool {
+    matches!(u32::from(ch),
+        0x00AD | 0x034F | 0x061C | 0x115F..=0x1160 | 0x17B4..=0x17B5 | 0x180B..=0x180F
+        | 0x200B..=0x200F | 0x202A..=0x202E | 0x2060..=0x206F | 0x3164 | 0xFE00..=0xFE0F
+        | 0xFEFF | 0xFFA0 | 0xFFF0..=0xFFF8 | 0x1BCA0..=0x1BCA3 | 0x1D173..=0x1D17A
+        | 0xE0000..=0xE0FFF)
 }
 
 /// Splits a CSS `font-family` list into family names, unquoted and trimmed.
@@ -155,6 +234,9 @@ pub struct FontSystem {
     /// CoreText traits by face, read on first use.
     #[cfg(target_os = "macos")]
     traits: Mutex<HashMap<FontId, Option<super::coretext::FaceTraits>>>,
+    /// Whether a face shapes a grapheme without `.notdef`, for the
+    /// graphemes the `cmap` alone cannot answer.
+    shapes: Mutex<HashMap<(FontId, String), bool>>,
 }
 
 impl Default for FontSystem {
@@ -182,6 +264,7 @@ impl FontSystem {
             substitutes: Mutex::new(HashMap::new()),
             #[cfg(target_os = "macos")]
             traits: Mutex::new(HashMap::new()),
+            shapes: Mutex::new(HashMap::new()),
         }
     }
 
@@ -411,11 +494,16 @@ impl FontSystem {
         if emoji_first && let Some(id) = covered(EMOJI_FAMILY) {
             return Some(id);
         }
-        self.platform_face(primary, grapheme, weight, style)
-            .or_else(|| {
-                let ids: Vec<FontId> = self.db.faces().map(|face| face.id).collect();
-                ids.into_iter().find(|&id| self.has_glyph(id, ch))
-            })
+        let found = self.platform_face(primary, grapheme, weight, style);
+        // CoreText answers every question; without it, any face with the
+        // glyph stands in for the platform's choice.
+        if cfg!(target_os = "macos") {
+            return found;
+        }
+        found.or_else(|| {
+            let ids: Vec<FontId> = self.db.faces().map(|face| face.id).collect();
+            ids.into_iter().find(|&id| self.has_glyph(id, ch))
+        })
     }
 
     /// The CoreText substitute for `grapheme` as a face of this database:
@@ -431,8 +519,13 @@ impl FontSystem {
         style: Style,
     ) -> Option<FontId> {
         use super::coretext::{TRAIT_BOLD, TRAIT_ITALIC};
+        // Blink's `GetSubstituteFont` asks CoreText about the one hint
+        // character, not its grapheme: the oracle draws `1⃣` under Open
+        // Sans as Open Sans `1` and `.notdef`, while CoreText would give
+        // Lucida Grande for the whole keycap.
         let ch = grapheme.chars().next()?;
-        let key = (primary, grapheme.to_string(), weight.0, style);
+        let hint = ch.to_string();
+        let key = (primary, hint.clone(), weight.0, style);
         let cached = self.substitutes.lock().ok()?.get(&key).cloned();
         let substitute = match cached {
             Some(found) => found,
@@ -462,8 +555,7 @@ impl FontSystem {
                 if style != Style::Normal {
                     symbolic |= TRAIT_ITALIC;
                 }
-                let found =
-                    super::coretext::substitute_face(base, grapheme, ch, symbolic, weight.0);
+                let found = super::coretext::substitute_face(base, &hint, ch, symbolic, weight.0);
                 self.substitutes.lock().ok()?.insert(key, found.clone());
                 found
             }
@@ -513,17 +605,37 @@ impl FontSystem {
             .or_else(|| self.platform_face_in_chain(chain, grapheme, weight, style))
     }
 
-    /// The first family of `chain` that covers `grapheme`.
+    /// The faces Blink's `FontFallbackList` tries before it asks the
+    /// platform: every family of the `font-family` list that resolves, then
+    /// the user's standard font (`-webkit-standard`, Times New Roman on
+    /// macOS), without repeats. The oracle draws Hebrew under `monospace`
+    /// in Times New Roman, not in the Courier New CoreText picks for Menlo.
+    pub fn listed_faces(&self, chain: &str, weight: Weight, style: Style) -> Vec<FontId> {
+        let mut faces: Vec<FontId> = Vec::new();
+        let families = parse_families(chain);
+        let standard = "serif".to_string();
+        for family in families.iter().chain(std::iter::once(&standard)) {
+            if let Some(id) = self.resolve_family(family, weight, style)
+                && !faces.contains(&id)
+            {
+                faces.push(id);
+            }
+        }
+        faces
+    }
+
+    /// The first listed face ([`Self::listed_faces`]) that covers
+    /// `grapheme` ([`Self::covers`]).
     ///
-    /// Blink's `FontFallbackList` tries every family of the `font-family`
-    /// list in order before it asks the platform, so under mermaid's
-    /// `"trebuchet ms", verdana, arial, sans-serif` an `→` is drawn in
-    /// Arial and a `├` in Arial while `─` stays in Verdana. A grapheme with
-    /// emoji presentation ([`emoji_presentation`]) skips the list: Chrome
-    /// draws `❤️` in Apple Color Emoji even when a listed family has a text
-    /// `❤`. A lone `❤` takes the text order and Chrome draws it in Zapf
-    /// Dingbats. All of these read off `CSS.getPlatformFontsForNode` in
-    /// the oracle's Chrome 156 on macOS.
+    /// Blink tries every family of the `font-family` list in order before
+    /// it asks the platform, so under mermaid's `"trebuchet ms", verdana,
+    /// arial, sans-serif` an `→` is drawn in Arial and a `├` in Arial while
+    /// `─` stays in Verdana. An emoji with `U+FE0F` skips the list: a text
+    /// face has no glyph for the variation sequence, so Chrome draws `❤️`
+    /// in Apple Color Emoji even when a listed family has a text `❤`. An
+    /// emoji without one takes the list like any text (`☕` under
+    /// `monospace` is Menlo's). All of these read off
+    /// `CSS.getPlatformFontsForNode` in the oracle's Chrome 156 on macOS.
     pub fn listed_face(
         &self,
         chain: &str,
@@ -531,14 +643,161 @@ impl FontSystem {
         weight: Weight,
         style: Style,
     ) -> Option<FontId> {
-        let ch = grapheme.chars().next()?;
-        if emoji_presentation(grapheme) {
+        if grapheme.contains('\u{FE0F}') {
             return None;
         }
-        parse_families(chain)
+        self.listed_faces(chain, weight, style)
             .into_iter()
-            .filter_map(|family| self.resolve_family(&family, weight, style))
-            .find(|&id| self.has_glyph(id, ch))
+            .find(|&id| self.covers(id, grapheme))
+    }
+
+    /// The face Blink draws `.notdef` in when nothing covers a grapheme of
+    /// `segment`: the first face the fallback iterator returned
+    /// (`first_candidate_`). That is the first listed face, except that
+    /// the segmented Open Sans counts only when a character of the segment
+    /// is in a declared `unicode-range`: the oracle draws a lone `U+E000`
+    /// under `"Open Sans", sans-serif` as Arial's `.notdef`.
+    pub fn notdef_face(
+        &self,
+        chain: &str,
+        segment: &str,
+        weight: Weight,
+        style: Style,
+    ) -> Option<FontId> {
+        self.listed_faces(chain, weight, style)
+            .into_iter()
+            .find(|&id| !self.is_open_sans(id) || segment.chars().any(super::open_sans::declares))
+    }
+
+    /// Blink's last resort before `.notdef`: Times
+    /// (`FontCache::GetLastResortFallbackFont`), when it covers `grapheme`.
+    pub fn last_resort_face(&self, grapheme: &str, weight: Weight, style: Style) -> Option<FontId> {
+        self.resolve_family("Times", weight, style)
+            .filter(|&id| self.covers(id, grapheme))
+    }
+
+    fn is_open_sans(&self, id: FontId) -> bool {
+        id == self.open_sans_regular || id == self.open_sans_italic
+    }
+
+    /// True when the face draws `grapheme` with no `.notdef` glyph, as
+    /// Blink's `HarfBuzzShaper` decides cluster by cluster. HarfBuzz
+    /// decomposes a precomposed character the face lacks (`ế` in Menlo),
+    /// composes a base and a mark the face has precomposed, falls back
+    /// from `U+2011` to `U+2010` and from the Unicode spaces to the space,
+    /// and hides default ignorables; a mark the face lacks makes the whole
+    /// cluster `.notdef` (`ạ́` under Trebuchet MS is Verdana's). The
+    /// bundled Open Sans also has to draw the grapheme in one of the
+    /// page's subsets ([`super::open_sans`]).
+    pub fn covers(&self, id: FontId, grapheme: &str) -> bool {
+        if !self.shapes_without_notdef(id, grapheme) {
+            return false;
+        }
+        !self.is_open_sans(id) || self.open_sans_subset_draws(id, grapheme)
+    }
+
+    fn shapes_without_notdef(&self, id: FontId, grapheme: &str) -> bool {
+        if grapheme
+            .chars()
+            .filter(|&ch| !is_default_ignorable(ch))
+            .all(|ch| self.has_glyph(id, ch))
+        {
+            return true;
+        }
+        let key = (id, grapheme.to_string());
+        if let Some(found) = self.shapes.lock().ok().and_then(|m| m.get(&key).copied()) {
+            return found;
+        }
+        let found = self
+            .with_face(id, |face| {
+                let mut buffer = rustybuzz::UnicodeBuffer::new();
+                buffer.push_str(grapheme);
+                let glyphs = rustybuzz::shape(face, &[], buffer);
+                glyphs.glyph_infos().iter().all(|info| info.glyph_id != 0)
+            })
+            .unwrap_or(false);
+        // A grapheme the `cmap` cannot shape may still be drawn through a
+        // CoreText alias.
+        let found = found
+            || self
+                .platform_text(id, grapheme)
+                .is_some_and(|(text, _)| self.shapes_without_notdef(id, &text));
+        if let Ok(mut shapes) = self.shapes.lock() {
+            shapes.insert(key, found);
+        }
+        found
+    }
+
+    /// One Open Sans subset draws `grapheme` the way HarfBuzz would shape
+    /// it with that subset alone ([`super::open_sans`]). HarfBuzz puts the
+    /// marks in canonical order and composes the base with each mark no
+    /// mark of the same class blocks, but only into a character the font
+    /// has; so the vietnamese subset draws `a` U+0301 U+0323 as `ạ` and
+    /// U+0301 (the oracle's Open Sans), while `e` U+0302 U+0303 needs an
+    /// `ê` it lacks and goes to Arial. Compositions are found by shaping
+    /// the pair with the full font and looking the glyph up in the subset.
+    /// A character CoreText aliases ([`coretext_aliases`]) counts as drawn
+    /// when its alias is: the latin subset draws U+2010 as its hyphen.
+    fn open_sans_subset_draws(&self, id: FontId, grapheme: &str) -> bool {
+        use super::open_sans::{SUBSETS, Subset};
+        let visible: Vec<char> = grapheme
+            .chars()
+            .filter(|&ch| !is_default_ignorable(ch))
+            .collect();
+        let draws = |subset: &Subset, ch: char| {
+            subset.draws(ch)
+                || (subset.declares(ch)
+                    && coretext_aliases(ch)
+                        .iter()
+                        .any(|&alias| subset.draws(alias)))
+        };
+        if SUBSETS
+            .iter()
+            .any(|subset| visible.iter().all(|&ch| draws(subset, ch)))
+        {
+            return true;
+        }
+        let Some((&base, marks)) = visible.split_first() else {
+            return true;
+        };
+        let mut marks = marks.to_vec();
+        marks.sort_by_key(|&mark| combining_class(mark));
+        self.with_face(id, |face| {
+            let composed = |subset: &Subset, a: char, b: char| -> Option<char> {
+                let mut buffer = rustybuzz::UnicodeBuffer::new();
+                buffer.add(a, 0);
+                buffer.add(b, 1);
+                let glyphs = rustybuzz::shape(face, &[], buffer);
+                let [info] = glyphs.glyph_infos() else {
+                    return None;
+                };
+                subset.drawn.iter().find_map(|&(start, end)| {
+                    (start..=end).find_map(|cp| {
+                        let ch = char::from_u32(cp)?;
+                        (face.glyph_index(ch).map(|g| u32::from(g.0)) == Some(info.glyph_id))
+                            .then_some(ch)
+                    })
+                })
+            };
+            SUBSETS.iter().any(|subset| {
+                let mut starter = base;
+                let mut left: Vec<char> = Vec::new();
+                for &mark in &marks {
+                    let blocked = left
+                        .last()
+                        .is_some_and(|&l| combining_class(l) >= combining_class(mark));
+                    match (!blocked)
+                        .then(|| composed(subset, starter, mark))
+                        .flatten()
+                    {
+                        Some(ch) => starter = ch,
+                        None => left.push(mark),
+                    }
+                }
+                draws(subset, starter) && left.iter().all(|&ch| draws(subset, ch))
+            })
+        })
+        .unwrap_or(false)
     }
 
     /// The face the platform gives `hint` under the primary face of
@@ -589,8 +848,71 @@ impl FontSystem {
 
     /// True when the face maps `ch` to a glyph other than `.notdef`.
     pub fn has_glyph(&self, id: FontId, ch: char) -> bool {
-        self.with_face(id, |face| face.glyph_index(ch).is_some())
-            .unwrap_or(false)
+        self.with_face(id, |face| {
+            face.glyph_index(ch).is_some()
+                || coretext_aliases(ch)
+                    .iter()
+                    .any(|&alias| face.glyph_index(alias).is_some())
+        })
+        .unwrap_or(false)
+    }
+
+    /// `text` as the platform maps it to glyphs of the face: each character
+    /// the `cmap` lacks but CoreText aliases ([`coretext_aliases`]) replaced
+    /// by its alias, with the byte offset in the new text of every byte
+    /// offset of `text` (one past the end included). `None` when nothing
+    /// changes, which is nearly always.
+    pub fn platform_text(&self, id: FontId, text: &str) -> Option<(String, Vec<usize>)> {
+        self.with_face(id, |face| {
+            let alias = |ch: char| {
+                if face.glyph_index(ch).is_some() {
+                    return None;
+                }
+                coretext_aliases(ch)
+                    .iter()
+                    .copied()
+                    .find(|&a| face.glyph_index(a).is_some())
+            };
+            if !text.chars().any(|ch| alias(ch).is_some()) {
+                return None;
+            }
+            let mut out = String::with_capacity(text.len());
+            let mut offsets = Vec::with_capacity(text.len() + 1);
+            for ch in text.chars() {
+                let start = out.len();
+                out.push(alias(ch).unwrap_or(ch));
+                offsets.extend(std::iter::repeat_n(start, ch.len_utf8()));
+            }
+            offsets.push(out.len());
+            Some((out, offsets))
+        })
+        .flatten()
+    }
+
+    /// [`Self::with_face`] with the face's optical size axis set to `size`
+    /// pixels, as CoreText sets `opsz` from the font size of a system font
+    /// (New York, which CoreText picks for some Cyrillic, has `opsz` from
+    /// 12 to 256 and its default instance is the 256 one).
+    pub fn with_face_at_size<T>(
+        &self,
+        id: FontId,
+        size: f32,
+        f: impl FnOnce(&rustybuzz::Face<'_>) -> T,
+    ) -> Option<T> {
+        const OPSZ: rustybuzz::ttf_parser::Tag = rustybuzz::ttf_parser::Tag::from_bytes(b"opsz");
+        let data = self.face_data(id)?;
+        let mut face = rustybuzz::Face::from_slice((*data.bytes).as_ref(), data.index)?;
+        if face
+            .variation_axes()
+            .into_iter()
+            .any(|axis| axis.tag == OPSZ)
+        {
+            face.set_variations(&[rustybuzz::Variation {
+                tag: OPSZ,
+                value: size,
+            }]);
+        }
+        Some(f(&face))
     }
 
     /// Runs `f` with a parsed `rustybuzz::Face`. The bytes are cached per

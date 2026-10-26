@@ -532,8 +532,39 @@ pub fn break_string(
 
 // --- Browser line breaking ----------------------------------------------------
 
-/// `white-space: nowrap` collapsing: runs of whitespace become one space and
-/// the line loses its leading and trailing spaces.
+/// The characters CSS `white-space: normal` and `nowrap` collapse: space,
+/// tab, and the line breaks. Other Unicode spaces (U+2002, U+3000) and
+/// NBSP are text: the oracle keeps an ideographic space at either end of
+/// a label and every em space between words. The HTML parser turns a CR
+/// into a line feed, and an SVG `<text>` collapses a CR like a space.
+pub fn is_collapsible_space(ch: char) -> bool {
+    matches!(ch, ' ' | '\t' | '\n' | '\r')
+}
+
+/// One line of text with its collapsible spaces collapsed as in
+/// [`collapse_whitespace`]: what an SVG `<text>` with the default
+/// `white-space` lays out. The oracle measures `' a \t\n b '` in a
+/// `<text>` exactly as wide as `a b`.
+pub fn collapse_text(text: &str) -> String {
+    let mut out = String::with_capacity(text.len());
+    let mut in_space = false;
+    for ch in text.chars() {
+        if is_collapsible_space(ch) {
+            in_space = true;
+            continue;
+        }
+        if in_space && !out.is_empty() {
+            out.push(' ');
+        }
+        in_space = false;
+        out.push(ch);
+    }
+    out
+}
+
+/// `white-space: nowrap` collapsing: runs of collapsible spaces
+/// ([`is_collapsible_space`]) become one space and the line loses its
+/// leading and trailing spaces.
 pub fn collapse_whitespace(line: &[Word]) -> Line {
     let mut out: Line = Vec::new();
     let mut in_space = false;
@@ -541,7 +572,7 @@ pub fn collapse_whitespace(line: &[Word]) -> Line {
     for word in line {
         let mut content = String::new();
         for ch in word.content.chars() {
-            if ch.is_whitespace() && ch != '\u{a0}' {
+            if is_collapsible_space(ch) {
                 // The first space of a run survives in the run it starts in.
                 if !at_start && !in_space {
                     content.push(' ');
@@ -909,6 +940,15 @@ mod tests {
             line(&["Hello ", "big ", "world"])
         );
         assert_eq!(collapse_whitespace(&line(&["   "])), Line::new());
+        // Only space, tab, and line breaks collapse; other spaces are text.
+        assert_eq!(
+            collapse_whitespace(&line(&["\u{3000}a\u{2003}\u{2003}b\u{a0}"])),
+            line(&["\u{3000}a\u{2003}\u{2003}b\u{a0}"])
+        );
+        assert_eq!(collapse_text(" a \t\n\r b "), "a b");
+        assert_eq!(collapse_text("two  spaces"), "two spaces");
+        assert_eq!(collapse_text("\u{3000}x\u{3000}"), "\u{3000}x\u{3000}");
+        assert_eq!(collapse_text("   "), "");
     }
 
     #[test]

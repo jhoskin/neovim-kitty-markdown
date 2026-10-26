@@ -353,6 +353,12 @@ pub fn substitute_face(
             },
         )
     })?;
+    // Blink's `GetSubstituteFont` rejects CoreText's LastResort face, whose
+    // glyphs only name the block a character is in; the oracle draws a
+    // private-use character as the primary face's `.notdef` instead.
+    if postscript_of(font.0).as_deref() == Some("LastResort") {
+        return None;
+    }
     let found = traits_of(font.0);
     let weight = ct_weight(css_weight);
     let differs = |t: FaceTraits| {

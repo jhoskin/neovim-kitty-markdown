@@ -148,24 +148,110 @@ impl Ink {
     }
 }
 
+/// The horizontal extent of the bitmap glyphs of one run.
+#[derive(Clone, Copy, Debug, PartialEq)]
+struct Bitmap {
+    left: f32,
+    right: f32,
+}
+
 /// One shaped run in one face.
 #[derive(Clone, Copy, Debug, PartialEq, Default)]
 struct RunMetrics {
     advance: f32,
     ink: Option<Ink>,
     /// Horizontal extent of bitmap glyphs, which have no outline. Their
-    /// vertical extent depends on the line, so `shape` adds it.
-    bitmap: Option<(f32, f32)>,
+    /// vertical extent depends on the size alone ([`sbix_box`]), so `shape`
+    /// adds it.
+    bitmap: Option<Bitmap>,
 }
 
-/// CoreText reports the advances of an `sbix` bitmap font (Apple Color
-/// Emoji) at 1.25 times the `hmtx` value, rounded to whole pixels; the
-/// oracle's emoji cases show 15, 18, and 20 px per glyph at 12, 14, and
-/// 16 px against 1.0 em in the table.
-const SBIX_ADVANCE_SCALE: f32 = 1.25;
 /// Bitmap glyph boxes in Chrome's ink bounds extend one pixel past the
-/// advance square on every side.
+/// advance on either side.
 const BITMAP_INK_PADDING: f32 = 1.0;
+
+/// The advance of a 1 em glyph of an `sbix` font (Apple Color Emoji) and
+/// how far its ink box reaches above and below the baseline, in whole
+/// pixels, for the font sizes 6 to 64 px. The oracle's Chrome reports
+/// these for `😀` under any family; they follow neither the `hmtx` value
+/// nor CoreText's own advances and bounds (21 px and 16 px above the
+/// baseline at 16 px, where Chrome has 20 and 17), so they are a table.
+/// The advance is `max(size, min(round(1.25 * size), (size + 25) / 2))`.
+const SBIX_BOXES: [(u8, u8, u8); 59] = [
+    (8, 7, 3),
+    (9, 8, 3),
+    (10, 9, 3),
+    (11, 10, 4),
+    (13, 11, 4),
+    (14, 12, 4),
+    (15, 13, 4),
+    (16, 14, 5),
+    (18, 15, 5),
+    (19, 16, 5),
+    (20, 17, 5),
+    (21, 18, 5),
+    (21, 19, 5),
+    (22, 19, 5),
+    (22, 20, 5),
+    (23, 21, 5),
+    (23, 21, 5),
+    (24, 22, 5),
+    (24, 23, 5),
+    (25, 23, 5),
+    (26, 24, 6),
+    (27, 25, 6),
+    (28, 26, 6),
+    (29, 27, 6),
+    (30, 28, 6),
+    (31, 29, 7),
+    (32, 30, 7),
+    (33, 30, 7),
+    (34, 31, 7),
+    (35, 32, 7),
+    (36, 33, 8),
+    (37, 34, 8),
+    (38, 35, 8),
+    (39, 36, 8),
+    (40, 37, 8),
+    (41, 37, 9),
+    (42, 38, 9),
+    (43, 39, 9),
+    (44, 40, 9),
+    (45, 41, 10),
+    (46, 42, 10),
+    (47, 43, 10),
+    (48, 44, 10),
+    (49, 44, 10),
+    (50, 45, 11),
+    (51, 46, 11),
+    (52, 47, 11),
+    (53, 48, 11),
+    (54, 49, 11),
+    (55, 50, 12),
+    (56, 51, 12),
+    (57, 52, 12),
+    (58, 53, 12),
+    (59, 53, 13),
+    (60, 54, 13),
+    (61, 55, 13),
+    (62, 56, 13),
+    (63, 57, 13),
+    (64, 58, 14),
+];
+
+/// [`SBIX_BOXES`] at `size` pixels: the nearest whole size, and beyond the
+/// table the advance of the size and the box proportions of 64 px.
+fn sbix_box(size: f32) -> (f32, f32, f32) {
+    let whole = round_half_up(size).max(6.0);
+    match SBIX_BOXES.get(whole as usize - 6) {
+        Some(&(advance, top, bottom)) => (f32::from(advance), f32::from(top), f32::from(bottom)),
+        None => (
+            whole,
+            (whole * 58.0 / 64.0).round(),
+            (whole * 14.0 / 64.0).round(),
+        ),
+    }
+}
 
 /// A shaped line as Blink's SVG text layout sees it: the advance box of the
 /// primary font plus the ink of every glyph.
@@ -411,12 +497,27 @@ fn script_of(ch: char) -> Option<rustybuzz::Script> {
     if ch.is_ascii() {
         return ch.is_ascii_alphabetic().then_some(rustybuzz::script::LATIN);
     }
+    // Private-use characters and noncharacters have the Unknown script,
+    // which ICU's script runs keep apart from the Latin around them: the
+    // oracle draws `U+E000` in `aU+E000b` under Open Sans as Arial's
+    // `.notdef`, the face its own segment starts with.
+    let cp = u32::from(ch);
+    if matches!(cp, 0xE000..=0xF8FF | 0xF0000..=0x10FFFF | 0xFDD0..=0xFDEF) || cp & 0xFFFE == 0xFFFE
+    {
+        return Some(rustybuzz::script::UNKNOWN);
+    }
     // HarfBuzz's segment guess skips Common and Inherited characters, so a
     // one-character buffer keeps no script for them.
     let mut buffer = rustybuzz::UnicodeBuffer::new();
     buffer.add(ch, 0);
     buffer.guess_segment_properties();
     let script = buffer.script();
+    // Blink's `ScriptRunIterator` collapses katakana into hiragana
+    // (`GetScriptForOpenType`), so kana of both kinds share a segment: the
+    // oracle draws `ゟ` in `ア𛀁ゟ` in the Hiragino Sans found for `ア`.
+    if script == rustybuzz::script::KATAKANA {
+        return Some(rustybuzz::script::HIRAGANA);
+    }
     (script != rustybuzz::script::UNKNOWN).then_some(script)
 }
 
@@ -440,6 +541,28 @@ fn script_segments(graphemes: &[String]) -> Vec<usize> {
                     Some(_) => {}
                 }
             }
+            segment
+        })
+        .collect()
+}
+
+/// The script segments of [`script_segments`], cut again around every
+/// emoji-presentation grapheme: Blink's `RunSegmenter` starts a run where
+/// the fallback priority changes, and each emoji sequence is a run.
+fn emoji_segments(graphemes: &[String], scripts: &[usize]) -> Vec<usize> {
+    let mut segment = 0;
+    let mut previous: Option<(usize, bool)> = None;
+    graphemes
+        .iter()
+        .zip(scripts)
+        .map(|(g, &script)| {
+            let emoji = fonts::emoji_presentation(g);
+            if let Some((last_script, last_emoji)) = previous
+                && (script != last_script || emoji || last_emoji)
+            {
+                segment += 1;
+            }
+            previous = Some((script, emoji));
             segment
         })
         .collect()
@@ -615,10 +738,10 @@ impl<'f> TextMetrics<'f> {
 
     /// Splits `text` into shaping runs: one face and one script segment
     /// each ([`Self::assign_faces`]), with the byte ranges that get `halt`
-    /// ([`Self::han_kerning`]). HarfBuzz in Chrome shapes each script
-    /// segment on its own, so no kerning pair crosses from katakana to
-    /// hiragana. Marks, joiners, and variation selectors stay with their
-    /// base.
+    /// ([`Self::han_kerning`]). HarfBuzz in Chrome shapes each segment on
+    /// its own, so no kerning pair crosses from Han to kana or from text
+    /// to an emoji. Marks, joiners, and variation selectors stay with
+    /// their base.
     fn runs(
         &self,
         text: &str,
@@ -776,24 +899,34 @@ impl<'f> TextMetrics<'f> {
         self.han_fonts.borrow_mut().insert(face, data);
         data
     }
-
-    /// The face and script segment of each grapheme of `text`, as Blink's
+    /// The face and segment of each grapheme of `text`, as Blink's
     /// `HarfBuzzShaper` assigns them.
     ///
-    /// The text is cut into script segments (`RunSegmenter`): a grapheme of
-    /// the Common or Inherited script (a space, a digit, `「`) joins the
-    /// segment before it, or the one after it at the start. In each
-    /// segment the primary face takes what it covers, then each listed
-    /// family in turn. What is left goes to the platform with one hint
-    /// character (`FontFallbackIterator::ChooseHintIndex`: the first
-    /// character after the first one that has a script of its own, else
-    /// the first), and every leftover grapheme the answer covers is drawn
-    /// in it; the rest go round again with a new hint. So in
+    /// The text is cut into segments (`RunSegmenter`): by script, where a
+    /// grapheme of the Common or Inherited script (a space, a digit, `「`)
+    /// joins the segment before it, or the one after it at the start; and
+    /// around every emoji-presentation grapheme, which `SymbolsIterator`
+    /// gives a fallback priority of its own. So in `✂ ✍ ✎` the `✎` is a
+    /// segment apart from the `✂`, and the oracle draws it in Lucida
+    /// Grande, the face CoreText picks for it, not in the Zapf Dingbats
+    /// picked for `✂`. In each segment the primary face takes what it
+    /// covers ([`FontSystem::covers`]), then each listed face in turn
+    /// ([`FontSystem::listed_face`]). What is left goes to the platform
+    /// with one hint character (`HarfBuzzShaper::CollectFallbackHintChars`
+    /// stops at the first character with a script of its own, and
+    /// `ChooseHintIndex` takes it; with none, the first), and every
+    /// leftover grapheme the answer covers is drawn in it; the rest go
+    /// round again with a new hint. So under `monospace` the oracle asks
+    /// with `Ⅰ` and draws it in Monaco, and `Ⅱ` in Helvetica. So in
     /// `「テスト」` the `「` is drawn in Hiragino Sans, the face Chrome finds
     /// for `テ`, while a lone `「` gets PingFang SC, and the Han segment of
     /// `ログイン画面` asks with `面` and gets PingFang SC though Hiragino
-    /// Sans has the glyphs too. Emoji-presentation graphemes take the
-    /// color emoji face on their own.
+    /// Sans has the glyphs too. When the platform has no face, or answers
+    /// with a face the segment already tried, or the hint was asked before,
+    /// Blink stops asking: the rest is drawn in Times where Times covers
+    /// it, and as `.notdef` in the first face tried
+    /// ([`FontSystem::notdef_face`]) otherwise. Emoji-presentation
+    /// graphemes take the listed faces and then the color emoji face.
     fn assign_faces(
         &self,
         text: &str,
@@ -804,21 +937,18 @@ impl<'f> TextMetrics<'f> {
     ) -> Vec<(String, FontId, usize)> {
         let graphemes = wrap::split_text_to_chars(text);
         let base = |g: &str| g.chars().next().unwrap_or(' ');
-        let segments = script_segments(&graphemes);
+        let segments = emoji_segments(&graphemes, &script_segments(&graphemes));
         let mut faces: Vec<Option<FontId>> = graphemes
             .iter()
             .map(|g| {
-                let ch = base(g);
-                if ch.is_whitespace()
-                    || (self.fonts.has_glyph(primary, ch) && !fonts::emoji_presentation(g))
-                {
-                    Some(primary)
-                } else if fonts::emoji_presentation(g) {
+                if fonts::emoji_presentation(g) {
                     Some(
                         self.fonts
                             .fallback_in_chain(chain, g, weight, style)
                             .unwrap_or(primary),
                     )
+                } else if base(g).is_whitespace() || self.fonts.covers(primary, g) {
+                    Some(primary)
                 } else {
                     self.fonts.listed_face(chain, g, weight, style)
                 }
@@ -826,36 +956,59 @@ impl<'f> TextMetrics<'f> {
             .collect();
         let segment_count = segments.last().map_or(0, |s| s + 1);
         for segment in 0..segment_count {
+            let members: Vec<usize> = (0..graphemes.len())
+                .filter(|&i| segments[i] == segment)
+                .collect();
             let mut asked: Vec<char> = Vec::new();
+            let mut tried = self.fonts.listed_faces(chain, weight, style);
             loop {
-                let holes: Vec<usize> = (0..graphemes.len())
-                    .filter(|&i| segments[i] == segment && faces[i].is_none())
+                let holes: Vec<usize> = members
+                    .iter()
+                    .copied()
+                    .filter(|&i| faces[i].is_none())
                     .collect();
                 let Some(&first) = holes.first() else {
                     break;
                 };
                 let hint = holes
                     .iter()
-                    .skip(1)
                     .find(|&&i| script_of(base(&graphemes[i])).is_some())
                     .copied()
                     .unwrap_or(first);
                 let hint_char = base(&graphemes[hint]);
-                let face = (!asked.contains(&hint_char))
-                    .then(|| {
-                        asked.push(hint_char);
-                        self.fonts
-                            .platform_face_in_chain(chain, &graphemes[hint], weight, style)
-                    })
-                    .flatten();
-                // Blink gives up on a hint it asked for before; the helper
-                // then draws the hole in the primary face, as Chrome draws
-                // its `.notdef` box.
-                let face = face.unwrap_or(primary);
+                if asked.contains(&hint_char) {
+                    break;
+                }
+                asked.push(hint_char);
+                let Some(face) = self
+                    .fonts
+                    .platform_face_in_chain(chain, &graphemes[hint], weight, style)
+                    .filter(|face| !tried.contains(face))
+                else {
+                    break;
+                };
+                tried.push(face);
                 for &i in &holes {
-                    if i == hint || self.fonts.has_glyph(face, base(&graphemes[i])) {
+                    if self.fonts.covers(face, &graphemes[i]) {
                         faces[i] = Some(face);
                     }
+                }
+            }
+            if members.iter().all(|&i| faces[i].is_some()) {
+                continue;
+            }
+            let segment_text: String = members.iter().map(|&i| graphemes[i].as_str()).collect();
+            let notdef = self
+                .fonts
+                .notdef_face(chain, &segment_text, weight, style)
+                .unwrap_or(primary);
+            for &i in &members {
+                if faces[i].is_none() {
+                    faces[i] = Some(
+                        self.fonts
+                            .last_resort_face(&graphemes[i], weight, style)
+                            .unwrap_or(notdef),
+                    );
                 }
             }
         }
@@ -867,7 +1020,6 @@ impl<'f> TextMetrics<'f> {
             .collect()
     }
 
-    /// The face each grapheme of `text` is drawn in, as [`Self::shape`]
     /// splits it. The calibration test compares these with the faces
     /// Chrome reports through `CSS.getPlatformFontsForNode`.
     pub fn grapheme_faces(&self, text: &str, spec: &FontSpec) -> Vec<(String, FontId)> {
@@ -911,9 +1063,20 @@ impl<'f> TextMetrics<'f> {
         if let Some(found) = self.runs.borrow().get(&key) {
             return *found;
         }
+        // Blink shapes with the glyphs CoreText maps the characters to.
+        let platform = self.fonts.platform_text(face, text);
+        let (text, halt): (&str, Vec<(usize, usize)>) = match &platform {
+            Some((mapped, offsets)) => (
+                mapped,
+                halt.iter()
+                    .map(|&(start, end)| (offsets[start], offsets[end]))
+                    .collect(),
+            ),
+            None => (text, halt.to_vec()),
+        };
         let metrics = self
             .fonts
-            .with_face(face, |f| {
+            .with_face_at_size(face, size, |f| {
                 let sbix = f
                     .raw_face()
                     .table(rustybuzz::ttf_parser::Tag::from_bytes(b"sbix"))
@@ -957,7 +1120,7 @@ impl<'f> TextMetrics<'f> {
                 // The pen runs in pixels: bitmap advances round per glyph.
                 let mut pen = 0f32;
                 let mut ink: Option<Ink> = None;
-                let mut bitmap: Option<(f32, f32)> = None;
+                let mut bitmap: Option<Bitmap> = None;
                 let mut last_cluster = None;
                 for (index, (info, pos)) in glyphs
                     .glyph_infos()
@@ -977,7 +1140,7 @@ impl<'f> TextMetrics<'f> {
                     last_cluster = Some(info.cluster);
                     let x = pen + pos.x_offset as f32 * scale;
                     let advance = if sbix {
-                        round_half_up(pos.x_advance as f32 * scale * SBIX_ADVANCE_SCALE)
+                        round_half_up(pos.x_advance as f32 * scale / size * sbix_box(size).0)
                     } else {
                         pos.x_advance as f32 * scale + track
                     };
@@ -1005,11 +1168,16 @@ impl<'f> TextMetrics<'f> {
                         };
                         ink = Ink::union(ink, Some(glyph_ink));
                     } else if sbix && advance > 0.0 {
-                        let left = x - BITMAP_INK_PADDING;
-                        let right = x + advance + BITMAP_INK_PADDING;
+                        let glyph = Bitmap {
+                            left: x - BITMAP_INK_PADDING,
+                            right: x + advance + BITMAP_INK_PADDING,
+                        };
                         bitmap = Some(match bitmap {
-                            Some((l, r)) => (l.min(left), r.max(right)),
-                            None => (left, right),
+                            Some(b) => Bitmap {
+                                left: b.left.min(glyph.left),
+                                right: b.right.max(glyph.right),
+                            },
+                            None => glyph,
                         });
                     }
                     pen += advance;
@@ -1054,16 +1222,15 @@ impl<'f> TextMetrics<'f> {
             let oblique = synthetic.oblique;
             let metrics = self.run_metrics(&run, face, spec.size, synthetic, &halt);
             ink = Ink::union(ink, metrics.ink.map(|i| i.shifted(width)));
-            if let Some((left, right)) = metrics.bitmap {
-                // A bitmap strike box is square: as tall as its advance,
-                // from one pixel above the em box, padded like the width.
-                // Its place does not depend on the primary face: under
-                // Trebuchet MS and Open Sans alike the oracle's 12, 14, and
-                // 16 px emoji reach 13, 15, and 17 px above the baseline.
-                // A synthetic oblique moves the top right corner by the
-                // skew, and Skia rounds the glyph box out to whole pixels.
-                let side = right - left;
-                let top = spec.size + BITMAP_INK_PADDING;
+            if let Some(Bitmap { left, right }) = metrics.bitmap {
+                // The bitmap box's height depends on the size alone
+                // ([`sbix_box`]), not on the primary face: under Trebuchet
+                // MS and Open Sans alike the oracle's 12, 14, and 16 px
+                // emoji reach 13, 15, and 17 px above the baseline, and a
+                // row of 12 emoji is as tall as one. A synthetic oblique
+                // moves the top right corner by the skew, and Skia rounds
+                // the glyph box out to whole pixels.
+                let (_, top, bottom) = sbix_box(spec.size);
                 let lean = if oblique {
                     (SYNTHETIC_OBLIQUE_SKEW * top).ceil()
                 } else {
@@ -1075,7 +1242,7 @@ impl<'f> TextMetrics<'f> {
                         min_x: width + left,
                         max_x: width + right + lean,
                         top,
-                        bottom: side - top,
+                        bottom,
                     }),
                 );
             }
@@ -1110,9 +1277,11 @@ impl<'f> TextMetrics<'f> {
     }
 
     /// `drawSimpleText` followed by `getBBox()`: `<br>` tags become spaces,
-    /// an empty string measures as a zero-width space.
+    /// the `<text>` collapses its spaces, tabs, and line breaks
+    /// ([`wrap::collapse_text`]), and an empty string measures as a
+    /// zero-width space.
     pub fn svg_bbox(&self, text: &str, spec: &FontSpec) -> Size {
-        let joined: String = markdown::split_breaks(text).join(" ");
+        let joined = wrap::collapse_text(&markdown::split_breaks(text).join(" "));
         self.shape(&joined, spec).bbox()
     }
 
@@ -1534,5 +1703,8 @@ mod cjk_tests {
             [0, 0, 1, 1, 1, 1, 2]
         );
         assert_eq!(script_segments(&graphemes("a b")), [0, 0, 0]);
+        // Katakana and hiragana are one script; private use is its own.
+        assert_eq!(script_segments(&graphemes("アあ漢")), [0, 0, 1]);
+        assert_eq!(script_segments(&graphemes("a\u{E000}b")), [0, 1, 2]);
     }
 }

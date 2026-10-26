@@ -20,6 +20,7 @@ use std::path::PathBuf;
 use kitty_markdown_helper::text::font_system;
 use kitty_markdown_helper::text::markdown;
 use kitty_markdown_helper::text::measure::{FontSpec, FontStyle, TextMetrics};
+use kitty_markdown_helper::text::wrap;
 use serde::Deserialize;
 
 const TOLERANCE: f32 = 0.5;
@@ -266,7 +267,10 @@ fn widths_and_heights_match_chrome() {
             what: "text_length",
             expected: case.svg.text_length,
             got: text
-                .shape(&markdown::split_breaks(&case.text).join(" "), &spec)
+                .shape(
+                    &wrap::collapse_text(&markdown::split_breaks(&case.text).join(" ")),
+                    &spec,
+                )
                 .width,
             bound,
         });
@@ -324,6 +328,18 @@ fn fallback_faces_match_chrome() {
     let Some(metrics) = load() else {
         return;
     };
+    let mismatches = face_mismatches(&metrics);
+    assert!(
+        mismatches.is_empty(),
+        "{} graphemes in another face than Chrome's:\n{}",
+        mismatches.len(),
+        mismatches.join("\n")
+    );
+}
+
+/// The graphemes of `metrics.faces` the helper draws in another face than
+/// Chrome, one line each.
+fn face_mismatches(metrics: &Metrics) -> Vec<String> {
     let fonts = font_system();
     let text = TextMetrics::new(fonts);
     let mut mismatches = Vec::new();
@@ -395,12 +411,7 @@ fn fallback_faces_match_chrome() {
             }
         }
     }
-    assert!(
-        mismatches.is_empty(),
-        "{} graphemes in another face than Chrome's:\n{}",
-        mismatches.len(),
-        mismatches.join("\n")
-    );
+    mismatches
 }
 
 #[test]
@@ -496,5 +507,102 @@ fn wrapped_labels_match_chrome() {
         "wrapped labels differ:\n{}\n{}",
         report(&deviations),
         line_mismatches.join("\n")
+    );
+}
+
+/// The wide sweep of `node helper/oracle/measure.mjs --sweep <out.json>`,
+/// replayed through the library and through `run_measure` (the `measure`
+/// CLI, weight 400 only). Run it with `KITTY_MARKDOWN_SWEEP=<out.json>
+/// cargo test --test text_metrics sweep -- --ignored --nocapture`. It
+/// writes every measurement to `<out.json>.tsv` and the face mismatches to
+/// `<out.json>.faces.txt`, and lists the misses; it is a search tool, so
+/// it is ignored by default and never fails.
+#[test]
+#[ignore = "needs a sweep file from measure.mjs --sweep"]
+fn sweep_matches_chrome() {
+    let Ok(path) = std::env::var("KITTY_MARKDOWN_SWEEP") else {
+        eprintln!("set KITTY_MARKDOWN_SWEEP to the output of measure.mjs --sweep");
+        return;
+    };
+    let metrics: Metrics =
+        serde_json::from_str(&std::fs::read_to_string(&path).expect("sweep file")).expect("parse");
+    let fonts = font_system();
+    let text = TextMetrics::new(fonts);
+    // The CLI builds a fresh measurer per call, so its route is slow; set
+    // KITTY_MARKDOWN_SWEEP_CLI=1 to include it.
+    let with_cli = std::env::var_os("KITTY_MARKDOWN_SWEEP_CLI").is_some();
+    let mut rows = vec!["id\troute\twhat\texpected\tgot\tdiff\tbound".to_string()];
+    let mut deviations: Vec<Deviation> = Vec::new();
+    for case in &metrics.cases {
+        let spec = spec_for(&case.family, case.size, case.weight, &case.style);
+        let bound = if needs_fallback(&case.text) {
+            FALLBACK_TOLERANCE
+        } else {
+            TOLERANCE
+        };
+        let mut push = |what: &'static str, route: &str, expected: f32, got: f32| {
+            rows.push(format!(
+                "{}\t{route}\t{what}\t{expected}\t{got}\t{}\t{bound}",
+                case.id,
+                got - expected
+            ));
+            deviations.push(Deviation {
+                id: case.id.clone(),
+                what,
+                expected,
+                got,
+                bound,
+            });
+        };
+        let svg = text.svg_bbox(&case.text, &spec);
+        push("svg.width", "lib", case.svg.width, svg.width);
+        push("svg.height", "lib", case.svg.height, svg.height);
+        let html_lines = if case.text.is_empty() {
+            markdown::html_to_lines("")
+        } else {
+            markdown::html_to_lines(&format!("<p>{}</p>", case.text))
+        };
+        let html = text.html_label(&html_lines, &spec, None);
+        push("html.width", "lib", case.html.width, html.width);
+        push("html.height", "lib", case.html.height, html.height);
+        if !with_cli || case.weight != 400 || case.style != "normal" {
+            continue;
+        }
+        for (mode, w, h, expected) in [
+            (
+                "svg",
+                "cli.svg.width",
+                "cli.svg.height",
+                (case.svg.width, case.svg.height),
+            ),
+            (
+                "html",
+                "cli.html.width",
+                "cli.html.height",
+                (case.html.width, case.html.height),
+            ),
+        ] {
+            let value: serde_json::Value =
+                kitty_markdown_helper::text::run_measure(&case.text, &case.family, case.size, mode)
+                    .ok()
+                    .and_then(|json| serde_json::from_str(&json).ok())
+                    .unwrap_or_default();
+            let got = |key: &str| value[key].as_f64().unwrap_or(f64::NAN) as f32;
+            push(w, "cli", expected.0, got("width"));
+            push(h, "cli", expected.1, got("height"));
+        }
+    }
+    std::fs::write(format!("{path}.tsv"), rows.join("\n") + "\n").expect("write tsv");
+    let faces = face_mismatches(&metrics);
+    std::fs::write(format!("{path}.faces.txt"), faces.join("\n") + "\n").expect("write faces");
+    eprintln!(
+        "sweep: {} graphemes in another face than Chrome's",
+        faces.len()
+    );
+    let over = deviations.iter().filter(|d| d.over()).count();
+    eprintln!(
+        "sweep: {} measurements, {over} misses\n{}",
+        deviations.len(),
+        report(&deviations)
     );
 }

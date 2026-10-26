@@ -364,3 +364,43 @@ These entries replace the macOS platform fallback list in Fonts and text.
   not allowed before closing marks, the ideographic comma and full stop,
   or `・`, and not after opening marks. A break is allowed before small
   kana and `ー`.
+
+- The text measurer follows Blink's font fallback order on macOS. A
+  grapheme is covered by a face when HarfBuzz shapes it there without a
+  `.notdef` glyph, so marks, decompositions, and default ignorables count.
+  The faces after the `font-family` list are the standard font (Times New
+  Roman), then one CoreText answer per hint character, then Times, then
+  the `.notdef` of the first face tried. CoreText's LastResort face is not
+  used. A face already tried, or a hint asked before, stops the search.
+- Emoji-presentation graphemes (also an emoji modifier base alone, and a
+  grapheme with a skin tone modifier) are segments of their own. Katakana
+  and hiragana are one script. Private-use characters and noncharacters
+  are a script of their own. Unassigned code points are not detected.
+- The page's Open Sans is a segmented web font. `helper/src/text/open_sans.rs`
+  holds the declared `unicode-range` and the drawn characters of each
+  `@fontsource/open-sans` 5.3.0 subset. To regenerate it, run
+  `gen_subsets.py` from the QA round 2 scratch folder with fontTools on
+  the `.woff` files of that package. Mark stacks compose as HarfBuzz
+  composes them, with a small canonical combining class table for Latin.
+- CoreText maps some characters that a `cmap` lacks to another glyph
+  (U+2010 and U+2011 to the hyphen, U+202F to the thin space). The
+  measurer copies that list. It sets the `opsz` axis of a variable face to
+  the font size, as CoreText does.
+- The advance and the ink box of an Apple Color Emoji glyph come from a
+  table of the oracle's values for 6 to 64 px. Chrome's values agree with
+  neither the font tables nor CoreText.
+- An SVG `<text>` collapses spaces, tabs, and line breaks like CSS
+  `white-space: normal`. Other Unicode spaces and NBSP are text.
+- HTML labels break between a closing and an opening bracket, before and
+  after an em dash, after an ellipsis, U+2012, and a zero-width space,
+  and after a hyphen at the start of a word unless a digit follows.
+- Not ported: CoreText's synthetic bold of a fallback face, which widens
+  each glyph by 0.0576 em (bold Syriac); the named weight instances of
+  variable fallback faces (Kefa Bold); fonts that CoreText loads on
+  demand and fontdb does not list (Songti SC for C1 controls); leading
+  combining marks in Menlo.
+- To rerun the wide sweep: `node helper/oracle/measure.mjs --sweep
+  <out.json>`, then `KITTY_MARKDOWN_SWEEP=<out.json> cargo test --test
+  text_metrics sweep -- --ignored --nocapture` in `helper/`. Set
+  `KITTY_MARKDOWN_SWEEP_CLI=1` to include the `measure` CLI route. The
+  test writes `<out.json>.tsv` and `<out.json>.faces.txt`.
