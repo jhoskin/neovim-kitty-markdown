@@ -181,7 +181,9 @@ QA.describe('transport: image mode', function()
       end
       local m = tx.chunks[#tx.chunks].control.m
       a.truthy(m == '0' or m == nil, 'last chunk m=0')
-      a.eq('2', tx.first.control.q, 'quiet transmission')
+      for i, c in ipairs(tx.chunks) do
+        a.eq('2', c.control.q, 'quiet flag on chunk ' .. i)
+      end
       local w, h = U.png_dims(tx.data)
       a.eq(120, w, 'decoded PNG width')
       a.eq(70, h, 'decoded PNG height')
@@ -349,26 +351,30 @@ QA.describe('transport: image mode', function()
     end
   )
 
-  QA.check('R-128', 'Closing the preview deletes the placed image by its id', function()
-    local src, _, tx = placed_image(cap, dir, 120, 70)
-    cap:clear()
-    require('kitty-markdown.preview').close(src)
-    U.settle(50)
-    local d = U.deletes(cap)
-    local hit = false
-    for _, c in ipairs(d) do
-      if c.control.i == tostring(tx.id) and (c.control.d == 'i' or c.control.d == 'I') then
-        hit = true
+  QA.check(
+    { 'R-128', 'R-308' },
+    'Closing the preview deletes the placed image by its id with d=I',
+    function()
+      local src, _, tx = placed_image(cap, dir, 120, 70)
+      cap:clear()
+      require('kitty-markdown.preview').close(src)
+      U.settle(50)
+      local d = U.deletes(cap)
+      local hit = false
+      for _, c in ipairs(d) do
+        if c.control.i == tostring(tx.id) and c.control.d == 'I' then
+          hit = true
+        end
       end
+      a.truthy(hit, 'a delete by id for the image: ' .. vim.inspect(vim.tbl_map(function(c)
+        return c.raw
+      end, d)))
     end
-    a.truthy(hit, 'a delete by id for the image: ' .. vim.inspect(vim.tbl_map(function(c)
-      return c.raw
-    end, d)))
-  end)
+  )
 
   QA.check(
-    'R-128',
-    'Closing the preview window with a window command also deletes the image',
+    { 'R-128', 'R-308' },
+    'Closing the preview window with a window command also deletes the image with d=I',
     function()
       local src, _, tx = placed_image(cap, dir, 120, 70)
       cap:clear()
@@ -377,7 +383,7 @@ QA.describe('transport: image mode', function()
       U.settle(100)
       local hit = false
       for _, c in ipairs(U.deletes(cap)) do
-        if c.control.i == tostring(tx.id) then
+        if c.control.i == tostring(tx.id) and c.control.d == 'I' then
           hit = true
         end
       end
@@ -385,31 +391,35 @@ QA.describe('transport: image mode', function()
     end
   )
 
-  QA.check('R-128', 'When an image block changes, its old image is deleted by id', function()
-    local src, _, tx = placed_image(cap, dir, 120, 70)
-    QA.make_png(dir .. '/b.png', 80, 50, { 0, 0, 255, 255 })
-    cap:clear()
-    vim.api.nvim_set_current_win(vim.fn.bufwinid(src))
-    vim.api.nvim_buf_set_lines(src, 4, 5, false, { '![a picture](b.png)' })
-    vim.cmd('silent write')
-    a.truthy(
-      QA.wait(8000, function()
-        return #U.transmissions(cap) >= 1
-      end),
-      'the new image is transmitted'
-    )
-    local hit = false
-    for _, c in ipairs(U.deletes(cap)) do
-      if c.control.i == tostring(tx.id) then
-        hit = true
+  QA.check(
+    { 'R-128', 'R-308' },
+    'When an image block changes, its old image is deleted by id with d=I',
+    function()
+      local src, _, tx = placed_image(cap, dir, 120, 70)
+      QA.make_png(dir .. '/b.png', 80, 50, { 0, 0, 255, 255 })
+      cap:clear()
+      vim.api.nvim_set_current_win(vim.fn.bufwinid(src))
+      vim.api.nvim_buf_set_lines(src, 4, 5, false, { '![a picture](b.png)' })
+      vim.cmd('silent write')
+      a.truthy(
+        QA.wait(8000, function()
+          return #U.transmissions(cap) >= 1
+        end),
+        'the new image is transmitted'
+      )
+      local hit = false
+      for _, c in ipairs(U.deletes(cap)) do
+        if c.control.i == tostring(tx.id) and c.control.d == 'I' then
+          hit = true
+        end
       end
+      a.truthy(hit, 'a delete for the old image id')
     end
-    a.truthy(hit, 'a delete for the old image id')
-  end)
+  )
 
   QA.check(
-    'R-128',
-    'When an image block is removed from the document, its image is deleted by id',
+    { 'R-128', 'R-308' },
+    'When an image block is removed from the document, its image is deleted by id with d=I',
     function()
       local src, _, tx = placed_image(cap, dir, 120, 70)
       cap:clear()
@@ -419,7 +429,7 @@ QA.describe('transport: image mode', function()
       U.settle(200)
       local hit = false
       for _, c in ipairs(U.deletes(cap)) do
-        if c.control.i == tostring(tx.id) then
+        if c.control.i == tostring(tx.id) and c.control.d == 'I' then
           hit = true
         end
       end

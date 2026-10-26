@@ -119,6 +119,20 @@ QA.describe('images: helper decode (CLI)', function()
   )
 
   QA.check(
+    'R-088',
+    'The CLI rasterizes an SVG narrower than the target width at its declared width',
+    function()
+      local p =
+        svg(QA.tmpdir() .. '/narrow.svg', 120, 60, '<rect width="120" height="60" fill="#c02050"/>')
+      local r, out = render('svg', p, 600)
+      a.eq(0, r.code, tostring(r.stderr))
+      local w, h = QA.png_size(out)
+      a.eq(120, w, 'declared width')
+      a.near(60, h, 1, 'height')
+    end
+  )
+
+  QA.check(
     'R-226',
     'The CLI rasterizes an SVG with no background onto transparent pixels',
     function()
@@ -246,6 +260,55 @@ QA.describe('images: helper protocol', function()
       a.near(50, r.result.height_px, 1, 'height')
     end
   )
+
+  QA.check(
+    'R-088',
+    'Rasterizing an SVG narrower than the target width keeps its declared width',
+    function()
+      local p =
+        svg(QA.tmpdir() .. '/narrow.svg', 90, 30, '<rect width="90" height="30" fill="#2040a0"/>')
+      local r = sess:request('svg.rasterize', { path = p, width_px = 900 }, 10000)
+      a.is_nil(r.error, 'error')
+      a.eq(90, r.result.width_px, 'reported width')
+      a.eq(90, (QA.png_size(r.result.path)), 'file width')
+      a.near(30, r.result.height_px, 1, 'height')
+    end
+  )
+
+  QA.check(
+    'R-088',
+    'An SVG with a declared width equal to the target width keeps that width',
+    { severity = 'low' },
+    function()
+      local p =
+        svg(QA.tmpdir() .. '/same.svg', 200, 100, '<rect width="200" height="100" fill="#20a0a0"/>')
+      local r = sess:request('svg.rasterize', { path = p, width_px = 200 }, 10000)
+      a.is_nil(r.error, 'error')
+      a.eq(200, r.result.width_px)
+    end
+  )
+
+  QA.check('R-286', 'A width limit alone sets the height from the aspect ratio', function()
+    local r = sess:request(
+      'image.prepare',
+      { path = F .. '/photo.jpg', width_px = 300, max_width_px = 100 },
+      10000
+    )
+    a.is_nil(r.error)
+    a.eq(100, r.result.width_px, 'width')
+    a.near(50, r.result.height_px, 1, 'height from the aspect ratio')
+  end)
+
+  QA.check('R-286', 'A height limit alone sets the width from the aspect ratio', function()
+    local r = sess:request(
+      'image.prepare',
+      { path = F .. '/photo.jpg', width_px = 300, max_height_px = 40 },
+      10000
+    )
+    a.is_nil(r.error)
+    a.eq(40, r.result.height_px, 'height')
+    a.near(80, r.result.width_px, 1, 'width from the aspect ratio')
+  end)
 
   QA.check('R-226', 'Rasterizing an SVG leaves its empty area transparent', function()
     local r = sess:request('svg.rasterize', { path = F .. '/drawing.svg', width_px = 100 }, 10000)

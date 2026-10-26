@@ -1,7 +1,8 @@
 -- qa: serial
 -- Pixel parity with the mermaid 12.2.0 oracle for the phase 5 diagram types.
 -- Each check renders every hidden case of one type at the parity width,
--- frames it as mermaid-cli frames its screenshot, and compares SSIM.
+-- crops the golden (oracle run with the R-237 --size) to the helper size
+-- from the top left, and compares SSIM with no resampling.
 local QA = require('qa')
 local P = require('parity_util')
 

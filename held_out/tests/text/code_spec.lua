@@ -370,4 +370,49 @@ QA.describe('text: fenced code blocks in the layout', function()
       a.not_contains('```', text)
     end
   )
+
+  QA.check('R-261', 'A code line wider than the text width is shown in full on one line', function()
+    local w = 40
+    local long = 'local result = compute(alpha, beta, gamma, delta, epsilon, zeta, eta)'
+    local model = T.layout({ '```lua', long, 'short()', '```' }, w)
+    local ln = T.find(model, long)
+    a.not_nil(ln, 'the whole code line on one preview line')
+    a.contains('short()', model.lines[ln + 1], 'no wrapped continuation row')
+    a.no_match('…', model.lines[ln], 'truncation mark')
+  end)
+
+  QA.check(
+    'R-261',
+    'A long code line keeps the code region row count equal to the source lines',
+    function()
+      local long = string.rep('x', 150)
+      local model = T.layout({ '```', 'a', long, 'b', '```' }, 50)
+      local r = model.code_regions[1]
+      QA.need(r, 'code_regions in the layout model')
+      local first, last = r.line_start or r[1], r.line_end or r[2]
+      a.eq(3, last - first + 1)
+      a.contains(long, model.lines[first + 1])
+    end
+  )
+
+  QA.check(
+    'R-261',
+    'A long code line still has the code background behind all of its text',
+    { severity = 'medium' },
+    function()
+      local long = string.rep('y', 90)
+      local model = T.layout({ '```', long, '```' }, 50)
+      local ln = T.find(model, long)
+      local spans = bg_spans(model, ln)
+      a.ge(1, #spans)
+      local s0 = model.lines[ln]:find(long, 1, true) - 1
+      local covered = false
+      for _, sp in ipairs(spans) do
+        if sp[1] <= s0 and sp[2] >= s0 + #long then
+          covered = true
+        end
+      end
+      a.truthy(covered, 'background covers the long line')
+    end
+  )
 end)

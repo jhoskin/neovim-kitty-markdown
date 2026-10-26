@@ -78,8 +78,10 @@ QA.describe('mermaid: helper', function()
 
       if name ~= 'gantt' then
         QA.check(
-          { 'R-180', req },
-          'A ' .. name .. ' diagram narrower than the target width renders at its natural size',
+          { 'R-098', 'R-180', req },
+          'A '
+            .. name
+            .. ' diagram whose natural width fits the target width renders at its natural size',
           { phase = phase },
           function()
             local nat = U.oracle_size('types/' .. name)
@@ -395,7 +397,7 @@ QA.describe('mermaid: helper', function()
   )
 
   QA.check(
-    'R-235',
+    { 'R-235', 'R-299' },
     'themeVariables without a theme do not recompute the colors derived from them',
     function()
       local base = ok_render(FLOW, 960, 'default').path
@@ -405,6 +407,98 @@ QA.describe('mermaid: helper', function()
         'default'
       )
       a.ge(0.999, U.same_fraction(base, res.path), 'same picture as the theme without the override')
+    end
+  )
+
+  QA.check(
+    'R-299',
+    'On the dark theme a merged theme variable leaves the colors derived from other variables',
+    function()
+      local base = ok_render(FLOW, 960, 'dark').path
+      local res = ok_render(
+        '%%{init: {"themeVariables": {"primaryColor": "#ff0000"}}}%%\n' .. FLOW,
+        960,
+        'dark'
+      )
+      a.ge(0.999, U.same_fraction(base, res.path), 'same picture as the dark theme')
+    end
+  )
+
+  -- Init directive over front matter (R-295) -----------------------------------
+  QA.check('R-295', 'An init directive theme wins over a front matter theme', function()
+    local src = '---\nconfig:\n  theme: forest\n---\n%%{init: {"theme": "neutral"}}%%\n' .. FLOW
+    local got = ok_render(src, 960, 'dark').path
+    a.ge(0.999, U.same_fraction(ok_render(FLOW, 960, 'neutral').path, got), 'the neutral theme')
+  end)
+
+  QA.check(
+    'R-295',
+    'An init directive diagram setting wins over the same setting in front matter',
+    function()
+      local src = '---\nconfig:\n  sequence:\n    mirrorActors: true\n---\n'
+        .. '%%{init: {"sequence": {"mirrorActors": false}}}%%\n'
+        .. U.source('config/seq_plain')
+      local res = ok_render(src, 2400)
+      a.near(
+        U.oracle_size('config/seq_mirror_init')[2],
+        res.height_px,
+        2,
+        'height without mirrored actors'
+      )
+    end
+  )
+
+  QA.check(
+    'R-295',
+    'Front matter keys that the init directive does not set still apply',
+    { severity = 'medium' },
+    function()
+      local src = '---\nconfig:\n  theme: forest\n  sequence:\n    mirrorActors: false\n---\n'
+        .. '%%{init: {"themeVariables": {}}}%%\n'
+        .. U.source('config/seq_plain')
+      local res = ok_render(src, 2400)
+      a.near(
+        U.oracle_size('config/seq_mirror_init')[2],
+        res.height_px,
+        2,
+        'the front matter setting'
+      )
+    end
+  )
+
+  -- Gantt width (R-293) -----------------------------------------------------------
+  local GANTT = U.source('types/gantt')
+  for _, w in ipairs({ 2400, 700 }) do
+    QA.check(
+      { 'R-293', 'R-106' },
+      'A gantt diagram without useWidth renders at the target width ('
+        .. (w > 960 and 'a wide target' or 'a narrow target')
+        .. ')',
+      { phase = 2 },
+      function()
+        local res = ok_render(GANTT, w)
+        a.eq(w, res.width_px, 'gantt width')
+      end
+    )
+  end
+
+  QA.check(
+    { 'R-293', 'R-098' },
+    'A gantt diagram with a useWidth below the target width renders at useWidth',
+    { phase = 2 },
+    function()
+      local res = ok_render('%%{init: {"gantt": {"useWidth": 500}}}%%\n' .. GANTT, 960)
+      a.eq(500, res.width_px)
+    end
+  )
+
+  QA.check(
+    { 'R-293', 'R-098' },
+    'A gantt diagram with a useWidth above the target width renders at the target width',
+    { phase = 2 },
+    function()
+      local res = ok_render('%%{init: {"gantt": {"useWidth": 1200}}}%%\n' .. GANTT, 600)
+      a.eq(600, res.width_px)
     end
   )
 
@@ -454,17 +548,45 @@ QA.describe('mermaid: helper', function()
     end
   )
 
-  QA.check('R-179', 'The bundled Open Sans font is used when a diagram asks for it', function()
-    local nat = U.oracle_size('config/flow_font_opensans')
-    local os_path = ok_render(U.source('config/flow_font_opensans'), 2400).path
-    local missing =
-      ok_render('%%{init: {"fontFamily": "no-such-family-qa"}}%%\n' .. WIDE, 2400).path
-    local plain = ok_render(WIDE, 2400).path
-    a.le(0.99, U.same_fraction(os_path, missing), 'Open Sans is not the fallback font')
-    a.le(0.99, U.same_fraction(os_path, plain), 'Open Sans is not the default chain')
-    local w = QA.png_size(os_path)
-    a.near(nat[1], w, 1, 'the label widths of the oracle with Open Sans')
-  end)
+  local function system_open_sans()
+    local res = QA.sh({ 'fc-list', ':family=Open Sans', 'file' })
+    if res.code == 0 and vim.trim(res.stdout or '') ~= '' then
+      return true
+    end
+    for _, dir in ipairs({
+      vim.env.HOME .. '/Library/Fonts',
+      '/Library/Fonts',
+      '/System/Library/Fonts',
+      '/usr/share/fonts',
+      vim.env.HOME .. '/.local/share/fonts',
+    }) do
+      if #vim.fn.globpath(dir, '**/OpenSans*', false, true) > 0 then
+        return true
+      end
+    end
+    return false
+  end
+
+  QA.check(
+    { 'R-179', 'R-345' },
+    'The bundled Open Sans faces are used for the Open Sans family also when the system has an Open Sans font',
+    function()
+      QA.need(
+        vim.fn.executable('fc-list') == 1 or vim.fn.has('mac') == 1,
+        'a way to list system fonts'
+      )
+      QA.need(system_open_sans(), 'a system Open Sans font (R-345)')
+      local nat = U.oracle_size('config/flow_font_opensans')
+      local os_path = ok_render(U.source('config/flow_font_opensans'), 2400).path
+      local missing =
+        ok_render('%%{init: {"fontFamily": "no-such-family-qa"}}%%\n' .. WIDE, 2400).path
+      local plain = ok_render(WIDE, 2400).path
+      a.le(0.99, U.same_fraction(os_path, missing), 'Open Sans is not the fallback font')
+      a.le(0.99, U.same_fraction(os_path, plain), 'Open Sans is not the default chain')
+      local w = QA.png_size(os_path)
+      a.near(nat[1], w, 1, 'the label widths of the oracle with Open Sans')
+    end
+  )
 
   -- Parse errors (R-111, R-177, R-178) -------------------------------------------
   local phase_of = { er = 2 }
@@ -621,73 +743,126 @@ QA.describe('mermaid: helper', function()
       'R-112',
       'The handDrawn look in an init directive is refused as unsupported',
       '%%{init: {"look": "handDrawn"}}%%\n' .. FLOW,
-      'handdrawn',
+      'look: handDrawn',
     },
     {
       'R-112',
       'ELK layout in an init directive is refused as unsupported',
       '%%{init: {"layout": "elk"}}%%\n' .. FLOW,
-      'elk',
+      'layout: elk',
     },
     {
       'R-112',
       'ELK layout in front matter is refused as unsupported',
       '---\nconfig:\n  layout: elk\n---\n' .. FLOW,
-      'elk',
+      'layout: elk',
     },
     {
       'R-112',
       'The flowchart-elk diagram header is refused as unsupported ELK layout',
       'flowchart-elk TD\n  A --> B',
-      'elk',
+      'layout: elk',
     },
     {
       'R-112',
       'A node with an icon from an icon pack is refused as unsupported',
       'flowchart TD\n  A@{ icon: "fa:mug-hot", form: "circle", label: "Tea" } --> B',
-      'icon',
+      'icon pack',
     },
     {
       'R-112',
       'An architecture service with an icon pack icon is refused as unsupported',
       'architecture-beta\n  service fn(logos:aws-lambda)[Function]',
-      'icon',
+      'icon pack',
     },
     {
       'R-112',
       'An image node is refused as unsupported',
       'flowchart TD\n  A@{ img: "https://example.invalid/tea.png", label: "Tea", pos: "b", w: 60, h: 60 } --> B',
-      'im',
+      'image node',
     },
     {
       'R-175',
       'The neo look in an init directive is refused as unsupported',
       '%%{init: {"look": "neo"}}%%\n' .. FLOW,
-      'neo',
+      'look: neo',
     },
     {
       'R-175',
       'The neo look in front matter is refused as unsupported',
       '---\nconfig:\n  look: neo\n---\n' .. FLOW,
-      'neo',
+      'look: neo',
     },
     {
       'R-175',
       'The handDrawn look in front matter is refused as unsupported',
       '---\nconfig:\n  look: handDrawn\n---\n' .. FLOW,
-      'handdrawn',
+      'look: handDrawn',
     },
   }
+  for i, name in ipairs({
+    'neo',
+    'neo-dark',
+    'redux',
+    'redux-dark',
+    'redux-color',
+    'redux-dark-color',
+  }) do
+    local src = i % 2 == 1 and ('%%{init: {"theme": "' .. name .. '"}}%%\n' .. FLOW)
+      or ('---\nconfig:\n  theme: ' .. name .. '\n---\n' .. FLOW)
+    features[#features + 1] = {
+      'R-294',
+      'The mermaid 12 theme ' .. name .. ' is refused as unsupported with its theme name',
+      src,
+      'theme: ' .. name,
+    }
+  end
   for _, f in ipairs(features) do
-    QA.check(f[1], f[2], function()
+    QA.check({ f[1], 'R-296' }, f[2], function()
       local res, err = U.render(f[3], 960)
       a.is_nil(res, 'no image')
       a.not_nil(err, 'an error')
-      local t = err_text(err):lower()
-      a.contains('unsupported', t)
-      a.contains(f[4], t, 'the error names the feature')
-      a.not_contains('parse error', t, 'not a parse error')
+      local t = err_text(err)
+      a.contains('unsupported', t:lower())
+      a.contains(f[4], t, 'the error names the feature in the form of R-296')
+      a.not_contains('parse error', t:lower(), 'not a parse error')
     end)
+  end
+
+  -- When the helper refuses one of these, the feature has the R-296 form.
+  local conditional = {
+    {
+      'architecture randomize',
+      '---\nconfig:\n  architecture:\n    randomize: true\n---\narchitecture-beta\n  service a(server)[A]',
+      '^randomize$',
+    },
+    {
+      'a sequence participant type',
+      'sequenceDiagram\n  participant Ann@{ "type": "boundary" }\n  Ann->>Ann: hi',
+      '^participant type boundary$',
+    },
+    {
+      'a top-down timeline',
+      'timeline TD\n  title Week\n  Monday : Bread',
+      '^timeline direction TD$',
+    },
+  }
+  for _, c in ipairs(conditional) do
+    QA.check(
+      'R-296',
+      'If the helper refuses ' .. c[1] .. ', the unsupported feature has the form R-296 gives',
+      { severity = 'medium' },
+      function()
+        local _, err = U.render(c[2], 960)
+        if not err then
+          return
+        end
+        local msg = tostring(err.message)
+        local feature = type(err.data) == 'table' and err.data.feature
+          or msg:match('unsupported[^:]*: (.*)$')
+        a.matches(c[3], tostring(feature), 'feature of ' .. msg)
+      end
+    )
   end
 
   QA.check(
@@ -713,11 +888,13 @@ QA.describe('mermaid: helper', function()
     { 'info', 'info' },
     { 'agentflow', 'agentflow-beta\n  a --> b' },
     { 'railroad', 'railroad-beta\n  tea = "cup" ;' },
-    { 'railroad (any variant header)', 'railroad-ebnf-beta\n  tea = "cup" ;' },
+    { 'railroad EBNF', 'railroad-ebnf-beta\n  tea = "cup" ;', 'R-298' },
+    { 'railroad ABNF', 'railroad-abnf-beta\n  tea = "cup"', 'R-298' },
+    { 'railroad PEG', 'railroad-peg-beta\n  tea <- "cup"', 'R-298' },
   }
   for _, o in ipairs(outside) do
     QA.check(
-      { 'R-113', 'R-176' },
+      { 'R-113', o[3] or 'R-176' },
       'The ' .. o[1] .. ' type is reported as an unsupported diagram type, not a parse error',
       function()
         local res, err = U.render(o[2], 960)
@@ -822,5 +999,105 @@ QA.describe('mermaid: helper', function()
     if r2.result.cached ~= nil then
       a.truthy(r2.result.cached, 'served from the cache')
     end
+  end)
+  -- Key string (R-213, R-330, R-331) and the R-231 text (R-297) ------------------
+  local function key_of(source, width, theme, version)
+    return vim.fn.sha256(vim.fn.sha256(source) .. '|' .. width .. '|' .. theme .. '|' .. version)
+  end
+
+  QA.check(
+    { 'R-213', 'R-331' },
+    'The mermaid cache entry is keyed by the SHA-256 of the R-213 key string with mermaid 12.2.0',
+    function()
+      for _, c in ipairs({
+        { FLOW, 700, 'dark' },
+        { WIDE, 333, 'forest' },
+        { U.source('types/pie'), 960, 'default' },
+      }) do
+        local res = ok_render(c[1], c[2], c[3])
+        local key = key_of(c[1], c[2], c[3], '12.2.0')
+        a.contains(
+          key,
+          vim.fs.basename(res.path),
+          'cache entry name for ' .. c[3] .. ' at ' .. c[2]
+        )
+      end
+    end
+  )
+
+  QA.check(
+    'R-331',
+    'The mermaid version in the key is the version the probe reports',
+    { severity = 'medium' },
+    function()
+      local probe =
+        U.session()
+          :request('probe', { plugin_version = '0.0.0', cache_dir = U.session().cache_dir })
+      a.not_nil(probe and probe.result, 'a probe result')
+      local version = probe.result.mermaid_version
+      a.eq('12.2.0', version, 'the pinned mermaid version')
+      local res = ok_render(FLOW, 640, 'neutral')
+      a.contains(key_of(FLOW, 640, 'neutral', version), vim.fs.basename(res.path))
+    end
+  )
+
+  QA.check(
+    'R-213',
+    'The key string uses the lowercase hex hash of the source, not the source itself',
+    { severity = 'medium' },
+    function()
+      local res = ok_render(FLOW, 700, 'base')
+      local raw = vim.fn.sha256(FLOW .. '|700|base|12.2.0')
+      a.not_contains(raw, vim.fs.basename(res.path), 'not keyed on the raw source')
+      a.contains(key_of(FLOW, 700, 'base', '12.2.0'), vim.fs.basename(res.path))
+    end
+  )
+
+  QA.check(
+    'R-297',
+    'The no-diagram-type text keeps every line break of the diagram text',
+    function()
+      local _, err = U.render('teapots are lovely\n\nand so are kettles\n  and cups', 960)
+      a.not_nil(err)
+      a.contains(
+        'for text: teapots are lovely\n\nand so are kettles\n  and cups',
+        tostring(err.message)
+      )
+    end
+  )
+
+  QA.check('R-297', 'The no-diagram-type text leaves out directives and comments', function()
+    local src =
+      '%%{init: {"theme": "dark"}}%%\nteapots are lovely\n%% a remark about tea\nand so are kettles'
+    local _, err = U.render(src, 960)
+    a.not_nil(err)
+    local msg = tostring(err.message)
+    a.matches(
+      'for text: \n?teapots are lovely\nand so are kettles$',
+      msg,
+      'the text without the directive and the comment'
+    )
+    a.not_contains('init', msg)
+    a.not_contains('remark', msg)
+  end)
+
+  QA.check('R-297', 'The no-diagram-type text leaves out front matter', function()
+    local _, err =
+      U.render('---\ntitle: Tea time\n---\nteapots are lovely\nand so are kettles', 960)
+    a.not_nil(err)
+    local msg = tostring(err.message)
+    a.matches('for text: \n?teapots are lovely\nand so are kettles$', msg)
+    a.not_contains('Tea time', msg)
+  end)
+
+  QA.check('R-297', 'The no-diagram-type text is not shortened', function()
+    local lines = {}
+    for i = 1, 40 do
+      lines[i] = 'teapot line ' .. i .. ' with some words to make it long'
+    end
+    local text = table.concat(lines, '\n')
+    local _, err = U.render(text, 960)
+    a.not_nil(err)
+    a.contains('for text: ' .. text, tostring(err.message))
   end)
 end)

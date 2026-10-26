@@ -247,8 +247,8 @@ function M.open(lines, o)
   else
     QA.use_helper(o.helper)
   end
-  local name = dir .. '/' .. (o.name or 'doc.md')
-  local buf = QA.buf(lines, { name = name, write = true })
+  local name = not o.noname and (dir .. '/' .. (o.name or 'doc.md')) or nil
+  local buf = QA.buf(lines, name and { name = name, write = true } or nil)
   vim.api.nvim_set_current_buf(buf)
   require('kitty-markdown').open('tab')
   if o.probe ~= false then

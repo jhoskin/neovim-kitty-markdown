@@ -2,32 +2,22 @@
 
 Subcommands (all print one JSON object on stdout):
 
-  frame <helper.png> <oracle.png> <outdir>
-      Frames the helper output as mermaid-cli 12.0.0 frames its screenshot
-      (R-237): composite over white, scale, and pad with white to the
-      helper's own size (its longer side is the oracle --size). Writes one
-      framed helper PNG per framing reading and the oracle composited over
-      white, both cropped to the common size when the sizes differ by at
-      most 1 px (R-181).
-
-      Readings: "spec" scales the longer side to size - 8. "cli" scales the
-      width to width - 8, which is what mermaid-cli's viewport reflow does
-      for a tall diagram. For a landscape diagram the two are the same.
+  crop <helper.png> <golden.png> <outdir>
+      R-181: crops the golden to the helper output size from the top left
+      corner. When the golden is up to 1 px smaller on an axis, the helper
+      is cropped to the golden on that axis, also from the top left. No
+      image is resampled (R-237). Reports "mismatch" when the helper is
+      more than 1 px larger than the golden on an axis.
 
   ssim <a.png> <b.png>
       Independent SSIM per the SPEC.md definition: composite over white,
-      BT.601 grayscale (0..255), 11x11 Gaussian window with sigma 1.5,
-      K1 0.01, K2 0.03, L 255, mean over the image. Reports two border
-      readings: "valid" (mean over the windows that fit in the image) and
-      "same" (window centered on every pixel, zero weight outside, weights
-      renormalised).
-
-  fit <in.png> <w> <h> <out.png>
-      Composites over white and crops or pads with white to w x h,
-      anchored top left.
+      BT.601 grayscale, 11x11 Gaussian window with sigma 1.5, K1 0.01,
+      K2 0.03, L 255, only the window positions that fit inside the image
+      (no padding), mean over those positions. When a side is shorter than
+      11 px, the statistics of the whole images replace the window.
 
   pairs <outdir>
-      Writes test image pairs for the SSIM definition check.
+      Writes test image pairs for the SSIM definition checks.
 """
 
 import json
@@ -42,17 +32,16 @@ def load_rgba(path):
     return Image.open(path).convert("RGBA")
 
 
-def over_white(img):
-    bg = Image.new("RGBA", img.size, (255, 255, 255, 255))
-    return Image.alpha_composite(bg, img).convert("RGB")
-
-
 def gray(path):
     a = np.asarray(load_rgba(path), dtype=np.float64)
     rgb = a[..., :3]
     alpha = a[..., 3:4] / 255.0
     rgb = rgb * alpha + 255.0 * (1.0 - alpha)
     return 0.299 * rgb[..., 0] + 0.587 * rgb[..., 1] + 0.114 * rgb[..., 2]
+
+
+C1 = (0.01 * 255) ** 2
+C2 = (0.03 * 255) ** 2
 
 
 def gauss_1d():
@@ -62,7 +51,6 @@ def gauss_1d():
 
 
 def conv_valid(img, g):
-    # Separable 2-D correlation, valid region only.
     h, w = img.shape
     rows = np.zeros((h, w - 10))
     for k in range(11):
@@ -73,66 +61,47 @@ def conv_valid(img, g):
     return out
 
 
-def conv_same(img, g):
-    # Zero padding, then renormalise by the in-image window weight.
-    p = np.pad(img, 5)
-    ones = np.pad(np.ones_like(img), 5)
-    return conv_valid(p, g) / conv_valid(ones, g)
+def index(mx, my, sxx, syy, sxy):
+    return ((2 * mx * my + C1) * (2 * sxy + C2)) / ((mx * mx + my * my + C1) * (sxx + syy + C2))
 
 
-def ssim(x, y, conv):
+def ssim(x, y):
+    if min(x.shape) < 11:
+        mx, my = x.mean(), y.mean()
+        sxx = ((x - mx) ** 2).mean()
+        syy = ((y - my) ** 2).mean()
+        sxy = ((x - mx) * (y - my)).mean()
+        return float(index(mx, my, sxx, syy, sxy))
     g = gauss_1d()
-    c1 = (0.01 * 255) ** 2
-    c2 = (0.03 * 255) ** 2
-    mx, my = conv(x, g), conv(y, g)
-    sxx = conv(x * x, g) - mx * mx
-    syy = conv(y * y, g) - my * my
-    sxy = conv(x * y, g) - mx * my
-    m = ((2 * mx * my + c1) * (2 * sxy + c2)) / ((mx * mx + my * my + c1) * (sxx + syy + c2))
-    return float(m.mean())
+    mx, my = conv_valid(x, g), conv_valid(y, g)
+    sxx = conv_valid(x * x, g) - mx * mx
+    syy = conv_valid(y * y, g) - my * my
+    sxy = conv_valid(x * y, g) - mx * my
+    return float(index(mx, my, sxx, syy, sxy).mean())
 
 
 def cmd_ssim(a, b):
     x, y = gray(a), gray(b)
     if x.shape != y.shape:
         return {"error": "size differs", "a": list(x.shape), "b": list(y.shape)}
-    out = {"same": ssim(x, y, conv_same)}
-    if min(x.shape) >= 11:
-        out["valid"] = ssim(x, y, conv_valid)
-    return out
+    return {"ssim": ssim(x, y)}
 
 
-def cmd_frame(helper, oracle, outdir):
-    h = over_white(load_rgba(helper))
-    o = over_white(load_rgba(oracle))
-    w, hh = h.size
-    size = max(w, hh)
-    ow, oh = o.size
-    res = {"helper": [w, hh], "oracle": [ow, oh], "size": size, "framed": {}}
-    if abs(ow - w) > 1 or abs(oh - hh) > 1:
-        res["size_mismatch"] = True
+def cmd_crop(helper, golden, outdir):
+    h = load_rgba(helper)
+    g = load_rgba(golden)
+    hw, hh = h.size
+    gw, gh = g.size
+    res = {"helper": [hw, hh], "golden": [gw, gh]}
+    if hw - gw > 1 or hh - gh > 1:
+        res["mismatch"] = True
         return res
-    cw, ch = min(w, ow), min(hh, oh)
-    oc = o.crop((0, 0, cw, ch))
-    opath = os.path.join(outdir, "oracle.png")
-    oc.save(opath)
-    res["oracle_path"] = opath
-    scales = {"spec": (size - 8) / size, "cli": (w - 8) / w}
-    done = {}
-    for name, s in scales.items():
-        nw, nh = max(1, round(w * s)), max(1, round(hh * s))
-        if (nw, nh) in done:
-            res["framed"][name] = done[(nw, nh)]
-            continue
-        scaled = h.resize((nw, nh), Image.LANCZOS)
-        canvas = Image.new("RGB", (w, hh), (255, 255, 255))
-        canvas.paste(scaled, (0, 0))
-        canvas = canvas.crop((0, 0, cw, ch))
-        p = os.path.join(outdir, f"helper-{name}.png")
-        canvas.save(p)
-        entry = {"path": p, "scaled": [nw, nh]}
-        done[(nw, nh)] = entry
-        res["framed"][name] = entry
+    cw, ch = min(hw, gw), min(hh, gh)
+    hp = os.path.join(outdir, "helper.png")
+    gp = os.path.join(outdir, "golden.png")
+    h.crop((0, 0, cw, ch)).save(hp)
+    g.crop((0, 0, cw, ch)).save(gp)
+    res.update({"size": [cw, ch], "helper_path": hp, "golden_path": gp})
     return res
 
 
@@ -151,20 +120,29 @@ def cmd_pairs(outdir):
     noise = base.astype(np.int16)
     noise[..., :3] += rng.integers(-40, 41, size=(h, w, 3)).astype(np.int16)
     noise = np.clip(noise, 0, 255).astype(np.uint8)
-    # Half transparent copy: composited over white it differs from base.
     alpha = base.copy()
     alpha[..., 3] = 128
-    # Fully transparent black: over white it is pure white.
     clear = np.zeros((h, w, 4), dtype=np.uint8)
     white = np.full((h, w, 4), 255, dtype=np.uint8)
-    # Same picture in BT.601 gray: SSIM depends on the luma formula.
     y = 0.299 * base[..., 0] + 0.587 * base[..., 1] + 0.114 * base[..., 2]
     grayed = base.copy()
     grayed[..., 0] = grayed[..., 1] = grayed[..., 2] = np.round(y).astype(np.uint8)
-    # Channels swapped: equal under a channel mean, not under BT.601.
     swapped = base[..., [2, 1, 0, 3]].copy()
-    names = {}
-    for name, arr in {
+    # Inverted luma: the structure term is negative, so the SSIM is below 0.
+    inverted = base.copy()
+    inverted[..., :3] = 255 - base[..., :3]
+    # Checkerboard and its inverse: equal means, opposite structure, so the
+    # windowed SSIM is close to -1.
+    checker = np.zeros((48, 48, 4), dtype=np.uint8)
+    checker[..., 3] = 255
+    yy2, xx2 = np.mgrid[0:48, 0:48]
+    cells = ((yy2 // 2 + xx2 // 2) % 2).astype(bool)
+    checker[cells, :3] = 255
+    checker_inv = checker.copy()
+    checker_inv[..., :3] = 255 - checker[..., :3]
+    images = {
+        "checker": checker,
+        "checker_inv": checker_inv,
         "base": base,
         "shifted": shifted,
         "noise": noise,
@@ -173,29 +151,31 @@ def cmd_pairs(outdir):
         "white": white,
         "gray": grayed,
         "swapped": swapped,
-    }.items():
+        "inverted": inverted,
+        # One side shorter than 11 px: whole-image statistics.
+        "strip_a": base[50:58],
+        "strip_b": noise[50:58],
+        "strip_c": inverted[50:58],
+        "narrow_a": base[:, 60:66],
+        "narrow_b": shifted[:, 60:66],
+        # Exactly 11 px high: one row of window positions.
+        "row11_a": base[40:51],
+        "row11_b": shifted[40:51],
+    }
+    names = {}
+    for name, arr in images.items():
         p = os.path.join(outdir, f"{name}.png")
-        Image.fromarray(arr).save(p)
+        Image.fromarray(np.ascontiguousarray(arr)).save(p)
         names[name] = p
     return names
-
-
-def cmd_fit(src, w, h, out):
-    img = over_white(load_rgba(src))
-    canvas = Image.new("RGB", (w, h), (255, 255, 255))
-    canvas.paste(img.crop((0, 0, min(w, img.size[0]), min(h, img.size[1]))), (0, 0))
-    canvas.save(out)
-    return {"path": out, "from": list(img.size)}
 
 
 def main(argv):
     cmd = argv[1]
     if cmd == "ssim":
         out = cmd_ssim(argv[2], argv[3])
-    elif cmd == "frame":
-        out = cmd_frame(argv[2], argv[3], argv[4])
-    elif cmd == "fit":
-        out = cmd_fit(argv[2], int(argv[3]), int(argv[4]), argv[5])
+    elif cmd == "crop":
+        out = cmd_crop(argv[2], argv[3], argv[4])
     elif cmd == "pairs":
         out = cmd_pairs(argv[2])
     else:

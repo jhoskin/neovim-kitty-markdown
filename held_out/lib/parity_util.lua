@@ -1,7 +1,12 @@
 -- Shared code for the hidden parity checks (R-110, R-181, R-182, R-236,
 -- R-237). The goldens and manifest.json come from
--- held_out/evals/parity/make_goldens.mjs. Image work (framing, the
--- independent SSIM) is in held_out/evals/parity/tools/parity.py.
+-- held_out/evals/parity/make_goldens.mjs. The crop and the independent SSIM
+-- are in held_out/evals/parity/tools/parity.py.
+--
+-- Per case: render the helper at 960 px (R-236), take the golden rendered
+-- with the R-237 `--size`, crop the golden to the helper size from the top
+-- left (R-181), and compare at equal pixel size with
+-- `kitty-markdown-helper compare`. No image is resampled (R-237).
 
 local QA = require('qa')
 
@@ -15,6 +20,49 @@ M.puppeteer_config = QA.root .. '/helper/oracle/puppeteer.json'
 M.WIDTH = 960 -- R-236
 M.THRESHOLD = 0.95 -- R-110, R-182
 M.UNSEEDED_RUNS = 5 -- R-182
+
+-- The mermaid phase of each corpus folder (Constraints table).
+M.PHASE = {
+  flowchart = 1,
+  sequence = 1,
+  class = 1,
+  state = 1,
+  er = 2,
+  pie = 2,
+  gantt = 2,
+  xychart = 2,
+  quadrant = 2,
+  gitgraph = 3,
+  mindmap = 3,
+  timeline = 3,
+  journey = 3,
+  sankey = 4,
+  block = 4,
+  packet = 4,
+  kanban = 4,
+  architecture = 4,
+  c4 = 4,
+  requirement = 4,
+  radar = 5,
+  treemap = 5,
+  venn = 5,
+  ishikawa = 5,
+  wardley = 5,
+  cynefin = 5,
+  treeview = 5,
+  eventmodeling = 5,
+  usecase = 5,
+  swimlane = 5,
+}
+
+-- Constraints: the parity check and the text metrics calibration run on
+-- macOS. Elsewhere the checks are blocked, not failed.
+function M.need_macos()
+  QA.need(
+    vim.uv.os_uname().sysname == 'Darwin',
+    'macOS (parity and text metrics run on macOS only)'
+  )
+end
 
 -- The first python3 that has numpy and Pillow: $QA_PYTHON, python3 on
 -- PATH (the runner puts Homebrew first), then the pyenv versions.
@@ -38,7 +86,7 @@ function M.need_python()
       end
     end
   end
-  QA.need(python, 'python3 with numpy and Pillow for the image framing')
+  QA.need(python, 'python3 with numpy and Pillow for the image crop and the reference SSIM')
 end
 
 function M.py(args)
@@ -79,6 +127,26 @@ function M.compare(a, b)
   return n, (r.stdout or '') .. (r.stderr or '')
 end
 
+-- R-237: the oracle --size for a helper output of w x h. aspect is the
+-- oracle viewBox width divided by its height, the ratio mermaid-cli uses.
+function M.oracle_size(dtype, w, h, fixed, aspect)
+  if dtype == 'gantt' then
+    return w
+  end
+  if fixed then
+    return math.max(w, h)
+  end
+  local target = w + 8
+  if w >= h then
+    return target
+  end
+  local n = math.max(1, math.ceil((target - 0.5) / aspect))
+  while math.floor(n * aspect + 0.5) < target do
+    n = n + 1
+  end
+  return n
+end
+
 local function oracle_png(mmd, out, size)
   local r = QA.sh({
     M.mmdc,
@@ -100,12 +168,11 @@ local function oracle_png(mmd, out, size)
 end
 
 -- The goldens for one case at the helper size w x h. The stored goldens
--- were rendered at --size = the longer side of the helper output at
--- generation time (R-181). When the helper size changed by more than the
--- 1 px tolerance, render fresh goldens at the new longer side.
+-- were rendered for the helper size at generation time. When the helper
+-- size changed, render fresh goldens with the R-237 size for the new one.
 local function goldens_for(dtype, name, entry, w, h, tmp)
   local stored = entry.helper
-  if stored and math.abs(stored.width - w) <= 1 and math.abs(stored.height - h) <= 1 then
+  if stored and stored.width == w and stored.height == h then
     local out = {}
     for _, g in ipairs(entry.goldens or {}) do
       table.insert(out, M.dir .. '/' .. dtype .. '/' .. g.file)
@@ -116,75 +183,18 @@ local function goldens_for(dtype, name, entry, w, h, tmp)
     vim.fn.executable(M.mmdc) == 1,
     'the pinned oracle in helper/oracle (npm ci --prefix helper/oracle)'
   )
+  local nat = entry.natural
+  local size = M.oracle_size(dtype, w, h, nat.fixed, nat.width / nat.height)
   local runs = #(entry.goldens or {}) > 1 and M.UNSEEDED_RUNS or 1
   local out = {}
   local mmd = M.dir .. '/' .. dtype .. '/' .. name .. '.mmd'
   for i = 1, runs do
     local p = ('%s/golden.%d.png'):format(tmp, i)
-    if oracle_png(mmd, p, math.max(w, h)) then
+    if oracle_png(mmd, p, size) then
       table.insert(out, p)
     end
   end
   return out, true
-end
-
--- The --size that makes mermaid-cli draw a `width="100%"` diagram exactly
--- `width` wide (its clip is 8 px wider than the drawing).
-local function ideal_size(width, aspect)
-  local target = width + 8
-  if aspect >= 1 then
-    return target
-  end
-  local n = math.ceil((target - 0.5) / aspect)
-  while math.floor(n * aspect + 0.5) < target do
-    n = n + 1
-  end
-  return n
-end
-
--- The best SSIM that the R-237 framing allows for this case, and the SSIM
--- of the helper output against the oracle drawn at the helper's own pixel
--- size (no resampling). The ideal image is mermaid's own drawing at the
--- helper's scale; framed like a helper output and compared with the
--- goldens, it gives the ceiling. Returns nil when the case has no ideal.
-local function ceiling(dtype, name, entry, goldens, hp, w, h, fresh, tmp)
-  if not entry.ideal then
-    return nil
-  end
-  local src = M.dir .. '/' .. dtype .. '/' .. entry.ideal.file
-  if fresh then
-    local nat = entry.natural[1]
-    src = tmp .. '/ideal.png'
-    if
-      not oracle_png(
-        M.dir .. '/' .. dtype .. '/' .. name .. '.mmd',
-        src,
-        ideal_size(w, nat.width / nat.height)
-      )
-    then
-      return nil
-    end
-  end
-  local fit = tmp .. '/ideal-fit.png'
-  M.py({ 'fit', src, tostring(w), tostring(h), fit })
-  local best
-  for i, g in ipairs(goldens) do
-    local fdir = ('%s/c%d'):format(tmp, i)
-    vim.fn.mkdir(fdir, 'p')
-    local fr = M.py({ 'frame', fit, g, fdir })
-    if not fr.size_mismatch then
-      for _, f in pairs(fr.framed) do
-        local s = M.compare(f.path, fr.oracle_path)
-        if s and (not best or s > best) then
-          best = s
-        end
-      end
-    end
-  end
-  local hfit = tmp .. '/helper-fit.png'
-  M.py({ 'fit', hp, tostring(w), tostring(h), hfit })
-  local direct = M.compare(hfit, fit)
-  return best, direct
 end
 
 -- Scores one case. Returns { score = best SSIM or nil, note = text }.
@@ -219,21 +229,18 @@ function M.score_case(dtype, name)
   local goldens, fresh = goldens_for(dtype, name, entry, w, h, tmp)
   local best, notes = nil, {}
   for i, g in ipairs(goldens) do
-    local fdir = ('%s/f%d'):format(tmp, i)
-    vim.fn.mkdir(fdir, 'p')
-    local fr = M.py({ 'frame', hp, g, fdir })
-    if fr.size_mismatch then
+    local cdir = ('%s/c%d'):format(tmp, i)
+    vim.fn.mkdir(cdir, 'p')
+    local cr = M.py({ 'crop', hp, g, cdir })
+    if cr.mismatch then
       table.insert(
         notes,
-        ('golden %d is %dx%d, helper %dx%d'):format(i, fr.oracle[1], fr.oracle[2], w, h)
+        ('golden %d is %dx%d, helper %dx%d'):format(i, cr.golden[1], cr.golden[2], w, h)
       )
     else
-      for reading, f in pairs(fr.framed) do
-        local s = M.compare(f.path, fr.oracle_path)
-        if s and (not best or s > best) then
-          best = s
-          notes.best = ('golden %d, %s framing'):format(i, reading)
-        end
+      local s = M.compare(cr.helper_path, cr.golden_path)
+      if s and (not best or s > best) then
+        best = s
       end
     end
   end
@@ -243,18 +250,7 @@ function M.score_case(dtype, name)
     fresh and ' (fresh goldens)' or '',
     table.concat(notes, '; ')
   )
-  if notes.best then
-    note = note .. ' best: ' .. notes.best
-  end
-  local cap, direct
-  if best and best < M.THRESHOLD then
-    cap, direct = ceiling(dtype, name, entry, goldens, hp, w, h, fresh, tmp)
-    if cap then
-      note = note
-        .. (' ceiling %.4f, same-size %s'):format(cap, direct and ('%.4f'):format(direct) or 'none')
-    end
-  end
-  return { score = best, ceiling = cap, direct = direct, note = note }
+  return { score = best, note = note }
 end
 
 local function record(dtype, rows)
@@ -263,27 +259,16 @@ local function record(dtype, rows)
   QA.write(dir .. '/' .. dtype .. '.json', vim.json.encode(rows) .. '\n')
 end
 
--- A case passes when the framed SSIM reaches the threshold. When even
--- mermaid's own drawing cannot reach the threshold through the R-237
--- framing (the ceiling is below it), the framed score cannot decide the
--- case; it then passes when the helper output reaches the threshold
--- against the oracle drawn at the same pixel size (R-110 wording). This is
--- an open question in open_questions.md.
-function M.passes(res)
-  if not res.score then
-    return false
-  end
-  if res.score >= M.THRESHOLD then
-    return true
-  end
-  return res.ceiling ~= nil
-    and res.ceiling < M.THRESHOLD
-    and res.direct ~= nil
-    and res.direct >= M.THRESHOLD
-end
-
--- The per-type check body: every case must reach the threshold.
-function M.check_type(dtype)
+-- The per-type check body: every case must reach the threshold against its
+-- golden (any one of the five for mindmap and cynefin, R-182).
+--
+-- opts.size_only: assert only that each case reaches the comparison at
+-- equal pixel size within 1 px (R-181), not the SSIM threshold. Used for
+-- gantt, where the R-237 size makes mermaid-cli draw 8 px narrower than the
+-- helper output (open question).
+function M.check_type(dtype, opts)
+  opts = opts or {}
+  M.need_macos()
   M.need_python()
   M.manifest()
   local fails, rows = {}, {}
@@ -292,7 +277,8 @@ function M.check_type(dtype)
   for _, name in ipairs(cases) do
     local res = M.score_case(dtype, name)
     rows[name] = res
-    if not res.skip and not M.passes(res) then
+    local ok = res.score and (opts.size_only or res.score >= M.THRESHOLD)
+    if not res.skip and not ok then
       table.insert(
         fails,
         ('%s: SSIM %s (%s)'):format(

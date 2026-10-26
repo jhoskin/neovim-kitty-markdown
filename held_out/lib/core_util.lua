@@ -79,8 +79,8 @@ function M.u(...)
 end
 
 -- Every highlight group that covers any byte of the first occurrence of
--- `needle` in the model lines, under both column readings (0-based end
--- exclusive and 1-based end inclusive).
+-- `needle` in the model lines. Lines are 1-based; columns are 0-based
+-- byte offsets with an exclusive end (R-337).
 function M.groups_over(model, needle)
   for i, l in ipairs(model.lines) do
     local s = l:find(needle, 1, true)
@@ -113,8 +113,8 @@ function M.covered_by(model, needle, pred)
       for _, h in ipairs(model.highlights) do
         local line, cs, ce, g = M.hl_parts(h)
         if line == i and type(g) == 'string' and pred(g) then
-          -- 0-based exclusive: bytes cs+1 .. ce; 1-based inclusive: cs .. ce
-          if (cs + 1 <= s and ce >= e) or (cs <= s and ce >= e) then
+          -- 0-based exclusive: bytes cs+1 .. ce in 1-based Lua terms
+          if cs + 1 <= s and ce >= e then
             return true, g
           end
         end

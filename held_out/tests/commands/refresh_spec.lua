@@ -205,6 +205,74 @@ QA.describe('refresh: the refresh subcommand', function()
     a.eq(2, #again, 'every placed picture transmitted again')
     a.truthy(wait_placed(p.buf, 2), 'pictures still shown after refresh')
   end)
+
+  QA.check(
+    'R-017',
+    'Refresh transmits the images of every open preview, not only the preview of the current source',
+    function()
+      U.reset({ placement = 'tab' })
+      local cap = U.image_mode()
+      local dir = QA.tmpdir()
+      QA.make_png(dir .. '/first.png', 60, 30)
+      QA.make_png(dir .. '/second.png', 30, 60, { 0, 120, 200, 255 })
+      local one = U.src({ 'One.', '', '![first](first.png)' }, { dir = dir, name = 'one.md' })
+      vim.cmd('KittyMarkdown open')
+      vim.cmd('tabfirst')
+      U.src({ 'Two.', '', '![second](second.png)' }, { dir = dir, name = 'two.md' })
+      vim.cmd('KittyMarkdown open')
+      local bufs = U.preview_bufs()
+      a.eq(2, #bufs, 'two previews')
+      a.truthy(
+        QA.wait(8000, function()
+          return placed(bufs[1]) == 1 and placed(bufs[2]) == 1
+        end),
+        'both pictures placed'
+      )
+      local ids = U.transmits(cap)
+      a.eq(2, #ids, 'two pictures transmitted')
+      cap:clear()
+      vim.cmd('tabfirst')
+      api.nvim_set_current_buf(one)
+      vim.cmd('KittyMarkdown refresh')
+      QA.answer_probe(true)
+      QA.wait(3000, function()
+        return #U.transmits(cap) >= 2
+      end)
+      local again = U.transmits(cap)
+      for _, id in ipairs(ids) do
+        a.contains(id, again, 'image ' .. id .. ' transmitted again')
+      end
+    end
+  )
+
+  QA.check(
+    'R-017',
+    'Refresh re-renders the preview of the current source and leaves another preview text as it was',
+    { severity = 'medium' },
+    function()
+      U.reset({ placement = 'tab' })
+      local one = U.src({ '# One', '', 'First body.' }, { name = 'one.md' })
+      vim.cmd('KittyMarkdown open')
+      local p1 = U.preview()
+      vim.cmd('tabfirst')
+      local two = U.src({ '# Two', '', 'Second body.' }, { name = 'two.md' })
+      vim.cmd('KittyMarkdown open')
+      api.nvim_buf_set_lines(one, -1, -1, false, { '', 'Pending in one.' })
+      api.nvim_buf_set_lines(two, -1, -1, false, { '', 'Pending in two.' })
+      vim.cmd('tabfirst')
+      api.nvim_set_current_buf(two)
+      vim.cmd('KittyMarkdown refresh')
+      U.settle(100)
+      local p2
+      for _, b in ipairs(U.preview_bufs()) do
+        if b ~= p1.buf then
+          p2 = b
+        end
+      end
+      a.contains('Pending in two.', U.text(p2), 'preview of the current source re-rendered')
+      a.not_contains('Pending in one.', U.text(p1.buf), 'the other preview text is not re-rendered')
+    end
+  )
 end)
 
 QA.describe('refresh: pixel blocks while rendering', function()
@@ -799,16 +867,81 @@ QA.describe('refresh: anchor lines in the layout model', function()
 
   QA.check(
     'R-217',
-    'Two pixel blocks in a row have adjacent anchor lines',
+    'Two pixel blocks in a row have at most one blank line between their anchor lines',
     { severity = 'medium' },
     function()
       local model = QA.layout({ 'Text.', '', '![a](a.png)', '', '![b](b.png)' }, { width = 80 })
       a.eq(2, #model.blocks)
-      a.eq(
-        model.blocks[1].line + 1,
+      a.le(
+        model.blocks[1].line + 2,
         model.blocks[2].line,
-        'second anchor stands in for the blank line between them'
+        'no run of blank lines between two pixel blocks'
       )
+    end
+  )
+
+  QA.check('R-258', 'A pixel block that opens the document has its anchor on line 1', function()
+    local img = QA.layout({ '![first](first.png)', '', 'Text after.' }, { width = 80 })
+    a.eq(1, #img.blocks)
+    a.eq(1, img.blocks[1].line, 'image anchor line')
+    local mer = QA.layout(
+      { '```mermaid', 'flowchart LR', '  A --> B', '```', '', 'After.' },
+      { width = 80 }
+    )
+    a.eq(1, #mer.blocks)
+    a.eq(1, mer.blocks[1].line, 'mermaid anchor line')
+  end)
+
+  QA.check(
+    'R-258',
+    'In the preview, a leading pixel block hangs its box below line 1',
+    { severity = 'medium' },
+    function()
+      U.reset({ placement = 'split' })
+      U.src({ '![lead alt](lead.png)', '', 'Body text.' })
+      vim.cmd('KittyMarkdown open')
+      local p = U.preview()
+      U.settle(50)
+      local vt = U.virt(p.buf)
+      a.eq(1, #vt, 'one box')
+      a.eq(1, vt[1].row, 'anchor on line 1')
+      a.eq('', vim.trim(U.lines(p.buf)[1]), 'line 1 is the empty anchor')
+    end
+  )
+
+  QA.check('R-259', 'One blank line follows a pixel block before the next block', function()
+    local model = QA.layout({ 'Before.', '', '![mid](mid.png)', '', 'After text.' }, { width = 80 })
+    a.eq(1, #model.blocks)
+    local n = model.blocks[1].line
+    a.eq('', vim.trim(model.lines[n + 1] or 'missing'), 'blank line after the block')
+    a.matches('After text%.', model.lines[n + 2] or '', 'next block right after one blank line')
+  end)
+
+  QA.check('R-259', 'One blank line follows a pixel block that ends the document', function()
+    for _, last in ipairs({
+      { '![end](end.png)' },
+      { '```mermaid', 'flowchart LR', '  A --> B', '```' },
+    }) do
+      local text = { 'Before.', '' }
+      vim.list_extend(text, last)
+      local model = QA.layout(text, { width = 80 })
+      a.eq(1, #model.blocks)
+      local n = model.blocks[1].line
+      a.eq(n + 1, #model.lines, 'exactly one line after the anchor')
+      a.eq('', vim.trim(model.lines[n + 1]), 'that line is blank')
+    end
+  end)
+
+  QA.check(
+    'R-259',
+    'A pixel block that is the only block gets its anchor and one blank line',
+    { severity = 'medium' },
+    function()
+      local model = QA.layout({ '![solo](solo.png)' }, { width = 80 })
+      a.eq(1, #model.blocks)
+      a.eq(1, model.blocks[1].line)
+      a.eq(2, #model.lines)
+      a.eq('', vim.trim(model.lines[2]))
     end
   )
 end)

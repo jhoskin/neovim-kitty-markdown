@@ -37,6 +37,29 @@ local function last_png()
   return pngs[#pngs]
 end
 
+-- The body rows of the boxes, without borders and padding.
+local function inner_rows(rows)
+  local out = {}
+  for _, r in ipairs(rows) do
+    local inner = r:match('│%s?(.-)%s*│%s*$')
+    if inner then
+      out[#out + 1] = inner
+    end
+  end
+  return out
+end
+
+-- The top border rows of the boxes.
+local function title_rows(rows)
+  local out = {}
+  for _, r in ipairs(rows) do
+    if r:find('╭', 1, true) then
+      out[#out + 1] = r
+    end
+  end
+  return table.concat(out, '\n')
+end
+
 local FLOW = U.source('types/flowchart')
 local PARSE_FIX =
   'mermaid parses the diagram text with one newline appended (see Diagram.fromText in the pinned mermaid), which sets the line, the excerpt, and the caret for errors at the end of the text'
@@ -103,8 +126,8 @@ QA.describe('mermaid: end to end', function()
   )
 
   QA.check(
-    'R-180',
-    'A mermaid diagram narrower than the target width is placed at its natural size',
+    { 'R-098', 'R-180' },
+    'A mermaid diagram whose natural width fits the target width is placed at its natural size',
     function()
       local _, text = run(FLOW)
       a.truthy(placed(text), 'the diagram is placed')
@@ -222,6 +245,25 @@ QA.describe('mermaid: end to end', function()
     end
   )
 
+  for _, c in ipairs({
+    { 'parse/sequence_missing_actor', 'sequenceDiagram', '' },
+    { 'parse/state_missing_target', 'stateDiagram-v2', '' },
+    { 'parse/flowchart_double_arrow', 'flowchart', '%%{init: {"theme": "forest"}}%%\n' },
+    { 'parse/er_missing_colon', 'erDiagram', '---\ntitle: Books\n---\n' },
+  }) do
+    QA.check(
+      { 'R-111', 'R-300' },
+      'The parse failure box of a '
+        .. c[2]
+        .. ' diagram names its first keyword, after any front matter or directive',
+      function()
+        local rows = run(c[3] .. U.source(c[1]))
+        local titles = title_rows(rows)
+        a.matches('[ ─]' .. vim.pesc(c[2]) .. ' ', titles, 'the first keyword in the box title')
+      end
+    )
+  end
+
   QA.check(
     { 'R-111', 'R-177' },
     'A flowchart that does not parse at the end of the text shows the oracle parse error line in its failure box',
@@ -299,6 +341,36 @@ QA.describe('mermaid: end to end', function()
   )
 
   QA.check(
+    { 'R-231', 'R-297' },
+    'The no-diagram-type message in :messages holds the whole text with line breaks and without directives or comments',
+    function()
+      run(
+        '%%{init: {"theme": "dark"}}%%\nteapots are lovely\n%% a remark about tea\n\nand so are kettles'
+      )
+      local msgs = U.messages(ctx)
+      a.matches(
+        'No diagram type detected matching given configuration for text: \n?teapots are lovely\n\nand so are kettles',
+        msgs
+      )
+      a.not_contains('remark', msgs)
+    end
+  )
+
+  QA.check(
+    { 'R-231', 'R-297' },
+    'The no-diagram-type message in :messages is not shortened for a long text',
+    function()
+      local lines = {}
+      for i = 1, 30 do
+        lines[i] = 'teapot line ' .. i .. ' with some words to make it long'
+      end
+      local text = table.concat(lines, '\n')
+      run(text)
+      a.contains('for text: ' .. text, U.messages(ctx))
+    end
+  )
+
+  QA.check(
     'R-231',
     'A diagram that matches no diagram type writes the no-diagram-type message with the text to :messages',
     function()
@@ -334,48 +406,76 @@ QA.describe('mermaid: end to end', function()
   local unsupported = {
     {
       'R-112',
-      'A diagram with the handDrawn look shows an unsupported failure box that names the feature',
+      'The handDrawn look in an init directive',
       '%%{init: {"look": "handDrawn"}}%%\n' .. FLOW,
-      'handdrawn',
-    },
-    {
-      'R-112',
-      'A diagram with ELK layout shows an unsupported failure box that names the feature',
-      '---\nconfig:\n  layout: elk\n---\n' .. FLOW,
-      'elk',
-    },
-    {
-      'R-112',
-      'A diagram with an icon pack shows an unsupported failure box that names the feature',
-      'flowchart LR\n  A@{ icon: "fa:cog", form: "square", label: "Gear" } --> B',
-      'icon',
-    },
-    {
-      'R-112',
-      'A diagram with an image node shows an unsupported failure box that names the feature',
-      'flowchart LR\n  A@{ img: "https://example.invalid/a.png", label: "Pic", pos: "t" } --> B',
-      'im',
+      'look: handDrawn',
     },
     {
       'R-175',
-      'A diagram with the neo look shows an unsupported failure box that names the feature',
+      'The handDrawn look in front matter',
+      '---\nconfig:\n  look: handDrawn\n---\n' .. FLOW,
+      'look: handDrawn',
+    },
+    {
+      'R-112',
+      'ELK layout in front matter',
+      '---\nconfig:\n  layout: elk\n---\n' .. FLOW,
+      'layout: elk',
+    },
+    {
+      'R-175',
+      'ELK layout in an init directive',
+      '%%{init: {"layout": "elk"}}%%\n' .. FLOW,
+      'layout: elk',
+    },
+    { 'R-112', 'The ELK flowchart header', 'flowchart-elk LR\n  A --> B', 'layout: elk' },
+    {
+      'R-112',
+      'An icon pack icon on a node',
+      'flowchart LR\n  A@{ icon: "fa:cog", form: "square", label: "Gear" } --> B',
+      'icon pack',
+    },
+    {
+      'R-112',
+      'An image node',
+      'flowchart LR\n  A@{ img: "https://example.invalid/a.png", label: "Pic", pos: "t" } --> B',
+      'image node',
+    },
+    {
+      'R-175',
+      'The neo look in an init directive',
       '%%{init: {"look": "neo"}}%%\n' .. FLOW,
-      'neo',
+      'look: neo',
+    },
+    {
+      'R-175',
+      'The neo look in front matter',
+      '---\nconfig:\n  look: neo\n---\n' .. FLOW,
+      'look: neo',
+    },
+    {
+      'R-294',
+      'The neo-dark theme in an init directive',
+      '%%{init: {"theme": "neo-dark"}}%%\n' .. FLOW,
+      'theme: neo-dark',
+    },
+    {
+      'R-294',
+      'The redux-color theme in front matter',
+      '---\nconfig:\n  theme: redux-color\n---\n' .. FLOW,
+      'theme: redux-color',
     },
   }
   for _, u in ipairs(unsupported) do
-    QA.check(u[1], u[2], function()
-      local _, text = run(u[3])
-      a.falsy(placed(text), 'no image is placed')
-      local line
-      for l in text:gmatch('[^\n]+') do
-        if l:find('unsupported: ', 1, true) then
-          line = l
-        end
+    QA.check(
+      { u[1], 'R-296' },
+      u[2] .. ' gives a failure box with the exact reason unsupported: <feature>',
+      function()
+        local rows, text = run(u[3])
+        a.falsy(placed(text), 'no image is placed')
+        a.contains('unsupported: ' .. u[4], inner_rows(rows), 'the reason row')
       end
-      a.not_nil(line, 'a reason that starts with "unsupported: "')
-      a.contains(u[4], line:lower(), 'the reason names the feature')
-    end)
+    )
   end
 
   for _, t in ipairs({
@@ -383,14 +483,17 @@ QA.describe('mermaid: end to end', function()
     { 'info', 'info' },
     { 'agentflow', 'agentflow-beta\n  a --> b' },
     { 'railroad', 'railroad-beta\n  tea = "cup" ;' },
+    { 'railroad EBNF', 'railroad-ebnf-beta\n  tea = "cup" ;', 'R-298' },
+    { 'railroad ABNF', 'railroad-abnf-beta\n  tea = "cup"', 'R-298' },
+    { 'railroad PEG', 'railroad-peg-beta\n  tea <- "cup"', 'R-298' },
   }) do
     QA.check(
-      { 'R-113', 'R-176' },
+      { 'R-113', t[3] or 'R-176' },
       'The ' .. t[1] .. ' diagram type shows a failure box with the reason unsupported diagram type',
       function()
-        local _, text = run(t[2])
+        local rows, text = run(t[2])
         a.falsy(placed(text), 'no image is placed')
-        a.contains('unsupported diagram type', text)
+        a.contains('unsupported diagram type', inner_rows(rows), 'the exact reason row')
         a.not_contains('Parse error', text)
       end
     )
@@ -450,6 +553,42 @@ QA.describe('mermaid: end to end', function()
       'two cache entries'
     )
   end)
+
+  local function key_of(source, width, theme)
+    return vim.fn.sha256(vim.fn.sha256(source) .. '|' .. width .. '|' .. theme .. '|12.2.0')
+  end
+
+  local function cache_names()
+    return table.concat(vim.fn.globpath(ctx.dir .. '/cache/mermaid', '**/*.png', false, true), '\n')
+  end
+
+  QA.check(
+    { 'R-213', 'R-330', 'R-331' },
+    'The plugin keys a mermaid render by the R-213 key string over the fence body joined by line feeds',
+    function()
+      local _, text = run(FLOW, { setup = { theme = 'light' } })
+      a.truthy(placed(text), 'the diagram is placed')
+      local body = table.concat(vim.split((FLOW:gsub('\n+$', '')), '\n', { plain = true }), '\n')
+      a.contains(key_of(body, text_width_cells() * U.CELL_W, 'default'), cache_names())
+    end
+  )
+
+  QA.check(
+    { 'R-213', 'R-330' },
+    'The key of a fence body with blank and indented lines covers those lines without a final line feed',
+    function()
+      local body = 'flowchart TD\n\n    Kettle --> Cup\n\n  Cup --> Saucer'
+      local _, text = run(body, { setup = { theme = 'dark' } })
+      a.truthy(placed(text), 'the diagram is placed')
+      local names = cache_names()
+      a.contains(
+        key_of(body, text_width_cells() * U.CELL_W, 'dark'),
+        names,
+        'key without a final line feed'
+      )
+      a.not_contains(key_of(body .. '\n', text_width_cells() * U.CELL_W, 'dark'), names)
+    end
+  )
 
   QA.check(
     'R-169',

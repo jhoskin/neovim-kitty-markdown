@@ -177,25 +177,6 @@ QA.describe('commands: open and placement', function()
   end)
 
   QA.check(
-    'R-003',
-    'An argument that is not a placement is not accepted as one',
-    { severity = 'medium' },
-    function()
-      U.src(DOC)
-      local t0, w0 = tabs(), wins()
-      local msgs = U.collect(function()
-        vim.cmd('KittyMarkdown open sideways')
-      end)
-      local p = U.preview()
-      a.truthy(
-        p == nil or #msgs > 0,
-        'either no preview opens or the user is told the argument is wrong'
-      )
-      a.truthy(#msgs > 0 or (tabs() == t0 and wins() == w0), 'not silently accepted')
-    end
-  )
-
-  QA.check(
     'R-004',
     'With no placement argument and no setup option, the preview opens in a new tabpage',
     function()
@@ -236,6 +217,157 @@ QA.describe('commands: open and placement', function()
     local t0 = tabs()
     vim.cmd('KittyMarkdown open tab')
     a.eq(t0 + 1, tabs(), 'tab argument over float config')
+  end)
+end)
+
+QA.describe('commands: bad subcommands and arguments', function()
+  QA.before_each(function()
+    U.reset()
+  end)
+
+  local function to_source(buf)
+    for _, w in ipairs(api.nvim_list_wins()) do
+      if api.nvim_win_get_buf(w) == buf then
+        api.nvim_set_current_win(w)
+      end
+    end
+  end
+
+  QA.check(
+    'R-249',
+    'An unknown subcommand shows the unknown subcommand error with its name in quotes and opens nothing',
+    function()
+      U.src(DOC)
+      local t0, w0 = tabs(), wins()
+      local msgs = U.collect(function()
+        vim.cmd('KittyMarkdown frobnicate')
+      end)
+      a.contains('kitty-markdown: unknown subcommand "frobnicate"', U.msgs(msgs))
+      a.eq(t0, tabs(), 'tabpage count')
+      a.eq(w0, wins(), 'window count')
+      a.eq(0, #U.preview_bufs(), 'no preview')
+    end
+  )
+
+  QA.check(
+    'R-249',
+    'Subcommands are matched exactly, so a subcommand in another letter case is unknown',
+    { severity = 'medium' },
+    function()
+      U.src(DOC)
+      local msgs = U.collect(function()
+        vim.cmd('KittyMarkdown Open')
+      end)
+      a.contains('kitty-markdown: unknown subcommand "Open"', U.msgs(msgs))
+      a.eq(0, #U.preview_bufs(), 'no preview')
+    end
+  )
+
+  QA.check(
+    'R-249',
+    'An unknown subcommand leaves an open preview as it is',
+    { severity = 'medium' },
+    function()
+      local buf = U.src(DOC)
+      vim.cmd('KittyMarkdown open split')
+      local p = U.preview()
+      api.nvim_buf_set_lines(buf, -1, -1, false, { '', 'Unwritten tail text.' })
+      to_source(buf)
+      local msgs = U.collect(function()
+        vim.cmd('KittyMarkdown reload')
+      end)
+      a.contains('kitty-markdown: unknown subcommand "reload"', U.msgs(msgs))
+      a.eq(1, #U.previews(), 'preview still open')
+      a.not_contains('Unwritten tail text.', U.text(p.buf), 'no re-render')
+    end
+  )
+
+  QA.check(
+    'R-250',
+    'A placement other than split, tab, or float shows the unexpected argument error and opens nothing',
+    function()
+      U.src(DOC)
+      local t0, w0 = tabs(), wins()
+      local msgs = U.collect(function()
+        vim.cmd('KittyMarkdown open sideways')
+      end)
+      a.contains('kitty-markdown: unexpected argument "sideways"', U.msgs(msgs))
+      a.eq(t0, tabs(), 'tabpage count')
+      a.eq(w0, wins(), 'window count')
+      a.eq(0, #U.preview_bufs(), 'no preview')
+      msgs = U.collect(function()
+        vim.cmd('KittyMarkdown toggle Split')
+      end)
+      a.contains('kitty-markdown: unexpected argument "Split"', U.msgs(msgs))
+      a.eq(0, #U.preview_bufs(), 'toggle: no preview')
+    end
+  )
+
+  QA.check(
+    'R-250',
+    'A placement after close shows the unexpected argument error and keeps the preview open',
+    function()
+      local buf = U.src(DOC)
+      vim.cmd('KittyMarkdown open split')
+      to_source(buf)
+      local msgs = U.collect(function()
+        vim.cmd('KittyMarkdown close split')
+      end)
+      a.contains('kitty-markdown: unexpected argument "split"', U.msgs(msgs))
+      a.eq(1, #U.previews(), 'preview still open')
+    end
+  )
+
+  QA.check(
+    'R-250',
+    'A placement after refresh shows the unexpected argument error and does not re-render',
+    function()
+      local buf = U.src(DOC)
+      vim.cmd('KittyMarkdown open split')
+      local p = U.preview()
+      api.nvim_buf_set_lines(buf, -1, -1, false, { '', 'Only a refresh shows this.' })
+      to_source(buf)
+      local msgs = U.collect(function()
+        vim.cmd('KittyMarkdown refresh tab')
+      end)
+      a.contains('kitty-markdown: unexpected argument "tab"', U.msgs(msgs))
+      a.not_contains('Only a refresh shows this.', U.text(p.buf), 'no re-render')
+    end
+  )
+
+  QA.check(
+    'R-250',
+    'A third argument shows the unexpected argument error naming it and opens nothing',
+    function()
+      U.src(DOC)
+      local t0, w0 = tabs(), wins()
+      local msgs = U.collect(function()
+        vim.cmd('KittyMarkdown open split extra')
+      end)
+      a.contains('kitty-markdown: unexpected argument "extra"', U.msgs(msgs))
+      a.eq(t0, tabs(), 'tabpage count')
+      a.eq(w0, wins(), 'window count')
+      a.eq(0, #U.preview_bufs(), 'no preview')
+    end
+  )
+
+  QA.check('R-250', 'A third argument to toggle closes nothing', { severity = 'medium' }, function()
+    local buf = U.src(DOC)
+    vim.cmd('KittyMarkdown open split')
+    to_source(buf)
+    local msgs = U.collect(function()
+      vim.cmd('KittyMarkdown toggle float again')
+    end)
+    a.contains('kitty-markdown: unexpected argument "again"', U.msgs(msgs))
+    a.eq(1, #U.previews(), 'preview still open')
+  end)
+
+  QA.check('R-251', 'The command without a subcommand is rejected by Neovim with E471', function()
+    U.src(DOC)
+    local ok, err = pcall(vim.cmd, 'KittyMarkdown')
+    a.falsy(ok, 'command rejected')
+    a.matches('E471', tostring(err))
+    a.eq(0, #U.preview_bufs(), 'no preview')
   end)
 end)
 
@@ -440,18 +572,21 @@ QA.describe('commands: close and toggle', function()
   end)
 
   QA.check(
-    'R-008',
-    'Close of a tab preview closes its tabpage window and leaves the source open',
+    { 'R-008', 'R-252' },
+    'Closing a tab preview deletes the preview buffer and leaves its window open on another buffer',
     function()
       local buf = U.src(DOC)
       local t0 = tabs()
       vim.cmd('KittyMarkdown open tab')
+      local p = U.preview()
       vim.cmd('tabfirst')
       vim.cmd('KittyMarkdown close')
       U.settle(50)
-      a.eq(t0, tabs(), 'tabpage count back')
+      a.eq(0, #U.preview_bufs(), 'preview buffer deleted')
       a.truthy(api.nvim_buf_is_loaded(buf), 'source still loaded')
-      a.eq(0, #U.previews())
+      a.eq(t0 + 1, tabs(), 'the tab page of the preview stays')
+      a.truthy(api.nvim_win_is_valid(p.win), 'the last window of its tab page stays open')
+      a.ne('kitty-markdown', vim.bo[api.nvim_win_get_buf(p.win)].filetype, 'on another buffer')
     end
   )
 
@@ -565,6 +700,57 @@ QA.describe('commands: source unload and delete', function()
       end
     )
   end
+
+  QA.check(
+    'R-252',
+    'When the source is deleted and the preview is the last window, the window stays open on another buffer',
+    function()
+      local other = api.nvim_create_buf(true, false)
+      vim.fn.bufload(other)
+      local buf = U.src(DOC)
+      vim.cmd('KittyMarkdown open split')
+      local p = U.preview()
+      vim.cmd('bdelete! ' .. buf)
+      U.settle(100)
+      a.eq(0, #U.preview_bufs(), 'preview buffer deleted')
+      a.truthy(api.nvim_win_is_valid(p.win), 'window left open')
+      a.ne('kitty-markdown', vim.bo[api.nvim_win_get_buf(p.win)].filetype, 'on another buffer')
+    end
+  )
+
+  QA.check(
+    'R-252',
+    'Toggling off a tab preview from inside it keeps its tab page open on another buffer',
+    { severity = 'medium' },
+    function()
+      U.src(DOC)
+      local t0 = tabs()
+      vim.cmd('KittyMarkdown open tab')
+      local p = U.preview()
+      api.nvim_set_current_win(p.win)
+      vim.cmd('KittyMarkdown toggle')
+      U.settle(50)
+      a.eq(0, #U.preview_bufs(), 'preview buffer deleted')
+      a.eq(t0 + 1, tabs(), 'tab page stays')
+      a.truthy(api.nvim_win_is_valid(p.win), 'window stays')
+    end
+  )
+
+  QA.check(
+    'R-252',
+    'Closing a split preview that is not the last window closes its window',
+    { severity = 'medium' },
+    function()
+      U.src(DOC)
+      local w0 = wins()
+      vim.cmd('KittyMarkdown open split')
+      local p = U.preview()
+      vim.cmd('KittyMarkdown close')
+      U.settle(50)
+      a.falsy(api.nvim_win_is_valid(p.win), 'window closed')
+      a.eq(w0, wins(), 'window count back')
+    end
+  )
 
   QA.check('R-011', 'Unloading the source closes a tab preview too', function()
     local buf = U.src(DOC)
@@ -791,21 +977,23 @@ QA.describe('commands: preview buffer and window', function()
     )
   end
 
-  QA.check(
-    'R-015',
-    'The preview window hides relative line numbers too',
-    { severity = 'medium' },
-    function()
-      vim.o.relativenumber = true
-      vim.o.number = true
-      U.src(DOC)
-      vim.cmd('KittyMarkdown open split')
-      local p = U.preview()
-      a.falsy(vim.wo[p.win].relativenumber, 'relativenumber')
-      a.falsy(vim.wo[p.win].number, 'number')
-      vim.o.relativenumber, vim.o.number = false, false
-    end
-  )
+  for _, place in ipairs({ 'split', 'tab', 'float' }) do
+    QA.check(
+      'R-253',
+      'The preview window hides the absolute and the relative line numbers',
+      function()
+        vim.o.relativenumber = true
+        vim.o.number = true
+        U.src(DOC)
+        vim.cmd('KittyMarkdown open ' .. place)
+        local p = U.preview()
+        local rnu, nu = vim.wo[p.win].relativenumber, vim.wo[p.win].number
+        vim.o.relativenumber, vim.o.number = false, false
+        a.falsy(rnu, place .. ': relativenumber')
+        a.falsy(nu, place .. ': number')
+      end
+    )
+  end
 
   QA.check(
     'R-015',
@@ -827,18 +1015,46 @@ QA.describe('commands: preview buffer and window', function()
   )
 
   QA.check(
-    'R-167',
-    'The preview buffer is named kitty-markdown:// followed by the source buffer name',
+    { 'R-167', 'R-254' },
+    'The preview buffer is named kitty-markdown:// followed by the full path of the source',
     function()
-      local buf = U.src(DOC, { name = 'named-doc.md' })
+      local _, path = U.src(DOC, { name = 'named-doc.md' })
       vim.cmd('KittyMarkdown open split')
       local p = U.preview()
-      local got = api.nvim_buf_get_name(p.buf)
-      local accepted = {
-        'kitty-markdown://' .. api.nvim_buf_get_name(buf),
-        'kitty-markdown://' .. vim.fn.bufname(buf),
-      }
-      a.contains(got, accepted, 'preview buffer name')
+      a.eq('kitty-markdown://' .. path, api.nvim_buf_get_name(p.buf), 'preview buffer name')
+    end
+  )
+
+  QA.check(
+    'R-254',
+    'The preview name uses the full path even when the source was opened by a relative name',
+    function()
+      local dir = QA.tmpdir()
+      dir = vim.uv.fs_realpath(dir) or dir
+      QA.write(dir .. '/sub/rel-doc.md', table.concat(DOC, '\n') .. '\n')
+      vim.fn.chdir(dir)
+      vim.cmd('silent edit sub/rel-doc.md')
+      vim.bo.filetype = 'markdown'
+      vim.cmd('KittyMarkdown open split')
+      local p = U.preview()
+      local name = api.nvim_buf_get_name(p.buf)
+      vim.fn.chdir(QA.root)
+      a.eq('kitty-markdown://' .. dir .. '/sub/rel-doc.md', name)
+    end
+  )
+
+  QA.check(
+    'R-255',
+    'A source buffer without a name gives the preview the bare kitty-markdown:// name',
+    function()
+      local buf = api.nvim_create_buf(true, false)
+      api.nvim_buf_set_lines(buf, 0, -1, false, DOC)
+      api.nvim_set_current_buf(buf)
+      vim.bo[buf].filetype = 'markdown'
+      vim.cmd('KittyMarkdown open split')
+      local p = U.preview()
+      a.not_nil(p, 'preview opened')
+      a.eq('kitty-markdown://', api.nvim_buf_get_name(p.buf))
     end
   )
 

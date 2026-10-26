@@ -361,7 +361,7 @@ QA.describe('core: theme', function()
   )
 
   QA.check(
-    'R-076',
+    { 'R-076', 'R-281' },
     'A user highlight set after setup but before the preview opens is kept',
     function()
       setup({})
@@ -405,4 +405,141 @@ QA.describe('core: theme', function()
       a.eq(0xff00aa, fg(groups.heading))
     end
   )
+
+  -- R-281 ------------------------------------------------------------------
+
+  QA.check(
+    'R-281',
+    'A user highlight set while a preview is open survives a background change',
+    function()
+      setup({})
+      local win = U.open_preview({ '# Title' })
+      vim.api.nvim_set_hl(0, groups.heading, { fg = '#aa5500' })
+      vim.cmd('set background=dark')
+      QA.wait(300, function()
+        return false
+      end)
+      a.eq(0xaa5500, fg(groups.heading, win))
+      a.eq(0xaa5500, fg(groups.heading))
+    end
+  )
+
+  QA.check(
+    'R-281',
+    'A user highlight set while a preview is open survives opening another preview',
+    function()
+      setup({})
+      U.open_preview({ '# One' })
+      vim.api.nvim_set_hl(0, groups.heading, { fg = '#5500aa' })
+      vim.cmd('tabnew')
+      local w2 = U.open_preview({ '# Two' })
+      a.eq(0x5500aa, fg(groups.heading, w2))
+    end
+  )
+
+  QA.check('R-281', 'A user highlight set after setup survives a second setup call', function()
+    setup({})
+    vim.api.nvim_set_hl(0, groups.heading, { fg = '#0055aa' })
+    setup({ theme = 'dark' })
+    a.eq(0x0055aa, fg(groups.heading))
+  end)
+
+  -- R-282 ------------------------------------------------------------------
+
+  local function undefined_groups()
+    local missing = {}
+    for _, g in ipairs({ groups.heading, groups.link, groups.code, groups.math, groups.html }) do
+      if g and next(U.hl(g)) == nil then
+        missing[#missing + 1] = g
+      end
+    end
+    return missing
+  end
+
+  QA.check(
+    'R-282',
+    'After a colorscheme loads, the KittyMarkdown* groups are defined again',
+    function()
+      setup({})
+      U.open_preview({ '# Title', '', '[l](https://x.y)' })
+      vim.cmd('colorscheme default')
+      QA.wait(300, function()
+        return #undefined_groups() == 0
+      end)
+      a.eq({}, undefined_groups())
+    end
+  )
+
+  QA.check(
+    'R-282',
+    'After a colorscheme loads with no preview open yet, the groups are defined again',
+    { severity = 'medium' },
+    function()
+      setup({})
+      vim.cmd('colorscheme default')
+      QA.wait(300, function()
+        return #undefined_groups() == 0
+      end)
+      a.eq({}, undefined_groups())
+    end
+  )
+
+  QA.check(
+    'R-282',
+    'A KittyMarkdown* group that the colorscheme defines keeps the colorscheme definition',
+    function()
+      setup({})
+      U.open_preview({ '# Title' })
+      local dir = QA.tmpdir()
+      QA.write(
+        dir .. '/colors/qacolors.lua',
+        table.concat({
+          'vim.cmd("hi clear")',
+          'vim.g.colors_name = "qacolors"',
+          ('vim.api.nvim_set_hl(0, %q, { fg = "#abcdef" })'):format(groups.heading),
+        }, '\n')
+      )
+      vim.opt.runtimepath:prepend(dir)
+      vim.cmd('colorscheme qacolors')
+      QA.wait(300, function()
+        return false
+      end)
+      a.eq(0xabcdef, fg(groups.heading))
+      a.not_nil(fg(groups.link), 'a group the colorscheme left out is defined again')
+    end
+  )
+
+  -- R-283 ------------------------------------------------------------------
+
+  local GITHUB_BG = { light = 0xffffff, dark = 0x0d1117 }
+
+  local function contrast(c1, c2)
+    local l1, l2 = U.luminance(c1), U.luminance(c2)
+    if l1 < l2 then
+      l1, l2 = l2, l1
+    end
+    return (l1 + 0.05) / (l2 + 0.05)
+  end
+
+  for _, t in ipairs({ 'light', 'dark' }) do
+    QA.check(
+      'R-283',
+      'Text and link colors have a contrast of at least 4.5:1 against the '
+        .. t
+        .. ' palette background',
+      function()
+        setup({ theme = t })
+        local win = U.open_preview({ '# Title', '', 'text [l](https://x.y)' })
+        local text_group = (vim.wo[win].winhighlight or ''):match('Normal:([%w_]+)')
+          or groups.heading
+        local text = U.win_hl(win, text_group)
+        a.not_nil(text.fg, 'text color of ' .. text_group)
+        local bg = text.bg or GITHUB_BG[t]
+        local link = fg(groups.link, win)
+        a.not_nil(link, 'link color')
+        a.ge(4.5, contrast(text.fg, bg), ('text %06x on %06x'):format(text.fg, bg))
+        a.ge(4.5, contrast(link, bg), ('link %06x on %06x'):format(link, bg))
+      end
+    )
+  end
 end)

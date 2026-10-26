@@ -605,3 +605,163 @@ QA.describe('helper client: no helper binary', function()
     end
   )
 end)
+
+QA.describe('helper client: refresh without a preview', function()
+  QA.before_each(before)
+  QA.after_each(after)
+
+  QA.check(
+    'R-310',
+    ':KittyMarkdown refresh with no preview open clears the restart stop',
+    function()
+      local fake, logp = U.make_fake({ mode = 'crash' })
+      U.setup_with_path(fake)
+      U.open_doc({ '# No preview here' })
+      exits(4)
+      a.eq(3, U.count(logp, 'start'), 'stopped after three exits')
+      a.eq({}, U.preview_bufs(), 'no preview is open')
+      vim.cmd('KittyMarkdown refresh')
+      exits(1)
+      a.eq(4, U.count(logp, 'start'), 'a start after refresh')
+    end
+  )
+
+  QA.check(
+    'R-310',
+    ':KittyMarkdown refresh from a buffer that is not markdown also clears the restart stop',
+    { severity = 'medium' },
+    function()
+      local fake, logp = U.make_fake({ mode = 'crash' })
+      U.setup_with_path(fake)
+      vim.cmd('enew')
+      vim.bo.filetype = 'text'
+      exits(3)
+      vim.cmd('KittyMarkdown refresh')
+      exits(1)
+      a.eq(4, U.count(logp, 'start'), 'a start after refresh')
+    end
+  )
+
+  QA.check(
+    { 'R-310', 'R-196' },
+    'After a refresh, the restart stop needs three new exits within 60 seconds',
+    { severity = 'medium' },
+    function()
+      local fake, logp = U.make_fake({ mode = 'crash' })
+      U.setup_with_path(fake)
+      U.open_doc({ '# No preview here' })
+      exits(3)
+      vim.cmd('KittyMarkdown refresh')
+      exits(2)
+      a.eq(5, U.count(logp, 'start'), 'two starts after refresh')
+      exits(1)
+      a.eq(6, U.count(logp, 'start'), 'a third start after refresh')
+      exits(1)
+      a.eq(6, U.count(logp, 'start'), 'stopped again after three new exits')
+    end
+  )
+
+  QA.check(
+    { 'R-310', 'R-244' },
+    'After a refresh and three new exits, the restart stop ERROR shows again',
+    { severity = 'medium' },
+    function()
+      local fake = U.make_fake({ mode = 'crash' })
+      U.setup_with_path(fake)
+      U.open_doc({ '# No preview here' })
+      exits(3)
+      vim.cmd('KittyMarkdown refresh')
+      exits(3)
+      QA.wait(300, function()
+        return false
+      end)
+      a.eq(2, #refresh_msgs(), 'ERROR messages that name the command')
+    end
+  )
+end)
+
+QA.describe('helper client: one message per exit', function()
+  QA.before_each(before)
+  QA.after_each(after)
+
+  QA.check(
+    { 'R-313', 'R-195' },
+    'A helper exit with several pixel blocks waiting writes only the one WARN and no message per block',
+    function()
+      local fake, logp = U.make_fake({ mode = 'hang' })
+      U.setup_with_path(fake, { helper = { request_timeout_ms = 10000 } })
+      U.open_images_preview(TWO_DOC)
+      QA.wait(4000, function()
+        return U.count(logp, 'method image.prepare') + U.count(logp, 'method mermaid.render') >= 2
+      end)
+      QA.wait(200, function()
+        return false
+      end)
+      local pid = U.pids(logp)[1]
+      QA.need(pid, 'the fake helper pid')
+      for i = #log, 1, -1 do
+        log[i] = nil
+      end
+      vim.uv.kill(pid, 'sigkill')
+      QA.wait(3000, function()
+        local _, n = U.virt_text():gsub('helper exited', '')
+        return n >= 2
+      end)
+      QA.wait(300, function()
+        return false
+      end)
+      local msgs = {}
+      for _, e in ipairs(log) do
+        table.insert(msgs, { level = e.level, msg = e.msg })
+      end
+      a.eq(1, #msgs, 'messages after the exit: ' .. vim.inspect(msgs))
+      a.eq(vim.log.levels.WARN, msgs[1] and msgs[1].level, 'level')
+    end
+  )
+
+  QA.check(
+    'R-313',
+    'A helper crash during a render writes no ERROR for the failed blocks',
+    function()
+      local fake = U.make_fake({ mode = 'crash' })
+      U.setup_with_path(fake)
+      U.open_images_preview(TWO_DOC)
+      QA.wait(4000, function()
+        local _, n = U.virt_text():gsub('helper exited', '')
+        return n >= 2
+      end)
+      QA.wait(300, function()
+        return false
+      end)
+      a.eq({}, U.at_level(log, vim.log.levels.ERROR), 'ERROR messages')
+      a.eq(1, warn_count(), 'WARN messages')
+    end
+  )
+end)
+
+QA.describe('helper client: request timeout option', function()
+  QA.before_each(before)
+  QA.after_each(after)
+
+  QA.check('R-326', 'The helper.request_timeout_ms option defaults to 30000', function()
+    local ok, config = pcall(require, 'kitty-markdown.config')
+    QA.need(ok and type(config.get) == 'function', 'a config module with get()')
+    require('kitty-markdown').setup({})
+    a.eq(30000, config.get().helper.request_timeout_ms)
+  end)
+
+  QA.check(
+    { 'R-326', 'R-141' },
+    'The helper.request_timeout_ms option sets the time after which a block shows timeout',
+    function()
+      local fake = U.make_fake({ mode = 'hang' })
+      U.setup_with_path(fake, { helper = { request_timeout_ms = 900 } })
+      U.open_images_preview(IMG_DOC)
+      QA.wait(500, function()
+        return false
+      end)
+      a.not_contains('timeout', U.virt_text(), 'no timeout before the option value')
+      a.truthy(U.wait_text('timeout', 3000), 'timeout after the option value')
+    end
+  )
+end)

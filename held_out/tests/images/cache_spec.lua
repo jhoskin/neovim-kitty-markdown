@@ -444,8 +444,8 @@ QA.describe('cache: plugin end to end', function()
   )
 
   QA.check(
-    'R-213',
-    'The plugin names a mermaid render by the key string with the target width, the mermaid theme, and the mermaid version',
+    { 'R-213', 'R-330' },
+    'The plugin names a mermaid render by the key string with the target width, the mermaid theme, the mermaid version, and the fence body hash without a final line feed',
     function()
       local body = { 'flowchart LR', '  Q --> R' }
       local lines =
@@ -458,9 +458,7 @@ QA.describe('cache: plugin end to end', function()
       local width_px = tostring(U.text_width(r.win) * 10)
       local src = table.concat(body, '\n')
       local k1 = key(vim.fn.sha256(src), width_px, 'forest', MERMAID_VERSION)
-      local k2 = key(vim.fn.sha256(src .. '\n'), width_px, 'forest', MERMAID_VERSION)
-      local found = entry(r.cache .. '/mermaid', k1) or entry(r.cache .. '/mermaid', k2)
-      a.not_nil(found, 'mermaid entry in ' .. names(r.cache))
+      a.not_nil(entry(r.cache .. '/mermaid', k1), 'mermaid entry in ' .. names(r.cache))
     end
   )
 

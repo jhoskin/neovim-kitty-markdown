@@ -13,15 +13,18 @@ local function median(xs)
   return xs[math.floor((#xs + 1) / 2)]
 end
 
--- A mixed document of exactly `n` lines: headings, paragraphs with inline
--- markup, lists, task lists, quotes, code fences, and tables.
+-- A mixed document of exactly `n` lines (R-256): headings, wrapped
+-- paragraphs with inline markup and links, nested lists, tables, code
+-- fences, blockquotes, and images.
 local function big_doc(n, tag)
   local lines = { '# Large document ' .. tag, '' }
   local i = 0
   while #lines < n do
     i = i + 1
-    local kind = i % 6
-    if kind == 0 then
+    local kind = i % 7
+    if kind == 6 then
+      vim.list_extend(lines, { '![figure ' .. i .. '](p.png)', '' })
+    elseif kind == 0 then
       vim.list_extend(lines, { '## Section ' .. i, '' })
     elseif kind == 1 then
       vim.list_extend(lines, {
@@ -70,8 +73,8 @@ QA.describe('performance: open a large document', function()
   end)
 
   QA.check(
-    'R-023',
-    'Opening a preview of a document with 1000 lines shows its text within 200 ms',
+    { 'R-023', 'R-256' },
+    'Opening a preview of the specified 1000-line mixed document shows its first text within 200 ms',
     function()
       -- warm up: load the plugin modules once with a small document
       U.src({ '# warm', '', 'small' }, { name = 'warm.md' })
@@ -79,18 +82,19 @@ QA.describe('performance: open a large document', function()
       vim.cmd('KittyMarkdown close')
       U.settle(50)
       local times = {}
+      local dir = QA.tmpdir()
+      QA.make_png(dir .. '/p.png', 120, 60)
       for run = 1, 3 do
         local lines = big_doc(1000, 'run' .. run)
         a.eq(1000, #lines)
-        local buf = U.src(lines, { name = 'big' .. run .. '.md' })
+        local buf = U.src(lines, { name = 'big' .. run .. '.md', dir = dir })
         local last = 'Section'
         local t0 = vim.uv.hrtime()
         vim.cmd('KittyMarkdown open')
         local p = U.preview()
         local ok = p
           and QA.wait(2000, function()
-            return api.nvim_buf_line_count(p.buf) > 100
-              and U.text(p.buf):find('Large document run' .. run, 1, true) ~= nil
+            return U.text(p.buf):find('Large document run' .. run, 1, true) ~= nil
           end, 1)
         times[#times + 1] = ms_since(t0)
         a.truthy(ok, 'preview text shown (run ' .. run .. ')')
@@ -105,26 +109,19 @@ QA.describe('performance: open a large document', function()
 
   QA.check(
     'R-023',
-    'Opening a 1000-line document with images shows the text within 200 ms',
+    'Opening the 1000-line document in image mode shows its first text within 200 ms',
     { severity = 'medium' },
     function()
       U.image_mode()
       local dir = QA.tmpdir()
       QA.make_png(dir .. '/p.png', 120, 60)
-      local lines = big_doc(990, 'img')
-      for k = 1, 5 do
-        vim.list_extend(lines, { '', '![pic ' .. k .. '](p.png)' }, 1, 2)
-      end
-      while #lines > 1000 do
-        table.remove(lines, #lines - 10)
-      end
+      local lines = big_doc(1000, 'img')
       U.src(lines, { dir = dir })
       local t0 = vim.uv.hrtime()
       vim.cmd('KittyMarkdown open')
       local p = U.preview()
       local ok = QA.wait(2000, function()
-        return api.nvim_buf_line_count(p.buf) > 100
-          and U.text(p.buf):find('Large document img', 1, true) ~= nil
+        return U.text(p.buf):find('Large document img', 1, true) ~= nil
       end, 1)
       local ms = ms_since(t0)
       a.truthy(ok)
@@ -150,60 +147,70 @@ QA.describe('performance: helper timing', function()
     )
   end
 
-  QA.check('R-024', 'A running helper returns a mermaid render result within 100 ms', function()
-    local sess = QA.helper_session()
-    local warm = sess:request(
-      'mermaid.render',
-      { source = flow(0), width_px = 800, theme = 'default', background = 'transparent' },
-      30000
-    )
-    a.not_nil(warm, 'warm-up render answered')
-    a.is_nil(warm.error, 'warm-up render error: ' .. vim.inspect(warm.error))
-    local times = {}
-    for n = 1, 5 do
-      local t0 = vim.uv.hrtime()
-      local res = sess:request(
-        'mermaid.render',
-        { source = flow(n), width_px = 800, theme = 'default', background = 'transparent' },
-        5000
-      )
-      times[#times + 1] = ms_since(t0)
-      a.not_nil(res, 'render ' .. n .. ' answered')
-      a.is_nil(res.error, 'render ' .. n .. ' error: ' .. vim.inspect(res.error))
-      a.falsy(res.result and res.result.cached, 'a new diagram, not a cache hit')
-    end
-    sess:close()
-    a.le(100, median(times), 'median render time in ms over ' .. vim.inspect(times))
-  end)
-
   QA.check(
-    'R-024',
-    'A running helper returns a sequence diagram render within 100 ms',
-    { severity = 'medium' },
+    { 'R-024', 'R-257' },
+    'A running helper returns an uncached small flowchart within 100 ms',
     function()
       local sess = QA.helper_session()
-      sess:request(
+      local warm = sess:request(
         'mermaid.render',
-        { source = flow(99), width_px = 800, theme = 'default', background = 'transparent' },
+        { source = flow(0), width_px = 800, theme = 'default', background = 'transparent' },
         30000
       )
+      a.not_nil(warm, 'warm-up render answered')
+      a.is_nil(warm.error, 'warm-up render error: ' .. vim.inspect(warm.error))
       local times = {}
       for n = 1, 5 do
-        local src = ('sequenceDiagram\n  participant U%d as User\n  participant S as Server\n  U%d->>S: request %d\n  S-->>U%d: reply'):format(
-          n,
-          n,
-          n,
-          n
-        )
         local t0 = vim.uv.hrtime()
         local res = sess:request(
           'mermaid.render',
-          { source = src, width_px = 800, theme = 'default', background = 'transparent' },
+          { source = flow(n), width_px = 800, theme = 'default', background = 'transparent' },
           5000
         )
         times[#times + 1] = ms_since(t0)
-        a.not_nil(res)
-        a.is_nil(res.error, vim.inspect(res.error))
+        a.not_nil(res, 'render ' .. n .. ' answered')
+        a.is_nil(res.error, 'render ' .. n .. ' error: ' .. vim.inspect(res.error))
+        a.falsy(res.result and res.result.cached, 'a new diagram, not a cache hit')
+      end
+      sess:close()
+      a.le(100, median(times), 'median render time in ms over ' .. vim.inspect(times))
+    end
+  )
+
+  -- A flowchart with exactly 20 nodes, unique per `n` so it is not cached.
+  local function flow20(n)
+    local out = { 'flowchart TD' }
+    for k = 1, 19 do
+      out[#out + 1] = ('  N%d_%d[Node %d of run %d] --> N%d_%d'):format(n, k, k, n, n, k + 1)
+    end
+    out[#out + 1] = ('  N%d_20[Last node %d]'):format(n, n)
+    return table.concat(out, '\n')
+  end
+
+  QA.check(
+    { 'R-024', 'R-257' },
+    'A running helper returns an uncached flowchart of 20 nodes within 100 ms',
+    function()
+      local sess = QA.helper_session()
+      local warm = sess:request(
+        'mermaid.render',
+        { source = flow20(0), width_px = 800, theme = 'default', background = 'transparent' },
+        30000
+      )
+      a.not_nil(warm, 'warm-up render answered')
+      a.is_nil(warm.error, 'warm-up render error: ' .. vim.inspect(warm and warm.error))
+      local times = {}
+      for n = 1, 5 do
+        local t0 = vim.uv.hrtime()
+        local res = sess:request(
+          'mermaid.render',
+          { source = flow20(n), width_px = 800, theme = 'default', background = 'transparent' },
+          5000
+        )
+        times[#times + 1] = ms_since(t0)
+        a.not_nil(res, 'render ' .. n .. ' answered')
+        a.is_nil(res.error, 'render ' .. n .. ' error: ' .. vim.inspect(res.error))
+        a.falsy(res.result and res.result.cached, 'not a cache hit')
       end
       sess:close()
       a.le(100, median(times), 'median render time in ms over ' .. vim.inspect(times))
@@ -299,15 +306,17 @@ QA.describe('performance: scroll sync debounce', function()
       end
       return false
     end
+    local last_move = 0
     for k = 1, count do
       api.nvim_set_current_win(src_win)
       api.nvim_win_set_cursor(src_win, { heads[start + k * 2], 0 })
+      last_move = ms_since(t0)
       api.nvim_exec_autocmds('CursorMoved', { buffer = api.nvim_win_get_buf(src_win) })
       vim.wait(step_ms, sample, 2)
     end
     local moving = ms_since(t0)
     vim.wait(400, sample, 2)
-    return changes, moving
+    return changes, moving, last_move
   end
 
   QA.check(
@@ -372,6 +381,51 @@ QA.describe('performance: scroll sync debounce', function()
       local ms = ms_since(t0)
       a.truthy(moved, 'the preview scrolled')
       a.le(300, ms, 'delay in ms')
+    end
+  )
+
+  QA.check(
+    'R-342',
+    'While the cursor keeps moving, scroll sync waits and scrolls only after the movement pauses',
+    function()
+      local lines, heads = doc()
+      U.src(lines)
+      local src_win = api.nvim_get_current_win()
+      vim.cmd('KittyMarkdown open')
+      local p = U.preview()
+      -- 15 moves, 20 ms apart: the movement never pauses for 100 ms
+      local changes, _, last_move = run(src_win, p.win, heads, 15, 20, 2)
+      a.ge(1, #changes, 'the preview scrolled after the movement')
+      -- 50 ms of slack for the cached loop time of the timers
+      a.ge(
+        last_move + 50,
+        changes[1],
+        ('first scroll at %s ms, last move at %d ms'):format(vim.inspect(changes), last_move)
+      )
+    end
+  )
+
+  QA.check(
+    'R-342',
+    'Scroll sync does not scroll at the start of a cursor movement',
+    { severity = 'medium' },
+    function()
+      local lines, heads = doc()
+      U.src(lines)
+      local src_win = api.nvim_get_current_win()
+      vim.cmd('KittyMarkdown open')
+      local p = U.preview()
+      local top0 = U.topline(p.win)
+      api.nvim_win_set_cursor(src_win, { heads[45], 0 })
+      api.nvim_exec_autocmds('CursorMoved', { buffer = api.nvim_win_get_buf(src_win) })
+      U.settle(30)
+      a.eq(top0, U.topline(p.win), 'no scroll right after the move')
+      a.truthy(
+        QA.wait(1000, function()
+          return U.topline(p.win) ~= top0
+        end, 2),
+        'scrolled after the pause'
+      )
     end
   )
 end)

@@ -64,21 +64,78 @@ QA.describe('text: tables', function()
 
   QA.check(
     'R-043',
-    'Every table cell has a horizontal border above and below it, between body rows too',
-    { severity = 'medium' },
+    'A table has lines around it and below the header row, and none between body rows',
     function()
       local model = T.layout(BASIC, 80)
       local rows, borders = table_parts(model)
-      a.eq(#rows + 1, #borders, 'one horizontal border above, below, and between each row')
-      for k = 1, #rows - 1 do
-        local between = false
-        for _, b in ipairs(borders) do
-          if b > rows[k] and b < rows[k + 1] then
-            between = true
-          end
-        end
-        a.truthy(between, 'a horizontal border between row ' .. k .. ' and row ' .. (k + 1))
+      a.eq(4, #rows, 'header and three body rows')
+      a.eq(3, #borders, 'top line, header line, bottom line')
+      a.truthy(borders[1] < rows[1], 'a line above the header')
+      a.truthy(borders[2] > rows[1] and borders[2] < rows[2], 'a line below the header')
+      a.truthy(borders[3] > rows[#rows], 'a line below the last row')
+      for k = 2, #rows - 1 do
+        a.eq(rows[k] + 1, rows[k + 1], 'body rows ' .. k .. ' and ' .. (k + 1) .. ' are adjacent')
       end
+    end
+  )
+
+  QA.check(
+    'R-043',
+    'The header separator line joins the column lines',
+    { severity = 'medium' },
+    function()
+      local model = T.layout(BASIC, 80)
+      local _, borders = table_parts(model)
+      local sep = vim.trim(model.lines[borders[2]])
+      a.matches('^├', sep)
+      a.matches('┤$', sep)
+      local _, n = sep:gsub('┼', '')
+      a.eq(2, n, 'one junction per inner column line')
+    end
+  )
+
+  QA.check(
+    'R-260',
+    'A table wider than the text width is shown at full width with every cell whole',
+    function()
+      local w = 40
+      local long = 'thiscellholdsaverylongunbrokenvalue'
+      local model = T.layout({
+        '| key | value | other |',
+        '|---|---|---|',
+        '| k1 | ' .. long .. ' | more words in this cell |',
+        '| k2 | v | o |',
+      }, w)
+      local rows, borders = table_parts(model)
+      a.eq(3, #rows, 'no wrapped extra rows')
+      a.eq(3, #borders)
+      local width = T.dw((model.lines[rows[1]]:gsub('%s+$', '')))
+      a.truthy(width > T.text_width(w) + T.MARGIN, 'the table is wider than the text width')
+      for _, i in ipairs(vim.list_extend(vim.list_slice(rows), borders)) do
+        a.eq(width, T.dw((model.lines[i]:gsub('%s+$', ''))), 'full width on line ' .. i)
+      end
+      local cells = T.cells(model.lines[rows[2]])
+      a.eq(long, vim.trim(cells[2]), 'long cell not truncated')
+      a.eq('more words in this cell', vim.trim(cells[3]), 'cell with spaces not wrapped')
+      for _, l in ipairs(model.lines) do
+        a.no_match('…', l, 'ellipsis truncation')
+      end
+    end
+  )
+
+  QA.check(
+    'R-260',
+    'A wide table keeps its column alignment and widest-cell sizing',
+    { severity = 'medium' },
+    function()
+      local model = T.layout(
+        { '| a | b |', '|--:|---|', '| r | ' .. string.rep('x', 60) .. ' |', '| right | y |' },
+        40
+      )
+      local rows = table_parts(model)
+      local c1 = T.cells(model.lines[rows[2]])[1]
+      a.matches('r $', c1, 'right-aligned in a wide table')
+      a.eq(T.dw(T.cells(model.lines[rows[3]])[1]), T.dw(c1))
     end
   )
 

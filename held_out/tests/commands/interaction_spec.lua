@@ -164,7 +164,7 @@ QA.describe('interaction: gx follows links', function()
   )
 
   QA.check(
-    'R-160',
+    { 'R-160', 'R-344' },
     'gx on a link to a local file opens that file, resolved from the document directory',
     function()
       local opened = U.stub_open()
@@ -201,6 +201,58 @@ QA.describe('interaction: gx follows links', function()
         same_file(opened[1], dir .. '/sub/deep/info.md'),
         'opened ' .. vim.inspect(opened[1])
       )
+    end
+  )
+
+  QA.check(
+    'R-344',
+    'gx on a relative file link in a source without a file name resolves it against the current directory',
+    function()
+      local opened = U.stub_open()
+      local cwd = QA.tmpdir()
+      cwd = vim.uv.fs_realpath(cwd) or cwd
+      QA.write(cwd .. '/here.txt', 'here\n')
+      vim.fn.chdir(cwd)
+      local buf = api.nvim_create_buf(true, false)
+      api.nvim_buf_set_lines(
+        buf,
+        0,
+        -1,
+        false,
+        { '# No name', '', 'Open [the here file](here.txt).' }
+      )
+      api.nvim_set_current_buf(buf)
+      vim.bo[buf].filetype = 'markdown'
+      vim.cmd('KittyMarkdown open tab')
+      local p = U.preview()
+      cursor_on(p, 'here file')
+      press('gx')
+      a.eq(1, #opened, 'one call to the system opener')
+      local ok = same_file(opened[1], cwd .. '/here.txt')
+      vim.fn.chdir(QA.root)
+      a.truthy(ok, 'opened ' .. vim.inspect(opened[1]))
+    end
+  )
+
+  QA.check(
+    'R-344',
+    'gx on a relative file link uses the source directory even after the current directory changes',
+    { severity = 'medium' },
+    function()
+      local opened = U.stub_open()
+      local dir = QA.tmpdir()
+      QA.write(dir .. '/doc-side.txt', 'x\n')
+      U.src({ '# Files', '', 'Open [side file](doc-side.txt).' }, { dir = dir })
+      vim.cmd('KittyMarkdown open tab')
+      local other = QA.tmpdir()
+      QA.write(other .. '/doc-side.txt', 'decoy\n')
+      vim.fn.chdir(other)
+      local p = U.preview()
+      cursor_on(p, 'side file')
+      press('gx')
+      vim.fn.chdir(QA.root)
+      a.eq(1, #opened)
+      a.truthy(same_file(opened[1], dir .. '/doc-side.txt'), 'opened ' .. vim.inspect(opened[1]))
     end
   )
 
@@ -341,10 +393,14 @@ local function move(src_win, line)
   U.settle(350)
 end
 
+-- R-343: floor(height / 3) window lines above the target, or fewer when
+-- the window is at the top of the buffer.
 local function in_top_third(p, target)
   local top = U.topline(p.win)
   local h = api.nvim_win_get_height(p.win)
-  return top <= target and (target - top) < h / 3, top, h
+  local want = math.floor(h / 3)
+  local above = target - top
+  return above == want or (top == 1 and above >= 0 and above <= want), top, h
 end
 
 QA.describe('interaction: scroll sync', function()
@@ -425,8 +481,8 @@ QA.describe('interaction: scroll sync', function()
   )
 
   QA.check(
-    'R-211',
-    'Scroll sync puts the target line in the top third of the preview window',
+    { 'R-211', 'R-343' },
+    'Scroll sync leaves the window height divided by 3, rounded down, lines above the target',
     function()
       local lines, where = sections(40, 3)
       U.src(lines)
@@ -443,8 +499,8 @@ QA.describe('interaction: scroll sync', function()
   )
 
   QA.check(
-    'R-211',
-    'Scroll sync puts the target line inside the top third of the window at every window height',
+    { 'R-211', 'R-343' },
+    'Scroll sync leaves the specified number of lines above the target after the preview window is resized',
     function()
       local lines, where = sections(40, 3)
       U.src(lines)
@@ -518,6 +574,68 @@ QA.describe('interaction: scroll sync', function()
       local first = U.find_line(p.buf, 'Listhead first item')
       local ok, top, h = in_top_third(p, first)
       a.truthy(ok, ('first block line %d, top %d, height %d'):format(first, top, h))
+    end
+  )
+
+  QA.check(
+    'R-340',
+    'With the source cursor on a blank line between two blocks, scroll sync targets the block above',
+    function()
+      local lines, where = sections(40, 1)
+      U.src(lines)
+      local src_win = api.nvim_get_current_win()
+      vim.cmd('KittyMarkdown open')
+      local p = U.preview()
+      -- the blank line after the paragraph of a section, before the next heading
+      move(src_win, where[24].para_last + 1)
+      local first = U.find_line(p.buf, 'Start24word')
+      local ok, top, h = in_top_third(p, first)
+      a.truthy(ok, ('paragraph above: line %d, top %d, height %d'):format(first, top, h))
+      -- the blank line between a heading and its paragraph
+      move(src_win, where[31].heading + 1)
+      local head = U.find_line(p.buf, 'Section 31')
+      ok, top, h = in_top_third(p, head)
+      a.truthy(ok, ('heading above: line %d, top %d, height %d'):format(head, top, h))
+    end
+  )
+
+  QA.check(
+    'R-340',
+    'With the source cursor on one of several blank lines between blocks, scroll sync targets the block above',
+    { severity = 'medium' },
+    function()
+      local lines, where = sections(40, 1)
+      table.insert(lines, where[27].para_last + 1, '')
+      table.insert(lines, where[27].para_last + 1, '')
+      U.src(lines)
+      local src_win = api.nvim_get_current_win()
+      vim.cmd('KittyMarkdown open')
+      local p = U.preview()
+      move(src_win, where[27].para_last + 3)
+      local first = U.find_line(p.buf, 'Start27word')
+      local ok, top, h = in_top_third(p, first)
+      a.truthy(ok, ('line %d, top %d, height %d'):format(first, top, h))
+    end
+  )
+
+  QA.check(
+    'R-341',
+    'With the source cursor in hidden front matter, scroll sync moves the preview to line 1',
+    function()
+      local body = sections(40, 3)
+      local lines = { '---', 'title: Front', 'tags: [a, b]', 'draft: true', '---', '' }
+      vim.list_extend(lines, body)
+      U.src(lines)
+      local src_win = api.nvim_get_current_win()
+      vim.cmd('KittyMarkdown open')
+      local p = U.preview()
+      move(src_win, 200)
+      a.ne(1, U.topline(p.win), 'the preview scrolled down first')
+      move(src_win, 3)
+      a.eq(1, U.topline(p.win), 'preview top line')
+      move(src_win, 200)
+      move(src_win, 1)
+      a.eq(1, U.topline(p.win), 'opening fence line')
     end
   )
 

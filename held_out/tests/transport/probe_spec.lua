@@ -309,8 +309,8 @@ QA.describe('transport: probe', function()
   end)
 
   QA.check(
-    'R-239',
-    'The first probe result writes the mode and its reason to :messages once',
+    { 'R-239', 'R-306' },
+    'The first probe result writes the text-only mode message with its reason to :messages once',
     function()
       local _, dir = U.env({ helper = false })
       local read = U.messages_reader()
@@ -319,24 +319,21 @@ QA.describe('transport: probe', function()
       a.truthy(U.wait_mode('text'), 'text-only mode')
       U.settle(700)
       local msgs = read()
-      a.eq(1, U.count_with(msgs, 'no graphics reply'), 'messages with the reason')
-      local line
-      for _, l in ipairs(msgs) do
-        if l:find('no graphics reply', 1, true) then
-          line = l
-        end
-      end
-      a.matches('[Tt]ext', line, 'the message names the text-only mode')
+      a.eq(1, U.count_line(msgs, U.TEXT_MSG .. 'no graphics reply'), 'exact mode messages')
       vim.cmd('tabnew')
       U.open_doc(dir, { '# Other', '', '![x](a.png)' }, 'other.md')
       U.settle(100)
-      a.eq(1, U.count_with(read(), 'no graphics reply'), 'messages after a second preview opens')
+      a.eq(
+        1,
+        U.count_line(read(), U.TEXT_MSG .. 'no graphics reply'),
+        'messages after a second preview opens'
+      )
     end
   )
 
   QA.check(
-    'R-239',
-    'A re-probe with the same result writes no new mode message; a changed result writes one',
+    { 'R-239', 'R-305' },
+    'A re-probe with the same result writes no new mode message; a change to images writes the image mode message once',
     function()
       local cap, dir = U.env()
       local read = U.messages_reader()
@@ -352,7 +349,7 @@ QA.describe('transport: probe', function()
       local after_same = read()
       a.eq(
         1,
-        U.count_with(after_same, 'no graphics reply'),
+        U.count_line(after_same, U.TEXT_MSG .. 'no graphics reply'),
         'reason messages after an unchanged re-probe'
       )
       cap:clear()
@@ -361,19 +358,12 @@ QA.describe('transport: probe', function()
       a.truthy(U.wait_mode('images'), 'image mode after the second re-probe')
       U.settle(100)
       local msgs = read()
-      local new = vim.list_slice(msgs, #after_same + 1)
-      local mode_lines = 0
-      for _, l in ipairs(new) do
-        local low = l:lower()
-        if
-          low:find('image', 1, true)
-          or low:find('graphics', 1, true)
-          or low:find('pixel', 1, true)
-        then
-          mode_lines = mode_lines + 1
-        end
-      end
-      a.eq(1, mode_lines, 'one message names the new image mode')
+      a.eq(1, U.count_line(msgs, U.IMAGES_MSG), 'image mode messages')
+      a.eq(
+        1,
+        U.count_line(msgs, U.TEXT_MSG .. 'no graphics reply'),
+        'the text-only message is not repeated'
+      )
     end
   )
 end)

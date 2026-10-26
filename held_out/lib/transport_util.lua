@@ -284,6 +284,34 @@ function U.count_with(lines, needle)
   return n
 end
 
+U.IMAGES_MSG = 'kitty-markdown: kitty graphics on, images render inline'
+U.TEXT_MSG = 'kitty-markdown: text-only mode: '
+
+-- Lines in a list that equal a string exactly (trailing spaces ignored).
+function U.count_line(lines, want)
+  local n = 0
+  for _, l in ipairs(lines) do
+    if vim.trim(l) == want then
+      n = n + 1
+    end
+  end
+  return n
+end
+
+-- Records vim.notify calls and still passes them on, so :messages keeps
+-- them. Returns the log and a restore function.
+function U.notify_log()
+  local log = {}
+  local orig = vim.notify
+  vim.notify = function(msg, level, o)
+    table.insert(log, { msg = msg, level = level })
+    return orig(msg, level, o)
+  end
+  return log, function()
+    vim.notify = orig
+  end
+end
+
 -- Common setup: a fresh plugin, true colors, a fake cell size, a terminal
 -- capture, no tmux, the real helper, and a scratch cache. Returns the
 -- capture and the temp dir.

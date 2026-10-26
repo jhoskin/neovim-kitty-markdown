@@ -65,11 +65,14 @@ QA.describe('transport: sequences', function()
     a.truthy(tx.data == QA.read(path), 'decoded bytes equal the file')
   end)
 
-  QA.check('R-123', 'A transmission is quiet: the first chunk carries q=2', function()
+  QA.check('R-123', 'A transmission is quiet: every chunk carries q=2', function()
     local transmit = need_fn('transmit')
     transmit(4245, big_png(dir))
     local tx = U.transmissions(cap)[1]
-    a.eq('2', tx.first.control.q, 'q on the first chunk')
+    a.ge(3, #tx.chunks, 'chunks')
+    for i, c in ipairs(tx.chunks) do
+      a.eq('2', c.control.q, 'q on chunk ' .. i)
+    end
   end)
 
   QA.check(
@@ -200,15 +203,19 @@ QA.describe('transport: sequences', function()
     end
   )
 
-  QA.check('R-128', 'Deleting an image sends a delete action for that image id', function()
-    local delete = need_fn('delete')
-    delete(9001)
-    local d = U.deletes(cap)
-    a.eq(1, #d, 'delete commands')
-    local how = d[1].control.d
-    a.truthy(how == 'i' or how == 'I', 'delete by id (d=i or d=I), got ' .. tostring(how))
-    a.eq('9001', d[1].control.i, 'image id')
-  end)
+  QA.check(
+    { 'R-128', 'R-308' },
+    'Deleting an image sends a delete action with d=I for that image id',
+    function()
+      local delete = need_fn('delete')
+      delete(9001)
+      local d = U.deletes(cap)
+      a.eq(1, #d, 'delete commands')
+      local how = d[1].control.d
+      a.eq('I', how, 'delete by id that also frees the data')
+      a.eq('9001', d[1].control.i, 'image id')
+    end
+  )
 
   QA.check(
     'R-125',

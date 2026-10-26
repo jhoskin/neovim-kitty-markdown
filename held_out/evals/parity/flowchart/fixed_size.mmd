@@ -1,0 +1,6 @@
+%%{init: {"flowchart": {"useMaxWidth": false}}}%%
+flowchart TD
+  req[Incoming request] --> rate{Rate limit OK?}
+  rate -->|yes| handler[Handle request]
+  rate -->|no| r429[429 Too Many Requests]
+  handler --> log[(Access log)]

@@ -1,18 +1,45 @@
 -- qa: serial
--- R-214: the text measurer against the measurement oracle. The fixture
--- held_out/evals/parity/measure_fixture.json comes from
--- held_out/evals/parity/measure_corpus.mjs, which repeats the getBBox (SVG
--- label) and getBoundingClientRect (HTML label) measurements of
--- helper/oracle/measure.mjs for the hidden label corpus.
+-- R-214, R-301, R-302: the text measurer against the measurement oracle
+-- (helper/oracle/measure.mjs). Two fixtures, both in held_out/evals/parity:
+-- - measure_oracle.json: the output of helper/oracle/measure.mjs itself.
+-- - measure_fixture.json: measure_corpus.mjs, which repeats the same
+--   getBBox (SVG label) and getBoundingClientRect (HTML label) measurement
+--   on the same page for the hidden label corpus.
+-- The measure command has no weight or style option, so only regular,
+-- upright cases are compared. A label is fallback text when it has at least
+-- one character outside ASCII (definition); the tolerance applies to the
+-- width and to the height of the whole label (R-301).
 local QA = require('qa')
+local P = require('parity_util')
 local a = QA.assert
 
 local TOL = { latin = 0.5, fallback = 3 }
 
-local function fixture()
-  local s = QA.read(QA.evals .. '/parity/measure_fixture.json')
-  QA.need(s ~= nil, 'held_out/evals/parity/measure_fixture.json')
+local function load(file)
+  local s = QA.read(QA.evals .. '/parity/' .. file)
+  QA.need(s ~= nil, 'held_out/evals/parity/' .. file)
   return vim.json.decode(s).cases
+end
+
+local function class_of(text)
+  return text:find('[\128-\255]') and 'fallback' or 'latin'
+end
+
+local cases
+local function all_cases()
+  if not cases then
+    cases = {}
+    for _, file in ipairs({ 'measure_oracle.json', 'measure_fixture.json' }) do
+      for _, c in ipairs(load(file)) do
+        local regular = (c.weight == nil or c.weight == 400)
+          and (c.style == nil or c.style == 'normal')
+        if regular and c.text ~= '' then
+          table.insert(cases, c)
+        end
+      end
+    end
+  end
+  return cases
 end
 
 local function measure(c, mode)
@@ -27,7 +54,7 @@ local function measure(c, mode)
     '--mode',
     mode,
   })
-  QA.need(r.code == 0 or not (r.stderr or ''):find('unrecognized'), 'the helper measure command')
+  QA.need(not (r.stderr or ''):find('unrecognized'), 'the helper measure command')
   if r.code ~= 0 then
     return nil, r.stderr
   end
@@ -35,9 +62,10 @@ local function measure(c, mode)
 end
 
 local function run(class, mode)
+  P.need_macos()
   local fails, n = {}, 0
-  for _, c in ipairs(fixture()) do
-    if c.class == class then
+  for _, c in ipairs(all_cases()) do
+    if class_of(c.text) == class then
       n = n + 1
       local got, err = measure(c, mode)
       local want = c[mode]
@@ -48,7 +76,7 @@ local function run(class, mode)
         if math.abs(dw) > TOL[class] or math.abs(dh) > TOL[class] then
           table.insert(
             fails,
-            ('%q %s %dpx: dw %.2f dh %.2f'):format(c.text, c.family_id, c.size, dw, dh)
+            ('%q %s %dpx: dw %.2f dh %.2f'):format(c.text, c.family, c.size, dw, dh)
           )
         end
       end
@@ -62,25 +90,33 @@ local function run(class, mode)
 end
 
 QA.describe('parity: text measurer against the measurement oracle', function()
-  QA.check('R-214', 'Latin SVG label sizes match the measurement oracle within 0.5 px', function()
-    run('latin', 'svg')
-  end)
-
-  QA.check('R-214', 'Latin HTML label sizes match the measurement oracle within 0.5 px', function()
-    run('latin', 'html')
-  end)
+  QA.check(
+    { 'R-214', 'R-301' },
+    'ASCII SVG labels match the measurement oracle within 0.5 px in width and height',
+    function()
+      run('latin', 'svg')
+    end
+  )
 
   QA.check(
-    'R-214',
-    'SVG label sizes for text that needs a fallback font match the measurement oracle within 3 px',
+    { 'R-214', 'R-301' },
+    'ASCII HTML labels match the measurement oracle within 0.5 px in width and height',
+    function()
+      run('latin', 'html')
+    end
+  )
+
+  QA.check(
+    { 'R-214', 'R-301', 'R-302' },
+    'SVG labels with a character outside ASCII match the measurement oracle within 3 px in width and height',
     function()
       run('fallback', 'svg')
     end
   )
 
   QA.check(
-    'R-214',
-    'HTML label sizes for text that needs a fallback font match the measurement oracle within 3 px',
+    { 'R-214', 'R-301', 'R-302' },
+    'HTML labels with a character outside ASCII match the measurement oracle within 3 px in width and height',
     function()
       run('fallback', 'html')
     end

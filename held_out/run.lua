@@ -439,7 +439,7 @@ for _, id in ipairs(req_order) do
     end
   end
   if #failed > 0 then
-    table.insert(findings, { req = id, failed = failed, total = #failed + #ok })
+    table.insert(findings, { req = id, failed = failed, ok = ok, total = #failed + #ok })
   elseif #ok > 0 then
     table.insert(passed, { req = id, ok = ok })
   elseif #other > 0 then
@@ -449,25 +449,57 @@ for _, id in ipairs(req_order) do
   end
 end
 
--- A check tagged with several requirements fails all of them. Report one
--- finding per set of failing checks, with every requirement it covers.
+-- A check tagged with several requirements fails all of them. Findings that
+-- share a failing check are one defect, so join them (connected components)
+-- into one finding that names every requirement involved.
 do
-  local merged, by_key = {}, {}
-  for _, f in ipairs(findings) do
-    local ids = {}
+  local function key(c)
+    return (c.spec or '') .. '#' .. tostring(c.n or c.hint)
+  end
+  local parent = {}
+  local function find(i)
+    while parent[i] ~= i do
+      parent[i] = parent[parent[i]]
+      i = parent[i]
+    end
+    return i
+  end
+  local owner = {}
+  for i, f in ipairs(findings) do
+    parent[i] = i
     for _, c in ipairs(f.failed) do
-      table.insert(ids, (c.spec or '') .. '#' .. tostring(c.n or c.hint))
+      local k = key(c)
+      if owner[k] then
+        parent[find(i)] = find(owner[k])
+      else
+        owner[k] = i
+      end
     end
-    table.sort(ids)
-    local key = table.concat(ids, '|')
-    local m = by_key[key]
-    if m then
-      m.req = m.req .. ', ' .. f.req
-      m.total = math.max(m.total, f.total)
+  end
+  local merged, by_root = {}, {}
+  for i, f in ipairs(findings) do
+    local r = find(i)
+    local m = by_root[r]
+    if not m then
+      m = { req = f.req, failed = {}, ok = {}, seen = {} }
+      by_root[r] = m
+      table.insert(merged, m)
     else
-      by_key[key] = f
-      table.insert(merged, f)
+      m.req = m.req .. ', ' .. f.req
     end
+    for _, list in ipairs({ { f.failed, m.failed }, { f.ok or {}, m.ok } }) do
+      for _, c in ipairs(list[1]) do
+        local k = key(c)
+        if not m.seen[k] then
+          m.seen[k] = true
+          table.insert(list[2], c)
+        end
+      end
+    end
+  end
+  for _, m in ipairs(merged) do
+    m.total = #m.failed + #m.ok
+    m.seen = nil
   end
   findings = merged
 end

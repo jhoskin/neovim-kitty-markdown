@@ -236,4 +236,31 @@ M.MARKERS = {
   { '^%s*|.*|%s*$', 'pipe table row' },
 }
 
+-- The glyphs of the SPEC.md Icons definition (R-274).
+local function u(cp)
+  return vim.fn.nr2char(cp, 1)
+end
+M.ICON = {
+  heading = { u(0xF0CA1), u(0xF0CA3), u(0xF0CA5), u(0xF0CA7), u(0xF0CA9), u(0xF0CAB) },
+  bullet = { u(0x25CF), u(0x25CB), u(0x25C6), u(0x25C7) },
+  checked = u(0xF0C52),
+  unchecked = u(0xF0131),
+  alert = {
+    NOTE = u(0xF02FD),
+    TIP = u(0xF0336),
+    IMPORTANT = u(0xF017E),
+    WARNING = u(0xF002A),
+    CAUTION = u(0xF0CE6),
+  },
+  quote = u(0x258E),
+  rule = u(0x2500),
+}
+
+-- GitHub Primer default border colors (borderColor-default), current and
+-- previous releases, per palette.
+M.BORDER = {
+  light = { [0xd1d9e0] = true, [0xd0d7de] = true },
+  dark = { [0x3d444d] = true, [0x30363d] = true },
+}
+
 return M

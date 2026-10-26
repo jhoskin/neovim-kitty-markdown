@@ -19,7 +19,8 @@ const oracleDir = path.resolve(here, '..', '..', '..', 'helper', 'oracle');
 const require = createRequire(path.join(oracleDir, 'package.json'));
 const { default: puppeteer } = await import(url.pathToFileURL(require.resolve('puppeteer')).href);
 
-// class: latin (0.5 px) or fallback (3 px), R-214.
+// The class field is informational: the checks treat a label with any
+// character outside ASCII as fallback text (3 px), others as Latin (0.5 px).
 const STRINGS = [
   ['latin', 'Order received'],
   ['latin', 'Is the cart valid?'],

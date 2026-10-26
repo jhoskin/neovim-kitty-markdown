@@ -342,4 +342,80 @@ function U.cleanup()
   pcall(vim.cmd, 'silent! %bwipeout!')
 end
 
+-- Writes an RGBA PNG whose pixels come from fn(x, y) -> r, g, b, a
+-- (0-based x and y). Stored zlib blocks, like QA.make_png.
+function U.make_png_fn(path, w, h, fn)
+  local bit = require('bit')
+  local function be32(n)
+    return string.char(
+      bit.band(bit.rshift(n, 24), 255),
+      bit.band(bit.rshift(n, 16), 255),
+      bit.band(bit.rshift(n, 8), 255),
+      bit.band(n, 255)
+    )
+  end
+  local crc_table = {}
+  for i = 0, 255 do
+    local c = i
+    for _ = 1, 8 do
+      if bit.band(c, 1) == 1 then
+        c = bit.bxor(0xEDB88320, bit.rshift(c, 1))
+      else
+        c = bit.rshift(c, 1)
+      end
+    end
+    crc_table[i] = c
+  end
+  local function crc(str)
+    local c = 0xFFFFFFFF
+    for i = 1, #str do
+      c = bit.bxor(crc_table[bit.band(bit.bxor(c, str:byte(i)), 255)], bit.rshift(c, 8))
+    end
+    return bit.bxor(c, 0xFFFFFFFF) % 2 ^ 32
+  end
+  local function chunk(t, data)
+    return be32(#data) .. t .. data .. be32(crc(t .. data))
+  end
+  local rows = {}
+  for y = 0, h - 1 do
+    local px = { '\0' }
+    for x = 0, w - 1 do
+      px[#px + 1] = string.char(fn(x, y))
+    end
+    rows[#rows + 1] = table.concat(px)
+  end
+  local raw = table.concat(rows)
+  local parts = { '\120\1' }
+  local i = 1
+  while i <= #raw do
+    local blk = raw:sub(i, i + 65534)
+    i = i + #blk
+    local final = i > #raw and 1 or 0
+    local len = #blk
+    local nlen = bit.band(bit.bnot(len), 0xFFFF)
+    parts[#parts + 1] = string.char(
+      final,
+      bit.band(len, 255),
+      bit.rshift(len, 8),
+      bit.band(nlen, 255),
+      bit.rshift(nlen, 8)
+    ) .. blk
+  end
+  local s1, s2 = 1, 0
+  for k = 1, #raw do
+    s1 = (s1 + raw:byte(k)) % 65521
+    s2 = (s2 + s1) % 65521
+  end
+  parts[#parts + 1] = be32(s2 * 65536 + s1)
+  local ihdr = be32(w) .. be32(h) .. '\8\6\0\0\0'
+  QA.write(
+    path,
+    '\137PNG\r\n\26\n'
+      .. chunk('IHDR', ihdr)
+      .. chunk('IDAT', table.concat(parts))
+      .. chunk('IEND', '')
+  )
+  return path
+end
+
 return U

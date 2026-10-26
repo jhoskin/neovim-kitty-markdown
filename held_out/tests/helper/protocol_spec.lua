@@ -83,6 +83,17 @@ local function longest_string(t, depth)
 end
 
 -- Width and height from result fields whose names say so.
+-- R-320: the fields of a pixel result.
+local function pixel_fields(res)
+  a.eq('string', type(res.path), 'path')
+  a.eq('number', type(res.width_px), 'width_px')
+  a.eq('number', type(res.height_px), 'height_px')
+  a.eq('number', type(res.bytes), 'bytes')
+  a.eq('boolean', type(res.cached), 'cached')
+  local pw, ph = QA.png_size(res.path)
+  a.eq({ pw, ph }, { res.width_px, res.height_px }, 'width_px and height_px match the file')
+end
+
 local function size_fields(t)
   local w, h
   for k, v in pairs(t) do
@@ -151,26 +162,49 @@ QA.describe('helper protocol: framing', function()
   )
 
   QA.check(
-    'R-142',
-    'The probe result reports the helper version as a string',
-    { severity = 'medium' },
+    { 'R-142', 'R-319' },
+    'The probe result holds helper_version, mermaid_version, cache_bytes, fonts, and diagram_types',
     function()
       local sess = QA.helper_session()
       local r = sess:request('probe', vim.empty_dict(), 5000)
       sess:close()
       a.not_nil(r and r.result, 'probe result')
-      local found = false
-      for k, v in pairs(r.result) do
-        if
-          type(k) == 'string'
-          and k:lower():find('version')
-          and type(v) == 'string'
-          and v:match('^%d+%.%d+')
-        then
-          found = true
-        end
+      a.eq('string', type(r.result.helper_version), 'helper_version')
+      a.matches('^%d+%.%d+', r.result.helper_version or '', 'helper_version')
+      a.eq('string', type(r.result.mermaid_version), 'mermaid_version')
+      a.eq('number', type(r.result.cache_bytes), 'cache_bytes')
+      a.ge(0, r.result.cache_bytes, 'cache_bytes')
+      a.not_nil(r.result.fonts, 'fonts')
+      a.eq('table', type(r.result.diagram_types), 'diagram_types')
+    end
+  )
+
+  QA.check(
+    'R-319',
+    'The probe result names the mermaid version the helper follows',
+    { severity = 'medium' },
+    function()
+      local sess = QA.helper_session()
+      local r = sess:request('probe', vim.empty_dict(), 5000)
+      sess:close()
+      a.eq('12.2.0', r and r.result and r.result.mermaid_version)
+    end
+  )
+
+  QA.check(
+    'R-319',
+    'The probe result lists diagram types as strings',
+    { severity = 'medium' },
+    function()
+      local sess = QA.helper_session()
+      local r = sess:request('probe', vim.empty_dict(), 5000)
+      sess:close()
+      local types = r and r.result and r.result.diagram_types
+      a.eq('table', type(types))
+      a.ge(1, #types, 'at least one diagram type')
+      for _, t in ipairs(types) do
+        a.eq('string', type(t))
       end
-      a.truthy(found, 'a version field in the probe result')
     end
   )
 end)
@@ -321,18 +355,22 @@ QA.describe('helper protocol: malformed input', function()
     end
   )
 
-  QA.check('R-247', 'A truncated JSON line gets an invalid_params error', function()
-    local sess = QA.helper_session()
-    sess:send_raw('{"id":5,"method":"probe"')
-    QA.wait(3000, function()
-      return #responses(sess) > 0
-    end)
-    sess:close()
-    local r = responses(sess)[1]
-    a.not_nil(r, 'answered')
-    a.truthy(r.id == 0 or r.id == 5, 'id 0 or the readable id')
-    a.eq('invalid_params', err_code(r))
-  end)
+  QA.check(
+    { 'R-247', 'R-316' },
+    'A truncated JSON line gets an invalid_params error with id 0',
+    function()
+      local sess = QA.helper_session()
+      sess:send_raw('{"id":5,"method":"probe"')
+      QA.wait(3000, function()
+        return #responses(sess) > 0
+      end)
+      sess:close()
+      local r = responses(sess)[1]
+      a.not_nil(r, 'answered')
+      a.eq(0, r.id, 'id 0 for a line that is not valid JSON')
+      a.eq('invalid_params', err_code(r))
+    end
+  )
 
   QA.check(
     'R-247',
@@ -452,7 +490,7 @@ end)
 
 QA.describe('helper protocol: pixel results', function()
   QA.check(
-    'R-147',
+    { 'R-147', 'R-320' },
     'An image result names a file in the cache and its pixel size, with no inline image bytes',
     function()
       local dir = QA.tmpdir()
@@ -466,6 +504,7 @@ QA.describe('helper protocol: pixel results', function()
         'an image method'
       )
       a.truthy(is_obj(r.result), 'result object')
+      pixel_fields(r.result)
       local path = find_file_field(r.result)
       a.not_nil(path, 'a field names an existing file')
       local real_cache = vim.uv.fs_realpath(sess.cache_dir)
@@ -485,7 +524,7 @@ QA.describe('helper protocol: pixel results', function()
   )
 
   QA.check(
-    'R-147',
+    { 'R-147', 'R-320' },
     'A diagram result names a file in the cache and its pixel size, with no inline image bytes',
     function()
       local sess = QA.helper_session()
@@ -501,6 +540,7 @@ QA.describe('helper protocol: pixel results', function()
         'a diagram method'
       )
       a.truthy(is_obj(r.result), 'result object')
+      pixel_fields(r.result)
       local path = find_file_field(r.result)
       a.not_nil(path, 'a field names an existing file')
       local real_cache = vim.uv.fs_realpath(sess.cache_dir)
@@ -518,7 +558,7 @@ QA.describe('helper protocol: pixel results', function()
   )
 
   QA.check(
-    'R-147',
+    { 'R-147', 'R-320' },
     'An SVG result names a file in the cache and its pixel size',
     { severity = 'medium' },
     function()
@@ -536,12 +576,198 @@ QA.describe('helper protocol: pixel results', function()
         'an SVG method'
       )
       a.truthy(is_obj(r.result), 'result object')
+      pixel_fields(r.result)
       local path = find_file_field(r.result)
       a.not_nil(path, 'a field names an existing file')
       local w, h = size_fields(r.result)
       local pw, ph = QA.png_size(path)
       a.eq({ pw, ph }, { w, h }, 'reported size matches the file')
       a.le(1000, longest_string(r.result), 'no long string such as inline bytes')
+    end
+  )
+end)
+
+QA.describe('helper protocol: method and id rules', function()
+  local non_string = {
+    { 'a number', '{"id":41,"method":42,"params":{}}', 41 },
+    { 'null', '{"id":42,"method":null,"params":{}}', 42 },
+    { 'an object', '{"id":43,"method":{"name":"probe"},"params":{}}', 43 },
+    { 'a list', '{"id":44,"method":["probe"],"params":{}}', 44 },
+  }
+  for _, case in ipairs(non_string) do
+    QA.check(
+      { 'R-314', 'R-247' },
+      'A request whose method is ' .. case[1] .. ' gets invalid_params with its id',
+      function()
+        local sess = QA.helper_session()
+        sess:send_raw(case[2])
+        local r = sess:wait_for(case[3], 5000)
+        sess:close()
+        a.not_nil(r, 'answered with its id')
+        a.eq('invalid_params', err_code(r))
+      end
+    )
+  end
+
+  QA.check(
+    'R-315',
+    'The helper does not answer an empty line or a line of only whitespace',
+    function()
+      local sess = QA.helper_session()
+      sess:send_raw('')
+      sess:send_raw('   ')
+      sess:send_raw('\t \t')
+      sess:send_raw('\r')
+      sess:send_raw('{"id":61,"method":"probe","params":{}}')
+      sess:wait_for(61, 5000)
+      QA.wait(300, function()
+        return false
+      end)
+      sess:close()
+      local ids = {}
+      for _, m in ipairs(sess) do
+        if m.id ~= 999999 then
+          table.insert(ids, m.id or m.raw)
+        end
+      end
+      a.eq({ 61 }, ids, 'answers')
+    end
+  )
+
+  QA.check(
+    'R-315',
+    'Blank lines at end of input do not produce answers before the exit',
+    { severity = 'medium' },
+    function()
+      local sess, res = eof_session({ '', '  ', '{"id":62,"method":"probe","params":{}}', '' })
+      a.eq(0, res and res.code, 'exit status')
+      local ids = {}
+      for _, m in ipairs(sess) do
+        table.insert(ids, m.id or m.raw)
+      end
+      a.eq({ 62 }, ids, 'answers')
+    end
+  )
+
+  QA.check(
+    'R-316',
+    'A line that is not JSON gets id 0 even when it holds an id-like text',
+    function()
+      local sess = QA.helper_session()
+      sess:send_raw('id: 77, method: probe')
+      local r = sess:wait_for(0, 5000)
+      sess:close()
+      a.not_nil(r, 'answered with id 0')
+      a.is_nil(sess:wait_for(77, 1), 'no answer with the id-like text')
+    end
+  )
+
+  QA.check(
+    'R-317',
+    'A request with id 0 is accepted and answered with id 0 and a result',
+    function()
+      local sess = QA.helper_session()
+      sess:send_raw('{"id":0,"method":"probe","params":{}}')
+      local r = sess:wait_for(0, 5000)
+      sess:close()
+      a.not_nil(r, 'answered')
+      a.truthy(is_obj(r.result), 'a result, not an error')
+    end
+  )
+
+  QA.check(
+    'R-317',
+    'A request with an id above 32 bits is accepted and answered with the same id',
+    function()
+      local sess = QA.helper_session()
+      sess:send_raw('{"id":1099511627776,"method":"probe","params":{}}')
+      local r = sess:wait_for(1099511627776, 5000)
+      sess:close()
+      a.not_nil(r, 'answered with the same id')
+      a.truthy(is_obj(r.result), 'a result')
+    end
+  )
+
+  local bad_ids = {
+    { 'negative', '-3' },
+    { 'a fraction', '2.5' },
+    { 'a string', '"12"' },
+    { 'null', 'null' },
+    { 'a boolean', 'true' },
+    { 'an object', '{"n":1}' },
+  }
+  for _, case in ipairs(bad_ids) do
+    QA.check(
+      'R-318',
+      'A request whose id is ' .. case[1] .. ' gets invalid_params with id 0',
+      function()
+        local sess = QA.helper_session()
+        sess:send_raw('{"id":' .. case[2] .. ',"method":"probe","params":{}}')
+        local r = sess:wait_for(0, 5000)
+        QA.wait(200, function()
+          return false
+        end)
+        sess:close()
+        a.not_nil(r, 'answered with id 0')
+        a.eq('invalid_params', err_code(r))
+        local others = 0
+        for _, m in ipairs(responses(sess)) do
+          if m.id ~= 0 and m.id ~= 999999 then
+            others = others + 1
+          end
+        end
+        a.eq(0, others, 'answers with another id')
+      end
+    )
+  end
+
+  QA.check(
+    'R-318',
+    'The helper keeps serving after a request with a bad id',
+    { severity = 'medium' },
+    function()
+      local sess = QA.helper_session()
+      sess:send_raw('{"id":-1,"method":"probe","params":{}}')
+      sess:send_raw('{"id":63,"method":"probe","params":{}}')
+      local r = sess:wait_for(63, 5000)
+      sess:close()
+      a.truthy(r and is_obj(r.result), 'the later request has a result')
+    end
+  )
+end)
+
+QA.describe('helper protocol: pixel result fields', function()
+  QA.check(
+    'R-320',
+    'A first image request reports cached false and a repeat reports cached true',
+    { severity = 'medium' },
+    function()
+      local dir = QA.tmpdir()
+      local src = QA.make_png(dir .. '/src.png', 260, 130)
+      local sess = QA.helper_session()
+      sess:request('probe', vim.empty_dict(), 5000)
+      local r1 = sess:request('image.prepare', { path = src, width_px = 200 }, 10000)
+      local r2 = sess:request('image.prepare', { path = src, width_px = 200 }, 10000)
+      sess:close()
+      QA.need(r1 and r1.result and r2 and r2.result, 'an image method')
+      a.eq(false, r1.result.cached, 'first request')
+      a.eq(true, r2.result.cached, 'repeat request')
+    end
+  )
+
+  QA.check(
+    'R-320',
+    'An image result reports a byte count that is not negative',
+    { severity = 'medium' },
+    function()
+      local dir = QA.tmpdir()
+      local src = QA.make_png(dir .. '/src.png', 90, 45)
+      local sess = QA.helper_session()
+      sess:request('probe', vim.empty_dict(), 5000)
+      local r = sess:request('image.prepare', { path = src, width_px = 200 }, 10000)
+      sess:close()
+      QA.need(r and r.result, 'an image method')
+      a.ge(0, r.result.bytes)
     end
   )
 end)

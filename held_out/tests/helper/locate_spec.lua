@@ -1,6 +1,6 @@
 -- How the plugin finds its helper: path option, installed download,
 -- download, local build (R-132, R-133, R-135, R-143, R-191, R-192, R-193,
--- R-242, R-243). Every download goes through a stub runner; no network.
+-- R-242, R-243, R-311, R-312, R-327). Every download goes through a stub runner; no network.
 
 local QA = require('qa')
 local U = require('helper_util')
@@ -188,7 +188,7 @@ QA.describe('helper locate: download and install', function()
   end)
 
   QA.check(
-    'R-133',
+    { 'R-133', 'R-327' },
     'On a platform without a release binary, the plugin uses the local release build',
     function()
       QA.need(vim.fn.executable(LOCAL_BUILD) == 1, 'a local release build in the repository')
@@ -311,6 +311,164 @@ QA.describe('helper locate: helper path option', function()
         end
       end
       a.eq(1, warns, 'WARN messages about the path')
+    end
+  )
+end)
+
+local NO_RELEASE_WARN =
+  'kitty-markdown: helper download failed: no release binary for this platform'
+
+-- Runs fn with os_uname reporting a platform that has no release binary.
+local function on_unsupported_platform(fn)
+  local orig = vim.uv.os_uname
+  vim.uv.os_uname = function()
+    local u = orig()
+    u.sysname, u.machine = 'Darwin', 'x86_64'
+    return u
+  end
+  local ok, res = pcall(fn)
+  vim.uv.os_uname = orig
+  assert(ok, res)
+  return res
+end
+
+QA.describe('helper locate: platform without a release', function()
+  local log, restore
+  QA.before_each(function()
+    U.reset()
+    log, restore = QA.capture_notify()
+  end)
+  QA.after_each(function()
+    restore()
+    U.cleanup()
+  end)
+
+  QA.check(
+    'R-327',
+    'On a platform without a release binary, the plugin shows the no-release WARN once',
+    function()
+      QA.need(vim.fn.executable(LOCAL_BUILD) == 1, 'a local release build in the repository')
+      U.stub_runner()
+      on_unsupported_platform(function()
+        locate()
+        locate()
+      end)
+      local hits = 0
+      for _, e in ipairs(log) do
+        if e.msg == NO_RELEASE_WARN then
+          hits = hits + 1
+          a.eq(vim.log.levels.WARN, e.level, 'level')
+        end
+      end
+      a.eq(1, hits, 'the exact WARN')
+    end
+  )
+
+  QA.check(
+    'R-327',
+    'On a platform without a release binary, the plugin does not try a download',
+    { severity = 'medium' },
+    function()
+      local rec = U.stub_runner()
+      on_unsupported_platform(locate)
+      a.eq({}, rec.urls, 'download URLs')
+    end
+  )
+
+  QA.check(
+    'R-327',
+    'On a platform without a release binary, the local build starts and answers',
+    function()
+      QA.need(vim.fn.executable(LOCAL_BUILD) == 1, 'a local release build in the repository')
+      U.stub_runner()
+      local res = on_unsupported_platform(function()
+        local done, err = ensure()
+        return { done = done, err = err }
+      end)
+      a.truthy(res.done, 'ensure finished')
+      a.is_nil(res.err)
+    end
+  )
+end)
+
+QA.describe('helper locate: missing or unusable path option', function()
+  local log, restore
+  QA.before_each(function()
+    U.reset()
+    log, restore = QA.capture_notify()
+  end)
+  QA.after_each(function()
+    restore()
+    U.cleanup()
+  end)
+
+  local function path_warns(bad)
+    local n = 0
+    for _, m in ipairs(U.at_level(log, vim.log.levels.WARN)) do
+      if m:find(bad, 1, true) then
+        n = n + 1
+      end
+    end
+    return n
+  end
+
+  QA.check(
+    { 'R-311', 'R-243' },
+    'A helper path option that names a missing file gives one WARN and no download',
+    function()
+      local bad = QA.tmpdir() .. '/no-such-helper'
+      local rec = U.setup_with_path(bad)
+      locate()
+      ensure()
+      U.request('cache.gc', { max_bytes = 1 }, 3000)
+      a.eq({}, rec.urls, 'download URLs')
+      a.eq(1, path_warns(bad), 'WARN messages that name the path')
+    end
+  )
+
+  QA.check('R-312', 'After the path option WARN, the plugin uses the installed binary', function()
+    local bad = QA.tmpdir() .. '/no-such-helper'
+    local rec = U.setup_with_path(bad)
+    local fake, logp = U.make_fake()
+    local dest = install(fake)
+    local path = locate()
+    a.truthy(same_file(dest, path), 'the installed binary')
+    local done, err = ensure()
+    a.truthy(done)
+    a.is_nil(err)
+    a.eq(1, U.count(logp, 'start'), 'the installed binary ran')
+    a.eq({}, rec.urls, 'download URLs')
+  end)
+
+  QA.check(
+    'R-312',
+    'After the path option WARN with no installed binary, the plugin uses the local build',
+    function()
+      QA.need(vim.fn.executable(LOCAL_BUILD) == 1, 'a local release build in the repository')
+      local dir = QA.tmpdir()
+      local bad = QA.write(dir .. '/kitty-markdown-helper', 'not a program')
+      vim.uv.fs_chmod(bad, 420)
+      local rec = U.setup_with_path(bad)
+      local path = locate()
+      a.truthy(same_file(LOCAL_BUILD, path), 'the local build')
+      a.eq({}, rec.urls, 'download URLs')
+    end
+  )
+
+  QA.check(
+    'R-312',
+    'After the path option WARN, an installed binary wins over the local build',
+    { severity = 'medium' },
+    function()
+      QA.need(vim.fn.executable(LOCAL_BUILD) == 1, 'a local release build in the repository')
+      local dir = QA.tmpdir()
+      local bad = QA.write(dir .. '/kitty-markdown-helper', 'not a program')
+      vim.uv.fs_chmod(bad, 420)
+      U.setup_with_path(bad)
+      local dest = install(U.make_fake())
+      local path = locate()
+      a.truthy(same_file(dest, path), 'the installed binary')
+      a.falsy(same_file(LOCAL_BUILD, path), 'not the local build')
     end
   )
 end)

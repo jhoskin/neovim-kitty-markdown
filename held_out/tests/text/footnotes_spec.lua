@@ -171,9 +171,8 @@ QA.describe('text: footnotes', function()
   )
 
   QA.check(
-    'R-054',
-    'A multi-paragraph footnote definition shows all of its paragraphs',
-    { severity = 'medium' },
+    { 'R-054', 'R-273' },
+    'Every paragraph of a multi-paragraph footnote definition is shown at the end of the document',
     function()
       local model = T.layout(
         { 'x[^long]', '', '[^long]: First para.', '', '    Second para of the note.', '', 'After.' },
@@ -184,7 +183,90 @@ QA.describe('text: footnotes', function()
       local after = T.find(model, 'After.')
       a.not_nil(f)
       a.not_nil(s)
-      a.truthy(f > after and s > f, 'both paragraphs at the end')
+      a.truthy(f > after and s > f, 'both paragraphs after the last block')
+    end
+  )
+
+  -- Display column of the first text after the number on a definition line,
+  -- and of the number itself.
+  local function def_cols(line, needle)
+    local s = line:find(needle, 1, true)
+    local lead = T.dw(line:match('^(%s*)'))
+    return lead, T.dw(line:sub(1, s - 1))
+  end
+
+  QA.check(
+    'R-273',
+    'Later paragraphs of a footnote definition are indented under its number',
+    function()
+      local model =
+        T.layout({ 'x[^n]', '', '[^n]: First part.', '', '    Second part.', '', 'End.' }, 80)
+      local l1 = model.lines[T.find(model, 'First part')]
+      local l2 = model.lines[T.find(model, 'Second part')]
+      local num_col = def_cols(l1, 'First part')
+      local lead2 = T.dw(l2:match('^(%s*)'))
+      a.truthy(lead2 > num_col, 'second paragraph indented past the number')
+    end
+  )
+
+  QA.check(
+    'R-273',
+    'A wrapped footnote definition line is indented under its number',
+    { severity = 'medium' },
+    function()
+      local w = 30
+      local model = T.layout({ 'x[^n]', '', '[^n]: ' .. string.rep('note words ', 8) }, w)
+      local first = T.find(model, 'note words')
+      local num_col = def_cols(model.lines[first], 'note words')
+      local nxt = model.lines[first + 1]
+      a.truthy(nxt and nxt:find('note', 1, true), 'the definition wraps')
+      local lead2 = T.dw(nxt:match('^(%s*)'))
+      a.truthy(lead2 > num_col, 'continuation indented past the number')
+    end
+  )
+
+  QA.check(
+    'R-273',
+    'A code block inside a footnote definition is shown at the end with the definition',
+    function()
+      local model = T.layout({
+        'x[^c]',
+        '',
+        '[^c]: Has code:',
+        '',
+        '    ```lua',
+        '    local inside = 1',
+        '    ```',
+        '',
+        'Main end.',
+      }, 80)
+      local def = T.find(model, 'Has code')
+      local code = T.find(model, 'local inside = 1')
+      local main = T.find(model, 'Main end')
+      a.not_nil(def)
+      a.not_nil(code)
+      a.truthy(def > main and code > def, 'code block after the definition text, at the end')
+      a.not_contains('```', T.text(model))
+      local num_col = T.dw(model.lines[def]:match('^(%s*)'))
+      local code_col = T.dw(model.lines[code]:sub(1, model.lines[code]:find('local', 1, true) - 1))
+      a.truthy(code_col > num_col, 'code indented under the number')
+    end
+  )
+
+  QA.check(
+    'R-273',
+    'A list inside a footnote definition is shown at the end, indented under the number',
+    { severity = 'medium' },
+    function()
+      local model = T.layout(
+        { 'x[^l]', '', '[^l]: Items:', '', '    - item alpha', '    - item beta', '', 'Main end.' },
+        80
+      )
+      local def = T.find(model, 'Items:')
+      local it = T.find(model, 'item alpha')
+      a.truthy(def and it and it > def and def > T.find(model, 'Main end'))
+      local num_col = T.dw(model.lines[def]:match('^(%s*)'))
+      a.truthy(T.dw(model.lines[it]:match('^(%s*)')) > num_col, 'list indented under the number')
     end
   )
 

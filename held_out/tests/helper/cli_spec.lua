@@ -2,6 +2,7 @@
 -- R-146, R-199, R-200).
 
 local QA = require('qa')
+local U = require('helper_util')
 local a = QA.assert
 
 local FLOW =
@@ -22,6 +23,16 @@ local function no_cache_env()
     TMPDIR = vim.env.TMPDIR,
     PATH = vim.env.PATH,
   }
+end
+
+-- R-324: status 1 and exactly one line `kitty-markdown-helper: <reason>`.
+local function cli_failure(res)
+  a.eq(1, res.code, 'exit status')
+  a.matches(
+    '^kitty%-markdown%-helper: [^\n]*%S[^\n]*\n?$',
+    res.stderr or '',
+    'one reason line on stderr'
+  )
 end
 
 local function first_number(s)
@@ -131,8 +142,8 @@ end)
 
 QA.describe('helper CLI: failures', function()
   QA.check(
-    'R-146',
-    'A render of a missing input file fails with a reason on stderr and a non-zero status',
+    { 'R-146', 'R-324' },
+    'A render of a missing input file fails with one prefixed reason line on stderr and status 1',
     function()
       local dir = QA.tmpdir()
       local res = QA.helper_cli({
@@ -144,27 +155,25 @@ QA.describe('helper CLI: failures', function()
         '-o',
         dir .. '/o.png',
       })
-      a.ne(0, res.code, 'exit status')
-      a.matches('%S', res.stderr or '', 'a reason on stderr')
+      cli_failure(res)
     end
   )
 
   QA.check(
-    'R-146',
-    'A render of a file that is not an image fails with a reason on stderr and a non-zero status',
+    { 'R-146', 'R-324' },
+    'A render of a file that is not an image fails with one prefixed reason line on stderr and status 1',
     function()
       local dir = QA.tmpdir()
       local src = QA.write(dir .. '/fake.png', 'this is plain text, not pixels\n')
       local res =
         QA.helper_cli({ 'render', '--image', src, '--width', '100', '-o', dir .. '/o.png' })
-      a.ne(0, res.code, 'exit status')
-      a.matches('%S', res.stderr or '', 'a reason on stderr')
+      cli_failure(res)
     end
   )
 
   QA.check(
-    'R-146',
-    'A render of invalid mermaid source fails with a reason on stderr and a non-zero status',
+    { 'R-146', 'R-324' },
+    'A render of invalid mermaid source fails with one prefixed reason line on stderr and status 1',
     function()
       local dir = QA.tmpdir()
       local src = QA.write(dir .. '/bad.mmd', 'flowchart TD\n  A --> \n  ((( ]]\n')
@@ -179,14 +188,13 @@ QA.describe('helper CLI: failures', function()
         '-o',
         dir .. '/o.png',
       })
-      a.ne(0, res.code, 'exit status')
-      a.matches('%S', res.stderr or '', 'a reason on stderr')
+      cli_failure(res)
     end
   )
 
   QA.check(
-    'R-146',
-    'A render of text that is no diagram type fails with a reason on stderr and a non-zero status',
+    { 'R-146', 'R-324' },
+    'A render of text that is no diagram type fails with one prefixed reason line on stderr and status 1',
     function()
       local dir = QA.tmpdir()
       local src = QA.write(dir .. '/none.mmd', 'just some words here\n')
@@ -201,34 +209,31 @@ QA.describe('helper CLI: failures', function()
         '-o',
         dir .. '/o.png',
       })
-      a.ne(0, res.code, 'exit status')
-      a.matches('%S', res.stderr or '', 'a reason on stderr')
+      cli_failure(res)
     end
   )
 
   QA.check(
-    'R-146',
-    'A render of a broken SVG fails with a reason on stderr and a non-zero status',
+    { 'R-146', 'R-324' },
+    'A render of a broken SVG fails with one prefixed reason line on stderr and status 1',
     function()
       local dir = QA.tmpdir()
       local src = QA.write(dir .. '/bad.svg', '<svg xmlns="http://www.w3.org/2000/svg"><rect')
       local res = QA.helper_cli({ 'render', '--svg', src, '--width', '200', '-o', dir .. '/o.png' })
-      a.ne(0, res.code, 'exit status')
-      a.matches('%S', res.stderr or '', 'a reason on stderr')
+      cli_failure(res)
     end
   )
 
   QA.check(
-    'R-146',
-    'A render whose output path cannot be written fails with a reason on stderr and a non-zero status',
+    { 'R-146', 'R-324' },
+    'A render whose output path cannot be written fails with one prefixed reason line on stderr and status 1',
     function()
       local dir = QA.tmpdir()
       local src = QA.make_png(dir .. '/in.png', 50, 50)
       local blocker = QA.write(dir .. '/file', 'x')
       local res =
         QA.helper_cli({ 'render', '--image', src, '--width', '100', '-o', blocker .. '/sub/o.png' })
-      a.ne(0, res.code, 'exit status')
-      a.matches('%S', res.stderr or '', 'a reason on stderr')
+      cli_failure(res)
     end
   )
 end)
@@ -289,20 +294,24 @@ QA.describe('helper CLI: compare', function()
     a.near(1, first_number(res.stdout), 1e-6)
   end)
 
-  QA.check('R-199', 'compare of different images prints an SSIM below 1 and not below 0', function()
-    local dir = QA.tmpdir()
-    local p1 = QA.write(dir .. '/a.svg', SVG)
-    local pa, pb = dir .. '/a.png', dir .. '/b.png'
-    a.eq(0, QA.helper_cli({ 'render', '--svg', p1, '--width', '200', '-o', pa }).code)
-    QA.make_png(pb, 200, 100, { 255, 255, 255, 255 })
-    QA.need(select(2, QA.png_size(pa)) == 100, 'the SVG render size')
-    local res = QA.helper_cli({ 'compare', pa, pb })
-    a.eq(0, res.code, tostring(res.stderr))
-    local v = first_number(res.stdout)
-    a.not_nil(v, 'a number on stdout')
-    a.le(0.99, v)
-    a.ge(0, v)
-  end)
+  QA.check(
+    'R-199',
+    'compare of different images prints an SSIM below 1 and not below -1',
+    function()
+      local dir = QA.tmpdir()
+      local p1 = QA.write(dir .. '/a.svg', SVG)
+      local pa, pb = dir .. '/a.png', dir .. '/b.png'
+      a.eq(0, QA.helper_cli({ 'render', '--svg', p1, '--width', '200', '-o', pa }).code)
+      QA.make_png(pb, 200, 100, { 255, 255, 255, 255 })
+      QA.need(select(2, QA.png_size(pa)) == 100, 'the SVG render size')
+      local res = QA.helper_cli({ 'compare', pa, pb })
+      a.eq(0, res.code, tostring(res.stderr))
+      local v = first_number(res.stdout)
+      a.not_nil(v, 'a number on stdout')
+      a.le(0.99, v)
+      a.ge(-1, v)
+    end
+  )
 
   QA.check(
     'R-199',
@@ -317,4 +326,244 @@ QA.describe('helper CLI: compare', function()
       a.near(1, first_number(res.stdout), 1e-6)
     end
   )
+end)
+
+local function solid(path, w, h, rgba)
+  return QA.make_png(path, w, h, rgba or { 40, 90, 160, 255 })
+end
+
+-- Two bands: the color depends only on y.
+local function hbands(path, w, h)
+  return U.make_png_fn(path, w, h, function(_, y)
+    if y < 24 then
+      return 200, 30, 30, 255
+    end
+    return 30, 30, 200, 255
+  end)
+end
+
+-- Stripes: the color depends only on x.
+local function vstripes(path, w, h)
+  return U.make_png_fn(path, w, h, function(x)
+    if x % 8 < 4 then
+      return 250, 250, 250, 255
+    end
+    return 20, 20, 20, 255
+  end)
+end
+
+local SSIM_LINE = '^%-?%d%.%d%d%d%d\n$'
+
+QA.describe('helper CLI: compare output', function()
+  QA.check(
+    { 'R-321', 'R-199' },
+    'compare of equal images prints 1.0000 and a line break, nothing else, and exits 0',
+    function()
+      local dir = QA.tmpdir()
+      local p1 = solid(dir .. '/a.png', 40, 30)
+      local p2 = solid(dir .. '/b.png', 40, 30)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(0, res.code, tostring(res.stderr))
+      a.eq('1.0000\n', res.stdout)
+    end
+  )
+
+  QA.check(
+    'R-321',
+    'compare of different images prints one number with four decimals and a line break',
+    function()
+      local dir = QA.tmpdir()
+      local p1 = hbands(dir .. '/a.png', 48, 48)
+      local p2 = vstripes(dir .. '/b.png', 48, 48)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(0, res.code, tostring(res.stderr))
+      a.matches(SSIM_LINE, res.stdout or '')
+      a.ne('1.0000\n', res.stdout)
+    end
+  )
+
+  QA.check(
+    'R-321',
+    'compare writes nothing to stderr when it succeeds',
+    { severity = 'medium' },
+    function()
+      local dir = QA.tmpdir()
+      local p1 = hbands(dir .. '/a.png', 32, 48)
+      local res = QA.helper_cli({ 'compare', p1, p1 })
+      a.eq(0, res.code)
+      a.eq('', res.stderr or '')
+    end
+  )
+
+  QA.check(
+    'R-321',
+    'compare of images smaller than the 11 pixel window still prints four decimals',
+    { severity = 'medium' },
+    function()
+      local dir = QA.tmpdir()
+      local p1 = solid(dir .. '/a.png', 6, 5)
+      local p2 = vstripes(dir .. '/b.png', 6, 5)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(0, res.code, tostring(res.stderr))
+      a.matches(SSIM_LINE, res.stdout or '')
+    end
+  )
+end)
+
+QA.describe('helper CLI: compare sizes', function()
+  QA.check(
+    'R-322',
+    'compare of images 1 pixel apart in width crops to the common size and succeeds',
+    function()
+      local dir = QA.tmpdir()
+      local p1 = hbands(dir .. '/a.png', 64, 48)
+      local p2 = hbands(dir .. '/b.png', 65, 48)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(0, res.code, tostring(res.stderr))
+      a.eq('1.0000\n', res.stdout)
+    end
+  )
+
+  QA.check(
+    'R-322',
+    'compare of images 1 pixel apart in height crops to the common size and succeeds',
+    function()
+      local dir = QA.tmpdir()
+      local p1 = vstripes(dir .. '/a.png', 64, 48)
+      local p2 = vstripes(dir .. '/b.png', 64, 49)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(0, res.code, tostring(res.stderr))
+      a.eq('1.0000\n', res.stdout)
+    end
+  )
+
+  QA.check(
+    'R-322',
+    'compare of images 1 pixel apart on both axes, in opposite directions, succeeds',
+    function()
+      local dir = QA.tmpdir()
+      local p1 = solid(dir .. '/a.png', 64, 49)
+      local p2 = solid(dir .. '/b.png', 65, 48)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(0, res.code, tostring(res.stderr))
+      a.eq('1.0000\n', res.stdout)
+    end
+  )
+
+  QA.check(
+    'R-322',
+    'compare crops around the centers, so a 1 pixel margin on one side does not lower the SSIM much',
+    { severity = 'medium' },
+    function()
+      local dir = QA.tmpdir()
+      -- A centered square; the larger image has one extra column.
+      local function square(path, w)
+        return U.make_png_fn(path, w, 48, function(x, y)
+          local cx = (w - 1) / 2
+          if math.abs(x - cx) < 12 and math.abs(y - 23.5) < 12 then
+            return 0, 0, 0, 255
+          end
+          return 255, 255, 255, 255
+        end)
+      end
+      local p1 = square(dir .. '/a.png', 64)
+      local p2 = square(dir .. '/b.png', 65)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(0, res.code, tostring(res.stderr))
+      a.matches(SSIM_LINE, res.stdout or '')
+    end
+  )
+
+  QA.check(
+    'R-323',
+    'compare of images more than 1 pixel apart in width reports both sizes on stderr and exits 1',
+    function()
+      local dir = QA.tmpdir()
+      local p1 = solid(dir .. '/a.png', 64, 48)
+      local p2 = solid(dir .. '/b.png', 66, 48)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(1, res.code)
+      a.eq('kitty-markdown-helper: image sizes differ: 64x48 vs 66x48\n', res.stderr)
+      a.eq('', res.stdout or '', 'stdout')
+    end
+  )
+
+  QA.check(
+    'R-323',
+    'compare of images more than 1 pixel apart in height reports both sizes in argument order',
+    function()
+      local dir = QA.tmpdir()
+      local p1 = solid(dir .. '/a.png', 30, 52)
+      local p2 = solid(dir .. '/b.png', 30, 40)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(1, res.code)
+      a.eq('kitty-markdown-helper: image sizes differ: 30x52 vs 30x40\n', res.stderr)
+    end
+  )
+
+  QA.check(
+    'R-323',
+    'compare fails on sizes when one axis is within 1 pixel but the other is not',
+    { severity = 'medium' },
+    function()
+      local dir = QA.tmpdir()
+      local p1 = solid(dir .. '/a.png', 64, 48)
+      local p2 = solid(dir .. '/b.png', 65, 50)
+      local res = QA.helper_cli({ 'compare', p1, p2 })
+      a.eq(1, res.code)
+      a.eq('kitty-markdown-helper: image sizes differ: 64x48 vs 65x50\n', res.stderr)
+    end
+  )
+end)
+
+QA.describe('helper CLI: failure lines and arguments', function()
+  QA.check(
+    'R-324',
+    'compare of a missing file fails with one prefixed reason line and status 1',
+    function()
+      local dir = QA.tmpdir()
+      local p = solid(dir .. '/a.png', 8, 8)
+      local res = QA.helper_cli({ 'compare', p, dir .. '/missing.png' })
+      cli_failure(res)
+    end
+  )
+
+  QA.check(
+    'R-324',
+    'compare of a file that is not a PNG fails with one prefixed reason line and status 1',
+    function()
+      local dir = QA.tmpdir()
+      local p = solid(dir .. '/a.png', 8, 8)
+      local bad = QA.write(dir .. '/b.png', 'not a picture')
+      local res = QA.helper_cli({ 'compare', p, bad })
+      cli_failure(res)
+    end
+  )
+
+  local bad_args = {
+    { 'an unknown subcommand', { 'frobnicate' } },
+    { 'render without a width', { 'render', '--image', 'x.png', '-o', 'o.png' } },
+    {
+      'render with a width that is not a number',
+      { 'render', '--image', 'x.png', '--width', 'wide', '-o', 'o.png' },
+    },
+    { 'render without an output path', { 'render', '--image', 'x.png', '--width', '10' } },
+    { 'render without an input', { 'render', '--width', '10', '-o', 'o.png' } },
+    {
+      'render with two inputs',
+      { 'render', '--image', 'x.png', '--svg', 'y.svg', '--width', '10', '-o', 'o.png' },
+    },
+    { 'compare with one file', { 'compare', 'a.png' } },
+    {
+      'an unknown flag',
+      { 'render', '--image', 'x.png', '--width', '10', '-o', 'o.png', '--sparkle' },
+    },
+  }
+  for _, case in ipairs(bad_args) do
+    QA.check('R-325', 'Invalid CLI arguments exit with status 2: ' .. case[1], function()
+      local dir = QA.tmpdir()
+      local res = QA.helper_cli(case[2], { cwd = dir })
+      a.eq(2, res.code, 'exit status; stderr: ' .. tostring(res.stderr))
+    end)
+  end
 end)

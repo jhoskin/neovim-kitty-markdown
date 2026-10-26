@@ -1,4 +1,3 @@
---# selene: allow(mixed_table)
 local QA = require('qa')
 local U = require('core_util')
 local a = QA.assert
@@ -30,28 +29,21 @@ local function find_block(model, kind_pat)
   end
 end
 
--- The block key a descriptor exposes: the spec defines the key and keys
--- opts.sizes by it, so the model must let a caller learn it.
+-- The block key of a descriptor: the `key` field (R-335).
 local function block_key(desc)
-  for _, k in ipairs({ 'key', 'block_key', 'id', 'hash' }) do
-    local v = desc[k]
-    if type(v) == 'string' and v:match('^%x+$') and #v == 64 then
-      return v
-    end
-  end
-  for _, v in pairs(desc) do
-    if type(v) == 'string' and #v == 64 and v:match('^%x+$') then
-      return v
-    end
+  local v = desc and desc.key
+  if type(v) == 'string' and #v == 64 and v:match('^%x+$') then
+    return v
   end
 end
 
--- A size entry with every plausible spelling of the fields at once.
+-- A size entry with the fields of R-334.
 local function size(w, h, id)
-  return { width_px = w, height_px = h, width = w, height = h, w, h, image_id = id, id = id }
+  return { width_px = w, height_px = h, image_id = id }
 end
 
-local CELL = { width_px = 10, height_px = 20, width = 10, height = 20, 10, 20 }
+-- A cell size with the fields of R-333.
+local CELL = { width_px = 10, height_px = 20 }
 
 local function line_of(model, needle)
   for i, l in ipairs(model.lines) do
@@ -176,10 +168,10 @@ QA.describe('core: test hooks', function()
         a.eq('number', type(cs), 'highlight ' .. i .. ' start col')
         a.eq('number', type(ce), 'highlight ' .. i .. ' end col')
         a.eq('string', type(g), 'highlight ' .. i .. ' group')
-        a.truthy(line >= 0 and line <= n, 'highlight ' .. i .. ' line in range')
+        a.truthy(line >= 1 and line <= n, 'highlight ' .. i .. ' line in range (1-based)')
         a.truthy(cs >= 0 and cs <= ce, 'highlight ' .. i .. ' start <= end')
-        local text = model.lines[line] or model.lines[line + 1] or ''
-        a.le(#text + 1, ce, 'highlight ' .. i .. ' end within the line')
+        local text = model.lines[line] or ''
+        a.le(#text, ce, 'highlight ' .. i .. ' end within the line bytes')
       end
     end
   )
@@ -192,8 +184,8 @@ QA.describe('core: test hooks', function()
     local found = false
     for _, h in ipairs(model.highlights) do
       local _, cs, ce = U.hl_parts(h)
-      -- 0-based end exclusive or 1-based end inclusive
-      if (cs == s - 1 and ce == e) or (cs == s and ce == e) then
+      -- 0-based byte columns with an exclusive end (R-337)
+      if cs == s - 1 and ce == e then
         found = true
       end
     end
@@ -244,31 +236,27 @@ QA.describe('core: test hooks', function()
       local model = QA.layout(IMG_DOC, { width = 60 })
       a.eq(2, #model.blocks, 'one descriptor per pixel block')
       for _, b in ipairs(model.blocks) do
-        local l = model.lines[b.line] or model.lines[b.line + 1]
-        local l1 = model.lines[b.line]
-        local l0 = model.lines[b.line + 1]
-        a.truthy(
-          (l1 and vim.trim(l1) == '') or (l0 and vim.trim(l0) == ''),
-          'anchor line is empty: ' .. vim.inspect(l)
-        )
+        local l = model.lines[b.line]
+        a.truthy(l and vim.trim(l) == '', 'anchor line is empty: ' .. vim.inspect(l))
       end
       a.truthy(model.blocks[1].line < model.blocks[2].line, 'descriptors in document order')
     end
   )
 
-  QA.check('R-155', 'The width in cells of a block is the text width of the layout', function()
-    local m1 = QA.layout(IMG_DOC, { width = 60 })
-    local m2 = QA.layout(IMG_DOC, { width = 80 })
-    -- opts.width is the window width (text width = width - 4) or the text
-    -- width itself; the spec does not say which, so both are accepted
-    local w1, w2 = find_block(m1, 'image').width_cells, find_block(m2, 'image').width_cells
-    a.truthy(
-      (w1 == 56 and w2 == 76) or (w1 == 60 and w2 == 80),
-      ('width cells %s, %s'):format(w1, w2)
-    )
-    local m3 = QA.layout(IMG_DOC, { width = 300 })
-    a.eq(100, find_block(m3, 'image').width_cells, 'capped at the maximum text width')
-  end)
+  QA.check(
+    { 'R-155', 'R-332' },
+    'The width in cells of a block is the text width of the layout',
+    function()
+      local m1 = QA.layout(IMG_DOC, { width = 60 })
+      local m2 = QA.layout(IMG_DOC, { width = 80 })
+      -- opts.width is the window width (R-332), so the text width is
+      -- width - 4 (a margin of 2 cells on each side)
+      a.eq(56, find_block(m1, 'image').width_cells)
+      a.eq(76, find_block(m2, 'image').width_cells)
+      local m3 = QA.layout(IMG_DOC, { width = 300 })
+      a.eq(100, find_block(m3, 'image').width_cells, 'capped at the maximum text width')
+    end
+  )
 
   QA.check(
     'R-155',
@@ -284,18 +272,22 @@ QA.describe('core: test hooks', function()
     end
   )
 
-  QA.check('R-155', 'A size with an image id sets image_id on that descriptor only', function()
-    local model = QA.layout(IMG_DOC, { width = 60 })
-    local key = block_key(find_block(model, 'image'))
-    QA.need(key, 'the block key in the descriptor')
-    local m2 =
-      QA.layout(IMG_DOC, { width = 60, cell = CELL, sizes = { [key] = size(100, 50, 4242) } })
-    local img, mer = find_block(m2, 'image'), find_block(m2, 'mermaid')
-    a.eq(4242, img.image_id)
-    a.eq(100, img.width_px)
-    a.eq(50, img.height_px)
-    a.is_nil(mer.image_id, 'the other block has no image id')
-  end)
+  QA.check(
+    { 'R-155', 'R-334' },
+    'A size with an image id sets image_id on that descriptor only',
+    function()
+      local model = QA.layout(IMG_DOC, { width = 60 })
+      local key = block_key(find_block(model, 'image'))
+      QA.need(key, 'the block key in the descriptor')
+      local m2 =
+        QA.layout(IMG_DOC, { width = 60, cell = CELL, sizes = { [key] = size(100, 50, 4242) } })
+      local img, mer = find_block(m2, 'image'), find_block(m2, 'mermaid')
+      a.eq(4242, img.image_id)
+      a.eq(100, img.width_px)
+      a.eq(50, img.height_px)
+      a.is_nil(mer.image_id, 'the other block has no image id')
+    end
+  )
 
   QA.check('R-155', 'A size without an image id leaves image_id unset', function()
     local model = QA.layout(IMG_DOC, { width = 60 })
@@ -312,7 +304,7 @@ QA.describe('core: test hooks', function()
   -- R-156 ------------------------------------------------------------------
 
   QA.check(
-    'R-156',
+    { 'R-156', 'R-333' },
     'A block with a pixel size gets rows reserved from its height and the cell height',
     function()
       local model = QA.layout(IMG_DOC, { width = 60 })
@@ -366,18 +358,16 @@ QA.describe('core: test hooks', function()
   )
 
   QA.check(
-    'R-156',
-    'A block wider than the target width reserves no more rows than its unscaled height needs',
+    { 'R-156', 'R-336' },
+    'A block wider than the target width is not scaled again by the layout',
     function()
       local model = QA.layout(IMG_DOC, { width = 60 })
       local key = block_key(find_block(model, 'image'))
       QA.need(key, 'the block key in the descriptor')
       local m2 =
         QA.layout(IMG_DOC, { width = 60, cell = CELL, sizes = { [key] = size(4000, 400) } })
-      local rows = find_block(m2, 'image').rows
-      a.not_nil(rows, 'rows')
-      a.ge(1, rows)
-      a.le(20, rows)
+      -- height_px in opts.sizes is already the height after scaling (R-336)
+      a.eq(20, find_block(m2, 'image').rows)
     end
   )
 
@@ -494,7 +484,7 @@ QA.describe('core: test hooks', function()
     local wide = QA.layout(long, { width = 120 })
     a.truthy(#narrow.lines > #wide.lines, 'narrow layout has more lines')
     for _, l in ipairs(narrow.lines) do
-      a.le(44, vim.api.nvim_strwidth(l), 'line fits the width')
+      a.le(40, vim.api.nvim_strwidth(l), 'line fits the window width')
     end
   end)
 
@@ -502,7 +492,7 @@ QA.describe('core: test hooks', function()
     local model = QA.layout(IMG_DOC, { width = 60 })
     local key = block_key(find_block(model, 'image'))
     QA.need(key, 'the block key in the descriptor')
-    local c10 = { width_px = 5, height_px = 10, width = 5, height = 10, 5, 10 }
+    local c10 = { width_px = 5, height_px = 10 }
     local m1 = QA.layout(IMG_DOC, { width = 60, cell = CELL, sizes = { [key] = size(100, 100) } })
     local m2 = QA.layout(IMG_DOC, { width = 60, cell = c10, sizes = { [key] = size(100, 100) } })
     a.ne(find_block(m1, 'image').rows, find_block(m2, 'image').rows)
@@ -547,7 +537,7 @@ QA.describe('core: test hooks', function()
   -- R-204 ------------------------------------------------------------------
 
   QA.check(
-    'R-204',
+    { 'R-204', 'R-335' },
     'Each block descriptor exposes its block key as a lowercase SHA-256 hex string',
     function()
       local model = QA.layout(IMG_DOC, { width = 60 })
@@ -614,43 +604,21 @@ QA.describe('core: test hooks', function()
   QA.check('R-205', 'source_lines has one entry for every preview line', function()
     local model = QA.layout(RICH, { width = 50 })
     a.eq('table', type(model.source_lines))
-    local n = 0
-    for i = 1, #model.lines do
-      if model.source_lines[i] ~= nil or model.source_lines[i - 1] ~= nil then
-        n = n + 1
-      end
-    end
-    a.eq(#model.lines, n)
     for i = 1, #model.lines do
       local v = model.source_lines[i]
-      if v ~= nil then
-        a.eq('number', type(v))
-        a.truthy(v >= 0 and v <= #RICH, 'source line in range: ' .. tostring(v))
-      end
+      a.eq('number', type(v), 'source line of preview line ' .. i)
+      a.truthy(v >= 1 and v <= #RICH, 'source line in range (1-based): ' .. tostring(v))
     end
+    a.is_nil(model.source_lines[0], 'no entry for a line 0')
   end)
 
-  -- Source line (1-based) for preview line `i` (1-based), tolerant of a
-  -- 0-based map: returns the value under both readings.
-  local function src_of(model, i)
-    local sl = model.source_lines
-    local one = sl[i]
-    local zero = sl[i - 1]
-    return one, zero
-  end
-
+  -- Preview lines and source lines are both 1-based (R-337).
   local function maps_to(model, needle, src1)
     local i = line_of(model, needle)
     a.not_nil(i, 'preview line with ' .. needle)
-    local one, zero = src_of(model, i)
-    -- 1-based keys and values, or 0-based keys and values
-    return one == src1 or zero == src1 - 1,
-      ('preview line %d -> %s / %s, expected source line %d'):format(
-        i,
-        tostring(one),
-        tostring(zero),
-        src1
-      )
+    local v = model.source_lines[i]
+    return v == src1,
+      ('preview line %d -> %s, expected source line %d'):format(i, tostring(v), src1)
   end
 
   QA.check('R-205', 'A heading after front matter maps to its own source line', function()
@@ -685,11 +653,8 @@ QA.describe('core: test hooks', function()
       local last = line_of(model, 'end')
       a.truthy(first and last and last > first + 1, 'paragraph wraps')
       for i = first, last do
-        local one, zero = src_of(model, i)
-        a.truthy(
-          (one and one >= 3 and one <= 5) or (zero and zero >= 2 and zero <= 4),
-          ('line %d -> %s'):format(i, tostring(one))
-        )
+        local v = model.source_lines[i]
+        a.truthy(v and v >= 3 and v <= 5, ('line %d -> %s'):format(i, tostring(v)))
       end
       local ok, msg = maps_to(model, 'next', 7)
       a.truthy(ok, msg)
@@ -712,8 +677,7 @@ QA.describe('core: test hooks', function()
     function()
       local model = QA.layout(IMG_DOC, { width = 60 })
       local b = find_block(model, 'image')
-      local one, zero = src_of(model, b.line)
-      a.truthy(one == 3 or zero == 2, ('anchor line -> %s'):format(tostring(one)))
+      a.eq(3, model.source_lines[b.line], 'anchor line source')
     end
   )
 
@@ -727,11 +691,8 @@ QA.describe('core: test hooks', function()
   local function check_anchor(model, slug, needle)
     local v = anchor(model, slug)
     a.not_nil(v, 'anchor ' .. slug .. ' in ' .. vim.inspect(vim.tbl_keys(model.anchors)))
-    local l1, l0 = model.lines[v], model.lines[v + 1]
-    a.truthy(
-      (l1 and l1:find(needle, 1, true)) or (l0 and l0:find(needle, 1, true)),
-      'anchor line shows the heading ' .. needle
-    )
+    local l = model.lines[v]
+    a.truthy(l and l:find(needle, 1, true), 'anchor line shows the heading ' .. needle)
   end
 
   QA.check('R-206', 'A heading slug is lower case with spaces turned into hyphens', function()
@@ -795,20 +756,19 @@ QA.describe('core: test hooks', function()
   end)
 
   QA.check(
-    'R-206',
-    'A duplicate suffix that collides with a real heading still gives each heading its own anchor',
-    { severity = 'medium' },
+    { 'R-206', 'R-275' },
+    'A slug already taken by a suffixed duplicate gets the next free suffix, as github-slugger does',
     function()
       local model = QA.layout({ '# Item', '', '# Item', '', '# Item 1' }, { width = 60 })
-      local seen = {}
-      for _, v in pairs(model.anchors) do
-        seen[v] = true
+      local third
+      for i, l in ipairs(model.lines) do
+        if l:find('Item 1', 1, true) then
+          third = i
+        end
       end
-      local n = 0
-      for _ in pairs(seen) do
-        n = n + 1
-      end
-      a.eq(3, n, 'three distinct heading lines in anchors: ' .. vim.inspect(model.anchors))
+      a.eq(1, model.anchors['item'], vim.inspect(model.anchors))
+      a.eq(3, model.anchors['item-1'], vim.inspect(model.anchors))
+      a.eq(third, model.anchors['item-1-1'], vim.inspect(model.anchors))
     end
   )
 
@@ -831,10 +791,9 @@ QA.describe('core: test hooks', function()
     local l = model.lines[i]
     local s = l:find(needle, 1, true)
     local e = s + #needle - 1
-    -- 1-based lines with 0-based end-exclusive columns, or fully 0-based,
-    -- or fully 1-based inclusive
-    local line_ok = link.line == i or link.line == i - 1
-    local col_ok = (link.cs == s - 1 and link.ce == e) or (link.cs == s and link.ce == e)
+    -- 1-based lines with 0-based end-exclusive byte columns (R-337)
+    local line_ok = link.line == i
+    local col_ok = link.cs == s - 1 and link.ce == e
     return line_ok and col_ok
   end
 
@@ -953,8 +912,8 @@ QA.describe('core: test hooks', function()
     local fs, ls, lang = U.region_parts(r)
     local f = line_of(model, first_needle)
     local l = line_of(model, last_needle)
-    -- 1-based or 0-based line numbers
-    local ok = (fs == f and ls == l) or (fs == f - 1 and ls == l - 1)
+    -- 1-based line numbers (R-337)
+    local ok = fs == f and ls == l
     return ok, lang, ('region %s-%s, code lines %d-%d'):format(tostring(fs), tostring(ls), f, l)
   end
 
@@ -1016,6 +975,231 @@ QA.describe('core: test hooks', function()
       local model = QA.layout({ '```js {linenos=true}', 'js_code()', '```' }, { width = 60 })
       local _, _, lang = U.region_parts(model.code_regions[1] or {})
       a.eq('js', lang)
+    end
+  )
+
+  QA.check('R-338', 'An indented code block gets a code region over its lines', function()
+    local model = QA.layout(
+      { 'para', '', '    indented_one()', '    indented_two()', '', 'after' },
+      { width = 60 }
+    )
+    a.eq(1, #model.code_regions, vim.inspect(model.code_regions))
+    local ok, _, msg = region_ok(model, model.code_regions[1], 'indented_one', 'indented_two')
+    a.truthy(ok, msg)
+  end)
+
+  QA.check('R-339', 'An indented code block has no language in its code region', function()
+    local model = QA.layout({ 'para', '', '    indented_code()' }, { width = 60 })
+    a.eq(1, #model.code_regions)
+    local _, _, lang = U.region_parts(model.code_regions[1])
+    a.truthy(lang == nil or lang == '', 'language: ' .. vim.inspect(lang))
+  end)
+
+  QA.check('R-338', 'A mermaid fence gets no code region', function()
+    local model = QA.layout(IMG_DOC, { width = 60 })
+    a.eq(0, #model.code_regions, vim.inspect(model.code_regions))
+  end)
+
+  QA.check(
+    'R-338',
+    'An empty fenced code block gets no code region; the others still do',
+    function()
+      local model = QA.layout(
+        { '```lua', '```', '', '```lua', 'only_line()', '```' },
+        { width = 60 }
+      )
+      a.eq(1, #model.code_regions, vim.inspect(model.code_regions))
+      local ok, _, msg = region_ok(model, model.code_regions[1], 'only_line', 'only_line')
+      a.truthy(ok, msg)
+    end
+  )
+
+  -- R-332 to R-337 -----------------------------------------------------------
+
+  QA.check(
+    'R-332',
+    'The width option is the preview window width: text wraps inside it with the margins',
+    function()
+      local W = 50
+      local model = QA.layout({ string.rep('abcd ', 60) }, { width = W })
+      local widest = 0
+      for _, l in ipairs(model.lines) do
+        local w = vim.api.nvim_strwidth((l:gsub('%s+$', '')))
+        widest = math.max(widest, w)
+        a.le(W - 2, w, 'line ends before the right margin')
+      end
+      a.ge(W - 8, widest, 'lines use the text width')
+    end
+  )
+
+  QA.check(
+    'R-333',
+    'A cell size given as width_px and height_px turns heights into rows',
+    function()
+      local model = QA.layout(IMG_DOC, { width = 60 })
+      local key = block_key(find_block(model, 'image'))
+      QA.need(key, 'the block key in the descriptor')
+      local m2 = QA.layout(IMG_DOC, {
+        width = 60,
+        cell = { width_px = 8, height_px = 16 },
+        sizes = { [key] = size(80, 33) },
+      })
+      a.eq(3, find_block(m2, 'image').rows)
+    end
+  )
+
+  QA.check(
+    { 'R-334', 'R-155' },
+    'A size entry with width_px, height_px, and image_id is copied to its descriptor',
+    function()
+      local model = QA.layout(IMG_DOC, { width = 60 })
+      local key = block_key(find_block(model, 'mermaid'))
+      QA.need(key, 'the block key in the descriptor')
+      local m2 =
+        QA.layout(IMG_DOC, { width = 60, cell = CELL, sizes = { [key] = size(320, 240, 77) } })
+      local b = find_block(m2, 'mermaid')
+      a.eq(320, b.width_px)
+      a.eq(240, b.height_px)
+      a.eq(77, b.image_id)
+      a.eq(12, b.rows)
+    end
+  )
+
+  QA.check(
+    'R-335',
+    'Every block descriptor has a key field with the lowercase SHA-256 hex block key',
+    function()
+      local model = QA.layout(IMG_DOC, { width = 60 })
+      a.eq(2, #model.blocks)
+      for _, b in ipairs(model.blocks) do
+        a.eq('string', type(b.key), 'key on the ' .. tostring(b.kind) .. ' descriptor')
+        a.matches('^[0-9a-f]+$', b.key)
+        a.eq(64, #b.key)
+      end
+    end
+  )
+
+  QA.check(
+    'R-336',
+    'Reserved rows depend only on height_px and the cell height, not on width_px',
+    function()
+      local model = QA.layout(IMG_DOC, { width = 60 })
+      local key = block_key(find_block(model, 'image'))
+      QA.need(key, 'the block key in the descriptor')
+      local narrow =
+        QA.layout(IMG_DOC, { width = 60, cell = CELL, sizes = { [key] = size(50, 210) } })
+      local wide =
+        QA.layout(IMG_DOC, { width = 60, cell = CELL, sizes = { [key] = size(5000, 210) } })
+      a.eq(11, find_block(narrow, 'image').rows)
+      a.eq(11, find_block(wide, 'image').rows)
+    end
+  )
+
+  QA.check(
+    'R-337',
+    'Model lines are 1-based: the first preview line is line 1 in highlights, anchors, and source lines',
+    function()
+      local model = QA.layout({ '# First Heading', '', 'text' }, { width = 60 })
+      a.eq(1, model.anchors['first-heading'])
+      a.eq(1, model.source_lines[1])
+      local on_first = false
+      for _, h in ipairs(model.highlights) do
+        local line = U.hl_parts(h)
+        a.truthy(line >= 1, 'no highlight on line 0')
+        if line == 1 then
+          on_first = true
+        end
+      end
+      a.truthy(on_first, 'the heading highlight is on line 1')
+    end
+  )
+
+  QA.check(
+    'R-337',
+    'Columns are 0-based byte offsets with an exclusive end, also after multibyte text',
+    function()
+      local model = QA.layout({ 'äöü €€ **target** end' }, { width = 80 })
+      local i = line_of(model, 'target')
+      local l = model.lines[i]
+      local s = l:find('target', 1, true)
+      local found = false
+      for _, h in ipairs(model.highlights) do
+        local line, cs, ce = U.hl_parts(h)
+        if line == i and cs == s - 1 and ce == s - 1 + #'target' then
+          found = true
+        end
+      end
+      a.truthy(found, 'a highlight at byte columns ' .. (s - 1) .. '-' .. (s - 1 + #'target'))
+    end
+  )
+
+  QA.check(
+    'R-337',
+    'Link columns are 0-based byte offsets with an exclusive end after multibyte text',
+    function()
+      local model = QA.layout({ '€ ä [here](https://m.example) z' }, { width = 80 })
+      local l = link_with(model, function(t)
+        return t == 'https://m.example'
+      end)
+      a.not_nil(l)
+      a.truthy(covers(model, l, 'here'), vim.inspect(l))
+    end
+  )
+
+  -- Block key definition -----------------------------------------------------
+
+  QA.check('R-204', 'The block key of an image changes with its img tag attributes', function()
+    local m1 = QA.layout({ '<img src="pic.png" width="100">' }, { width = 60, theme = 'light' })
+    local m2 = QA.layout({ '<img src="pic.png" width="200">' }, { width = 60, theme = 'light' })
+    local b1, b2 = find_block(m1, 'image'), find_block(m2, 'image')
+    a.not_nil(b1, 'an img tag makes an image block')
+    a.not_nil(b2, 'an img tag makes an image block')
+    a.ne(b1.key, b2.key)
+  end)
+
+  QA.check(
+    'R-204',
+    'The block key of an image uses the resolved path: one relative path in two directories gives two keys',
+    function()
+      local d1, d2 = QA.tmpdir(), QA.tmpdir()
+      local m1 = QA.layout(
+        { '![a](pic.png)' },
+        { width = 60, theme = 'light' },
+        { name = d1 .. '/doc.md' }
+      )
+      local m2 = QA.layout(
+        { '![a](pic.png)' },
+        { width = 60, theme = 'light' },
+        { name = d2 .. '/doc.md' }
+      )
+      local b1, b2 = find_block(m1, 'image'), find_block(m2, 'image')
+      a.eq(
+        vim.fs.normalize(d1 .. '/pic.png'),
+        vim.fs.normalize(b1.source),
+        'source is the resolved path'
+      )
+      a.eq(
+        vim.fs.normalize(d2 .. '/pic.png'),
+        vim.fs.normalize(b2.source),
+        'source is the resolved path'
+      )
+      a.ne(b1.key, b2.key)
+    end
+  )
+
+  QA.check(
+    'R-204',
+    'Two images with the same resolved path and attributes share one block key',
+    { severity = 'medium' },
+    function()
+      local d = QA.tmpdir()
+      local m = QA.layout(
+        { '![a](pic.png)', '', 'text', '', '![b](' .. d .. '/pic.png)' },
+        { width = 60, theme = 'light' },
+        { name = d .. '/doc.md' }
+      )
+      a.eq(2, #m.blocks)
+      a.eq(m.blocks[1].key, m.blocks[2].key)
     end
   )
 

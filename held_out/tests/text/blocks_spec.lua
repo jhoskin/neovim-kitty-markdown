@@ -217,45 +217,57 @@ QA.describe('text: lists', function()
     end
   )
 
-  QA.check('R-041', 'Each nested list level is indented 2 cells more than its parent', function()
-    local model = T.layout({ '- top', '  - mid', '    - low', '      - deepest' }, 80)
-    local cols = {}
-    for _, w in ipairs({ 'top', 'mid', 'low', 'deepest' }) do
-      local ln = T.find(model, w)
-      a.not_nil(ln, w)
-      cols[#cols + 1] = { marker = lead(model.lines[ln]), text = dcol(model.lines[ln], w) }
-    end
-    for i = 2, #cols do
-      local d_marker = cols[i].marker - cols[i - 1].marker
-      local d_text = cols[i].marker - cols[i - 1].text
-      a.truthy(
-        d_marker == 2 or d_text == 2,
-        ('level %d indent: %d from the parent marker, %d from the parent text'):format(
-          i,
+  QA.check(
+    { 'R-041', 'R-264' },
+    'A nested item marker starts 2 cells right of the start of its parent item marker',
+    function()
+      local model = T.layout({ '- top', '  - mid', '    - low', '      - deepest' }, 80)
+      local cols = {}
+      for _, w in ipairs({ 'top', 'mid', 'low', 'deepest' }) do
+        local ln = T.find(model, w)
+        a.not_nil(ln, w)
+        cols[#cols + 1] = { marker = lead(model.lines[ln]), text = dcol(model.lines[ln], w) }
+      end
+      for i = 2, #cols do
+        local d_marker = cols[i].marker - cols[i - 1].marker
+        local d_text = cols[i].marker - cols[i - 1].text
+        a.eq(
+          2,
           d_marker,
-          d_text
+          ('level %d marker offset from the parent marker (%d from the parent text)'):format(
+            i,
+            d_text
+          )
         )
-      )
+      end
     end
-  end)
+  )
 
-  QA.check('R-041', 'Nested ordered and unordered lists indent 2 cells per level', function()
-    local model = T.layout({ '1. top', '   - mid', '     1. low' }, 80)
-    local cols = {}
-    for _, w in ipairs({ 'top', 'mid', 'low' }) do
-      local ln = T.find(model, w)
-      a.not_nil(ln, w)
-      cols[#cols + 1] = { marker = lead(model.lines[ln]), text = dcol(model.lines[ln], w) }
+  QA.check(
+    { 'R-041', 'R-264' },
+    'In mixed ordered and unordered nesting, each marker starts 2 cells right of its parent marker',
+    function()
+      local model = T.layout({ '1. top', '   - mid', '     1. low' }, 80)
+      local cols = {}
+      for _, w in ipairs({ 'top', 'mid', 'low' }) do
+        local ln = T.find(model, w)
+        a.not_nil(ln, w)
+        cols[#cols + 1] = { marker = lead(model.lines[ln]), text = dcol(model.lines[ln], w) }
+      end
+      for i = 2, #cols do
+        local d_marker = cols[i].marker - cols[i - 1].marker
+        local d_text = cols[i].marker - cols[i - 1].text
+        a.eq(
+          2,
+          d_marker,
+          ('level %d marker offset from the parent marker (%d from the parent text)'):format(
+            i,
+            d_text
+          )
+        )
+      end
     end
-    for i = 2, #cols do
-      local d_marker = cols[i].marker - cols[i - 1].marker
-      local d_text = cols[i].marker - cols[i - 1].text
-      a.truthy(
-        d_marker == 2 or d_text == 2,
-        ('level %d indent: %d from parent marker, %d from parent text'):format(i, d_marker, d_text)
-      )
-    end
-  end)
+  )
 
   QA.check(
     'R-041',
@@ -301,11 +313,36 @@ QA.describe('text: lists', function()
     a.ne(vim.trim(i1), vim.trim(i2))
   end)
 
-  QA.check('R-042', 'An uppercase X marks a task item checked', { severity = 'low' }, function()
-    local lower = T.nonempty(T.layout({ '- [x] t' }, 80))[1]
-    local upper = T.nonempty(T.layout({ '- [X] t' }, 80))[1]
-    a.eq(lower, upper)
+  QA.check('R-272', 'An uppercase X task marker renders exactly like a lowercase one', function()
+    local lower = T.layout({ '- [x] t' }, 80)
+    local upper = T.layout({ '- [X] t' }, 80)
+    a.eq(lower.lines, upper.lines)
+    a.eq(lower.highlights, upper.highlights)
   end)
+
+  QA.check(
+    'R-272',
+    'An uppercase X task item shows the checked icon, not the unchecked one',
+    function()
+      local model = T.layout({ '- [X] up', '- [ ] open' }, 80)
+      local up = model.lines[T.find(model, 'up')]
+      a.contains(T.ICON.checked, up)
+      a.not_contains(T.ICON.unchecked, up)
+      a.no_match('%[[xX ]%]', up)
+    end
+  )
+
+  QA.check(
+    'R-272',
+    'Uppercase and lowercase checked items in one list both show the checked icon',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ '- [x] lo', '- [X] hi', '  - [X] nested' }, 80)
+      for _, w in ipairs({ 'lo', 'hi', 'nested' }) do
+        a.contains(T.ICON.checked, model.lines[T.find(model, w)], w)
+      end
+    end
+  )
 
   QA.check(
     'R-042',
@@ -336,10 +373,20 @@ QA.describe('text: blockquotes and alerts', function()
     T.ensure_theme()
   end)
 
-  local BARS = { '▎', '│', '┃', '▏', '▍', '▌', '|', '▐', '║' }
+  local BARS = { T.ICON.quote }
   local function bar_of(line)
     local c = first_char(line)
     return vim.tbl_contains(BARS, c) and c or nil
+  end
+
+  local function bars_before(line, needle)
+    local n = 0
+    for _, c in ipairs(vim.fn.split(line:sub(1, line:find(needle, 1, true) - 1), '\\zs')) do
+      if c == T.ICON.quote then
+        n = n + 1
+      end
+    end
+    return n
   end
 
   QA.check(
@@ -407,20 +454,37 @@ QA.describe('text: blockquotes and alerts', function()
     end
   )
 
+  QA.check('R-265', 'A nested blockquote shows one bar per nesting level', function()
+    local model = T.layout({ '> outer', '>> inner', '>>> deepest' }, 80)
+    a.eq(1, bars_before(model.lines[T.find(model, 'outer')], 'outer'), 'level 1')
+    a.eq(2, bars_before(model.lines[T.find(model, 'inner')], 'inner'), 'level 2')
+    a.eq(3, bars_before(model.lines[T.find(model, 'deepest')], 'deepest'), 'level 3')
+  end)
+
   QA.check(
-    'R-051',
-    'A nested blockquote shows a bar for each level',
-    { severity = 'low' },
+    'R-265',
+    'Returning from a nested quote to the outer level shows one bar again',
     function()
-      local model = T.layout({ '> outer', '>> inner' }, 80)
-      local l = model.lines[T.find(model, 'inner')]
+      local model = T.layout({ '> outer one', '>', '> > inner', '', '> outer two' }, 80)
+      a.eq(2, bars_before(model.lines[T.find(model, 'inner')], 'inner'))
+      a.eq(1, bars_before(model.lines[T.find(model, 'outer two')], 'outer two'))
+    end
+  )
+
+  QA.check(
+    'R-265',
+    'Every wrapped line of a nested quote keeps one bar per level',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ '> > ' .. string.rep('nested words ', 12) }, 34)
       local n = 0
-      for _, c in ipairs(vim.fn.split(l:sub(1, l:find('inner', 1, true) - 1), '\\zs')) do
-        if vim.tbl_contains(BARS, c) then
+      for _, l in ipairs(model.lines) do
+        if l:find('nested', 1, true) then
           n = n + 1
+          a.eq(2, bars_before(l, 'nested'), l)
         end
       end
-      a.eq(2, n)
+      a.ge(2, n, 'the quote wraps')
     end
   )
 
@@ -436,7 +500,7 @@ QA.describe('text: blockquotes and alerts', function()
       local text = T.text(model)
       a.not_contains('[!', text, k .. ' marker shown')
       local title = k:sub(1, 1) .. k:sub(2):lower()
-      a.truthy(text:find(title, 1, true) or text:find(k, 1, true), k .. ' title')
+      a.contains(title, text, k .. ' title')
       a.contains('body of the alert', text)
     end
   end)
@@ -483,6 +547,60 @@ QA.describe('text: blockquotes and alerts', function()
       a.is_nil(colors[fg], k .. ' shares its color with ' .. tostring(colors[fg]))
       colors[fg] = k
     end
+  end)
+
+  local TITLE = {
+    NOTE = 'Note',
+    TIP = 'Tip',
+    IMPORTANT = 'Important',
+    WARNING = 'Warning',
+    CAUTION = 'Caution',
+  }
+
+  QA.check('R-266', 'The alert title is the kind word in title case and nothing else', function()
+    for _, k in ipairs(KINDS) do
+      local model = alert(k)
+      local ln = T.find(model, TITLE[k])
+      a.not_nil(ln, k)
+      local l = vim.trim(model.lines[ln])
+      a.matches(vim.pesc(TITLE[k]) .. '$', l, 'title at the end of the title line')
+      a.no_match(k, l, 'upper case kind shown')
+    end
+  end)
+
+  QA.check('R-267', 'An alert kind written in lower or mixed case is recognized', function()
+    for _, src in ipairs({ 'note', 'Tip', 'iMpOrTaNt', 'warning', 'Caution' }) do
+      local k = src:upper()
+      local model = alert(src)
+      local ref = alert(k)
+      a.eq(ref.lines, model.lines, src)
+      a.not_contains('[!', T.text(model), src .. ' marker shown')
+    end
+  end)
+
+  QA.check(
+    'R-267',
+    'A mixed case alert gets the same title color as the upper case form',
+    { severity = 'medium' },
+    function()
+      local m1 = alert('tip')
+      local m2 = alert('TIP')
+      a.eq(m2.highlights, m1.highlights)
+    end
+  )
+
+  QA.check('R-274', 'Each alert kind shows the icon the Icons definition gives for it', function()
+    for _, k in ipairs(KINDS) do
+      local model = alert(k)
+      local l = model.lines[T.find(model, TITLE[k])]
+      local before = l:sub(1, l:find(TITLE[k], 1, true) - 1)
+      a.contains(T.ICON.alert[k], before, k .. ' icon')
+    end
+  end)
+
+  QA.check('R-274', 'The blockquote bar is the quote bar glyph of the Icons definition', function()
+    local model = T.layout({ '> q' }, 80)
+    a.eq(T.ICON.quote, first_char(model.lines[T.find(model, 'q')]))
   end)
 
   QA.check(
@@ -553,19 +671,49 @@ QA.describe('text: thematic breaks', function()
     end
   end)
 
-  QA.check('R-055', 'A thematic break uses the muted color, the same as HTML text', function()
-    local model = T.layout({ 'a', '', '---', '', 'b' }, 60)
-    local ln = rule_line(model)
-    a.not_nil(ln)
-    local rule_fgs = T.fgs(T.groups_on_line(model, ln))
-    local html = T.layout({ '<div>x</div>' }, 60)
-    local html_fgs = T.fgs((T.groups_over(html, '<div>')))
-    a.ge(1, #vim.tbl_keys(html_fgs), 'HTML has a color')
-    a.ge(1, #vim.tbl_keys(rule_fgs), 'rule has a color')
-    for fg in pairs(rule_fgs) do
-      a.not_nil(html_fgs[fg], ('rule color %06x is not the muted color of HTML text'):format(fg))
+  for _, theme in ipairs({ 'light', 'dark' }) do
+    QA.check('R-055', 'A thematic break uses the border color of the active palette', function()
+      require('kitty-markdown').setup({ theme = theme })
+      local model = T.layout({ 'a', '', '---', '', 'b' }, 60, { theme = theme })
+      local ln = rule_line(model)
+      a.not_nil(ln)
+      local fgs = T.fgs(T.groups_on_line(model, ln))
+      a.ge(1, #vim.tbl_keys(fgs), 'the rule has a color')
+      for fg in pairs(fgs) do
+        a.truthy(
+          T.BORDER[theme][fg],
+          ('%s rule color %06x is not the palette border color'):format(theme, fg)
+        )
+      end
+      pcall(function()
+        require('kitty-markdown').setup({})
+      end)
+    end)
+  end
+
+  QA.check(
+    'R-055',
+    'A thematic break is not drawn in the muted color',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ 'a', '', '---', '', 'b' }, 60)
+      local fgs = T.fgs(T.groups_on_line(model, (rule_line(model))))
+      local html = T.fgs((T.groups_over(T.layout({ '<div>x</div>' }, 60), '<div>')))
+      for fg in pairs(fgs) do
+        a.is_nil(html[fg], 'rule in the muted color')
+      end
     end
-  end)
+  )
+
+  QA.check(
+    'R-274',
+    'The thematic break is drawn with the rule glyph of the Icons definition',
+    function()
+      local model = T.layout({ 'a', '', '---', '', 'b' }, 60)
+      local _, t = rule_line(model)
+      a.eq(string.rep(T.ICON.rule, T.text_width(60)), t)
+    end
+  )
 end)
 
 QA.describe('text: front matter', function()
@@ -753,6 +901,300 @@ QA.describe('text: block spacing', function()
     function()
       local model = T.layout({ '[r]: http://x.y/', '', '', 'text [l][r]' }, 80)
       a.ne('', QA.lines(model)[1])
+    end
+  )
+end)
+
+QA.describe('text: front matter fences', function()
+  QA.before_each(function()
+    QA.reset_plugin()
+  end)
+
+  QA.check('R-268', 'TOML front matter between +++ lines is hidden', function()
+    local model =
+      T.layout({ '+++', 'title = "Hidden toml"', 'draft = true', '+++', '', '# Shown' }, 80)
+    local text = T.text(model)
+    a.not_contains('Hidden toml', text)
+    a.not_contains('draft', text)
+    a.not_contains('+++', text)
+    a.matches('Shown', model.lines[1], 'the first line is the heading')
+  end)
+
+  QA.check('R-268', 'YAML front matter between --- lines is hidden', function()
+    local model = T.layout({ '---', 'key: hiddenyaml', '---', 'Body.' }, 80)
+    a.not_contains('hiddenyaml', T.text(model))
+    a.eq('Body.', vim.trim(model.lines[1]))
+  end)
+
+  QA.check(
+    'R-268',
+    'Front matter is hidden only at the start of the document',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ 'Intro.', '', '+++', 'later = 1', '+++' }, 80)
+      a.contains('later = 1', T.text(model))
+    end
+  )
+
+  QA.check(
+    'R-268',
+    'An opening --- closed by +++ is not front matter',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ '---', 'mixed: fences', '+++', '', 'tail' }, 80)
+      a.contains('mixed: fences', T.text(model))
+    end
+  )
+
+  QA.check(
+    'R-269',
+    'A block that opens with --- and closes with ... is not hidden as front matter',
+    function()
+      local model = T.layout({ '---', 'shownkey: shownvalue', '...', '', 'body' }, 80)
+      local text = T.text(model)
+      a.contains('shownvalue', text)
+      a.contains('body', text)
+    end
+  )
+end)
+
+QA.describe('text: HTML comments and inline tags', function()
+  QA.before_each(function()
+    QA.reset_plugin()
+    T.ensure_theme()
+  end)
+
+  QA.check('R-270', 'An HTML comment block is hidden', function()
+    local model = T.layout({ 'before', '', '<!-- secret note -->', '', 'after' }, 80)
+    local text = T.text(model)
+    a.not_contains('secret note', text)
+    a.not_contains('<!--', text)
+    a.eq({ 'before', 'after' }, T.nonempty(model))
+  end)
+
+  QA.check('R-270', 'A multi-line HTML comment block is hidden entirely', function()
+    local model = T.layout({ 'before', '', '<!--', 'line one', 'line two', '-->', '', 'after' }, 80)
+    a.eq({ 'before', 'after' }, T.nonempty(model))
+  end)
+
+  QA.check('R-270', 'An inline HTML comment is hidden and the text around it stays', function()
+    local model = T.layout({ 'keep <!-- gone --> this' }, 80)
+    local body = T.nonempty(model)
+    a.eq(1, #body)
+    a.not_contains('gone', body[1])
+    a.not_contains('<!--', body[1])
+    a.matches('^keep%s+this$', body[1])
+  end)
+
+  QA.check(
+    'R-270',
+    'Hiding an HTML comment block leaves one blank line between its neighbours',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ 'before', '', '<!-- c -->', '', 'after' }, 80)
+      local lines = QA.lines(model)
+      a.eq({ 'before', '', 'after' }, vim.tbl_map(vim.trim, lines))
+    end
+  )
+
+  QA.check(
+    'R-270',
+    'An HTML comment inside inline code stays as written',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ 'x `<!-- literal -->` y' }, 80)
+      a.contains('<!-- literal -->', T.text(model))
+    end
+  )
+
+  QA.check(
+    'R-271',
+    'Text between inline HTML tags is in the text color and only the tags are muted',
+    function()
+      local model = T.layout({ 'a <span>inner words</span> b' }, 80)
+      local muted = T.fgs((T.groups_over(T.layout({ '<div>x</div>' }, 60), '<div>')))
+      local open_tag = T.fgs((T.groups_over(model, '<span>')))
+      local close_tag = T.fgs((T.groups_over(model, '</span>')))
+      local found = false
+      for fg in pairs(open_tag) do
+        found = found or muted[fg] ~= nil
+      end
+      a.truthy(found, 'opening tag muted')
+      found = false
+      for fg in pairs(close_tag) do
+        found = found or muted[fg] ~= nil
+      end
+      a.truthy(found, 'closing tag muted')
+      local _, union = T.groups_over(model, 'inner words')
+      for fg, g in pairs(T.fgs(union)) do
+        a.is_nil(muted[fg], 'inner text in the muted color through ' .. g)
+      end
+      local para = T.layout({ 'plain inner words here' }, 80)
+      local plain = T.fgs((select(2, T.groups_over(para, 'inner words'))))
+      local inner = T.fgs(union)
+      a.eq(vim.tbl_keys(plain), vim.tbl_keys(inner), 'inner text has the same color as plain text')
+    end
+  )
+
+  QA.check(
+    'R-271',
+    'Inline markdown between HTML tags keeps its style and is not muted',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ 'a <kbd>**Ctrl**</kbd> b' }, 80)
+      a.contains('<kbd>Ctrl</kbd>', T.text(model))
+      local muted = T.fgs((T.groups_over(T.layout({ '<div>x</div>' }, 60), '<div>')))
+      local _, union = T.groups_over(model, 'Ctrl')
+      a.truthy(T.any_attr(union, 'bold'), 'bold inside the tags')
+      for fg in pairs(T.fgs(union)) do
+        a.is_nil(muted[fg], 'inner text muted')
+      end
+    end
+  )
+end)
+
+QA.describe('text: icons', function()
+  QA.before_each(function()
+    QA.reset_plugin()
+  end)
+
+  QA.check(
+    'R-274',
+    'Each heading level shows the heading glyph the Icons definition gives for it',
+    function()
+      local model = T.layout({ '# L1', '## L2', '### L3', '#### L4', '##### L5', '###### L6' }, 80)
+      for lvl = 1, 6 do
+        local l = model.lines[T.find(model, 'L' .. lvl)]
+        local before = l:sub(1, l:find('L' .. lvl, 1, true) - 1)
+        a.contains(T.ICON.heading[lvl], before, 'level ' .. lvl)
+        for other = 1, 6 do
+          if other ~= lvl then
+            a.not_contains(
+              T.ICON.heading[other],
+              before,
+              'level ' .. lvl .. ' shows the glyph of ' .. other
+            )
+          end
+        end
+      end
+    end
+  )
+
+  QA.check(
+    'R-274',
+    'Bullets follow the Icons definition by depth and repeat after the fourth level',
+    function()
+      local src = {}
+      for d = 1, 6 do
+        src[#src + 1] = string.rep('  ', d - 1) .. '- depth' .. d
+      end
+      local model = T.layout(src, 80)
+      for d = 1, 6 do
+        local l = model.lines[T.find(model, 'depth' .. d)]
+        a.eq(T.ICON.bullet[(d - 1) % 4 + 1], first_char(l), 'bullet at depth ' .. d)
+      end
+    end
+  )
+
+  QA.check(
+    'R-274',
+    'Task items show the checked and unchecked glyphs of the Icons definition',
+    function()
+      local model = T.layout({ '- [x] yes', '- [ ] no' }, 80)
+      a.eq(T.ICON.checked, first_char(model.lines[T.find(model, 'yes')]))
+      a.eq(T.ICON.unchecked, first_char(model.lines[T.find(model, 'no')]))
+    end
+  )
+
+  QA.check(
+    'R-274',
+    'A nested task item shows the checkbox glyph and no depth bullet',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ '- parent', '  - [ ] child' }, 80)
+      local l = model.lines[T.find(model, 'child')]
+      a.eq(T.ICON.unchecked, first_char(l))
+      for _, b in ipairs(T.ICON.bullet) do
+        a.not_contains(b, l)
+      end
+    end
+  )
+end)
+
+QA.describe('text: heading slugs', function()
+  QA.before_each(function()
+    QA.reset_plugin()
+  end)
+
+  local function anchors(model)
+    QA.need(type(model.anchors) == 'table', 'anchors in the layout model')
+    return model.anchors
+  end
+
+  QA.check('R-275', 'Repeated headings get the slugs with -1, -2 appended in order', function()
+    local model = T.layout({ '# Intro', '', '## Intro', '', '### Intro' }, 80)
+    local an = anchors(model)
+    local lines = {}
+    for i, l in ipairs(model.lines) do
+      if l:find('Intro', 1, true) then
+        lines[#lines + 1] = i
+      end
+    end
+    a.eq(3, #lines)
+    a.eq(lines[1], an['intro'])
+    a.eq(lines[2], an['intro-1'])
+    a.eq(lines[3], an['intro-2'])
+  end)
+
+  QA.check('R-275', 'A suffixed slug skips a slug that an earlier heading already uses', function()
+    local model = T.layout({ '# Topic', '', '# Topic 1', '', '# Topic' }, 80)
+    local an = anchors(model)
+    local l1, l2, l3
+    for i, l in ipairs(model.lines) do
+      if l:find('Topic 1', 1, true) then
+        l2 = i
+      elseif l:find('Topic', 1, true) then
+        if l1 then
+          l3 = i
+        else
+          l1 = i
+        end
+      end
+    end
+    a.eq(l1, an['topic'])
+    a.eq(l2, an['topic-1'])
+    a.eq(l3, an['topic-2'], 'the third heading skips the taken topic-1')
+  end)
+
+  QA.check(
+    'R-275',
+    'A heading whose own slug ends in -1 after duplicates gets the next free suffix',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ '# A', '', '# A', '', '# A-1' }, 80)
+      local an = anchors(model)
+      local ls = {}
+      for i, l in ipairs(model.lines) do
+        if l:find('A', 1, true) then
+          ls[#ls + 1] = i
+        end
+      end
+      a.eq(ls[1], an['a'])
+      a.eq(ls[2], an['a-1'])
+      a.eq(ls[3], an['a-1-1'], 'github-slugger gives a-1-1 to the third heading')
+    end
+  )
+
+  QA.check(
+    'R-275',
+    'Slugs that differ only by case or punctuation count as duplicates',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ '# Hello World', '', '# hello world!' }, 80)
+      local an = anchors(model)
+      a.not_nil(an['hello-world'])
+      a.not_nil(an['hello-world-1'])
+      a.ne(an['hello-world'], an['hello-world-1'])
     end
   )
 end)

@@ -480,7 +480,9 @@ QA.describe('core: math spans', function()
     local w = U.width(needle)
     local ok = false
     local tried = {}
-    for _, tw in ipairs({ math.min(width - 4, 100), math.min(width, 100) }) do
+    -- opts.width is the window width (R-332); the text width is width - 4,
+    -- capped at 100
+    for _, tw in ipairs({ math.min(width - 4, 100) }) do
       local free = tw - w
       tried[#tried + 1] = ('tw=%d lead=%d free=%d'):format(tw, lead, free)
       if lead == math.floor(free / 2) or lead == math.ceil(free / 2) then
@@ -542,10 +544,17 @@ QA.describe('core: math spans', function()
     a.eq(u(0x03B1) .. ' ' .. u(0x03B2), render('\\alpha    \\beta'))
   end)
 
-  QA.check('R-221', 'Whitespace at the ends of an inline math span is omitted', function()
-    local model = QA.layout({ 'AAA $  x + y  $ ZZZ' }, { width = 200 })
-    a.contains('AAA x + y ZZZ', U.text(model))
-  end)
+  QA.check(
+    'R-221',
+    'Whitespace at the ends of display math written on one line is omitted',
+    function()
+      local model = QA.layout({ 'intro', '', '$$   \\beta + 1   $$', '', 'outro' }, { width = 60 })
+      local l = display_line(model, u(0x03B2))
+      a.not_nil(l)
+      a.eq(u(0x03B2) .. ' + 1', vim.trim(l))
+      check_centered(60, u(0x03B2) .. ' + 1', { '$$   \\beta + 1   $$' })
+    end
+  )
 
   QA.check('R-221', 'A line break inside display math shows as one space between tokens', function()
     local model = QA.layout({ '$$', '\\alpha +', '  \\beta', '$$' }, { width = 60 })
@@ -599,5 +608,155 @@ QA.describe('core: math spans', function()
   QA.check('R-223', 'The varepsilon and varphi commands map to U+03F5 and U+03D5', function()
     a.eq(u(0x03F5), render('\\varepsilon'))
     a.eq(u(0x03D5), render('\\varphi'))
+  end)
+
+  -- R-276 ------------------------------------------------------------------
+
+  QA.check(
+    'R-276',
+    'A fraction in the numerator follows the fraction rule at each level',
+    function()
+      a.eq('(a/b)/c', render('\\frac{\\frac{a}{b}}{c}'))
+    end
+  )
+
+  QA.check(
+    'R-276',
+    'A fraction in the denominator follows the fraction rule at each level',
+    function()
+      a.eq('1/(2/3)', render('\\frac{1}{\\frac{2}{3}}'))
+    end
+  )
+
+  QA.check(
+    'R-276',
+    'An inner fraction with several tokens gets its own parentheses inside the outer ones',
+    function()
+      a.eq('((a + b)/c)/d', render('\\frac{\\frac{a + b}{c}}{d}'))
+    end
+  )
+
+  QA.check('R-276', 'A nested fraction never falls back to the source', function()
+    local inner = render('\\frac{x}{\\frac{y}{\\frac{1}{2}}}')
+    a.no_match('\\', inner)
+    a.eq('x/(y/(1/2))', inner)
+  end)
+
+  -- R-277 ------------------------------------------------------------------
+
+  QA.check(
+    { 'R-277', 'R-069' },
+    'A subscript letter with no Unicode subscript form makes the whole span show as source',
+    function()
+      local tex = 'y = x_b + \\alpha'
+      local inner, model = U.inline(tex)
+      a.eq(tex, inner)
+      a.truthy(U.covered_by(model, tex, U.is_math_group), 'math group over the source')
+    end
+  )
+
+  QA.check(
+    'R-277',
+    'One unmappable character in a braced subscript makes the whole span show as source',
+    function()
+      local tex = 'a_{1w} + 2'
+      a.eq(tex, render(tex))
+    end
+  )
+
+  QA.check(
+    'R-277',
+    'A superscript character with no Unicode superscript form makes the whole span show as source',
+    function()
+      local tex = 'x^{2Z}'
+      a.eq(tex, render(tex))
+    end
+  )
+
+  QA.check('R-277', 'A span whose scripts all have Unicode forms is still converted', function()
+    a.eq('x' .. u(0x2099) .. ' + y' .. u(0x00B2), render('x_n + y^2'))
+  end)
+
+  -- R-278 ------------------------------------------------------------------
+
+  QA.check(
+    'R-278',
+    'Inline source fallback collapses runs of whitespace between tokens to one space',
+    function()
+      a.eq('\\qaunknown x + y', render('\\qaunknown   x  +    y'))
+    end
+  )
+
+  QA.check('R-278', 'Inline source fallback across a soft line break shows one space', function()
+    local model = QA.layout({ 'AAA $\\qaunknown', 'x$ ZZZ' }, { width = 200 })
+    a.contains('AAA \\qaunknown x ZZZ', (U.text(model):gsub('\n', ' ')))
+  end)
+
+  -- R-279 ------------------------------------------------------------------
+
+  QA.check(
+    'R-279',
+    'Display math source fallback shows each source line on its own preview line',
+    function()
+      local model = QA.layout({
+        'intro',
+        '',
+        '$$',
+        '\\begin{cases}',
+        'a & x > 0 \\\\',
+        'b & x \\le 0',
+        '\\end{cases}',
+        '$$',
+        '',
+        'outro',
+      }, { width = 80 })
+      local want = { '\\begin{cases}', 'a & x > 0 \\\\', 'b & x \\le 0', '\\end{cases}' }
+      local idx = {}
+      for k, w in ipairs(want) do
+        local _, i = display_line(model, w)
+        a.not_nil(i, 'preview line for source line ' .. k)
+        a.eq(w, vim.trim(model.lines[i]), 'source line ' .. k .. ' alone on its preview line')
+        idx[k] = i
+      end
+      for k = 2, #want do
+        a.eq(idx[k - 1] + 1, idx[k], 'consecutive preview lines')
+      end
+      a.no_match('%$', U.text(model))
+    end
+  )
+
+  QA.check(
+    'R-279',
+    'Each display fallback line is in the math group',
+    { severity = 'medium' },
+    function()
+      local model = QA.layout({ '$$', '\\begin{qa}', 'z', '\\end{qa}', '$$' }, { width = 80 })
+      a.truthy(U.covered_by(model, '\\begin{qa}', U.is_math_group))
+      a.truthy(U.covered_by(model, '\\end{qa}', U.is_math_group))
+    end
+  )
+
+  -- R-280 ------------------------------------------------------------------
+
+  QA.check('R-280', 'A dollar sign followed by a space does not open inline math', function()
+    local model = QA.layout({ 'AAA $ x + y$ ZZZ' }, { width = 200 })
+    a.contains('AAA $ x + y$ ZZZ', U.text(model))
+    a.falsy(U.covered_by(model, 'x + y', U.is_math_group))
+  end)
+
+  QA.check('R-280', 'A dollar sign with a space before it does not close inline math', function()
+    local model = QA.layout({ 'AAA $x + y $ ZZZ' }, { width = 200 })
+    a.contains('AAA $x + y $ ZZZ', U.text(model))
+  end)
+
+  QA.check('R-280', 'Two prices on one line stay literal text', function()
+    local model = QA.layout({ 'it costs $5 and $10 today' }, { width = 200 })
+    a.contains('it costs $5 and $10 today', U.text(model))
+    a.falsy(U.covered_by(model, '5 and', U.is_math_group))
+  end)
+
+  QA.check('R-280', 'A dollar sign alone between spaces is literal text', function()
+    local model = QA.layout({ 'a $ b' }, { width = 80 })
+    a.contains('a $ b', U.text(model))
   end)
 end)

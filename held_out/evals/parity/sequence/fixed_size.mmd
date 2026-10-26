@@ -1,0 +1,7 @@
+%%{init: {"sequence": {"useMaxWidth": false}}}%%
+sequenceDiagram
+  participant C as Client
+  participant S as Server
+  C->>S: GET /health
+  S-->>C: 200 OK
+  Note over C,S: Checked every 10 s

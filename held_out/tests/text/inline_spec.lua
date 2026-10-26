@@ -201,6 +201,51 @@ QA.describe('text: paragraphs and wrapping', function()
     end
   end)
 
+  QA.check('R-262', 'A word wider than the text width is shown whole on its own line', function()
+    local w = 30
+    local long = string.rep('abcdefghij', 5)
+    local model = T.layout({ 'short words before ' .. long .. ' and short words after' }, w)
+    local ln = T.find(model, long)
+    a.not_nil(ln, 'the long word is not split')
+    a.eq(long, vim.trim(model.lines[ln]), 'the long word is alone on its line')
+    a.contains('before', model.lines[ln - 1])
+    a.contains('and', model.lines[ln + 1])
+  end)
+
+  QA.check('R-262', 'A long URL wider than the text width stays whole on its own line', function()
+    local w = 34
+    local url = 'https://example.com/a/very/long/path/that/does/not/fit/anywhere'
+    local model = T.layout({ 'see ' .. url .. ' now' }, w)
+    local ln = T.find(model, url)
+    a.not_nil(ln, 'URL not split')
+    a.eq(url, vim.trim(model.lines[ln]))
+  end)
+
+  QA.check(
+    'R-262',
+    'A paragraph of only one over-wide word is a single line',
+    { severity = 'medium' },
+    function()
+      local long = string.rep('z', 70)
+      local model = T.layout({ long }, 40)
+      a.eq({ long }, T.nonempty(model))
+    end
+  )
+
+  QA.check(
+    'R-262',
+    'An over-wide word in a list item stays whole on its own line',
+    { severity = 'medium' },
+    function()
+      local long = string.rep('q', 50)
+      local model = T.layout({ '- item ' .. long .. ' tail' }, 30)
+      local ln = T.find(model, long)
+      a.not_nil(ln, 'not split')
+      a.no_match('item', model.lines[ln])
+      a.no_match('tail', model.lines[ln])
+    end
+  )
+
   QA.check('R-031', 'Two trailing spaces end a line as a hard line break', function()
     local model = T.layout({ 'first part  ', 'second part' }, 80)
     local body = T.nonempty(model)
@@ -475,13 +520,28 @@ QA.describe('text: links', function()
     end
   )
 
+  QA.check({ 'R-263', 'R-171' }, 'The angle brackets of a URL autolink are hidden', function()
+    local model = T.layout({ 'x <https://auto.example.com/y> z' }, 80)
+    a.eq({ 'x https://auto.example.com/y z' }, T.nonempty(model))
+  end)
+
   QA.check(
-    { 'R-037', 'R-171' },
-    'The angle brackets of an autolink are markdown markers and are not shown',
+    'R-263',
+    'Email autolinks and URL autolinks with a query string also hide the angle brackets',
+    function()
+      local model = T.layout({ 'mail <someone@example.com> or <http://w.example/p?q=1> end' }, 80)
+      a.eq({ 'mail someone@example.com or http://w.example/p?q=1 end' }, T.nonempty(model))
+    end
+  )
+
+  QA.check(
+    'R-263',
+    'Angle brackets around text that is not a URL stay as written',
     { severity = 'medium' },
     function()
-      local model = T.layout({ 'x <https://auto.example.com/y> z' }, 80)
-      a.eq({ 'x https://auto.example.com/y z' }, T.nonempty(model))
+      local model = T.layout({ 'a <not a link> b and 1 < 2 > 0' }, 80)
+      a.contains('<not a link>', T.text(model))
+      a.contains('1 < 2 > 0', T.text(model))
     end
   )
 
