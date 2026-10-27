@@ -824,7 +824,16 @@ fn write_text(w: &mut Writer, text: &Text) {
                     w.attr("dx", &fmt_num(*dx));
                     w.inline_children();
                 }
-                write_pieces(w, &run.text, pieces, &font, None, &cascade, bold.is_some());
+                write_pieces(
+                    w,
+                    &run.text,
+                    pieces,
+                    &font,
+                    None,
+                    &cascade,
+                    bold.is_some(),
+                    text.baseline,
+                );
                 if shift.is_some() {
                     w.out.push_str("</tspan>");
                 }
@@ -880,6 +889,7 @@ fn write_text(w: &mut Writer, text: &Text) {
                 run_fill,
                 &cascade,
                 run_bold.is_some(),
+                text.baseline,
             );
             w.out.push_str("</tspan>");
         }
@@ -945,6 +955,12 @@ fn chunk_shifts(
 /// The character data of one run, with a `tspan` per face piece. `fill`
 /// is the run's own fill when it has one; `emboldened` says whether the
 /// enclosing element already carries a synthetic bold stroke.
+///
+/// Each piece repeats the text's `dominant-baseline`: Chrome inherits it
+/// (SVG 2), while usvg reads it from the element and its direct parent
+/// only, so a piece inside a run's `tspan` sat on the alphabetic baseline,
+/// 4 px above the rest of a 16 px `middle` message text.
+#[allow(clippy::too_many_arguments)]
 fn write_pieces(
     w: &mut Writer,
     text: &str,
@@ -953,11 +969,15 @@ fn write_pieces(
     fill: Option<&Paint>,
     cascade: &Inherited,
     emboldened: bool,
+    dominant: Option<Baseline>,
 ) {
     let mut at = 0;
     for piece in pieces {
         escape_text(&mut w.out, &text[at..piece.range.start]);
         w.open_inline("tspan");
+        if let Some(b) = dominant {
+            w.attr("dominant-baseline", baseline(b));
+        }
         if let Some(family) = &piece.family {
             w.attr("font-family", family);
         }
@@ -1253,6 +1273,50 @@ mod tests {
             .push(label(vec![TextRun::new("aXb")], None));
         assert!(scene.to_svg().contains(">aXb</text>"));
         assert!(with_pieces(label(vec![TextRun::new("ab")], None), None).contains(">ab</text>"));
+    }
+
+    /// usvg reads `dominant-baseline` from an element and its direct parent
+    /// only, so every piece repeats the text's value, as Chrome inherits it.
+    #[test]
+    fn pieces_repeat_the_text_dominant_baseline() {
+        let middle = |runs: Vec<TextRun>| {
+            let mut element = label(runs, Some(TextAnchor::Middle));
+            if let Element::Text(text) = &mut element {
+                text.baseline = Some(Baseline::Middle);
+            }
+            element
+        };
+        let svg = with_pieces(
+            middle(vec![TextRun::line("aXbE", 0.0, Length::Em(1.0))]),
+            None,
+        );
+        assert_eq!(
+            svg.matches("dominant-baseline=\"middle\"").count(),
+            3,
+            "{svg}"
+        );
+        assert!(
+            svg.contains("<tspan dominant-baseline=\"middle\" font-family=\"face-x\""),
+            "{svg}"
+        );
+        let svg = with_pieces(middle(vec![TextRun::new("aXb")]), None);
+        assert_eq!(
+            svg.matches("dominant-baseline=\"middle\"").count(),
+            2,
+            "{svg}"
+        );
+        // The scene SVG has no pieces and so no repeats.
+        let mut scene = Scene::new(1.0, 1.0);
+        scene
+            .root
+            .children
+            .push(middle(vec![TextRun::line("aXbE", 0.0, Length::Em(1.0))]));
+        assert_eq!(
+            scene.to_svg().matches("dominant-baseline").count(),
+            1,
+            "{}",
+            scene.to_svg()
+        );
     }
 
     #[test]
