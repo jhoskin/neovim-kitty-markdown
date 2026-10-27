@@ -1,0 +1,34 @@
+---
+source: tests/parity_kanban.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="220" height="244" viewBox="90 -310 220 244" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g>
+    <g class="sections">
+      <g id="my-svg-a" class="cluster section-1">
+        <rect x="100" y="-300" width="200" height="224" rx="5" ry="5" fill="#e8ffb9" stroke="#e8ffb9" stroke-width="1"/>
+        <g class="cluster-label" transform="translate(183.602, -300)">
+          <text class="nodeLabel" x="16.398" y="0" text-anchor="middle" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="16.398" dy="17">Docs</tspan></text>
+        </g>
+      </g>
+    </g>
+    <g class="items">
+      <g id="my-svg-a1" class="node  " transform="translate(200, -229)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-46" width="185" height="92" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">See</tspan><tspan> </tspan><tspan>[the</tspan><tspan> </tspan><tspan>docs]</tspan><tspan x="0" dy="24">(https://example.com)</tspan><tspan> </tspan><tspan x="0" dy="24">for</tspan><tspan> </tspan><tspan>more</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 36)"/>
+        <g class="label" transform="translate(82.5, 36)"/>
+      </g>
+      <g id="my-svg-a2" class="node  " transform="translate(200, -132)">
+        <rect class="basic label-container __APA__" x="-92.5" y="-46" width="185" height="92" rx="5" ry="5" fill="#ffffff" stroke="#9370db" stroke-width="1"/>
+        <g class="label" transform="translate(-82.5, -36)">
+          <text class="nodeLabel" x="0" y="0" text-anchor="start" dominant-baseline="alphabetic" fill="#333333" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif" font-size="16"><tspan x="0" dy="17">Line one</tspan><tspan x="0" dy="24">line two</tspan><tspan x="0" dy="24">line three</tspan></text>
+        </g>
+        <g class="label" transform="translate(-82.5, 36)"/>
+        <g class="label" transform="translate(82.5, 36)"/>
+      </g>
+    </g>
+  </g>
+</svg>
