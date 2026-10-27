@@ -14,7 +14,9 @@ phases in the Constraints section; a requirement for a later phase is not
 a defect until that phase starts. R-249 to R-345 were added, and R-017,
 R-043, R-055, R-088, R-098, R-112, R-123, R-130, R-175, R-179, R-181,
 R-234, and R-237 were revised, on 2026-10-25 to answer the open questions
-of the QA review.
+of the QA review. R-346 to R-353 were added, and R-225, R-234, R-252,
+R-273, R-279, R-297, and R-324 were revised, on 2026-10-27 from the dev
+agent proposals for QA round 1.
 
 Defaults that the plan did not fix and that this draft sets:
 
@@ -146,6 +148,8 @@ Defaults that the plan did not fix and that this draft sets:
 - Neovim 0.12 or later. Platforms: macOS arm64, Linux x86_64, Linux arm64.
   Neovim 0.12 is the first release whose `TermResponse` event delivers the
   kitty graphics (APC) reply and the Primary Device Attributes reply.
+  The plugin uses the `markdown` and `markdown_inline` parsers that Neovim
+  bundles. A Neovim build without them is not supported.
 - kitty graphics protocol as documented by kitty, with Unicode
   placeholders (kitty 0.28 or later).
 - Mermaid pin: mermaid 12.2.0 through `@mermaid-js/mermaid-cli` 12.0.0.
@@ -229,9 +233,14 @@ Defaults that the plan did not fix and that this draft sets:
   after `close` or `refresh`, and a third argument.
 - R-251: The plugin shall define `:KittyMarkdown` so that Neovim rejects
   the command without a subcommand with its error E471.
-- R-252: If the preview window is the last window of its tab page when
-  the plugin closes the preview, then the plugin shall delete the
-  preview buffer and leave the window open on another buffer.
+- R-252: If the preview window is the last window of its tab page and
+  another tab page exists when the plugin closes the preview, then the
+  plugin shall delete the preview buffer and close that tab page.
+- R-346: If the preview window is the only window of the only tab page
+  when the plugin closes the preview, then the plugin shall delete the
+  preview buffer and show the source buffer in that window.
+- R-347: If the source buffer is not loaded when R-346 applies, then the
+  plugin shall show an empty buffer in that window.
 - R-253: The preview window shall hide the absolute line numbers and the
   relative line numbers.
 - R-254: The `<source buffer name>` of R-167 shall be the full path of the
@@ -321,6 +330,10 @@ Defaults that the plan did not fix and that this draft sets:
 - R-042: The preview shall show a task list item with a checked or an
   unchecked checkbox icon in place of the bullet and the `[x]` or `[ ]`
   marker.
+- R-349: When a task list item is in an ordered list, the preview shall
+  show the checkbox icon in place of the number.
+- R-350: The preview shall count a task list item in the numbering of its
+  ordered list.
 - R-043: The preview shall show a table with Unicode box drawing lines
   around the table, below the header row, and between the columns. The
   preview shall not draw a line between two body rows.
@@ -385,12 +398,15 @@ Defaults that the plan did not fix and that this draft sets:
 - R-269: The preview shall not treat a block that closes with `...` as
   front matter.
 - R-270: The preview shall hide HTML comments, in HTML blocks and inline.
+- R-351: If a space is on each side of a hidden inline HTML comment, then
+  the preview shall show one space in place of the two.
 - R-271: The preview shall show the text between inline HTML tags in the
   text color and only the tags in the muted color.
 - R-272: The preview shall treat `[X]` as a checked task marker, the same
   as `[x]`.
 - R-273: The preview shall show every paragraph and block of a footnote
-  definition at the end of the document, indented under its number.
+  definition at the end of the document, aligned with the text after its
+  number.
 - R-274: The preview shall use the glyphs that the Icons definition
   lists.
 - R-275: When a heading slug is already in use, the layout shall append
@@ -435,10 +451,15 @@ Defaults that the plan did not fix and that this draft sets:
 - R-278: When an inline math span falls back to the source, the preview
   shall apply the whitespace rules of R-221 to the source.
 - R-279: When a display math span falls back to the source, the preview
-  shall show each source line on its own preview line.
+  shall show each source line on its own preview line, centered as one
+  block with a common left edge.
+- R-352: When a display math span falls back to the source, the preview
+  shall apply the whitespace rules of R-221 to each source line.
 - R-280: The preview shall open inline math only at a `$` that a
   character other than a space follows, and close it only at a `$` that
   a character other than a space comes before, as GitHub does.
+- R-353: The preview shall not open or close inline math at a `$` that a
+  backslash comes before.
 
 ### Theme
 
@@ -513,6 +534,10 @@ Defaults that the plan did not fix and that this draft sets:
   preview shall show a failure box with the reason "unsupported format".
 - R-225: If an image URL has a scheme other than `http` or `https`, then
   the preview shall show a failure box with the reason "fetch failed".
+  This also applies where remote images are disabled, because R-085
+  covers only `http` and `https` images.
+- R-348: The plugin shall compare the scheme of an image URL without
+  regard to letter case.
 - R-226: When an image is SVG, the helper shall rasterize it onto a
   transparent background.
 - R-227: The plugin shall place an image over the number of columns equal
@@ -630,9 +655,9 @@ Defaults that the plan did not fix and that this draft sets:
 - R-233: If the front matter of a diagram is not valid YAML, then the
   preview shall show a failure box with the reason "Parse error on line
   1".
-- R-234: If a diagram sets a theme name that mermaid 12.2.0 does not
-  register, then the helper shall ignore that name and keep the theme
-  that applies without it.
+- R-234: If the theme name of a diagram, after R-295, is a name that
+  mermaid 12.2.0 does not register, then the helper shall apply the theme
+  of the base config.
 - R-235: When a diagram sets `themeVariables` without `theme`, the helper
   shall merge the variables over the current theme variables and shall
   not derive a new theme.
@@ -661,8 +686,9 @@ Defaults that the plan did not fix and that this draft sets:
   `image node`, `randomize`, `participant type <kind>`, or
   `timeline direction TD`.
 - R-297: The `<text>` of R-231 shall be the whole diagram text without
-  front matter, directives, and `%%` comments, with its line breaks and
-  without shortening.
+  front matter, directives, and `%%` comments, without shortening. The
+  text shall keep its line breaks and one line break for each removed
+  directive line. The removed front matter shall leave no line break.
 - R-298: The helper shall treat the railroad, railroad EBNF, railroad
   ABNF, and railroad PEG diagram types as types outside the delivered
   phases.
@@ -865,6 +891,8 @@ Defaults that the plan did not fix and that this draft sets:
   stderr and exit with status 1.
 - R-324: When a CLI command fails, the helper shall write one line
   `kitty-markdown-helper: <reason>` to stderr and exit with status 1.
+  In `<reason>`, the helper shall write each line break as `\n` and each
+  backslash as `\\`.
 - R-325: If the CLI arguments are not valid, then the helper shall exit
   with status 2.
 - R-326: The request timeout of R-141 shall be the option
