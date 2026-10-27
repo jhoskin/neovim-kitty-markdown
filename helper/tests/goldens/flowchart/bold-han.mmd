@@ -1,0 +1,5 @@
+flowchart LR
+  classDef strong font-weight:bold
+  A["登录请求"]:::strong --> B["`**応答** 完成`"]
+  B --> C["普通文本 中文"]
+  C -- "`粗体 **标签**`" --> D["繁體中文 測試"]:::strong

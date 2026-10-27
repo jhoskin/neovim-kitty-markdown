@@ -1,0 +1,6 @@
+stateDiagram-v2
+  [*] --> Draft: start → edit
+  Draft --> Review: ★ submit ✓
+  Review --> Done: ∑ ≤ ≥ ± ∞
+  Review --> Draft: ← ↑ ↓ ⇒ ↔
+  Done --> [*]: ☆ ♥ ⚑ ⌘ ①
