@@ -769,7 +769,7 @@ end
 -- Teardown -------------------------------------------------------------------
 
 -- True when `win` is the only window of its tab page that is not a
--- float. Closing it would close the tab page (R-252).
+-- float, so closing it closes the tab page (R-252).
 local function last_in_tab(win)
   if api.nvim_win_get_config(win).relative ~= '' then
     return false
@@ -782,9 +782,9 @@ local function last_in_tab(win)
   return true
 end
 
--- Keep the last window of a tab page open on another buffer: the source
--- when it is still loaded, else a new empty buffer (R-252). The window
--- options of the preview go back to their global values.
+-- Keep the only window of the only tab page open on another buffer: the
+-- source when it is still loaded (R-346), else a new empty buffer (R-347).
+-- The window options of the preview go back to their global values.
 local function release_window(p)
   local other = p.src_buf
   if not (api.nvim_buf_is_valid(other) and api.nvim_buf_is_loaded(other)) then
@@ -819,8 +819,15 @@ local function teardown(p, deferred)
   p.blocks = {}
   local function cleanup()
     if api.nvim_win_is_valid(p.win) then
-      if last_in_tab(p.win) then
+      if last_in_tab(p.win) and #api.nvim_list_tabpages() == 1 then
         pcall(release_window, p)
+      elseif last_in_tab(p.win) then
+        -- Floats would keep the window from closing; `tabclose` takes
+        -- them with the tab page (R-252).
+        local tab = api.nvim_win_get_tabpage(p.win)
+        if not pcall(api.nvim_win_close, p.win, true) then
+          pcall(vim.cmd.tabclose, api.nvim_tabpage_get_number(tab))
+        end
       else
         pcall(api.nvim_win_close, p.win, true)
       end

@@ -164,10 +164,11 @@ as a spec proposal instead.
   Any other scheme fails in the plugin with `fetch_failed` and `status`
   0, before a helper request, so a `file://` URL never reaches the
   remote cache (R-225, R-287).
-- When the preview window is the last non-float window of its tab page,
-  closing the preview shows the source buffer in it, or a new empty
-  buffer when the source is unloaded, and resets the preview window
-  options to their global values (R-252).
+- "The last window of its tab page" (R-252, R-346) means the last
+  non-float window: floats in that tab page close with it, through
+  `tabclose` when `nvim_win_close` refuses. When the window stays
+  (R-346, R-347), the preview window options go back to their global
+  values.
 - `:KittyMarkdown refresh` re-renders only the preview of the current
   source; the other previews get their placed images transmitted and
   placed again without a re-render, so a refresh does not re-request

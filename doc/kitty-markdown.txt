@@ -95,9 +95,9 @@ column, and the fold column, and does not wrap.
 One preview exists per source buffer. Unloading or deleting the source
 buffer closes its preview. Closing the preview window drops the preview.
 When the preview window is the last window of its tab page, as a `tab`
-preview is, closing the preview keeps the window and shows the source
-buffer in it (or an empty buffer when the source is gone), so the tab page
-stays open.
+preview is, closing the preview closes that tab page. When it is the only
+window of the only tab page, the window stays and shows the source buffer
+(or an empty buffer when the source is gone).
 
 Scroll sync puts the first line of the block under the source cursor in
 the top third of the preview window. A cursor inside a long list targets
