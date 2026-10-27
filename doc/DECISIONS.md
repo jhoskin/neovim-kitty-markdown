@@ -249,9 +249,11 @@ These entries replace the macOS platform fallback list in Fonts and text.
 - The raster step draws each fallback grapheme in the face the measurer
   chose (`TextMetrics::grapheme_faces`), which reverses the earlier choice
   to keep resvg's own fallback. The raster SVG gives each fallback stretch
-  a `tspan` whose `font-family` is a token that names one face, so usvg
-  never falls back and never redraws a whole run in a face that covers it
-  (that redraw is what cost cynefin 0.0013 under a CSS-list fallback).
+  a `tspan` whose `font-family` is a token that names one face, and a face
+  the font system placed never falls back (see the raster fallback entry
+  at the end of this section), so usvg never redraws a whole run in a face
+  that covers it (that redraw is what cost cynefin 0.0013 under a
+  CSS-list fallback).
   `Scene::to_svg` asks for no pieces, so the snapshots do not change.
 - A piece's `letter-spacing` makes usvg's advance equal the measured one:
   usvg shapes with HarfBuzz rules only, while Chrome adds PingFang's
@@ -342,10 +344,10 @@ These entries replace the macOS platform fallback list in Fonts and text.
 - A platform fallback face is the face CoreText gives for the character
   plus the variation of that family that has the requested traits and
   weight. The variation is used only when it has the character
-  (`PlatformFallbackFontForCharacter`). A face that fontdb does not list
-  (the named instances of the variable PingFang SC) falls back to the
-  family match, so PingFang SC text is measured with the Medium instance.
-  Its advances are the same as the advances of the Regular instance.
+  (`PlatformFallbackFontForCharacter`). A named instance of a variable
+  font is a face of its own (see the named instance entry at the end of
+  this section); a face that the database does not list at all falls back
+  to the family match.
 - Fallback faces are picked per script segment. Common characters join the
   segment before them. In each segment the fallback is asked once for one
   hint character, chosen as `ChooseHintIndex` chooses it, and the answer
@@ -395,8 +397,7 @@ These entries replace the macOS platform fallback list in Fonts and text.
   after an em dash, after an ellipsis, U+2012, and a zero-width space,
   and after a hyphen at the start of a word unless a digit follows.
 - Not ported: CoreText's synthetic bold of a fallback face, which widens
-  each glyph by 0.0576 em (bold Syriac); the named weight instances of
-  variable fallback faces (Kefa Bold); fonts that CoreText loads on
+  each glyph by 0.0576 em (bold Syriac); fonts that CoreText loads on
   demand and fontdb does not list (Songti SC for C1 controls); leading
   combining marks in Menlo.
 - To rerun the wide sweep: `node helper/oracle/measure.mjs --sweep
@@ -404,3 +405,43 @@ These entries replace the macOS platform fallback list in Fonts and text.
   text_metrics sweep -- --ignored --nocapture` in `helper/`. Set
   `KITTY_MARKDOWN_SWEEP_CLI=1` to include the `measure` CLI route. The
   test writes `<out.json>.tsv` and `<out.json>.faces.txt`.
+
+- fontdb lists one face per font: the default instance of a variable
+  font. The font system adds a face for each named instance in `fvar`
+  that has a PostScript name the database lacks
+  (`text/instances.rs`), with the instance's weight, and shapes it at
+  the instance's axis values. Chrome on macOS draws 400 Han in
+  `PingFangSC-Regular` and 600 or 700 Han in `PingFangSC-Semibold`;
+  fontdb knew only `PingFangSC-Medium`, so the raster step drew every Han
+  label one weight too heavy and took its ink boxes from Medium. The
+  same rule covers the other variable fallback faces macOS has (Kefa,
+  Noto Sans Syriac, STIX Two Text, Skia); only PingFang is checked
+  against the oracle. The scan maps each font file once at startup.
+- On macOS the raster step draws a named instance whose outlines usvg
+  reads (`FaceKind::OutlineInstance`) through CoreText by its PostScript
+  name, as it draws PingFang: usvg draws a face at the axis values of
+  `font-variation-settings` only, and the scene SVG does not write them.
+  Linux draws such an instance at its default outlines.
+- A face the raster font resolver placed never falls back in usvg. usvg
+  shapes the whole text chunk in the face of each span and keeps the
+  span's own clusters, but when one fallback face covers the whole chunk
+  it takes all of that face's glyphs. Under a Hangul message, the `→`
+  piece (Arial) and the spaces of the primary span (Trebuchet MS) were
+  drawn in Arial Unicode MS, the first face in the database with Hangul;
+  its arrow is 30 % narrower than Arial's. Every grapheme the measurer
+  did not give to the primary face has a piece, so a placed face has a
+  glyph for each of its own characters, or the `.notdef` that Chrome
+  draws too. A face placed by resvg's default query still falls back.
+- Each fallback piece `tspan` repeats the text's `dominant-baseline`.
+  Chrome inherits the property (SVG 2); usvg reads it from the element
+  and its direct parent only, so a piece inside a run's `tspan` sat on
+  the alphabetic baseline, 4 px above the rest of a 16 px `middle`
+  sequence message. `alignment-baseline` and `baseline-shift` are not
+  written on texts, so they need no repeat.
+- Not ported: Chrome takes the `dominant-baseline` shift from the
+  primary font for every glyph of a text. usvg takes it from the face of
+  each span, so a token piece moves by half the difference of the two
+  x-heights: 0.2 px or less at 16 px between Trebuchet MS (no OS/2
+  x-height, so usvg takes 45 % of its height) and Apple SD Gothic Neo,
+  Hiragino Sans, Lucida Grande, or Arial. An own piece is a
+  placeholder in the primary face and has the primary's shift.
