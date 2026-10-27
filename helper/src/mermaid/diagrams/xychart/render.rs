@@ -23,9 +23,10 @@ use super::db::{Db, Orientation};
 
 /// `TextDimensionCalculatorWithFont`: `computeDimensionOfText` appends a
 /// `tspan` under a group with the font size and reads its
-/// `getBoundingClientRect`, which is the advance box of the shaped run: the
-/// summed advances wide and the primary face's ascent plus descent tall. An
-/// empty string has no fragment and measures nothing.
+/// `getBoundingClientRect`. For a `tspan` Chrome returns the same box as
+/// `getBBox`, so a fallback face or an emoji bitmap that reaches past the
+/// primary face makes the box taller. An empty string has no fragment and
+/// measures nothing.
 pub struct FontMeasurer<'a> {
     metrics: &'a TextMetrics<'a>,
     family: String,
@@ -48,11 +49,9 @@ impl TextDimensionCalculator for FontMeasurer<'_> {
             if text.is_empty() {
                 continue;
             }
-            let shaped = self.metrics.shape(text, &spec);
-            dim.width = dim.width.max(f64::from(shaped.width));
-            dim.height = dim
-                .height
-                .max(f64::from(shaped.ascent) + f64::from(shaped.descent));
+            let bbox = self.metrics.svg_bbox(text, &spec);
+            dim.width = dim.width.max(f64::from(bbox.width));
+            dim.height = dim.height.max(f64::from(bbox.height));
         }
         dim
     }

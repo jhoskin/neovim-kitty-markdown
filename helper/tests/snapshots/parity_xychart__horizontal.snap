@@ -6,81 +6,81 @@ expression: scene.to_svg()
   <g class="main">
     <rect class="background" x="0" y="0" width="700" height="500" fill="#ffffff"/>
     <g class="chart-title">
-      <text transform="translate(338.449, 21.5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">Quarterly Performance</text>
+      <text transform="translate(338.449, 21.551) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">Quarterly Performance</text>
     </g>
     <g class="plot">
       <g class="bar-plot-0">
-        <rect x="62.803" y="106.65" width="143.33" height="62.7" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <rect x="62.803" y="216.317" width="249.183" height="62.7" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <rect x="62.803" y="325.983" width="392.086" height="62.7" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="62.803" y="106.752" width="143.33" height="62.7" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="62.803" y="216.384" width="249.183" height="62.7" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="62.803" y="326.017" width="392.086" height="62.7" fill="#ececff" stroke="#ececff" stroke-width="0"/>
         <rect x="62.803" y="435.65" width="487.354" height="62.7" fill="#ececff" stroke="#ececff" stroke-width="0"/>
       </g>
       <g class="line-plot-1">
-        <path d="M232.596,138L338.449,247.667L444.303,357.333L576.62,467" fill="none" stroke="#8493a6" stroke-width="2"/>
+        <path d="M232.596,138.102L338.449,247.734L444.303,357.367L576.62,467" fill="none" stroke="#8493a6" stroke-width="2"/>
       </g>
     </g>
     <g class="legend">
       <g class="markers">
-        <rect x="624.096" y="285" width="10.5" height="10.5" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <path d="M624.096,311.25L634.596,311.25" fill="none" stroke="#8493a6" stroke-width="2"/>
+        <rect x="624.096" y="285.051" width="10.5" height="10.5" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <path d="M624.096,311.301L634.596,311.301" fill="none" stroke="#8493a6" stroke-width="2"/>
       </g>
       <g class="label">
-        <text transform="translate(639.496, 290.25) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">revenue</text>
-        <text transform="translate(639.496, 311.25) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">target</text>
+        <text transform="translate(639.496, 290.301) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">revenue</text>
+        <text transform="translate(639.496, 311.301) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">target</text>
       </g>
     </g>
     <g class="left-axis">
       <g class="axisl-line">
-        <path d="M61.803,105L61.803,500" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M61.803,105.102L61.803,500" fill="none" stroke="#131300" stroke-width="2"/>
       </g>
       <g class="label">
-        <text transform="translate(50.803, 138) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">Q1</text>
-        <text transform="translate(50.803, 247.667) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">Q2</text>
-        <text transform="translate(50.803, 357.333) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">Q3</text>
+        <text transform="translate(50.803, 138.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">Q1</text>
+        <text transform="translate(50.803, 247.734) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">Q2</text>
+        <text transform="translate(50.803, 357.367) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">Q3</text>
         <text transform="translate(50.803, 467) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">Q4</text>
       </g>
       <g class="ticks">
-        <path d="M60.803,138L55.803,138" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M60.803,247.667L55.803,247.667" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M60.803,357.333L55.803,357.333" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M60.803,138.102L55.803,138.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M60.803,247.734L55.803,247.734" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M60.803,357.367L55.803,357.367" fill="none" stroke="#131300" stroke-width="2"/>
         <path d="M60.803,467L55.803,467" fill="none" stroke="#131300" stroke-width="2"/>
       </g>
       <g class="title">
-        <text transform="translate(5, 302.5) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Quarter</text>
+        <text transform="translate(5, 302.551) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Quarter</text>
       </g>
     </g>
     <g class="top-axis">
       <g class="axis-line">
-        <path d="M62.803,104L614.096,104" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M62.803,104.102L614.096,104.102" fill="none" stroke="#131300" stroke-width="2"/>
       </g>
       <g class="label">
-        <text transform="translate(73.815, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">0</text>
-        <text transform="translate(126.742, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">10</text>
-        <text transform="translate(179.669, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">20</text>
-        <text transform="translate(232.596, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">30</text>
-        <text transform="translate(285.523, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">40</text>
-        <text transform="translate(338.449, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">50</text>
-        <text transform="translate(391.376, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">60</text>
-        <text transform="translate(444.303, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">70</text>
-        <text transform="translate(497.23, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">80</text>
-        <text transform="translate(550.157, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">90</text>
-        <text transform="translate(603.083, 77) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">100</text>
+        <text transform="translate(73.815, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">0</text>
+        <text transform="translate(126.742, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">10</text>
+        <text transform="translate(179.669, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">20</text>
+        <text transform="translate(232.596, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">30</text>
+        <text transform="translate(285.523, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">40</text>
+        <text transform="translate(338.449, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">50</text>
+        <text transform="translate(391.376, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">60</text>
+        <text transform="translate(444.303, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">70</text>
+        <text transform="translate(497.23, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">80</text>
+        <text transform="translate(550.157, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">90</text>
+        <text transform="translate(603.083, 77.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">100</text>
       </g>
       <g class="ticks">
-        <path d="M73.815,103L73.815,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M126.742,103L126.742,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M179.669,103L179.669,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M232.596,103L232.596,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M285.523,103L285.523,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M338.449,103L338.449,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M391.376,103L391.376,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M444.303,103L444.303,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M497.23,103L497.23,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M550.157,103L550.157,98" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M603.083,103L603.083,98" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M73.815,103.102L73.815,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M126.742,103.102L126.742,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M179.669,103.102L179.669,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M232.596,103.102L232.596,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M285.523,103.102L285.523,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M338.449,103.102L338.449,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M391.376,103.102L391.376,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M444.303,103.102L444.303,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M497.23,103.102L497.23,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M550.157,103.102L550.157,98.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M603.083,103.102L603.083,98.102" fill="none" stroke="#131300" stroke-width="2"/>
       </g>
       <g class="title">
-        <text transform="translate(338.449, 48) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Revenue ($M)</text>
+        <text transform="translate(338.449, 48.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Revenue ($M)</text>
       </g>
     </g>
   </g>

@@ -6,22 +6,22 @@ expression: scene.to_svg()
   <g class="main">
     <rect class="background" x="0" y="0" width="700" height="500" fill="#ffffff"/>
     <g class="chart-title">
-      <text transform="translate(380.342, 21.5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">Genres in top 100 book survey of 2025</text>
+      <text transform="translate(380.342, 21.551) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">Genres in top 100 book survey of 2025</text>
     </g>
     <g class="plot">
       <g class="bar-plot-0">
-        <rect x="62.379" y="295.8" width="64.441" height="171.2" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <rect x="176.676" y="431.8" width="64.441" height="35.2" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <rect x="290.973" y="187" width="64.441" height="280" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <rect x="405.269" y="119" width="64.441" height="348" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <rect x="519.566" y="227.8" width="64.441" height="239.2" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <rect x="633.863" y="132.6" width="64.441" height="334.4" fill="#ececff" stroke="#ececff" stroke-width="0"/>
-        <text x="94.6" y="305.8" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">12</text>
-        <text x="208.897" y="441.8" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">2</text>
-        <text x="323.193" y="197" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">20</text>
-        <text x="437.49" y="129" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">25</text>
-        <text x="551.787" y="237.8" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">17</text>
-        <text x="666.083" y="142.6" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">24</text>
+        <rect x="62.379" y="295.841" width="64.441" height="171.159" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="176.676" y="431.807" width="64.441" height="35.193" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="290.973" y="187.068" width="64.441" height="279.932" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="405.269" y="119.085" width="64.441" height="347.915" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="519.566" y="227.858" width="64.441" height="239.142" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="633.863" y="132.681" width="64.441" height="334.319" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <text x="94.6" y="305.841" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">12</text>
+        <text x="208.897" y="441.807" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">2</text>
+        <text x="323.193" y="197.068" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">20</text>
+        <text x="437.49" y="129.085" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">25</text>
+        <text x="551.787" y="237.858" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">17</text>
+        <text x="666.083" y="142.681" text-anchor="middle" dominant-baseline="hanging" fill="#131300" font-size="25">24</text>
       </g>
     </g>
     <g class="bottom-axis">
@@ -47,46 +47,46 @@ expression: scene.to_svg()
     </g>
     <g class="left-axis">
       <g class="axisl-line">
-        <path d="M59.684,43L59.684,467" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M59.684,43.102L59.684,467" fill="none" stroke="#131300" stroke-width="2"/>
       </g>
       <g class="label">
-        <text transform="translate(48.684, 51) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">30</text>
-        <text transform="translate(48.684, 78.2) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">28</text>
-        <text transform="translate(48.684, 105.4) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">26</text>
-        <text transform="translate(48.684, 132.6) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">24</text>
-        <text transform="translate(48.684, 159.8) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">22</text>
-        <text transform="translate(48.684, 187) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">20</text>
-        <text transform="translate(48.684, 214.2) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">18</text>
-        <text transform="translate(48.684, 241.4) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">16</text>
-        <text transform="translate(48.684, 268.6) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">14</text>
-        <text transform="translate(48.684, 295.8) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">12</text>
-        <text transform="translate(48.684, 323) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">10</text>
-        <text transform="translate(48.684, 350.2) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">8</text>
-        <text transform="translate(48.684, 377.4) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">6</text>
-        <text transform="translate(48.684, 404.6) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">4</text>
-        <text transform="translate(48.684, 431.8) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">2</text>
+        <text transform="translate(48.684, 51.102) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">30</text>
+        <text transform="translate(48.684, 78.295) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">28</text>
+        <text transform="translate(48.684, 105.488) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">26</text>
+        <text transform="translate(48.684, 132.681) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">24</text>
+        <text transform="translate(48.684, 159.874) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">22</text>
+        <text transform="translate(48.684, 187.068) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">20</text>
+        <text transform="translate(48.684, 214.261) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">18</text>
+        <text transform="translate(48.684, 241.454) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">16</text>
+        <text transform="translate(48.684, 268.647) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">14</text>
+        <text transform="translate(48.684, 295.841) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">12</text>
+        <text transform="translate(48.684, 323.034) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">10</text>
+        <text transform="translate(48.684, 350.227) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">8</text>
+        <text transform="translate(48.684, 377.42) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">6</text>
+        <text transform="translate(48.684, 404.614) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">4</text>
+        <text transform="translate(48.684, 431.807) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">2</text>
         <text transform="translate(48.684, 459) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">0</text>
       </g>
       <g class="ticks">
-        <path d="M58.684,51L53.684,51" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,78.2L53.684,78.2" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,105.4L53.684,105.4" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,132.6L53.684,132.6" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,159.8L53.684,159.8" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,187L53.684,187" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,214.2L53.684,214.2" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,241.4L53.684,241.4" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,268.6L53.684,268.6" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,295.8L53.684,295.8" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,323L53.684,323" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,350.2L53.684,350.2" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,377.4L53.684,377.4" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,404.6L53.684,404.6" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M58.684,431.8L53.684,431.8" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,51.102L53.684,51.102" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,78.295L53.684,78.295" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,105.488L53.684,105.488" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,132.681L53.684,132.681" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,159.874L53.684,159.874" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,187.068L53.684,187.068" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,214.261L53.684,214.261" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,241.454L53.684,241.454" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,268.647L53.684,268.647" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,295.841L53.684,295.841" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,323.034L53.684,323.034" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,350.227L53.684,350.227" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,377.42L53.684,377.42" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,404.614L53.684,404.614" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M58.684,431.807L53.684,431.807" fill="none" stroke="#131300" stroke-width="2"/>
         <path d="M58.684,459L53.684,459" fill="none" stroke="#131300" stroke-width="2"/>
       </g>
       <g class="title">
-        <text transform="translate(5, 255) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Number of Books</text>
+        <text transform="translate(5, 255.051) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Number of Books</text>
       </g>
     </g>
   </g>

@@ -1,0 +1,71 @@
+---
+source: tests/parity_xychart.rs
+expression: scene.to_svg()
+---
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="700" height="500" viewBox="0 0 700 500" font-family="&quot;trebuchet ms&quot;, verdana, arial, sans-serif">
+  <g class="main">
+    <rect class="background" x="0" y="0" width="700" height="500" fill="#ffffff"/>
+    <g class="chart-title">
+      <text transform="translate(384.013, 22.5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">月別売上 📈</text>
+    </g>
+    <g class="plot">
+      <g class="bar-plot-0">
+        <rect x="70.525" y="334.4" width="95" height="128.6" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="247.85" y="233.9" width="95" height="229.1" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="425.175" y="173.6" width="95" height="289.4" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+        <rect x="602.5" y="93.2" width="95" height="369.8" fill="#ececff" stroke="#ececff" stroke-width="0"/>
+      </g>
+    </g>
+    <g class="bottom-axis">
+      <g class="axis-line">
+        <path d="M68.025,464L700,464" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="label">
+        <text transform="translate(118.025, 475) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">一月</text>
+        <text transform="translate(295.35, 475) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">二月</text>
+        <text transform="translate(472.675, 475) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">삼월</text>
+        <text transform="translate(650, 475) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="14">四月 🌸</text>
+      </g>
+      <g class="ticks">
+        <path d="M118.025,465L118.025,470" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M295.35,465L295.35,470" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M472.675,465L472.675,470" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M650,465L650,470" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+    </g>
+    <g class="left-axis">
+      <g class="axisl-line">
+        <path d="M67.025,45L67.025,463" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="label">
+        <text transform="translate(56.025, 53) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">100</text>
+        <text transform="translate(56.025, 93.2) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">90</text>
+        <text transform="translate(56.025, 133.4) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">80</text>
+        <text transform="translate(56.025, 173.6) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">70</text>
+        <text transform="translate(56.025, 213.8) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">60</text>
+        <text transform="translate(56.025, 254) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">50</text>
+        <text transform="translate(56.025, 294.2) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">40</text>
+        <text transform="translate(56.025, 334.4) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">30</text>
+        <text transform="translate(56.025, 374.6) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">20</text>
+        <text transform="translate(56.025, 414.8) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">10</text>
+        <text transform="translate(56.025, 455) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">0</text>
+      </g>
+      <g class="ticks">
+        <path d="M66.025,53L61.025,53" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,93.2L61.025,93.2" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,133.4L61.025,133.4" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,173.6L61.025,173.6" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,213.8L61.025,213.8" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,254L61.025,254" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,294.2L61.025,294.2" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,334.4L61.025,334.4" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,374.6L61.025,374.6" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,414.8L61.025,414.8" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,455L61.025,455" fill="none" stroke="#131300" stroke-width="2"/>
+      </g>
+      <g class="title">
+        <text transform="translate(5, 254) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">売上 (万円)</text>
+      </g>
+    </g>
+  </g>
+</svg>

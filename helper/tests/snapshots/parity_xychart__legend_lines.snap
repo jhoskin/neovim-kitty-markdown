@@ -6,29 +6,29 @@ expression: scene.to_svg()
   <g class="main">
     <rect class="background" x="0" y="0" width="700" height="500" fill="#ffffff"/>
     <g class="chart-title">
-      <text transform="translate(355.071, 21.5) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">An Example Chart</text>
+      <text transform="translate(355.071, 21.551) rotate(0, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="middle" fill="#131300" font-size="20">An Example Chart</text>
     </g>
     <g class="plot">
       <g class="line-plot-0">
-        <path d="M91.896,359.985L197.166,373.571L302.436,364.925L407.706,309.139L512.976,319.638L618.246,335.694" fill="none" stroke="#ececff" stroke-width="2"/>
+        <path d="M91.896,360.01L197.166,373.592L302.436,364.949L407.706,309.177L512.976,319.672L618.246,335.725" fill="none" stroke="#ececff" stroke-width="2"/>
       </g>
       <g class="line-plot-1">
-        <path d="M91.896,380.364L197.166,383.246L302.436,377.276L407.706,346.81L512.976,358.132L618.246,379.953" fill="none" stroke="#8493a6" stroke-width="2"/>
+        <path d="M91.896,380.384L197.166,383.265L302.436,377.297L407.706,346.838L512.976,358.157L618.246,379.972" fill="none" stroke="#8493a6" stroke-width="2"/>
       </g>
       <g class="line-plot-2">
-        <path d="M91.896,228.033L197.166,303.993L302.436,246.972L407.706,94.641L512.976,88.053L618.246,233.797" fill="none" stroke="#ffc3a0" stroke-width="2"/>
+        <path d="M91.896,228.091L197.166,304.032L302.436,247.025L407.706,94.731L512.976,88.146L618.246,233.853" fill="none" stroke="#ffc3a0" stroke-width="2"/>
       </g>
     </g>
     <g class="legend">
       <g class="markers">
-        <path d="M652.117,232.25L662.617,232.25" fill="none" stroke="#ececff" stroke-width="2"/>
-        <path d="M652.117,253.25L662.617,253.25" fill="none" stroke="#8493a6" stroke-width="2"/>
-        <path d="M652.117,274.25L662.617,274.25" fill="none" stroke="#ffc3a0" stroke-width="2"/>
+        <path d="M652.117,232.301L662.617,232.301" fill="none" stroke="#ececff" stroke-width="2"/>
+        <path d="M652.117,253.301L662.617,253.301" fill="none" stroke="#8493a6" stroke-width="2"/>
+        <path d="M652.117,274.301L662.617,274.301" fill="none" stroke="#ffc3a0" stroke-width="2"/>
       </g>
       <g class="label">
-        <text transform="translate(667.517, 232.25) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">avg</text>
-        <text transform="translate(667.517, 253.25) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">p50</text>
-        <text transform="translate(667.517, 274.25) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">p95</text>
+        <text transform="translate(667.517, 232.301) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">avg</text>
+        <text transform="translate(667.517, 253.301) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">p50</text>
+        <text transform="translate(667.517, 274.301) rotate(0, 0, 0)" x="0" y="0" text-anchor="start" dominant-baseline="middle" fill="#131300" font-size="14">p95</text>
       </g>
     </g>
     <g class="bottom-axis">
@@ -54,34 +54,34 @@ expression: scene.to_svg()
     </g>
     <g class="left-axis">
       <g class="axisl-line">
-        <path d="M67.025,43L67.025,467" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M67.025,43.102L67.025,467" fill="none" stroke="#131300" stroke-width="2"/>
       </g>
       <g class="label">
-        <text transform="translate(56.025, 88.465) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">180</text>
-        <text transform="translate(56.025, 129.636) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">160</text>
-        <text transform="translate(56.025, 170.806) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">140</text>
-        <text transform="translate(56.025, 211.977) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">120</text>
-        <text transform="translate(56.025, 253.147) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">100</text>
-        <text transform="translate(56.025, 294.318) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">80</text>
-        <text transform="translate(56.025, 335.488) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">60</text>
-        <text transform="translate(56.025, 376.659) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">40</text>
-        <text transform="translate(56.025, 417.829) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">20</text>
+        <text transform="translate(56.025, 88.557) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">180</text>
+        <text transform="translate(56.025, 129.718) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">160</text>
+        <text transform="translate(56.025, 170.878) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">140</text>
+        <text transform="translate(56.025, 212.038) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">120</text>
+        <text transform="translate(56.025, 253.199) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">100</text>
+        <text transform="translate(56.025, 294.359) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">80</text>
+        <text transform="translate(56.025, 335.519) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">60</text>
+        <text transform="translate(56.025, 376.679) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">40</text>
+        <text transform="translate(56.025, 417.84) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">20</text>
         <text transform="translate(56.025, 459) rotate(0, 0, 0)" x="0" y="0" text-anchor="end" dominant-baseline="middle" fill="#131300" font-size="14">0</text>
       </g>
       <g class="ticks">
-        <path d="M66.025,88.465L61.025,88.465" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M66.025,129.636L61.025,129.636" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M66.025,170.806L61.025,170.806" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M66.025,211.977L61.025,211.977" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M66.025,253.147L61.025,253.147" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M66.025,294.318L61.025,294.318" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M66.025,335.488L61.025,335.488" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M66.025,376.659L61.025,376.659" fill="none" stroke="#131300" stroke-width="2"/>
-        <path d="M66.025,417.829L61.025,417.829" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,88.557L61.025,88.557" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,129.718L61.025,129.718" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,170.878L61.025,170.878" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,212.038L61.025,212.038" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,253.199L61.025,253.199" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,294.359L61.025,294.359" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,335.519L61.025,335.519" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,376.679L61.025,376.679" fill="none" stroke="#131300" stroke-width="2"/>
+        <path d="M66.025,417.84L61.025,417.84" fill="none" stroke="#131300" stroke-width="2"/>
         <path d="M66.025,459L61.025,459" fill="none" stroke="#131300" stroke-width="2"/>
       </g>
       <g class="title">
-        <text transform="translate(5, 255) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Seconds</text>
+        <text transform="translate(5, 255.051) rotate(270, 0, 0)" x="0" y="0" text-anchor="middle" dominant-baseline="text-before-edge" fill="#131300" font-size="16">Seconds</text>
       </g>
     </g>
   </g>
