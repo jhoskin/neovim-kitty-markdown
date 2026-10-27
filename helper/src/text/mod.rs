@@ -4,6 +4,7 @@
 #[cfg(target_os = "macos")]
 mod coretext;
 pub mod fonts;
+mod instances;
 pub mod markdown;
 pub mod measure;
 pub mod open_sans;

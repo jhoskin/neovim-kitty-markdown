@@ -49,6 +49,11 @@ pub enum FaceKind {
     Outline,
     /// The outlines are in a table usvg cannot read.
     UnreadableOutline,
+    /// A named instance of a variable font whose outlines usvg reads
+    /// (Kefa Bold, Noto Sans Syriac Bold). usvg draws a face at the axis
+    /// values of `font-variation-settings` only, and the scene SVG does
+    /// not write them, so it would draw the default instance.
+    OutlineInstance,
     /// Color bitmaps in an `sbix` table.
     Sbix,
 }
@@ -113,7 +118,11 @@ impl<'f> FaceTable<'f> {
                 if f.raw_face().table(Tag::from_bytes(b"sbix")).is_some() {
                     FaceKind::Sbix
                 } else if tables.glyf.is_some() || tables.cff.is_some() || tables.cff2.is_some() {
-                    FaceKind::Outline
+                    if self.fonts.is_named_instance(face) {
+                        FaceKind::OutlineInstance
+                    } else {
+                        FaceKind::Outline
+                    }
                 } else {
                     FaceKind::UnreadableOutline
                 }

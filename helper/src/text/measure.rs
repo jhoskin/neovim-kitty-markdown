@@ -1652,11 +1652,11 @@ mod cjk_tests {
         };
         // `「` takes the face the kana after it get; alone it gets PingFang.
         assert_eq!(faces("「テ", 400), ["HiraginoSans-W3", "HiraginoSans-W3"]);
-        assert_eq!(faces("「", 400), ["PingFangSC-Medium"]);
+        assert_eq!(faces("「", 400), ["PingFangSC-Regular"]);
         // Han between kana is a segment of its own and asks for itself.
         assert_eq!(
             faces("ン画の", 400),
-            ["HiraginoSans-W3", "PingFangSC-Medium", "HiraginoSans-W3"]
+            ["HiraginoSans-W3", "PingFangSC-Regular", "HiraginoSans-W3"]
         );
         assert_eq!(faces("カ", 500), ["HiraginoSans-W4"]);
         assert_eq!(faces("カ", 700), ["HiraginoSans-W6"]);

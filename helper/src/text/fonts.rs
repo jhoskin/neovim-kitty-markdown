@@ -226,6 +226,9 @@ pub struct FontSystem {
     open_sans_regular: FontId,
     open_sans_italic: FontId,
     data: Mutex<HashMap<FontId, Arc<FaceData>>>,
+    /// The axis values of each face that is a named instance of a variable
+    /// font ([`super::instances`]).
+    instances: HashMap<FontId, Vec<rustybuzz::Variation>>,
     /// Family matches by lower-case family name, weight, and style.
     matches: Mutex<HashMap<(String, u16, Style), Option<FontId>>>,
     /// CoreText fallback faces by primary face, grapheme, weight, and style.
@@ -254,11 +257,13 @@ impl FontSystem {
         db.load_system_fonts();
         #[cfg(target_os = "macos")]
         db.load_fonts_dir(MACOS_RESERVED_FONTS);
+        let instances = super::instances::register(&mut db).into_iter().collect();
         FontSystem {
             db,
             open_sans_regular,
             open_sans_italic,
             data: Mutex::new(HashMap::new()),
+            instances,
             matches: Mutex::new(HashMap::new()),
             #[cfg(target_os = "macos")]
             substitutes: Mutex::new(HashMap::new()),
@@ -507,9 +512,10 @@ impl FontSystem {
     }
 
     /// The CoreText substitute for `grapheme` as a face of this database:
-    /// the face with the substitute's PostScript name, or, for a named
-    /// instance of a variable font that fontdb does not list (PingFang SC
-    /// Regular), the family's face matched to the weight and style.
+    /// the face with the substitute's PostScript name (named instances of
+    /// variable fonts included, [`super::instances`]), or, for a face the
+    /// database does not list at all, the family's face matched to the
+    /// weight and style.
     #[cfg(target_os = "macos")]
     fn platform_face(
         &self,
@@ -902,15 +908,20 @@ impl FontSystem {
         const OPSZ: rustybuzz::ttf_parser::Tag = rustybuzz::ttf_parser::Tag::from_bytes(b"opsz");
         let data = self.face_data(id)?;
         let mut face = rustybuzz::Face::from_slice((*data.bytes).as_ref(), data.index)?;
+        let mut variations = self.instances.get(&id).cloned().unwrap_or_default();
         if face
             .variation_axes()
             .into_iter()
             .any(|axis| axis.tag == OPSZ)
         {
-            face.set_variations(&[rustybuzz::Variation {
+            variations.retain(|v| v.tag != OPSZ);
+            variations.push(rustybuzz::Variation {
                 tag: OPSZ,
                 value: size,
-            }]);
+            });
+        }
+        if !variations.is_empty() {
+            face.set_variations(&variations);
         }
         Some(f(&face))
     }
@@ -918,10 +929,21 @@ impl FontSystem {
     /// Runs `f` with a parsed `rustybuzz::Face`. The bytes are cached per
     /// face; the parse itself is a table-directory read and is cheap enough
     /// to repeat, and it keeps the face from borrowing across the cache lock.
+    /// A named instance of a variable font is set to its axis values.
     pub fn with_face<T>(&self, id: FontId, f: impl FnOnce(&rustybuzz::Face<'_>) -> T) -> Option<T> {
         let data = self.face_data(id)?;
-        let face = rustybuzz::Face::from_slice((*data.bytes).as_ref(), data.index)?;
+        let mut face = rustybuzz::Face::from_slice((*data.bytes).as_ref(), data.index)?;
+        if let Some(coords) = self.instances.get(&id) {
+            face.set_variations(coords);
+        }
         Some(f(&face))
+    }
+
+    /// True when the face is a named instance of a variable font that
+    /// fontdb did not list ([`super::instances`]): its outlines are the
+    /// default outlines moved to the instance's axis values.
+    pub fn is_named_instance(&self, id: FontId) -> bool {
+        self.instances.contains_key(&id)
     }
 
     fn face_data(&self, id: FontId) -> Option<Arc<FaceData>> {
@@ -1138,6 +1160,46 @@ mod tests {
                 Some(family),
                 "{grapheme:?}"
             );
+        }
+    }
+
+    /// Chrome 156 draws Han under mermaid's chain in the named instances
+    /// of the variable PingFang SC (`CSS.getPlatformFontsForNode`):
+    /// Regular for 400, Semibold for 600 and 700. fontdb alone lists only
+    /// the default instance, Medium.
+    #[test]
+    fn variable_fallback_faces_use_the_named_instance_for_the_weight() {
+        let fonts = crate::text::font_system();
+        let s = Style::Normal;
+        let present = fonts
+            .resolve_family("PingFang SC", Weight::NORMAL, s)
+            .is_some();
+        if !cfg!(target_os = "macos") || !present {
+            return;
+        }
+        let chain = "\"trebuchet ms\", verdana, arial, sans-serif";
+        let wght = rustybuzz::ttf_parser::Tag::from_bytes(b"wght");
+        for (weight, postscript) in [
+            (400, "PingFangSC-Regular"),
+            (600, "PingFangSC-Semibold"),
+            (700, "PingFangSC-Semibold"),
+        ] {
+            let face = fonts
+                .fallback_in_chain(chain, "\u{4E2D}", Weight(weight), s)
+                .expect("a face for Han");
+            let name = fonts.db().face(face).map(|f| f.post_script_name.clone());
+            assert_eq!(name.as_deref(), Some(postscript), "{weight}");
+            assert!(fonts.is_named_instance(face));
+            // The instance is shaped at its own `wght` value, not the
+            // default instance's 500.
+            let coord = fonts
+                .with_face(face, |f| {
+                    let axes = f.variation_axes();
+                    let index = axes.into_iter().position(|axis| axis.tag == wght)?;
+                    f.variation_coordinates().get(index).map(|c| c.get())
+                })
+                .flatten();
+            assert!(coord.is_some_and(|c| c != 0), "{weight}: {coord:?}");
         }
     }
 }

@@ -394,8 +394,9 @@ fn face_mismatches(metrics: &Metrics) -> Vec<String> {
             }
             // Within the family the face must be Chrome's too, where the
             // font database lists that face. fontdb lists only the default
-            // instance of a variable font (PingFang SC Medium), so Chrome's
-            // named instances of it cannot be checked by name.
+            // instance of a variable font, and the font system adds the
+            // named instances (PingFang SC Regular and Semibold), so those
+            // are checked by name too.
             let helper_ps = face
                 .and_then(|f| fonts.db().face(f))
                 .map(|f| f.post_script_name.clone())

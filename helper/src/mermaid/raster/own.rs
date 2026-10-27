@@ -146,7 +146,7 @@ fn draw_piece(
                 device.pre_concat(at),
                 device,
             ),
-            FaceKind::UnreadableOutline => {
+            FaceKind::UnreadableOutline | FaceKind::OutlineInstance => {
                 let k = piece.size / upem;
                 outline_path(out, &name, upem, glyph.id, at.pre_scale(k, -k), span);
             }
