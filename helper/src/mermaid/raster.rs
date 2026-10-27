@@ -27,8 +27,9 @@
 //! oracle rounds the width from the height, which can differ from the
 //! helper's width by one pixel; that is the 1 px tolerance in R-181.
 
+use std::collections::HashSet;
 use std::fmt;
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
 
 use resvg::tiny_skia;
 use usvg::fontdb;
@@ -179,8 +180,22 @@ fn same_face(fonts: &FontSystem, db: &fontdb::Database, id: FontId) -> bool {
 /// default (resvg's own `monospace` is Courier New, Chrome's on macOS is
 /// Menlo), names match in any case, and Open Sans is the bundled pair.
 /// Whatever the font system cannot place goes to resvg's default query.
+///
+/// A face the font system placed never falls back. usvg shapes the whole
+/// text chunk in the face of each span and keeps only the span's own
+/// clusters, but when a fallback face covers the whole chunk it takes all
+/// of that face's glyphs: under a Hangul label, the `→` span (Arial) and
+/// the spaces of the primary span (Trebuchet MS) were drawn in Arial
+/// Unicode MS, the first face with a Hangul glyph, 30 % narrower than the
+/// Arial arrow Chrome draws. The raster SVG gives every grapheme the
+/// measurer did not leave to the primary face a piece of its own, so such
+/// a span has a glyph for each of its own characters, or the `.notdef`
+/// Chrome draws as well.
 fn font_resolver(fonts: &'static FontSystem, faces: Vec<FontId>) -> usvg::FontResolver<'static> {
     let default_font = usvg::FontResolver::default_font_selector();
+    let default_fallback = usvg::FontResolver::default_fallback_selector();
+    let placed: Arc<Mutex<HashSet<FontId>>> = Arc::default();
+    let placed_by_resolver = placed.clone();
     usvg::FontResolver {
         select_font: Box::new(move |font, db| {
             let weight = Weight(font.weight());
@@ -200,9 +215,22 @@ fn font_resolver(fonts: &'static FontSystem, faces: Vec<FontId>) -> usvg::FontRe
                         .or_else(|| fonts.resolve_family(name, weight, style))
                         .filter(|&id| same_face(fonts, db, id))
                 })
+                .inspect(|&id| {
+                    if let Ok(mut placed) = placed_by_resolver.lock() {
+                        placed.insert(id);
+                    }
+                })
                 .or_else(|| default_font(font, db))
         }),
-        select_fallback: usvg::FontResolver::default_fallback_selector(),
+        select_fallback: Box::new(move |c, used, db| {
+            let base_placed = used
+                .first()
+                .is_some_and(|id| placed.lock().is_ok_and(|p| p.contains(id)));
+            if base_placed {
+                return None;
+            }
+            default_fallback(c, used, db)
+        }),
     }
 }
 
@@ -343,6 +371,80 @@ pub fn render_rgba(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The PostScript name of the face of every glyph usvg laid out.
+    fn glyph_faces(tree: &usvg::Tree) -> Vec<(String, String)> {
+        fn walk(group: &usvg::Group, db: &fontdb::Database, out: &mut Vec<(String, String)>) {
+            for node in group.children() {
+                match node {
+                    usvg::Node::Group(g) => walk(g, db, out),
+                    usvg::Node::Text(t) => {
+                        for glyph in t.layouted().iter().flat_map(|s| &s.positioned_glyphs) {
+                            let face = db.face(glyph.font).map(|f| f.post_script_name.clone());
+                            out.push((glyph.text.clone(), face.unwrap_or_default()));
+                        }
+                    }
+                    _ => {}
+                }
+            }
+        }
+        let mut out = Vec::new();
+        walk(tree.root(), tree.fontdb(), &mut out);
+        out
+    }
+
+    /// A face the font system placed keeps its own glyphs. usvg shaped
+    /// the whole Hangul line in the Arial of the arrow's piece, fell back
+    /// to Arial Unicode MS, which covers the line, and drew the arrow and
+    /// the spaces in it; Chrome draws them in Arial and Trebuchet MS.
+    #[test]
+    fn placed_faces_do_not_fall_back_to_a_face_covering_the_line() {
+        use crate::mermaid::scene::{
+            Baseline, Common, DEFAULT_FONT_FAMILY, Element, FontSpec, Style, Text, TextAnchor,
+            TextRun,
+        };
+        let fonts = crate::text::font_system();
+        let present = ["Trebuchet MS", "Arial", "Apple SD Gothic Neo"]
+            .iter()
+            .all(|f| {
+                fonts
+                    .resolve_family(f, Weight(400), FaceStyle::Normal)
+                    .is_some()
+            });
+        if !cfg!(target_os = "macos") || !present {
+            return;
+        }
+        let mut scene = Scene::new(200.0, 40.0);
+        scene.root.children.push(Element::Text(Text {
+            common: Common::with_style(Style::fill(Color::BLACK)),
+            x: 100.0,
+            y: 20.0,
+            anchor: Some(TextAnchor::Middle),
+            baseline: Some(Baseline::Middle),
+            font: FontSpec {
+                family: Some(DEFAULT_FONT_FAMILY.to_string()),
+                size: Some(16.0),
+                ..FontSpec::default()
+            },
+            runs: vec![TextRun::new("한국어 ★ → ok")],
+        }));
+        let tree = raster_tree(&scene, crate::text::fontdb_arc(), 1.0).expect("tree");
+        let faces = glyph_faces(&tree);
+        let face_of = |text: &str| -> Vec<&str> {
+            faces
+                .iter()
+                .filter(|(t, _)| t == text)
+                .map(|(_, f)| f.as_str())
+                .collect()
+        };
+        assert_eq!(face_of("→"), ["ArialMT"], "{faces:?}");
+        assert!(
+            face_of(" ").iter().all(|f| *f == "TrebuchetMS"),
+            "{faces:?}"
+        );
+        assert_eq!(face_of("o"), ["TrebuchetMS"], "{faces:?}");
+        assert_eq!(face_of("한"), ["AppleSDGothicNeo-Regular"], "{faces:?}");
+    }
 
     #[test]
     fn natural_width_fits_target() {
