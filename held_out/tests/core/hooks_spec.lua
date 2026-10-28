@@ -1221,6 +1221,17 @@ QA.describe('core: test hooks', function()
     'local x = 1',
     '```',
     '',
+    '```python',
+    'def f(x):',
+    '    return x',
+    '```',
+    '',
+    '```vim',
+    'set nonumber',
+    '```',
+    '',
+    '<div>html</div>',
+    '',
     '> quote',
     '',
     '![i](i.png)',
@@ -1239,19 +1250,26 @@ QA.describe('core: test hooks', function()
         'local keep = {}',
         'for _, p in ipairs(vim.opt.rtp:get()) do',
         '  local has = vim.fn.glob(p .. "/parser/*", false, true)',
-        '  if #has == 0 or mode == "all" then keep[#keep + 1] = p',
-        '  elseif mode == "nomdinline" then',
+        '  if #has == 0 or mode ~= "onlymd" then keep[#keep + 1] = p',
+        '  else',
+        '    -- keep only the bundled markdown parsers (the Constraints require them)',
         '    local d = vim.fn.tempname()',
         '    vim.fn.mkdir(d .. "/parser", "p")',
         '    for _, f in ipairs(has) do',
-        '      if not f:find("markdown_inline") then vim.uv.fs_symlink(f, d .. "/parser/" .. vim.fs.basename(f)) end',
+        '      if vim.fs.basename(f):match("^markdown") then vim.uv.fs_symlink(f, d .. "/parser/" .. vim.fs.basename(f)) end',
         '    end',
         '    keep[#keep + 1] = d',
         '  end',
         'end',
         'vim.opt.rtp = keep',
         'vim.opt.rtp:prepend(root)',
-        'local probe = { md = pcall(vim.treesitter.language.add, "markdown") and (vim.treesitter.language.add("markdown") or false), inl = pcall(vim.treesitter.language.add, "markdown_inline") and (vim.treesitter.language.add("markdown_inline") or false) }',
+        'if mode == "extra" then',
+        '  -- a parser for languages that have none in a clean Neovim',
+        '  vim.treesitter.language.register("lua", { "python", "rust" })',
+        'end',
+        'local function has(lang) local ok, r = pcall(vim.treesitter.language.add, lang) return ok and r or false end',
+        'local function parses(ft) local lang = vim.treesitter.language.get_lang(ft) return lang ~= nil and lang ~= ft and has(lang) end',
+        'local probe = { md = has("markdown"), inl = has("markdown_inline"), lua = has("lua"), vim = has("vim"), python = parses("python") }',
         'local buf = vim.api.nvim_create_buf(true, false)',
         'vim.api.nvim_buf_set_lines(buf, 0, -1, false, vim.fn.readfile(doc))',
         'vim.bo[buf].filetype = "markdown"',
@@ -1286,29 +1304,26 @@ QA.describe('core: test hooks', function()
 
   QA.check(
     'R-209',
-    'layout() works and gives the same model when no tree-sitter parsers are installed',
+    'layout() gives the same model when only the bundled markdown parsers are installed',
     function()
       control()
-      local r = child_model('none')
+      local r = child_model('onlymd')
       QA.need(
-        r.probe.md == false or r.probe.md == nil,
-        'a child Neovim without the markdown parser'
+        r.probe.md and r.probe.inl and not r.probe.lua and not r.probe.vim,
+        'a child Neovim with the markdown parsers and no code language parsers'
       )
-      a.truthy(r.ok, 'layout raised an error without parsers: ' .. tostring(r.model))
+      a.truthy(r.ok, 'layout raised an error: ' .. tostring(r.model))
       a.eq(parent_model(), r.model)
     end
   )
 
   QA.check(
     'R-209',
-    'layout() gives the same model when only the inline markdown parser is missing',
+    'layout() gives the same model when extra code language parsers are installed',
     function()
       control()
-      local r = child_model('nomdinline')
-      QA.need(
-        r.probe.inl == false or r.probe.inl == nil,
-        'a child Neovim without the inline markdown parser'
-      )
+      local r = child_model('extra')
+      QA.need(r.probe.md and r.probe.python, 'a child Neovim with an extra code language parser')
       a.truthy(r.ok, 'layout raised an error: ' .. tostring(r.model))
       a.eq(parent_model(), r.model)
     end

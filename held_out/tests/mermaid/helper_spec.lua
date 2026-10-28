@@ -336,7 +336,7 @@ QA.describe('mermaid: helper', function()
   -- Unknown theme (R-234) and themeVariables merge (R-235) ---------------------------
   QA.check(
     'R-234',
-    'An unknown theme name in an init directive is ignored and the selected theme applies',
+    'An unknown theme name in an init directive gives the theme of the base config',
     function()
       local res, err = U.render('%%{init: {"theme": "midnight-plum"}}%%\n' .. FLOW, 960, 'dark')
       a.is_nil(err, 'no error for an unknown theme name')
@@ -350,7 +350,7 @@ QA.describe('mermaid: helper', function()
 
   QA.check(
     'R-234',
-    'An unknown theme name in front matter is ignored and the selected theme applies',
+    'An unknown theme name in front matter gives the theme of the base config',
     function()
       local res, err =
         U.render('---\nconfig:\n  theme: midnight-plum\n---\n' .. FLOW, 960, 'neutral')
@@ -359,6 +359,40 @@ QA.describe('mermaid: helper', function()
         0.999,
         U.same_fraction(ok_render(FLOW, 960, 'neutral').path, res.path),
         'the neutral theme still applies'
+      )
+    end
+  )
+
+  QA.check(
+    { 'R-234', 'R-295' },
+    'An unknown init directive theme over a known front matter theme gives the theme of the base config',
+    function()
+      local src = '---\nconfig:\n  theme: forest\n---\n%%{init: {"theme": "midnight-plum"}}%%\n'
+        .. FLOW
+      local res, err = U.render(src, 960, 'dark')
+      a.is_nil(err, 'no error for an unknown theme name')
+      local got = res.path
+      a.ge(0.999, U.same_fraction(ok_render(FLOW, 960, 'dark').path, got), 'the base config theme')
+      a.le(
+        0.99,
+        U.same_fraction(ok_render(FLOW, 960, 'forest').path, got),
+        'not the front matter theme'
+      )
+    end
+  )
+
+  QA.check(
+    { 'R-234', 'R-295' },
+    'A known init directive theme over an unknown front matter theme gives the directive theme',
+    function()
+      local src = '---\nconfig:\n  theme: midnight-plum\n---\n%%{init: {"theme": "forest"}}%%\n'
+        .. FLOW
+      local res, err = U.render(src, 960, 'dark')
+      a.is_nil(err, 'no error')
+      a.ge(
+        0.999,
+        U.same_fraction(ok_render(FLOW, 960, 'forest').path, res.path),
+        'the forest theme'
       )
     end
   )
@@ -1066,29 +1100,52 @@ QA.describe('mermaid: helper', function()
     end
   )
 
-  QA.check('R-297', 'The no-diagram-type text leaves out directives and comments', function()
-    local src =
-      '%%{init: {"theme": "dark"}}%%\nteapots are lovely\n%% a remark about tea\nand so are kettles'
-    local _, err = U.render(src, 960)
-    a.not_nil(err)
-    local msg = tostring(err.message)
-    a.matches(
-      'for text: \n?teapots are lovely\nand so are kettles$',
-      msg,
-      'the text without the directive and the comment'
-    )
-    a.not_contains('init', msg)
-    a.not_contains('remark', msg)
-  end)
+  QA.check(
+    'R-297',
+    'The no-diagram-type text leaves out directives and comments and keeps one line break per removed directive line',
+    function()
+      local src =
+        '%%{init: {"theme": "dark"}}%%\nteapots are lovely\n%% a remark about tea\nand so are kettles'
+      local _, err = U.render(src, 960)
+      a.not_nil(err)
+      local msg = tostring(err.message)
+      a.matches(
+        'for text: \nteapots are lovely\nand so are kettles$',
+        msg,
+        'one line break for the directive line, none for the comment line'
+      )
+      a.not_contains('init', msg)
+      a.not_contains('remark', msg)
+    end
+  )
 
-  QA.check('R-297', 'The no-diagram-type text leaves out front matter', function()
-    local _, err =
-      U.render('---\ntitle: Tea time\n---\nteapots are lovely\nand so are kettles', 960)
-    a.not_nil(err)
-    local msg = tostring(err.message)
-    a.matches('for text: \n?teapots are lovely\nand so are kettles$', msg)
-    a.not_contains('Tea time', msg)
-  end)
+  QA.check(
+    'R-297',
+    'The no-diagram-type text keeps one line break for each removed front matter line',
+    function()
+      local _, err =
+        U.render('---\ntitle: Tea time\n---\nteapots are lovely\nand so are kettles', 960)
+      a.not_nil(err)
+      local msg = tostring(err.message)
+      a.matches('for text: \n\n\nteapots are lovely\nand so are kettles$', msg)
+      a.not_contains('Tea time', msg)
+    end
+  )
+
+  QA.check(
+    'R-297',
+    'The no-diagram-type text keeps one line break for each removed front matter and directive line together',
+    function()
+      local src = '---\nconfig:\n  theme: dark\n---\n%%{init: {"look": "classic"}}%%\n'
+        .. 'teapots are lovely\n%%{init: {"layout": "dagre"}}%%\nand so are kettles'
+      local _, err = U.render(src, 960)
+      a.not_nil(err)
+      a.matches(
+        'for text: \n\n\n\n\nteapots are lovely\n\nand so are kettles$',
+        tostring(err.message)
+      )
+    end
+  )
 
   QA.check('R-297', 'The no-diagram-type text is not shortened', function()
     local lines = {}

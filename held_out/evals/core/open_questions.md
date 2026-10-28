@@ -1,6 +1,5 @@
 # Open questions: math, theme, test hooks
 
-- R-279, R-070: When display math falls back to the source on several preview lines, is each line centered on its own, or is the block centered as a whole with its lines aligned left? Are runs of whitespace inside each source line collapsed (as R-278 does for inline source)?
 - R-283: The palette groups may leave the background unset so that the terminal background shows. Is "the background color of that palette" then the GitHub page background (white for light, the GitHub dark canvas for dark)? The checks use that reading when no group sets a background.
 - R-282: Does R-282 apply only while a preview is open, or from `setup()` on, before any preview has opened?
 - R-339: Is "no language" a missing `lang` field (nil), or may it be an empty string? The checks accept both.

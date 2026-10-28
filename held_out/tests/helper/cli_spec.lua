@@ -25,14 +25,44 @@ local function no_cache_env()
   }
 end
 
--- R-324: status 1 and exactly one line `kitty-markdown-helper: <reason>`.
+-- R-324: the reason of a failure line, or nil when stderr is not one line.
+local function reason_of(stderr)
+  return (stderr or ''):match('^kitty%-markdown%-helper: ([^\n]*)\n?$')
+end
+
+-- True when every backslash in `reason` starts a `\\` or `\n` escape.
+local function escapes_ok(reason)
+  local i = 1
+  while i <= #reason do
+    if reason:sub(i, i) == '\\' then
+      local nxt = reason:sub(i + 1, i + 1)
+      if nxt ~= '\\' and nxt ~= 'n' then
+        return false
+      end
+      i = i + 2
+    else
+      i = i + 1
+    end
+  end
+  return true
+end
+
+-- Undoes the R-324 escapes.
+local function unescape(reason)
+  return (reason:gsub('\\(.)', function(c)
+    return c == 'n' and '\n' or c
+  end))
+end
+
+-- R-324: status 1 and exactly one line `kitty-markdown-helper: <reason>`,
+-- with line breaks and backslashes escaped.
 local function cli_failure(res)
   a.eq(1, res.code, 'exit status')
-  a.matches(
-    '^kitty%-markdown%-helper: [^\n]*%S[^\n]*\n?$',
-    res.stderr or '',
-    'one reason line on stderr'
-  )
+  local reason = reason_of(res.stderr)
+  a.not_nil(reason, 'exactly one prefixed line on stderr, got ' .. vim.inspect(res.stderr))
+  a.matches('%S', reason, 'a reason')
+  a.truthy(escapes_ok(reason), 'every backslash is an escape: ' .. reason)
+  return reason
 end
 
 local function first_number(s)
@@ -566,4 +596,93 @@ QA.describe('helper CLI: failure lines and arguments', function()
       a.eq(2, res.code, 'exit status; stderr: ' .. tostring(res.stderr))
     end)
   end
+end)
+
+QA.describe('helper CLI: failure line escapes', function()
+  QA.check(
+    'R-324',
+    'A failure reason that spans several lines is written on one line with each line break as \\n',
+    function()
+      local dir = QA.tmpdir()
+      local src = QA.write(dir .. '/bad.mmd', 'flowchart TD\n  A --> \n  ((( ]]\n')
+      local res = QA.helper_cli({
+        'render',
+        '--mermaid',
+        src,
+        '--width',
+        '400',
+        '--theme',
+        'default',
+        '-o',
+        dir .. '/o.png',
+      })
+      local reason = cli_failure(res)
+      a.contains('\\n', reason, 'an escaped line break in the reason')
+      local lines = vim.split(unescape(reason), '\n', { plain = true })
+      a.ge(2, #lines, 'the unescaped reason has several lines')
+    end
+  )
+
+  QA.check(
+    'R-324',
+    'A failure reason that holds a backslash writes it as two backslashes',
+    function()
+      local dir = QA.tmpdir()
+      local missing = dir .. '/back\\slash-missing.png'
+      local res =
+        QA.helper_cli({ 'render', '--image', missing, '--width', '100', '-o', dir .. '/o.png' })
+      local reason = cli_failure(res)
+      QA.need(reason:find('slash-missing', 1, true), 'a reason that names the input path')
+      a.contains('back\\\\slash-missing', reason, 'the backslash is doubled')
+      a.contains(missing, unescape(reason), 'the unescaped reason names the path')
+    end
+  )
+
+  QA.check(
+    'R-324',
+    'A multi-line failure reason that quotes source with a backslash escapes both',
+    { severity = 'medium' },
+    function()
+      local dir = QA.tmpdir()
+      local src = QA.write(dir .. '/bad.mmd', 'flowchart TD\n  Q\\R --> ((( ]]\n')
+      local res = QA.helper_cli({
+        'render',
+        '--mermaid',
+        src,
+        '--width',
+        '400',
+        '--theme',
+        'default',
+        '-o',
+        dir .. '/o.png',
+      })
+      local reason = cli_failure(res)
+      QA.need(reason:find('Q', 1, true), 'a reason that quotes the source')
+      a.contains('\\n', reason, 'an escaped line break')
+      a.contains('Q\\\\R', reason, 'the quoted backslash is doubled')
+    end
+  )
+
+  QA.check(
+    'R-324',
+    'A failure reason with no line break or backslash is written unchanged on one line',
+    { severity = 'medium' },
+    function()
+      local dir = QA.tmpdir()
+      local src = QA.write(dir .. '/none.mmd', 'just some words here\n')
+      local res = QA.helper_cli({
+        'render',
+        '--mermaid',
+        src,
+        '--width',
+        '400',
+        '--theme',
+        'default',
+        '-o',
+        dir .. '/o.png',
+      })
+      local reason = cli_failure(res)
+      a.not_contains('\\\\', reason, 'no doubled backslash without a backslash in the reason')
+    end
+  )
 end)

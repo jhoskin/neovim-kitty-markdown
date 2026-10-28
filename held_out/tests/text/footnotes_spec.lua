@@ -187,47 +187,54 @@ QA.describe('text: footnotes', function()
     end
   )
 
-  -- Display column of the first text after the number on a definition line,
-  -- and of the number itself.
+  -- Display columns on a definition line: where the number starts and where
+  -- the text after the number starts.
   local function def_cols(line, needle)
     local s = line:find(needle, 1, true)
     local lead = T.dw(line:match('^(%s*)'))
     return lead, T.dw(line:sub(1, s - 1))
   end
 
+  local function lead_of(line)
+    return T.dw(line:match('^(%s*)'))
+  end
+
   QA.check(
     'R-273',
-    'Later paragraphs of a footnote definition are indented under its number',
+    'Later paragraphs of a footnote definition align with the text after its number',
     function()
       local model =
         T.layout({ 'x[^n]', '', '[^n]: First part.', '', '    Second part.', '', 'End.' }, 80)
       local l1 = model.lines[T.find(model, 'First part')]
       local l2 = model.lines[T.find(model, 'Second part')]
-      local num_col = def_cols(l1, 'First part')
-      local lead2 = T.dw(l2:match('^(%s*)'))
-      a.truthy(lead2 > num_col, 'second paragraph indented past the number')
+      local num_col, text_col = def_cols(l1, 'First part')
+      a.truthy(text_col > num_col, 'text after the number')
+      a.eq(text_col, lead_of(l2), 'second paragraph starts at the text column')
     end
   )
 
   QA.check(
     'R-273',
-    'A wrapped footnote definition line is indented under its number',
-    { severity = 'medium' },
+    'A wrapped footnote definition line aligns with the text after its number',
     function()
       local w = 30
       local model = T.layout({ 'x[^n]', '', '[^n]: ' .. string.rep('note words ', 8) }, w)
       local first = T.find(model, 'note words')
-      local num_col = def_cols(model.lines[first], 'note words')
+      local _, text_col = def_cols(model.lines[first], 'note words')
       local nxt = model.lines[first + 1]
       a.truthy(nxt and nxt:find('note', 1, true), 'the definition wraps')
-      local lead2 = T.dw(nxt:match('^(%s*)'))
-      a.truthy(lead2 > num_col, 'continuation indented past the number')
+      a.eq(text_col, lead_of(nxt), 'continuation starts at the text column')
+      a.le(
+        T.text_width(w) + T.MARGIN,
+        T.dw((nxt:gsub('%s+$', ''))),
+        'continuation fits the text width'
+      )
     end
   )
 
   QA.check(
     'R-273',
-    'A code block inside a footnote definition is shown at the end with the definition',
+    'A code block inside a footnote definition is shown at the end, aligned with the text after the number',
     function()
       local model = T.layout({
         'x[^c]',
@@ -247,15 +254,17 @@ QA.describe('text: footnotes', function()
       a.not_nil(code)
       a.truthy(def > main and code > def, 'code block after the definition text, at the end')
       a.not_contains('```', T.text(model))
-      local num_col = T.dw(model.lines[def]:match('^(%s*)'))
+      local _, text_col = def_cols(model.lines[def], 'Has code')
+      local top = model.lines[code - 1]
+      a.eq(text_col, lead_of(top), 'code block border starts at the text column')
       local code_col = T.dw(model.lines[code]:sub(1, model.lines[code]:find('local', 1, true) - 1))
-      a.truthy(code_col > num_col, 'code indented under the number')
+      a.ge(text_col, code_col, 'code text not left of the text column')
     end
   )
 
   QA.check(
     'R-273',
-    'A list inside a footnote definition is shown at the end, indented under the number',
+    'A list inside a footnote definition is shown at the end, aligned with the text after the number',
     { severity = 'medium' },
     function()
       local model = T.layout(
@@ -265,8 +274,31 @@ QA.describe('text: footnotes', function()
       local def = T.find(model, 'Items:')
       local it = T.find(model, 'item alpha')
       a.truthy(def and it and it > def and def > T.find(model, 'Main end'))
-      local num_col = T.dw(model.lines[def]:match('^(%s*)'))
-      a.truthy(T.dw(model.lines[it]:match('^(%s*)')) > num_col, 'list indented under the number')
+      local _, text_col = def_cols(model.lines[def], 'Items:')
+      a.eq(text_col, lead_of(model.lines[it]), 'list marker starts at the text column')
+    end
+  )
+
+  QA.check(
+    'R-273',
+    'Footnotes with one-digit and two-digit numbers align later paragraphs with their own text',
+    { severity = 'medium' },
+    function()
+      local src, defs = {}, {}
+      for i = 1, 10 do
+        src[#src + 1] = 'w' .. i .. '[^n' .. i .. ']'
+        defs[#defs + 1] = '[^n' .. i .. ']: head' .. i
+        defs[#defs + 1] = ''
+        defs[#defs + 1] = '    tail' .. i
+        defs[#defs + 1] = ''
+      end
+      local model = T.layout(vim.list_extend({ table.concat(src, ' '), '' }, defs), 120)
+      for _, i in ipairs({ 1, 10 }) do
+        local hl = model.lines[T.find(model, 'head' .. i)]
+        local tl = model.lines[T.find(model, 'tail' .. i)]
+        local _, text_col = def_cols(hl, 'head' .. i)
+        a.eq(text_col, lead_of(tl), 'footnote ' .. i)
+      end
     end
   )
 

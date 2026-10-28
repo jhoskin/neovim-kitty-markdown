@@ -246,6 +246,51 @@ QA.describe('images: remote fetch', function()
       a.contains('fetch failed', only_box(r).text)
     end
   )
+
+  QA.check(
+    'R-348',
+    'An http image URL whose scheme is in upper case is fetched and placed',
+    function()
+      start({ ['/case.png'] = { body = png_bytes(20, 20) } })
+      local url = srv.url('/case.png'):gsub('^http:', 'HTTP:')
+      local r = U.open({ '![case](' .. url .. ')' })
+      a.truthy(U.is_placed(only_box(r)), r.boxes[1].text)
+      a.eq(1, srv.count('/case.png'), 'server hits')
+    end
+  )
+
+  QA.check(
+    'R-348',
+    'An http image URL whose scheme mixes letter case is fetched and placed',
+    function()
+      start({ ['/mix.png'] = { body = png_bytes(20, 20) } })
+      local url = srv.url('/mix.png'):gsub('^http:', 'hTtP:')
+      local r = U.open({ '![mix](' .. url .. ')' })
+      a.truthy(U.is_placed(only_box(r)), r.boxes[1].text)
+    end
+  )
+
+  QA.check(
+    { 'R-348', 'R-225' },
+    'A scheme other than http or https in upper case shows "fetch failed"',
+    function()
+      local r = U.open({ '![ftpup](FTP://127.0.0.1/a.png)' })
+      a.contains('fetch failed', only_box(r).text)
+    end
+  )
+
+  QA.check(
+    { 'R-348', 'R-287' },
+    'A file URL with its scheme in upper case shows "fetch failed", even when the file exists',
+    function()
+      local dir = QA.tmpdir()
+      local p = QA.make_png(dir .. '/u.png', 20, 20)
+      local r = U.open({ '![fileup](FILE://' .. p .. ')' }, { dir = dir })
+      local b = only_box(r)
+      a.falsy(U.is_placed(b), 'a file URL is not read as a local path')
+      a.contains('fetch failed', b.text)
+    end
+  )
 end)
 
 QA.describe('images: remote images off', function()
@@ -291,6 +336,47 @@ QA.describe('images: remote images off', function()
     a.truthy(U.is_placed(r.boxes[1]), 'local placed')
     a.contains('remote images off', r.boxes[2].text)
   end)
+
+  QA.check(
+    'R-225',
+    'With remote images off, an image URL with a scheme other than http or https shows "fetch failed", not "remote images off"',
+    function()
+      local r = U.open({ '![ftpoff](ftp://127.0.0.1/a.png)' }, { remote = { enabled = false } })
+      local b = only_box(r)
+      a.contains('fetch failed', b.text)
+      a.no_match('remote images off', b.text)
+    end
+  )
+
+  QA.check(
+    { 'R-225', 'R-287' },
+    'With remote images off, a file:// image URL shows "fetch failed"',
+    function()
+      local dir = QA.tmpdir()
+      local p = QA.make_png(dir .. '/f.png', 20, 20)
+      local r = U.open(
+        { '![fileoff](file://' .. p .. ')' },
+        { dir = dir, remote = { enabled = false } }
+      )
+      local b = only_box(r)
+      a.falsy(U.is_placed(b), 'a file URL is not read as a local path')
+      a.contains('fetch failed', b.text)
+      a.no_match('remote images off', b.text)
+    end
+  )
+
+  QA.check(
+    'R-348',
+    'With remote images off, an http or https scheme in other letter case still counts as remote',
+    function()
+      local r = U.open(
+        { '![up1](HTTP://127.0.0.1:9/a.png)', '', '![up2](Https://127.0.0.1:9/b.png)' },
+        { n = 2, remote = { enabled = false } }
+      )
+      a.contains('remote images off', r.boxes[1].text, 'upper case http')
+      a.contains('remote images off', r.boxes[2].text, 'mixed case https')
+    end
+  )
 
   QA.check(
     'R-228',

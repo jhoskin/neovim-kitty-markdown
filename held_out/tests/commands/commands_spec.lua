@@ -573,7 +573,7 @@ QA.describe('commands: close and toggle', function()
 
   QA.check(
     { 'R-008', 'R-252' },
-    'Closing a tab preview deletes the preview buffer and leaves its window open on another buffer',
+    'Closing a tab preview deletes the preview buffer and closes its tab page',
     function()
       local buf = U.src(DOC)
       local t0 = tabs()
@@ -584,9 +584,8 @@ QA.describe('commands: close and toggle', function()
       U.settle(50)
       a.eq(0, #U.preview_bufs(), 'preview buffer deleted')
       a.truthy(api.nvim_buf_is_loaded(buf), 'source still loaded')
-      a.eq(t0 + 1, tabs(), 'the tab page of the preview stays')
-      a.truthy(api.nvim_win_is_valid(p.win), 'the last window of its tab page stays open')
-      a.ne('kitty-markdown', vim.bo[api.nvim_win_get_buf(p.win)].filetype, 'on another buffer')
+      a.eq(t0, tabs(), 'the tab page of the preview is closed')
+      a.falsy(api.nvim_win_is_valid(p.win), 'preview window closed')
     end
   )
 
@@ -701,29 +700,93 @@ QA.describe('commands: source unload and delete', function()
     )
   end
 
+  -- A named, loaded buffer with text, so an empty buffer is told apart
+  -- from it.
+  local function other_buffer()
+    local path = QA.tmpdir() .. '/other.txt'
+    QA.write(path, 'other buffer text\n')
+    local other = vim.fn.bufadd(path)
+    vim.fn.bufload(other)
+    vim.bo[other].buflisted = true
+    return other
+  end
+
+  local function is_empty_buffer(b)
+    return api.nvim_buf_get_name(b) == ''
+      and vim.deep_equal({ '' }, api.nvim_buf_get_lines(b, 0, -1, false))
+      and vim.bo[b].filetype ~= 'kitty-markdown'
+  end
+
+  for _, how in ipairs({ 'bdelete!', 'bunload!', 'bwipeout!' }) do
+    QA.check(
+      'R-347',
+      'When the source is no longer loaded and the preview is the only window, the window shows an empty buffer',
+      function()
+        local other = other_buffer()
+        local buf = U.src(DOC)
+        vim.cmd('KittyMarkdown open split')
+        local p = U.preview()
+        vim.cmd(how .. ' ' .. buf)
+        U.settle(100)
+        a.eq(0, #U.preview_bufs(), how .. ': preview buffer deleted')
+        a.eq(1, #api.nvim_list_wins(), how .. ': one window left')
+        local w = api.nvim_list_wins()[1]
+        local shown = api.nvim_win_get_buf(w)
+        a.ne(other, shown, how .. ': not some other listed buffer')
+        a.truthy(
+          is_empty_buffer(shown),
+          how .. ': empty buffer, got ' .. api.nvim_buf_get_name(shown)
+        )
+        a.eq(p.win, w, how .. ': in the window of the preview')
+      end
+    )
+  end
+
   QA.check(
-    'R-252',
-    'When the source is deleted and the preview is the last window, the window stays open on another buffer',
+    'R-346',
+    'Closing a preview that is the only window of the only tab page shows the source buffer in that window',
     function()
-      local other = api.nvim_create_buf(true, false)
-      vim.fn.bufload(other)
+      other_buffer()
       local buf = U.src(DOC)
       vim.cmd('KittyMarkdown open split')
       local p = U.preview()
-      vim.cmd('bdelete! ' .. buf)
-      U.settle(100)
+      api.nvim_set_current_win(p.win)
+      vim.cmd('only')
+      a.eq(1, #api.nvim_list_wins(), 'the preview is the only window')
+      vim.cmd('KittyMarkdown close')
+      U.settle(50)
       a.eq(0, #U.preview_bufs(), 'preview buffer deleted')
-      a.truthy(api.nvim_win_is_valid(p.win), 'window left open')
-      a.ne('kitty-markdown', vim.bo[api.nvim_win_get_buf(p.win)].filetype, 'on another buffer')
+      a.truthy(api.nvim_win_is_valid(p.win), 'window stays')
+      a.eq(buf, api.nvim_win_get_buf(p.win), 'shows the source buffer')
+    end
+  )
+
+  QA.check(
+    'R-346',
+    'Pressing q in a preview that is the only window shows the source buffer in that window',
+    { severity = 'medium' },
+    function()
+      local buf = U.src(DOC)
+      vim.cmd('KittyMarkdown open tab')
+      local p = U.preview()
+      vim.cmd('tabonly')
+      a.eq(1, #api.nvim_list_tabpages(), 'one tab page')
+      a.eq(1, #api.nvim_list_wins(), 'one window')
+      api.nvim_set_current_win(p.win)
+      api.nvim_feedkeys('q', 'xt', false)
+      U.settle(50)
+      a.eq(0, #U.preview_bufs(), 'preview buffer deleted')
+      a.truthy(api.nvim_win_is_valid(p.win), 'window stays')
+      a.eq(buf, api.nvim_win_get_buf(p.win), 'shows the source buffer')
     end
   )
 
   QA.check(
     'R-252',
-    'Toggling off a tab preview from inside it keeps its tab page open on another buffer',
+    'Toggling off a tab preview from inside it closes its tab page',
     { severity = 'medium' },
     function()
-      U.src(DOC)
+      local buf = U.src(DOC)
       local t0 = tabs()
       vim.cmd('KittyMarkdown open tab')
       local p = U.preview()
@@ -731,13 +794,34 @@ QA.describe('commands: source unload and delete', function()
       vim.cmd('KittyMarkdown toggle')
       U.settle(50)
       a.eq(0, #U.preview_bufs(), 'preview buffer deleted')
-      a.eq(t0 + 1, tabs(), 'tab page stays')
-      a.truthy(api.nvim_win_is_valid(p.win), 'window stays')
+      a.eq(t0, tabs(), 'tab page closed')
+      a.falsy(api.nvim_win_is_valid(p.win), 'preview window closed')
+      a.truthy(api.nvim_buf_is_loaded(buf), 'source still loaded')
     end
   )
 
   QA.check(
     'R-252',
+    'Closing a preview that is the last window of a split tab page closes that tab page',
+    { severity = 'medium' },
+    function()
+      local buf = U.src(DOC)
+      vim.cmd('tabnew')
+      api.nvim_set_current_buf(buf)
+      local t0 = tabs()
+      vim.cmd('KittyMarkdown open split')
+      local p = U.preview()
+      api.nvim_set_current_win(p.win)
+      vim.cmd('only')
+      vim.cmd('KittyMarkdown close')
+      U.settle(50)
+      a.eq(0, #U.preview_bufs(), 'preview buffer deleted')
+      a.eq(t0 - 1, tabs(), 'that tab page closed')
+    end
+  )
+
+  QA.check(
+    'R-008',
     'Closing a split preview that is not the last window closes its window',
     { severity = 'medium' },
     function()

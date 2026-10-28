@@ -224,13 +224,17 @@ QA.describe('mermaid: end to end', function()
     a.ge(0.999, U.same_fraction(last_png(), base), 'same pixels as the base theme')
   end)
 
-  QA.check('R-234', 'An unknown theme name in the diagram is ignored in the preview', function()
-    local src = '%%{init: {"theme": "midnight-plum"}}%%\n' .. FLOW
-    local _, text = run(src, { setup = { theme = 'light', mermaid = { theme = 'forest' } } })
-    a.truthy(placed(text), 'the diagram is placed, not a failure box')
-    local forest = U.cli(FLOW, text_width_cells() * U.CELL_W, 'forest', 'transparent')
-    a.ge(0.999, U.same_fraction(last_png(), forest), 'the configured theme still applies')
-  end)
+  QA.check(
+    'R-234',
+    'An unknown theme name in the diagram gives the theme of the base config in the preview',
+    function()
+      local src = '%%{init: {"theme": "midnight-plum"}}%%\n' .. FLOW
+      local _, text = run(src, { setup = { theme = 'light', mermaid = { theme = 'forest' } } })
+      a.truthy(placed(text), 'the diagram is placed, not a failure box')
+      local forest = U.cli(FLOW, text_width_cells() * U.CELL_W, 'forest', 'transparent')
+      a.ge(0.999, U.same_fraction(last_png(), forest), 'the configured theme still applies')
+    end
+  )
 
   QA.check(
     { 'R-111', 'R-177' },
@@ -342,14 +346,14 @@ QA.describe('mermaid: end to end', function()
 
   QA.check(
     { 'R-231', 'R-297' },
-    'The no-diagram-type message in :messages holds the whole text with line breaks and without directives or comments',
+    'The no-diagram-type message in :messages keeps the line breaks of the text, one for a removed directive line, and none for a comment',
     function()
       run(
         '%%{init: {"theme": "dark"}}%%\nteapots are lovely\n%% a remark about tea\n\nand so are kettles'
       )
       local msgs = U.messages(ctx)
       a.matches(
-        'No diagram type detected matching given configuration for text: \n?teapots are lovely\n\nand so are kettles',
+        'No diagram type detected matching given configuration for text: \nteapots are lovely\n\nand so are kettles',
         msgs
       )
       a.not_contains('remark', msgs)

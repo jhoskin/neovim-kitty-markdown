@@ -357,6 +357,51 @@ QA.describe('text: lists', function()
   )
 
   QA.check(
+    'R-349',
+    'A task item in an ordered list shows the checkbox icon in place of its number',
+    function()
+      local model = T.layout({ '1. [x] first', '2. [ ] second' }, 80)
+      local l1 = model.lines[T.find(model, 'first')]
+      local l2 = model.lines[T.find(model, 'second')]
+      a.eq(T.ICON.checked, first_char(l1))
+      a.eq(T.ICON.unchecked, first_char(l2))
+      a.no_match('%d', l1, 'number shown on a checked ordered task')
+      a.no_match('%d', l2, 'number shown on an unchecked ordered task')
+    end
+  )
+
+  QA.check(
+    'R-349',
+    'A task item starts at the same column as the number of a plain item in its ordered list',
+    { severity = 'medium' },
+    function()
+      local model = T.layout({ '1. plain', '2. [x] task' }, 80)
+      a.eq(lead(model.lines[T.find(model, 'plain')]), lead(model.lines[T.find(model, 'task')]))
+    end
+  )
+
+  QA.check('R-350', 'A task item counts in the numbering of its ordered list', function()
+    local model = T.layout(
+      { '1. plain one', '2. [x] done', '3. plain three', '4. [ ] open', '5. plain five' },
+      80
+    )
+    a.eq('1. plain one', vim.trim(model.lines[T.find(model, 'plain one')]))
+    a.eq('3. plain three', vim.trim(model.lines[T.find(model, 'plain three')]))
+    a.eq('5. plain five', vim.trim(model.lines[T.find(model, 'plain five')]))
+  end)
+
+  QA.check(
+    'R-350',
+    'A task item counts in the numbering when the list repeats one number or starts above 1',
+    function()
+      local m1 = T.layout({ '1. a', '1. [ ] b', '1. c' }, 80)
+      a.eq('3. c', vim.trim(m1.lines[3]))
+      local m2 = T.layout({ '4. [x] d', '5. e' }, 80)
+      a.eq('5. e', vim.trim(m2.lines[T.find(m2, 'e')]))
+    end
+  )
+
+  QA.check(
     'R-042',
     'Brackets that are not at the start of an item stay as written',
     { severity = 'medium' },
@@ -985,6 +1030,48 @@ QA.describe('text: HTML comments and inline tags', function()
     a.not_contains('<!--', body[1])
     a.matches('^keep%s+this$', body[1])
   end)
+
+  QA.check(
+    'R-351',
+    'A hidden inline comment between two spaces leaves exactly one space',
+    function()
+      local model = T.layout({ 'keep <!-- gone --> this' }, 80)
+      a.eq({ 'keep this' }, T.nonempty(model))
+    end
+  )
+
+  QA.check(
+    'R-351',
+    'A hidden inline comment with no space on one side adds no space',
+    { severity = 'medium' },
+    function()
+      local m1 = T.layout({ 'keep<!-- gone --> this' }, 80)
+      a.eq({ 'keep this' }, T.nonempty(m1))
+      local m2 = T.layout({ 'keep <!-- gone -->this' }, 80)
+      a.eq({ 'keep this' }, T.nonempty(m2))
+      local m3 = T.layout({ 'joined<!-- gone -->word' }, 80)
+      a.eq({ 'joinedword' }, T.nonempty(m3))
+    end
+  )
+
+  QA.check(
+    'R-351',
+    'Line width counts one space for a hidden inline comment',
+    { severity = 'medium' },
+    function()
+      local w = 30
+      local tw = T.text_width(w)
+      local words = {}
+      for i = 1, 6 do
+        words[#words + 1] = 'word' .. i .. ' <!-- c' .. i .. ' -->'
+      end
+      local model = T.layout({ table.concat(words, ' ') .. ' end' }, w)
+      for _, l in ipairs(T.nonempty(model)) do
+        a.no_match('  ', l, 'double space')
+        a.le(tw, T.dw(l))
+      end
+    end
+  )
 
   QA.check(
     'R-270',

@@ -76,7 +76,7 @@ QA.describe('core: math spans', function()
   end)
 
   QA.check(
-    { 'R-062', 'R-058' },
+    { 'R-062', 'R-058', 'R-353' },
     'An escaped dollar sign is literal text and does not open a math span',
     { severity = 'medium' },
     function()
@@ -727,6 +727,62 @@ QA.describe('core: math spans', function()
 
   QA.check(
     'R-279',
+    'Display math source fallback lines share one left edge and the block is centered in the text width',
+    function()
+      local width = 80
+      local want = { '\\begin{cases}', 'a & x > 0 \\\\', 'b & x \\le 0', '\\end{cases}' }
+      local model = QA.layout(
+        vim.list_extend(
+          vim.list_extend({ 'intro', '', '$$' }, vim.deepcopy(want)),
+          { '$$', '', 'outro' }
+        ),
+        { width = width }
+      )
+      local leads, widest = {}, 0
+      for k, w in ipairs(want) do
+        local l = display_line(model, w)
+        a.not_nil(l, 'preview line for source line ' .. k)
+        leads[k] = U.lead(l)
+        widest = math.max(widest, U.width(w))
+      end
+      for k = 2, #want do
+        a.eq(leads[1], leads[k], 'common left edge for source line ' .. k)
+      end
+      local free = math.min(width - 4, 100) - widest
+      local lead = leads[1] - U.margin(width)
+      a.truthy(
+        lead == math.floor(free / 2) or lead == math.ceil(free / 2),
+        ('block centered: lead %d, free %d'):format(lead, free)
+      )
+    end
+  )
+
+  -- R-352 ------------------------------------------------------------------
+
+  QA.check(
+    'R-352',
+    'Display math source fallback collapses whitespace runs and trims the ends of each source line',
+    function()
+      local model = QA.layout({
+        '$$',
+        '   \\begin{qa}   ',
+        'a   &    b',
+        '  \\end{qa}',
+        '$$',
+      }, { width = 80 })
+      local text = U.text(model)
+      a.contains('\\begin{qa}', text)
+      local l = display_line(model, 'a &')
+      a.not_nil(l, 'a line with the collapsed source: ' .. vim.inspect(model.lines))
+      a.eq('a & b', vim.trim(l))
+      local lb = display_line(model, '\\begin{qa}')
+      local le = display_line(model, '\\end{qa}')
+      a.eq(U.lead(lb), U.lead(le), 'leading whitespace of a source line does not move it')
+    end
+  )
+
+  QA.check(
+    'R-279',
     'Each display fallback line is in the math group',
     { severity = 'medium' },
     function()
@@ -735,6 +791,23 @@ QA.describe('core: math spans', function()
       a.truthy(U.covered_by(model, '\\end{qa}', U.is_math_group))
     end
   )
+
+  -- R-353 ------------------------------------------------------------------
+
+  QA.check('R-353', 'A dollar sign after a backslash does not open inline math', function()
+    local model = QA.layout({ 'AAA \\$x$ ZZZ' }, { width = 200 })
+    a.contains('AAA $x$ ZZZ', U.text(model))
+    a.falsy(U.covered_by(model, 'x', U.is_math_group))
+  end)
+
+  QA.check('R-353', 'A dollar sign after a backslash does not close inline math', function()
+    local model = QA.layout({ 'AAA $a\\$b$ ZZZ' }, { width = 200 })
+    local text = U.text(model)
+    a.contains('AAA ', text)
+    a.contains(' ZZZ', text)
+    a.truthy(U.covered_by(model, 'b', U.is_math_group), 'the span runs past the escaped dollar')
+    a.falsy(U.covered_by(model, 'ZZZ', U.is_math_group))
+  end)
 
   -- R-280 ------------------------------------------------------------------
 
