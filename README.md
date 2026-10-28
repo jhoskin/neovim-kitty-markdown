@@ -6,7 +6,15 @@ diagrams render to pixels and appear inline through the kitty graphics
 protocol. Mermaid renders in a Rust helper with no browser and no node at
 runtime.
 
-Screenshots: to come.
+![Source buffer on the left, the preview on the right with an alert, an inline image, a table, and a mermaid flowchart](media/demo.png)
+
+Edit, save, and the preview follows. The new checklist item and the new
+diagram node appear on `:w`, and the split scrolls with the source cursor:
+
+<!-- markdownlint-disable-next-line MD034 -->
+https://github.com/user-attachments/assets/83d8d8c0-6b19-46eb-ab1d-1c06d5f13d8e
+
+`media/record.sh` captures both from a real kitty window.
 
 ## Requirements
 
@@ -248,6 +256,7 @@ with the same fonts.
 - `helper/`: the Rust helper crate.
 - `tests/`: Lua unit tests written by the dev agent.
 - `held_out/`: hidden tests and evals, QA agent only.
+- `media/`: the README screenshot and the demo kit that records it.
 - `REVIEW.md`: QA findings from the latest run. Generated and gitignored.
 
 ## License
